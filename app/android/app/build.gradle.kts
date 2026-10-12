@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "io.github.naixsaintrgb.newera"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
