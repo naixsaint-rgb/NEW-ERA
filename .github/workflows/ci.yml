@@ -96,6 +96,10 @@ jobs:
       name: github-pages
       url: ${{ steps.despliegue.outputs.page_url }}
     steps:
+      - name: Activar GitHub Pages si no lo está
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - id: despliegue
         uses: actions/deploy-pages@v4
 
