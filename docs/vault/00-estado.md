@@ -7,13 +7,16 @@ Actualizado: 2026-10-12 (sesión 1). Plan vigente: [[planes/PLAN-v3]].
 - Hecho en esta sesión: investigación (ronda 1, 18 dimensiones; catálogo contrario al consenso, 15 temas,
   647 filas), plan v2 (tres líneas), plan v3 (app de la persona y app de la familia) con las decisiones
   del promotor, repositorio con memoria, bóveda y catálogo.
-- En curso: esqueleto de las dos apps en Flutter, demo web en GitHub Pages, CI.
+- Hecho (sesión 1, tarde): app Flutter con dos perfiles, safety_core (35 tests) y app (64 tests) en verde,
+  catálogo dentro de la app, CI con demo web y APK, codemagic.yaml. Commit 05e1e81.
+- En curso: primer despliegue de la demo web en GitHub Pages (el flujo intenta activar Pages solo).
 
-## Qué sigue (semana 1 del plan v3)
-1. App Flutter con dos perfiles (persona y familia), base local cifrada, círculo, pauta con foto.
-2. Demo web publicada automáticamente.
-3. Pantalla de toma con alarma: iOS 26 con AlarmKit (iPhone 12 mini de la persona) y Android en paralelo.
-4. Comprobar en la semana 1 si AlarmKit se apaga desde el Apple Watch y admite la voz grabada como sonido.
+## Qué sigue (semana 2 del plan v3)
+1. Confirmar la demo web publicada y el APK de la CI.
+2. AlarmKit real en iOS 26 (capa Swift) y alarma Android con el paquete alarm; voz grabada en la toma.
+3. Pendientes de la revisión de Opus: pantalla de error si falla el cifrado, pérdida de clave con base existente,
+   excluir vídeos de la copia de iCloud, alarma que sigue sonando mientras se graba el vídeo.
+4. Decisión del promotor: en /persona hay más de tres botones a la vez (la especificación pedía tres).
 
 ## Bloqueos y pendientes
 - Alta en Apple Developer: la familia la hará después de la demo (hoy en desarrollo).
