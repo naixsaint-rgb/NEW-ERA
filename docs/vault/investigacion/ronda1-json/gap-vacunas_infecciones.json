@@ -1,0 +1,173 @@
+{
+"key": "gap-vacunas_infecciones",
+"title": "Vacunas, prevención de infecciones y la señal del herpes zóster",
+"summary": "La vacuna recombinante del zóster (HZ/su, Shingrix) tiene evidencia A para su indicación propia: prevenir el zóster y la neuralgia posherpética (ZOE-50/70). Su relación con la demencia sigue siendo de nivel C. Hay experimentos naturales con la vacuna viva (Gales, Nature 2025; Australia, JAMA 2025; Canadá, Lancet Neurol 2026; Cell 2025), cohortes con la recombinante (Taquet, Nat Med 2024; Hayes, Ann Intern Med 2026, financiado por GSK) y un metaanálisis no aleatorizado de 2026 (razón 0,72; I2 97%). Un análisis crítico de 2026 (Brain Behav Immun) calcula efectos implícitos imposibles (>100%) y no encuentra descenso poblacional de la demencia tras los programas. Además, otras vacunas (Td/Tdap, neumococo, gripe de alta dosis) muestran asociaciones parecidas, lo que apunta al sesgo del vacunado sano. Hay dos ensayos aleatorizados en marcha: Dinamarca, con fin primario estimado en 2029, y Finlandia, en 2030. El único ensayo antiviral (valaciclovir, VALAD, JAMA 2026) fue negativo, con peor evolución cognitiva. Para España, el calendario común de 2026 recomienda: zóster a los 65 años (2 dosis, con 8 semanas de intervalo mínimo; recaptación de cohortes de 66 a 80), gripe desde los 60, COVID-19 desde los 70 en la temporada 2025-26, neumococo desde los 65 y Td en torno a los 65. Las cohortes varían por comunidad. La app solo registra, recuerda lo que la familia programa, informa con el nivel de evidencia y deriva al centro de salud. Nunca dice 'previene el Alzheimer' ni decide la elegibilidad.",
+"findings": [
+{
+"claim": "La vacuna recombinante del zóster (HZ/su) previene el herpes zóster y la neuralgia posherpética en mayores. ZOE-50 (NEJM 2015): eficacia del 97,2% (IC95% 93,7-99,0) en mayores de 50 años. Análisis conjunto ZOE-50/70 en mayores de 70 (NEJM 2016; n=16.596): 91,3% frente a zóster y 88,8% frente a neuralgia posherpética. Hallazgo añadido en la revisión.",
+"evidence_level": "A",
+"sources": ["https://doi.org/10.1056/NEJMoa1501184", "https://doi.org/10.1056/NEJMoa1603800", "https://doi.org/10.1001/jamainternmed.2021.6227"],
+"app_implication": "Es el motivo principal y verificado de la vacuna. La ficha lo explica con nivel A y separa con claridad la hipótesis sobre demencia (nivel C). La app registra las dosis que la familia introduce y remite al centro de salud para decidir si corresponde.",
+"negative_or_conflicting": "Los ensayos fueron financiados por GSK. Incluyeron pocas personas con demencia o fragilidad avanzada, así que la eficacia en ese grupo es una extrapolación. La duración de la protección a muy largo plazo se apoya en extensiones abiertas.",
+"safety_notes": "Reactogenicidad frecuente: síntomas de grado 3 en el 17% frente al 3,2% con placebo; puede haber fiebre y malestar durante 1 a 3 días, que en una persona con demencia pueden confundirse con un empeoramiento. Hay una pequeña señal de Guillain-Barré: unos 3 casos adicionales por millón de dosis en 42 días (Medicare, JAMA Intern Med 2021). Contraindicaciones y pauta las decide el personal sanitario."
+},
+{
+"claim": "Experimento natural de Gales (Eyting y cols., Nature 2025; N=282.541; regresión discontinua). La elegibilidad por fecha de nacimiento (nacidos desde el 2-sep-1933) elevó la cobertura de la vacuna viva (Zostavax) del 0,01% al 47,2%. Recibir la vacuna se asoció a una reducción de 3,5 puntos porcentuales (IC95% 0,6-7,1) en nuevos diagnósticos de demencia a 7 años, un 20,0% relativo (IC95% 6,5-33,4). El efecto de la mera elegibilidad fue de unos 1,3 puntos absolutos. Fue más fuerte en mujeres. Corrección: el original atribuía el 20% a la elegibilidad y mezclaba los efectos absolutos.",
+"evidence_level": "C",
+"sources": ["https://doi.org/10.1038/s41586-025-08800-x", "https://www.nature.com/articles/s41586-025-08800-x"],
+"app_implication": "La ficha informa: 'un estudio cuasiexperimental de Gales encontró menos diagnósticos de demencia en vacunados con una vacuna viva que ya no se usa en España; nivel C; no demuestra que la vacuna prevenga el Alzheimer; hay ensayos en marcha'. No muestra porcentajes como expectativa personal. Permite registrar el estado vacunal sin calcular ni sugerir nada.",
+"negative_or_conflicting": "El efecto apenas se observa en varones. El diagnóstico procede de registros administrativos, con posible sesgo de detección. Se trata de la vacuna viva, no de la recombinante que se usa hoy. Un análisis de 2026 (Brain Behav Immun) estima un efecto implícito del 18% en vacunados (IC -0 a 35), en el límite de la significación.",
+"safety_notes": "Zostavax (viva) está contraindicada en inmunodeprimidos y no es la que se usa en España. Nunca presentar la vacuna 'para la memoria'. Derivar a medicina o enfermería."
+},
+{
+"claim": "Réplicas con regresión discontinua y vacuna viva: Australia (Pomirchy y cols., JAMA 2025; 101.219 pacientes de 65 consultas; la cobertura subió 16,4 puntos en el umbral de elegibilidad) y Canadá/Ontario (Lancet Neurology 2026, 'Herpes zoster vaccination and incident dementia in Canada: an analysis of natural experiments'). Ambas encuentran menos diagnósticos de demencia entre los elegibles. Corrección: el estudio de Canadá es de 2026, no de 2025, y el artículo de Australia sí existe (JAMA). El preprint de Inglaterra y Gales no se evaluó y se retira como fuente.",
+"evidence_level": "C",
+"sources": ["https://doi.org/10.1001/jama.2025.5013", "https://doi.org/10.1016/S1474-4422(25)00455-7", "https://doi.org/10.1016/j.bbi.2026.107021"],
+"app_implication": "Presentar como 'varios estudios cuasiexperimentales en distintos países apuntan en la misma dirección, pero con magnitudes poco creíbles; nivel C', con la fecha de revisión de la ficha. Sin lenguaje causal.",
+"negative_or_conflicting": "Brain Behav Immun 2026: al ajustar por la cobertura, los efectos implícitos en vacunados serían del 177% en Australia y del 84% y 111% en los dos análisis de Canadá, es decir, imposibles o implausibles. Además, no se observó un descenso de la incidencia poblacional de demencia en Reino Unido, Australia ni Canadá tras implantar los programas. Esto sugiere sesgos (cambios de codificación o de cribado en torno al umbral) o mecanismos distintos de la vacuna.",
+"safety_notes": "No usar cifras de reducción como expectativa individual."
+},
+{
+"claim": "Cell, 2025 (mismo grupo; Gales; doi 10.1016/j.cell.2025.11.007): la elegibilidad para la vacuna viva se asoció a menos diagnósticos de deterioro cognitivo leve y a menos muertes atribuidas a demencia entre quienes ya vivían con ella. Los autores concluyen que 'enlentece el curso', pero el análisis crítico estima efectos implícitos del 41% (DCL) y del 56% (mortalidad por demencia), poco plausibles.",
+"evidence_level": "C",
+"sources": ["https://doi.org/10.1016/j.cell.2025.11.007", "https://doi.org/10.1016/j.bbi.2026.107021"],
+"app_implication": "No presentar la vacuna como tratamiento ni como freno de la progresión. Ficha: 'hipótesis en estudio, nivel C'. La decisión de vacunar se toma con el equipo sanitario según la indicación de zóster.",
+"negative_or_conflicting": "Es un único experimento natural con magnitudes implausibles. La 'muerte por demencia' depende de cómo se codifica el certificado de defunción. No hay ningún ensayo aleatorizado en personas que ya tienen demencia.",
+"safety_notes": "No sugerir vacunar a una persona con demencia avanzada por este motivo. Las decisiones dependen de la indicación, las preferencias y los objetivos de cuidado (incluidas las voluntades anticipadas)."
+},
+{
+"claim": "Hayes y cols., Annals of Internal Medicine 2026 (emulación de ensayo; Medicare; 509.926 personas de 66 años o más tras un ingreso en un centro de cuidados de enfermería). Solo el 1,73% recibió la recombinante. Su recepción se asoció a un riesgo de demencia a 4 años 5,8 puntos menor (18,8% frente a 24,6%; RR 0,76, IC 0,69-0,84). Financiado por GSK. Metaanálisis de 2026 (Vaccines 14:685; PROSPERO CRD420261326042; 14 informes de 13 estudios): el análisis principal reúne 5 fuentes de datos independientes, con razón 0,72 (IC95% 0,65-0,81) e I2 del 97,1%. La recombinante salió mejor que la viva (RMTL 0,83) y 2 dosis mejor que 1 (RR 0,81), análisis exploratorios. Corrección: se retira el '1 caso evitado por cada 17 vacunados' por ser una lectura causal de datos observacionales.",
+"evidence_level": "C",
+"sources": ["https://doi.org/10.7326/ANNALS-25-04689", "https://doi.org/10.3390/vaccines14080685", "https://doi.org/10.1038/s41591-024-03201-5"],
+"app_implication": "Si se cita, aclarar que el metaanálisis reúne estudios observacionales y cuasiexperimentales muy heterogéneos, por lo que la etiqueta 'metaanálisis' no eleva el nivel a A ni a B. Sin NNT ni porcentajes individuales.",
+"negative_or_conflicting": "En el estudio de Hayes, los controles negativos sugieren confusión residual: vacunarse tras el alta selecciona a personas más sanas y con más contacto sanitario. La asociación se atenuó en varones. La heterogeneidad es extrema (I2 97%). Hay conflictos de interés de la industria. Las asociaciones con comparador activo se atenúan.",
+"safety_notes": "Nivel real: C."
+},
+{
+"claim": "Taquet y cols., Nature Medicine 2024 (TriNetX, EE. UU.): la vacuna recombinante se asoció a un 17% más de tiempo sin diagnóstico de demencia a 6 años (164 días) frente a la viva, y también a menos riesgo que las vacunas de gripe y Td/Tdap. El efecto fue mayor en mujeres. Cohortes emparejadas; observacional.",
+"evidence_level": "C",
+"sources": ["https://doi.org/10.1038/s41591-024-03201-5"],
+"app_implication": "Informar de que los datos observacionales con la recombinante apuntan en la misma dirección, con nivel C y posible sesgo del vacunado sano. Sin lenguaje causal.",
+"negative_or_conflicting": "Los propios autores piden un ensayo aleatorizado. Hay confusión residual y sesgo de detección. Comparar entre vacunas reduce el sesgo del vacunado sano, pero no lo elimina, porque las épocas de uso de cada vacuna son distintas.",
+"safety_notes": "Población estadounidense con historia clínica electrónica; no es trasladable como promesa individual."
+},
+{
+"claim": "Otras vacunas muestran asociaciones similares con menor riesgo de Alzheimer: en una cohorte de reclamaciones de EE. UU. con emparejamiento por propensión (Harris y cols., J Alzheimers Dis 2023), el RR a 8 años fue 0,70 para Td/Tdap, 0,75 para zóster y 0,73 para neumococo. La gripe de alta dosis frente a la estándar se asoció a menos Alzheimer en los 25 meses siguientes (Bukhbinder y cols., Neurology 2026; NNT mínimo 185). Hallazgo añadido en la revisión.",
+"evidence_level": "C",
+"sources": ["https://doi.org/10.3233/JAD-221231", "https://doi.org/10.1212/WNL.0000000000214782"],
+"app_implication": "Aporta contexto honesto en la ficha: 'que vacunas distintas muestren el mismo patrón puede deberse a que quienes se vacunan se cuidan más (sesgo del vacunado sano) o a efectos inespecíficos sobre el sistema inmunitario; no está demostrado que ninguna vacuna prevenga la demencia'. Las vacunas se recomiendan por su indicación propia.",
+"negative_or_conflicting": "Son observacionales, sin datos de estilo de vida ni de nivel socioeconómico (lo reconocen los autores). Que Td/Tdap, sin relación biológica con los herpesvirus, muestre un efecto parecido debilita la explicación específica del zóster.",
+"safety_notes": "No usar estas cifras para motivar la vacunación; la motivación es prevenir la infección."
+},
+{
+"claim": "El ensayo VALAD (Devanand y cols., JAMA 2026; n=120; Alzheimer temprano con serología positiva al virus del herpes simple) comparó 4 g/día de valaciclovir con placebo durante 78 semanas. El fármaco no fue eficaz: el ADAS-Cog empeoró más con valaciclovir (diferencia de 3,93 puntos; IC 1,03-6,83; p=0,01) y no hubo cambios en amiloide ni tau. Hubo más elevaciones de creatinina (8,3% frente a 3,3%). Los autores no lo recomiendan. Hallazgo añadido en la revisión.",
+"evidence_level": "B",
+"sources": ["https://doi.org/10.1001/jama.2025.21738", "https://doi.org/10.1001/jama.2025.20795"],
+"app_implication": "Ficha 'antivirales y Alzheimer': un ensayo aleatorizado negativo, nivel B. La hipótesis vírica no justifica tomar antivirales ni 'protocolos antivirales' naturales o de herbolario para el Alzheimer. La app solo registra la medicación que haya prescrito un profesional.",
+"negative_or_conflicting": "Es un único ensayo pequeño, de 3 centros, con un 22,5% de abandonos. No descarta efectos en otras fases ni con otros antivirales, pero no hay ninguna evidencia de beneficio.",
+"safety_notes": "El valaciclovir a dosis altas puede afectar al riñón y producir neurotoxicidad en mayores. No sugerir su uso en ningún caso; derivar a medicina."
+},
+{
+"claim": "Ensayos aleatorizados registrados, sin resultados. NCT07485283: fase 4 pragmático y abierto en Dinamarca (promotor académico, Tor Biering-Sørensen), Shingrix frente a no vacunar, unas 162.000 personas, eventos cardiovasculares y demencia; inicio en abril de 2026 y fin primario estimado en abril de 2029. NCT07502560: fase 4 en Finlandia (GSK), 76 años o más, Shingrix frente a placebo con evaluador ciego, unas 33.609 personas, nuevo diagnóstico de demencia; inicio en marzo de 2026, fin primario estimado en abril de 2030 y fin del estudio en 2037. Ambos estaban reclutando según el registro consultado en octubre de 2026.",
+"evidence_level": "D",
+"sources": ["https://clinicaltrials.gov/study/NCT07485283", "https://clinicaltrials.gov/study/NCT07502560"],
+"app_implication": "Ficha: 'hay ensayos en marcha; los primeros resultados se esperan hacia 2029-2030', con fecha de revisión. Es un proceso editorial interno (revisar la ficha cuando se publiquen), no una función clínica.",
+"negative_or_conflicting": "Es un registro, no evidencia de eficacia. El ensayo danés es abierto, sin placebo, y su variable de demencia procede de registros. Las fechas son estimadas y pueden cambiar.",
+"safety_notes": "La app no capta ni deriva participantes para ensayos; eso se decide con el equipo clínico."
+},
+{
+"claim": "Calendario común de vacunación a lo largo de toda la vida de 2026 (CISNS, diciembre de 2025), población general mayor: zóster HZ/su a los 65 años, 2 dosis con un intervalo mínimo de 8 semanas, con recaptación progresiva de cohortes de 66 a 80 años empezando por quienes cumplen 80; neumococo desde los 65; gripe con 1 dosis cada temporada desde los 60; COVID-19 desde los 70 en la temporada 2025-26 (a determinar en 2026-27); Td en torno a los 65 o hasta completar 5 dosis. Calendario de adultos con condiciones de riesgo de 2026: HZ/su de 2 dosis con intervalo mínimo de 4 semanas (trasplante, VIH, hemopatías malignas, quimioterapia, anti-JAK, inmunosupresores en mayores de 50, 2 o más episodios de zóster); gripe para residentes en residencias y para convivientes o cuidadores de mayores; VRS en muy alto riesgo y en mayores de 60 institucionalizados, y los convivientes o cuidadores 'podrán tener acceso como protección personal'. Corrección: el original solo recogía los grupos de riesgo y daba como general el intervalo de 4 semanas.",
+"evidence_level": "D",
+"sources": ["https://www.sanidad.gob.es/areas/promocionPrevencion/vacunaciones/calendario/docs/CalendarioVacunacion_Todalavida.pdf", "https://vacunas.org/wp-content/uploads/2025/12/CalendarioVacunacion_GRadultos.pdf", "https://www.sanidad.gob.es/areas/promocionPrevencion/vacunaciones/gripe_covid19/home.htm"],
+"app_implication": "El registro admite gripe, COVID-19, neumococo, VRS, zóster (2 dosis) y Td para cada miembro. Los recordatorios los crea la familia con la fecha que le da su centro de salud. La app no calcula intervalos, no decide si corresponde vacunar y enlaza a la fuente oficial con la fecha de la última comprobación.",
+"negative_or_conflicting": "Es una recomendación oficial de salud pública (consenso técnico), no un estudio. Se clasifica como D por tipo de fuente, pero tiene carácter normativo en España. La eficacia de cada vacuna tiene su propio nivel: el zóster recombinante es A; la gripe en mayores tiene una certeza más baja en las revisiones Cochrane. Cambia cada año.",
+"safety_notes": "Contraindicaciones, pautas y coadministración las decide el personal sanitario."
+},
+{
+"claim": "Las cohortes de zóster difieren entre comunidades autónomas y cambian cada año. Ejemplos de 2026 (fuentes autonómicas; algunos datos solo se vieron en fragmentos de buscador): Extremadura, nacidos en 1961 y 1946 con rescate; Madrid, de 65 a 80 años (nacidos 1946-1961) más los nacidos en 1942-1945 no vacunados; Castilla y León, programa a los 65 y 80 años con 2 dosis separadas 8 semanas; Murcia, 1961, 1947, 1946 y 1943 con recaptación; Euskadi, cohortes 1961, 1960 y 1951. Siguen sin reconciliar algunas discrepancias.",
+"evidence_level": "D",
+"sources": ["https://doe.juntaex.es/pdfs/doe/2026/180o/26060202.pdf", "https://www.comunidad.madrid/salud/vacunas-informacion-profesionales", "https://saludcastillayleon.es/profesionales/es/vacunaciones/programa-vacunacion-frente-herpes-zoster", "https://www.murciasalud.es/web/vacunacion/-/herpes-z%C3%B3ster-fac-para-ciudadanos", "https://www.euskadi.eus/contenidos/informacion/manual_vacunaciones/es_def/adjuntos/2026/3.2-Zz-Calendario-vacunal-poblacion-adulta-sana-2026.pdf"],
+"app_implication": "No incrustar reglas por cohorte ni por edad en el código, porque calcular la elegibilidad sería una función de decisión. Enlazar a la página oficial de la comunidad elegida con el texto 'consulta con tu centro de salud' y la fecha de comprobación.",
+"negative_or_conflicting": "Alto riesgo de desactualización. La página de Madrid devuelve 404 a clientes automáticos, aunque el buscador la indexa. El dato de Euskadi no se ha leído en el PDF.",
+"safety_notes": "No afirmar elegibilidad desde la app."
+},
+{
+"claim": "Higiene oral y neumonía en residencias: la revisión Cochrane de 2022 (CD012416.pub3; 6 ensayos aleatorizados con 6.244 participantes, todos con alto riesgo de sesgo) no halló evidencia suficiente de diferencia en la incidencia de neumonía entre el cuidado oral profesional y el habitual (certeza baja). Con certeza baja, podría reducir la mortalidad por neumonía a 24 meses (RR 0,43; IC 0,25-0,76; 2 estudios, 454 personas), sin diferencia en mortalidad total. No hay análisis específico en demencia. Corrección: el original citaba la versión pub2 de 2018 y una cifra de incidencia (114 frente a 187 por 1.000) que no aparece en la versión vigente. Se baja de B a C.",
+"evidence_level": "C",
+"sources": ["https://doi.org/10.1002/14651858.CD012416.pub3", "https://pubmed.ncbi.nlm.nih.gov/36383760/"],
+"app_implication": "Recordatorio de cepillado y de revisión dental que crea la familia, por higiene y confort; la ficha indica 'efecto sobre la neumonía incierto, nivel C'. Registro libre de 'tos o atragantamiento al comer' para enseñarlo al médico o a logopedia, sin puntuación ni cribado.",
+"negative_or_conflicting": "Efecto incierto. No sustituye a la valoración de la deglución, la postura al comer ni la textura prescrita por un profesional.",
+"safety_notes": "La app no da consejos de texturas; deriva a logopedia o enfermería. Urgencia (112): atragantamiento con dificultad para respirar."
+},
+{
+"claim": "Las infecciones (respiratorias, urinarias y otras) están entre los desencadenantes frecuentes de delirium en mayores con demencia, y el delirium se asocia a un deterioro cognitivo más rápido: en una cohorte de Alzheimer, el declive anual pasó de 2,5 a 4,9 puntos en la escala IMC (Fong y cols., Neurology 2009). La guía NICE CG103 recomienda valorar de forma urgente cualquier cambio agudo de conducta o de nivel de alerta. Corrección: se sustituye la búsqueda genérica por fuentes primarias y se baja de B a C, porque el vínculo con la progresión es observacional.",
+"evidence_level": "C",
+"sources": ["https://www.nice.org.uk/guidance/cg103", "https://doi.org/10.1212/WNL.0b013e3181a4129a"],
+"app_implication": "Diario libre de 'cambios que he notado' (fecha, hora, texto) para enseñarlo en consulta. Los botones 'llamar al centro de salud' y '112' están siempre visibles y no se activan ni cambian según lo registrado, para evitar cualquier función de triaje. La app no interpreta los registros como delirium ni como infección.",
+"negative_or_conflicting": "La causalidad entre delirium y progresión no está demostrada. Las listas de síntomas mostradas como alerta podrían convertir la app en software de triaje (MDR regla 11 IIa).",
+"safety_notes": "Texto fijo: 'ante un cambio brusco, llama a tu centro de salud; si hay dificultad para respirar, inconsciencia o empeoramiento grave, llama al 112'."
+},
+{
+"claim": "En mayores con deterioro cognitivo, la bacteria en orina sin síntomas urinarios ni signos sistémicos (bacteriuria asintomática) es frecuente. La guía IDSA de 2019 desaconseja cribarla y tratarla, incluso cuando hay confusión o caídas sin otros signos, y recomienda buscar otras causas: los antibióticos innecesarios favorecen resistencias y efectos adversos como C. difficile. Hallazgo añadido en la revisión. Se verificó la existencia y el objeto de la guía; el texto exacto de la recomendación sobre delirium se cita de memoria (recomendación fuerte con evidencia de calidad muy baja).",
+"evidence_level": "D",
+"sources": ["https://doi.org/10.1093/cid/ciy1121"],
+"app_implication": "La app no incorpora tiras reactivas de orina ni pide 'resultados de orina' para interpretarlos, porque eso sería detección. La ficha informa de que 'un análisis de orina positivo sin síntomas no siempre necesita antibiótico; lo valora el médico'.",
+"negative_or_conflicting": "La recomendación es de consenso con evidencia débil. En la práctica, distinguir bacteriuria asintomática de infección en demencia es difícil y requiere valoración clínica.",
+"safety_notes": "Fiebre, escalofríos, dolor lumbar o mal estado general: consulta médica o 112. No suspender ni iniciar antibióticos desde la app."
+},
+{
+"claim": "Vacunación del entorno familiar: en España se recomienda la gripe a convivientes y cuidadores de personas mayores o de riesgo; el VRS permite a convivientes, cuidadores y sanitarios acceder como protección personal; la Td debe revisarse hasta completar 5 dosis.",
+"evidence_level": "D",
+"sources": ["https://vacunas.org/wp-content/uploads/2025/12/CalendarioVacunacion_GRadultos.pdf", "https://www.sanidad.gob.es/areas/promocionPrevencion/vacunaciones/calendario/docs/CalendarioVacunacion_Todalavida.pdf"],
+"app_implication": "Perfil opcional por miembro de la familia con su propio registro y recordatorios, y una sección 'cuídate tú' para el cuidador con enlaces oficiales. Sin recomendaciones personalizadas.",
+"negative_or_conflicting": "Es una recomendación oficial. La evidencia de que vacunar al cuidador protege a la persona con demencia es indirecta y de certeza baja; el argumento más sólido es proteger al propio cuidador. Baja de B a D por tipo de fuente.",
+"safety_notes": "Son datos de salud de terceros (RGPD art. 9): consentimiento propio de cada miembro y opción de no compartir."
+},
+{
+"claim": "VRS en mayores: el calendario de 2026 lo limita a muy alto riesgo y a mayores de 60 institucionalizados. Algunas comunidades amplían o coadministran con gripe y COVID-19 (Aragón, La Rioja y Valencia, según fragmentos de buscador no verificados). El documento de la Ponencia sobre VRS se actualizó en diciembre de 2025 y el Ministerio publica preguntas y respuestas para la ciudadanía. Corrección: se retira el enlace del protocolo de Aragón (404).",
+"evidence_level": "D",
+"sources": ["https://vacunas.org/wp-content/uploads/2025/12/Documento-Ponencia-VRS-actualizado-diciembre-2025.pdf", "https://www.sanidad.gob.es/areas/promocionPrevencion/vacunaciones/VRS/poblacionAdulta/docs/preguntasyrespuestas_VRS_Adultos_Ciudadanos.pdf"],
+"app_implication": "Registro con vacuna, fecha, lote (opcional), lugar y próxima cita indicada por el centro; recordatorios estacionales que crea la familia. Enlace a la fuente oficial.",
+"negative_or_conflicting": "Las prácticas autonómicas no se han verificado en sus documentos primarios. Las pautas de neumococo (VNC20 u otras) no se detallan aquí.",
+"safety_notes": "No sugerir intervalos ni coadministraciones; remitir a la fuente oficial."
+}
+],
+"app_features": [
+"1. Registro de vacunas por miembro de la familia (vacuna, fecha, dosis, lote opcional, lugar, próxima cita indicada por el centro de salud), creado y editado por la familia; la app no calcula elegibilidad ni intervalos",
+"2. Recordatorios que programa el usuario con la fecha que le da su centro de salud (segunda dosis de zóster, campaña de otoño), con el texto fijo 'confirma con tu centro de salud'",
+"3. Ficha 'Zóster: lo que se sabe' con dos bloques separados: prevención de zóster y neuralgia (nivel A) e hipótesis sobre demencia (nivel C, críticas de magnitud, ensayos con resultados hacia 2029-2030, 'no previene el Alzheimer'), y fecha de revisión y revisor clínico",
+"4. Ficha 'Antivirales y Alzheimer': ensayo VALAD negativo (nivel B); no hay base para tomar antivirales ni 'protocolos naturales antivirales'",
+"5. Enlace a la página oficial de la comunidad autónoma elegida y al calendario del Ministerio, con fecha de última comprobación y sin reglas internas por cohorte",
+"6. Sección 'cuídate tú' para el cuidador, con enlaces oficiales a gripe, COVID-19, VRS, Td y zóster, sin recomendaciones personalizadas",
+"7. Diario libre de cambios observados (texto, fecha, hora) y botones permanentes de centro de salud y 112 que no dependen de lo registrado",
+"8. Recordatorio de higiene oral y revisión dental, y registro libre de 'tos o atragantamiento al comer' para enseñar a los profesionales, sin puntuación",
+"9. Exportar el registro (vacunas y diario) a PDF para llevar a consulta, con consentimiento del titular de los datos",
+"10. Proceso editorial interno: revisión anual de las fichas y revisión extraordinaria cuando se publiquen los ensayos NCT07485283 y NCT07502560"
+],
+"questions_for_owner": [
+"¿En qué comunidad autónoma vive la familia, para precargar el enlace oficial (sin reglas de cohorte en el código)?",
+"¿Quién revisará cada año las fichas de vacunas (medicina o enfermería de salud pública) y qué fecha de caducidad tendrá cada ficha?",
+"¿Los datos de salud se guardarán solo en el dispositivo o también en servidor? Esto condiciona el RGPD art. 9, la evaluación de impacto (DPIA) y el cifrado.",
+"¿Se permitirá compartir el registro de vacunas entre familiares, con consentimiento explícito y revocable de cada miembro?",
+"¿Quién valida clínicamente las fichas de zóster y demencia y de antivirales antes de publicarlas?",
+"¿La persona con Alzheimer será usuaria o solo los cuidadores? Afecta al consentimiento, a la representación y a las voluntades anticipadas.",
+"¿Se acepta la regla de que la app nunca sugiera vacunar ni dé la elegibilidad, y que solo registre, recuerde lo programado e informe con nivel de evidencia?",
+"¿Se acepta que los botones de 112 y centro de salud estén siempre visibles y no se activen por síntomas registrados, para evitar una función de triaje?"
+],
+"free_resources": [
+{"name": "Calendario común de vacunación a lo largo de toda la vida 2026 (Ministerio de Sanidad)", "url": "https://www.sanidad.gob.es/areas/promocionPrevencion/vacunaciones/calendario/docs/CalendarioVacunacion_Todalavida.pdf", "what": "Recomendaciones para la población general: zóster a los 65 años, gripe desde los 60, COVID-19 desde los 70 en 2025-26, neumococo desde los 65, Td (leído en la revisión)", "cost": "Gratis"},
+{"name": "Calendario de vacunación en adultos con condiciones de riesgo 2026 (CISNS)", "url": "https://vacunas.org/wp-content/uploads/2025/12/CalendarioVacunacion_GRadultos.pdf", "what": "Grupos de riesgo; gripe y VRS en cuidadores (leído en la revisión)", "cost": "Gratis"},
+{"name": "Ministerio de Sanidad: gripe y COVID-19", "url": "https://www.sanidad.gob.es/areas/promocionPrevencion/vacunaciones/gripe_covid19/home.htm", "what": "Recomendaciones de cada campaña", "cost": "Gratis"},
+{"name": "Ministerio de Sanidad: preguntas y respuestas sobre VRS en adultos", "url": "https://www.sanidad.gob.es/areas/promocionPrevencion/vacunaciones/VRS/poblacionAdulta/docs/preguntasyrespuestas_VRS_Adultos_Ciudadanos.pdf", "what": "Información para la ciudadanía", "cost": "Gratis"},
+{"name": "Eyting y cols., Nature 2025", "url": "https://doi.org/10.1038/s41586-025-08800-x", "what": "Experimento natural de Gales (resumen verificado en Europe PMC)", "cost": "Acceso abierto"},
+{"name": "Pomirchy y cols., JAMA 2025 (Australia)", "url": "https://doi.org/10.1001/jama.2025.5013", "what": "Réplica cuasiexperimental en Australia", "cost": "Resumen gratuito"},
+{"name": "Brain Behav Immun 2026: efectividad implícita", "url": "https://doi.org/10.1016/j.bbi.2026.107021", "what": "Crítica de la magnitud de los experimentos naturales", "cost": "Resumen gratuito"},
+{"name": "ClinicalTrials.gov NCT07485283 y NCT07502560", "url": "https://clinicaltrials.gov/study/NCT07502560", "what": "Ensayos aleatorizados de Shingrix y demencia (Dinamarca y Finlandia)", "cost": "Gratis"},
+{"name": "VALAD, JAMA 2026", "url": "https://doi.org/10.1001/jama.2025.21738", "what": "Ensayo negativo de valaciclovir en Alzheimer temprano", "cost": "Resumen gratuito"},
+{"name": "Cochrane CD012416.pub3 (2022)", "url": "https://pubmed.ncbi.nlm.nih.gov/36383760/", "what": "Cuidado oral y neumonía en residencias", "cost": "Resumen gratuito"},
+{"name": "NICE CG103: delirium", "url": "https://www.nice.org.uk/guidance/cg103", "what": "Guía de prevención y manejo del delirium", "cost": "Gratis"},
+{"name": "Europe PMC API", "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=zoster%20vaccin*%20AND%20dementia&format=json", "what": "Búsqueda gratuita de literatura para la revisión anual", "cost": "Gratis"},
+{"name": "ECDC: gripe estacional", "url": "https://www.ecdc.europa.eu/en/seasonal-influenza", "what": "Fuente europea general (responde 200; contenido no revisado)", "cost": "Gratis"}
+],
+"verification_notes": "Se verificaron mediante la API de Europe PMC los resúmenes de Nature 2025, JAMA 2025 (Australia, cuyo artículo primario el original no localizó), Lancet Neurology 2026 (Canadá; no es de 2025), Cell 2025 (doi 10.1016/j.cell.2025.11.007), Brain Behav Immun 2026, Vaccines 2026, Annals 2026 (Hayes), Cochrane pub3 de 2022, ZOE-50/70, Goud 2021 (Guillain-Barré), Harris 2023, Bukhbinder 2026, VALAD y Fong 2009. Los dos ensayos se comprobaron en la API v2 de ClinicalTrials.gov (fechas estimadas: 2029 y 2030/2037). Los calendarios del Ministerio se leyeron con pdftotext. Correcciones principales: en Gales, el 20% y los 3,5 puntos son efectos en vacunados, no de la elegibilidad; en Hayes, solo el 1,73% se vacunó y se retira el NNT causal; la cifra Cochrane 114 frente a 187 no está en la versión vigente (de B a C); delirium y vacunación del entorno bajan por tipo de fuente; el intervalo general del zóster es de 8 semanas (4 solo en grupos de riesgo); se retira el hallazgo vacío del ECDC y el enlace de Aragón (404). Se añaden 4 hallazgos: eficacia de HZ/su (A), otras vacunas con el mismo patrón (C), VALAD (B) y bacteriuria asintomática (D; recomendación sobre delirium citada de memoria). Los datos autonómicos de Euskadi, Aragón, La Rioja y Valencia siguen sin leerse en su fuente primaria. La URL de Madrid devuelve 404 a curl, pero aparece indexada. Cochrane devuelve 403, así que se usa PubMed."
+}

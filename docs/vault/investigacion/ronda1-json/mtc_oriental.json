@@ -1,0 +1,272 @@
+{
+  "key": "mtc_oriental",
+  "title": "Medicina china y tradiciones orientales para Alzheimer (revisado)",
+  "summary": "Revisión escéptica. Ninguna intervención oriental o herbal tiene evidencia de nivel A de beneficio en Alzheimer; el único nivel A es negativo (Ginkgo no previene la demencia: GEM y GuidAge). Lo más defendible es el ejercicio mente-cuerpo (Tai Chi/Qigong): efecto pequeño en cognición global, con sesgo de publicación y pocos ensayos en demencia establecida. Por eso se baja de A a B. Acupuntura, huperzina A, yokukansan, azafrán y melisa/aromaterapia bajan a C: ensayos pequeños, en gran parte de un solo país o grupo, sin ocultación de la asignación, y con ensayos o subgrupos negativos (Cochrane de aromaterapia 2020 con certeza muy baja; yokukansan nulo en Alzheimer aislado). Se añade el marco español verificado: los informes de la RedETS del Plan de Protección frente a las Pseudoterapias (#coNprueba) sobre acupuntura, Tai-Chí, Chi Kung, shiatsu/acupresión, moxibustión, aromaterapia, meditación y yoga. Son una fuente gratuita en castellano y una obligación de tono para una app hecha en España. Para los cuidadores hay una revisión Cochrane de reducción del estrés basada en mindfulness (MBSR), con beneficio posible y certeza baja. Ayurveda, setas, ginseng, salvia y EGCG quedan agrupados como 'sin evidencia verificada'. Implicación de producto: biblioteca con dos ejes (dirección del efecto y confianza), registro y exportación al profesional. La app no dosifica, no recomienda comprar y no calcula riesgos personalizados de interacción. Esto último podría convertirla en producto sanitario según la regla 11 del MDR. La prioridad es lo seguro y gratuito: movimiento suave, respiración, rutina, contacto y bienestar del cuidador.",
+  "findings": [
+    {
+      "claim": "Acupuntura en Alzheimer: un metaanálisis de 18 ECA (1.172 pacientes, todos publicados en chino) halla mejoría en MMSE (DM 1,67; IC95% 0,94-2,41) y ADAS-Cog (DM -3,31), sin mejoría en AVD (p=0,22). La heterogeneidad es muy alta (I2 84-91%): ningún estudio ocultó la asignación, solo 2 eran doble ciego y el funnel plot es asimétrico. El informe español AETSA (RedETS) sobre acupuntura fuera del dolor crónico concluye, con calidad baja, que la electroacupuntura frente a fármacos antidemencia da resultados no concluyentes en deterioro cognitivo, y que la auriculoterapia no difiere del tratamiento habitual en demencia vascular.",
+      "evidence_level": "C",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11285646/",
+        "https://www.conprueba.es/sites/default/files/informes/2026-04/PS_2021_AETSA_PSEUDOTERAPIA_ACUPUNTURA%20NO%20DOLOR_web.pdf",
+        "https://www.cochrane.org/CD004987"
+      ],
+      "negative_or_conflicting": "AETSA califica la evidencia de 'calidad global baja' y no concluyente. La Cochrane de acupuntura en demencia vascular (2007) no encontró ECA válidos. El metaanálisis de 2024 tiene inconsistencias internas (IC de ADAS-Cog invertido, fechas de búsqueda discrepantes) y solo 2 estudios para MoCA. La concentración de ensayos en un solo país y la falta de control simulado (sham) impiden descartar el efecto placebo o de la atención recibida. Baja de B a C.",
+      "safety_notes": "AETSA no detectó eventos adversos graves; solo leves (dolor local, hematoma). Precaución en anticoagulados, con piel frágil y si la persona no tolera las agujas o se agita. En España la acupuntura no es una profesión sanitaria regulada por sí misma.",
+      "app_implication": "Ficha de lectura 'Acupuntura' con efecto 'posible, pequeño' y confianza 'baja', con enlace al informe AETSA en castellano. Si la familia ya acude, un campo libre en el diario para anotar fechas y observaciones (sueño, ánimo, agitación) que se exporta al médico. Sin directorio de acupuntores, sin enlaces comerciales y sin alertas personalizadas: en la ficha, un texto fijo igual para todos ('si toma anticoagulantes, coméntalo antes con su médico')."
+    },
+    {
+      "claim": "La calidad metodológica de las revisiones de acupuntura en deterioro cognitivo es sistemáticamente baja. En un overview de deterioro cognitivo leve (DCL) y demencia, el 68,5% de los resultados (50 de 73) tenían calidad baja o muy baja. En Alzheimer, las 11 revisiones fueron de calidad baja según AMSTAR-2. Una red metaanalítica de 36 ensayos halló ocultación de la asignación en solo el 27,8% y cegamiento en el 22,2%.",
+      "evidence_level": "B",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC8160113/",
+        "https://pubmed.ncbi.nlm.nih.gov/36317033"
+      ],
+      "negative_or_conflicting": "Es un hallazgo sobre la calidad, no sobre la eficacia: una evidencia de baja calidad no prueba que el efecto sea nulo. La cifra de la red metaanalítica procede del resumen (PubMed bloqueó la apertura).",
+      "safety_notes": "El riesgo es prometer de más. Hay que citar siempre el tamaño del efecto junto a su etiqueta de confianza.",
+      "app_implication": "Base del sistema de etiquetas de dos ejes (dirección y confianza, al estilo GRADE), reutilizable en todas las dimensiones. Cada ficha muestra la fecha de la última revisión y quién la revisó."
+    },
+    {
+      "claim": "La moxibustión no tiene evidencia evaluable en Alzheimer. El informe AETSA (RedETS) sobre moxibustión excluyó la única revisión sistemática de aguja caliente en Alzheimer (no encontró el texto completo). En los ensayos que sí recogieron eventos adversos, la mayoría fueron quemaduras cutáneas leves. La electroacupuntura y las terapias afines comparten las limitaciones del hallazgo anterior.",
+      "evidence_level": "D",
+      "sources": [
+        "https://www.conprueba.es/sites/default/files/informes/2026-04/PS_2022_AETSA_Pseudoterapia_Moxibustion_web.pdf",
+        "https://pubmed.ncbi.nlm.nih.gov/36317033"
+      ],
+      "negative_or_conflicting": "Sin ensayos de calidad en Alzheimer. El nivel original (C) se baja a D.",
+      "safety_notes": "Quemaduras, humo y riesgo de incendio. No es apta para un domicilio con una persona desorientada ni para un cuidador sin formación.",
+      "app_implication": "Solo una ficha informativa ('sin evidencia en Alzheimer; riesgo de quemaduras'). Sin función de registro específica ni contenido práctico."
+    },
+    {
+      "claim": "Huperzina A: la Cochrane de 2008 (6 ECA, 454 pacientes) vio mejorías en cognición, estado global, conducta y función, pero concluye que la evidencia es insuficiente porque solo un estudio era adecuado y grande. Un metaanálisis de 2013 (20 ECA, 1.823 participantes) sugiere beneficio con baja calidad. El único ensayo multicéntrico occidental (NCT00083590, ADCS, 150 pacientes, 200 o 400 µg dos veces al día durante 16 semanas, ADAS-Cog como variable primaria) terminó en 2007 y no tiene resultados publicados en el registro.",
+      "evidence_level": "C",
+      "sources": [
+        "https://www.cochrane.org/CD005592",
+        "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0074916",
+        "https://clinicaltrials.gov/study/NCT00083590",
+        "https://www.alzdiscovery.org/cognitive-vitality/ratings/huperzine-a"
+      ],
+      "negative_or_conflicting": "Sin verificar en esta sesión: la publicación del ensayo ADCS (Rafii 2011, Neurology) no mostró beneficio en la variable primaria con la dosis de 200 µg. Hay que confirmarlo en el original antes de citarlo. La positividad se concentra en ensayos chinos pequeños. No hay datos sobre calidad de vida, carga del cuidador ni seguridad a largo plazo. Baja de B a C.",
+      "safety_notes": "Es un inhibidor de la acetilcolinesterasa: por mecanismo, puede sumar efectos con donepezilo, rivastigmina y galantamina (náuseas, bradicardia, síncope). Se vende como suplemento sin control de dosis ni de pureza. La app no muestra dosis.",
+      "app_implication": "En la ficha, un texto fijo para todos: 'Actúa como algunos fármacos para el Alzheimer; si ya toma uno, no lo combine sin hablar con su médico o farmacéutico'. En la lista de medicación se puede anotar como suplemento y se exporta junto al resto. La app no detecta la combinación ni genera un aviso automático personalizado (riesgo de regla 11 del MDR)."
+    },
+    {
+      "claim": "Ginkgo biloba (EGb761): dos grandes ECA de prevención no evitaron la demencia ni el Alzheimer. GEM (EE. UU., 3.069 mayores de 75 años, 240 mg/día; JAMA 2008) y GuidAge (Francia, 2.854 mayores de 70 con quejas de memoria, 5 años; Lancet Neurol 2012) fueron negativos. En el tratamiento, la Cochrane de 2009 (Birks) concluye que el beneficio es 'inconsistente y poco fiable': de los 4 ensayos más recientes, 3 no difirieron del placebo.",
+      "evidence_level": "A",
+      "sources": [
+        "https://doi.org/10.1001/jama.2008.683",
+        "https://doi.org/10.1016/S1474-4422(12)70206-5",
+        "https://www.cochrane.org/CD003120",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6488894/"
+      ],
+      "negative_or_conflicting": "El nivel A corresponde a la prevención (resultado negativo). Para el tratamiento la evidencia es inconsistente: C. Un análisis post hoc de GuidAge sugiere un efecto tardío, pero es exploratorio. Las cifras de GEM y GuidAge proceden de conocimiento previo: los textos no se pudieron abrir (403) y los DOI sí resuelven.",
+      "safety_notes": "La Cochrane no vio más eventos adversos que con placebo. Aun así, se describen hemorragias con anticoagulantes y antiagregantes y se aconseja suspenderlo antes de una cirugía (conocimiento general, no verificado aquí). Los extractos no estandarizados varían mucho.",
+      "app_implication": "Ficha con veredicto 'Prevención: no funciona (evidencia alta). Tratamiento: dudoso'. Es el caso pedagógico de 'natural no es igual a eficaz ni a inocuo'. Lleva un aviso fijo sobre anticoagulantes y cirugía para comentar con el médico, sin cálculo personalizado."
+    },
+    {
+      "claim": "Tai Chi y Qigong: varios metaanálisis en mayores y en trastornos neurológicos (40 ECA y 2.754 participantes en uno; Park 2023 con 17 ECA) muestran efectos pequeños a moderados en cognición (g 0,29-0,35) y en función física. El informe español UETS-Madrid (RedETS) sobre Tai-Chí, a partir de una revisión de calidad moderada (Wayne 2014), describe en personas con deterioro cognitivo un efecto pequeño en el MMSE (g 0,35; 4 ECA; I2 0%) frente a no intervención, y g 0,30 frente a controles activos. Los ensayos no atribuyeron eventos adversos al Tai-Chí.",
+      "evidence_level": "B",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10242998/",
+        "https://pubmed.ncbi.nlm.nih.gov/35704955/",
+        "https://www.conprueba.es/sites/default/files/informes/2024-04/PS_16_2019_UETS_M_Eficacia%20y%20Seguridad%20Taichi_DEFINITIVO2.%20NIPO.pdf",
+        "https://www.conprueba.es/sites/default/files/informes/2024-04/PS_16_2020_UETS_M%20EFICACIA%20Y%20SEGURIDAD%20CHI%20KUNG%20DEF%20con%20NIPO.pdf"
+      ],
+      "negative_or_conflicting": "Hay sesgo de publicación en Park 2023 (Egger p=0,049 en cognición y p=0,004 en función física), el 65% de los estudios con 'algunas dudas' de sesgo y cifras que no coinciden entre resumen y resultados. La mayoría de los participantes tenían DCL o eran mayores sin demencia: casi no hay datos en Alzheimer moderado o grave. El informe UETS sobre Chi Kung no incluye estudios en demencia. Ningún ECA monitorizó los eventos adversos de forma sistemática. Baja de A a B.",
+      "safety_notes": "Riesgo de caídas sin supervisión. Hay que adaptarlo a la movilidad (versión sentada) y es más útil en fases tempranas o leves.",
+      "app_implication": "Prioridad alta: coste cero y bajo riesgo. Sesiones cortas de Tai Chi o Qigong, de pie y en silla, hechas con recursos libres o propios. Modo 'practicamos juntos' (persona y cuidador), registro de minutos practicados y de caídas o incidencias. La app presenta la actividad como 'ejercicio con beneficio pequeño en la memoria y beneficio en el equilibrio' y no como un tratamiento del Alzheimer."
+    },
+    {
+      "claim": "Yokukansan (Kampo) para síntomas conductuales y psicológicos de la demencia (SCPD): un metaanálisis de 2016 (5 ECA, 381 pacientes) halla SMD -0,32 (IC95% -0,53 a -0,11) en los SCPD totales. Un metaanálisis de 2013 (4 ensayos, n=236) reduce el NPI total. En el subgrupo solo Alzheimer no superó al placebo.",
+      "evidence_level": "C",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/27497482/",
+        "https://content.iospress.com/articles/journal-of-alzheimers-disease/jad160418"
+      ],
+      "negative_or_conflicting": "Nulo en Alzheimer aislado. Los ensayos son japoneses y pequeños, con poblaciones mixtas (Lewy, vascular). Sin verificar en esta sesión: un ECA multicéntrico japonés en Alzheimer (Furukawa 2017, unos 145 pacientes) no alcanzó la variable primaria (NPI). Las fuentes devolvieron 403 y las cifras proceden de resúmenes. Se eliminó la URL de ScienceDirect porque no se pudo comprobar su contenido. Baja de B a C.",
+      "safety_notes": "Contiene regaliz (Glycyrrhiza): hipopotasemia y pseudohiperaldosteronismo descritos en Kampo con regaliz (conocimiento general). Riesgo con diuréticos y digoxina. No está autorizado como medicamento en España.",
+      "app_implication": "No se presenta como opción a la familia. La función útil y transversal es un diario ABC de agitación (antecedente, conducta, consecuencia) con un NPI simplificado, exportable para el neurólogo o el geriatra, que es quien decide cualquier tratamiento."
+    },
+    {
+      "claim": "Azafrán (Crocus sativus): un metaanálisis de ECA en DCL y demencia indica mejora en ADAS-Cog y CDR-SB frente a placebo. Ensayos individuales describen cambios comparables a donepezilo (22 semanas) y a memantina (48 semanas). Como complemento a donepezilo, no hubo diferencia en el MMSE a las 12 semanas.",
+      "evidence_level": "C",
+      "sources": [
+        "https://link.springer.com/article/10.1186/s12906-020-03102-3",
+        "https://link.springer.com/article/10.1186/s41983-025-00950-z"
+      ],
+      "negative_or_conflicting": "Los ensayos son pequeños (decenas de pacientes) y proceden mayoritariamente de un mismo grupo iraní, sin replicación independiente. Los diseños de no inferioridad frente a fármacos tienen poca potencia. El ensayo en complemento a donepezilo fue negativo. Las páginas existen, pero el contenido no se pudo leer (desafío anti-bots) y las cifras proceden de resúmenes. Baja de B a C.",
+      "safety_notes": "Producto caro y muy adulterado. Posibles efectos sobre la tensión arterial y la coagulación (no verificados). Evitar en embarazo (cuidadoras). El riesgo principal es que sustituya al tratamiento aprobado.",
+      "app_implication": "Ficha con el aviso explícito 'estudios pequeños de un solo grupo; no sustituye la medicación'. Se puede anotar como suplemento en la lista exportable. El azafrán culinario aparece solo como gastronomía, sin promesa terapéutica."
+    },
+    {
+      "claim": "Curcumina: un ECA de 24 semanas (36 aleatorizados, 2 o 4 g/día de C3 Complex) no mostró eficacia clínica ni bioquímica. La curcumina plasmática apenas llegó a 7,32 ng/mL y hubo 3 abandonos por síntomas digestivos. Un ECA pequeño (48 personas, formulación CurQfen) informó mejoría en el MMSE a 6 meses. Un estudio en ratones con una formulación biodisponible sugirió que podía aumentar la neuroinflamación.",
+      "evidence_level": "C",
+      "sources": [
+        "https://escholarship.org/uc/item/0913m586",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11285547",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11649387/",
+        "https://clinicaltrials.gov/study/NCT01001637"
+      ],
+      "negative_or_conflicting": "Con la formulación estándar no hay eficacia demostrada. El estudio positivo es pequeño y no se ha replicado. Una señal animal apunta a posible daño. Los resultados del NCT01001637 no se verificaron.",
+      "safety_notes": "Hepatotoxicidad descrita con preparados concentrados o con piperina, y posible interacción con anticoagulantes (conocimiento general, no verificado). Molestias digestivas.",
+      "app_implication": "La ficha explica la biodisponibilidad y que cocinar con cúrcuma no equivale a las dosis estudiadas. Lleva un aviso fijo: 'si la toma en cápsulas, coméntelo en la próxima analítica'."
+    },
+    {
+      "claim": "Aromaterapia y melisa: la Cochrane de aromaterapia para demencia (Ball 2020; 13 ECA, 708 participantes en residencias) no encuentra evidencia convincente de beneficio, con certeza muy baja. De 8 estudios que midieron la agitación, solo uno fue favorable, y la cognición no cambió en ninguno de los 2 que la midieron. Ballard 2002 (72 personas con demencia grave, loción de melisa) fue positivo, pero no se ha replicado. Un ECA japonés con extracto oral de melisa rico en ácido rosmarínico en Alzheimer (Sci Rep 2020) fue sobre todo de seguridad y factibilidad.",
+      "evidence_level": "C",
+      "sources": [
+        "https://www.cochrane.org/CD003150",
+        "https://www.conprueba.es/sites/default/files/informes/2024-04/SESCS_AROMATERAPIA_DEF.pdf",
+        "https://pubmed.ncbi.nlm.nih.gov/12143909/",
+        "https://www.nature.com/articles/s41598-020-73729-2"
+      ],
+      "negative_or_conflicting": "Cochrane y el informe SESCS (RedETS) coinciden: certeza muy baja y resultados mixtos. Los positivos (Ballard 2002) son pequeños y antiguos. No se verificaron en esta sesión los datos de Watson 2019 ni de Burns 2011 (melisa frente a donepezilo). El enlace de Sci Rep exige inicio de sesión: los resultados de eficacia de ese ECA no se verificaron. Baja de B a C.",
+      "safety_notes": "Los aceites esenciales nunca se ingieren. Una persona con agnosia puede bebérselos: guardarlos fuera de su alcance. Pueden irritar la piel. El extracto oral puede sumar sedación. Que una terapia 'no funcione' no debe hacer sentir culpable al cuidador.",
+      "app_implication": "Módulo 'rutina calmante' no farmacológica y personalizada: música biográfica, luz, contacto suave y el aroma que le gusta a la persona. Sirve como preferencia biográfica, no como terapia. Registro antes y después de cada episodio de agitación para que el cuidador vea qué le ayuda a ESTA persona. Las conclusiones las saca el cuidador; la app no emite veredictos."
+    },
+    {
+      "claim": "Masaje, shiatsu y acupresión en demencia: el informe UETS-Madrid (RedETS) de 2022 sobre shiatsu y acupresión descartó las 3 revisiones sistemáticas sobre demencia que encontró. Incluían solo 1 o 2 estudios de acupresión, muy antiguos y con alto riesgo de sesgo (entre ellas Margenfeld 2019 y Wu 2017). Tampoco pudo evaluar el insomnio ni el dolor en demencia. Solo hay un piloto de shiatsu como coadyuvante para la depresión en Alzheimer (Lanza 2018).",
+      "evidence_level": "D",
+      "sources": [
+        "https://www.conprueba.es/sites/default/files/informes/2026-04/PS_2022_%20UETS_M_%20Eficacia%20y%20seguridad%20del%20Shiatsu%20y%20la%20Acupresi%C3%B3n%20DEF.pdf"
+      ],
+      "negative_or_conflicting": "No hay evidencia evaluable sobre la acupresión. Para el masaje manual (Margenfeld 2019) no pude leer el resumen (PubMed bloqueó la apertura). Que falte evidencia no demuestra que no tenga efecto: es un contacto de bajo riesgo y plausible.",
+      "safety_notes": "Evitar con trombosis, heridas o piel frágil, y si la persona rechaza el contacto. Respetar siempre su 'no'.",
+      "app_implication": "Guía de 5 minutos de contacto o masaje suave de manos, presentado como un gesto de vínculo y confort y no como un tratamiento, con una opción para registrar cómo respondió la persona."
+    },
+    {
+      "claim": "Mindfulness para cuidadores familiares: la revisión Cochrane de reducción del estrés basada en mindfulness (MBSR; Liu 2018; 5 ECA, 201 cuidadores) muestra que, frente a controles activos, la MBSR puede reducir los síntomas depresivos y la ansiedad al final de la intervención. Frente a controles inactivos no hubo un efecto claro sobre la depresión. Solo se informó de un evento adverso menor (contractura cervical por yoga en casa).",
+      "evidence_level": "C",
+      "sources": [
+        "https://www.cochrane.org/CD012791",
+        "https://www.conprueba.es/sites/default/files/informes/2022-08/PS_SESCS_Meditacion_DEF_NIPO.pdf"
+      ],
+      "negative_or_conflicting": "Certeza baja o muy baja: estudios pequeños y alto riesgo de sesgo en la evaluación. Ninguno midió la calidad de vida ni el ingreso en residencia. El efecto sobre la carga del cuidador es incierto y podría incluso aumentarla ligeramente.",
+      "safety_notes": "Bajo riesgo. No sustituye la atención en salud mental: el módulo necesita una vía de derivación ante una depresión grave o ideación suicida (teléfono 024 en España).",
+      "app_implication": "Módulo de bienestar del cuidador con prácticas breves (3-10 min) de respiración y atención plena, registro opcional del estado de ánimo y aviso de recursos de ayuda (024, asociaciones de familiares de personas con Alzheimer, atención primaria). Bajo coste, riesgo mínimo y beneficio para quien sostiene todo lo demás."
+    },
+    {
+      "claim": "En España, el Plan de Protección de la Salud frente a las Pseudoterapias (Ministerios de Sanidad y de Ciencia, campaña #coNprueba) publica informes de evaluación de la RedETS, gratuitos y en castellano. Hay informes sobre acupuntura (3), Tai-Chí, Chi Kung, shiatsu y acupresión, moxibustión, aromaterapia, meditación, yoga, respiración consciente, reflexología y otras. Su conclusión común es que la evidencia es de baja calidad y, en demencia, casi inexistente, salvo un efecto pequeño del Tai-Chí.",
+      "evidence_level": "B",
+      "sources": [
+        "https://www.conprueba.es/index.php/informes",
+        "https://www.conprueba.es/"
+      ],
+      "negative_or_conflicting": "Son evaluaciones de tecnologías sanitarias (overviews) que dependen de la calidad de las revisiones disponibles. Algunos informes tienen ya varios años.",
+      "safety_notes": "Riesgo reputacional y legal: si una app española presenta como eficaces terapias que el Ministerio clasifica como sin evidencia, choca con el marco del Plan y con la normativa de publicidad sanitaria.",
+      "app_implication": "Usarlos como fuente primaria en castellano para las fichas de terapias orientales, enlazando el informe oficial. El tono debe ser respetuoso con la cultura de la familia ('muchas familias lo usan; esto es lo que se sabe'), pero nunca debe avalar."
+    },
+    {
+      "claim": "Oligomanato sódico (GV-971), derivado de algas y desarrollado en China: según conocimiento general no verificado en esta sesión, recibió una aprobación condicional en China en 2019. Su ensayo internacional de fase 3 (GREEN MEMORY, NCT04520412, 2.046 participantes previstos, patrocinado por Green Valley) figura como suspendido, con la COVID-19 como motivo declarado.",
+      "evidence_level": "D",
+      "sources": [
+        "https://clinicaltrials.gov/study/NCT04520412"
+      ],
+      "negative_or_conflicting": "Sin confirmación internacional de eficacia. No está autorizado en la UE. La situación regulatoria actual en China no se verificó.",
+      "safety_notes": "Riesgo de compra por internet de un producto no autorizado y de origen dudoso.",
+      "app_implication": "Ficha de 'noticias y bulos': explica qué es, que no está autorizado en Europa y que no conviene comprarlo por internet. Sirve de plantilla para responder a futuras 'curas milagro' que lleguen a la familia."
+    },
+    {
+      "claim": "Ayurveda (Bacopa monnieri, ashwagandha), setas medicinales (melena de león, reishi), ginseng, salvia (Salvia miltiorrhiza u officinalis) y té verde/EGCG: no se pudo buscar ni verificar ninguna fuente en esta sesión. No consta ningún ECA de calidad en Alzheimer establecido. Lo disponible procede, según conocimiento general, de adultos sanos, de DCL con ensayos pequeños o de modelos animales.",
+      "evidence_level": "D",
+      "sources": [],
+      "negative_or_conflicting": "Afirmaciones específicas eliminadas (ensayos concretos de Hericium y Bacopa) por no poder sostenerse con fuentes. En la versión original, las setas figuraban como C sin fuente; se baja a D.",
+      "safety_notes": "Por conocimiento general, no verificado aquí: ashwagandha y extractos concentrados de té verde se asocian a casos de daño hepático; ginseng, salvia roja y reishi pueden interferir con anticoagulantes; Bacopa tiene efectos colinérgicos (náuseas, diarrea). Los extractos tienen un contenido real muy variable.",
+      "app_implication": "Fichas en gris ('no evaluado o sin evidencia en Alzheimer') con un aviso hepático y de anticoagulantes fijo. La app no los promueve. Las setas y el té aparecen solo como alimentos dentro de una dieta variada."
+    },
+    {
+      "claim": "Hallazgo transversal: la evidencia oriental procede sobre todo de ensayos pequeños de un solo país (China, Irán, Japón), con sesgo de publicación detectado, baja calidad metodológica e inconsistencias internas. Los ensayos grandes e independientes (GEM, GuidAge) fueron negativos. Las agencias españolas de evaluación (RedETS) llegan a la misma conclusión.",
+      "evidence_level": "B",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10242998/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11285646/",
+        "https://doi.org/10.1016/S1474-4422(12)70206-5",
+        "https://www.conprueba.es/index.php/informes"
+      ],
+      "negative_or_conflicting": "Una evidencia de baja calidad no es una prueba de ineficacia. Algunas intervenciones (Tai Chi, contacto, mindfulness para el cuidador) son de bajo riesgo y merecen ofrecerse como actividades de bienestar.",
+      "safety_notes": "Los mayores riesgos son abandonar el tratamiento aprobado, gastar en suplementos caros o adulterados, sufrir interacciones y caer en la idea de que 'natural' significa 'seguro'.",
+      "app_implication": "Principio de diseño: cada pantalla de terapia muestra su etiqueta de evidencia, la fuente, la fecha de revisión y quién la revisó, junto a 'habla con tu médico o farmacéutico'. La app registra, informa y exporta; nunca dosifica, diagnostica, recomienda comprar ni calcula riesgos personalizados."
+    }
+  ],
+  "app_features": [
+    "Biblioteca de terapias con dos ejes (dirección del efecto y confianza), fuente enlazada (priorizando Cochrane e informes RedETS/#coNprueba en castellano), fecha de revisión y revisor clínico",
+    "Programa de Tai Chi/Qigong de pie y en silla, en modo 'practicamos juntos' persona-cuidador, con registro de minutos practicados y de caídas o incidencias",
+    "Lista única de medicación y suplementos (marca, lote, desde cuándo) exportable en PDF para el médico o farmacéutico; al añadir un suplemento se muestra un texto fijo igual para todos ('coméntalo con tu farmacéutico'), sin cálculo personalizado de interacciones",
+    "Diario ABC de agitación con NPI simplificado, exportable, como base común para valorar cualquier intervención con el profesional",
+    "Rutina calmante personalizada a partir de la biografía (música, olores y gestos preferidos) con registro antes y después de los episodios; las conclusiones las saca el cuidador, sin veredicto automático",
+    "Guía de contacto y masaje suave de manos de 5 minutos, presentada como confort y vínculo",
+    "Módulo de bienestar del cuidador: respiración y atención plena breves, registro opcional del ánimo y derivación visible (024, atención primaria, asociaciones de familiares de personas con Alzheimer)",
+    "Sección 'bulos y curas milagro' (GV-971, suplementos 'anti-Alzheimer') con plantilla para analizar nuevas promesas que lleguen por WhatsApp",
+    "Plantilla de preguntas para llevar a consulta antes de empezar cualquier suplemento, hierba o acupuntura",
+    "Contenido de cocina tradicional (cúrcuma, azafrán, setas, té) presentado solo como gastronomía y placer, sin promesas terapéuticas"
+  ],
+  "questions_for_owner": [
+    "¿Aceptas que la finalidad declarada de la app sea explícitamente NO sanitaria (registro, información, organización) y que un consultor regulatorio revise antes del lanzamiento cualquier función que procese los datos de una persona concreta para sugerir acciones (regla 11 del MDR)?",
+    "¿Quién revisa clínicamente las fichas (geriatra, neurólogo, farmacéutico) y cada cuánto se actualizan? Sin un revisor con nombre, ¿aceptas publicar menos fichas?",
+    "Ante las terapias que el Ministerio considera sin evidencia: ¿las mostramos con una etiqueta honesta (para informar y desmentir) o las excluimos de la biblioteca?",
+    "¿La app tendrá algún ingreso, afiliación o patrocinador? Cualquier vínculo con la venta de suplementos o terapias invalidaría la neutralidad de las fichas.",
+    "¿Qué toma ahora la persona (inhibidores de la colinesterasa, memantina, anticoagulantes, antihipertensivos, suplementos) y quién lo supervisa? Esto define la prioridad del contenido, no alertas automáticas.",
+    "¿En qué fase está (leve, moderada o grave) y cómo está su movilidad o riesgo de caídas? De eso depende que el Tai Chi o el masaje tengan sentido.",
+    "¿Cuál es el síntoma que más pesa hoy en la familia (agitación, sueño, apatía, deambulación)? Lo usaremos para priorizar los módulos.",
+    "¿La familia tiene creencias o tradiciones (MTC, ayurveda, homeopatía, religiosas) que la app deba respetar en el tono, sin avalarlas?",
+    "¿Quién es el cuidador principal, cuánto tiempo y energía le quedan y qué dispositivo usa? Define el módulo de bienestar y la carga de registro aceptable.",
+    "¿Excluimos definitivamente los directorios de profesionales de terapias no reguladas (acupuntura incluida)?"
+  ],
+  "free_resources": [
+    {
+      "name": "#coNprueba - Informes RedETS sobre pseudoterapias",
+      "url": "https://www.conprueba.es/index.php/informes",
+      "what": "Informes oficiales en castellano sobre acupuntura, Tai-Chí, Chi Kung, shiatsu y acupresión, moxibustión, aromaterapia, meditación y yoga, entre otras. Es la fuente principal para las fichas.",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Informe UETS-Madrid: Eficacia y seguridad del Tai-Chí",
+      "url": "https://www.conprueba.es/sites/default/files/informes/2024-04/PS_16_2019_UETS_M_Eficacia%20y%20Seguridad%20Taichi_DEFINITIVO2.%20NIPO.pdf",
+      "what": "Incluye un apartado de deterioro cognitivo y demencia (efecto pequeño en el MMSE) y seguridad.",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Cochrane - Huperzine A for Alzheimer's disease",
+      "url": "https://www.cochrane.org/CD005592",
+      "what": "Resumen en lenguaje llano de la revisión CD005592.",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Cochrane - Ginkgo biloba for cognitive impairment and dementia",
+      "url": "https://www.cochrane.org/CD003120",
+      "what": "Resumen de la revisión de 2009: beneficio inconsistente y poco fiable.",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Cochrane - Aromatherapy for dementia",
+      "url": "https://www.cochrane.org/CD003150",
+      "what": "Resumen de Ball 2020: 13 ECA, sin evidencia convincente.",
+      "cost": "Resumen gratuito"
+    },
+    {
+      "name": "Cochrane - MBSR for family carers of people with dementia",
+      "url": "https://www.cochrane.org/CD012791",
+      "what": "Evidencia sobre mindfulness para cuidadores, base del módulo de bienestar.",
+      "cost": "Resumen gratuito"
+    },
+    {
+      "name": "Alzheimer's Drug Discovery Foundation - Cognitive Vitality",
+      "url": "https://www.alzdiscovery.org/cognitive-vitality/ratings/huperzine-a",
+      "what": "Fichas independientes de evidencia y seguridad de suplementos; modelo de referencia para el semáforo.",
+      "cost": "Gratis"
+    },
+    {
+      "name": "PubMed Central - metaanálisis abiertos",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10242998/",
+      "what": "Texto completo de Park 2023 sobre Tai Chi/Qigong; PMC permite enlazar y citar estudios libremente.",
+      "cost": "Gratis"
+    },
+    {
+      "name": "ClinicalTrials.gov - registro de ensayos (API v2)",
+      "url": "https://clinicaltrials.gov/study/NCT04520412",
+      "what": "Registro público para seguir ensayos (por ejemplo, GV-971 o huperzina). La API v2 permite actualizar las fichas de forma automática.",
+      "cost": "Gratis"
+    }
+  ],
+  "verification_notes": "Sin búsquedas web: el presupuesto compartido se agotó antes de empezar. Verifiqué con fetch directo y descargando los PDF. Cambios de nivel: Tai Chi/Qigong de A a B (sesgo de publicación, pocos datos en demencia establecida). Acupuntura, huperzina, yokukansan, azafrán y melisa/aromaterapia de B a C: ensayos pequeños de un solo grupo o país, subgrupos nulos y Cochrane de aromaterapia con certeza muy baja. Moxibustión y setas pasan a D. Ginkgo se mantiene en A, solo para prevención negativa, con la Cochrane de 2009 y los DOI de GEM y GuidAge. Hallazgos nuevos con fuentes abiertas: informes RedETS de #coNprueba (acupuntura, Tai-Chí, shiatsu/acupresión, moxibustión, aromaterapia), Cochrane de MBSR para cuidadores, GV-971 (GREEN MEMORY suspendido) y el ensayo ADCS de huperzina sin resultados publicados. Agrupé Ayurveda, setas, ginseng, salvia y EGCG en un único hallazgo D y quité las afirmaciones que no podía sostener. Eliminé la URL de ScienceDirect de yokukansan, cuyo contenido no se pudo comprobar. Quedan sin verificar Rafii 2011, Furukawa 2017 y la aprobación de GV-971 en China; están marcados así en el texto. Producto: eliminé las alertas automáticas personalizadas de interacción. Con la regla 11 del MDR podrían convertir la app en producto sanitario de clase IIa. No pude abrir la guía MDCG 2019-11 y conviene que lo confirme un consultor regulatorio. Las sustituí por textos fijos y una lista exportable al farmacéutico. También quité el directorio de acupuntores y los veredictos automáticos del 'experimento n=1', y añadí derivación al 024 en el módulo de cuidadores."
+}

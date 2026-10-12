@@ -1,0 +1,215 @@
+{
+"key": "cuidador_familia",
+"title": "Cuidador y familia",
+"summary": "La evidencia sobre intervenciones para cuidadores es modesta. El meta-review de Cheng y Zhang (BMC Geriatr 2020; 60 revisiones, calidad baja por AMSTAR 2, media 8,6/18) concluye que la depresion del cuidador es el resultado mas modificable (efectos pequenos, ~-0,30), la sobrecarga mejora poco e inconsistentemente (~-0,20), ansiedad y apoyo social casi no cambian, grupos de apoyo y respiro puros son en general ineficaces, y NO hay evidencia de que los programas multicomponente o diadicos tengan impactos mas amplios. Lo mejor respaldado: psicoeducacion activa, entrenamiento en habilidades y manejo de conductas, terapia ocupacional, terapia de afrontamiento manualizada (START, RCT con seguimiento largo y coste-efectiva) y coordinacion de cuidados por telefono (Care Ecosystem: RCT n=780 con mejora pequena pero significativa de depresion PHQ-9 y sobrecarga Zarit del cuidador). La unica herramienta digital DICE probada (WeCareAdvisor) solo tiene un piloto RCT n=57. iSupport (OMS) es gratuito pero el piloto espanol mostro abandono muy alto y sin cambio en sobrecarga: la app debe dar microcontenido just-in-time y acciones, no un curso. Riesgos olvidados: maltrato por agotamiento (un tercio de cuidadores refiere conductas abusivas significativas) y salud fisica del cuidador. Implicaciones: (1) autochequeo periodico (Zarit-4/12, PHQ-2/9) con rutas de ayuda, sin etiquetas diagnosticas; (2) diario DICE descriptivo que genera informe para el medico sin inferir causas; (3) reparto de turnos y gastos entre familiares; (4) guia de tramites espanola enlazando a fuentes oficiales sin codificar importes; (5) duelo anticipado y autocuidado breve. Linea roja regulatoria: la app registra, informa con nivel de evidencia y deriva; nunca diagnostica, estadifica, puntua riesgo clinico ni dosifica, para quedar fuera de la regla 11 del MDR.",
+"findings": [
+{
+"claim": "Meta-review (Cheng y Zhang, BMC Geriatrics 2020;20:137) de 60 revisiones sistematicas (2006-2018, >500 estudios) sobre intervenciones no farmacologicas para cuidadores informales de demencia: depresion es el resultado mas modificable (psicoeducacion, psicoterapia/TCC, TO, mindfulness, multicomponente; efectos tipicos ~-0,30); sobrecarga con evidencia debil o mixta (~-0,20); maestria/autoeficacia mejora con psicoeducacion y TO; ansiedad y apoyo social apenas cambian; grupos de apoyo y respiro generalmente ineficaces; sin evidencia de superioridad de programas diadicos, grupales ni multicomponente. Calidad de las revisiones baja (AMSTAR 2 media 8,6/18).",
+"evidence_level": "B",
+"sources": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC7158025/"],
+"app_implication": "No prometer reducir la carga con contenido pasivo. Priorizar funciones activas (ejercicios de habilidades, planes de afrontamiento, registro con devolucion de la propia tendencia). Ofrecer PHQ-2/PHQ-9 y Zarit como autoevaluacion orientativa con su nivel de evidencia, mostrando la puntuacion y una recomendacion generica de comentarla con el medico de familia si es alta o persiste; sin etiquetas tipo 'tienes depresion moderada'.",
+"negative_or_conflicting": "Bajado de A a B: es una revision de revisiones de baja calidad, con estudios solapados y medidas heterogeneas. Contradice parcialmente la revision de apps (que sugiere ventaja multicomponente en sobrecarga). Una revision de 2006 con efecto del respiro no se ha replicado.",
+"safety_notes": "La app no trata la depresion. Item 9 del PHQ-9 positivo (pensamientos de muerte o autolesion): pantalla inmediata con 024 y 112, sin consejos ni puntuaciones; texto revisado por profesional de salud mental."
+},
+{
+"claim": "REACH II (Belle et al., Ann Intern Med 2006; RCT multicentrico EE. UU., 642 diadas): intervencion multicomponente de 6 meses adaptada a 5 areas de riesgo (depresion, sobrecarga, autocuidado, apoyo social, conductas problema) con educacion, habilidades, apoyo social, reencuadre cognitivo y manejo del estres. Mejoro un indicador compuesto de calidad de vida en cuidadores hispanos y blancos; en afroamericanos solo en conyuges.",
+"evidence_level": "B",
+"sources": ["https://www.nih.gov/news-events/news-releases/novel-program-enhances-dementia-caregivers-quality-life", "https://clinicaltrials.gov/study/NCT00177489", "https://med.stanford.edu/oafc/projects/reach.html"],
+"app_implication": "Usar las 5 areas como estructura de onboarding: el cuidador marca que le preocupa y la app prioriza contenidos y recordatorios segun lo marcado. No calcular ni mostrar un 'nivel de riesgo' del cuidador. Contenido culturalmente adaptado (cuidador hispano, familia extensa).",
+"negative_or_conflicting": "Un solo RCT grande, no ciego, en EE. UU. con intervencion presencial y telefonica de ~12 sesiones por profesionales; no hay evidencia de que la version autoaplicada en app reproduzca el efecto. Efectos heterogeneos por grupo etnico; el n y el tamano de efecto no se cotejaron con el articulo original en esta revision.",
+"safety_notes": "No etiquetar al cuidador como 'en riesgo'; los cuestionarios son orientativos."
+},
+{
+"claim": "iSupport (OMS, 2019): programa de formacion y apoyo para cuidadores en 5 modulos, disponible como manual y curso en linea, licencia CC BY-NC-SA 3.0 IGO, adaptable. Eficacia mixta: un RCT chino mejoro calidad de vida mental, autoeficacia y malestar por conductas; un RCT britanico (n=352) no mostro beneficio en bienestar; el piloto espanol iSupport-Sp aumento conocimiento sin cambio en sobrecarga y con adherencia muy baja.",
+"evidence_level": "C",
+"sources": ["https://www.who.int/publications/i/item/9789241515863", "https://pmc.ncbi.nlm.nih.gov/articles/PMC13067446/", "https://www.sciencedirect.com/science/article/pii/S0020748924001810"],
+"app_implication": "Adaptar contenido de iSupport respetando CC BY-NC-SA (atribucion, uso no comercial, misma licencia en lo derivado) como micro-lecciones de 2-3 min disparadas por el problema registrado ese dia (p. ej. 'se niega a ducharse'), no como curso lineal. Guardado local robusto y audio opcional, que fueron quejas del piloto espanol.",
+"negative_or_conflicting": "Bajado de B a C por resultados contradictorios entre RCT. Piloto espanol: conocimiento mediana 16 a 17 (p=0,002), sobrecarga sin cambio (p=0,386), solo 27,7% (33/119) completo; quejas de longitud, repeticion, audio y perdida de respuestas. Piloto portugues: retencion 52% frente a 95% en control.",
+"safety_notes": "Licencia NC: cualquier monetizacion (incluida publicidad) exige permiso de la OMS. Verificar licencia y titularidad de la adaptacion espanola (Universidad de Salamanca) antes de reutilizar textos."
+},
+{
+"claim": "Apps y eHealth para cuidadores de demencia: evidencia prometedora pero debil. Revision de 22 estudios: 77% reporta al menos un resultado significativo; multicomponente reduce sobrecarga en 3 de 4 estudios frente a 2 de 6 de psicoeducacion sola; depresion mixta. Metaanalisis de 5 estudios de apps (230 participantes) favorable pero sin potencia. Revision de intervenciones online (19 articulos, 2.264 participantes): poco o ningun efecto a corto plazo en sobrecarga, posible mejora de autoeficacia (certeza baja).",
+"evidence_level": "C",
+"sources": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC11311318/", "https://karger.com/dem/article-abstract/51/3/203/827984/Effects-of-App-Based-Mobile-Interventions-for?redirectedFrom=fulltext", "https://pmc.ncbi.nlm.nih.gov/articles/PMC12886064", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12238300/"],
+"app_implication": "Combinar registro, habilidades y conexion con personas (familia, AFA) en lugar de una app solo informativa. Medir la propia utilidad (retencion, Zarit-12 a 0/8/16 semanas) solo con consentimiento explicito y separado; si se quiere publicar, protocolo con comite de etica.",
+"negative_or_conflicting": "Bajado de B a C: 43 instrumentos distintos, ~80% con riesgo de sesgo en ocultacion de la asignacion, muestras pequenas, casi solo en ingles; otra revision de 13 estudios sin efecto en sobrecarga; el meta-review de Cheng no halla ventaja multicomponente.",
+"safety_notes": "No afirmar 'clinicamente probado'. Declarar en la app que la evidencia de apps es preliminar."
+},
+{
+"claim": "Zarit Burden Interview: version de 12 items (0-48; correlacion 0,92-0,97 con la de 22) y de cribado de 4 items (0-16; >=8 sugiere sobrecarga alta), Bedard et al. 2001. Puntos de corte de la ZBI-12 variables segun fuente. Existen versiones espanolas de la ZBI y versiones reducidas usadas en Espana (atencion primaria, paliativos), cuya validacion concreta no se ha cotejado aqui.",
+"evidence_level": "B",
+"sources": ["https://pubmed.ncbi.nlm.nih.gov/11574710/", "https://wai.wisc.edu/wp-content/uploads/sites/269/2021/11/Zarit-Caregiver-Burden-Assessment-Instruments.pdf"],
+"app_implication": "Autochequeo 'como estas tu': Zarit-4 mensual y Zarit-12 trimestral con grafica de tendencia; si la puntuacion es alta o sube, sugerir hablar con medico de familia, trabajador social o AFA y mostrar recursos de respiro. Usar la respuesta sobre conductas para ofrecer el diario DICE.",
+"negative_or_conflicting": "Puntos de corte no universales; la version de 4 items no esta validada especificamente en poblacion espanola segun lo localizado. Se elimina el enlace a oncozine (copia no oficial del formulario, posible infraccion de derechos).",
+"safety_notes": "La ZBI tiene copyright (licencias via Mapi Research Trust); pedir licencia, aunque sea gratuita para uso no comercial, antes de incluir los textos exactos, o usar una alternativa de libre uso. No diagnostica 'burnout'."
+},
+{
+"claim": "DICE (Describir, Investigar, Crear, Evaluar; Kales, Gitlin, Lyketsos, BMJ 2015;350:h369): marco para evaluar y manejar sintomas conductuales y psicologicos de la demencia priorizando causas medicas, ambientales, de comunicacion y del cuidador antes de recurrir a farmacos. Nacio de un panel de expertos (Detroit 2011).",
+"evidence_level": "D",
+"sources": ["https://psychiatryonline.org/doi/10.1176/appi.pn.2014.6a7", "https://ihpi.umich.edu/news/non-drug-approaches-work-better-treat-dementia-behavioral-issues"],
+"app_implication": "Diario de episodios en 4 pasos: describir (cuando, donde, quien, que paso antes y despues); lista de comprobacion de factores a comentar con el medico (dolor, estrenimiento, sintomas urinarios, sueno, hambre/sed, ruido, cambio reciente de medicacion, cansancio del cuidador) sin que la app infiera ni sugiera una causa; plan de ajustes no farmacologicos elegido por la familia; evaluacion. Informe exportable con recuentos descriptivos (horas, frecuencia, desencadenantes anotados), sin interpretacion clinica.",
+"negative_or_conflicting": "Marco de consenso; el paquete DICE solo tiene un piloto digital (WeCareAdvisor, ver hallazgo propio). Se elimina la cita PubMed 36155312, cuyo contenido no se pudo comprobar.",
+"safety_notes": "Lista estatica de banderas rojas que derivan a medico o 112: empeoramiento brusco o confusion nueva (posible delirium), fiebre, caida o golpe, dolor intenso, dificultad respiratoria, riesgo para si o terceros. Nunca sugerir iniciar, parar o cambiar psicofarmacos ni otra medicacion."
+},
+{
+"claim": "WeCareAdvisor (Kales et al., BMC Geriatrics 2018;18:113): herramienta online para cuidadores basada en DICE. Piloto RCT en 2 sitios, n=57 (lista de espera de 1 mes): menor malestar del cuidador frente al control (beta -3,71; p=0,02); confianza sin diferencia robusta (p=0,09 en un modelo, p=0,004 en otro); reduccion intra-grupo de frecuencia y gravedad de conductas sin diferencia entre grupos.",
+"evidence_level": "C",
+"sources": ["https://link.springer.com/article/10.1186/s12877-018-0801-8"],
+"app_implication": "Es el precedente mas cercano a la funcion DICE de esta app: valida la idea de guiar al cuidador paso a paso y sugiere medir malestar del cuidador ante las conductas como resultado principal. Inspirarse en el flujo, no copiar contenidos (marca registrada).",
+"negative_or_conflicting": "Piloto pequeno y exploratorio, control debil (lista de espera), el grupo intervencion recibio llamadas de apoyo adicionales; los propios autores piden ensayos mayores. No se verifico si existe ya el ensayo definitivo publicado.",
+"safety_notes": "Sin efecto demostrado sobre las conductas frente a control; no prometer que reduce la agitacion."
+},
+{
+"claim": "Programas de entrenamiento conductual y ocupacional en domicilio: STAR-C (Teri 2005, RCT n=95; 8 sesiones domiciliarias y 4 llamadas; resolucion de problemas y eventos agradables) y Tailored Activity Program (TAP, terapia ocupacional con actividades adaptadas a intereses y capacidades; piloto n=60 y RCT posteriores) se asocian a menos sintomas conductuales y menos malestar del cuidador.",
+"evidence_level": "C",
+"sources": ["https://pubmed.ncbi.nlm.nih.gov/16326662/", "https://pubmed.ncbi.nlm.nih.gov/19420314/", "https://link.springer.com/article/10.1186/s12877-021-02511-4", "https://pubmed.ncbi.nlm.nih.gov/16199404/"],
+"app_implication": "Funcion 'Actividades a medida': perfil de intereses e historia (oficio, musica, aficiones) y banco de actividades filtrado por capacidades que describe la familia (p. ej. 'sigue instrucciones de 1 paso'), no por estadio calculado por la app; registro de respuesta (disfrute, calma, rechazo) y 'evento agradable del dia'. Permitir que un terapeuta ocupacional cree o ajuste el plan.",
+"negative_or_conflicting": "Bajado de B a C: ensayos individuales de tamano pequeno-moderado, intervenciones presenciales por profesionales, tamanos de efecto no verificados en esta revision y replicas fuera de EE. UU. con resultados no cotejados. La version autoaplicada en app no esta probada.",
+"safety_notes": "Filtrar actividades con riesgo (cocina, herramientas, objetos pequenos, salir solo) y avisar de supervision; no sustituye la valoracion de TO."
+},
+{
+"claim": "Care Ecosystem (Possin et al., JAMA Intern Med 2019; RCT pragmatico, 780 diadas, 512 intervencion y 268 control): coordinadores no sanitarios supervisados por enfermera, trabajador social y farmaceutico, por telefono e internet. A 12 meses: mejor calidad de vida del paciente (QoL-AD, B=0,53; p=0,04), menos urgencias, y en el cuidador menos depresion (PHQ-9, B=-1,14; p=0,03) y menos sobrecarga (Zarit, B=-1,90; p=0,046); autoeficacia mejor a 6 meses pero no a 12. Analisis secundarios: menor coste y menos medicacion potencialmente inapropiada.",
+"evidence_level": "B",
+"sources": ["https://jamanetwork.com/journals/jamainternalmedicine/fullarticle/2751946", "https://memory.ucsf.edu/healthcare-professionals/care-ecosystem", "https://pubmed.ncbi.nlm.nih.gov/37721734/", "https://alz-journals.onlinelibrary.wiley.com/doi/10.1002/alz.12808"],
+"app_implication": "'Plan de cuidado vivo' con check-ins quincenales autoaplicados, registro de cambios (sueno, conducta, caidas, comida) y lista de medicacion tal como la anota la familia para llevar a la consulta y pedir revision al medico o farmaceutico. La app no marca farmacos como inapropiados. El valor diferencial es humano: ofrecer conexion con la AFA o el trabajador social como navegador.",
+"negative_or_conflicting": "Corrige el original: el efecto en depresion y sobrecarga del cuidador SI esta en el articulo principal, aunque es pequeno (1 punto de PHQ-9, 2 de Zarit) y con limite superior del IC cercano a 0. Un solo RCT en EE. UU., no ciego; el efecto depende de personal humano que la app sola no sustituye.",
+"safety_notes": "Los cambios registrados no son diagnosticos; mostrar siempre ruta a medico de cabecera o 112 ante banderas rojas. Detectar medicacion inapropiada automaticamente seria software de decision clinica (producto sanitario)."
+},
+{
+"claim": "START (STrAtegies for RelaTives; Livingston et al., BMJ 2013;347:f6276): terapia de afrontamiento manualizada de 8 sesiones individuales impartida por psicologos no clinicos supervisados. RCT pragmatico en Reino Unido (n=260 cuidadores familiares): menos sintomas afectivos (HADS) y menos depresion de nivel caso frente a cuidados habituales, coste-efectiva, con beneficio mantenido en seguimientos posteriores a largo plazo publicados por el mismo equipo.",
+"evidence_level": "B",
+"sources": ["https://doi.org/10.1136/bmj.f6276"],
+"app_implication": "Es de las intervenciones para cuidadores con mejor evidencia de efecto duradero. La app puede incluir ejercicios breves inspirados en sus componentes (entender conductas, cambiar pensamientos no utiles, planificar actividades agradables, comunicacion asertiva, relajacion) y, sobre todo, informar de que existe y facilitar que el cuidador lo pida a su AFA o psicologo. Verificar licencia de los manuales antes de adaptarlos.",
+"negative_or_conflicting": "Un solo equipo y un solo RCT principal; intervencion presencial con terapeuta, no autoaplicada; no hay evidencia de que una version en app conserve el efecto. Las cifras de seguimiento a largo plazo no se cotejaron en esta revision (DOI verificado; acceso a texto bloqueado).",
+"safety_notes": "Presentarlo como informacion sobre un programa, no como terapia administrada por la app."
+},
+{
+"claim": "Mindfulness para cuidadores de demencia: metaanalisis de 13 RCT (2024) con reduccion de estres y ansiedad, y de depresion solo con programas de >=8 semanas; metaanalisis de 15 RCT (Han 2022) con efectos medios-grandes a corto plazo en depresion, ansiedad, estres y calidad de vida; metaanalisis previo de 10 estudios d=0,71.",
+"evidence_level": "B",
+"sources": ["https://pubmed.ncbi.nlm.nih.gov/37950556/", "https://doi.org/10.1177/01640275211043486", "https://pubmed.ncbi.nlm.nih.gov/32629924/", "https://pmc.ncbi.nlm.nih.gov/articles/PMC7551694/"],
+"app_implication": "Pausas guiadas de 3-10 min (respiracion, escaneo corporal, autocompasion) en audio propio sin conexion, programa opcional de 8 semanas con recordatorios, y estres autopercibido 0-10 antes y despues para que cada usuario vea si le sirve.",
+"negative_or_conflicting": "Bajado de A a B: RCT pequenos, controles frecuentemente lista de espera, alta heterogeneidad y seguimiento corto; sin efecto inmediato en depresion ni sobrecarga en el metaanalisis de 2024; el meta-review cataloga la ansiedad como poco modificable. Los resumenes de PubMed no se pudieron leer directamente.",
+"safety_notes": "Puede aumentar malestar en personas con trauma o depresion grave: aviso, opcion de parar y salida a ayuda profesional. No sustituye tratamiento."
+},
+{
+"claim": "Validacion (Feil): la revision Cochrane (Neal y Wright 2003) no pudo concluir eficacia por pocos ensayos y de baja calidad; su base teorica es discutida. Positive Approach (Teepa Snow) y GEMS no tienen RCT localizados; Gentle Persuasive Approaches solo estudios antes-despues en personal. Comparten principios de comunicacion de bajo riesgo.",
+"evidence_level": "D",
+"sources": ["https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD001394/information", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10019848/"],
+"app_implication": "Tarjetas de comunicacion 'que decir y que evitar' con principios comunes de bajo riesgo (no discutir ni corregir, validar la emocion, frases cortas, un paso cada vez, acercarse de frente, dar tiempo), etiquetadas como 'practicas sugeridas por expertos, evidencia limitada'. Frases para situaciones tipicas ('quiero ir a casa', 'donde esta mi madre').",
+"negative_or_conflicting": "Resultados Cochrane no leidos directamente (acceso bloqueado). Se retira PMC12949470 por no poder confirmarse su relacion con la afirmacion. Materiales de Teepa Snow y GEMS son de marca y de pago: no copiar.",
+"safety_notes": "Mentir sistematicamente plantea dilemas eticos y puede romper la confianza; ofrecer alternativa de 'redirigir con verdad suave' y respetar la dignidad de la persona."
+},
+{
+"claim": "Respiro y centros de dia: la revision Cochrane de respiro (Maayan, Soares-Weiser y Lee, 2014; 4 RCT, 753 participantes) concluye con evidencia de certeza muy baja que no se demuestra beneficio ni dano en cuidadores ni pacientes; ausencia de evidencia no equivale a ausencia de efecto. El meta-review de Cheng describe el respiro como generalmente ineficaz en los resultados medidos.",
+"evidence_level": "C",
+"sources": ["https://doi.org/10.1002/14651858.CD004396.pub3", "https://pmc.ncbi.nlm.nih.gov/articles/PMC7158025/", "https://cdn.who.int/media/docs/default-source/mental-health/mhgap/dementia_q10_respite_en.pdf"],
+"app_implication": "No venderlo como solucion, si facilitarlo como derecho y necesidad practica: planificador de descansos, banco de horas compartido entre familiares, calendario de centro de dia y respiro, y medida personal de estres antes/despues para que cada familia valore si le ayuda.",
+"negative_or_conflicting": "Bajado de A a C: la conclusion se apoya en 4 RCT heterogeneos de certeza muy baja (la revision es de calidad, la evidencia no). Un metaanalisis de 2006 hallo reduccion de sobrecarga, no replicado. Se corrige la URL (pub2 era la version de 2004).",
+"safety_notes": "El relevo conlleva riesgo si el sustituto no conoce a la persona: ficha de traspaso (rutinas, alergias, medicacion tal como esta prescrita, contactos, senales de alarma)."
+},
+{
+"claim": "Maltrato por cuidadores familiares: encuesta representativa en Reino Unido (Cooper et al., BMJ 2009;338:b155; ~220 cuidadores) en la que aproximadamente la mitad refirio alguna conducta abusiva y alrededor de un tercio conductas abusivas significativas (sobre todo verbales) hacia la persona con demencia, asociadas a ansiedad y depresion del cuidador y a agresividad del paciente.",
+"evidence_level": "C",
+"sources": ["https://doi.org/10.1136/bmj.b155"],
+"app_implication": "Tratar el agotamiento como riesgo para ambos: autochequeo privado y sin juicio ('esta semana he gritado o perdido la paciencia') que, si se marca, ofrece pausa inmediata, recursos de respiro, AFA y 024, sin compartirse con la familia salvo que el cuidador lo decida. Contenido que normalice pedir ayuda antes de llegar al limite.",
+"negative_or_conflicting": "Estudio transversal autoinformado en un solo pais; cifras citadas de memoria con el DOI verificado pero sin lectura del texto completo (bloqueado). La definicion de 'abuso' incluye gritar o insultar, que no equivale a violencia fisica.",
+"safety_notes": "Si hay riesgo de dano fisico a la persona o al cuidador: 112. No registrar estas respuestas en datos compartidos ni en la nube sin consentimiento expreso; tono no culpabilizador revisado por psicologo."
+},
+{
+"claim": "Salud del cuidador: Schulz y Beach (JAMA 1999) hallaron mayor mortalidad (~63%) en conyuges cuidadores que referian tension; estudios poblacionales posteriores (Roth et al., Am J Epidemiol 2013) hallaron mortalidad menor en cuidadores en general. La lectura actual: el riesgo se concentra en cuidadores con alta tension, no en cuidar per se.",
+"evidence_level": "C",
+"sources": ["https://doi.org/10.1001/jama.282.23.2215", "https://doi.org/10.1093/aje/kwt225"],
+"app_implication": "Recordatorios de autocuidado del propio cuidador (sus citas medicas, su medicacion, sueno, actividad fisica, vacunas) con el mismo cuidado que los del paciente; mensaje basado en evidencia: 'la tension, no el cuidar, es lo que pesa', evitando alarmismo.",
+"negative_or_conflicting": "Resultados opuestos entre estudios; observacionales con confusion; cifras de memoria, DOIs verificados pero textos no leidos.",
+"safety_notes": "No usar cifras de mortalidad como mensaje motivacional (genera culpa y miedo)."
+},
+{
+"claim": "Duelo anticipado y perdida ambigua (Boss): la persona esta fisicamente presente pero psicologicamente ausente; se asocia a mas depresion y ansiedad. Un metaanalisis reciente de intervenciones psicosociales no hallo efecto global a corto plazo, con mejoras en subdominios. Existen escalas de cribado (MM-CGI y formas cortas).",
+"evidence_level": "C",
+"sources": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC13534144/", "https://www.tandfonline.com/doi/full/10.1080/13607863.2022.2032599", "https://www.tandfonline.com/doi/full/10.1080/13576275.2025.2561691"],
+"app_implication": "Seccion 'Lo que sientes tiene nombre': normalizar duelo anticipado, culpa y alivio; diario emocional privado; libro de vida y espacio para cartas o audios de familiares en cada fase.",
+"negative_or_conflicting": "Sin efecto global de las intervenciones; evidencia debil y heterogenea. Metaanalisis no leido en texto completo en esta revision.",
+"safety_notes": "Puede evolucionar a depresion; incluir derivacion. Evitar frases que minimicen ('al menos sigue aqui')."
+},
+{
+"claim": "Ley de Dependencia (Ley 39/2006): 3 grados (I moderada, II severa, III gran dependencia); catalogo de servicios (prevencion, teleasistencia, ayuda a domicilio, centros de dia/noche, residencia) y prestacion economica para cuidados en el entorno familiar (PECEF). Desde el RD-ley 6/2019 las cotizaciones a la Seguridad Social del convenio especial del cuidador no profesional las abona el IMSERSO (Estado). Las cuantias citadas en blogs son contradictorias y no se han verificado en fuente oficial vigente.",
+"evidence_level": "D",
+"sources": ["https://www.boe.es/buscar/act.php?id=BOE-A-2006-21990", "https://www.boe.es/buscar/act.php?id=BOE-A-2019-3244", "https://boe.es/boe/dias/2007/08/10/pdfs/A34306-34313.pdf", "https://www.juntadeandalucia.es/agenciadeserviciossocialesydependencia/index.php/m-dependencia/m-prestaciones/m-pecuidados"],
+"app_implication": "Asistente de tramites (solicitud, valoracion, PIA, revision de grado, recursos) con checklist de documentos, recordatorio de plazos que introduce la familia, glosario y enlaces por comunidad autonoma. Avisar del convenio especial gratuito para el cuidador no profesional. No codificar importes ni plazos: enlazar a fuente oficial con fecha de ultima verificacion.",
+"negative_or_conflicting": "Gran variacion entre CCAA y reformas en curso (baremos, posibles cambios de grados) no verificadas. Se retiran como fuentes un blog y una copia no oficial de un real decreto.",
+"safety_notes": "Informativo, no asesoramiento; confirmar siempre con servicios sociales. No prometer prestaciones."
+},
+{
+"claim": "Ley 8/2021 de capacidad juridica: sustituye la incapacitacion y la tutela de adultos por un sistema de apoyos; prioriza medidas voluntarias otorgadas en escritura publica (poderes y mandatos preventivos que siguen vigentes si la persona necesita apoyo, autocuratela); la curatela pasa a ser principalmente asistencial y solo excepcionalmente representativa; reconoce la guarda de hecho como institucion de apoyo.",
+"evidence_level": "D",
+"sources": ["https://www.boe.es/buscar/act.php?id=BOE-A-2021-9233", "https://repositorio.comillas.edu/items/fd8bb70f-f0f9-419d-9474-ece43378a445"],
+"app_implication": "Linea de tiempo 'decisiones a tomar pronto, con la persona': poder preventivo o autocuratela ante notario mientras pueda otorgarlo, voluntades anticipadas (documento de instrucciones previas de su comunidad), cuentas, testamento. Aviso respetuoso tras el diagnostico en fase inicial de que esa ventana es limitada. Explicar la guarda de hecho, que es la situacion real de muchas familias.",
+"negative_or_conflicting": "La capacidad para otorgar la valora el notario en cada caso; doctrina y practica judicial aun en evolucion.",
+"safety_notes": "No es asesoramiento juridico; derivar a notario o abogado. Disenar estas decisiones con la participacion de la persona con Alzheimer, no solo de la familia (espiritu de la ley)."
+},
+{
+"claim": "Recursos de apoyo en Espana: CEAFA agrupa en torno a 300 asociaciones de familiares (AFAs) a traves de sus federaciones; la linea 024 del Ministerio de Sanidad es gratuita, confidencial, 24 h, y atiende tambien a familiares y allegados, con derivacion a 112 en emergencia.",
+"evidence_level": "D",
+"sources": ["https://fundacionlealtad.org/informe-ceafa", "https://www.alzheimer-europe.org/about-us/who-we-are/members/confederacion-espanola-de-alzheimer-ceafa", "https://www.sanidad.gob.es/linea024/home.htm"],
+"app_implication": "Boton siempre visible 'Necesito hablar con alguien' (024, 112, AFA local). Directorio de AFAs por provincia solo con datos abiertos o permiso de CEAFA, con fecha de verificacion. Las rutas de crisis se activan por eleccion del usuario o por un item validado respondido explicitamente, nunca por analisis automatico de textos libres.",
+"negative_or_conflicting": "El numero de AFAs varia segun la fuente y el ano. Webs de CEAFA y Fundacion Pasqual Maragall no verificadas en esta revision.",
+"safety_notes": "Texto de crisis revisado por profesional de salud mental; probar que funciona sin conexion (al menos el marcado de 024/112)."
+},
+{
+"claim": "Regulacion: segun el MDR (Reglamento UE 2017/745) y la guia MDCG 2019-11, el software es producto sanitario si su finalidad es medica para pacientes concretos (diagnostico, prediccion, pronostico, tratamiento, monitorizacion); por la regla 11 el software que proporciona informacion para decisiones diagnosticas o terapeuticas es como minimo clase IIa. El software que solo almacena, comunica, organiza o informa de forma general, o de bienestar, no lo es. Ademas, los datos de salud son categoria especial (RGPD art. 9).",
+"evidence_level": "D",
+"sources": ["https://health.ec.europa.eu/system/files/2020-09/md_mdcg_2019_11_guidance_qualification_classification_software_en_0.pdf", "https://eur-lex.europa.eu/eli/reg/2017/745/oj"],
+"app_implication": "Fijar por escrito la finalidad prevista: 'herramienta de organizacion, registro y apoyo informativo para familias'. Prohibido en el producto: calcular estadio, puntuar riesgo clinico, sugerir causas medicas, detectar interacciones o medicacion inapropiada, ajustar dosis. Permitido: registrar, recordar lo que prescribio el medico, exportar informes descriptivos, informar con nivel de evidencia y derivar. Privacidad: datos en el dispositivo por defecto, cifrado, roles y permisos por familiar, consentimiento separado para cada uso, evaluacion de impacto (EIPD).",
+"negative_or_conflicting": "La frontera es interpretativa (cuestionarios con puntuacion y umbral pueden considerarse apoyo a decision); conviene consulta a la AEMPS o a un experto regulatorio antes del lanzamiento. Guia no releida en esta revision (acceso bloqueado).",
+"safety_notes": "Las afirmaciones de marketing tambien definen la finalidad: no decir 'detecta', 'previene' ni 'trata'."
+}
+],
+"app_features": [
+"Autochequeo del cuidador (Zarit-4 mensual, Zarit-12 trimestral, PHQ-2/9, estres 0-10) con tendencia, sin etiquetas diagnosticas, y rutas de ayuda (024, 112, medico de familia, AFA)",
+"Diario DICE de episodios con lista de factores a comentar con el medico, banderas rojas estaticas e informe exportable solo descriptivo",
+"Micro-lecciones just-in-time (2-3 min) adaptadas de iSupport y disparadas por el problema registrado, offline",
+"Reparto de turnos, tareas y gastos entre familiares con calendario compartido, propuestas, registro transparente y resumen de equidad",
+"Ficha de traspaso y plan de cuidado compartido para respiro, cuidadora contratada o interna (rutinas, alergias, medicacion tal como esta prescrita, contactos, senales de alarma)",
+"Asistente de tramites espanol (Dependencia, PIA, convenio especial del cuidador, discapacidad, Ley 8/2021, instrucciones previas) con enlaces oficiales por CCAA y fecha de verificacion",
+"Actividades a medida filtradas por capacidades descritas por la familia, con registro de respuesta y libro de vida",
+"Pausas de mindfulness y autocompasion en audio propio offline, programa opcional de 8 semanas",
+"Modo familiar a distancia: resumen diario, llamadas programadas, tablon y aviso de cambios registrados",
+"Duelo anticipado y perdida ambigua con diario emocional privado y cartas o audios familiares",
+"Modo cuidadora contratada: checklist de tareas, formacion minima, canal de incidencias y recordatorio de derechos laborales basicos",
+"Boton 'Necesito hablar con alguien' siempre visible y modo nocturno de calma con tarjetas de comunicacion rapidas",
+"Autocuidado del cuidador: sus propias citas, medicacion prescrita, sueno, actividad y descansos con los mismos recordatorios que el paciente",
+"Privacidad por diseno: datos en el dispositivo por defecto, cifrado, roles y permisos por familiar, consentimientos separados, modo sin cuenta",
+"Accesibilidad para cuidadores mayores: texto grande, voz, pocas opciones por pantalla, uso con una mano y lenguas cooficiales",
+"Fuera de la caja: red de intercambio de horas de respiro entre familias y voluntariado canalizada por la AFA (moderacion humana, no por la app)",
+"Fuera de la caja: banco de voz y recuerdos de la persona y su familia para momentos dificiles, probado con cautela por si desorienta"
+],
+"questions_for_owner": [
+"En que fase esta hoy la persona (segun su neurologo) y que conductas pesan mas: agitacion por la tarde, rechazo a la higiene, sueno, preguntas repetitivas, salir de casa?",
+"Quien es el cuidador principal, que edad y salud tiene, cuantas horas cuida y usa movil con soltura?",
+"Cuantos familiares participan, viven lejos, y hay tension por turnos, gastos o decisiones?",
+"Hay cuidadora contratada o interna? Que idioma habla y con que contrato y formacion?",
+"Estan hechos la valoracion de dependencia, el PIA, el grado de discapacidad, el poder preventivo y las instrucciones previas? En que comunidad autonoma viven?",
+"Como participa la propia persona con Alzheimer en la app y en las decisiones? Que ha dicho ella sobre ser registrada?",
+"Quien puede ver que: el cuidador acepta que su autochequeo sea privado por defecto y solo comparta lo que elija?",
+"Hay un profesional sanitario (medico, psicologo, enfermera, TO) dispuesto a revisar contenidos y textos de crisis de forma voluntaria?",
+"Aceptan por escrito que la app no diagnostica, no estadifica, no puntua riesgo clinico ni dosifica, para quedar fuera de producto sanitario?",
+"Datos solo en el movil o sincronizados en la nube entre familiares? Si es nube, quien es responsable del tratamiento RGPD?",
+"Aceptan que sea no comercial para reutilizar iSupport (CC BY-NC-SA) y pedir licencia gratuita de Zarit?",
+"Hay relacion con la AFA local o un trabajador social que pueda ejercer de navegador humano y moderar una red entre familias?",
+"Quieren medir si la app ayuda (con consentimiento y, si se publica, comite de etica) o solo usarla?",
+"Que les ha funcionado y que no hasta ahora (grupos, respiro, centro de dia, psicologo)?"
+],
+"free_resources": [
+{"name": "iSupport (OMS)", "url": "https://www.who.int/publications/i/item/9789241515863", "what": "Programa de formacion y apoyo para cuidadores, manual y curso en linea adaptable", "cost": "Gratuito; licencia CC BY-NC-SA 3.0 IGO"},
+{"name": "Linea 024 (Ministerio de Sanidad)", "url": "https://www.sanidad.gob.es/linea024/home.htm", "what": "Atencion a la conducta suicida 24 h, tambien para familiares", "cost": "Gratuito"},
+{"name": "Meta-review Cheng y Zhang 2020", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7158025/", "what": "Mapa de que intervenciones para cuidadores mueven que resultados", "cost": "Acceso abierto"},
+{"name": "Care Ecosystem (UCSF)", "url": "https://memory.ucsf.edu/healthcare-professionals/care-ecosystem", "what": "Modelo de coordinacion de cuidados con materiales para profesionales", "cost": "Gratuito (verificar condiciones de uso)"},
+{"name": "REACH II (ICPSR 4354)", "url": "https://www.icpsr.umich.edu/web/ICPSR/studies/4354/versions/V1", "what": "Datos del ensayo REACH II", "cost": "Acceso segun ICPSR (verificar)"},
+{"name": "Revision Cochrane de respiro (2014)", "url": "https://doi.org/10.1002/14651858.CD004396.pub3", "what": "Evidencia sobre respiro en demencia, resumen en lenguaje sencillo", "cost": "Resumen gratuito"},
+{"name": "Zarit Burden Interview (WAI)", "url": "https://wai.wisc.edu/wp-content/uploads/sites/269/2021/11/Zarit-Caregiver-Burden-Assessment-Instruments.pdf", "what": "Descripcion de instrumentos de carga del cuidador", "cost": "Gratuito; instrumento con copyright, pedir licencia"},
+{"name": "BOE Ley 39/2006 consolidada", "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2006-21990", "what": "Texto oficial de la Ley de Dependencia", "cost": "Gratuito"},
+{"name": "BOE Ley 8/2021 consolidada", "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2021-9233", "what": "Texto oficial de la reforma de capacidad juridica", "cost": "Gratuito"},
+{"name": "CEAFA (informe Fundacion Lealtad)", "url": "https://fundacionlealtad.org/informe-ceafa", "what": "Estructura de la confederacion de AFAs", "cost": "Gratuito"}
+],
+"verification_notes": "Verificado con WebFetch: Care Ecosystem (JAMA), que SI reporta menos depresion (PHQ-9 B=-1,14) y sobrecarga (Zarit B=-1,90) del cuidador, corrigiendo el 'no confirmado' original; meta-review PMC7158025 (Cheng y Zhang 2020), que ademas niega ventaja multicomponente; piloto WeCareAdvisor (nuevo hallazgo); BOE Ley 8/2021 (anadida guarda de hecho) y RD-ley 6/2019 (convenio especial pagado por el IMSERSO). DOIs de START, Cooper 2009, Schulz 1999, Roth 2013 y Cochrane respiro pub3 resuelven, pero BMJ, Cochrane, PubMed y la Comision Europea bloquearon el texto: sus cifras se dan con cautela. El presupuesto de WebSearch estaba agotado, asi que no se hicieron busquedas nuevas. Niveles: meta-review y mindfulness de A a B; respiro de A a C (certeza muy baja); iSupport, apps y STAR-C/TAP de B a C. Se retiraron fuentes no verificables o no oficiales (oncozine, PubMed 36155312, PMC12949470, blog de cuantias, copia del RD). Implicaciones reescritas para no puntuar riesgo, no estadificar, no inferir causas ni marcar medicacion inapropiada (regla 11 MDR) y para no activar rutas de crisis por analisis de texto libre. Nuevos: START, WeCareAdvisor, maltrato por agotamiento, salud del cuidador y marco MDR/RGPD."
+}

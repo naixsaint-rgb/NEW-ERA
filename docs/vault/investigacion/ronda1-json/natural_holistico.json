@@ -1,0 +1,335 @@
+{
+  "key": "natural_holistico",
+  "title": "Intervenciones no farmacologicas, naturales y holisticas",
+  "summary": "Lo mas solido en esta dimension son las intervenciones psicosociales de bajo riesgo, no los suplementos. Estimulacion cognitiva en grupo (Cochrane 2023, 37 RCTs, +1,99 MMSE, certeza moderada), musicoterapia frente a cuidado habitual para sintomas depresivos (Cochrane 2025, SMD -0,23, certeza moderada; sin efecto en agitacion), reminiscencia (Cochrane 2018, beneficios pequenos y dependientes del entorno) y programas de afrontamiento para el cuidador familiar (START, BMJ 2013) tienen respaldo aceptable. El ejercicio en demencia ya establecida no frena el declive cognitivo (DAPA, n=494) aunque mejora la forma fisica y quiza las AVD. La dieta MIND fue negativa en un RCT (NEJM 2023) frente a una dieta control. La prevencion multidominio (FINGER, U.S. POINTER) se refiere a personas en riesgo, no a personas con demencia. Audifonos: ACHIEVE negativo en el analisis primario. Cataratas y sauna: solo observacionales. Luz brillante: Cochrane sin evidencia suficiente. 40 Hz, fotobiomodulacion y la hipotesis de P. gingivalis siguen siendo experimentales (HOPE sin resultados publicados en lo que verifique). Suplementos: omega-3, ginkgo, curcumina y resveratrol sin beneficio clinico (el resveratrol incluso se asocio a mayor perdida de volumen cerebral); melena de leon con un unico RCT de 30 personas; probioticos con certeza baja. Medicina china y acupuntura: revisiones de calidad baja. Diseno: la app es un registro y un banco de actividades de bajo riesgo con etiquetas de evidencia, que mide que le funciona a esa persona (experimentos n-de-1 descriptivos), protege al cuidador, nunca recomienda ni dosifica suplementos y cumple la ley espanola de publicidad sanitaria (RD 1907/1996) y queda fuera del alcance de producto sanitario (MDR 2017/745, regla 11) al no tomar decisiones clinicas.",
+  "findings": [
+    {
+      "claim": "La estimulacion cognitiva (CST) en grupo produce una mejora pequena pero clinicamente relevante en cognicion en demencia leve-moderada: Cochrane 2023, 37 RCTs, 2.766 participantes, +1,99 puntos MMSE (IC95 1,24-2,74), SMD 0,40, certeza moderada; posiblemente mayor con 2 o mas sesiones por semana y en fase leve; sin efectos adversos relevantes.",
+      "evidence_level": "A",
+      "sources": [
+        "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD005562/abstract",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9891430",
+        "https://www.alzheimer-europe.org/news/cochrane-review-analyses-studies-cognitive-stimulation-finding-small-benefits-people-mild"
+      ],
+      "negative_or_conflicting": "Heterogeneidad moderada; el efecto de frecuencia es exploratorio; casi todos los ensayos son en grupo con facilitador formado, no en formato app o individual en casa (la CST individual por cuidadores, iCST, mostro poco o ningun beneficio cognitivo en su ensayo principal; dato no verificado aqui); efecto en cuidadores casi nulo.",
+      "app_implication": "Guia de actividades de estimulacion cognitiva para hacer en persona (familia o grupo), con niveles de dificultad elegidos por el cuidador, registro de asistencia, duracion y animo antes/despues. Informar con su etiqueta: beneficio pequeno, no cura, evidencia obtenida en grupos presenciales; no presentar la app como terapia ni medir 'puntuacion cognitiva'.",
+      "safety_notes": "No prometer mejora de la enfermedad; evitar tareas que generen fracaso; boton 'parar' visible y consejo de interrumpir si hay angustia. No incluir test cognitivos con puntuacion (seria evaluacion clinica y puede angustiar)."
+    },
+    {
+      "claim": "Programas multidominio (ejercicio, dieta, entrenamiento cognitivo, control vascular, vida social) muestran beneficio cognitivo modesto en personas mayores en riesgo SIN demencia: FINGER (positivo frente a control) y U.S. POINTER (JAMA 2025, 2.111 participantes, ambos brazos mejoraron, algo mas el estructurado: 0,243 frente a 0,213 DE/ano).",
+      "evidence_level": "B",
+      "sources": [
+        "https://jamanetwork.com/journals/jama/fullarticle/2837046",
+        "https://aaic.alz.org/releases-2025/us-pointer-study-results-announced.asp",
+        "https://www.alz.org/wwfingers"
+      ],
+      "negative_or_conflicting": "U.S. POINTER no tiene brazo sin intervencion, por lo que no demuestra beneficio frente a no hacer nada; la diferencia entre brazos es pequena. Otros ensayos multidominio (MAPT, preDIVA) fueron negativos en su objetivo primario. Ninguno demuestra prevencion de demencia ni eficacia en demencia ya diagnosticada. Rebajado de A a B.",
+      "app_implication": "Modulo opcional 'Cuidar tu propio cerebro' para familiares y cuidadores (no para el paciente): habitos registrables (actividad, sueno, contacto social, tension medida en farmacia o centro de salud) y enlaces a su medico de atencion primaria. Sin objetivos clinicos personalizados ni interpretacion de cifras.",
+      "safety_notes": "Dejar claro que los datos son de personas sin demencia; ejercicio segun indicacion medica; no generar ansiedad por riesgo genetico o familiar."
+    },
+    {
+      "claim": "Perdida de audicion y de vision figuran entre los 14 factores de riesgo potencialmente modificables de la Lancet Commission 2024, que estima que cerca del 45% de los casos de demencia podrian prevenirse o retrasarse a nivel poblacional (se anadieron vision no tratada y LDL alto).",
+      "evidence_level": "C",
+      "sources": [
+        "https://doi.org/10.1016/S0140-6736(24)01296-0",
+        "https://pubmed.ncbi.nlm.nih.gov/39096926/"
+      ],
+      "negative_or_conflicting": "Fracciones atribuibles poblacionales calculadas sobre estudios observacionales que asumen causalidad; no aplican a un individuo; no dicen nada sobre tratar a quien ya tiene demencia. Fuentes secundarias del original (BrightFocus, AARP) sustituidas por el articulo primario; la cifra del 45% y los factores no se pudieron leer en el texto completo (403), solo en la referencia.",
+      "app_implication": "Checklist de 'salud de los sentidos y de la boca' (oido, vista, dentista) como calidad de vida y comunicacion: recordatorio de citas que la familia crea, registro de la fecha y de lo que dijo el profesional. Sin calculo de riesgo individual.",
+      "safety_notes": "No culpabilizar a la familia ('podria haberse evitado'); no mostrar porcentajes de prevencion a cuidadores de alguien ya diagnosticado."
+    },
+    {
+      "claim": "Audifonos: ACHIEVE (Lancet 2023, 977 adultos de 70-84 anos con perdida auditiva y sin deterioro cognitivo relevante) no redujo el declive cognitivo a 3 anos (diferencia 0,002 DE, p=0,96). Un analisis de sensibilidad prespecificado mostro diferencia de efecto segun cohorte (ARIC de mayor riesgo frente a voluntarios, p interaccion 0,010), con la cifra divulgada de 48% de enlentecimiento en ese subgrupo. Mejoro la comunicacion y redujo la soledad.",
+      "evidence_level": "A",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/37478886/",
+        "https://www.audiology-worldnews.com/research/4860-prof-frank-lin-s-achieve-study-results-show-no-clear-effect-of-hearing-aids-on-cognitive-decline",
+        "https://umc.edu/news/News_Articles/2023/07/MIND-Center-ACHIEVE.html"
+      ],
+      "negative_or_conflicting": "Nivel A para el resultado NULO en cognicion; el subgrupo es generador de hipotesis. Los participantes no tenian demencia, asi que no aplica a la persona cuidada.",
+      "app_implication": "Recordatorios configurables de mantenimiento de audifonos (pilas, carga, limpieza) y registro sencillo de uso; si la persona deja de usarlos, sugerir revisar con el audioprotesista o el otorrino. Presentar el beneficio como comunicacion y menos aislamiento, no como freno del Alzheimer.",
+      "safety_notes": "No afirmar que los audifonos frenan el Alzheimer. Audifono perdido o mal ajustado puede aumentar confusion y agitacion: incluir en la lista de causas a revisar."
+    },
+    {
+      "claim": "Cirugia de cataratas y demencia: solo estudios observacionales con resultados mixtos; UK Biobank asocia la cirugia a menor riesgo de demencia; un metaanalisis de cohortes no encuentra asociacion significativa para demencia global (HR 0,85, IC 0,68-1,06) aunque si para Alzheimer; una cohorte coreana nacional no muestra reduccion global.",
+      "evidence_level": "C",
+      "sources": [
+        "https://www.nia.nih.gov/news/cataract-removal-linked-reduction-dementia-risk",
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10607014/",
+        "https://www.archivesofmedicalscience.com/Association-of-cataract-surgery-with-risk-of-dementia-a-meta-analysis-and-systematic,193394,0,2.html"
+      ],
+      "negative_or_conflicting": "Confusion residual (quien se opera esta mas sano y con mas acceso sanitario) y causalidad inversa. Las cifras del metaanalisis no se pudieron verificar (servidor 503); la cohorte coreana se confirmo como J Clin Med 2023.",
+      "app_implication": "Recordatorio de revision visual que la familia programa y registro de observaciones (tropiezos, no reconoce caras con poca luz, deja de leer) para llevar a la consulta. La app no sugiere operarse.",
+      "safety_notes": "La indicacion quirurgica es medica; en demencia avanzada la anestesia y el postoperatorio (delirium) tienen riesgos propios."
+    },
+    {
+      "claim": "Musicoterapia: Cochrane 2025 (30 estudios, 1.720 participantes). Frente a cuidado habitual: sintomas depresivos SMD -0,23 (IC -0,42 a -0,04, certeza moderada) y problemas de conducta globales SMD -0,31 (certeza baja); agitacion/agresividad sin efecto (SMD -0,05, certeza moderada); cognicion SMD 0,19 (IC cruza 0, certeza baja-muy baja). Frente a otras actividades los efectos son menores e inciertos.",
+      "evidence_level": "B",
+      "sources": [
+        "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD003477.pub5/full",
+        "https://www.cochrane.org/about-us/news/music-based-therapy-may-improve-depressive-symptoms-people-dementia"
+      ],
+      "negative_or_conflicting": "Corregido: el original citaba SMD -0,14 (IC -0,36 a 0,08), que es la comparacion frente a otras actividades y no es significativa. Efectos mas alla de 4 semanas inciertos. Los ensayos son de musicoterapia con profesional; la musica personalizada sin terapeuta tiene menos evidencia propia.",
+      "app_implication": "Listas de musica personalizada (canciones de los 15-30 anos de la persona), con registro de reaccion por cancion y momento (despertar, aseo, tarde). La app muestra al cuidador su propio patron ('estas 5 canciones coinciden con mas calma'), etiquetado como observacion, no como tratamiento. Usar musica libre o servicios que la familia ya tenga.",
+      "safety_notes": "Volumen moderado; algunas canciones evocan tristeza o duelo (permitir marcarlas para no repetir); nunca usar la musica para tapar dolor, hambre, infeccion o necesidad de ir al bano."
+    },
+    {
+      "claim": "Estimulacion sensorial a 40 Hz (luz y sonido, Cognito Spectris): el estudio de viabilidad OVERTURE (76 pacientes, 6 meses, financiado por la empresa) reporto menor declive y atrofia; el ensayo pivotal HOPE esta completamente reclutado (673 participantes, 70 centros, segun la web de la empresa) y no encontre resultados publicados.",
+      "evidence_level": "D",
+      "sources": [
+        "https://www.cognitotx.com/clinical-studies",
+        "https://www.medicaleconomics.com/view/cognito-therapeutics-completes-enrollment-in-landmark-alzheimer-s-trial",
+        "https://www.clinicaltrialsarena.com/news/aaic25-cognito-neuromodulation-therapy-slows-decline-in-alzheimer-disease/"
+      ],
+      "negative_or_conflicting": "Rebajado de C a D: datos de eficacia solo de un estudio pequeno exploratorio con conflicto de interes; cifras porcentuales (76%, 69%) de la propia empresa; sin replicacion independiente ni resultado pivotal.",
+      "app_implication": "No implementar ninguna estimulacion a 40 Hz. Ficha 'En investigacion' con fecha de ultima revision, explicando que existe un ensayo en marcha y como distinguirlo de dispositivos o videos de YouTube que lo imitan.",
+      "safety_notes": "Luz parpadeante puede desencadenar crisis en personas con epilepsia (las crisis son mas frecuentes en Alzheimer); la app no debe contener contenido parpadeante en ninguna pantalla."
+    },
+    {
+      "claim": "P. gingivalis y salud bucal: el ensayo GAIN (atuzaginstat, 643 participantes) fallo en sus objetivos co-primarios; en un subgrupo con P. gingivalis en saliva hubo enlentecimiento en ADAS-Cog11 con la dosis alta; hubo senal de hepatotoxicidad y suspension clinica de la FDA. La hipotesis infecciosa sigue sin demostrar.",
+      "evidence_level": "C",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10275298/",
+        "https://practicalneurology.com/news/atuzaginstat-slows-cognitive-decline-in-p-gingivalis-positive-participants/2469730/"
+      ],
+      "negative_or_conflicting": "Resultado global negativo; subgrupo con analisis no confirmatorio; las cifras (57%, p=0,02) proceden de fuentes secundarias. Eliminada la URL lighthousepharma.com (pagina de la propia empresa, no verificable como fuente independiente).",
+      "app_implication": "Rutina de higiene bucal asistida y registro de senales orales (rechaza comer, se toca la cara, protesis que roza, sangrado), justificada por beneficios claros e independientes de la hipotesis: dolor, alimentacion y neumonia por aspiracion. Recordatorio de dentista que crea la familia.",
+      "safety_notes": "No sugerir que cepillarse previene o frena el Alzheimer; el dolor dental no comunicado es causa frecuente de agitacion y rechazo de comida."
+    },
+    {
+      "claim": "Aromaterapia: revision Cochrane (Ball 2020), 13 estudios, 708 participantes, sobre todo lavanda y melisa en residencias; no se pudo hacer metaanalisis y los autores no encuentran evidencia clara de beneficio en agitacion, conducta o calidad de vida.",
+      "evidence_level": "C",
+      "sources": [
+        "https://www.cochrane.org/es/CD003150/aromaterapia-para-la-promocion-de-la-relajacion-y-el-sueno-el-alivio-del-dolor-y-la-reduccion-de-los",
+        "https://cochranelibrary.com/cdsr/doi/10.1002/14651858.CD003150.pub2/es"
+      ],
+      "negative_or_conflicting": "Afirmaciones divulgativas como 'la melisa supera a los farmacos' no estan respaldadas. Estudios pequenos, cegamiento dificil (el olor delata el grupo).",
+      "app_implication": "Solo dentro del banco sensorial como opcion de bienestar: registrar aroma, momento y reaccion. Etiqueta 'sin beneficio demostrado; puede ser agradable'.",
+      "safety_notes": "Aceites esenciales nunca ingeridos ni sin diluir sobre la piel; ojo con asma, alergias y piel fragil; guardar fuera de alcance (riesgo de ingestion accidental en demencia)."
+    },
+    {
+      "claim": "Robot PARO y peluches: ensayo cluster aleatorizado (Moyle, JAMDA 2017, 415 residentes, 28 residencias) frente a peluche y cuidado habitual: PARO mejoro placer y agitacion observada frente a cuidado habitual (no en la escala CMAI), y solo supero al peluche en implicacion (engagement).",
+      "evidence_level": "B",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/28780395/",
+        "https://bmjopen.bmj.com/content/5/8/e009097"
+      ],
+      "negative_or_conflicting": "Corregido: 415 participantes (no 380). El peluche sencillo obtiene beneficios parecidos en animo a una fraccion del coste (~5.000 EUR el robot). Resultados en residencias, no en domicilio. Eliminada la fuente PMC6244142 (resumen de congreso). La terapia con munecos tiene evidencia mas debil (estudios pequenos, sin control).",
+      "app_implication": "Guia de uso respetuoso de peluche o muneco con registro de reaccion; senalar que un peluche sencillo puede rendir casi igual que un robot caro. Sin mascota virtual en la propia app.",
+      "safety_notes": "Dignidad e infantilizacion: ofrecer, nunca imponer; algunas personas se angustian por 'cuidar al bebe' o si se lo quitan; acuerdo familiar previo."
+    },
+    {
+      "claim": "Melena de leon (Hericium erinaceus): un unico RCT doble ciego (Mori 2009, Phytother Res) de 30 adultos japoneses de 50-80 anos con deterioro cognitivo leve, 16 semanas, mejoro una escala cognitiva que volvio a bajar 4 semanas despues de suspender.",
+      "evidence_level": "C",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/18844328/",
+        "https://www.alzdiscovery.org/cognitive-vitality/ratings/lions-mane"
+      ],
+      "negative_or_conflicting": "Rebajado de B a C: un solo ensayo minimo, sin replicacion, escala poco usada, en DCL y no en Alzheimer; ensayos en adultos jovenes sanos sin beneficio.",
+      "app_implication": "Solo registro si la persona ya lo toma (producto, lote, desde cuando, quien lo recomendo) para mostrar al medico o farmaceutico; ficha con etiqueta de evidencia; sin enlaces de compra.",
+      "safety_notes": "Alergia a hongos; productos sin control de calidad ni dosis estandar; interacciones poco estudiadas."
+    },
+    {
+      "claim": "Suplementos sin beneficio clinico demostrado en Alzheimer: omega-3 (Cochrane 2016, 3 RCTs, 632 participantes, sin efecto), ginkgo (Cochrane: evidencia inconsistente y poco fiable; GEM sin efecto en incidencia), curcumina (ensayo pequeno de 24 semanas negativo) y resveratrol (Neurology 2015, 119 pacientes, 52 semanas: seguro pero sin beneficio clinico y con MAYOR perdida de volumen cerebral que placebo).",
+      "evidence_level": "B",
+      "sources": [
+        "https://www.nccih.nih.gov/health/providers/digest/dietary-supplements-and-cognitive-function-dementia-and-alzheimers-disease-science",
+        "https://cochranelibrary.com/cdsr/doi/10.1002/14651858.CD003120.pub3/information/hi",
+        "https://pubmed.ncbi.nlm.nih.gov/26362286/"
+      ],
+      "negative_or_conflicting": "Corregido un error del original: el resveratrol no redujo la perdida de volumen cerebral, la aumento (significado incierto). Metaanalisis del extracto EGb 761 a 240 mg, en buena parte financiados por el fabricante, si reportan beneficio pequeno: conflicto de interes. Eliminada la referencia MDPI (no verificable, 403). Rebajado a B porque mezcla ensayos grandes y pequenos.",
+      "app_implication": "Pantalla 'Lo que se ha probado y no ha funcionado' con su etiqueta, mas un registro de lo que toma la persona (incluido herbolario) exportable para el medico o farmaceutico con el texto fijo 'revise posibles interacciones con su farmaceutico'. La app no calcula interacciones propias.",
+      "safety_notes": "Ginkgo con anticoagulantes o antiagregantes: posible aumento de sangrado (sobre todo casos clinicos); ningun suplemento sustituye tratamiento; proteger a la familia del gasto en falsas esperanzas."
+    },
+    {
+      "claim": "Probioticos y eje intestino-cerebro: un metaanalisis de 2025 (34 RCTs, 2.390 participantes, BMC Complement Med Ther) asocia probioticos a mejores puntuaciones cognitivas, con certeza GRADE baja y evidencia que los autores califican de muy incierta; un RCT coreano de 2026 (preprint medRxiv, 100 personas con declive subjetivo o DCL, 24 semanas) mostro menor pTau181 plasmatico, resultado preliminar.",
+      "evidence_level": "C",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12645680/",
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7066922/",
+        "https://www.medrxiv.org/content/10.64898/2026.02.01.26345102v1.full"
+      ],
+      "negative_or_conflicting": "La diferencia media de 4,23 puntos MMSE a 12 semanas es inverosimil para cualquier intervencion y sugiere estudios pequenos y sesgados; a 8 semanas el efecto era nulo. Cepas, dosis y poblaciones muy dispares. El preprint no esta revisado por pares y su resultado principal es un biomarcador, no clinico.",
+      "app_implication": "Registrar habito intestinal, hidratacion y alimentacion como dato util en si mismo (el estrenimiento y la deshidratacion empeoran agitacion y delirium) y sugerir comentar cambios con enfermeria o medicina de familia. No recomendar cepas ni productos.",
+      "safety_notes": "Precaucion con probioticos en inmunodeprimidos o con cateteres; no sustituyen el manejo del estrenimiento."
+    },
+    {
+      "claim": "Fotobiomodulacion transcraneal y estimulacion cerebral no invasiva (TMS, tDCS): pilotos pequenos en deterioro cognitivo leve; p. ej. un RCT piloto con sham de 20 participantes (6 semanas, domiciliario) con mejoras en memoria de reconocimiento y MMSE.",
+      "evidence_level": "D",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12725300/",
+        "https://www.alzforum.org/therapeutics/photobiomodulation"
+      ],
+      "negative_or_conflicting": "Rebajado de C a D: muestras de 10 por brazo, multiples desenlaces sin correccion, sin replicacion. Eliminada la referencia de Springer (no accesible para verificar). No se verifico metaanalisis de rTMS.",
+      "app_implication": "Solo ficha 'En investigacion' con fecha de revision y advertencia sobre cascos y dispositivos de venta directa no validados. Ninguna funcion.",
+      "safety_notes": "TMS contraindicada con implantes metalicos, marcapasos o epilepsia; los dispositivos domesticos no tienen eficacia demostrada."
+    },
+    {
+      "claim": "Sauna: cohorte finlandesa KIHD (2.315 hombres de 42-60 anos, mediana 20,7 anos): 4-7 sesiones/semana HR 0,34 (IC 0,16-0,71) para demencia y 0,35 para Alzheimer frente a 1/semana; 2-3 sesiones HR 0,78 no significativo.",
+      "evidence_level": "C",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/27932366/",
+        "https://academic.oup.com/ageing/article/46/2/245/2559447"
+      ],
+      "negative_or_conflicting": "Observacional, solo hombres finlandeses de mediana edad, pocos casos en la categoria alta, confusion por salud y nivel socioeconomico.",
+      "app_implication": "No incluir como recomendacion. Usarlo en la seccion educativa como ejemplo de 'asociacion no es causa'.",
+      "safety_notes": "El calor intenso es peligroso en demencia (deshidratacion, hipotension, caidas, desorientacion); no sugerir."
+    },
+    {
+      "claim": "Medicina tradicional china: la revision Cochrane de hierbas chinas en demencia vascular (47 ensayos, 3.581 participantes, todos en China) tiene certeza de moderada a muy baja; las revisiones generales de hierbas chinas en Alzheimer y de acupuntura en DCL y demencia (Front Pharmacol 2021, Front Aging Neurosci 2021) concluyen que la calidad metodologica es baja.",
+      "evidence_level": "C",
+      "sources": [
+        "https://www.cochrane.org/evidence/CD010284_traditional-chinese-herbal-medicine-vascular-dementia",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC8664324",
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8160113/"
+      ],
+      "negative_or_conflicting": "Sesgo de publicacion probable (ensayos casi siempre positivos en una sola region), mal registro de efectos adversos, formulaciones no estandarizadas. Se corrige la asignacion de fuentes: PMC8160113 es de acupuntura y PMC8664324 de hierbas en Alzheimer.",
+      "app_implication": "Seccion 'Otras tradiciones' con etiqueta de evidencia y lenguaje respetuoso; registro de terapias complementarias que recibe la persona (quien, que, cuando, coste) para compartir con el medico. Masaje suave o acupresion tratados como bienestar y contacto, no como tratamiento.",
+      "safety_notes": "Hierbas importadas pueden contener metales pesados o farmacos no declarados, causar dano hepatico e interactuar con anticoagulantes; avisar siempre al medico y al farmaceutico."
+    },
+    {
+      "claim": "Ejercicio en demencia ya establecida: el ensayo DAPA (BMJ 2018, 494 personas con demencia leve-moderada, ejercicio de intensidad moderada-alta 4 meses) no freno el declive cognitivo (ADAS-cog ligeramente peor en el grupo ejercicio, diferencia -1,4) aunque mejoro la forma fisica; la revision Cochrane de ejercicio en demencia (2015, 17 ensayos) sugiere posible mejora de actividades de la vida diaria con certeza muy baja y sin efecto claro en cognicion ni depresion.",
+      "evidence_level": "B",
+      "sources": [
+        "https://www.bmj.com/content/361/bmj.k1675",
+        "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD006489.pub4/full"
+      ],
+      "negative_or_conflicting": "Contradice el mensaje popular de que 'el ejercicio frena el Alzheimer' en personas ya diagnosticadas; la prevencion en personas sanas es otra cuestion.",
+      "app_implication": "Banco de movimiento suave (pasear, bailar sentado, jardineria) orientado a funcion, animo, sueno y prevencion de caidas, con registro de lo realizado y de caidas o casi caidas para el fisioterapeuta o medico. Etiqueta honesta: 'mejora la forma fisica; no frena la memoria'.",
+      "safety_notes": "Valoracion de riesgo de caidas y cardiovascular por el profesional antes de aumentar intensidad; calzado y entorno seguros."
+    },
+    {
+      "claim": "Dieta MIND: el RCT de NEJM 2023 (604 personas cognitivamente sanas con antecedentes familiares, 3 anos) no encontro diferencia en cognicion global frente a una dieta control, ambas con ligera restriccion calorica (diferencia 0,035 DE, p=0,23).",
+      "evidence_level": "A",
+      "sources": [
+        "https://www.nejm.org/doi/full/10.1056/NEJMoa2302368",
+        "https://pubmed.ncbi.nlm.nih.gov/37466280/"
+      ],
+      "negative_or_conflicting": "Ambos grupos mejoraron (posible efecto practica o perdida de peso); los datos observacionales previos de MIND/mediterranea eran favorables. No evaluo personas con demencia.",
+      "app_implication": "En alimentacion priorizar lo que importa en demencia (comer suficiente, hidratacion, textura segura, peso, placer de comer) con registro; no vender ninguna 'dieta anti-Alzheimer'. Cocina mediterranea como salud general, con su etiqueta.",
+      "safety_notes": "La perdida de peso es un riesgo en demencia: nunca sugerir restriccion calorica a la persona afectada."
+    },
+    {
+      "claim": "Terapia de reminiscencia: Cochrane 2018 (22 estudios, 1.972 personas): en residencias probable mejora ligera de cognicion y calidad de vida (SMD 0,46); en domicilio poca o ninguna diferencia en esos desenlaces pero probable beneficio en comunicacion; la reminiscencia individual probablemente mejora algo los sintomas depresivos.",
+      "evidence_level": "B",
+      "sources": [
+        "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD001120.pub3/full"
+      ],
+      "negative_or_conflicting": "Efectos pequenos y dependientes del entorno y formato; heterogeneidad; algunos programas conjuntos con cuidadores aumentaron su estres en un ensayo grande (REMCARE; dato no verificado aqui).",
+      "app_implication": "Libro de vida digital (fotos, audios de familiares, lugares, oficios) que los familiares construyen en colaboracion, usable como apoyo de conversacion en sesiones individuales cortas, con registro de reaccion. Tambien sirve para que cuidadores profesionales conozcan a la persona.",
+      "safety_notes": "Recuerdos traumaticos (guerra, duelos, migracion) pueden angustiar: permitir marcar temas a evitar; no forzar a recordar ni corregir errores."
+    },
+    {
+      "claim": "Programas psicosociales para el cuidador familiar: START (BMJ 2013, RCT pragmatico, 260 cuidadores) con 8 sesiones manualizadas de estrategias de afrontamiento redujo sintomas afectivos (HADS -1,80, IC -3,29 a -0,31) y depresion de nivel clinico, y mejoro la calidad de vida del cuidador. La OMS ofrece iSupport, programa de formacion para cuidadores con licencia abierta no comercial.",
+      "evidence_level": "B",
+      "sources": [
+        "https://www.bmj.com/content/347/bmj.f6276",
+        "https://www.who.int/publications/i/item/9789241515863"
+      ],
+      "negative_or_conflicting": "Un unico ensayo grande para START en Reino Unido con facilitadores; la version autoaplicada o digital no tiene la misma evidencia. Los ensayos de iSupport online muestran efectos pequenos o mixtos (no verificado aqui).",
+      "app_implication": "Espacio del cuidador como pilar, no como extra: modulos breves inspirados en iSupport (licencia CC BY-NC-SA, adaptable gratis con atribucion), registro de su propio animo y carga, y senal para buscar ayuda (asociaciones AFA, trabajador social, medico de familia). Holistico de verdad incluye a quien cuida.",
+      "safety_notes": "Si el cuidador refiere desesperanza o ideas de hacerse dano, mostrar recursos de crisis (024 en Espana, 112) y no intentar intervenir desde la app."
+    },
+    {
+      "claim": "Marco legal que condiciona esta dimension: en Espana el RD 1907/1996 prohibe la publicidad de productos con pretendida finalidad sanitaria que prometa alivio o curacion, use testimonios o se presente como sustituto de medicamentos o de la consulta; en la UE, el software que da informacion para decisiones diagnosticas o terapeuticas es producto sanitario de clase IIa o superior (MDR 2017/745, anexo VIII, regla 11), mientras que el registro, la comunicacion y la informacion general no lo son.",
+      "evidence_level": "D",
+      "sources": [
+        "https://www.boe.es/eli/es/rd/1996/08/02/1907",
+        "https://eur-lex.europa.eu/eli/reg/2017/745/oj"
+      ],
+      "negative_or_conflicting": "Nivel D porque es normativa, no evidencia clinica. La frontera entre 'informacion' y 'decision clinica' se interpreta con la guia MDCG 2019-11 (no se pudo abrir, 403); conviene validacion juridica antes del lanzamiento.",
+      "app_implication": "Reglas de producto: sin testimonios de curacion, sin enlaces de compra ni afiliacion de suplementos, sin recomendaciones personalizadas de tratamiento, sin calculos de dosis ni interacciones propias, sin puntuaciones diagnosticas. Las 'correlaciones' que vea el cuidador se presentan como observaciones suyas para comentar con profesionales. Fichas de evidencia revisadas y fechadas por un comite (idealmente neurologo, farmaceutico y una asociacion de familiares).",
+      "safety_notes": "Riesgo reputacional y legal mayor en esta dimension que en cualquier otra; el contenido generado por usuarios (foros, recetas caseras) necesita moderacion o no debe existir en la version inicial."
+    }
+  ],
+  "app_features": [
+    "Banco de actividades de bajo riesgo (musica, reminiscencia, movimiento suave, sensorial, jardin, tareas domesticas con sentido) con registro de reaccion en 1 toque y resumen de 'lo que suele funcionar con esta persona', presentado como observacion del cuidador",
+    "Experimentos personales n-de-1 guiados: el cuidador prueba una actividad a la misma hora durante 2 semanas y la app compara su propio registro de animo o sueno, sin conclusiones clinicas",
+    "Listas de musica personalizada por momento del dia con marca de canciones a evitar",
+    "Libro de vida colaborativo (fotos, audios, lugares, temas a evitar) que tambien sirve como ficha 'quien soy' para residencias, centros de dia y urgencias",
+    "Etiquetas de evidencia A-D en cada ficha con fecha de ultima revision, fuente enlazada y seccion honesta 'Lo que se ha probado y no ha funcionado' y 'En investigacion'",
+    "Registro de suplementos, herbolario y terapias complementarias (producto, quien lo recomendo, coste) exportable para medico y farmaceutico, sin dosificar ni calcular interacciones",
+    "Checklist de sentidos y boca (audifonos, gafas, dentista) con recordatorios que crea la familia y lista de 'causas tratables de malestar' (dolor, estrenimiento, audifono sin pila, infeccion) para comentar con el profesional",
+    "Espacio del cuidador basado en contenidos abiertos (iSupport OMS) con registro de su propia carga y derivacion a recursos (AFA, trabajo social, 024)",
+    "Informe exportable PDF para consulta: actividades, animo, sueno, intestino, suplementos y observaciones, sin interpretacion clinica",
+    "Modo opcional 'Cuida tu cerebro' para familiares sanos, separado del perfil del paciente",
+    "Modo sin conexion y uso con una mano y letra grande: el cuidador registra en 5 segundos en mitad de una crisis"
+  ],
+  "questions_for_owner": [
+    "En que fase esta la persona, vive en casa o en residencia, y quien es el cuidador principal? (cambia que actividades y que evidencia aplica)",
+    "Que musica, oficios, aficiones, lugares y temas dolorosos marcaron su vida? (reminiscencia, listas y temas a evitar)",
+    "Toma ya suplementos, herbolario o terapias complementarias? Quien las recomendo y cuanto cuestan al mes?",
+    "Usa audifonos, gafas o protesis dental y los acepta? Hay dolor o problemas para comer?",
+    "Que lugar quiere la familia que ocupen la medicina china y las terapias naturales: informacion con etiqueta honesta o tambien registro? Aceptais que la app diga claramente 'esto no ha funcionado' aunque contradiga creencias de algun usuario?",
+    "Contais con algun profesional sanitario (neurologo, farmaceutico, enfermeria) dispuesto a revisar y firmar las fichas de evidencia, y con una asociacion de familiares (AFA, CEAFA) para probarla?",
+    "Teneis claro que la app no debe diagnosticar, dosificar ni recomendar tratamientos para no ser producto sanitario? Queremos validacion juridica antes de publicar?",
+    "Habra contenido generado por usuarios (foros, trucos de otras familias)? Quien lo modera?",
+    "Cuanto tiempo real tiene el cuidador al dia y con que dispositivo? Habra varios cuidadores compartiendo el registro?",
+    "Tiene sensibilidad a luz, ruido u olores, alergias o epilepsia?",
+    "Que idiomas o lenguas cooficiales habla la persona (castellano, catalan, gallego, euskera)? Las canciones y la reminiscencia dependen de ello",
+    "Quien accede a los datos de salud, donde se guardan (RGPD, datos de categoria especial) y como se recoge el consentimiento de la persona mientras pueda darlo?"
+  ],
+  "free_resources": [
+    {
+      "name": "Cochrane: Cognitive stimulation for dementia (CD005562)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9891430",
+      "what": "Revision base de estimulacion cognitiva, texto completo abierto en PMC",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Cochrane: Music-based therapeutic interventions for dementia (CD003477.pub5)",
+      "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD003477.pub5/full",
+      "what": "Revision 2025 de musicoterapia con tablas GRADE",
+      "cost": "Gratis (resumen)"
+    },
+    {
+      "name": "OMS iSupport for Dementia",
+      "url": "https://www.who.int/publications/i/item/9789241515863",
+      "what": "Manual de formacion y apoyo para cuidadores, licencia CC BY-NC-SA 3.0 IGO (adaptable sin fines comerciales)",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Europe PMC REST API",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=dementia&format=json",
+      "what": "API abierta para mantener actualizadas las fichas de evidencia (resumenes, DOI, PMID)",
+      "cost": "Gratis"
+    },
+    {
+      "name": "ClinicalTrials.gov",
+      "url": "https://clinicaltrials.gov/",
+      "what": "Registro de ensayos con API publica para vigilar la seccion 'En investigacion' (40 Hz, fotobiomodulacion)",
+      "cost": "Gratis"
+    },
+    {
+      "name": "NCCIH: Dietary supplements and cognitive function",
+      "url": "https://www.nccih.nih.gov/health/providers/digest/dietary-supplements-and-cognitive-function-dementia-and-alzheimers-disease-science",
+      "what": "Resumen institucional de evidencia de suplementos",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Alzheimer's Drug Discovery Foundation: Cognitive Vitality",
+      "url": "https://www.alzdiscovery.org/cognitive-vitality/ratings/lions-mane",
+      "what": "Fichas de evidencia de suplementos y estilo de vida",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Alzheimer's Association World Wide FINGERS",
+      "url": "https://www.alz.org/wwfingers",
+      "what": "Red de programas multidominio",
+      "cost": "Gratis"
+    },
+    {
+      "name": "BOE: Real Decreto 1907/1996 (publicidad con pretendida finalidad sanitaria)",
+      "url": "https://www.boe.es/eli/es/rd/1996/08/02/1907",
+      "what": "Norma que limita afirmaciones de salud en la app",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Fundacion Pasqual Maragall",
+      "url": "https://fpmaragall.org/en/",
+      "what": "Guias para cuidadores y programas en Espana (verificar gratuidad de cada recurso)",
+      "cost": "Por verificar"
+    }
+  ],
+  "verification_notes": "Sin busquedas web disponibles (cupo agotado); verifique por WebFetch y por la API de Europe PMC buscando DOI/PMID concretos. Correcciones: musicoterapia (el SMD -0,14 era frente a otras actividades y no significativo; frente a cuidado habitual es -0,23, certeza moderada); resveratrol (aumento, no redujo, la perdida de volumen cerebral); PARO (415 participantes; solo supero al peluche en implicacion); HOPE (673 participantes, sin resultados en la web de Cognito). Niveles rebajados: multidominio A a B (POINTER sin brazo control; MAPT y preDIVA negativos), 40 Hz C a D, melena de leon B a C, fotobiomodulacion C a D, suplementos A a B. Fuentes sustituidas o eliminadas: BrightFocus/AARP por Lancet 2024 primaria; PMC6244142 (resumen de congreso), Springer y MDPI (no verificables), lighthousepharma (empresa). Probioticos: senale MD MMSE 4,23 como inverosimil. Seis hallazgos nuevos: DAPA y Cochrane ejercicio, MIND RCT negativo, reminiscencia Cochrane, START e iSupport para cuidadores, y marco legal (RD 1907/1996 y MDR regla 11). No pude abrir la guia MDCG 2019-11, el metaanalisis de cataratas (503) ni el texto completo de Lancet 2024. Luz brillante (Cochrane 2014, sin evidencia suficiente) se verifico pero se dejo fuera por el limite de 6 nuevos; conviene ponerlo en la dimension de sueno. Todas las app_implication se reescribieron para registrar, informar con nivel de evidencia y derivar al profesional, sin dosificar, diagnosticar ni calcular interacciones."
+}

@@ -1,0 +1,289 @@
+{
+  "key": "competencia_apps",
+  "title": "Análisis competitivo: apps de Alzheimer y cuidadores (revisado)",
+  "summary": "El mercado de apps para demencia está fragmentado, es de calidad baja-moderada y se mantiene mal. Una revisión de 35 apps para cuidadores (JMIR Aging 2024) halló que ninguna cumplía los 11 indicadores de calidad de información. Solo el 20% tenía revisión experta, el 51% citaba fuentes y el 43% se había actualizado en los últimos 12 meses. Solo 2 de 35 personalizaban, y ambas eran asistentes de IA poco transparentes. La evidencia de eficacia es débil. Un metaanálisis de 5 estudios (230 cuidadores) no muestra un efecto significativo sobre la carga, la depresión ni el estrés; sí mejoran la competencia percibida y la calidad de vida. Una revisión de 24 estudios (2026) encuentra resultados divididos sobre la carga (6 positivos y 6 nulos) y un uso que cae con el tiempo. El abandono es el modo de fallo principal del sector. Hay islas de producto: medicación (Medisafe limita su plan gratuito a 2 medicamentos), coordinación familiar (Lotsa, CaringBridge, Caring Village), recordatorios y estimulación (MindMate, con evidencia de un caso único con n=3) y localización GPS. En España la oferta está anticuada: YoTeCuido (AFACO) no se actualiza desde diciembre de 2020. Las otras opciones son la app de CEAFA (directorio y noticias), eZaintza (solo País Vasco) y catálogos del Imserso. iSupport de la OMS sí existe en español, con adaptación a Castilla y León. El hueco plausible, aunque no demostrado de forma exhaustiva, es una app que reúna coordinación multicuidador, evidencia etiquetada, modo paciente simple, registro personal y español gratuito y abierto. Hay un límite regulatorio clave: si la app solo registra y muestra, en general no es producto sanitario. Si analiza datos para orientar el tratamiento, entra en la regla 11 del MDR (clase IIa o superior).",
+  "findings": [
+    {
+      "claim": "Las apps para cuidadores de demencia que hay en las tiendas ofrecen información de calidad baja-moderada, genérica y estática. De 35 apps (624 cribadas), ninguna cumple los 11 indicadores de la NLM. Solo el 20% tiene revisión experta y el 51% cita fuentes. El 43% se actualizó en los últimos 12 meses y el 11% explica cómo selecciona el contenido. Las 4 mejores eran de entidades académicas o sin ánimo de lucro.",
+      "evidence_level": "B",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11617330/"
+      ],
+      "app_implication": "Diferenciador: cada contenido muestra su fuente, fecha de revisión, revisor y nivel de evidencia (A/B/C/D/anecdótico). El contenido caduca y se marca 'pendiente de revisión' pasado un plazo. Una pantalla 'Cómo sabemos esto' lo explica. Los 11 indicadores de la revisión sirven como lista de control editorial interna.",
+      "negative_or_conflicting": "La evaluaron investigadores, no cuidadores. Solo incluye apps en inglés y no mide usabilidad ni resultados en salud. Una buena calidad de información no implica eficacia.",
+      "safety_notes": "La app declara que informa y no diagnostica, dosifica ni sustituye al médico. El contenido sin revisión profesional queda marcado como tal."
+    },
+    {
+      "claim": "Las apps del sector se mantienen mal. El 20% nunca se actualizó desde su publicación. CareZone, una app de medicación y coordinación muy usada, se retiró tras su compra por Walmart. La fecha exacta del cierre no está confirmada: las fuentes, todas blogs de competidores, la sitúan entre 2021 y enero de 2023.",
+      "evidence_level": "C",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11617330/",
+        "https://caringvillage.com/blog/caregiver-tech/medication-management-apps/",
+        "https://tendto.ai/compare/carezone"
+      ],
+      "app_implication": "Los datos se guardan primero en el dispositivo. Siempre se pueden exportar completos (PDF/CSV/JSON) y hacer copias de seguridad cifradas que controla la familia. El código es abierto, sin dependencia de un servidor de pago, y hay un plan de continuidad documentado: quién mantiene la app y qué pasa si se abandona.",
+      "negative_or_conflicting": "Los datos sobre CareZone vienen de blogs con interés comercial. Ser local-first complica la sincronización entre varios cuidadores y la recuperación si se pierde el móvil.",
+      "safety_notes": "Perder de golpe el historial médico familiar es un riesgo real. Hay que avisar con antelación de cualquier cierre y probar que la restauración funciona."
+    },
+    {
+      "claim": "La evidencia de eficacia de las apps para cuidadores es pequeña e inconsistente. Un metaanálisis (Shin 2022: 5 estudios, 230 cuidadores) halló efectos no significativos sobre la carga (SMD -0,32, IC -0,68 a 0,05), la depresión y el estrés. Sí fueron significativas la mejora de la competencia percibida (SMD 0,43) y de la calidad de vida (SMD 0,79). Una revisión de 2026 (Soto-Pérez y cols., 24 estudios) encontró 6 estudios con menos carga y 6 sin cambios. En ella, 15 de los 24 estudios no tenían grupo control y las muestras iban de 9 a unos 170 cuidadores. El ECA de WeCareAdvisor (enfoque DICE) redujo de forma modesta el malestar del cuidador a los 3 meses y también los síntomas conductuales comunicados, pero las conductas persistieron y el uso medio fue de 1 vez al mes. FamTechCare (vídeo con feedback experto) mejoró la percepción de la ayuda recibida, no resultados clínicos.",
+      "evidence_level": "B",
+      "sources": [
+        "https://karger.com/dem/article/51/3/203/827984/Effects-of-App-Based-Mobile-Interventions-for",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC13052052/",
+        "https://health.ucdavis.edu/news/headlines/app-helps-caregivers-manage-dementia-related-behavioral-symptoms-improves-well-being/2026/08",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7740572/"
+      ],
+      "app_implication": "Prometer 'organización y apoyo', no 'menos carga'. Propuesta: un módulo de conductas difíciles tipo Describe-Investiga-Crea-Evalúa. Incluye un registro ABC (antecedente, conducta, consecuencia) y estrategias no farmacológicas de fuentes revisadas, que se presentan como opciones y no como pautas. Las autoevaluaciones posteriores las anota la familia. El registro ABC se exporta para el profesional. La carga del cuidador se autoevalúa de forma opcional cada 4-8 semanas (por ejemplo, Zarit abreviado, si la licencia lo permite) y solo se muestra la tendencia personal, sin etiquetas diagnósticas.",
+      "negative_or_conflicting": "Los estudios son pequeños y cortos, casi todos en inglés y de pocos centros. No hay efectos a largo plazo. FamTechCare: los cuidadores de personas con demencia más grave vivieron la grabación en vídeo como más invasiva de su intimidad (p=0,05). El contenido de WeCareAdvisor tiene autoría y posible licencia, así que no se puede copiar sin permiso.",
+      "safety_notes": "El módulo de conductas nunca sugiere fármacos ni cambios de dosis. Si la conducta implica riesgo (agresión, delirio de aparición brusca, caída), muestra 'contacte con su médico o con el 112'. Si la autoevaluación de carga sale alta, muestra recursos de apoyo sin cribar depresión."
+    },
+    {
+      "claim": "La evidencia de MindMate (recordatorios, ejercicio, consejos de dieta tipo MIND, diario) es mínima: un estudio de caso único con 3 personas con Alzheimer. Dos se beneficiaron y una abandonó porque no podía apagar los recordatorios ni el sonido de alerta.",
+      "evidence_level": "D",
+      "sources": [
+        "https://www.tandfonline.com/doi/full/10.1080/09602011.2019.1653936"
+      ],
+      "app_implication": "Lección de diseño, no de eficacia. En el modo paciente, el cuidador configura los recordatorios: sonido suave, volumen, horario de silencio y posponer con un toque. Nada de alarmas insistentes. Hay que probar con pacientes reales en distintas fases antes del lanzamiento.",
+      "negative_or_conflicting": "Con n=3 no se puede generalizar. Se ha eliminado la fuente de Medium por ser material promocional del propio fabricante.",
+      "safety_notes": "Los recordatorios mal diseñados pueden causar agitación o confusión. No se usan mensajes infantilizantes, alarmas punitivas ni avisos que parezcan emergencias."
+    },
+    {
+      "claim": "Medisafe es la referencia en recordatorios de medicación, pero su plan gratuito permite solo 2 medicamentos. Los avisos de usuarios en Trustpilot datan de noviembre de 2024. Según un blog competidor, el cambio se generalizó el 1 de enero de 2026, con un premium de unos 4,99 USD al mes. Las reseñas citan fallos al editar la medicación, recordatorios duplicados o tardíos y un soporte lento. No está pensado para demencia ni para varios cuidadores con roles.",
+      "evidence_level": "C",
+      "sources": [
+        "https://uk.trustpilot.com/review/medisafe.com",
+        "https://pillo.care/blog/medisafe-not-free-what-to-do",
+        "https://caringvillage.com/blog/caregiver-tech/caregiver-apps-for-families/"
+      ],
+      "app_implication": "Medicación gratuita y sin límite, como registro. Se copia la pauta tal como figura en la receta o el informe médico. Cada toma queda registrada como 'dada por X a las HH:MM'. Si otro cuidador intenta registrar la misma toma, aparece el aviso de registro duplicado 'ya consta como dada por X a las HH:MM'. Es un control de coherencia del registro, no una alerta clínica. La lista se exporta para el médico o el farmacéutico.",
+      "negative_or_conflicting": "Las fuentes de precio y fecha son blogs de competidores (Pillo, Caring Village) y reseñas sueltas de usuarios. Hay que comprobarlo en las tiendas antes de citarlo en público.",
+      "safety_notes": "La app no calcula dosis ni sugiere cambios. No comprueba interacciones ni dice qué hacer ante una dosis olvidada: remite al prospecto, al farmacéutico o al médico. Calcular o recomendar dosis la convertiría en producto sanitario (regla 11). El riesgo principal a prevenir es la doble toma por falta de coordinación."
+    },
+    {
+      "claim": "Coordinación familiar. Lotsa Helping Hands es gratuita, pero sus valoraciones son bajas (unos 2,8 en iOS y 3,3 en Android según blogs) y se describe como anticuada. CaringBridge, de una ONG, está bien valorada, pero es un diario de novedades sin agenda de tareas. Caring Village tiene plan gratuito y planes de pago desde unos 14,99 USD al mes. Ninguna está pensada para demencia ni para el entorno hispano.",
+      "evidence_level": "anecdotal",
+      "sources": [
+        "https://caringvillage.com/blog/caregiver-tech/caringbridge-alternatives/",
+        "https://caringvillage.com/blog/caregiver-tech/caregiver-apps-for-families/",
+        "https://assureokay.com/blog/best-apps-for-caregivers"
+      ],
+      "app_implication": "Unir en una sola app el diario de novedades, el calendario de turnos y tareas y el registro de cuidados compartido. Habrá roles (cuidador principal, familiar a distancia, profesional) y una 'nota de traspaso' en el relevo de turno. Probablemente el competidor real sea el grupo de WhatsApp de la familia: la app debe ser más rápida que escribir un mensaje.",
+      "negative_or_conflicting": "Las valoraciones y los precios vienen de blogs con interés comercial y no se han verificado en las tiendas. Caring Village es fuente y competidor a la vez.",
+      "safety_notes": "Permisos por rol y consentimiento: no todos los familiares deben ver el diagnóstico, la economía o las fotos íntimas. Queda un registro de quién vio y quién cambió cada cosa."
+    },
+    {
+      "claim": "Apps y programas de asociaciones. La Alzheimer's Association lanzó en 2025 My ALZ Journey, gratuita y centrada en EE. UU. La OMS ofrece iSupport gratis: curso en línea en español, manual impreso en español y una versión 'Lite'. Tiene una adaptación española para Castilla y León, y la adaptación a cada país se pide escribiendo a whodementia@who.int. La página de la OMS no presenta datos de eficacia.",
+      "evidence_level": "C",
+      "sources": [
+        "https://www.who.int/teams/mental-health-and-substance-use/treatment-care/isupport",
+        "https://www.wfsb.com/2025/06/24/alzheimers-association-launches-new-support-app/"
+      ],
+      "app_implication": "No competir con iSupport, sino enlazarlo. Las lecciones se integran por módulos con recordatorio de progreso, siempre que la licencia lo permita (pedir permiso a la OMS). Es la fuente más sólida de contenido estructurado gratuito en español.",
+      "negative_or_conflicting": "La OMS no publica resultados de eficacia en esa página. No se han verificado los ensayos publicados de iSupport en otros países: comprobarlos antes de afirmar que funciona. La licencia de reutilización no está confirmada. My ALZ Journey solo está verificada por una noticia de prensa local.",
+      "safety_notes": "Respetar la licencia y la atribución. No modificar contenido clínico de la OMS sin revisión ni permiso."
+    },
+    {
+      "claim": "La oferta española está anticuada. YoTeCuido Alzheimer (AFACO + Lapisoft) tiene información por fases, ejercicios, recursos, autocuidado y preguntas. Su última versión en App Store es la 1.1.2, del 14 de diciembre de 2020, y solo tiene 1 valoración en la tienda de EE. UU. La app de CEAFA ofrece recursos, noticias y contacto entre cuidadores. eZaintza (GPS, voz y emergencia) es solo para el País Vasco. El catálogo del Imserso enumera apps genéricas de GPS y emergencia (Life360, AlertCops y otras). No hay información verificable sobre Acompaña ni sobre el estado de AlzhUp.",
+      "evidence_level": "C",
+      "sources": [
+        "https://apps.apple.com/us/app/yotecuido-alzheimer/id1163736386",
+        "https://www.ceafa.es/es/que-comunicamos/noticias/apps-para-cuidadores-de-enfermos-de-alzheimer",
+        "https://crealzheimer.imserso.es/documentacion/recursos/aplicaciones-moviles/aplicaciones-cuidadores",
+        "https://www.soleraasistencial.es/apps_alzheimer/"
+      ],
+      "app_implication": "En español, ninguna de las apps encontradas integra medicación, turnos, sueño, alimentación y evidencia. Conviene aliarse con AFACO o CEAFA en lugar de competir. Ellas aportan el directorio de recursos locales, revisión de contenidos y canal de distribución; la app aporta una herramienta mantenida.",
+      "negative_or_conflicting": "Solo se verificó YoTeCuido en la tienda. Del resto no se conoce su estado actual ni su mantenimiento.",
+      "safety_notes": "Las apps de GPS plantean dilemas de autonomía, privacidad y consentimiento. La decisión debe ser compartida, documentada y revisable, y conviene implicar a la persona mientras pueda opinar."
+    },
+    {
+      "claim": "Tucuvi (España) vende a hospitales y farmacéuticas seguimiento por llamadas con voz de IA (LOLA), por ejemplo en cardiología en la Arrixaca de Murcia. Es un servicio B2B, no una app familiar para Alzheimer.",
+      "evidence_level": "D",
+      "sources": [
+        "https://elreferente.es/?p=210320",
+        "https://www.murciasalud.es/-/la-arrixaca-introduce-la-inteligencia-artificial-para-el-seguimiento-de-los-pacientes-cardiol%C3%B3gicos"
+      ],
+      "app_implication": "Idea segura de bajo coste: un botón grande 'Hoy estoy bien' o un registro diario sencillo de ánimo, sueño y comida para el paciente, visible para la familia. No compite con Tucuvi; se puede explorar un convenio en el futuro.",
+      "negative_or_conflicting": "Las cifras de inversión y los acuerdos vienen de prensa sectorial. No se encontró ningún producto familiar de Tucuvi.",
+      "safety_notes": "El botón no es un servicio de emergencias ni detecta caídas, y debe decirlo claramente para que nadie confíe en él para eso. La IA conversacional puede confundir a personas con demencia y no sustituye el contacto humano."
+    },
+    {
+      "claim": "No se ha encontrado una app open source madura para cuidadores de demencia. OpenCare (GPL 3.0; medicación, citas, colaboración) se declaraba en desarrollo y no apta para datos reales; su web daba error 503 al revisarla. Proyectos como AlzheimersCaregiver o Ally (Berkeley) parecen trabajos de estudiantes; su actividad no se ha verificado.",
+      "evidence_level": "D",
+      "sources": [
+        "https://opencare.onrender.com/",
+        "https://github.com/nidhijmr/AlzheimersCaregiver",
+        "https://github.com/cs160-berkeley/Group-8-Project"
+      ],
+      "app_implication": "Oportunidad: publicar la app como proyecto abierto y mantenido. Hay que elegir la licencia con cuidado: la GPLv3 tiene conflictos conocidos con las condiciones de la App Store. Conviene valorar MPL-2.0 o Apache-2.0 para el código y CC BY-SA para los contenidos. Se reutilizan ideas, no código sin auditar.",
+      "negative_or_conflicting": "No se pudo comprobar la actividad de los repositorios (sin acceso a la API de GitHub en esta sesión) ni la web de OpenCare.",
+      "safety_notes": "No incorporar código sin revisión de seguridad. Los datos de salud exigen cifrado, una evaluación de impacto (EIPD) y cumplir el RGPD."
+    },
+    {
+      "claim": "Mercado en España. CEAFA estima hasta 1,62 millones de afectados en 2025 y más de 2 millones hacia 2035. La SEN habla de más de 800.000 personas con Alzheimer y unos 40.000 diagnósticos nuevos al año. Las cifras no son comparables: varían la definición (Alzheimer o todas las demencias) y el método. En 8 de cada 10 casos cuida un familiar, sobre todo mujeres, con dedicaciones citadas de unas 70 h por semana. El coste citado es de 27.000-37.000 EUR al año por paciente, en su mayoría a cargo de las familias.",
+      "evidence_level": "C",
+      "sources": [
+        "https://www.congresonacionaldealzheimer.org/files/84/31/83/censo-ainhoa-etayo.pdf",
+        "https://www.sen.es/saladeprensa/pdf/Link219.pdf",
+        "https://sanitasdatasalud.es/mas-de-12-millones-de-personas-en-espana-sufren-alzheimer/"
+      ],
+      "app_implication": "Público principal: la cuidadora familiar, con poco tiempo y mucha carga. Toda función debe ahorrar tiempo. Las cifras se citan con rango y fuente, nunca como dato exacto.",
+      "negative_or_conflicting": "No hay registro oficial de demencia en España. Las cifras vienen de comunicados y prensa, sin informe primario verificado. Se ha retirado la cita del INE sobre muertes en 2025 porque no hay fuente directa, y la de Gaceta Médica por irrelevante para esta afirmación.",
+      "safety_notes": "No usar estadísticas para asustar ni para recaudar con alarmismo."
+    },
+    {
+      "claim": "Latinoamérica. ADI/Bupa estimaba 7,8 millones de personas con demencia en las Américas (Latinoamérica y el Caribe) en 2013 y más de 27 millones en 2050. Pocos países tienen plan nacional de demencia y la carga del cuidado familiar es alta.",
+      "evidence_level": "C",
+      "sources": [
+        "https://www.alzint.org/u/dementia-in-the-americas-ENGLISH.pdf",
+        "https://www.paho.org/en/documents/dementia-latin-america-and-caribbean-prevalence-incidence-impact-and-trends-over-time"
+      ],
+      "app_implication": "Diseñar la app localizable desde el inicio: textos externalizados, español neutro con variantes, teléfonos de ayuda por país, modo sin conexión y bajo consumo de datos. Sin priorizar LatAm hasta validarla en España.",
+      "negative_or_conflicting": "Los datos son de 2013 y las prevalencias discordantes. Las cifras de la OPS y la lista de planes nacionales no se han verificado y pueden haber cambiado.",
+      "safety_notes": "Los recursos, los fármacos y la regulación cambian por país. El marco MDR/RGPD es europeo y en otros países aplican normas distintas (por ejemplo, ANMAT, COFEPRIS o ANVISA)."
+    },
+    {
+      "claim": "La Comisión Lancet 2024 enumera 14 factores de riesgo modificables (añade el LDL alto y la pérdida de visión sin tratar). Calcula una fracción atribuible poblacional del 45%.",
+      "evidence_level": "B",
+      "sources": [
+        "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(24)01296-0/fulltext",
+        "https://www.alzheimer-europe.org/news/2024-lancet-commission-underscores-potential-dementia-risk-reduction-identifying-14-modifiable"
+      ],
+      "app_implication": "Módulo secundario para los familiares que cuidan, que también quieren cuidarse: información de los 14 factores con su nivel de evidencia y recordatorios que pone el propio usuario (revisión de vista u oído, tensión, actividad física). Es periférico a la competencia; no debe distraer del núcleo de cuidado.",
+      "negative_or_conflicting": "Se baja de A a B porque es una síntesis de expertos basada sobre todo en estudios observacionales. El 45% supone causalidad y eliminar del todo cada factor. No es una promesa individual y no aplica a la enfermedad ya establecida. Se retira la fuente PsyPost por ser divulgación secundaria.",
+      "safety_notes": "No decir que nada 'previene' ni 'cura'. Mensajes de riesgo poblacional, sin culpar al paciente ni al cuidador."
+    },
+    {
+      "claim": "Hueco de mercado, como hipótesis: en las búsquedas hechas no aparece ninguna app que combine coordinación multicuidador con roles, evidencia etiquetada con resultados negativos, modo paciente simple, registro personal de intervenciones y efectos, y español de España gratis y abierto. Solo 2 de las 35 apps revisadas personalizan, y ambas con IA opaca.",
+      "evidence_level": "D",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11617330/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC13052052/"
+      ],
+      "app_implication": "Posicionamiento: 'el cuaderno compartido de la familia'. El registro personal queda limitado a anotar y mostrar. La familia anota cambios no farmacológicos (rutina, luz, música, horarios) y ve sus propios registros en una línea de tiempo, sin inferencias estadísticas, conclusiones de 'funciona' ni recomendaciones automáticas. Los cambios de fármacos o suplementos solo se anotan si los ha indicado un profesional. Antes de lanzar, una revisión regulatoria debe confirmar que la función no cae en la regla 11.",
+      "negative_or_conflicting": "Se baja de C a D porque es una inferencia propia a partir de búsquedas limitadas. No se han verificado Birdie, Lantern, ianacare, Carely, Jointly, Timeless, RemindMeCare, Elder, Dementia Diary ni otras. Las comparaciones antes/después en una sola persona confunden con facilidad el curso natural de la enfermedad con el efecto de una intervención.",
+      "safety_notes": "Si la app analizara los datos para sugerir qué intervención usar, podría considerarse producto sanitario (clase IIa o superior). Aunque no analice, un gráfico puede inducir a conclusiones falsas, así que debe llevar un aviso visible de que no demuestra causa y efecto."
+    },
+    {
+      "claim": "Transparencia de IA y privacidad en las apps existentes. Las dos apps con personalización completa eran asistentes de IA generativa y una declaraba usar ChatGPT. Solo el 63% de las apps explica el uso de los datos personales y el 37% su financiación.",
+      "evidence_level": "C",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11617330/"
+      ],
+      "app_implication": "Política de privacidad en lenguaje llano, datos locales por defecto, sin anuncios ni venta de datos y con la financiación declarada. Cualquier IA queda etiquetada y limitada a organizar o resumir lo que la familia escribió, nunca a dar consejo clínico. Si se añade IA, revisar también el Reglamento de IA de la UE.",
+      "negative_or_conflicting": "El estudio solo incluye apps en inglés y la muestra con IA es de 2 apps.",
+      "safety_notes": "Los datos de salud son una categoría especial en el RGPD: requieren consentimiento explícito o otra base legal, cifrado y EIPD. Las alucinaciones de la IA en salud son un riesgo grave."
+    },
+    {
+      "claim": "Nuevo. El abandono es el modo de fallo principal del sector: en la revisión de 24 estudios (2026), el uso de las apps cae con el tiempo, incluso en las que tienen buena monitorización. En el ECA de WeCareAdvisor, el uso medio fue de 1 vez al mes. Las apps con más automonitorización tienden a mostrar más beneficio, pero no se pudo aislar ese efecto.",
+      "evidence_level": "B",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC13052052/",
+        "https://health.ucdavis.edu/news/headlines/app-helps-caregivers-manage-dementia-related-behavioral-symptoms-improves-well-being/2026/08"
+      ],
+      "app_implication": "Diseñar para personas agotadas. Cada registro clave cuesta un toque y menos de 30 segundos, y la entrada de voz a texto es opcional. Nada obliga a registrar a diario, no hay rachas ni culpabilización, y el valor se ve el primer día (nota de traspaso, medicación). Se mide la retención real como métrica principal del proyecto.",
+      "negative_or_conflicting": "La relación entre monitorización y beneficio es asociativa, no causal. Los estudios usan métricas de uso heterogéneas.",
+      "safety_notes": "Las notificaciones insistentes para 'enganchar' empeoran la carga. Se descartan los patrones oscuros de engagement."
+    },
+    {
+      "claim": "Nuevo. Límite regulatorio en la UE. La guía MDCG 2019-11 se revisó el 17 de junio de 2025 (Rev.1) sin cambios sustanciales, con aclaraciones sobre IA, módulos y bienestar. Según el comentario de VDE, el software que solo registra, almacena o muestra (por ejemplo, un diario de medicación) en general no es producto sanitario. Pasa a serlo si analiza los datos o cambia el tratamiento, la prescripción o la dosis. Entonces, por la regla 11, lo normal es clase IIa o superior, que exige organismo notificado. Una exclusión en la 'finalidad prevista' no basta si la funcionalidad invita a usarla para decidir.",
+      "evidence_level": "B",
+      "sources": [
+        "https://www.vde.com/topics-de/health/beratung/regel-11",
+        "https://www.emergobyul.com/news/european-revision-primary-software-guidance-mdcg-2019-11-revision-1-small-changes-meaningful"
+      ],
+      "app_implication": "Regla de diseño para todo el producto: registrar, organizar, mostrar, recordar lo que pautó un profesional y enlazar información con su nivel de evidencia. No puntuar riesgos, ni sugerir dosis, ni interpretar síntomas, ni recomendar intervenciones según los datos. La finalidad prevista se redacta así desde el primer día y cada función nueva se revisa con esta lista.",
+      "negative_or_conflicting": "Solo se verificaron comentarios secundarios (consultoras y asociación técnica), no el texto oficial de la MDCG. La frontera entre 'mostrar' y 'analizar' es gris: los gráficos de tendencia y los avisos automáticos necesitan revisión de un experto regulatorio. Que lo considere producto sanitario en España lo decide la AEMPS.",
+      "safety_notes": "Superar el límite sin marcado CE es ilegal y peligroso. Si algún día se quiere una función de análisis, se planifica como producto sanitario aparte."
+    }
+  ],
+  "app_features": [
+    "Registro compartido multicuidador con roles y permisos (cuidador principal, familiar a distancia, profesional), registro de accesos y nota de traspaso al cambiar de turno",
+    "Medicación gratuita y sin límite como registro: pauta copiada de la receta, 'dada por X a las HH:MM', aviso de registro duplicado y lista exportable. Sin cálculo de dosis ni consejos sobre olvidos",
+    "Registro en un toque y menos de 30 segundos, con voz a texto opcional. Sin rachas ni notificaciones insistentes",
+    "Biblioteca de evidencia con etiquetas A/B/C/D/anecdótico, fuente, revisor, fecha de caducidad y apartado de resultados negativos",
+    "Modo paciente: pantalla muy simple, botones grandes, recordatorios suaves configurados por el cuidador, fotos y música personal, botón 'Hoy estoy bien' (no es servicio de emergencias)",
+    "Diario de intervenciones no farmacológicas: anotar cambios y ver los propios registros en una línea de tiempo, sin inferencias ni recomendaciones automáticas, con aviso de que no demuestra causalidad",
+    "Registro de conductas ABC con opciones no farmacológicas de fuentes revisadas y botón 'consultar al profesional / 112' ante situaciones de riesgo",
+    "Calendario de turnos, tareas repartidas y recordatorio de relevo",
+    "Autoevaluación opcional del cuidador (instrumento con licencia verificada) que solo muestra la tendencia propia, con enlace a recursos de apoyo y respiro",
+    "Informe PDF para la consulta médica con datos tal cual, sin interpretación: medicación, sueño, comidas, conductas, caídas",
+    "Enlace o integración con WHO iSupport en español y directorio de asociaciones (CEAFA/AFACO) por código postal, con contenido revisado por las asociaciones",
+    "Datos primero en el dispositivo, copia de seguridad cifrada controlada por la familia y exportación completa (JSON/CSV/PDF)",
+    "Código abierto con licencia compatible con las tiendas (valorar MPL-2.0 o Apache-2.0) y contenidos en CC BY-SA",
+    "Lista de control de límite regulatorio (MDCG 2019-11) aplicada a cada función antes de publicarla",
+    "Arquitectura localizable (textos externalizados, teléfonos por país, modo sin conexión) para LatAm en el futuro",
+    "Módulo secundario de salud del cuidador basado en los 14 factores de la Comisión Lancet, con recordatorios que pone el propio usuario"
+  ],
+  "questions_for_owner": [
+    "¿En qué fase está la persona y qué dispositivo usa (móvil propio, tableta, ninguno)? ¿Puede y quiere opinar sobre la app y sobre el uso del GPS? Esto define el modo paciente y el consentimiento.",
+    "¿Cuántos cuidadores hay, con qué roles, y qué falla hoy en la coordinación (turnos, medicación duplicada, información que no llega)? ¿Qué mezcla de iPhone y Android usan?",
+    "¿Qué usan hoy (WhatsApp, libreta, Excel, Medisafe) y por qué lo dejaron o lo mantienen? El grupo de WhatsApp es probablemente el competidor real.",
+    "¿Aceptan que la app no recomiende nada (ni dosis, ni intervenciones, ni 'esto funciona') y se limite a registrar, mostrar e informar con su nivel de evidencia? Es el límite para no ser producto sanitario.",
+    "¿Quién figurará legalmente como responsable (fabricante y responsable del tratamiento de datos en el RGPD)? ¿Una persona, una asociación o una fundación?",
+    "Con coste cero, ¿aceptan que no haya servidor propio y que la sincronización entre cuidadores vaya por el propio dispositivo o por la nube personal de la familia? ¿O habrá alguna entidad que cubra un servidor?",
+    "¿Conocen a AFACO, CEAFA u otra asociación o a profesionales sanitarios dispuestos a revisar contenidos sin cobrar?",
+    "¿Aceptan publicar el código y los contenidos de forma abierta? ¿Quién mantendrá la app dentro de 2 años?",
+    "¿Qué datos no deben ver todos los familiares (diagnóstico, fotos, economía, notas de conducta)?",
+    "¿Qué parte del cuidado es más dura ahora mismo (noche, medicación, conductas, soledad del cuidador)? Esto decide el primer módulo.",
+    "¿Cuánto tiempo al día puede dedicar el cuidador principal a registrar? ¿Prefiere voz o toques?",
+    "¿Hay interés real en LatAm (familia allí) o es solo una posibilidad? Esto decide el esfuerzo de localización ahora."
+  ],
+  "free_resources": [
+    {
+      "name": "WHO iSupport for Dementia",
+      "url": "https://www.who.int/teams/mental-health-and-substance-use/treatment-care/isupport",
+      "what": "Programa de autoayuda para cuidadores: curso en línea y manual en español, versión Lite y adaptación a Castilla y León. La licencia se consulta en whodementia@who.int",
+      "cost": "Gratuito"
+    },
+    {
+      "name": "Revisión de 35 apps para cuidadores (JMIR Aging 2024)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11617330/",
+      "what": "11 indicadores de calidad de información, reutilizables como lista de control editorial",
+      "cost": "Acceso libre"
+    },
+    {
+      "name": "Revisión sistemática mHealth y automonitorización en cuidadores (PsyCh Journal 2026)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13052052/",
+      "what": "24 estudios: tipos de intervención, monitorización, resultados divididos sobre la carga y caída del uso",
+      "cost": "Acceso libre"
+    },
+    {
+      "name": "Metaanálisis de apps para cuidadores (Shin 2022)",
+      "url": "https://karger.com/dem/article/51/3/203/827984/Effects-of-App-Based-Mobile-Interventions-for",
+      "what": "Tamaños de efecto agregados sobre carga, depresión, estrés, competencia y calidad de vida",
+      "cost": "Resumen libre"
+    },
+    {
+      "name": "VDE: Regla 11 del MDR (alemán)",
+      "url": "https://www.vde.com/topics-de/health/beratung/regel-11",
+      "what": "Explica cuándo una app de registro es o no producto sanitario, con ejemplos",
+      "cost": "Gratuito"
+    },
+    {
+      "name": "Catálogo de apps para cuidadores (CRE Alzheimer, Imserso)",
+      "url": "https://crealzheimer.imserso.es/documentacion/recursos/aplicaciones-moviles/aplicaciones-cuidadores",
+      "what": "Listado en español de apps de cuidado y localización",
+      "cost": "Gratuito"
+    },
+    {
+      "name": "CEAFA: apps para cuidadores",
+      "url": "https://www.ceafa.es/es/que-comunicamos/noticias/apps-para-cuidadores-de-enfermos-de-alzheimer",
+      "what": "Descripción de apps españolas",
+      "cost": "Gratuito"
+    },
+    {
+      "name": "Dementia in the Americas (ADI)",
+      "url": "https://www.alzint.org/u/dementia-in-the-americas-ENGLISH.pdf",
+      "what": "Datos y proyecciones para LatAm (2013)",
+      "cost": "Gratuito"
+    },
+    {
+      "name": "Censo de personas con Alzheimer en España (CEAFA)",
+      "url": "https://www.congresonacionaldealzheimer.org/files/84/31/83/censo-ainhoa-etayo.pdf",
+      "what": "Estimaciones de pacientes en España",
+      "cost": "Gratuito"
+    }
+  ],
+  "verification_notes": "Verifiqué con WebFetch. PMC13052052 no es 'Ye 2023', sino Soto-Pérez y cols. (PsyCh Journal 2026): 24 estudios, 6 con menos carga y 6 nulos, 15 sin grupo control y uso decreciente. WeCareAdvisor (UC Davis) es un ECA con efecto modesto sobre el malestar, conductas persistentes y uso de 1 vez al mes. FamTechCare mejoró la satisfacción, no resultados clínicos. Añadí el metaanálisis de Shin 2022 (efecto sobre la carga no significativo). YoTeCuido no se actualiza desde 2020. La OMS confirma iSupport en español, lo que corrige la nota original. El tope de Medisafe lo confirman Trustpilot y un blog competidor. Eliminé lo que no pude sostener: el ECA de 86 cuidadores (Springer, inaccesible), JMIR Aging 2025 (vacío), isupportfordementia.org (error 503), Medium promocional, PsyPost, la cita del INE y Gaceta Médica. Bajé niveles: MindMate de C a D, Lancet de A a B y el hueco de mercado de C a D. Subí Medisafe (de anecdótico a C) y la oferta española (de D a C). Añadí dos hallazgos: el abandono como fallo principal y el límite regulatorio MDCG 2019-11 Rev.1/regla 11. Reescribí las implicaciones de riesgo. La doble dosis pasa a ser aviso de registro duplicado. El registro personal pasa a línea de tiempo sin inferencias. El botón 'Estoy bien' no es servicio de emergencias. Zarit, sin cribado de depresión. Añadí el conflicto GPLv3/App Store. Agoté el presupuesto de búsquedas: no verifiqué Lotsa ni CaringBridge en tiendas, el cierre de CareZone ni los repositorios de GitHub."
+}

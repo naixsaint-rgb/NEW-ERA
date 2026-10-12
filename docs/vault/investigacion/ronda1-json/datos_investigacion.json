@@ -1,0 +1,262 @@
+{
+  "key": "datos_investigacion",
+  "title": "Datos, escalas e investigación",
+  "summary": "Conclusión revisada: se puede construir gratis un registro estructurado, un informe para el médico y una biblioteca de evidencia viva, pero con cuatro límites. 1) Frontera regulatoria (MDR, regla 11 y guía MDCG 2019-11): si la app puntúa e interpreta un test cognitivo, estima riesgo o sugiere diagnóstico o tratamiento, pasa a ser producto sanitario de clase IIa o superior. Debe limitarse a registrar, mostrar tendencias neutras, informar con nivel de evidencia y remitir al médico. 2) Licencias: MMSE (PAR; en España lo comercializa TEA Ediciones, pendiente de verificar), MoCA (formación de pago para ciertos usos), NPI y NPI-Q (© J. L. Cummings; el uso comercial requiere permiso, verificado en npitest.net) y Zarit (distribuido con licencia, probablemente por Mapi Research Trust, sin verificar). Ninguna escala con titular se reproduce sin permiso escrito. Un recurso público y útil en España es el baremo oficial de dependencia (BVD, RD 174/2011): la app puede ayudar a documentar el día a día para la valoración, sin puntuarlo. 3) Calidad del dato: casi todo lo informa el cuidador, y su informe se sesga con su propia sobrecarga y ánimo. Por eso hay que registrar también su estado y separar lo observado de lo valorado. 4) Biomarcadores digitales y análisis de sangre: una revisión sistemática de 2026 concluye que no están listos para sustituir los tests. El cociente p-tau217/Aβ42 aprobado por la FDA tuvo una especificidad del 23 % en una cohorte real presentada en un congreso. La app solo debe mostrar tendencias personales y guardar los resultados que dé el médico. Las APIs de literatura (PubMed, ClinicalTrials.gov) son gratuitas; Google Fit desaparece en 2026, así que hay que usar HealthKit y Health Connect. El EHDS (Reglamento UE 2025/327) aplicará el uso secundario de datos de salud desde marzo de 2029: conviene diseñar ya exportaciones en formatos estándar y un consentimiento granular.",
+  "findings": [
+    {
+      "claim": "Frontera de producto sanitario: según el MDR (UE 2017/745), regla 11, y la guía MDCG 2019-11, el software que da información para decisiones diagnósticas o terapéuticas es al menos clase IIa. El que solo almacena, transfiere, muestra o busca datos sin procesarlos para un fin médico individual no es producto sanitario. Puntuar e interpretar un test cognitivo, estimar el riesgo de demencia o alertar de 'posible delirium' con un algoritmo propio encaja en la primera categoría.",
+      "evidence_level": "A",
+      "sources": [
+        "https://eur-lex.europa.eu/eli/reg/2017/745/oj",
+        "https://health.ec.europa.eu/system/files/2020-09/md_mdcg_2019_11_guidance_qualification_classification_software_en_0.pdf"
+      ],
+      "app_implication": "Escribir antes de programar una 'lista de frontera' con lo que la app hace (registrar, mostrar series temporales del propio usuario, recordar, exportar, enlazar evidencia con su nivel) y lo que no hace (puntuar escalas con puntos de corte, calcular riesgos, sugerir dosis, nombrar diagnósticos). Revisar cada funcionalidad nueva contra esa lista. Las alertas de cambio deben ser reglas transparentes que define el propio cuidador (p. ej. 'avísame si duerme menos de 4 h tres noches seguidas'), no inferencias clínicas de la app.",
+      "negative_or_conflicting": "El PDF de la MDCG devolvió 403 en esta revisión; el contenido citado sale del conocimiento previo de la guía y debe releerse (hay una revisión rev.1 de 2023). La frontera tiene zonas grises: una alerta de tendencia con texto clínico puede reclasificarse. Conviene una consulta informal a la AEMPS o a un consultor regulatorio antes del lanzamiento.",
+      "safety_notes": "Un producto sanitario no certificado distribuido en la UE es ilegal y además expone a responsabilidad por daño. La decisión regulatoria condiciona el resto del diseño de datos."
+    },
+    {
+      "claim": "El MMSE es propietario: PAR gestiona los derechos y cobra por formulario; no debe digitalizarse ni reproducirse sin licencia.",
+      "evidence_level": "B",
+      "sources": [
+        "https://www.aafp.org/pubs/afp/issues/2016/1201/p880.html",
+        "https://geripal.org/copyrights-and-copylefts-in-medicine/"
+      ],
+      "app_implication": "No incluir ítems del MMSE. Ofrecer un campo opcional 'resultado aportado por el profesional' (puntuación total, fecha, quién lo pasó, versión), sin puntos de corte ni interpretación.",
+      "negative_or_conflicting": "Bajado de A a B: el hecho jurídico procede de fuentes secundarias de 2016 y las tarifas (1,35 USD por formulario) pueden haber cambiado. Un análisis jurídico duda de que el copyright resistiera un pleito, pero no está resuelto. La versión española (MMSE de Lobo et al.) parece distribuirse con licencia por TEA Ediciones (no verificado). El MEC de Lobo, muy usado en España, también tiene autoría reconocida, así que hay que consultar sus derechos.",
+      "safety_notes": "Una puntuación aislada varía con la escolaridad, el cansancio y el delirium; mostrarla siempre con fecha y contexto, nunca como semáforo."
+    },
+    {
+      "claim": "El MoCA exige desde septiembre de 2025 una formación certificada de pago (125 USD) para la mayoría de clínicos. Según su FAQ (dic. 2025), es opcional si solo se usa el total para cribado o derivación y obligatoria para interpretar subpuntuaciones. Es gratuita para estudiantes, académicos e instituciones públicas.",
+      "evidence_level": "B",
+      "sources": [
+        "https://www.mocacognition.com/training-certification",
+        "https://mocacognition.com/faq/",
+        "https://kffhealthnews.org/news/creator-of-brain-exam-that-trump-aced-demands-new-training-for-testers/"
+      ],
+      "app_implication": "No implementar el MoCA. Campo de registro igual que el del MMSE.",
+      "negative_or_conflicting": "Las condiciones han cambiado varias veces en dos años; hay que verificarlas en la web del titular antes de cualquier integración, incluida MoCA Duo.",
+      "safety_notes": "Que la familia lo autoadministre en casa invalida la interpretación y puede alarmar sin motivo."
+    },
+    {
+      "claim": "Mini-Cog y GPCOG se describen como gratuitos para uso clínico, pero el uso comercial, modificado o digital requiere permiso según fuentes secundarias. La licencia de SLUMS no está verificada.",
+      "evidence_level": "C",
+      "sources": [
+        "https://www.maineddc.org/images/PDFs/Cognitive-Assessment-Toolkit.pdf",
+        "https://agsjournals.onlinelibrary.wiley.com/doi/full/10.1111/jgs.16713",
+        "https://www.aisel.co/scale-library/cognition/mini-cog"
+      ],
+      "app_implication": "No incluir cribados en la versión 1. Si más adelante se quiere un módulo de seguimiento supervisado, hacerlo solo con permiso escrito y bajo evaluación regulatoria, porque puntuar un cribado con punto de corte cae en la regla 11. Las tareas propias de 'entrenamiento' (recuerdo, fluidez) se presentan como actividad, no como medida: no se puntúan contra normas poblacionales.",
+      "negative_or_conflicting": "Bajado de B a C: mini-cog.com no devolvió contenido legible en esta revisión y los términos proceden de terceros. Además, la utilidad de repetir el cribado en una persona ya diagnosticada es escasa: estas pruebas están pensadas para detectar, no para seguir la evolución.",
+      "safety_notes": "Un resultado de cribado no es un diagnóstico; en una persona ya diagnosticada, una bajada puede reflejar infección, dolor o fármacos."
+    },
+    {
+      "claim": "Escalas de cuidadores y de conducta validadas en español: Zarit (22 ítems, adaptación de Martín et al. 1996; existe una versión abreviada de 7 ítems para atención primaria) y NPI-Q (validación española de Boada et al.). El NPI y sus formas son © J. L. Cummings: no pueden republicarse sin permiso y el uso comercial requiere licencia (verificado en npitest.net). El Zarit se distribuye con licencia, probablemente por Mapi Research Trust (no verificado en esta revisión).",
+      "evidence_level": "B",
+      "sources": [
+        "https://www.scielo.cl/scielo.php?script=sci_arttext&pid=S0034-98872009000500009",
+        "https://www.researchgate.net/publication/279580680_Neuropsychiatric_Inventory_Questionnaire_NPI-Q_Spanish_validation_of_a_brief_clinical_form_of_the_Neuropsychiatric_Inventory_NPI_Neuropsychiatric_Inventory_Questionnaire_NPI-Q_Validacion_espanola_de_u",
+        "https://npitest.net/",
+        "https://www.san.gva.es/documents/3069046/5298358/v_3785_2004_es.pdf/10ee89d0-93c5-e2c3-7a7a-86a9cfc5ee4f"
+      ],
+      "app_implication": "Hasta tener permiso escrito, usar ítems propios no derivados: un termómetro de sobrecarga del cuidador de 0 a 10 y una lista de conductas observadas con palabras de la familia ('se levantó de noche', 'no reconoció la casa'), con frecuencia y momento del día. Ese registro se exporta tal cual al médico, que puede pasar el NPI-Q o el Zarit en consulta. Si se obtiene licencia, la puntuación se muestra al cuidador sin etiquetas de 'sobrecarga intensa'; solo se le ofrecen recursos de apoyo.",
+      "negative_or_conflicting": "Siguen sin confirmar las licencias de Barthel, Lawton, PAINAD, Cornell, CAM y MNA. Los puntos de corte del Zarit (47-55 y 56 o más) proceden de una muestra española de los años 90 y no deben automatizarse.",
+      "safety_notes": "Puntuar automáticamente la sobrecarga del cuidador con etiqueta clínica se acerca a un cribado de salud mental. Si el cuidador menciona ideas de hacerse daño, mostrar sin algoritmo el teléfono 024 (línea de atención a la conducta suicida) y el 112."
+    },
+    {
+      "claim": "Sesgo del informante: casi todos los datos de la app los introduce un cuidador, y la literatura sobre calidad de vida en demencia muestra que lo que informa el cuidador (proxy) difiere sistemáticamente de lo que dice el paciente. La diferencia se asocia al estado del propio cuidador (sobrecarga, ánimo).",
+      "evidence_level": "B",
+      "sources": [
+        "https://doi.org/10.1186/1471-2288-13-110"
+      ],
+      "app_implication": "Diseñar el modelo de datos con autoría y tipo de dato: quién registró, si es observación ('durmió 5 h') o valoración ('estaba peor'), y un registro breve del estado del cuidador ese día. Permitir varios informantes (hija, cuidadora contratada, centro de día) y mostrar sus discrepancias en vez de promediarlas. Incluir la voz de la persona con Alzheimer cuando pueda (una pregunta sencilla: '¿cómo te sientes hoy?', con caras).",
+      "negative_or_conflicting": "Solo se verificó que el DOI existe (Arons et al., BMC Med Res Methodol 2013); el resultado se cita de memoria y debe confirmarse con el texto completo. El sentido y la magnitud del sesgo varían entre estudios.",
+      "safety_notes": "No juzgar al cuidador por sus discrepancias; usarlas solo para contextualizar el dato ante el médico."
+    },
+    {
+      "claim": "APIs de literatura gratuitas: PubMed E-utilities (3 peticiones/s sin clave; 10/s con clave gratuita según la documentación NCBI), ClinicalTrials.gov API v2 (JSON, sin autenticación), Europe PMC REST y Semantic Scholar.",
+      "evidence_level": "B",
+      "sources": [
+        "https://www.nlm.nih.gov/dataguide/eutilities/utilities.html",
+        "https://clinicaltrials.gov/data-api/api",
+        "https://api.semanticscholar.org/api-docs/"
+      ],
+      "app_implication": "Tarea programada gratuita (GitHub Actions) que busque cada semana temas definidos y proponga entradas para la biblioteca. La clasificación A-D por tipo de estudio queda como sugerencia: un revisor humano la confirma antes de publicar. Incluir de forma obligatoria los ensayos negativos y retirados (PubMed marca las retractaciones). El servidor no sabe nada del usuario: las búsquedas no llevan datos personales.",
+      "negative_or_conflicting": "Bajado de A a B: Europe PMC y Semantic Scholar no se pudieron abrir y la página de NLM está archivada. Se eliminó la fuente de un paquete npm de terceros como referencia de límites. La clasificación por tipo de estudio no mide calidad: un ECA pequeño y mal hecho no vale más que una buena cohorte. Hay que añadir criterios de tamaño, replicación y conflicto de interés.",
+      "safety_notes": "No generar resúmenes automáticos con IA sin revisión, porque pueden exagerar efectos. Mostrar siempre el título, el enlace original y la fecha de revisión."
+    },
+    {
+      "claim": "El registro europeo CTIS tiene un portal público de búsqueda, pero no se ha confirmado ninguna API pública. En España existe además el Registro Español de Estudios Clínicos (REec), con búsqueda web.",
+      "evidence_level": "C",
+      "sources": [
+        "https://www.ema.europa.eu/en/human-regulatory-overview/research-development/clinical-trials-human-medicines/clinical-trials-information-system",
+        "https://reec.aemps.es/reec/public/web.html"
+      ],
+      "app_implication": "Sección 'Investigación en la que participar' con enlaces a búsquedas prefiltradas en CTIS, REec y ClinicalTrials.gov, sin scraping ni recomendaciones personalizadas. Usar un texto neutro: 'habla con tu neurólogo si te interesa'.",
+      "negative_or_conflicting": "No se ha verificado si a fecha de 2026 existe una API de CTIS.",
+      "safety_notes": "No destacar ensayos concretos ni prometer acceso a fármacos; existen 'ensayos' de pago fraudulentos y clínicas que venden tratamientos no aprobados."
+    },
+    {
+      "claim": "Biomarcadores digitales (marcha, habla, movimiento, actividad doméstica): una revisión sistemática de 2026 (11 estudios) recoge AUC de 0,59 a 0,95, pero sobre todo con DCL, en clínica o laboratorio, en una sola sesión, con muestras pequeñas (a veces menos de 15 por grupo) y pocos diseños longitudinales. Los autores concluyen que no están listos para sustituir los tests.",
+      "evidence_level": "C",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC13305413/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11032572/",
+        "https://www.nature.com/articles/s41746-025-01640-z"
+      ],
+      "app_implication": "Pasos al día y horas en cama, con consentimiento y siempre en el dispositivo, mostrados solo como gráfico frente a la propia línea base, sin etiquetas clínicas. Las alertas son reglas que configura el cuidador. No hacer análisis de voz en la versión 1.",
+      "negative_or_conflicting": "Se retiró como fuente un preprint de medRxiv sin revisión por pares. Las exactitudes altas proceden de estudios de casos y controles con pacientes ya diagnosticados, lo que las infla. En una persona con Alzheimer ya diagnosticado el objetivo no es detectar, sino ver cambios agudos, y para eso no existe validación.",
+      "safety_notes": "Los cambios bruscos suelen tener causas tratables (infección, dolor, estreñimiento, fármacos). La app no debe sugerir la causa; solo invitar a llamar al médico o, si hay signos de urgencia, al 112."
+    },
+    {
+      "claim": "DementiaBank/Pitt es un corpus de habla en inglés muy usado. Hay riesgo documentado de que los modelos aprendan artefactos de grabación ('Clever Hans'), y su acceso y licencia no están claros. Además, el reto ADReSS-M (2023) se planteó precisamente para comprobar si los modelos entrenados en inglés generalizan a otro idioma (griego): la transferencia entre idiomas no está resuelta.",
+      "evidence_level": "C",
+      "sources": [
+        "https://talkbank.org/dementia/access/English/Pitt.html",
+        "https://pubs.asha.org/doi/10.1044/2022_AJSLP-22-00281",
+        "https://arxiv.org/abs/2301.05562"
+      ],
+      "app_implication": "Descartar modelos de voz entrenados con Pitt para usuarios hispanohablantes. Si se investiga la voz en el futuro, hacerlo con un grupo académico español, un protocolo ético aprobado y datos en español, como estudio aparte y no como función de la app.",
+      "negative_or_conflicting": "Hay fuentes en conflicto sobre el acceso (consorcio con contraseña frente a página de descarga); prevalece lo que diga TalkBank. El resumen de ADReSS-M no detalla el rendimiento por idioma.",
+      "safety_notes": "La voz es un dato biométrico y de salud: no subir audio a servidores."
+    },
+    {
+      "claim": "ADNI es gratuito solo para investigadores con afiliación: hay que aceptar el acuerdo de uso, solicitarlo en LONI IDA y renovarlo cada año. Las condiciones de OASIS-3 no se han verificado.",
+      "evidence_level": "A",
+      "sources": [
+        "https://adni.loni.usc.edu/data-samples/adni-data/"
+      ],
+      "app_implication": "Fuera del alcance del producto. Solo tiene sentido mediante una colaboración académica, y los datos de ADNI nunca se mezclan con datos de usuarios.",
+      "negative_or_conflicting": "ADNI es una cohorte norteamericana, mayoritariamente blanca y con estudios superiores; su generalización a la población española mayor es limitada.",
+      "safety_notes": "Prohibido reidentificar o redistribuir."
+    },
+    {
+      "claim": "Análisis de sangre de p-tau217: en atención primaria sueca (n=548) el p-tau217 de Lumipulse alcanzó un 85 % de exactitud frente al LCR, y un 92-94 % con doble punto de corte, dejando un 12-17 % de resultados intermedios. En una cohorte real de una sola consulta especializada (n=252, congreso CTAD 2025, sin revisión por pares), el cociente aprobado por la FDA mostró un 100 % de sensibilidad y un 23 % de especificidad; el p-tau217 solo, un 98 % y un 84 %.",
+      "evidence_level": "B",
+      "sources": [
+        "https://www.nature.com/articles/s41591-025-03622-w",
+        "https://practicalneurology.com/news/accuracy-of-fda-cleared-alzheimers-blood-test-evaluated-in-a-real-world-cohort/2484734/",
+        "https://www.alzforum.org/news/conference-coverage/trouble-fujirebios-fda-cleared-blood-test-or-lousy-lot"
+      ],
+      "app_implication": "Ficha educativa neutra ('qué mide, qué no dice, para quién se indica') y un campo para guardar el resultado que entregue el médico. No interpretar el resultado ni señalar dónde hacerse la prueba.",
+      "negative_or_conflicting": "Los puntos de corte no se trasladan bien de las cohortes de investigación a la práctica clínica, y no se publicaron valores predictivos. El estado del problema de lotes no está verificado. Su disponibilidad en el sistema público español es limitada y variable.",
+      "safety_notes": "Hay mercado privado de tests directos al consumidor: la app no debe promoverlos. Un positivo no equivale a demencia."
+    },
+    {
+      "claim": "Herramientas n-de-1 y de ciencia ciudadana: Open Humans, ResearchKit (iOS), ResearchStack (Android, aparentemente sin mantenimiento), StudyMe y FDA MyStudies. Hay un piloto n-de-1 de deprescripción de estatinas en demencia que usó el CBI-R.",
+      "evidence_level": "C",
+      "sources": [
+        "https://academic.oup.com/gigascience/article/8/6/giz076/5523201",
+        "https://www.openmhealth.org/introducing-research-stack/",
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6955788/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7886578/"
+      ],
+      "app_implication": "Modo 'probar y observar' limitado a cambios cotidianos sin riesgo (horario de luz natural, música de su juventud, paseo, hora de la cena): periodo de 2-4 semanas, una o dos medidas diarias y un gráfico antes/después con la advertencia de que una persona no prueba una causa. Queda bloqueado para fármacos, suplementos y dietas restrictivas: ahí solo se puede registrar lo que haya pautado el médico.",
+      "negative_or_conflicting": "Los pilotos son solo de viabilidad. La propia enfermedad tiene fluctuaciones que pueden confundirse con efectos, y el cuidador no está ciego a la intervención. ResearchStack parece abandonado y no debe ser una dependencia del proyecto.",
+      "safety_notes": "La deprescripción solo la decide el médico. La app nunca propone retirar ni cambiar fármacos."
+    },
+    {
+      "claim": "Música e intervenciones psicosociales: la revisión Cochrane de intervenciones musicales en demencia (CD003477; actualización de 2018 según conocimiento previo) sugiere beneficios pequeños en síntomas depresivos y en conducta global, con poco o ningún efecto en agitación y cognición, y certeza baja o moderada. Una revisión de 2024 (no Cochrane) refiere mejoras cognitivas con mayor riesgo de sesgo.",
+      "evidence_level": "B",
+      "sources": [
+        "https://cochranelibrary.com/cdsr/doi/10.1002/14651858.CD003477",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11469337/"
+      ],
+      "app_implication": "Cada contenido lleva una etiqueta de nivel de evidencia, enlace y fecha. La app registra cómo responde la persona a cada actividad para el informe de 'qué le funciona a ella'.",
+      "negative_or_conflicting": "No se verificó la versión vigente de la revisión Cochrane. Las revisiones no Cochrane que refieren mejoras cognitivas no concuerdan con ella. Se eliminó como fuente el ECA de 72 cuidadores porque no corresponde a este hallazgo.",
+      "safety_notes": "No prometer mejora cognitiva; presentar los efectos como pequeños y variables entre personas."
+    },
+    {
+      "claim": "Herramientas abiertas de privacidad diferencial (OpenDP/SmartNoise, Opacus, Diffprivlib, Google DP): técnicamente viables, pero con pocos usuarios el ruido destruye la utilidad. El aprendizaje federado no basta por sí solo sin agregación segura.",
+      "evidence_level": "C",
+      "sources": [
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10386022/",
+        "https://ai.meta.com/blog/introducing-opacus-a-high-speed-library-for-training-pytorch-models-with-differential-privacy/"
+      ],
+      "app_implication": "Versión 1 sin donación de datos: todo queda local y cifrado, y solo se exporta a petición del usuario. La donación agregada se valorará cuando haya masa crítica, un protocolo con comité de ética y una evaluación de impacto (EIPD).",
+      "negative_or_conflicting": "Se eliminó como fuente un enlace de OpenMined sin contenido verificable. La privacidad diferencial no resuelve la base jurídica: los datos de salud siguen siendo una categoría especial del RGPD (art. 9).",
+      "safety_notes": "En grupos pequeños (un pueblo, una residencia) hay riesgo de reidentificación aunque haya ruido."
+    },
+    {
+      "claim": "Reglamento del Espacio Europeo de Datos de Salud (EHDS, UE 2025/327): en vigor desde el 26 de marzo de 2025. El intercambio de datos para uso primario (resumen del paciente, receta electrónica) y las normas de uso secundario se aplican desde marzo de 2029 para la mayoría de categorías, y desde 2031 para el resto.",
+      "evidence_level": "A",
+      "sources": [
+        "https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space-regulation-ehds_en"
+      ],
+      "app_implication": "Diseñar desde el principio un modelo de datos exportable a estándares (HL7 FHIR, compatible con el Resumen de Paciente Internacional) para que el informe pueda viajar a la historia clínica en el futuro. Preparar un consentimiento granular que sirva cuando exista el marco de uso secundario.",
+      "negative_or_conflicting": "La página consultada no aclara las obligaciones de las 'wellness apps'. El reglamento prevé un etiquetado para las apps que dicen interoperar con historias clínicas, pero hay que confirmar ese detalle en el texto legal.",
+      "safety_notes": "Prometer en la app interoperabilidad con la historia clínica sin cumplir los requisitos podría generar obligaciones legales."
+    },
+    {
+      "claim": "Las APIs de Google Fit están en desuso: no se admiten altas desde el 1 de mayo de 2024 y se retiran en 2026. Google recomienda Health Connect en Android, y en iOS existe HealthKit.",
+      "evidence_level": "A",
+      "sources": [
+        "https://developers.google.com/fit"
+      ],
+      "app_implication": "Para pasos y sueño usar solo HealthKit (iOS) y Health Connect (Android), leyendo en el dispositivo y sin servidor. Ofrecer siempre una alternativa manual, porque muchas personas con Alzheimer no llevan el móvil encima.",
+      "negative_or_conflicting": "Los datos de sueño de los wearables de consumo no están validados en demencia, y los pasos solo cuentan si la persona lleva el dispositivo.",
+      "safety_notes": "No usar la localización continua sin un consentimiento específico y una ponderación de la dignidad y autonomía de la persona."
+    },
+    {
+      "claim": "En España el grado de dependencia se valora con el baremo oficial BVD (Real Decreto 174/2011, en vigor), que se basa en la observación de actividades de la vida diaria. Es una norma pública y no un test con propietario.",
+      "evidence_level": "A",
+      "sources": [
+        "https://www.boe.es/buscar/act.php?id=BOE-A-2011-3174"
+      ],
+      "app_implication": "Función 'preparar la valoración de dependencia': diario de ayudas que necesita en cada actividad (comer, asearse, vestirse, moverse, tomar medicación, decisiones), con ejemplos fechados para enseñarlos al valorador y la guía de trámites de la comunidad autónoma. La app no calcula el grado ni predice el resultado.",
+      "negative_or_conflicting": "El procedimiento y los plazos varían según la comunidad autónoma, y el baremo puede revisarse. No hay evidencia de que un diario mejore el resultado de la valoración; es una idea de práctica.",
+      "safety_notes": "Evitar que se perciba como una forma de 'inflar' la dependencia: el diario solo recoge hechos observados."
+    },
+    {
+      "claim": "Informe de una página para el neurólogo, generado con los datos que la app ya registra (conductas, sueño, caídas, peso, ingesta, medicación administrada, resultados aportados por el médico), en PDF local.",
+      "evidence_level": "D",
+      "sources": [
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6955788/"
+      ],
+      "app_implication": "Pantalla 'Preparar la visita': hechos de los últimos 30-90 días, cambios respecto al periodo anterior expresados en números y no en colores, días sin datos claramente marcados, quién informó cada dato, lista de medicamentos y suplementos (incluidos los naturales y de medicina tradicional que tome) y preguntas para el médico. Exportación a PDF; la exportación FHIR queda para más adelante.",
+      "negative_or_conflicting": "No hay evidencia directa de que mejore los resultados; validarlo con 2-3 neurólogos o geriatras antes de fijar el formato. El riesgo es la sobrecarga de información: si ocupa más de una página, no se leerá.",
+      "safety_notes": "Incluir siempre los suplementos y productos de herbolario, por las posibles interacciones (p. ej. ginkgo con anticoagulantes). La app no evalúa interacciones."
+    }
+  ],
+  "app_features": [
+    "Registro diario del cuidador en menos de 60 segundos, sin conexión: sueño, ánimo, conductas observadas, comida, dolor y medicación administrada; con autor, tipo de dato (observación o valoración) y estado del propio cuidador",
+    "Varios informantes por persona (familia, cuidadora contratada, centro de día) con permisos y discrepancias visibles",
+    "Informe de una página para la consulta, en PDF, con días sin datos marcados, sin semáforos y con la lista completa de fármacos y suplementos",
+    "Campo 'resultado aportado por el profesional' para MMSE, MoCA, análisis de sangre o estadio, sin reproducir tests ni interpretar",
+    "Biblioteca viva de evidencia con niveles A-D revisados por personas, sección obligatoria de resultados negativos o retractados y fecha de revisión",
+    "Modo 'probar y observar' para cambios cotidianos sin riesgo (luz, música, horarios), bloqueado para fármacos y suplementos",
+    "Alertas configuradas por el propio cuidador con reglas transparentes, sin inferencia clínica de la app",
+    "Integración opcional con HealthKit y Health Connect, procesada en el dispositivo",
+    "Diario para preparar la valoración de dependencia (BVD), con hechos fechados y guía de trámites autonómica",
+    "Enlaces a buscadores de ensayos (CTIS, REec, ClinicalTrials.gov) con texto neutro",
+    "Lista de frontera regulatoria (qué hace y qué no hace la app) visible en 'Acerca de' y usada como control en cada versión"
+  ],
+  "questions_for_owner": [
+    "¿Aceptáis que la versión 1 no sea producto sanitario (sin cribados puntuados, sin riesgos calculados, sin alertas clínicas automáticas), aunque eso deje fuera ideas atractivas? Es la decisión que más condiciona el resto.",
+    "¿La app será gratuita y sin ánimo de lucro, con marca o detrás de una entidad (asociación, fundación)? Cambia los permisos de las escalas y quién es el responsable del tratamiento de datos según el RGPD.",
+    "¿Hay un neurólogo o geriatra, y un farmacéutico, dispuestos a revisar contenidos y a validar el informe de una página?",
+    "¿Datos solo en el teléfono, o sincronización cifrada entre varios cuidadores? Si hay sincronización, ¿quién paga y mantiene el servidor?",
+    "¿Quién da el consentimiento por la persona con Alzheimer (ella misma mientras pueda, tutor, apoyo de la Ley 8/2021) y cómo se recoge su voz y sus preferencias mientras pueda expresarlas?",
+    "¿Cuántos cuidadores distintos registrarían datos de la misma persona y con qué permisos (p. ej. la cuidadora contratada no ve datos económicos)?",
+    "¿Queréis que la biblioteca incluya medicina tradicional china, fitoterapia y terapias naturales con la misma etiqueta de evidencia que el resto, aunque muchas acaben en nivel D o con resultados negativos?",
+    "¿Quién hará la revisión humana de la biblioteca de evidencia y con qué frecuencia? Sin revisor, la biblioteca no debe publicarse.",
+    "¿Comunidad autónoma de referencia e idiomas (castellano, catalán, gallego, euskera)? Afecta a los trámites de dependencia y a la validación lingüística de cualquier escala."
+  ],
+  "free_resources": [
+    {"name": "NCBI E-utilities (PubMed)", "url": "https://www.nlm.nih.gov/dataguide/eutilities/utilities.html", "what": "API de PubMed; 3 peticiones/s sin clave y 10/s con clave gratuita (confirmar en NBK25497)", "cost": "gratis"},
+    {"name": "ClinicalTrials.gov Data API v2", "url": "https://clinicaltrials.gov/data-api/api", "what": "API JSON de ensayos clínicos, sin autenticación", "cost": "gratis"},
+    {"name": "Semantic Scholar API", "url": "https://api.semanticscholar.org/api-docs/", "what": "Grafo académico y recomendaciones; límites y licencia sin verificar", "cost": "gratis (clave opcional)"},
+    {"name": "Registro Español de Estudios Clínicos (REec)", "url": "https://reec.aemps.es/reec/public/web.html", "what": "Buscador de ensayos autorizados en España", "cost": "gratis"},
+    {"name": "EMA CTIS (portal público)", "url": "https://www.ema.europa.eu/en/human-regulatory-overview/research-development/clinical-trials-human-medicines/clinical-trials-information-system", "what": "Búsqueda manual de ensayos europeos; sin API pública confirmada", "cost": "gratis"},
+    {"name": "Guía MDCG 2019-11 (software como producto sanitario)", "url": "https://health.ec.europa.eu/system/files/2020-09/md_mdcg_2019_11_guidance_qualification_classification_software_en_0.pdf", "what": "Criterios para saber si una app es producto sanitario y su clase según la regla 11", "cost": "gratis"},
+    {"name": "Real Decreto 174/2011 (baremo BVD)", "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2011-3174", "what": "Baremo oficial de valoración de la dependencia en España", "cost": "gratis"},
+    {"name": "EHDS (Comisión Europea)", "url": "https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space-regulation-ehds_en", "what": "Calendario y alcance del Espacio Europeo de Datos de Salud", "cost": "gratis"},
+    {"name": "Google Fit, aviso de desuso y migración a Health Connect", "url": "https://developers.google.com/fit", "what": "Confirma el desuso de Google Fit en 2026 y la alternativa Health Connect", "cost": "gratis"},
+    {"name": "npiTEST.net (NPI / NPI-Q)", "url": "https://npitest.net/", "what": "Titular del NPI; condiciones de permiso y licencia comercial", "cost": "académico por confirmar; comercial con licencia"},
+    {"name": "Open Humans", "url": "https://www.openhumans.org/", "what": "Plataforma de datos participativa para ciencia ciudadana (fase futura)", "cost": "gratis"},
+    {"name": "FDA MyStudies", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7886578/", "what": "Plataforma abierta para estudios descentralizados (referencia de diseño)", "cost": "gratis, código abierto"},
+    {"name": "ADNI (LONI IDA)", "url": "https://adni.loni.usc.edu/data-samples/adni-data/", "what": "Datos de investigación solo para investigadores afiliados", "cost": "gratis, solo institucional"},
+    {"name": "Cochrane: intervenciones musicales en demencia", "url": "https://cochranelibrary.com/cdsr/doi/10.1002/14651858.CD003477", "what": "Revisión sistemática; el resumen es accesible", "cost": "resumen gratis"},
+    {"name": "Comparativa de herramientas de privacidad diferencial", "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10386022/", "what": "Evaluación de OpenDP, Diffprivlib, Opacus y otras", "cost": "gratis, código abierto"}
+  ],
+  "verification_notes": "La búsqueda web estaba agotada (límite compartido del turno), así que verifiqué solo con WebFetch. Confirmé: la revisión sistemática de 2026 sobre biomarcadores digitales (PMC13305413) y sus limitaciones; las cifras de la cohorte real de Lumipulse (n=252, especificidad del 23 %, presentación de congreso); el © de Cummings en el NPI con permiso comercial obligatorio; el desuso de Google Fit en 2026; el calendario del EHDS; el RD 174/2011 (BVD) en vigor; la existencia de REec y del reto ADReSS-M. No pude leer mini-cog.com, Mapi (Zarit), NBK25497, el PDF de la MDCG (403) ni el texto completo de Arons 2013: esos datos quedan marcados como pendientes. Cambios: bajé de nivel el MMSE (A→B, fuentes de 2016), Mini-Cog (B→C) y las APIs (A→B). Eliminé fuentes débiles (paquete npm, preprint de medRxiv, OpenMined, un ECA mal asignado). Añadí seis hallazgos: frontera MDR/regla 11, sesgo del informante, EHDS, Health Connect/HealthKit, baremo BVD y la falta de transferencia de modelos de voz entre idiomas. Reescribí las implicaciones para que la app solo registre, muestre tendencias propias y remita al médico, sin puntuar escalas con cortes, calcular riesgos ni lanzar alertas clínicas automáticas. Las alertas pasan a ser reglas del cuidador; el modo n-de-1 queda bloqueado para fármacos y suplementos; la donación de datos y el análisis de voz salen de la versión 1."
+}

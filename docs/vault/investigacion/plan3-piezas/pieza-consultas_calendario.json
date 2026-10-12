@@ -1,0 +1,187 @@
+{
+ "key": "consultas_calendario",
+ "title": "Grabar las consultas médicas, calendario y lo que dicen los médicos",
+ "resumen": "Es viable grabar la consulta desde el móvil del familiar, transcribirla en el propio dispositivo y sin coste, y enlazarla con la cita del calendario y con los cambios de medicación. Para el audio basta la grabadora nativa de Android/iOS. Para transcribir hay dos motores libres verificados: Vosk (Apache 2.0; modelo español pequeño de 39 MB con WER publicado de 11-17 % en sus tests, y modelo grande de 1,4 GB con 6-10 %) y whisper.cpp (MIT; modelos de 75 MiB a 2,9 GiB, con cuantización). Esos WER son de corpus de lectura, no de una consulta médica con ruido, voces solapadas y vocabulario farmacológico: la precisión real en consulta está sin verificar y habrá que medirla con grabaciones de prueba consentidas. Por eso la transcripción es una ayuda para buscar y repasar, y el audio original se conserva siempre. La búsqueda por palabras se hace con SQLite FTS5 (sin verificar en esta ronda) y el resumen lo escribe el familiar. Para la hoja de tratamiento: foto, OCR en el dispositivo con ML Kit y alta del medicamento contra CIMA (API REST pública de la AEMPS, con fotos de caja y pastilla en muchos registros). El calendario puede ser propio dentro de la app y exportable, con CalDAV/Google Calendar/calendario del sistema como opciones de sincronización gratuita. Legalmente, grabar una conversación en la que uno participa no vulnera el secreto de las comunicaciones (STC 114/1984), pero difundirla sí puede tener consecuencias; lo prudente es avisar al médico y pedir su conformidad.",
+ "opciones": [
+  {
+   "nombre": "Grabadora de audio nativa en la app (Android MediaRecorder / iOS AVAudioRecorder)",
+   "que_si": "Graba la consulta desde el móvil del familiar, la guarda cifrada en local y la asocia a la cita. Android documenta fuentes de micrófono (MIC, VOICE_RECOGNITION) y el permiso RECORD_AUDIO.",
+   "que_no": "No graba llamadas telefónicas del sistema de forma fiable (restricciones de fabricante, sin verificar). Grabar con la pantalla bloqueada exige servicio en primer plano (sin verificar el detalle por versión de Android).",
+   "coste_aprox": "0 EUR",
+   "requisitos": "Permiso de micrófono en tiempo de ejecución; móvil del familiar presente en la consulta; espacio de almacenamiento.",
+   "licencia_o_permisos": "APIs del sistema; RECORD_AUDIO.",
+   "fuentes": [
+    "https://developer.android.com/reference/android/media/MediaRecorder.AudioSource",
+    "https://developer.apple.com/documentation/avfaudio/avaudiorecorder"
+   ]
+  },
+  {
+   "nombre": "Vosk con modelo pequeño español (vosk-model-small-es-0.42)",
+   "que_si": "Transcripción 100 % offline en Android/iOS, tamaño 39 MB, pensado para móvil. Soporta streaming y reconocimiento de hablante.",
+   "que_no": "WER publicado 16,02 (cv), 16,72 (mtedx), 11,21 (mls): es decir, se pierde una de cada 6-9 palabras en audio limpio; en consulta será peor (sin verificar). Sin puntuación documentada. Mal con nombres de fármacos.",
+   "coste_aprox": "0 EUR",
+   "requisitos": "Integrar la librería Vosk; 39 MB de modelo; CPU de gama media.",
+   "licencia_o_permisos": "Apache 2.0 (código y modelo).",
+   "fuentes": [
+    "https://alphacephei.com/vosk/models",
+    "https://github.com/alphacep/vosk-api"
+   ]
+  },
+  {
+   "nombre": "Vosk con modelo grande español (vosk-model-es-0.42, 1,4 GB)",
+   "que_si": "Mejor precisión publicada: WER 7,50 (cv), 10,05 (mtedx), 5,84 (mls). Útil si se procesa después en un móvil potente o en un PC de la familia.",
+   "que_no": "1,4 GB: impracticable como descarga obligatoria en móviles modestos; el propio sitio lo orienta a servidores. Uso en móvil sin verificar.",
+   "coste_aprox": "0 EUR",
+   "requisitos": "Almacenamiento y RAM altos (cifra de RAM sin verificar).",
+   "licencia_o_permisos": "Apache 2.0.",
+   "fuentes": [
+    "https://alphacephei.com/vosk/models"
+   ]
+  },
+  {
+   "nombre": "whisper.cpp (modelos Whisper tiny/base/small cuantizados)",
+   "que_si": "Transcripción offline multilingüe (incluye español), con salida de texto con puntuación y marcas de tiempo (sin verificar en esta ronda). Modelos: tiny 75 MiB (~273 MB RAM), base 142 MiB (~388 MB), small 466 MiB (~852 MB), medium 1,5 GiB (~2,1 GB); admite cuantización (p. ej. Q5_0). Hay ejemplo Android en el repositorio.",
+   "que_no": "No es streaming nativo; mejor procesar por trozos tras la consulta. En móvil modesto, small puede tardar más que la duración del audio (sin verificar). WER en español de consulta sin verificar; el repositorio de OpenAI solo muestra gráficas para large.",
+   "coste_aprox": "0 EUR",
+   "requisitos": "Compilar con NDK; modelo descargado una vez; teléfono con 2-4 GB de RAM libre para small.",
+   "licencia_o_permisos": "MIT (código). Licencia de los pesos Whisper de OpenAI: sin verificar en esta ronda.",
+   "fuentes": [
+    "https://github.com/ggml-org/whisper.cpp",
+    "https://github.com/openai/whisper"
+   ]
+  },
+  {
+   "nombre": "Reconocimiento de voz del sistema (SpeechRecognizer Android / Speech de Apple)",
+   "que_si": "Cero integración de modelos; ambos sistemas ofrecen reconocimiento en español.",
+   "que_no": "Sin verificar que funcione offline y sin límite de duración en todos los dispositivos; pensado para dictado, no para grabaciones largas de varias voces; puede enviar audio a la nube según fabricante, lo que contradice 'sin nube'.",
+   "coste_aprox": "0 EUR",
+   "requisitos": "Sin verificar.",
+   "licencia_o_permisos": "Permiso de micrófono.",
+   "fuentes": [
+    "https://developer.android.com/reference/android/speech/SpeechRecognizer",
+    "https://developer.apple.com/documentation/speech"
+   ]
+  },
+  {
+   "nombre": "Búsqueda por palabras y vínculos con SQLite FTS5",
+   "que_si": "Índice de texto completo local sobre transcripciones, notas del familiar y nombres de medicamentos; enlaza cita-grabación-transcripción-cambio de medicación por claves en la misma base.",
+   "que_no": "Búsqueda por palabras, no semántica; hay que normalizar tildes y errores de transcripción. Soporte FTS5 en cada versión de Android SQLite: sin verificar.",
+   "coste_aprox": "0 EUR",
+   "requisitos": "SQLite con FTS5 (o librería empaquetada).",
+   "licencia_o_permisos": "Dominio público (SQLite).",
+   "fuentes": [
+    "https://www.sqlite.org/fts5.html"
+   ]
+  },
+  {
+   "nombre": "OCR en el dispositivo con ML Kit Text Recognition v2 (hoja de tratamiento)",
+   "que_si": "Reconoce texto en alfabeto latino (español) desde foto, en el dispositivo. Versión empaquetada com.google.mlkit:text-recognition:16.0.1 (+~4 MB por arquitectura) o sin empaquetar vía Play Services (+~260 KB). Hay guía para iOS.",
+   "que_no": "Letra manuscrita del médico: no garantizada (sin verificar). Nunca debe dar de alta un medicamento sin que el familiar confirme. La variante sin empaquetar depende de Google Play Services.",
+   "coste_aprox": "0 EUR (precio de ML Kit en dispositivo: sin verificar en esta ronda)",
+   "requisitos": "Android API 23 o superior según la guía de configuración.",
+   "licencia_o_permisos": "Términos de ML Kit/Google; sin verificar el detalle.",
+   "fuentes": [
+    "https://developers.google.com/ml-kit/vision/text-recognition/v2/android",
+    "https://developers.google.com/ml-kit/vision/text-recognition/v2"
+   ]
+  },
+  {
+   "nombre": "CIMA, API REST de la AEMPS (alta de medicamentos, fotos de caja y pastilla)",
+   "que_si": "Búsqueda por nombre (probado: /cima/rest/medicamentos?nombre=ibuprofeno devolvió 138 resultados). Cada registro trae nregistro, nombre, laboratorio, dosis, forma farmacéutica, vía, principio activo (vtm), receta, genérico, triángulo, documentos (ficha técnica y prospecto) y un array de fotos. Sirve para autocompletar y mostrar la imagen de caja o pastilla.",
+   "que_no": "No hay garantía de foto para todos los registros (sin verificar cobertura). No es un buscador de pauta ('1 cada 8 h'); eso sale del OCR o del familiar. Condiciones de reutilización y límites de uso: sin verificar (la guía PDF oficial no se pudo leer en esta ronda).",
+   "coste_aprox": "0 EUR",
+   "requisitos": "Conexión a internet para consultar; cachear localmente los medicamentos de la familia.",
+   "licencia_o_permisos": "Datos públicos de la AEMPS; términos de reutilización sin verificar.",
+   "fuentes": [
+    "https://cima.aemps.es/cima/rest/medicamentos",
+    "https://sede.aemps.gob.es/docs/CIMA-REST-API_1_19.pdf",
+    "https://cima.aemps.es/cima/publico/home.html"
+   ]
+  },
+  {
+   "nombre": "Calendario propio de la app (base local + exportación .ics)",
+   "que_si": "Control total: citas, turnos de cuidado, recordatorios, vínculo con grabaciones y cambios de medicación. Funciona sin cuentas externas.",
+   "que_no": "Hay que construir el compartido entre familiares: necesita sincronización (ver opciones siguientes); sin servidor, la sincronización entre móviles no es automática.",
+   "coste_aprox": "0 EUR",
+   "requisitos": "Desarrollo propio; formato iCalendar (RFC 5545) para exportar.",
+   "licencia_o_permisos": "Propia.",
+   "fuentes": [
+    "https://www.rfc-editor.org/rfc/rfc5545"
+   ]
+  },
+  {
+   "nombre": "Calendario del sistema Android (intents o CalendarContract)",
+   "que_si": "Con intents ACTION_INSERT/EDIT/VIEW no se necesita permiso: la app rellena la cita y el usuario la guarda en su Calendario. Con READ/WRITE_CALENDAR se leen e insertan eventos y recordatorios y asistentes por código. Las cuentas sincronizadas (Google, CalDAV) las propaga el sistema.",
+   "que_no": "Google recomienda evitar los permisos si se puede. Calendario local (ACCOUNT_TYPE_LOCAL) no sincroniza. No marca 'turnos de cuidado' como concepto propio. Equivalente iOS (EventKit): sin verificar.",
+   "coste_aprox": "0 EUR",
+   "requisitos": "Permisos de calendario si se escribe directamente.",
+   "licencia_o_permisos": "READ_CALENDAR / WRITE_CALENDAR.",
+   "fuentes": [
+    "https://developer.android.com/identity/providers/calendar-provider"
+   ]
+  },
+  {
+   "nombre": "Google Calendar (calendario familiar compartido) y su API",
+   "que_si": "Calendario compartido gratis entre cuentas Google, con recordatorios; la API REST permite automatizar. Existe recurso de control de acceso (ACL) para compartir.",
+   "que_no": "Obliga a cuenta Google y a que los datos de citas pasen por Google (en conflicto con 'sin nube'); datos sensibles en el título: evitar. Cuotas y coste de la API: sin verificar.",
+   "coste_aprox": "0 EUR (cuota de API sin verificar)",
+   "requisitos": "Cuenta Google por familiar; OAuth si se usa la API.",
+   "licencia_o_permisos": "Términos de Google.",
+   "fuentes": [
+    "https://developers.google.com/workspace/calendar/api/guides/overview"
+   ]
+  },
+  {
+   "nombre": "CalDAV autoalojado o gratuito (Nextcloud, Radicale) con DAVx5 en Android",
+   "que_si": "Calendario compartido estándar abierto sin depender de Google; DAVx5 sincroniza CalDAV con el calendario del sistema Android.",
+   "que_no": "Requiere servidor (aunque sea en un PC de casa) y alguien que lo mantenga: poco realista para 'muchas familias'. Precio y licencia actuales de DAVx5: sin verificar (la página de precios consultada devolvió 404).",
+   "coste_aprox": "Sin verificar",
+   "requisitos": "Servidor CalDAV y red accesible.",
+   "licencia_o_permisos": "Sin verificar en esta ronda.",
+   "fuentes": [
+    "https://www.davx5.com/",
+    "https://radicale.org/",
+    "https://nextcloud.com/"
+   ]
+  }
+ ],
+ "recomendacion_tecnica": "Elegiría: (1) grabadora nativa propia con servicio en primer plano y audio cifrado en el móvil; (2) transcripción diferida tras la consulta con whisper.cpp en modelo base o small cuantizado, y Vosk small-es como alternativa ligera y en directo; hay que medir ambos con grabaciones reales consentidas antes de fijar el motor; (3) SQLite con FTS5 para búsqueda y vínculos; (4) calendario propio dentro de la app con exportación .ics y botón 'añadir al calendario del sistema' vía intent (sin permisos), de modo que la sincronización gratuita la haga la cuenta que la familia ya use; (5) hoja de tratamiento con ML Kit y confirmación manual, y alta del medicamento buscando en CIMA, guardando nregistro y foto en caché. Plan B: si whisper.cpp resulta lento o impreciso, usar solo Vosk small y reforzar el resumen manual del familiar; si la sincronización entre familiares exige servidor, ofrecer una instancia CalDAV sencilla o compartir mediante un calendario Google, avisando de la pérdida de privacidad. Requisito previo: la verificación de precisión real es un hito de prueba, no un supuesto.",
+ "flujo_propuesto": [
+  "Familiar crea o abre la cita en el calendario de la app (médico, fecha, motivo); opcionalmente se añade al calendario del sistema.",
+  "Antes de entrar, el familiar pulsa 'avisar al médico': texto breve para pedir permiso a grabar; la app registra que se avisó.",
+  "En la consulta, pulsa grabar; la app muestra indicador visible y guarda audio cifrado vinculado a la cita.",
+  "Al terminar, la transcripción se genera en el móvil (cuando está cargando o conectado a wifi) y se indexa para búsqueda.",
+  "El familiar escribe su resumen y marca decisiones: cambios de pauta, pruebas, próxima cita.",
+  "Hace foto de la hoja de tratamiento; ML Kit extrae el texto; el familiar confirma cada línea.",
+  "Para cada medicamento nuevo o modificado, busca en CIMA y selecciona el registro; se muestran foto de caja y pastilla; se crea o ajusta la pauta con fecha del cambio, enlazada a la grabación.",
+  "La persona con Alzheimer solo ve sus alarmas con la foto del medicamento; grabaciones y transcripciones solo en la app de familiares.",
+  "Se programan las siguientes citas y recordatorios y se reparten turnos de cuidado entre familiares."
+ ],
+ "limites_reales": [
+  "La precisión de la transcripción en consulta (ruido, mascarilla, varias voces, términos médicos) no está medida: los WER publicados son de otros corpus.",
+  "El modelo Vosk grande (1,4 GB) y los modelos medium/large de Whisper no son razonables en móviles modestos.",
+  "No hay diarización fiable garantizada para separar 'médico' de 'paciente' en móvil: sin verificar.",
+  "Android puede matar servicios de grabación en segundo plano según fabricante y ahorro de batería; hay que probar por marca.",
+  "Grabar llamadas telefónicas de la consulta telefónica no es fiable en el móvil (restricciones del sistema).",
+  "OCR de letra manuscrita no garantizado; siempre confirmación humana.",
+  "CIMA solo da datos del medicamento, no la pauta; cobertura de fotos y condiciones de uso por verificar.",
+  "Un calendario compartido gratuito sin servidor propio implica depender de una cuenta externa (Google) o de mantener un servidor CalDAV.",
+  "La transcripción no sustituye al informe clínico ni al consejo del médico."
+ ],
+ "legal_y_consentimiento": "Verificado: el Tribunal Constitucional (STC 114/1984) declaró que el secreto de las comunicaciones del art. 18.3 CE no alcanza al propio interlocutor que graba la conversación en la que participa; distinto es difundirla o revelar aspectos íntimos, que pueden afectar al honor y la intimidad (art. 18.1 CE). Los resultados consultados citan también la STC 56/2003 y una STS 145/2023 sobre grabaciones de terceros que solo son legítimas si un interlocutor las hace; la doctrina del Tribunal Supremo concreta sobre uso como prueba debe revisarse en CENDOJ (no verificada aquí, y no se pudo confirmar la STS 2/1998). Ley 41/2002 (BOE-A-2002-22188), art. 5: el titular de la información asistencial es el paciente, y se informa también a los familiares o allegados en la medida en que el paciente lo permita, expresa o tácitamente; si el médico considera que no puede entender la información por su estado, se informa a las personas vinculadas; cuando el paciente está incapacitado, también a su representante legal. Art. 18: el paciente tiene derecho de acceso a la historia clínica y a copias, ejercible por representante acreditado; no puede perjudicar a terceros y los profesionales pueden reservar sus anotaciones subjetivas; para fallecidos, solo allegados. Sin verificar en esta ronda: encaje en la excepción doméstica del RGPD, deber de informar si se comparte, y art. 197 del Código Penal sobre difusión. Buenas prácticas: avisar al médico y pedir conformidad antes de grabar; si se niega, respetar o pedir informe escrito; guardar la grabación cifrada y solo para uso familiar; no publicar ni compartir fuera de la familia; compartir con la persona afectada en la medida en que pueda entenderlo; si hay incapacidad judicial, actuar como representante legal acreditado. Esta sección no es asesoramiento jurídico: conviene validarla con un abogado antes de lanzar.",
+ "fuentes": [
+  "https://alphacephei.com/vosk/models",
+  "https://github.com/alphacep/vosk-api",
+  "https://github.com/ggml-org/whisper.cpp",
+  "https://github.com/openai/whisper",
+  "https://developers.google.com/ml-kit/vision/text-recognition/v2",
+  "https://developers.google.com/ml-kit/vision/text-recognition/v2/android",
+  "https://cima.aemps.es/cima/rest/medicamentos",
+  "https://developer.android.com/identity/providers/calendar-provider",
+  "https://developers.google.com/workspace/calendar/api/guides/overview",
+  "https://www.boe.es/buscar/act.php?id=BOE-A-2002-22188",
+  "https://hj.tribunalconstitucional.es/en/Resolucion/GetDocumentResolucion/367",
+  "https://www.legaltoday.com/practica-juridica/derecho-penal/penal/la-grabacion-de-las-conversaciones-entre-particulares-y-su-manifestacion-jurisprudencial-2014-08-14/"
+ ],
+ "notas": "Búsquedas web usadas: 1 de 8 (STC 114/1984); el resto fueron WebFetch. Las páginas de precios de DAVx5 y la guía de CIMA en PDF no se pudieron leer (404 y PDF binario): se marcan sin verificar. Las URL de Apple, SQLite, RFC 5545, Radicale y Nextcloud se citan como documentación de referencia sin haberlas abierto en esta ronda. No se midió el WER real en consulta médica."
+}

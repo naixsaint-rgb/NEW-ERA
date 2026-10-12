@@ -1,0 +1,284 @@
+{
+ "key": "gap-transiciones_hospital_residencia",
+ "title": "Transiciones: urgencias, hospitalización, residencia y sujeciones",
+ "summary": "Las transiciones (urgencias, ingreso, alta, residencia, centro de día) concentran delirium, discrepancias de medicación, uso de sujeciones y pérdida de información. La app puede cubrirlas registrando, informando con nivel de evidencia y derivando: ficha de traspaso propia tipo This is me, checklist de alta, comparador de listas de medicación sin interpretación, información sobre delirium y antipsicóticos, y guía neutral sobre sujeciones y consentimiento. Evidencia clínica: B para planificación del alta, prevención multicomponente del delirium y reducción organizativa de sujeciones en residencias (efectos modestos y no específicos de demencia en los dos primeros); A para el riesgo de mortalidad con antipsicóticos; C o inferior para conciliación de medicación, predictores de ingreso en residencia y sujeciones en hospital. Marco jurídico verificado en el BOE: Instrucción 1/2022 de la Fiscalía (BOE-A-2022-2221) y Acuerdo SAAD de 2022 (BOE-A-2022-13580, plan libre de sujeciones antes del 30-06-2025); la Orden de 2026 solo rige en Ceuta y Melilla. Ingreso residencial sin consentimiento: control judicial (art. 763 LEC). Los roles RGPD y los textos jurídicos requieren abogado o DPD.",
+ "findings": [
+  {
+   "claim": "La planificación del alta individualizada, en personas mayores ingresadas por causa médica, probablemente reduce algo la estancia inicial (DM -0,73 días; IC95% -1,33 a -0,12; 11 ensayos; certeza moderada) y los reingresos a unos 3 meses (RR 0,89; 0,81-0,97; 17 ensayos; certeza moderada), sin diferencias en mortalidad y con coste incierto (Cochrane, Gonçalves-Bradley et al. 2022, 33 ensayos, 12.242 participantes). No es específica de demencia.",
+   "evidence_level": "B",
+   "sources": [
+    "https://doi.org/10.1002/14651858.CD000313.pub6",
+    "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD000313.pub6/information"
+   ],
+   "app_implication": "Checklist de alta para la familia: registrar la fecha de alta, la cita de seguimiento, el contacto de referencia y las preguntas que la familia quiere hacer al equipo; imprimible. Se informa con su nivel de evidencia (B, efecto pequeño, población general). La app recoge lo que dice el equipo, no genera ni valora el plan de alta.",
+   "negative_or_conflicting": "Bajado de A a B: certeza GRADE moderada, efecto absoluto pequeño (menos de un día) e indirecto para demencia (no hay subgrupo de demencia). Poca o ninguna diferencia en estado funcional o psicológico (certeza baja); satisfacción y coste con certeza muy baja.",
+   "safety_notes": "No presentar el checklist como plan clínico ni como garantía de menos reingresos; el plan de alta es del equipo sanitario."
+  },
+  {
+   "claim": "NICE NG97 (2018) dedica secciones a 'Risks during hospital admission' (1.9) y 'Moving to different care settings' (1.12), y remite a la guía NICE de delirium (CG103), que cita la demencia y la edad de 65 años o más como factores de riesgo de delirium en hospital.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.nice.org.uk/guidance/ng97",
+    "https://www.nice.org.uk/guidance/cg103",
+    "https://rightdecisions.scot.nhs.uk/media/1842/nice-guidance-dementia-assessment-management-and-support-for-people-living-with-dementia-and-their-carers.pdf"
+   ],
+   "app_implication": "Usar NG97 y CG103 como referencia para el contenido informativo del 'modo hospital' y la ficha de traspaso, enlazando la guía y marcándola como guía británica (nivel D en la app). No citar recomendaciones literales sin haberlas leído.",
+   "negative_or_conflicting": "Solo se verificaron los títulos de sección (nice.org.uk devolvió 403 y el espejo NCBI pidió verificación de navegador); el texto literal y la fuerza de cada recomendación siguen sin verificar. Guía del Reino Unido, no norma española.",
+   "safety_notes": "Presentar como orientación internacional; en España manda el criterio del equipo y los protocolos del hospital."
+  },
+  {
+   "claim": "'This is me' (Alzheimer's Society) es un folleto gratuito para recoger, antes de un ingreso o al entrar en cuidados profesionales, datos personales, preferencias, rutinas, forma de comunicarse y lo que tranquiliza o angustia a la persona. Es una herramienta de consenso sin efecto clínico medido localizado.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.alzheimers.org.uk/get-support/publications-factsheets/this-is-me"
+   ],
+   "app_implication": "Ficha 'Quién soy' con plantilla propia en español: la familia registra preferencias, rutinas, comunicación, contactos y medicación tal como la declara; se exporta a PDF y, si se quiere, a QR. Nivel D (consenso, sin evidencia de efecto). No incluye escalas ni puntuaciones.",
+   "negative_or_conflicting": "Sin evidencia de efecto sobre delirium, estancia o caídas; su valor es práctico. Material con derechos de autor: no copiar texto ni maquetación sin permiso.",
+   "safety_notes": "Mostrar la fecha de última revisión y marcar que los datos los declara la familia; la medicación anotada no sustituye la hoja de tratamiento oficial ni el informe clínico."
+  },
+  {
+   "claim": "La Instrucción 1/2022, de 19 de enero, de la Fiscalía General del Estado (BOE núm. 36, 11-02-2022, BOE-A-2022-2221) trata el uso de contenciones mecánicas o farmacológicas en unidades psiquiátricas y en centros residenciales o sociosanitarios de personas mayores o con discapacidad. Sus conclusiones piden prescripción facultativa en cada caso (salvo peligro inminente, con ratificación posterior), consentimiento informado específico (no valen los genéricos ni los diferidos), protocolo del centro, documentación de cada medida (indicación, tipo, duración), principios de excepcionalidad, necesidad, proporcionalidad y provisionalidad, y controles periódicos. Los fiscales pueden pedir listados en sus visitas.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2022-2221",
+    "https://www.defensordelpueblo.es/wp-content/uploads/2026/06/Contenciones_mecanicas.pdf"
+   ],
+   "app_implication": "Pantalla 'Sujeciones: qué puedes preguntar' (¿hay protocolo?, ¿quién lo prescribió?, ¿se pidió consentimiento para esta medida concreta?, ¿cuándo se revisa?), con un campo para que la familia anote lo que responde el centro y un enlace al texto del BOE. Informa y deriva; no valora si una sujeción concreta es correcta.",
+   "negative_or_conflicting": "Texto oficial verificado ahora (corrige la nota original: el BOE correcto es BOE-A-2022-2221, no BOE-A-2022-1214). Es una instrucción dirigida a los fiscales, no una ley; obliga a la Fiscalía, y a los centros les obligan la Ley 41/2002 y la normativa autonómica. Su cumplimiento real no está medido.",
+   "safety_notes": "Sin asesoramiento jurídico ni incitación a denunciar; derivar a Fiscalía, Defensor del Pueblo, inspección de servicios sociales o abogado. No sugerir retirar una sujeción por cuenta propia."
+  },
+  {
+   "claim": "El Programa Desatar de CEOMA acredita centros 'libres de sujeciones' físicas y químicas; según la propia entidad, más de 270 residencias en España (cifra de 2025 sin auditoría independiente). Su efecto sobre resultados de salud no se ha evaluado en estudios publicados localizados.",
+   "evidence_level": "D",
+   "sources": [
+    "https://ceoma.org/mas-de-270-residencias-en-espana-han-eliminado-las-sujeciones-a-personas-con-demencia/",
+    "https://ceoma.org/vivir-sin-sujeciones/",
+    "https://www.geriatricarea.com/2024/10/28/ceoma-reclama-eliminar-definitivamente-las-sujeciones-fisicas-y-farmacologicas-en-las-residencias/"
+   ],
+   "app_implication": "Enlazar el listado de CEOMA como información de terceros y ofrecer preguntas para la visita (sujeciones, uso de antipsicóticos, ratio de personal, visitas). Nivel D. La app no puntúa, ordena ni recomienda residencias.",
+   "negative_or_conflicting": "Bajado de C a D: son cifras de la propia entidad acreditadora (interés propio), variables entre comunicados (210 frente a más de 270) y sin evaluación externa de resultados. La acreditación no garantiza la práctica diaria.",
+   "safety_notes": "No clasificar centros; que la familia verifique directamente con el centro y la inspección autonómica."
+  },
+  {
+   "claim": "En residencias (Cochrane, Möhler et al. 2023; 11 estudios, 19.003 participantes, todos con personas con demencia), las intervenciones organizativas para implantar una política de mínima sujeción (formación, figuras de referencia, cambio de normas del centro) probablemente reducen los residentes con alguna sujeción (RR 0,86; 0,78-0,94; 4 estudios; certeza moderada) y mucho el uso de cinturón (RR 0,54), con poco o ningún efecto en caídas o lesiones (certeza baja) ni en psicofármacos (certeza moderada). La formación aislada tiene efecto incierto. En hospital general (Cochrane CD012476, Abraham et al. 2022; 4 estudios, 1.709 participantes) la evidencia es muy baja y las alarmas de presión en cama o silla probablemente no reducen sujeciones ni caídas.",
+   "evidence_level": "B",
+   "sources": [
+    "https://doi.org/10.1002/14651858.CD007546.pub3",
+    "https://www.cochrane.org/about-us/news/interventions-preventing-and-reducing-use-physical-restraints-all-long-term-care-settings",
+    "https://www.cochrane.org/evidence/CD012476_interventions-preventing-and-reducing-use-physical-restraints-older-people-hospital"
+   ],
+   "app_implication": "Contenido educativo con nivel B para residencias y nivel C o inferior para hospital: reducir sujeciones es posible cuando el centro cambia su organización. Ayudar a la familia a preguntar por alternativas y a registrar observaciones (dolor, inquietud, horarios) para compartirlas con el equipo, sin interpretarlas.",
+   "negative_or_conflicting": "Se corrige 'sin aumentar caídas': la certeza sobre caídas es baja. 'Personal empoderado y respaldado por la dirección' era una paráfrasis, no un resultado. Riesgo de sesgo de selección alto o incierto en 8 de 11 estudios; las intervenciones organizativas proceden sobre todo de Alemania. La sujeción química no está cubierta por estas revisiones. Evidencia hospitalaria muy débil.",
+   "safety_notes": "No sugerir que la familia retire sujeciones ni medicación; tampoco promocionar alarmas o sensores como sustituto. Derivar al equipo del centro."
+  },
+  {
+   "claim": "El Acuerdo del Consejo Territorial de Servicios Sociales y del SAAD de 28-06-2022 sobre criterios comunes de acreditación y calidad (publicado por la Resolución de 28-07-2022, BOE núm. 192 de 11-08-2022) exige a residencias y centros de día un compromiso formal y un 'plan de atención libre de sujeciones' aprobado por la inspección, con implantación completa antes del 30-06-2025. Hubo una modificación parcial en noviembre de 2024. La Orden DCA/5/2026 (BOE-A-2026-838) repite el requisito, pero solo para Ceuta y Melilla.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2022-13580",
+    "https://sid-inico.usal.es/legislacion/resolucion-de-28-de-julio-de-2022-de-la-secretaria-de-estado-de-derechos-sociales-por-la-que-se-publica-el-acuerdo-del-consejo-territorial-de-servicios-sociales-y-del-sistema-para-la-autonomia-y-ate/",
+    "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-838"
+   ],
+   "app_implication": "Guía de residencias: 'puedes preguntar si el centro tiene un plan de atención libre de sujeciones, previsto en el acuerdo de acreditación del SAAD', con enlace al BOE y a la consejería de la comunidad. La app informa del requisito, no certifica su cumplimiento.",
+   "negative_or_conflicting": "Corregido: la norma de 2026 no es general, solo regula Ceuta y Melilla. El plazo oficial que figura en el texto de 2022 es el 30-06-2025 (no 2026); no se ha leído el texto de la modificación de 2024, que pudo cambiar plazos. La acreditación solo afecta a centros privados concertados o con prestación vinculada; los públicos deben cumplir las mismas condiciones. La transposición varía por comunidad.",
+   "safety_notes": "Indicar que los plazos y la exigencia concreta dependen de la comunidad; verificar con la consejería o la inspección."
+  },
+  {
+   "claim": "Según una revisión sistemática con metaanálisis (Toot et al. 2017, Int Psychogeriatr; 26 estudios observacionales, 15 metaanalizados), el ingreso en residencia de personas con demencia se asocia de forma consistente a peor cognición, síntomas conductuales y psicológicos y dependencia en actividades de la vida diaria, y también a la sobrecarga del cuidador; el efecto de los servicios comunitarios no está claro.",
+   "evidence_level": "C",
+   "sources": [
+    "https://doi.org/10.1017/S1041610216001654",
+    "https://doi.org/10.1007/s40520-026-03409-0"
+   ],
+   "app_implication": "Módulo de reflexión sin indicador ni predicción: informa (nivel C) de los motivos habituales de ingreso para quitar culpa, y ofrece preguntas para hablar con trabajo social, el médico de familia y la enfermera gestora de casos, además de recursos de apoyo psicológico al cuidador.",
+   "negative_or_conflicting": "Ahora hay una revisión con metaanálisis, pero de estudios observacionales (asociación, no causalidad), con heterogeneidad y estudios mayoritariamente de fuera de España. El estudio de 2026 (Simo et al.) es de mayores de 75 años ingresados desde urgencias, no específico de demencia, y solo complementario.",
+   "safety_notes": "Nunca decir 'es momento de ingresar' ni calcular riesgo de institucionalización (sería una función de predicción fuera de la regla 11). Tono sin culpa y teléfonos de ayuda en crisis."
+  },
+  {
+   "claim": "El acceso a plaza residencial pública o concertada se tramita mediante el reconocimiento de la situación de dependencia y el Programa Individual de Atención (Ley 39/2006); los plazos, el copago y las listas de espera dependen de cada comunidad autónoma.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.boe.es/buscar/act.php?id=BOE-A-2006-21990",
+    "https://imserso.es/en/autonomia-personal-dependencia/sistema-autonomia-atencion-dependencia-saad/el-saad/organos-sistema/organos-cooperacion/acuerdos-adoptados-consejo-territorial-sociales-saad"
+   ],
+   "app_implication": "Hoja de ruta por comunidad con enlaces oficiales y recordatorios de los trámites y fechas que introduce la familia (solicitud, valoración, resolución, PIA). La app no calcula ni anticipa el grado.",
+   "negative_or_conflicting": "No se contrastaron plazos, copagos ni listas de espera con fuentes primarias autonómicas; la página del Imserso devolvió 403 a la comprobación automática.",
+   "safety_notes": "No calcular el grado ni prever resultados; derivar a los servicios sociales municipales."
+  },
+  {
+   "claim": "Sobre el acompañamiento en urgencias y planta no se localizó ninguna norma estatal que lo reconozca como derecho general; existen planes de humanización y protocolos autonómicos u hospitalarios no verificados. Una revisión sistemática de 2026 (Shimelash et al., Age Ageing; 65 estudios) recoge barreras y facilitadores del cuidado hospitalario 'amigable con la demencia' según los profesionales: recursos y entorno, conocimiento, cultura, liderazgo y trabajo en equipo.",
+   "evidence_level": "D",
+   "sources": [
+    "https://doi.org/10.1093/ageing/afag285"
+   ],
+   "app_implication": "Tarjeta 'Voy acompañado' que la familia puede mostrar para pedir acompañamiento, con los datos del cuidador; incluye el aviso 'consulta la política de tu hospital y de tu comunidad'. Nivel D.",
+   "negative_or_conflicting": "Bajado de C a D: la revisión de 2026 (verificada vía Europe PMC) describe barreras percibidas por el personal, no mide el efecto del acompañamiento. La normativa autonómica sigue sin revisar.",
+   "safety_notes": "No afirmar un derecho concreto sin citar la norma de la comunidad o la política del hospital."
+  },
+  {
+   "claim": "Cuando la persona entra en residencia o centro de día, el centro es responsable de su documentación asistencial (Ley 41/2002 y normativa autonómica, incluido el registro de sujeciones), y la familia o la entidad de la app lo son de los datos que introduce la familia. Los datos de salud son categoría especial (RGPD art. 9); la LOPDGDD (art. 3) regula el acceso y la supresión de datos de personas fallecidas por familiares o herederos. La separación de roles es un análisis propio, sin validar por la AEPD ni por un abogado.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.boe.es/buscar/act.php?id=BOE-A-2018-16673",
+    "https://www.boe.es/buscar/act.php?id=BOE-A-2002-22188",
+    "https://www.aepd.es/"
+   ],
+   "app_implication": "Modo 'transición': el cuidador principal puede congelar y exportar el registro (PDF o JSON), decidir qué entrega al centro y ver un registro de accesos; perfiles aislados por persona y sin cuentas de personal del centro en la versión gratuita. Flujo de baja o fallecimiento con exportación y supresión. La app no se convierte en historia clínica del centro.",
+   "negative_or_conflicting": "Si el personal del centro usa la app con varias personas, la entidad podría ser encargada o corresponsable (RGPD art. 26 o 28) y requerir evaluación de impacto; si la familia usa la app solo para la persona a su cargo, podría aplicarse la exención doméstica, lo que no exime a la entidad que presta el servicio. Requiere abogado o DPD.",
+   "safety_notes": "No mezclar datos de varios residentes en un perfil; registrar consentimientos y accesos. No ofrecer funciones de valoración clínica a profesionales (seguiría dentro de la regla 11 solo si registra, informa y deriva)."
+  },
+  {
+   "claim": "Las transiciones asistenciales son momentos de discrepancias de medicación, pero el efecto de la conciliación es incierto: en la revisión Cochrane de Redmond et al. 2018 (25 ensayos, 6.995 participantes, casi todos con intervención de farmacia), la reducción de discrepancias (RR 0,53) tiene certeza muy baja, el efecto sobre eventos adversos prevenibles es incierto y probablemente no cambia los reingresos (certeza moderada). No hay estudios específicos de demencia; una revisión de alcance de 2026 (El-Kadomi et al.) solo halló 8 estudios de co-diseño en seguridad de medicación en demencia. En España, el paciente tiene derecho a recibir el informe de alta (Ley 41/2002, art. 20).",
+   "evidence_level": "C",
+   "sources": [
+    "https://doi.org/10.1002/14651858.CD010791.pub2",
+    "https://doi.org/10.1002/bcp.70603",
+    "https://www.boe.es/buscar/act.php?id=BOE-A-2002-22188"
+   ],
+   "app_implication": "Pantalla 'Antes y después del ingreso': muestra lado a lado la lista que la familia tenía registrada y la que transcribe del informe de alta, señalando las diferencias de texto como 'pregunta pendiente' para el médico o farmacéutico. Compara textos; no interpreta, no recomienda ni ajusta dosis.",
+   "negative_or_conflicting": "Se mantiene en C por certeza muy baja en el resultado principal y ausencia de datos en demencia. Riesgo de producto: si la app resaltara interacciones o propusiera la 'lista correcta', pasaría a ser un producto sanitario de clase superior.",
+   "safety_notes": "En cada diferencia: 'consulta con tu médico o farmacéutico antes de cambiar nada'. Nunca indicar qué fármaco mantener o retirar ni la dosis."
+  },
+  {
+   "claim": "Las intervenciones no farmacológicas multicomponente (reorientación, objetos familiares, estimulación cognitiva, higiene del sueño, hidratación, movilización, revisión de medicación) probablemente reducen la incidencia de delirium en pacientes hospitalizados fuera de UCI (10,5% frente a 18,4%; RR 0,57; 0,46-0,71; 14 ensayos; 3.693 participantes; certeza moderada), con un efecto incierto en mortalidad y sin diferencia clara en ingreso en residencia al alta (Cochrane, Burton et al. 2021). La demencia es un factor de riesgo principal de delirium (NICE CG103).",
+   "evidence_level": "B",
+   "sources": [
+    "https://doi.org/10.1002/14651858.CD013307.pub2",
+    "https://www.nice.org.uk/guidance/cg103"
+   ],
+   "app_implication": "En el 'modo hospital', informar (nivel B, no específico de demencia) de lo que la familia puede aportar sin intervenir clínicamente: objetos familiares, gafas y audífonos, rutinas registradas en 'Quién soy', presencia de un familiar. Ofrecer un registro de observaciones con fecha y hora ('hoy está más desorientado') para comunicarlas al personal, sin puntuar ni etiquetar como delirium.",
+   "negative_or_conflicting": "Las intervenciones las aplicaba el personal hospitalario, no las familias; pocos ensayos analizan por separado a personas con demencia ya establecida; riesgo de sesgo por falta de cegamiento.",
+   "safety_notes": "La app no detecta ni cribado de delirium (prohibido por la regla 11): solo registra lo que observa la familia y recomienda avisar al personal de enfermería o al médico ante cualquier cambio brusco."
+  },
+  {
+   "claim": "Los antipsicóticos en personas mayores con demencia se asocian a mayor mortalidad (metaanálisis de 15 ensayos controlados con placebo de antipsicóticos atípicos, Schneider et al., JAMA 2005: OR aproximadamente 1,5) y a más ictus; la AEMPS emitió alertas de seguridad en 2004 (olanzapina y risperidona) y en 2008 (antipsicóticos clásicos). Este riesgo es la base de la preocupación por la 'sujeción química' en residencias y en el hospital.",
+   "evidence_level": "A",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/16234500/",
+    "https://www.aemps.gob.es/informa/notasinformativas/medicamentosusohumano-3/seguridad-1/2004/ni_2004-03_olanzapina-risperidona/",
+    "https://www.aemps.gob.es/informa/notasinformativas/medicamentosusohumano-3/seguridad-1/2008/ni_2008-19_antipsicoticos/"
+   ],
+   "app_implication": "Ficha informativa con nivel A sobre por qué preguntar al médico por los antipsicóticos tras un ingreso o en la residencia (indicación, revisión periódica, alternativas no farmacológicas), con un registro de inicio, cambios y retirada que la familia anota a partir de la información oficial, y enlaces a las alertas de la AEMPS.",
+   "negative_or_conflicting": "El aumento absoluto de riesgo es pequeño y algunos pacientes con síntomas graves pueden beneficiarse según criterio médico; las fichas técnicas autorizan risperidona a corto plazo para agresividad persistente en la enfermedad de Alzheimer. Las alertas de la AEMPS son de 2004 y 2008: verificar si hay actualizaciones.",
+   "safety_notes": "Nunca sugerir suspender ni reducir un antipsicótico (la retirada brusca tiene riesgos); 'consulta con el médico que lo prescribe'. No contar ni comparar dosis."
+  },
+  {
+   "claim": "El ingreso en residencia de una persona que no puede decidir por sí misma, sin su consentimiento, está sujeto a control judicial (art. 763 LEC: autorización previa o, si es urgente, comunicación al juzgado en 24 horas). El Tribunal Constitucional apreció vulneración del derecho a la libertad en un ingreso residencial urgente sin esas garantías (STC 13/2016). El Defensor del Pueblo recuerda que no puede presumirse falta de capacidad y que, si la persona consiente y puede decidir, no hace falta autorización judicial. La Ley 8/2021 sustituyó la incapacitación por medidas de apoyo.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.defensordelpueblo.es/resoluciones/garantias-de-ingreso-y-permanencia-en-centros-residenciales-de-personas-con-dicapacidad-psiquica-enfermedad-mental-o-con-derioro-gognitivo",
+    "https://www.defensordelpueblo.es/resoluciones/consentimiento-de-las-personas-no-incapacitadas-judicialmente-para-decidir-sobre-su-persona-y-salud-para-ingresar-en-un-centro-residencial",
+    "https://www.boe.es/buscar/act.php?id=BOE-A-2021-9233"
+   ],
+   "app_implication": "En la hoja de ruta de residencia, una pantalla 'Consentimiento y apoyos' que informa de que la persona debe participar en la decisión y de que, si no puede consentir, el ingreso tiene control judicial; deriva a trabajo social, a la Fiscalía o a un abogado. Un registro de las conversaciones y de los documentos (sin valorar la capacidad).",
+   "negative_or_conflicting": "La doctrina se formuló en parte antes de la Ley 8/2021 y la práctica varía entre juzgados; hay autores que piden autorización judicial previa siempre y el Defensor del Pueblo considera que no siempre es necesaria. Requiere revisión por un abogado.",
+   "safety_notes": "La app no evalúa la capacidad ni decide si hace falta autorización: informa y deriva. Tono neutro, sin alarmar a familias que actúan de buena fe."
+  },
+  {
+   "claim": "La Ley 41/2002 (art. 11) regula las instrucciones previas o voluntades anticipadas, que deben formalizarse según la normativa de cada comunidad y pueden inscribirse en el registro autonómico y el Registro Nacional de Instrucciones Previas. Son la vía legal para dejar constancia de preferencias sobre traslados a urgencias, hospitalización o tratamientos al final de la vida, mientras la persona conserva capacidad.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.boe.es/buscar/act.php?id=BOE-A-2002-22188"
+   ],
+   "app_implication": "Registrar si existe documento de instrucciones previas, dónde está inscrito y quién es el representante, e incluir esa referencia (no el contenido completo, salvo que la familia lo decida) en la ficha de traspaso. Recordatorio para revisar y derivar al centro de salud o al registro autonómico para formalizarlo. La app no redacta ni valida el documento.",
+   "negative_or_conflicting": "El procedimiento (notario, testigos, funcionario del registro) y la consulta por los profesionales varían por comunidad; una copia en la app no tiene validez legal por sí misma. No se revisó evidencia sobre el efecto de la planificación anticipada en traslados en demencia.",
+   "safety_notes": "Indicar que solo tiene validez el documento formalizado y registrado; ante dudas, derivar al médico de familia, a trabajo social o a un notario."
+  }
+ ],
+ "app_features": [
+  "Ficha de traspaso 'Quién soy' (plantilla propia): preferencias, rutinas, comunicación, contactos, medicación declarada y referencia a instrucciones previas; PDF y QR, con fecha de revisión",
+  "Modo hospital: registro de observaciones fechadas de la familia para comunicar al personal, información con nivel de evidencia sobre delirium y lista de objetos familiares, sin cribado ni puntuación",
+  "Modo transición: congelar y exportar el registro (PDF o JSON), decidir qué se comparte con el centro y ver el registro de accesos",
+  "Comparador de listas de medicación antes y después del ingreso: muestra diferencias como preguntas pendientes para el médico o farmacéutico, sin interpretar ni dosificar",
+  "Checklist de alta hospitalaria (cita de seguimiento, contacto, informe de alta, preguntas)",
+  "Tarjeta de acompañamiento en urgencias y planta con aviso de consultar la política del hospital",
+  "Guía de sujeciones y antipsicóticos: preguntas al centro, Instrucción 1/2022, plan libre de sujeciones del acuerdo SAAD, alertas de la AEMPS, con campo para anotar respuestas",
+  "Hoja de ruta de residencia y dependencia por comunidad: trámites, recordatorios, consentimiento y apoyos (art. 763 LEC, Ley 8/2021) con derivación",
+  "Preguntas para visitar residencias y apoyo emocional ante la culpa, sin indicador de momento de ingreso",
+  "Registro de instrucciones previas (existencia, registro, representante) y flujo de baja o fallecimiento con exportación y supresión (LOPDGDD art. 3)"
+ ],
+ "questions_for_owner": [
+  "¿La entidad promotora será una asociación o fundación con personalidad jurídica? Condiciona Apple, la responsabilidad del tratamiento y los acuerdos con residencias.",
+  "¿Se permitirá que el personal de una residencia o centro de día use la app (cuentas propias, varias personas) o solo la familia exporta e imprime? Cambia el rol RGPD y puede exigir una evaluación de impacto.",
+  "¿Qué comunidades autónomas se cubren primero? Hay que verificar protocolos de acompañamiento, trámites de dependencia, registro de instrucciones previas y transposición del plan libre de sujeciones en cada una.",
+  "¿Quién revisará jurídicamente (abogado, DPD) los textos sobre sujeciones, ingreso sin consentimiento (art. 763 LEC), apoyos de la Ley 8/2021 y responsabilidad antes de publicarlos?",
+  "¿Pedimos permiso a Alzheimer's Society o CEOMA para citar o enlazar sus materiales, o prefieres plantillas totalmente propias?",
+  "¿Qué ocurre con los datos tras el fallecimiento o la baja de la persona? Plazo de conservación y quién puede pedir acceso o supresión (LOPDGDD art. 3).",
+  "¿Hay un médico o farmacéutico hospitalario dispuesto a revisar los textos sobre antipsicóticos, delirium y conciliación antes de publicarlos?"
+ ],
+ "free_resources": [
+  {
+   "name": "This is me (Alzheimer's Society)",
+   "url": "https://www.alzheimers.org.uk/get-support/publications-factsheets/this-is-me",
+   "what": "Folleto de información personal para hospital o cuidados profesionales; referencia para la ficha de traspaso (inglés).",
+   "cost": "Gratis (PDF)"
+  },
+  {
+   "name": "NICE NG97 Dementia",
+   "url": "https://www.nice.org.uk/guidance/ng97",
+   "what": "Guía NICE con secciones sobre riesgos en el ingreso hospitalario (1.9) y cambio de entorno asistencial (1.12).",
+   "cost": "Gratis"
+  },
+  {
+   "name": "NICE CG103 Delirium",
+   "url": "https://www.nice.org.uk/guidance/cg103",
+   "what": "Guía de prevención, diagnóstico y manejo del delirium (para profesionales; útil para el contenido informativo).",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Cochrane: Discharge planning from hospital (CD000313.pub6)",
+   "url": "https://doi.org/10.1002/14651858.CD000313.pub6",
+   "what": "Revisión de la planificación del alta, 33 ensayos.",
+   "cost": "Resumen gratis"
+  },
+  {
+   "name": "Cochrane: restraint reduction in long-term care (CD007546.pub3)",
+   "url": "https://doi.org/10.1002/14651858.CD007546.pub3",
+   "what": "Prevención y reducción de sujeciones físicas en residencias, 11 estudios.",
+   "cost": "Resumen gratis"
+  },
+  {
+   "name": "Cochrane: delirium prevention non-ICU (CD013307.pub2)",
+   "url": "https://doi.org/10.1002/14651858.CD013307.pub2",
+   "what": "Intervenciones no farmacológicas para prevenir el delirium en hospital.",
+   "cost": "Resumen gratis"
+  },
+  {
+   "name": "Instrucción 1/2022 de la Fiscalía General del Estado (BOE-A-2022-2221)",
+   "url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2022-2221",
+   "what": "Texto oficial sobre contenciones mecánicas y farmacológicas en centros residenciales y sociosanitarios.",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Acuerdo SAAD de acreditación y calidad 2022 (BOE-A-2022-13580)",
+   "url": "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2022-13580",
+   "what": "Criterios comunes de acreditación, incluido el plan de atención libre de sujeciones.",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Defensor del Pueblo: guía de contenciones mecánicas (2026)",
+   "url": "https://www.defensordelpueblo.es/wp-content/uploads/2026/06/Contenciones_mecanicas.pdf",
+   "what": "Guía actualizada sobre contenciones, con ámbito ampliado a centros sociosanitarios.",
+   "cost": "Gratis"
+  },
+  {
+   "name": "CEOMA Vivir sin sujeciones / Programa Desatar",
+   "url": "https://ceoma.org/vivir-sin-sujeciones/",
+   "what": "Programa de acreditación de centros libres de sujeciones (fuente interesada).",
+   "cost": "Gratis"
+  },
+  {
+   "name": "AEMPS: nota de seguridad sobre antipsicóticos clásicos (2008)",
+   "url": "https://www.aemps.gob.es/informa/notasinformativas/medicamentosusohumano-3/seguridad-1/2008/ni_2008-19_antipsicoticos/",
+   "what": "Alerta sobre aumento de mortalidad con antipsicóticos en mayores con demencia.",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Ley 41/2002 de autonomía del paciente",
+   "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2002-22188",
+   "what": "Consentimiento informado, instrucciones previas (art. 11) e informe de alta (art. 20).",
+   "cost": "Gratis"
+  }
+ ],
+ "verification_notes": "Revisado el 12-10-2026 con WebSearch, WebFetch y Europe PMC. Verificados en el BOE: la Instrucción 1/2022 es BOE-A-2022-2221 (consentimiento específico, prescripción, protocolo, registro, revisión) y el Acuerdo SAAD de 2022 es BOE-A-2022-13580 (plan libre de sujeciones, plazo 30-06-2025). Correcciones: la Orden DCA/5/2026 (BOE-A-2026-838) solo rige en Ceuta y Melilla, no es una norma general. Cochrane CD000313 bajado de A a B (certeza moderada, efecto pequeño, indirecto para demencia). Desatar bajado de C a D (cifras propias de la entidad). Acompañamiento bajado de C a D (la revisión de 2026 trata barreras percibidas por el personal, no efecto). Sujeciones: corregido 'sin aumentar caídas' (certeza baja) y añadido CD012476 en hospital (certeza muy baja; las alarmas no funcionan). Ingreso en residencia ahora respaldado por Toot 2017 (C). Conciliación con Redmond 2018 (certeza muy baja). Añadidos 4 hallazgos: delirium (B), antipsicóticos (A), art. 763 LEC (D) e instrucciones previas (D). Sin verificar: texto literal de NICE NG97 (403), modificación del acuerdo SAAD de 2024, normativa autonómica de acompañamiento, páginas del Imserso (403) y Cochrane Library (403; verificado vía Europe PMC). Los aspectos jurídicos y RGPD requieren abogado o DPD."
+}

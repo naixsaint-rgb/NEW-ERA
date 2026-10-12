@@ -1,0 +1,402 @@
+{
+ "key": "medicacion",
+ "title": "Medicación e interacciones en Alzheimer (revisado)",
+ "summary": "La medicación es el eje de mayor riesgo y de mayor valor práctico de la app. Tras la revisión: (1) IACE y memantina dan un beneficio sintomático modesto; la evidencia para deprescribir es baja y la decisión es siempre médica. (2) Lecanemab (CE 15/04/2025, comprobado en la ficha técnica de CIMA) y donanemab (autorización UE de 2025) solo están indicados en EA sintomática temprana con amiloide confirmado y en pacientes no homocigotos APOE e4. Exigen un Programa de Acceso Controlado, una tarjeta de información al paciente y RM seriadas. La AEMPS (IPT-445) califica su efecto de muy modesto. CIMA los muestra como comercializados, pero la financiación en el SNS solo consta en prensa. (3) Antipsicóticos: el aumento de mortalidad procede de metaanálisis de ECA; la evidencia sobre su retirada es de baja calidad. En España, la risperidona es el único con indicación en agresión persistente de la EA, y solo durante un máximo de 6 semanas. El brexpiprazol NO tiene indicación en demencia en la UE y su ficha técnica no lo recomienda. (4) Carga anticolinérgica, benzodiacepinas y cascadas de prescripción (IACE seguido de un antimuscarínico urinario) son riesgos evitables y visibles para el cuidador. (5) Huperzina A tiene un ECA estadounidense negativo a dosis habitual, lo que baja su nivel de evidencia; ginkgo e hipérico deben tratarse como señales de precaución. (6) Faltan en el original y ahora se añaden: dolor no tratado como causa de agitación, antidepresivos sin beneficio en la depresión con demencia, fármacos para el sueño (la melatonina no mejora el sueño en EA), disfagia y formas farmacéuticas, y rechazo o administración encubierta. Técnica: la API REST de CIMA funciona sin autenticación (comprobado). La API de interacciones de RxNav está discontinuada. Regulatorio: la MDCG 2019-11 cita expresamente un 'módulo de medicación' como posible producto sanitario. Por eso la v1 debería limitarse a registrar, recordar y mostrar la ficha técnica oficial, y dejar cualquier alerta de combinación hasta después de una evaluación regulatoria. Regla de oro: registrar, informar con nivel de evidencia y derivar; nunca dosificar, iniciar ni suspender.",
+ "findings": [
+  {
+   "claim": "Lecanemab (Leqembi; primera autorización UE el 15/04/2025 según la ficha técnica de CIMA) y donanemab (Kisunla; número EU/1/25/1926, autorizado en 2025) están indicados solo en deterioro cognitivo leve o demencia leve por EA, con patología amiloide confirmada, en no portadores o heterocigotos APOE e4. La EMA impone un Programa de Acceso Controlado con registro obligatorio de pacientes, médicos y hospitales, y la entrega de una tarjeta de información al paciente. Ambos se aprobaron tras dictámenes iniciales desfavorables del CHMP y reexamen.",
+   "evidence_level": "A",
+   "sources": [
+    "https://cima.aemps.es/cima/dochtml/ft/1241891001/FT_1241891001.html",
+    "https://cima.aemps.es/cima/dochtml/ft/1251926001/FT_1251926001.html",
+    "https://www.aemps.gob.es/medicamentosUsoHumano/informesPublicos/docs/2026/IPT-445-Lequembi-lecanemab.pdf",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11928400/"
+   ],
+   "negative_or_conflicting": "El IPT advierte del riesgo de sobreinterpretar análisis post hoc. CLARITY-AD aleatorizó a unos 1.795 de 5.967 cribados, con una población más joven y sana que la real. La cronología de los dictámenes del CHMP procede de fuentes públicas y no se ha releído en esta ronda. La fecha exacta de autorización de donanemab no figura en la ficha de CIMA (campo vacío).",
+   "safety_notes": "La app no debe valorar la candidatura de nadie. El contenido es educativo, con fecha, y deriva a la unidad de memoria. Hay que evitar las falsas expectativas.",
+   "app_implication": "Pantalla informativa fechada con los criterios publicados y una lista de preguntas para la consulta (estadio, biomarcador, APOE, anticoagulantes, RM disponibles), sin ningún cuestionario que puntúe la elegibilidad. Si la familia registra el tratamiento, la app permite guardar una foto de la tarjeta de información al paciente y fijarla en la tarjeta de emergencia."
+  },
+  {
+   "claim": "Eficacia de lecanemab en la población indicada: diferencia en CDR-SB a 78 semanas de -0,535 (IC95% -0,778 a -0,293) frente a placebo, por debajo del umbral de ~1 punto comúnmente propuesto. La AEMPS la califica de muy modesta e incierta. Una revisión Cochrane reciente citada en el IPT concluye que el conjunto de anticuerpos anti-amiloide da un beneficio modesto y clínicamente limitado.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.aemps.gob.es/medicamentosUsoHumano/informesPublicos/docs/2026/IPT-445-Lequembi-lecanemab.pdf",
+    "https://doi.org/10.1056/NEJMoa2212948"
+   ],
+   "negative_or_conflicting": "El umbral de relevancia sigue en debate. La extensión a 36 meses no es aleatorizada. Los ensayos los financió el titular. Los ARIA visibles en RM pudieron romper parcialmente el ciego. La Cochrane analiza fármacos autorizados y no autorizados en conjunto.",
+   "safety_notes": "Cifras con contexto y en lenguaje llano, sin verbos como 'frenar' o 'detener'.",
+   "app_implication": "Contenido 'qué cabe esperar' con números absolutos y fecha de revisión. Registro opcional de las fechas de perfusión y de RM que introduce la familia; la app no calcula calendarios clínicos."
+  },
+  {
+   "claim": "ARIA y seguridad: con lecanemab, en la población indicada, hubo reacciones relacionadas con la perfusión en el 26%, ARIA-H en el 13% y ARIA-E en el 9%. En homocigotos APOE e4 el ARIA-E fue del 32,6% frente al 3,8% con placebo, y por eso están excluidos. Con donanemab, ARIA-E 20,6% y ARIA-H 27,6%. El IPT destaca las precauciones con anticoagulantes y trombolíticos, y exige RM seriadas y una evaluación clínica aproximadamente cada 6 meses.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.aemps.gob.es/medicamentosUsoHumano/informesPublicos/docs/2026/IPT-445-Lequembi-lecanemab.pdf",
+    "https://cima.aemps.es/cima/dochtml/ft/1241891001/FT_1241891001.html"
+   ],
+   "negative_or_conflicting": "Los ensayos excluyeron a pacientes con anticoagulación no estabilizada, así que el riesgo real puede ser mayor. Las comparaciones indirectas entre anticuerpos no son concluyentes, según el propio IPT. Se ha eliminado la cita de Lancet Regional Health Europe porque no se pudo verificar (403).",
+   "safety_notes": "La lista de síntomas de alarma (cefalea intensa nueva, confusión súbita, alteración visual, crisis, debilidad focal) debe validarla un neurólogo. La acción es siempre llamar al 112 o al equipo, sin interpretar. Es crítico que en urgencias sepan que el paciente recibe anti-amiloides, por la decisión de trombolisis o anticoagulación.",
+   "app_implication": "Tarjeta roja de síntomas con botón de llamada. La tarjeta de emergencia (Medical ID en iOS e información de emergencia en Android) incluye la línea 'en tratamiento anti-amiloide: informar al equipo antes de trombolisis o anticoagulación' y la foto de la tarjeta oficial del paciente."
+  },
+  {
+   "claim": "Financiación en España: según prensa y un blog, la CIPM propuso el 25/02/2026 no incluir lecanemab en la prestación del SNS. CIMA muestra Leqembi y Kisunla como comercializados, pero comercialización y financiación son cosas distintas. No se ha verificado en BIFIMED ni en una resolución oficial.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.elespanol.com/invertia/observatorios/sanidad/20260414/gobierno-ccaa-rechazan-financiar-primer-farmaco-ralentiza-progresion-alzheimer-bochornoso/1003744205166_0.html",
+    "https://alzheimeruniversal.eu/2026/09/04/lecanemab-y-donanemab-en-espana-que-esta-pasando-con-los-nuevos-tratamientos-para-el-alzheimer/",
+    "https://cima.aemps.es/cima/publico/home.html"
+   ],
+   "negative_or_conflicting": "Solo hay fuentes secundarias. El estado puede cambiar y diferir entre comunidades autónomas.",
+   "safety_notes": "No presentar el estado como definitivo; fechar siempre.",
+   "app_implication": "Bloque 'estado regulatorio' con fecha de última verificación y enlace a CIMA y BIFIMED. Revisión editorial trimestral asignada a una persona concreta."
+  },
+  {
+   "claim": "IACE y memantina dan un beneficio sintomático modesto. La guía de deprescripción de Reeve (2018) propone considerar una retirada gradual con seguimiento si no hay beneficio claro o en demencia grave o terminal, con evidencia baja o muy baja. STOPP/START v3 (2023) señala los IACE como potencialmente inapropiados con bradicardia persistente, bloqueo cardiaco, síncope recurrente inexplicado o fármacos que bajan la frecuencia cardiaca.",
+   "evidence_level": "B",
+   "sources": [
+    "https://cdpc.sydney.edu.au/wp-content/uploads/2019/06/deprescribing-guideline.pdf",
+    "https://doi.org/10.1007/s41999-023-00777-y",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6458648/"
+   ],
+   "negative_or_conflicting": "PMC6458648 es el protocolo del ensayo STOP-DEM (continuar frente a suspender en demencia grave), no sus resultados. El texto literal de STOPP v3 se ha resumido de memoria y debe confirmarse en el artículo, cuyo DOI sí se ha verificado. Hay casos de empeoramiento tras suspender.",
+   "safety_notes": "La app nunca sugiere parar. Suspender sin el médico puede empeorar la cognición y la conducta.",
+   "app_implication": "Diario estructurado de función y conducta antes y después de cualquier cambio que decida el médico, con informe imprimible. Recordatorio anual, configurable, de pedir una revisión de medicación al médico o al farmacéutico."
+  },
+  {
+   "claim": "Efectos adversos de los IACE que el cuidador puede observar: bradicardia, mareo y síncope, náuseas, pérdida de peso, sueños vívidos e irritación cutánea con el parche. La ficha técnica de Exelon parche indica no repetir la misma zona de piel durante al menos 14 días. Recoge además errores de dosificación, algunos con consecuencias fatales, por no retirar el parche viejo o por llevar varios parches a la vez.",
+   "evidence_level": "B",
+   "sources": [
+    "https://cima.aemps.es/cima/dochtml/ft/198066029/FT_198066029.html",
+    "https://cima.aemps.es/cima/dochtml/ft/61869/FT_61869.html",
+    "https://doi.org/10.1007/s41999-023-00777-y"
+   ],
+   "negative_or_conflicting": "La fuente original (PMC6458648) no trataba de efectos adversos (era el protocolo de STOP-DEM) y se ha sustituido por las fichas técnicas de CIMA. Las frecuencias varían según el fármaco y la dosis.",
+   "safety_notes": "Sin dosificación. La app no fija umbrales propios de pulso: solo muestra los que haya indicado el profesional, si este los da.",
+   "app_implication": "Parche: registro de colocación y retirada con mapa corporal y hora; si se registra una colocación sin retirada previa registrada, la app pide confirmar 'retiré el anterior'. Es lógica sobre el propio registro, citando la ficha técnica. Registro opcional de pulso, mareos y caídas para el informe, sin interpretarlo."
+  },
+  {
+   "claim": "Antipsicóticos en demencia: un metaanálisis de ECA (Schneider 2005) halló más mortalidad con antipsicóticos atípicos (OR ~1,5, unos +1% absolutos en ensayos de 10 a 12 semanas), además de más ictus. La retirada en quienes respondieron puede aumentar la recaída (Cochrane 2018: 10 ECA, 632 participantes, calidad baja o muy baja; metaanálisis de 2025 sobre la retirada). En España, la ficha técnica de Risperdal limita la indicación a la agresión persistente en EA moderada o grave que no responde a medidas no farmacológicas, durante un máximo de 6 semanas.",
+   "evidence_level": "A",
+   "sources": [
+    "https://doi.org/10.1001/jama.294.15.1934",
+    "https://www.cochrane.org/CD007726/DEMENTIA_stopping-or-continuing-long-term-antipsychotic-drug-use-behavioural-and-psychological-symptoms-older",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12703663/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4994396/",
+    "https://cima.aemps.es/cima/dochtml/ft/60336/FT_60336.html"
+   ],
+   "negative_or_conflicting": "El nivel A corresponde a la señal de mortalidad. Para la retirada la evidencia es B o C. DART-AD mostró una tendencia a más mortalidad al continuar, pero con abandonos. El RR 0,83 de otro metaanálisis no se ha verificado. El visado de inspección para antipsicóticos atípicos en mayores de 75 años en España no se ha verificado en esta ronda.",
+   "safety_notes": "Mensaje equilibrado: ni 'quítelo' ni 'siempre'. La mortalidad no se usa como argumento ante el cuidador.",
+   "app_implication": "Si se registra un antipsicótico, la app muestra la fecha de inicio, el tiempo transcurrido y el enlace a la ficha técnica. Ofrece un campo 'próxima revisión' que fija el médico o la familia, y un registro de frecuencia e intensidad de la conducta para llevar a la consulta."
+  },
+  {
+   "claim": "Brexpiprazol: la FDA lo aprobó en EE. UU. para la agitación en EA a partir de dos ECA de 12 semanas, con un beneficio pequeño y aprobación controvertida. En la UE y en España (Rxulti, ficha técnica de CIMA) solo está indicado en esquizofrenia. La ficha dice que no se ha estudiado en mayores con demencia y que no se recomienda por el aumento de la mortalidad general.",
+   "evidence_level": "B",
+   "sources": [
+    "https://cima.aemps.es/cima/dochtml/ft/1181294002/FT_1181294002.html",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12423206/",
+    "https://www.psychiatrist.com/news/controversy-surrounds-brexpiprazoles-fda-approval-a-new-alzheimers-agitation-drug/"
+   ],
+   "negative_or_conflicting": "PMC12423206 es un análisis agrupado de seguridad del patrocinador. Las cifras de mortalidad 'cuadruplicada' de la prensa no se han verificado y se han retirado. El tamaño del efecto (unos 5 puntos en CMAI) procede de prensa secundaria.",
+   "safety_notes": "El uso fuera de ficha técnica es legal en España con condiciones. La app no lo juzga, pero tampoco lo presenta como estándar.",
+   "app_implication": "Si se registra, la app muestra con tono neutro la indicación autorizada en España según CIMA y la tarjeta general de antipsicóticos, y sugiere comentar cualquier duda con quien lo prescribió."
+  },
+  {
+   "claim": "Citalopram para la agitación (CitAD, JAMA 2014, n=186, 9 semanas, 30 mg/día): redujo la agitación, pero con empeoramiento cognitivo y prolongación del QT. En España, la ficha técnica del citalopram fija una dosis máxima de 20 mg/día en mayores de 65 años, por debajo de la dosis del ensayo.",
+   "evidence_level": "B",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4086818/",
+    "https://cima.aemps.es/cima/dochtml/ft/66483/FT_66483.html"
+   ],
+   "negative_or_conflicting": "Es un ensayo único y de corta duración. El límite citado antes (más de 60 años) era el de la FDA; en España el corte es más de 65 años (comprobado en la ficha técnica). Se ha retirado la fuente de prensa.",
+   "safety_notes": "Los fármacos que prolongan el QT se acumulan (citalopram, escitalopram, donepezilo, antipsicóticos, algunos antibióticos). La app no da dosis.",
+   "app_implication": "Etiqueta de clase 'puede afectar al ritmo cardiaco (QT)' por fármaco, tomada de una tabla curada con fuente. Avisar de la combinación entre fármacos solo tras evaluación regulatoria; mientras tanto, enlace a la sección 4.5 de cada ficha y botón 'preguntar a mi farmacéutico'."
+  },
+  {
+   "claim": "Carga anticolinérgica: el uso acumulado alto de anticolinérgicos fuertes se asoció con un 54% más de demencia (HR 1,54) y un 63% más de EA en una cohorte prospectiva (Gray 2015, JAMA Intern Med). Beers 2023 desaconseja los anticolinérgicos fuertes en demencia y deterioro cognitivo. Además, los anticolinérgicos se oponen farmacológicamente a los IACE. Hay antihistamínicos sedantes en productos sin receta para dormir y para el resfriado.",
+   "evidence_level": "C",
+   "sources": [
+    "https://doi.org/10.1001/jamainternmed.2014.7663",
+    "https://doi.org/10.1111/jgs.18372",
+    "https://www.prescqipp.info/media/5210/253-anticholinergic-burden-briefing-20.pdf",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11581051/"
+   ],
+   "negative_or_conflicting": "Evidencia observacional con confusión por indicación. No hay una escala ACB estándar y las escalas discrepan entre sí. El ensayo R2D2 (PMC11581051) es solo un protocolo.",
+   "safety_notes": "Algunos anticolinérgicos no se pueden retirar bruscamente (antidepresivos, antiparkinsonianos). Antes de cambiar nada hay que valorar la indicación con el médico.",
+   "app_implication": "Fase 1: etiqueta por fármaco 'tiene efecto anticolinérgico según [escala, fuente]' y aviso educativo sobre los productos sin receta para dormir o para la alergia. Sumar una puntuación total del paciente es un cálculo con fin clínico que podría convertir la app en producto sanitario, así que se pospone hasta la evaluación regulatoria."
+  },
+  {
+   "claim": "Benzodiacepinas y fármacos Z se asocian con deterioro cognitivo, delirio, caídas y fracturas en personas mayores, y Beers 2023 recomienda evitarlos. En demencia no hay ECA de benzodiacepinas ni de fármacos Z para el sueño (Cochrane 2020).",
+   "evidence_level": "B",
+   "sources": [
+    "https://doi.org/10.1111/jgs.18372",
+    "https://www.cochrane.org/CD009178/DEMENTIA_medications-to-improve-sleep-problems-in-people-with-dementia"
+   ],
+   "negative_or_conflicting": "La asociación con caídas y fracturas es sobre todo observacional. Suspenderlas de golpe tras un uso crónico es peligroso.",
+   "safety_notes": "No sugerir nunca la suspensión. Sí enlazar a las medidas no farmacológicas del módulo de sueño.",
+   "app_implication": "Si se registra uno de estos fármacos: tarjeta 'riesgo de caídas y confusión' que enlaza con el módulo de seguridad en el hogar, y registro de cada toma a demanda (PRN) junto con las caídas nocturnas, para el informe."
+  },
+  {
+   "claim": "Huperzina A: los metaanálisis de ECA, sobre todo chinos (Yang 2013 en PLoS ONE y una revisión de revisiones de 2021), sugieren un beneficio cognitivo, pero son ensayos pequeños, cortos y con alto riesgo de sesgo. El ECA fase II estadounidense (Rafii 2011, Neurology) no mostró beneficio en ADAS-Cog con 200 µg dos veces al día; solo un análisis secundario con 400 µg dos veces al día sugirió algo. Es un inhibidor de la colinesterasa, por lo que se suma a donepezilo, rivastigmina y galantamina.",
+   "evidence_level": "C",
+   "sources": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3781107/",
+    "https://doi.org/10.1002/ptr.7126",
+    "https://www.alzdiscovery.org/cognitive-vitality/ratings/huperzine-a"
+   ],
+   "negative_or_conflicting": "El original omitía el ECA negativo de EE. UU. y describía mal PMC3781107 (es Yang 2013, 20 ECA; no la Cochrane de 2008). La seguridad a largo plazo es desconocida. La dosis de los suplementos no está estandarizada. El estatus regulatorio en la UE (posible nuevo alimento no autorizado) no se ha verificado.",
+   "safety_notes": "Posible bradicardia, náuseas y calambres si se combina con IACE. Hay que decírselo al médico.",
+   "app_implication": "En 'suplementos', la huperzina lleva la etiqueta fija 'mismo mecanismo que los fármacos para el Alzheimer: consulte antes de combinar', con nivel de evidencia C visible."
+  },
+  {
+   "claim": "Ginkgo biloba y sangrado: la evidencia es contradictoria. Una cohorte de veteranos (Stoddard 2015, citada en Mai 2025) halló un HR de sangrado de 1,38 con warfarina, con un aumento absoluto pequeño. Un estudio retrospectivo vietnamita de 2025 asocia el ginkgo con clopidogrel o aspirina a un pequeño aumento de sangrado (OR ~1,1) y no encuentra asociación significativa con ACOD. Las revisiones de interacciones con warfarina son inconsistentes. Para prevenir la demencia, el ECA GEM (n=3.069) no mostró beneficio.",
+   "evidence_level": "C",
+   "sources": [
+    "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0321804",
+    "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0182794",
+    "https://bpspubs.onlinelibrary.wiley.com/doi/10.1111/bcp.14404",
+    "https://doi.org/10.1001/jama.2008.683"
+   ],
+   "negative_or_conflicting": "Los metaanálisis del extracto EGb 761 en demencia muestran un beneficio pequeño, y muchos los financia el fabricante. La cita del 'metaanálisis sin efecto sobre TP, TTPa ni agregación' no tenía fuente y se ha quitado.",
+   "safety_notes": "Hay más motivo de cautela si el paciente toma antiagregantes, anticoagulantes o anti-amiloides (riesgo de ARIA-H). Se presenta como precaución, no como prohibición.",
+   "app_implication": "Etiqueta fija en la ficha del ginkgo: 'puede aumentar el riesgo de sangrado con anticoagulantes o antiagregantes; coméntelo', con nivel C. La regla de combinación se activa solo tras la evaluación regulatoria."
+  },
+  {
+   "claim": "Hipérico (hierba de San Juan): induce CYP3A4, CYP2C9, CYP2C19 y la P-gp, un efecto ligado a la hiperforina que persiste días después de dejarlo. Las interacciones con más relevancia clínica son con anticoagulantes, inmunosupresores y otros fármacos, y el riesgo serotoninérgico con ISRS y trazodona. Con donepezilo y galantamina (sustratos de CYP3A4 y 2D6) la interacción es solo mecanística; con rivastigmina (no metabolizada por CYP) y memantina (eliminación renal) es poco relevante.",
+   "evidence_level": "B",
+   "sources": [
+    "https://bpspubs.onlinelibrary.wiley.com/doi/10.1111/bph.14936",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4463967/",
+    "https://cima.aemps.es/cima/dochtml/ft/61869/FT_61869.html"
+   ],
+   "negative_or_conflicting": "No hay datos clínicos de desenlace para la combinación de hipérico con IACE. Las cantidades de hiperforina varían mucho entre productos.",
+   "safety_notes": "En este grupo de pacientes, lo más relevante es el riesgo serotoninérgico y la pérdida de efecto de los anticoagulantes.",
+   "app_implication": "Etiqueta fija en la ficha del hipérico: 'interacciona con muchos medicamentos, incluidos antidepresivos y anticoagulantes; consulte antes de tomarlo o de dejarlo'."
+  },
+  {
+   "claim": "Medicina herbal china y del este asiático en EA: los metaanálisis (Pharmaceuticals 2022; Frontiers in Neurology 2025) muestran mejoras de MMSE al añadirla a la medicación convencional, con alta heterogeneidad. Una cohorte retrospectiva (n=344) sugiere un beneficio añadido. La única Cochrane localizada trata de la demencia vascular, no de la EA.",
+   "evidence_level": "C",
+   "sources": [
+    "https://doi.org/10.3390/ph15020174",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12477022/",
+    "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD010284.pub2/references",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5729264/"
+   ],
+   "negative_or_conflicting": "Muchos ECA son de baja calidad, con sesgo de publicación probable y resultados medidos con escalas sustitutas. La calidad de los productos es variable (metales pesados, adulterantes).",
+   "safety_notes": "Las interacciones son en gran parte desconocidas. Hay que registrar siempre la fórmula y la marca.",
+   "app_implication": "Registro de productos de herbolario con foto del envase y de los ingredientes, sin recomendaciones, y un aviso fijo: 'natural no significa sin interacciones; enséñeselo a su farmacéutico'."
+  },
+  {
+   "claim": "Adherencia y dispensadores: una revisión sistemática de 2025 sobre dispensadores en mayores que viven en casa encontró resultados mayoritariamente favorables. Otra de 2024, centrada en el usuario, señala barreras de usabilidad. Hay datos de uso prolongado de dispensadores automáticos en EA. No se halló evidencia sobre errores de doble dosis con varios cuidadores ni sobre apps compartidas.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12188797/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11052969/",
+    "https://doi.org/10.1080/07317115.2017.1347594"
+   ],
+   "negative_or_conflicting": "Las muestras son pequeñas y la heterogeneidad alta. El dato 'n=4, adherencia >80%' no se ha verificado y se ha retirado.",
+   "safety_notes": "Un recordatorio ignorado da una falsa seguridad. Un bloqueo duro también es peligroso: si un registro anterior era erróneo, impediría registrar una toma real.",
+   "app_implication": "Registro compartido de tomas con aviso anti-doble dosis ('María registró esta toma a las 9:02; ¿confirmas otra?') que pide confirmación explícita sin bloquear. La app no marca nunca una toma como 'tomada' por defecto, funciona sin conexión y resuelve los conflictos de forma visible. Es lógica de registro, no clínica."
+  },
+  {
+   "claim": "Cualificación como producto sanitario: según la MDCG 2019-11, el software que solo almacena, archiva, comunica o hace búsquedas simples no realiza una acción con fin médico. Pero la propia guía cita expresamente 'un módulo de medicación' entre los módulos que pueden ser producto sanitario por sí mismos, y los sistemas expertos de apoyo a decisiones. Las alertas de interacción o de combinación personalizadas tienen riesgo de quedar en la regla 11 (clase IIa o superior).",
+   "evidence_level": "D",
+   "sources": [
+    "https://health.ec.europa.eu/system/files/2020-09/md_mdcg_2019_11_guidance_en_0.pdf",
+    "https://blog.johner-institute.com/regulatory-affairs/mdr-rule-11/"
+   ],
+   "negative_or_conflicting": "El PDF enlazado es la versión de octubre de 2019. La revisión 1 de 2025 no se ha verificado en esta ronda. No hay un ejemplo oficial que trate exactamente los recordatorios de medicación.",
+   "safety_notes": "Frases como 'detecta interacciones peligrosas' u 'optimiza el tratamiento' cambian la finalidad prevista del producto.",
+   "app_implication": "Documento interno de finalidad prevista. La v1 solo registra, recuerda, comparte y muestra textos oficiales de CIMA (recuperación literal) más etiquetas fijas por sustancia con fuente. Las reglas de combinación personalizadas, las puntuaciones y los umbrales se dejan para después de una consulta formal (AEMPS o consultor). Descargo de responsabilidad visible."
+  },
+  {
+   "claim": "Cascada de prescripción: en una cohorte poblacional, quienes iniciaron un IACE tenían más probabilidad de recibir después un anticolinérgico para la incontinencia urinaria (Gill 2005, HR aproximado de 1,55). Es decir, un efecto adverso se trata con otro fármaco que además antagoniza al primero.",
+   "evidence_level": "B",
+   "sources": [
+    "https://doi.org/10.1001/archinte.165.7.808"
+   ],
+   "negative_or_conflicting": "Es un estudio observacional en Canadá; la incontinencia también progresa con la propia demencia.",
+   "safety_notes": "La app no afirma causalidad.",
+   "app_implication": "Una línea temporal que muestra juntos los inicios y cambios de fármacos y los síntomas nuevos (incontinencia, caídas, insomnio, agitación) permite al médico ver posibles cascadas. En el informe aparece una pregunta genérica: '¿podría alguno de estos síntomas estar relacionado con la medicación?'."
+  },
+  {
+   "claim": "Dolor no reconocido y agitación: en un ECA por conglomerados (Husebo 2011, BMJ; 352 residentes con demencia moderada o grave en 60 unidades de residencias de Noruega), un protocolo escalonado de analgesia redujo la agitación de forma significativa frente a la atención habitual.",
+   "evidence_level": "B",
+   "sources": [
+    "https://doi.org/10.1136/bmj.d4065"
+   ],
+   "negative_or_conflicting": "Es un único ensayo, en residencias, de 8 semanas. Los analgésicos tienen riesgos propios (los opioides causan caídas, estreñimiento y delirio). Su aplicabilidad al domicilio no está probada.",
+   "safety_notes": "La app no recomienda analgésicos ni dosis. Hace visible la posibilidad de dolor para que la valore un profesional.",
+   "app_implication": "Ante un episodio de agitación, el registro pregunta por signos observables de dolor y ofrece una escala observacional validada (p. ej. PAINAD; hay que confirmar la versión española validada). En el informe aparece 'episodios de agitación con posibles signos de dolor'. Es una idea fuera de la caja de alto impacto y bajo riesgo."
+  },
+  {
+   "claim": "Antidepresivos en la depresión de la EA: el ECA HTA-SADD (Lancet 2011, n=326) no encontró diferencias entre sertralina, mirtazapina y placebo a las 13 y 39 semanas, con más efectos adversos en los grupos tratados.",
+   "evidence_level": "B",
+   "sources": [
+    "https://doi.org/10.1016/S0140-6736(11)60830-1"
+   ],
+   "negative_or_conflicting": "Es un ensayo único y de potencia moderada. Otras revisiones tienen certeza baja. La depresión grave o con riesgo puede requerir tratamiento igualmente.",
+   "safety_notes": "No suspender antidepresivos por cuenta propia (síndrome de discontinuación).",
+   "app_implication": "Registro sencillo del ánimo y de las actividades placenteras para la consulta, y contenido sobre intervenciones no farmacológicas, sin desaconsejar ningún fármaco."
+  },
+  {
+   "claim": "Fármacos para el sueño en la EA (Cochrane 2020, 9 ECA, 649 participantes): la melatonina hasta 10 mg probablemente tiene poco o ningún efecto (certeza baja). La trazodona 50 mg podría aumentar el tiempo total de sueño (1 ECA, n=30, certeza baja). Los antagonistas de orexina aumentan el sueño unos 28 minutos (certeza moderada). No hay ECA de benzodiacepinas ni de fármacos Z.",
+   "evidence_level": "B",
+   "sources": [
+    "https://www.cochrane.org/CD009178/DEMENTIA_medications-to-improve-sleep-problems-in-people-with-dementia"
+   ],
+   "negative_or_conflicting": "Los ensayos son pocos y cortos. La disponibilidad de antagonistas de orexina en España no se ha verificado.",
+   "safety_notes": "La melatonina se compra sin receta y las familias la usan mucho; hay que informar de la evidencia sin prohibirla. La trazodona no es inocua (hipotensión, caídas).",
+   "app_implication": "En el registro de sueño se anotan las tomas (incluidos los productos sin receta) y la calidad de la noche, para que la familia y el médico vean si algo funciona de verdad en esa persona. Los usuarios pueden registrar un 'experimento personal' con fechas de inicio y fin; la app no propone el experimento."
+  },
+  {
+   "claim": "Disfagia y formas farmacéuticas: en fases avanzadas aparecen dificultades para tragar y rechazo de los comprimidos. En España existen alternativas autorizadas para varios fármacos de la EA: donepezilo bucodispersable (Aricept Flas), rivastigmina en solución oral y en parche, y risperidona en solución oral, según CIMA. Triturar o abrir formas de liberación modificada puede alterar la dosis.",
+   "evidence_level": "D",
+   "sources": [
+    "https://cima.aemps.es/cima/publico/home.html",
+    "https://cima.aemps.es/cima/resources/docs/CIMA_REST_API.pdf"
+   ],
+   "negative_or_conflicting": "Se basa en fichas técnicas y práctica farmacéutica, no en ensayos. La disponibilidad comercial cambia; hay que consultar en CIMA la forma farmacéutica y si está comercializada.",
+   "safety_notes": "La app nunca indica cómo triturar ni cómo mezclar un fármaco con comida.",
+   "app_implication": "Campo 'dificultad para tragar o escupe las pastillas' en el perfil y en el registro de tomas. Para cada fármaco, la app muestra la forma farmacéutica (vía CIMA) y la pregunta '¿existe otra presentación más fácil de tomar? Pregunte a su farmacéutico'."
+  },
+  {
+   "claim": "Rechazo de la medicación y administración encubierta: la guía NICE SC1 (residencias) exige que administrar medicación oculta en comida o bebida sea una decisión documentada en el mejor interés del paciente, con el prescriptor, el farmacéutico y la familia. En España se aplica el marco de la autonomía del paciente (Ley 41/2002) y de las medidas de apoyo a la capacidad jurídica (Ley 8/2021).",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.nice.org.uk/guidance/sc1",
+    "https://www.boe.es/buscar/act.php?id=BOE-A-2002-22188"
+   ],
+   "negative_or_conflicting": "La guía NICE es británica y para residencias. No se ha localizado una guía española específica para el domicilio; la Ley 8/2021 se cita de memoria y no se ha verificado en esta ronda.",
+   "safety_notes": "Es un tema ético y legal; además, mezclar fármacos con comida puede alterar su efecto.",
+   "app_implication": "El registro distingue entre 'rechazada', 'escupida' y 'no administrada', con un motivo. Si hay rechazos repetidos, aparece una tarjeta 'Hable con su médico y farmacéutico', con contenido ético revisado. La app no da trucos para ocultar fármacos."
+  }
+ ],
+ "app_features": [
+  "Lista de medicación compartida con registro de tomas (quién, cuándo, resultado) y aviso anti-doble dosis con confirmación explícita, no bloqueo duro; funciona sin conexión, con resolución visible de conflictos y registro de auditoría",
+  "Estados de toma diferenciados: tomada, rechazada, escupida, no administrada u olvidada, con motivo; nunca 'tomada' por defecto",
+  "Registro de tomas a demanda (PRN) con motivo, hora y resultado; el intervalo mínimo lo copia el cuidador de la pauta médica",
+  "Alta de medicamentos por escaneo del código de la caja (Código Nacional / DataMatrix del sistema SEVeM) o búsqueda en la API REST de CIMA: principio activo, ATC, forma farmacéutica, estado de comercialización, problemas de suministro, prospecto y ficha técnica",
+  "Visor de las secciones 4.4 (advertencias) y 4.5 (interacciones) de la ficha técnica oficial de cada fármaco, mostradas literalmente, como vía regulatoriamente más segura que un motor propio de interacciones",
+  "Etiquetas fijas por sustancia (QT, anticolinérgico, sedante, serotoninérgico, colinérgico, antipsicótico, riesgo de sangrado) a partir de una tabla curada, versionada, con fuente, nivel de evidencia y firma del farmacéutico revisor",
+  "Módulo de suplementos y herbolario con foto del envase y de los ingredientes, y etiquetas para huperzina, ginkgo, hipérico y fórmulas de medicina china",
+  "Línea temporal unificada de fármacos y síntomas (caídas, incontinencia, sueño, conducta, dolor, apetito, ánimo) para detectar visualmente cascadas de prescripción en la consulta",
+  "Registro de agitación con preguntas observacionales de dolor (escala validada) y un diario estructurado de antes y después de cualquier cambio de tratamiento",
+  "Informe PDF para la consulta o para el servicio de revisión de uso de la medicación de la farmacia comunitaria: hoja de medicación, tomas PRN, rechazos, línea temporal y preguntas genéricas",
+  "Tarjeta de emergencia integrada en Medical ID (iOS) y en la información de emergencia (Android): medicación, alergias, anticoagulantes, 'en tratamiento anti-amiloide' y foto de la tarjeta de información al paciente",
+  "Módulo anti-amiloide fechado: criterios, ARIA, estado regulatorio, síntomas de alarma con llamada al 112 y calendario de perfusiones y RM introducido a mano",
+  "Parche: registro de colocación y retirada con mapa corporal y confirmación de retirada del anterior",
+  "Fotos de la caja y del comprimido para identificar cambios de genérico, y aviso de mismo principio activo registrado dos veces (detección de duplicado en el propio registro)",
+  "Campo de dificultad para tragar y enlace a las formas farmacéuticas disponibles en CIMA con la pregunta para el farmacéutico",
+  "Existencias y renovación de recetas; exportación de horarios para el SPD de la farmacia o un pastillero",
+  "Hoja de medicación multilingüe exportable para urgencias, viajes y cuidadoras contratadas que hablen otro idioma",
+  "Roles y permisos: familiar responsable, cuidador profesional de solo registro, médico o farmacéutico invitado con acceso de lectura temporal",
+  "Gobernanza del contenido clínico: cada texto con autor, revisor, fecha y versión, y caducidad automática que lo marca como 'pendiente de revisión'"
+ ],
+ "questions_for_owner": [
+  "¿Cuántas personas administran la medicación (familia, cuidadora contratada, centro de día) y en qué idiomas? Esto define los roles, el anti-doble dosis y la traducción.",
+  "¿Qué toma hoy la persona, incluidos parches, PRN, suplementos y herbolario, y cómo se prepara: pastillero, SPD de farmacia o dispensador?",
+  "¿Hay anticoagulantes, antiagregantes, antipsicóticos, benzodiacepinas, somníferos o productos sin receta para dormir o para la alergia?",
+  "¿Tiene dificultad para tragar, escupe o rechaza las pastillas? ¿Se ha planteado alguna vez darle la medicación oculta?",
+  "¿Hay signos de dolor no explicados o episodios de agitación? ¿Quién los valora hoy?",
+  "¿Está en tratamiento anti-amiloide o lo están valorando? ¿Tienen la tarjeta de información al paciente?",
+  "¿Quién es la persona de apoyo o representante legal (Ley 8/2021) y quién consiente el tratamiento de los datos de salud?",
+  "¿Aceptáis que la v1 no tenga alertas automáticas de combinación (solo ficha técnica oficial y etiquetas por sustancia) hasta tener una evaluación regulatoria? ¿Qué apetito de riesgo tenéis respecto a la clase IIa?",
+  "¿Qué farmacéutico, médico o asociación (colegio de farmacéuticos, universidad, asociación de familiares, SEFH, SEN) podría revisar gratis el contenido clínico, y quién lo mantendrá cada trimestre?",
+  "¿Los datos se quedan solo en el dispositivo, se sincronizan cifrados entre cuidadores o se comparten con profesionales? ¿Con qué base legal (RGPD art. 9) y dónde se alojan?",
+  "¿Qué dispositivos, sistemas operativos y nivel de destreza digital tiene cada cuidador (tamaño de letra, voz, uso con una mano)?",
+  "¿Vuestra farmacia ofrece SPD o un servicio de revisión de uso de la medicación? ¿Qué comunidad autónoma y qué sistema de receta electrónica usáis?"
+ ],
+ "free_resources": [
+  {
+   "name": "CIMA AEMPS REST API (documentación PDF)",
+   "url": "https://cima.aemps.es/cima/resources/docs/CIMA_REST_API.pdf",
+   "what": "API oficial (https://cima.aemps.es/cima/rest/...): medicamentos, presentaciones, fichas técnicas y prospectos, problemas de suministro, filtros por principio activo, ATC y estado de comercialización. Se probó en vivo sin autenticación.",
+   "cost": "Gratuito"
+  },
+  {
+   "name": "CIMA y Nomenclátor (AEMPS)",
+   "url": "https://cima.aemps.es/cima/publico/home.html",
+   "what": "Buscador público de fichas técnicas (HTML en /cima/dochtml/ft/{nregistro}/FT_{nregistro}.html) y prospectos",
+   "cost": "Gratuito"
+  },
+  {
+   "name": "aempsconn (cliente Python no oficial)",
+   "url": "https://github.com/fqlenos/aempsconn",
+   "what": "Ejemplo de código para consumir CIMA; no se verificó en esta ronda (el proxy de la sesión bloquea GitHub)",
+   "cost": "Gratuito, código abierto"
+  },
+  {
+   "name": "cima-rs (cliente Rust no oficial)",
+   "url": "https://github.com/vaijira/cima-rs",
+   "what": "Acceso al nomenclátor CIMA en Rust; no se verificó en esta ronda",
+   "cost": "Gratuito, código abierto"
+  },
+  {
+   "name": "RxNav / RxNorm (NLM)",
+   "url": "https://lhncbc.nlm.nih.gov/RxNav",
+   "what": "Normalización de nombres de fármacos. La API de interacciones está discontinuada (2024) y no sirve como motor",
+   "cost": "Gratuito"
+  },
+  {
+   "name": "IPT-445 lecanemab (AEMPS, mayo 2026)",
+   "url": "https://www.aemps.gob.es/medicamentosUsoHumano/informesPublicos/docs/2026/IPT-445-Lequembi-lecanemab.pdf",
+   "what": "Evaluación oficial: eficacia, ARIA, Programa de Acceso Controlado, tarjeta de información al paciente y comparación con donanemab",
+   "cost": "Gratuito"
+  },
+  {
+   "name": "Guía de deprescripción de IACE y memantina (Reeve et al.)",
+   "url": "https://cdpc.sydney.edu.au/wp-content/uploads/2019/06/deprescribing-guideline.pdf",
+   "what": "Guía con algoritmo, para que el profesional la use; no para mostrarla como instrucción al cuidador",
+   "cost": "Gratuito"
+  },
+  {
+   "name": "STOPP/START v3 (2023)",
+   "url": "https://doi.org/10.1007/s41999-023-00777-y",
+   "what": "Criterios europeos de prescripción potencialmente inapropiada en personas mayores",
+   "cost": "Acceso abierto"
+  },
+  {
+   "name": "AGS Beers Criteria 2023",
+   "url": "https://doi.org/10.1111/jgs.18372",
+   "what": "Lista de medicamentos potencialmente inapropiados en mayores, con apartado de demencia",
+   "cost": "Acceso abierto"
+  },
+  {
+   "name": "Cochrane: retirada frente a continuación de antipsicóticos en demencia",
+   "url": "https://www.cochrane.org/CD007726/DEMENTIA_stopping-or-continuing-long-term-antipsychotic-drug-use-behavioural-and-psychological-symptoms-older",
+   "what": "Resumen en lenguaje llano de CD007726",
+   "cost": "Gratuito"
+  },
+  {
+   "name": "Cochrane: fármacos para el sueño en demencia",
+   "url": "https://www.cochrane.org/CD009178/DEMENTIA_medications-to-improve-sleep-problems-in-people-with-dementia",
+   "what": "Resumen de 2020 sobre melatonina, trazodona, orexinas y ausencia de ECA de hipnóticos",
+   "cost": "Gratuito"
+  },
+  {
+   "name": "NICE SC1: gestión de medicamentos en residencias",
+   "url": "https://www.nice.org.uk/guidance/sc1",
+   "what": "Referencia sobre administración encubierta, registros y revisión de medicación",
+   "cost": "Gratuito"
+  },
+  {
+   "name": "MDCG 2019-11 (software como producto sanitario)",
+   "url": "https://health.ec.europa.eu/system/files/2020-09/md_mdcg_2019_11_guidance_en_0.pdf",
+   "what": "Guía de cualificación y clasificación (versión de 2019; comprobar si hay una revisión posterior)",
+   "cost": "Gratuito"
+  },
+  {
+   "name": "Briefing de carga anticolinérgica (PrescQIPP)",
+   "url": "https://www.prescqipp.info/media/5210/253-anticholinergic-burden-briefing-20.pdf",
+   "what": "Escalas de carga anticolinérgica y recomendaciones de revisión",
+   "cost": "Gratuito"
+  },
+  {
+   "name": "Receta electrónica del SNS (Ministerio de Sanidad)",
+   "url": "https://www.sanidad.gob.es/areas/saludDigital/recetaElectronicaSNS/home.htm",
+   "what": "Documentación de interoperabilidad; no hay acceso verificado para apps de terceros",
+   "cost": "Gratuito"
+  }
+ ],
+ "verification_notes": "Cambios principales. (1) PMC6458648 es el protocolo de STOP-DEM, no una fuente sobre efectos adversos de los IACE: lo sustituí por las fichas técnicas de CIMA (errores fatales con el doble parche, regla de los 14 días). (2) Brexpiprazol: Rxulti en España solo tiene indicación en esquizofrenia y su ficha no lo recomienda en demencia; era una corrección crítica. (3) Citalopram: el máximo en España es de 20 mg en mayores de 65 años, no de 60. (4) Huperzina pasa de B a C: omitía el ECA negativo de Rafii 2011 y atribuía mal PMC3781107. (5) Lecanemab: fecha confirmada en CIMA; añadí el Programa de Acceso Controlado, la tarjeta del paciente y la advertencia sobre trombolisis. Eliminé la URL de Lancet, que no se pudo verificar. La financiación pasa a nivel D. (6) La MDCG 2019-11 cita un 'módulo de medicación' como posible producto sanitario, así que la v1 queda sin reglas de combinación, sin puntuaciones y sin bloqueos duros; usa etiquetas fijas por sustancia y la ficha técnica literal. Añadí 6 hallazgos: cascada de prescripción, dolor y agitación, HTA-SADD, Cochrane de sueño, disfagia y administración encubierta. Método: el presupuesto de búsquedas web estaba agotado; verifiqué con DOI en Crossref, E-utilities de PMC, la API de CIMA en vivo, el PDF del IPT y WebFetch directo. No verificado: el visado de antipsicóticos en mayores de 75, el estatus de la huperzina en la UE, la revisión 1 de la MDCG y los repositorios de GitHub."
+}

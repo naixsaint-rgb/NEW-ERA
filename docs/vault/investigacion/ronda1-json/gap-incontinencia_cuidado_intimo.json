@@ -1,0 +1,312 @@
+{
+ "key": "gap-incontinencia_cuidado_intimo",
+ "title": "Incontinencia, higiene íntima, piel e infecciones urinarias en demencia en domicilio (revisado)",
+ "summary": "La evidencia de eficacia en incontinencia asociada a demencia es débil. La micción incitada muestra un beneficio a corto plazo en ensayos pequeños hechos en residencias (Cochrane 2000: 5 ensayos, 355 personas). El aseo a horas fijas y el reentrenamiento de hábitos no tienen evidencia suficiente, y en domicilio los cuidadores tuvieron dificultad para mantener los registros. Es en cambio sólida y útil para la app la idea de no cribar ni tratar la bacteriuria asintomática (BA) en mayores. IDSA 2019 da recomendación fuerte con calidad moderada en residencias y baja en domicilio; ante confusión o caídas sin síntomas urinarios, la recomendación es fuerte pero con calidad muy baja. UKHSA 2025 desaconseja las tiras reactivas de orina en mayores de 65 años. La confusión nueva sigue siendo motivo de valoración médica: no se descarta, pero tampoco se atribuye a la orina. El arándano y la D-manosa no previenen ITU en este perfil (Cochrane 2023 y ensayo MERIT 2024). Para el baño, Bathing Without a Battle tiene un ensayo aleatorizado y un estudio de difusión cruzado, ambos en residencias; en domicilio su uso es extrapolado. Para la piel, la guía internacional de úlceras por presión va por su 4.ª edición (2026). Para la dermatitis asociada a incontinencia (DAI), Cochrane 2016 encuentra que el jabón con agua funciona peor que los limpiadores sin aclarado, con certeza baja o moderada. Corrección importante: los absorbentes NO están en la prestación ortoprotésica (RD 1506/2012). Están en la prestación farmacéutica de productos sanitarios para pacientes no hospitalizados: antes RD 9/1996 y, desde el 1 de julio de 2026, RD 90/2026, anexo I, con aportación normal. Requieren receta y, según la comunidad autónoma, visado o suministro directo. La app solo registra, informa con nivel de evidencia y deriva. Nunca interpreta la orina, no sugiere pedir cultivos ni antibióticos y no fija intervalos ni dosis.",
+ "findings": [
+  {
+   "claim": "Micción incitada (prompted voiding: preguntar periódicamente, acompañar si acepta y reforzar positivamente). En el resumen de la revisión Cochrane CD002113 indexado en PubMed (Eustice, Roe, Paterson 2000): 5 ensayos, 355 personas mayores, sobre todo mujeres en residencias. Muestra un aumento de micciones autoiniciadas y menos episodios de incontinencia a corto plazo. No hay datos a largo plazo y los propios autores consideran la evidencia 'sugerente pero no concluyente'.",
+   "evidence_level": "B",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/10796861/ (Cochrane CD002113, 2000; resumen leído en Europe PMC)",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7017853"
+   ],
+   "app_implication": "Registro opcional de: hora en que se ofreció ir al baño, si aceptó y si hubo escape. Recordatorio cuyo intervalo fija exclusivamente el cuidador o el profesional (la app no propone intervalos). Texto informativo fijo: 'estrategia conductual con evidencia B de beneficio a corto plazo en residencias; no es un tratamiento; comente el registro con enfermería'.",
+   "safety_notes": "El aviso es una invitación, nunca una obligación: no insistir si hay rechazo o angustia. La app no calcula ni muestra porcentajes de éxito ni de 'continencia'.",
+   "negative_or_conflicting": "Ensayos pequeños, de baja calidad y en residencias, sin seguimiento tras retirar la intervención. El original citaba '9 ensayos/674 personas' y una búsqueda hasta 2006: no se pudo verificar (Cochrane devuelve 403) y se sustituye por los datos indexados. Funciona peor en personas que no responden a la invitación, lo que es frecuente en demencia avanzada."
+  },
+  {
+   "claim": "Aseo a horas fijas (timed voiding, Cochrane CD002802: 2 ensayos, 298 personas) y reentrenamiento de hábitos (habit retraining, CD002801: 3 ensayos, 337 personas mayores dependientes con deterioro cognitivo y/o físico, en residencias y en domicilio). Los datos son insuficientes y de baja calidad, y las intervenciones eran multicomponente, así que no se puede atribuir el efecto al horario. En CD002801 los cuidadores tuvieron dificultad para mantener los registros y aplicar el programa (adherencia del 61% en un ensayo). NICE NG123 (solo mujeres) recomienda un diario miccional de al menos 3 días en la valoración inicial. NICE NG97 (demencia) no tiene recomendaciones propias de valoración de la incontinencia: solo remite a la evaluación de mirabegrón (TA) y a la guía de incontinencia fecal.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/14973993/ (Cochrane CD002802)",
+    "https://pubmed.ncbi.nlm.nih.gov/15106179/ (Cochrane CD002801)",
+    "https://www.nice.org.uk/guidance/ng123/chapter/Recommendations (rec. 1.3.13)",
+    "https://www.nice.org.uk/guidance/ng97/chapter/Recommendations (recs. 1.8.8-1.8.9)"
+   ],
+   "app_implication": "Diario miccional e intestinal mínimo (hora, escape sí/no, deposición, cambio de absorbente), exportable en PDF para la consulta, sin interpretación ni gráficos de 'mejoría'. Un modo de '3 días' que el cuidador activa si se lo pide el profesional. Texto fijo: 'una valoración profesional puede encontrar causas tratables; lleve este registro'.",
+   "safety_notes": "Mantener el diario muy breve: la evidencia indica que los cuidadores abandonan registros pesados. La app no propone causa ni tipo de incontinencia.",
+   "negative_or_conflicting": "El original atribuía a CD002113 el título 'Toileting programmes' y decía que NG97 recomienda un diario de 3 días: ambas cosas eran erróneas y se corrigen. NG123 es solo para mujeres, así que su aplicación a hombres con demencia es opinión de experto (D). La guía ICS no se revisó."
+  },
+  {
+   "claim": "No cribar ni tratar la bacteriuria asintomática (BA) en mayores. IDSA 2019: en mayores en residencias, recomendación fuerte con calidad moderada (hay ensayos aleatorizados sin beneficio y con más efectos adversos). En mayores con deterioro funcional que viven en la comunidad, recomendación fuerte con calidad baja. Sacyl (PROA) concuerda y añade que el cribado positivo puede confundir el diagnóstico y llevar a antibióticos innecesarios, con más reacciones adversas y bacterias multirresistentes.",
+   "evidence_level": "B",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/30895288/ (IDSA 2019, Clin Infect Dis)",
+    "https://www.idsociety.org/practice-guideline/asymptomatic-bacteriuria/ (recs. IV.1 y IV.2 leídas)",
+    "https://www.saludcastillayleon.es/portalmedicamento/en/estrategias-programas/antimicrobianos/revision-guias-sacyl-pran-proa.files/2045492-Bacteriuria%20asintom%C3%A1tica.pdf (leído)"
+   ],
+   "app_implication": "Ficha educativa con nivel de evidencia: 'en mayores es frecuente tener bacterias en la orina sin infección; no suele tratarse'. La app no ofrece registrar resultados de tiras ni de cultivos como alerta y nunca sugiere pedir pruebas ni antibióticos. Si el cuidador anota síntomas, el texto es: 'coméntelo con su médico de familia o enfermería'.",
+   "safety_notes": "No convertir la ficha en un 'no hace falta ir al médico': síntomas como fiebre, dolor al orinar, sangre visible o dolor lumbar se derivan siempre.",
+   "negative_or_conflicting": "Baja de A a B: para una persona que vive en casa, la calidad que asigna IDSA es baja. La calidad moderada corresponde solo a residencias."
+  },
+  {
+   "claim": "Confusión o caída sin síntomas urinarios ni signos sistémicos. IDSA 2019 (recs. V.1 y V.2, fuerte con calidad MUY baja) recomienda buscar otras causas y observar, no tratar la bacteriuria. Si hay fiebre o signos de sepsis sin foco, se valora con urgencia y se cubren focos urinarios y no urinarios. La herramienta UKHSA 2025 para mayores de 65 años incluye 'delirium nuevo o que empeora' como uno de los signos a valorar junto a otros. Define la fiebre en mayores como 1,5 °C por encima de la temperatura habitual de la persona en dos ocasiones en 12 horas, y propone revisar otras causas de delirium (PINCH ME: dolor, otras infecciones, nutrición, estreñimiento, hidratación, medicación, entorno). El ensayo A-DONUT (fase vanguard, n=30, JAGS 2026) solo informa de factibilidad: no hay resultados de eficacia.",
+   "evidence_level": "C",
+   "sources": [
+    "https://www.idsociety.org/practice-guideline/asymptomatic-bacteriuria/ (recs. V.1 y V.2 leídas)",
+    "https://assets.publishing.service.gov.uk/media/684180a358bd5a53d0211cd2/DDT_over_65_A3.pdf (UKHSA, leído)",
+    "https://europepmc.org/article/MED/42175687 (Fralick et al., JAGS 2026, resumen leído)"
+   ],
+   "app_implication": "Pantalla 'Hoy está distinto/a' con texto fijo y lista no ordenada de causas posibles (dolor, estreñimiento, deshidratación, fármacos, infecciones de cualquier origen, cambios de entorno). Botón para registrar el cambio y la hora. Mensaje: 'llame hoy a su centro de salud; si hay fiebre, somnolencia intensa, dificultad para respirar o empeoramiento brusco, llame al 112'. Campo opcional para anotar la temperatura habitual de la persona y las mediciones, que se muestran como datos sin umbral ni interpretación.",
+   "safety_notes": "No decir que la confusión 'no es una infección de orina' ni que 'probablemente es una infección de orina'. La app no atribuye causa. No eliminar la derivación: un delirium nuevo es siempre motivo de valoración médica en el día. No incorporar el umbral de 1,5 °C como alerta automática, porque sería detección (MDR regla 11).",
+   "negative_or_conflicting": "Recomendación fuerte basada en evidencia muy baja, así que baja de A a C. La herramienta UKHSA sí cuenta el delirium como signo cuando se acompaña de otros, de modo que la formulación 'la confusión no justifica' debe matizarse a 'no basta por sí sola'. La cifra '75% frente a 43%' del original no tenía fuente localizable y se elimina."
+  },
+  {
+   "claim": "Guías españolas sobre infecciones urinarias en el anciano. La guía SEGG de buena práctica clínica 'Infecciones urinarias' es de 2005, patrocinada por un laboratorio (Zambon) y coeditada con SEIMC: describe la BA como similar a una colonización que en la mayoría de los casos no se beneficia de antibióticos. Sacyl PROA (vigente en su portal) desaconseja cribado y tratamiento en ancianos y señala que las tiras reactivas no son suficientemente sensibles. No se localizaron recomendaciones 'No hacer' literales de SEGG ni de semFYC sobre este punto.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.segg.es/download.asp?file=media%2Fdescargas%2FguiaInfeccionesUrinarias.pdf (leído; 2005)",
+    "https://www.saludcastillayleon.es/portalmedicamento/en/estrategias-programas/antimicrobianos/revision-guias-sacyl-pran-proa.files/2045492-Bacteriuria%20asintom%C3%A1tica.pdf (leído)"
+   ],
+   "app_implication": "Usar Sacyl PROA como enlace oficial en español en la ficha de BA. No citar entre comillas textos 'No hacer' no verificados. Mensaje: 'no pida antibióticos por el color o el olor de la orina; consulte si hay síntomas'.",
+   "safety_notes": "La guía SEGG es antigua y tiene patrocinio comercial: no usarla como fuente principal. Fechar la ficha y revisarla una vez al año.",
+   "negative_or_conflicting": "Baja de B a D: es un documento de consenso. El nivel de la evidencia subyacente está en el hallazgo de IDSA. La ficha 'Para qué sirve la tira de orina' del original se elimina, porque podía inducir a hacer tiras en casa."
+  },
+  {
+   "claim": "Tratar una bacteriuria sin síntomas expone a efectos adversos y resistencias sin beneficio. IDSA 2019 lo basa en ensayos con más reacciones adversas en los tratados y en la contribución de la BA al uso inapropiado de antimicrobianos. UKHSA 2025: la BA 'no es dañina' y los antibióticos 'no son beneficiosos y pueden causar daño'. Las listas Choosing Wisely (AGS) recogían esta recomendación, pero la URL citada redirige hoy a la página de cierre de la campaña de ABIM y no muestra el texto.",
+   "evidence_level": "B",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/30895288/",
+    "https://assets.publishing.service.gov.uk/media/684180a358bd5a53d0211cd2/DDT_over_65_A3.pdf"
+   ],
+   "app_implication": "Ficha educativa sobre antibióticos: no tomar antibióticos sobrantes ni de otra persona, y comentar con el médico o el farmacéutico la diarrea que aparezca durante o después de un tratamiento. Registro de medicación sin sugerir inicios, cambios ni suspensiones.",
+   "safety_notes": "Lo de las sondas para incontinencia (Choosing Wisely) no se pudo verificar en la fuente: no citarlo hasta localizar un texto vigente, por ejemplo en una lista archivada o en guías de sondaje.",
+   "negative_or_conflicting": "La URL de Choosing Wisely ya no sirve el contenido. A-DONUT sigue en curso y podría matizar la práctica en pacientes hospitalizados con delirium."
+  },
+  {
+   "claim": "Rechazo al baño y aseo centrado en la persona (Bathing Without a Battle). En el ensayo aleatorizado de Sloane 2004 (73 residentes con agitación en el baño, 69 completaron, 15 residencias de Oregón y Carolina del Norte), la ducha centrada en la persona y el baño con toalla redujeron la agitación, la agresión y el disconfort; los incidentes agresivos bajaron un 53% en el grupo de ducha. En el estudio de difusión cruzado de Gozalo 2014 (240 residentes, 6 residencias de Nueva York, formación de formadores): conducta verbal -17,8%, antipsicóticos -30%, más baños en cama y baños 1,5 minutos más cortos, pese a problemas de implementación.",
+   "evidence_level": "B",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/15507054/ (Sloane et al., JAGS 2004, RCT)",
+    "https://pubmed.ncbi.nlm.nih.gov/24697702/ (Gozalo et al., JAGS 2014)",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5584541",
+    "https://bathingwithoutabattle.unc.edu/about-bathing"
+   ],
+   "app_implication": "Ficha 'Aseo sin pelea' con nivel de evidencia B (residencias; extrapolado a domicilio): preguntar y ofrecer elección, respetar la hora preferida, privacidad, cubrir con toalla, agua templada, baño con toalla o en cama como alternativa, y posponer si hay rechazo sin urgencia. Registro libre de lo que funcionó (hora, quién, método), sin puntuar la conducta.",
+   "safety_notes": "Ante agitación intensa, agresividad o riesgo de caída: hablar con el médico o con enfermería. Avisar de los riesgos de quemadura y de suelo mojado. No reproducir materiales de la UNC sin comprobar su licencia; enlazarlos.",
+   "negative_or_conflicting": "Ensayos en residencias con personal formado, sin ensayos en domicilio. Gozalo 2014 no aleatorizó a nivel individual. Una crítica verificada (Morris et al., Nurs Inq 2026, análisis crítico del discurso, cualitativo) cuestiona que el programa normalice la higiene como forma de 'gobierno' de la persona: hay que respetar la negativa cuando no hay urgencia."
+  },
+  {
+   "claim": "Prevención de úlceras o lesiones por presión: la guía internacional EPUAP/NPIAP/PPPIA (2019; 4.ª edición publicada en 2026 y marcada como vigente en la web) y los documentos de GNEAUPP recomiendan valoración de riesgo por profesionales, inspección de la piel, cambios posturales individualizados, superficies de apoyo y cuidado cutáneo sin fricción. La fuerza de la evidencia varía según la recomendación.",
+   "evidence_level": "B",
+   "sources": [
+    "https://www.internationalguideline.com/ (leído; 4.ª edición 2026 'CURRENT')",
+    "https://gneaupp.info/"
+   ],
+   "app_implication": "Recordatorio configurable para revisar la piel (sacro, talones, caderas, glúteos) y registrar fecha, zona y una descripción libre (por ejemplo, 'enrojecimiento que no blanquea'), con foto opcional guardada solo en el dispositivo y cifrada. Derivación: piel abierta, ampolla, zona oscura o endurecida, calor, dolor o mal olor, contactar con enfermería del centro de salud.",
+   "safety_notes": "La app no calcula riesgo (Braden y Norton requieren valoración clínica y, en algunos casos, licencia) ni clasifica categorías de lesión. La guía no permite usar sus logotipos ni su marca sin permiso escrito.",
+   "negative_or_conflicting": "Hay que revisar las recomendaciones de la edición 2026 antes de publicar la ficha, porque las fuentes citadas eran de 2019. Las fotos de zonas íntimas son datos de salud (RGPD art. 9) y deben quedar fuera de la nube por defecto."
+  },
+  {
+   "claim": "Dermatitis asociada a incontinencia (DAI). Cochrane CD011627 (2016): 13 ensayos con 1.295 participantes de residencias u hospitales, la mayoría pequeños y con alto riesgo de sesgo. El jabón con agua funcionó peor que un limpiador cutáneo (RR 0,39; certeza baja) y que una manopla de limpieza, hidratación y protección (RR 0,31; certeza moderada). Aplicar un producto sin aclarado (hidratante o barrera) podría ser mejor que no aplicarlo (certeza baja o muy baja).",
+   "evidence_level": "B",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/27841440/ (Cochrane CD011627, 2016)",
+    "https://www.internationalguideline.com/"
+   ],
+   "app_implication": "Ficha de cuidado de la piel con nivel de evidencia B (certeza baja): limpieza suave sin frotar, evitar jabón convencional repetido, secar a toques, producto barrera según indique enfermería o farmacia. Registro de cambios de absorbente y del estado de la piel en texto libre. Derivación ante enrojecimiento persistente, piel abierta, dolor, picor intenso, placas blanquecinas o mal olor.",
+   "safety_notes": "No recomendar marcas, cremas concretas ni antifúngicos; derivar a enfermería o farmacia.",
+   "negative_or_conflicting": "Sube de C a B por haber varios ensayos aleatorizados pequeños, aunque la certeza es baja y muchos están financiados por fabricantes. No hay datos en domicilio."
+  },
+  {
+   "claim": "Estreñimiento: puede contribuir a la incontinencia urinaria, a la incontinencia fecal por rebosamiento y al delirium. Figura como causa a revisar en el delirium del mayor en la herramienta UKHSA 2025 (PINCH ME). El registro de deposiciones es práctica habitual de cuidados. No se localizó evidencia directa de intervención en demencia.",
+   "evidence_level": "D",
+   "sources": [
+    "https://assets.publishing.service.gov.uk/media/684180a358bd5a53d0211cd2/DDT_over_65_A3.pdf"
+   ],
+   "app_implication": "Registro de deposiciones (fecha y descripción). La app muestra 'días desde la última deposición registrada' como dato, sin umbral ni alerta, con el mensaje: 'coméntelo con su médico o enfermería si le preocupa'.",
+   "safety_notes": "Derivación urgente si hay dolor abdominal intenso, vómitos, abdomen hinchado sin gases o sangre visible. No sugerir laxantes, enemas ni remedios. Antes de incluir una escala visual de heces (por ejemplo, Bristol), comprobar su licencia o usar descripciones propias.",
+   "negative_or_conflicting": "No existe un umbral universal de días sin deposición y la app no debe fijarlo. NG97 no se pronuncia sobre el estreñimiento; se retira como fuente."
+  },
+  {
+   "claim": "Cascada de prescripción. En una cohorte poblacional de Ontario (Gill et al., Arch Intern Med 2005; 44.884 mayores con demencia), quienes tomaban inhibidores de la colinesterasa (IACE) recibieron después más anticolinérgicos para la incontinencia (4,5% frente a 3,1%). NICE NG97 (1.6.1-1.6.2) pide tener en cuenta y minimizar los fármacos con carga anticolinérgica en demencia. NG123 advierte de que no se conocen los efectos cognitivos a largo plazo de los anticolinérgicos para la vejiga hiperactiva.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/15824303/ (Gill et al., 2005)",
+    "https://www.nice.org.uk/guidance/ng97/chapter/Recommendations (1.6)",
+    "https://www.nice.org.uk/guidance/ng123/chapter/Recommendations"
+   ],
+   "app_implication": "En el registro de medicación, el cuidador puede anotar 'inicio o cambio de un fármaco' y 'aparición o empeoramiento de la incontinencia' con fechas. Junto a esos datos, la app muestra un texto fijo, sin cruzarlos automáticamente: 'algunos fármacos influyen en la vejiga y la memoria; lleve la lista completa de medicación a su médico o farmacéutico para revisarla'.",
+   "safety_notes": "No nombrar interacciones concretas como alerta, no decir 'suspenda' ni 'cambie' y no detectar automáticamente combinaciones IACE + anticolinérgico, porque sería funcionalidad de producto sanitario. Los criterios Beers y STOPP no se recuperaron: no citarlos hasta verificarlos.",
+   "negative_or_conflicting": "Es un estudio observacional con posible confusión por indicación: la incontinencia progresa con la demencia de forma independiente."
+  },
+  {
+   "claim": "Absorbentes en España (CORREGIDO). No forman parte de la cartera ortoprotésica: el RD 1506/2012 no los menciona. Pertenecen a la prestación farmacéutica de productos sanitarios para pacientes no hospitalizados. Primero los reguló el RD 9/1996 ('efectos y accesorios') y ahora el RD 90/2026, de 11 de febrero (BOE-A-2026-3215, en vigor desde el 1 de julio de 2026), que deroga el anterior. Los 'absorbentes para incontinencia urinaria' figuran en el anexo I, con aportación normal según renta. El grupo de absorbentes tiene un periodo de solicitud de financiación del 1 de enero al 30 de junio de 2027. El RD permite exigir visado. En la práctica se prescriben con receta y visado de inspección y se dispensan en farmacia; algunas comunidades usan suministro directo.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.boe.es/eli/es/rd/2026/02/11/90/con (leído: anexo I, calendario y vigencia)",
+    "https://www.boe.es/buscar/act.php?id=BOE-A-2012-13647 (RD 1506/2012; no contiene 'absorbente')",
+    "https://www.saludcastillayleon.es/portalmedicamento/es/noticias-destacados/destacados/nueva-regulacion-financiacion-selectiva-productos-sanitario",
+    "https://procuradordelcomun.org/archivos/resoluciones/1_1462796462.pdf (procedimiento de visado; anterior a 2026)"
+   ],
+   "app_implication": "Guía informativa de trámite, fechada: pedir valoración al médico o a la enfermera de familia, que prescriben; consultar el visado o el suministro en la web de salud de la comunidad; guardar el registro de consumo de absorbentes para la consulta. Enlaces por comunidad mantenidos por el equipo, con fecha de revisión.",
+   "safety_notes": "Es información administrativa, no asesoría jurídica. La app no recomienda tipo, talla ni número de absorbentes al día (eso lo decide el profesional que prescribe). Revisar la ficha después de junio de 2027, cuando se resuelva el grupo de absorbentes.",
+   "negative_or_conflicting": "El original situaba los absorbentes en la prestación ortoprotésica (RD 1506/2012): era un error y se corrige. El informe COCEMFE 2023 trata del catálogo ortoprotésico y no sirve para absorbentes, así que se retira. Los requisitos de visado por comunidad no se verificaron."
+  },
+  {
+   "claim": "Dignidad e intimidad en el aseo. Estudios cualitativos (Morris et al., Healthcare 2025: enfermeras de hospital de agudos ante pacientes con demencia que descuidan su higiene; Nurs Inq 2026: crítica de Bathing Without a Battle) describen la vergüenza, la pérdida de autonomía y el conflicto entre higiene y voluntad de la persona. No aportan datos sobre la preferencia de género de quien asea. La idea de que respetar esa preferencia reduce la resistencia es razonable, pero procede de la práctica y no de estos estudios.",
+   "evidence_level": "anecdotal",
+   "sources": [
+    "https://europepmc.org/article/MED/40648587 (Morris et al., Healthcare 2025)",
+    "https://europepmc.org/article/MED/42542958 (Morris et al., Nurs Inq 2026)"
+   ],
+   "app_implication": "Campos de preferencias que rellena la familia (quién prefiere que le asee, hora, puerta cerrada, toalla, rutinas de toda la vida) para el relevo entre cuidadores, con texto sobre no infantilizar y explicar cada paso.",
+   "safety_notes": "Respetar la autonomía y el consentimiento. Ante sospecha de maltrato o negligencia, derivar a servicios sociales o al médico. Sin culpabilizar al cuidador.",
+   "negative_or_conflicting": "Baja de C a 'anecdotal' para la parte de género: las fuentes citadas no la estudian. La parte de dignidad y autonomía tiene apoyo cualitativo (C)."
+  },
+  {
+   "claim": "Adaptaciones del entorno (señalizar el baño, luz nocturna, asiento elevado, barras, ropa fácil de quitar, orinal o silla junto a la cama, protector de colchón) para reducir escapes funcionales y caídas. Los ensayos de aseo a horas fijas incluían, por ejemplo, una silla-inodoro junto a la cama como parte de una intervención multicomponente, pero no hay evidencia aislada.",
+   "evidence_level": "D",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/14973993/ (componente de una intervención multicomponente)"
+   ],
+   "app_implication": "Lista informativa no obligatoria para el baño y el dormitorio, con la recomendación de pedir valoración de terapia ocupacional (centro de salud o servicios sociales).",
+   "safety_notes": "Sin venta ni enlaces comerciales de productos.",
+   "negative_or_conflicting": "No hay ensayos en domicilio. Se retira NICE NG97 como fuente porque no trata este punto."
+  },
+  {
+   "claim": "AÑADIDO. Tiras reactivas de orina en mayores de 65 años: la herramienta UKHSA/NHS England 2025 indica 'no realizar tiras reactivas' porque son menos fiables con la edad por la alta prevalencia de BA (en torno a la mitad de las personas de 80 años en residencias). Sacyl PROA: las tiras no son suficientemente sensibles. El color, el olor o la turbidez de la orina no figuran entre los criterios diagnósticos de la herramienta UKHSA.",
+   "evidence_level": "C",
+   "sources": [
+    "https://assets.publishing.service.gov.uk/media/684180a358bd5a53d0211cd2/DDT_over_65_A3.pdf (leído)",
+    "https://www.gov.uk/government/publications/urinary-tract-infection-diagnosis",
+    "https://www.saludcastillayleon.es/portalmedicamento/en/estrategias-programas/antimicrobianos/revision-guias-sacyl-pran-proa.files/2045492-Bacteriuria%20asintom%C3%A1tica.pdf"
+   ],
+   "app_implication": "La app no ofrece campos para resultados de tiras, color ni olor como señal. Ficha educativa: 'las tiras de orina en mayores dan falsos positivos con frecuencia; no las use en casa para decidir'. No enlazar a la compra de tiras.",
+   "safety_notes": "Evita que la app funcione como detector de ITU, lo que la convertiría en producto sanitario de clase IIa o superior según la regla 11 del MDR.",
+   "negative_or_conflicting": "NICE NG123 (1.3.5) sí recomienda que el profesional haga una tira en la valoración clínica de la mujer con incontinencia, para detectar sangre, glucosa o proteínas. Es un uso profesional distinto del diagnóstico de ITU en casa. El RCGP señaló incoherencias en la herramienta UKHSA. La evidencia es de exactitud diagnóstica (observacional) más consenso."
+  },
+  {
+   "claim": "AÑADIDO. Líquidos y cafeína: restringir líquidos para 'tener menos escapes' puede favorecer la deshidratación, el estreñimiento y el delirium (PINCH ME incluye la hidratación). NICE NG123 recomienda probar a reducir la cafeína en la vejiga hiperactiva y ajustar la ingesta cuando es muy alta o muy baja (recomendaciones de 2006, en mujeres). Un ensayo aleatorizado (Hooton, JAMA Intern Med 2018; 140 mujeres premenopáusicas que bebían poco) redujo las cistitis recurrentes aumentando el agua, en una población distinta a la de esta app.",
+   "evidence_level": "C",
+   "sources": [
+    "https://www.nice.org.uk/guidance/ng123/chapter/Recommendations (1.4.1-1.4.2)",
+    "https://pubmed.ncbi.nlm.nih.gov/30285042/ (Hooton et al., 2018)",
+    "https://assets.publishing.service.gov.uk/media/684180a358bd5a53d0211cd2/DDT_over_65_A3.pdf"
+   ],
+   "app_implication": "Registro opcional de bebidas ofrecidas y aceptadas, como dato. Texto fijo: 'no reduzca la bebida para evitar escapes sin consultarlo; la cantidad adecuada la indica su médico, sobre todo si hay enfermedad del corazón o del riñón'. Sin objetivos de mililitros por día.",
+   "safety_notes": "No fijar volúmenes: en insuficiencia cardiaca o renal puede haber restricción médica. Derivar si hay boca muy seca, poca orina oscura de forma persistente o somnolencia.",
+   "negative_or_conflicting": "No hay ensayos en demencia ni en mayores de este perfil. La reducción de cafeína tiene un beneficio modesto y se extrapola desde mujeres con vejiga hiperactiva."
+  },
+  {
+   "claim": "AÑADIDO. Remedios naturales para prevenir ITU. Cochrane 2023 sobre arándano (50 ensayos, 8.857 participantes): probablemente reduce las ITU en mujeres con ITU recurrente, en niños y tras intervenciones, pero podría tener poco o ningún beneficio en mayores institucionalizados (3 ensayos, 1.489 personas; RR 0,93, IC 95% 0,67-1,30; certeza moderada). D-manosa: el ensayo MERIT (JAMA Intern Med 2024; 598 mujeres con ITU recurrente en atención primaria, edad de 18 a 93 años) no redujo las ITU (51,0% frente a 55,7%) y los autores concluyen que no debe recomendarse. Un metaanálisis de 2025 (4 ensayos, 890 participantes) tampoco encuentra diferencias. No se localizó evidencia de calidad sobre medicina tradicional china para prevenir ITU en demencia.",
+   "evidence_level": "A",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/37947276/ (Cochrane CD001321, 2023)",
+    "https://pubmed.ncbi.nlm.nih.gov/38587819/ (MERIT, 2024)",
+    "https://pubmed.ncbi.nlm.nih.gov/41195062/ (metaanálisis D-manosa, 2025)"
+   ],
+   "app_implication": "Ficha 'Lo natural y la orina' con niveles de evidencia: arándano A, sin beneficio claro en mayores institucionalizados; D-manosa B, sin beneficio en el ensayo grande; MTC sin evidencia localizada. Mensaje: 'si quiere probar un suplemento, coméntelo con su farmacéutico o médico, sobre todo si toma anticoagulantes u otros fármacos'.",
+   "safety_notes": "No indicar dosis, marcas ni pautas. Los suplementos no sustituyen la valoración de síntomas. Algunos productos de arándano llevan azúcares añadidos; derivar al farmacéutico.",
+   "negative_or_conflicting": "El nivel A se refiere al conjunto de la revisión Cochrane. Para mayores en domicilio con demencia no hay ensayos específicos, y el subgrupo institucionalizado tiene certeza moderada. MERIT incluyó solo mujeres."
+  },
+  {
+   "claim": "AÑADIDO. Incontinencia de aparición o empeoramiento brusco, o señales de retención (no orina pese a beber, dolor o abultamiento en la parte baja del abdomen, goteo continuo): requieren valoración médica, porque puede haber causas tratables como infección sintomática, fármacos, estreñimiento o impactación, retención por próstata o por anticolinérgicos, o hiperglucemia. Las guías de incontinencia piden revisar causas reversibles antes de recurrir a la contención.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.nice.org.uk/guidance/ng123/chapter/Recommendations (valoración inicial)",
+    "https://pubmed.ncbi.nlm.nih.gov/15824303/"
+   ],
+   "app_implication": "Opción de registro 'cambio reciente en la continencia' con fecha, que muestra un texto fijo de derivación: 'consulte en los próximos días con su centro de salud; si no orina en muchas horas o hay dolor abdominal fuerte, acuda a urgencias o llame al 112'.",
+   "safety_notes": "La app no clasifica el tipo de incontinencia ni sugiere causa. No proponer ni desaconsejar el sondaje.",
+   "negative_or_conflicting": "Recomendación de práctica clínica sin ensayos que la respalden; el umbral de horas sin orinar no está establecido y no se muestra."
+  }
+ ],
+ "app_features": [
+  "Pantalla 'Hoy está distinto/a': texto fijo que no atribuye causa (ni a la orina ni a otra), lista no ordenada de causas posibles, registro con hora y botones de centro de salud y 112",
+  "Diario miccional e intestinal mínimo (hora, escape, deposición, absorbente), con modo de 3 días que activa el cuidador y exportación en PDF sin interpretación",
+  "Sin campos de color, olor, turbidez ni tiras de orina como alerta; ficha educativa 'tiras y bacteriuria en mayores' con nivel de evidencia",
+  "Lista fija de señales para derivar (fiebre, dolor al orinar, sangre visible, no orina, dolor abdominal intenso, somnolencia brusca), sin umbrales automáticos",
+  "Campo opcional de temperatura habitual y mediciones, mostrado como dato sin interpretar",
+  "Recordatorio amable para ofrecer ir al baño, con intervalo fijado solo por el cuidador o el profesional",
+  "Ficha 'Aseo sin pelea' (evidencia B en residencias) y registro libre de lo que funcionó",
+  "Revisión de piel: registro de zona, fecha y descripción libre, foto opcional solo local y cifrada, y derivación a enfermería",
+  "Ficha de cuidado de piel en DAI (evidencia B, certeza baja) sin marcas",
+  "Registro de deposiciones con 'días desde la última registrada' como dato, sin umbral ni laxantes",
+  "Registro de bebidas como dato y aviso de no restringir líquidos sin consejo médico",
+  "Ficha 'Lo natural y la orina' (arándano, D-manosa, MTC) con niveles de evidencia y derivación al farmacéutico",
+  "Registro de inicio o cambio de fármacos y de cambios en la continencia, con texto fijo de revisión de medicación (sin cruce automático)",
+  "Guía de trámite de absorbentes (prestación farmacéutica, RD 90/2026) por comunidad, con fecha de revisión",
+  "Preferencias de intimidad y rutinas para el relevo entre cuidadores",
+  "Lista informativa de adaptaciones del baño y el dormitorio con derivación a terapia ocupacional"
+ ],
+ "questions_for_owner": [
+  "¿En qué comunidad autónoma vive la familia? Necesitamos confirmar si los absorbentes se dispensan en farmacia con visado o por suministro directo tras el RD 90/2026.",
+  "¿La persona es hombre o mujer, quién le asea hoy y hay rechazo ligado a la intimidad o a quién le asea?",
+  "¿Se aceptan fotos de piel guardadas solo en el móvil y cifradas, o se descartan por RGPD art. 9?",
+  "¿Hay enfermería de atención primaria, geriatría (SEGG) o semFYC dispuesta a revisar los textos fijos de derivación antes de publicar?",
+  "¿Toma actualmente un inhibidor de la colinesterasa y/o algún fármaco para la vejiga, para probar el texto de revisión de medicación?",
+  "¿Hay alguna restricción médica de líquidos (corazón o riñón) que deba constar en la ficha de la persona?",
+  "¿Aceptan que la app no muestre nunca valoraciones de orina (color, olor, tiras) ni cuente 'episodios anómalos', y que la temperatura sea solo un dato?",
+  "¿Quién revisará la edición 2026 de la guía internacional de úlceras por presión y la ficha de absorbentes después de junio de 2027?"
+ ],
+ "free_resources": [
+  {
+   "name": "IDSA 2019 Asymptomatic Bacteriuria",
+   "url": "https://www.idsociety.org/practice-guideline/asymptomatic-bacteriuria/",
+   "what": "Guía sobre bacteriuria asintomática con recomendaciones específicas sobre delirium y caídas en mayores",
+   "cost": "gratis"
+  },
+  {
+   "name": "UKHSA: herramienta diagnóstica de ITU en mayores de 65 años",
+   "url": "https://www.gov.uk/government/publications/urinary-tract-infection-diagnosis",
+   "what": "Diagrama para profesionales: no usar tiras en mayores de 65 años, definición de fiebre relativa, PINCH ME",
+   "cost": "gratis"
+  },
+  {
+   "name": "Sacyl PROA: Bacteriuria asintomática",
+   "url": "https://www.saludcastillayleon.es/portalmedicamento/en/estrategias-programas/antimicrobianos/revision-guias-sacyl-pran-proa.files/2045492-Bacteriuria%20asintom%C3%A1tica.pdf",
+   "what": "Ficha oficial en español sobre no cribar ni tratar la BA en ancianos",
+   "cost": "gratis"
+  },
+  {
+   "name": "Guía internacional de úlceras/lesiones por presión (EPUAP/NPIAP/PPPIA)",
+   "url": "https://www.internationalguideline.com/",
+   "what": "4.ª edición (2026) en línea; el uso de logotipos y de la marca requiere permiso",
+   "cost": "gratis (acceso en línea; condiciones de uso propias)"
+  },
+  {
+   "name": "GNEAUPP",
+   "url": "https://gneaupp.info/",
+   "what": "Documentos técnicos en español sobre úlceras y DAI",
+   "cost": "gratis"
+  },
+  {
+   "name": "Bathing Without a Battle (UNC)",
+   "url": "https://bathingwithoutabattle.unc.edu/about-bathing",
+   "what": "Materiales sobre baño centrado en la persona en demencia",
+   "cost": "gratis (comprobar licencia antes de reproducir)"
+  },
+  {
+   "name": "NICE NG123 Incontinencia urinaria en mujeres",
+   "url": "https://www.nice.org.uk/guidance/ng123",
+   "what": "Diario miccional de 3 días, cafeína y líquidos, precauciones con anticolinérgicos",
+   "cost": "gratis"
+  },
+  {
+   "name": "NICE NG97 Demencia",
+   "url": "https://www.nice.org.uk/guidance/ng97",
+   "what": "Carga anticolinérgica (1.6) y remisiones sobre incontinencia (1.8.8-1.8.9)",
+   "cost": "gratis"
+  },
+  {
+   "name": "BOE RD 90/2026 productos sanitarios en prestación farmacéutica",
+   "url": "https://www.boe.es/eli/es/rd/2026/02/11/90/con",
+   "what": "Norma vigente desde el 1 de julio de 2026 que incluye los absorbentes para incontinencia (anexo I)",
+   "cost": "gratis"
+  },
+  {
+   "name": "Cochrane: arándano para prevenir ITU (2023)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/37947276/",
+   "what": "Resumen de la revisión, con el subgrupo de mayores institucionalizados",
+   "cost": "gratis (resumen)"
+  },
+  {
+   "name": "Gozalo 2014 Bathing Without a Battle (PMC)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5584541",
+   "what": "Texto completo del estudio cruzado en 240 residentes",
+   "cost": "gratis"
+  }
+ ],
+ "verification_notes": "Revisión del 12 de octubre de 2026 con Europe PMC (resúmenes), curl y pdftotext sobre PDF oficiales, WebFetch (IDSA, BOE) y WebSearch. Correcciones: (1) Los absorbentes no están en la prestación ortoprotésica: el RD 1506/2012 no contiene 'absorbente'. Están en la prestación farmacéutica, RD 90/2026 (anexo I, en vigor desde el 1 de julio de 2026), leído en el BOE. Se retira COCEMFE. (2) CD002113 es micción incitada, no 'toileting programmes'. Cifras verificadas: 5 ensayos y 355 personas; '9/674' no se pudo comprobar. Se añaden CD002802 y CD002801. (3) El diario de 3 días es de NG123, no de NG97. (4) IDSA leído: delirium y caídas son recomendación fuerte con calidad muy baja (de A a C); BA en domicilio, de A a B. Se elimina la cifra 75/43%. (5) La URL de Choosing Wisely redirige a la página de cierre de la campaña. (6) SEGG es de 2005 y la patrocinó Zambon (pasa a D). (7) Morris 2025/2026 no estudian el género, así que esa parte pasa a 'anecdotal'; la crítica de 2026 a Bathing Without a Battle sí existe. (8) La guía de úlceras por presión tiene 4.ª edición de 2026. Se añaden 4 hallazgos: tiras reactivas (PDF de UKHSA leído), líquidos y cafeína, arándano y D-manosa, y cambio brusco o retención. Pendiente: textos 'No hacer' de SEGG y semFYC, criterios Beers y STOPP, visado por comunidad, edición 2026 de la guía de úlceras y licencia de la escala de Bristol."
+}

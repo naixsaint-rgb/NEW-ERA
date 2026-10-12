@@ -1,0 +1,337 @@
+{
+ "key": "seguridad_delirium",
+ "title": "Seguridad, deambulación y delirium",
+ "summary": "No hay pruebas sólidas (nivel C) de que la tecnología de localización o de detección evite daños en la demencia. Las revisiones muestran que es viable, que tranquiliza al cuidador y que permite localizar antes a la persona, pero no que reduzca muertes ni lesiones. El dato que sí obliga a actuar es el tiempo: casi todas las personas encontradas en menos de 24 h sobreviven, y según la serie mueren entre el 16% y el 39% de las desaparecidas. Rowe 2011 aporta un matiz clave: la desaparición crítica no se comporta como la deambulación repetitiva. Suele ocurrir durante una actividad normal y permitida (pasear sola, conducir, ir en transporte), no sigue ningún patrón, y las muertes se producen en zonas despobladas por exposición al frío o al calor o por ahogamiento, a menudo cerca del último punto donde se vio a la persona. Por eso la app debe dar prioridad al protocolo de respuesta inmediata (112 sin esperar), a una ficha de identificación que la persona lleve de verdad y a compartir la ubicación con consentimiento, por encima de 'predecir' salidas. El delirium superpuesto a la demencia afecta a alrededor del 30% de las personas con demencia que viven en la comunidad (metaanálisis 2026). Es la urgencia que más se pasa por alto, sobre todo en su forma hipoactiva (somnolencia, apatía). Los cuidadores pueden detectarlo con herramientas pensadas para familias, como el FAM-CAM. Corrección importante: en España el RD 818/2009 (anexo IV, 10.1) dice que no debe haber demencia para obtener o prorrogar el carné, salvo un dictamen excepcional favorable de neurología o psiquiatría con vigencia máxima de 1 año. Diseño regulatorio: cualquier función que puntúe síntomas y dé una recomendación clínica individual puede convertir la app en producto sanitario (MDR, regla 11). La app debe registrar, informar y remitir al médico, y nunca clasificar ni diagnosticar.",
+ "findings": [
+  {
+   "claim": "Entre el 40% y el 60% de las personas con demencia deambulan o se pierden en algún momento. Las cifras son heterogéneas y no separan la deambulación benigna (dar vueltas por casa) de la desaparición crítica.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3551207 (Petonito et al., The Gerontologist 2013, revisión narrativa: 'seis de cada diez' según la Alzheimer's Association, 12% en domicilio y 39% en residencia según Pomerantz, 40% se pierde según McShane)"
+   ],
+   "app_implication": "Cuestionario inicial orientativo para la familia, no una escala de riesgo puntuada: ¿ha salido sola?, ¿se ha perdido alguna vez?, ¿intenta irse de noche?, ¿busca ir a un lugar del pasado?, ¿conduce o usa el transporte sola? Si alguna respuesta es sí, la app sugiere activar el paquete Seguridad (ficha, protocolo, compartir ubicación). El registro de episodios (hora, actividad, contexto) sirve para hablarlo con el médico. No se debe prometer que los patrones predigan una desaparición.",
+   "negative_or_conflicting": "Los autores advierten que la prevalencia de la deambulación crítica puede estar sobreestimada o poco estudiada, y que la cifra de 'seis de cada diez' no define qué es deambular. Rowe 2011 muestra que las desapariciones no siguen los patrones repetitivos de la deambulación, así que registrar patrones tiene poco valor predictivo para el evento grave.",
+   "safety_notes": "Presentarlo como 'riesgo a vigilar', no como un destino inevitable. No calcular una puntuación de riesgo individual con salida clínica (evita la regla 11 del MDR)."
+  },
+  {
+   "claim": "La supervivencia de una persona con demencia desaparecida depende del tiempo. Casi todas las encontradas en las primeras 24 h sobreviven, frente a solo un 54% aproximado de las halladas después de 24 h. La mortalidad entre los desaparecidos de los que hay registro va del 16% al 39% según la serie.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3551207 (resume Koester 1998, Rowe 2011, Muschert 2009 y Bass 2007)"
+   ],
+   "app_implication": "Botón rojo 'Se ha perdido' con un checklist que no hay que pensar. 1) Llamar al 112 ya: no hay que esperar 24 h. 2) Revisar la casa y el entorno inmediato (armarios, garaje, coche). 3) Enviar a la policía una foto reciente y la ropa de hoy. 4) Compartir la última ubicación conocida. 5) Avisar a la red de familiares y vecinos ya preparada. La app genera la ficha para el agente: nombre por el que responde, altura, ropa, si conduce, cómo acercarse sin asustarla (de frente, despacio, por su nombre, sin discutir) y una nota de que no suele responder si la llaman a gritos.",
+   "negative_or_conflicting": "Son series de casos retrospectivas, sobre todo de Estados Unidos y basadas en prensa o en datos de programas. No hay ensayos que prueben que intervenir antes reduzca la mortalidad, aunque la relación con el tiempo es coherente en todas las series.",
+   "safety_notes": "La app no sustituye al 112 y debe decirlo en el propio botón. Los datos de medicación de la ficha deben ser los que introduce el cuidador, sin interpretarlos. Antes de publicar el protocolo de la Policía Nacional, la Guardia Civil o las policías autonómicas hay que verificarlo con la fuente oficial, porque no se ha podido confirmar."
+  },
+  {
+   "claim": "La desaparición crítica no es lo mismo que la deambulación. En 325 casos publicados en prensa, el desencadenante principal fue perderse mientras la persona hacía una actividad normal y permitida a solas en la comunidad, o un descuido breve de la supervisión. Los episodios fueron impredecibles, no repetitivos y usando a veces el coche o el transporte público. Las muertes se dieron sobre todo en zonas despobladas, por exposición o ahogamiento, y quienes murieron estaban más cerca del último punto visto pero tardaron más en ser encontrados.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/21639942/ (Rowe et al., BMC Geriatrics 2011;11:28, n=325 noticias)"
+   ],
+   "app_implication": "1) Ficha de búsqueda con zonas de riesgo cercanas que la familia marca de antemano: agua (río, acequia, estanque), maleza, descampados, vías de tren. Así la búsqueda empieza cerca y por ahí, y no solo en lugares lejanos del pasado. 2) Paquete 'sale sola con permiso': antes de salir, foto de la ropa y ruta prevista, y aviso si no vuelve a la hora pactada (un temporizador que fija el cuidador, sin algoritmo). 3) Si todavía conduce, incluir la matrícula y el modelo del coche en la ficha. 4) Alerta meteorológica: si hace calor o frío extremo, el protocolo lo marca como más urgente.",
+   "negative_or_conflicting": "Análisis de prensa con sesgo de publicación (se publican más los casos graves) y de Estados Unidos, con un entorno rural distinto del español. No cuantifica distancias de forma generalizable.",
+   "safety_notes": "No pedir a la familia que busque sola en zonas peligrosas (agua, vías): la búsqueda en esos lugares la hacen los servicios de emergencia. El temporizador de vuelta es una ayuda, no una garantía."
+  },
+  {
+   "claim": "Programas como Safe Return, Project Lifesaver y Silver Alert no tienen evaluación independiente: sus cifras de éxito las declaran ellos mismos, y el 53% de los inscritos en Safe Return no llevaba la pulsera.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3551207"
+   ],
+   "app_implication": "No prometer eficacia. Diseñar pensando en que la identificación se lleve de verdad: colgante, etiqueta cosida en la ropa o el calzado, tarjeta en la cartera, fondo de pantalla del móvil con el texto 'Si me encuentras, llama a...'. Recordatorio semanal para comprobar que lleva la identificación.",
+   "negative_or_conflicting": "Silver Alert en Florida: 367 de 377 personas recuperadas, pero solo 51 se atribuyeron a la alerta. Hay riesgo de fatiga de alertas, de falsa sensación de seguridad y de restricción de derechos civiles.",
+   "safety_notes": "Un identificador no localiza a la persona, y hay que decirlo. El QR público solo debe mostrar datos mínimos (nombre por el que responde, teléfono de contacto, 'tiene problemas de memoria'). Los datos clínicos quedan detrás del acceso del cuidador, en cumplimiento del artículo 9 del RGPD."
+  },
+  {
+   "claim": "Las revisiones sistemáticas sobre GPS en demencia muestran que es viable, que se acepta bien y que localiza más rápido, pero no demuestran que reduzca los daños. Los dispositivos duran unas 12 o 13 h con muestreo frecuente, el GPS falla en interiores y gran parte de los datos perdidos se debe a olvidarse el dispositivo o a quedarse sin batería.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9104067/ (Cullen et al., Sensors 2022, 17 estudios)",
+    "https://www.ncbi.nlm.nih.gov/books/NBK391026/ (CADTH, revisión rápida)",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11290024/ (Doyle et al., Dementia 2024, implantación de rastreadores GPS, estudio pequeño)",
+    "https://www.tandfonline.com/doi/full/10.1080/15228835.2025.2528781 (Systematic Literature Review of Wandering Prevention Technologies for Dementia Care, J Technol Hum Serv 2025)"
+   ],
+   "app_implication": "Modo 'Compartir ubicación' con consentimiento explícito, registrado y revocable. Geocercas (casa, barrio) con aviso al cuidador de turno y un horario configurable. Alerta de batería baja y una rutina nocturna 'cargar el móvil o el reloj' en el checklist de la noche. Opción gratuita: la ubicación compartida del sistema (Google o Apple). Opción de pago, que elige la familia: GPS celular dedicado. Si se integra Traccar autoalojado, debe quedar en modo avanzado.",
+   "negative_or_conflicting": "Estudios pequeños, la mayoría cualitativos o de viabilidad, con alto riesgo de sesgo. La privacidad y la vigilancia son preocupaciones constantes. El marketing de los fabricantes deja fuera a la propia persona con demencia. Según Rowe 2011, muchas desapariciones empiezan en salidas permitidas, donde una geocerca no avisa.",
+   "safety_notes": "Una geocerca sin nadie que responda rápido no protege. La app debe obligar a definir quién recibe el aviso y qué hace. Los falsos positivos causan fatiga de alertas. Si la base legal es el consentimiento y no hay medidas de apoyo, la persona debe ser informada en un formato adaptado (Ley 8/2021)."
+  },
+  {
+   "claim": "Un AirTag u otra etiqueta Bluetooth sirve poco para localizar a una persona con demencia: depende de que haya dispositivos compatibles cerca, no es un GPS, lanza avisos anti-acoso y pitidos cuando se separa del dueño, y plantea dilemas éticos de consentimiento.",
+   "evidence_level": "D",
+   "sources": [
+    "https://arxiv.org/pdf/2501.17452 (comparativa técnica de AirTag, SmartTag y Tile, preprint)",
+    "https://www.imore.com/apple/airtags-have-a-controversial-new-use-tracking-loved-ones-with-dementia (divulgación)"
+   ],
+   "app_implication": "Pantalla 'Elegir localizador' que compara el móvil con ubicación compartida, el GPS celular y la etiqueta Bluetooth: cobertura (urbana o rural), batería, coste, si la persona lo llevará y avisos que puedan asustarla. Incluye una plantilla de conversación y un acuerdo familiar de localización, con registro de quién consintió y en qué fecha.",
+   "negative_or_conflicting": "Las fuentes son de consumo o preprints, sin revisión por pares. No hay ensayos. Se ha quitado una fuente de asesoría legal de Estados Unidos que no aplica en España.",
+   "safety_notes": "Localizar a alguien a escondidas daña la confianza y en España puede vulnerar la intimidad si no hay base legal. Recomendar asesoría (trabajador social o abogado) cuando la persona no pueda consentir. Los avisos anti-acoso pueden asustar a la persona."
+  },
+  {
+   "claim": "El delirium superpuesto a la demencia es frecuente: prevalencia agrupada del 30,2% en la comunidad (27 estudios, 2026) y del 22% al 89% en hospital y comunidad según la revisión clásica. Empeora la evolución (deterioro cognitivo y funcional acelerado, institucionalización, mortalidad) y suele tener causas reversibles: infección, deshidratación, estreñimiento o retención de orina, dolor, fármacos nuevos o cambios de dosis.",
+   "evidence_level": "B",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/42326468/ (metaanálisis, Alzheimers Dement (Amst) 2026)",
+    "https://pubmed.ncbi.nlm.nih.gov/12366629/ (Fick, Agostini e Inouye, J Am Geriatr Soc 2002)",
+    "https://www.nice.org.uk/guidance/cg103"
+   ],
+   "app_implication": "Pantalla 'Hoy está distinto' con preguntas de sí o no sobre cambios en horas o días respecto a su estado habitual: más dormida o apática (el delirium hipoactivo es el que más se pasa por alto), agitación nueva, alucinaciones nuevas, más confusión, incontinencia nueva, deja de comer o beber, caída. Si hay algún sí, el mensaje es fijo e igual para todos: 'Un cambio brusco puede deberse a una causa médica tratable. Contacta hoy con su médico o enfermera. Si está muy dormida, tiene fiebre, dificultad para respirar o se ha caído, llama al 112.' Debajo, una lista informativa de lo que el médico suele revisar (infección, hidratación, deposiciones, dolor, medicación nueva) para tenerlo anotado, no para resolverlo en casa.",
+   "negative_or_conflicting": "Gran heterogeneidad según la herramienta y el entorno. Los propios autores del metaanálisis piden validar los instrumentos de cribado en la comunidad. El manejo en demencia se extrapola en parte de la población general.",
+   "safety_notes": "La app no diagnostica ni da un resultado clínico personalizado. El mensaje es el mismo para cualquier cambio. No sugerir remedios caseros, suplementos ni hierbas como alternativa a la consulta. Tampoco recomendar 'darle algo para dormir o calmarla': los sedantes, las benzodiacepinas y los anticolinérgicos pueden empeorar el delirium."
+  },
+  {
+   "claim": "Hay herramientas de detección de delirium pensadas para familiares. El FAM-CAM (Family Confusion Assessment Method) mostró buena concordancia con el CAM aplicado por un entrevistador en 52 díadas de personas con deterioro cognitivo previo que vivían en la comunidad.",
+   "evidence_level": "C",
+   "sources": [
+    "https://doi.org/10.1111/j.1532-5415.2012.04200.x (Steis et al., J Am Geriatr Soc 2012, análisis exploratorio, n=52, prevalencia de delirium 13%)"
+   ],
+   "app_implication": "Como base de la pantalla 'Hoy está distinto' conviene más una herramienta diseñada para familias que adaptar el 4AT, que es para clínicos. Antes de reproducir los ítems del FAM-CAM hay que comprobar su licencia y si existe versión en español validada. Si no se puede, preguntas propias sobre cambio agudo y fluctuación, sin puntuación. Se puede exportar en PDF el registro de respuestas con fecha y hora para el médico.",
+   "negative_or_conflicting": "Muestra muy pequeña, solo 7 casos de delirium, sin replicación amplia ni validación en español que se haya podido confirmar. Su uso por familias sin formación fuera del estudio no está probado.",
+   "safety_notes": "No convertir las respuestas en 'probable delirium sí o no': eso sería apoyo al diagnóstico y entraría en la regla 11 del MDR. Registrar y remitir."
+  },
+  {
+   "claim": "El 4AT detecta delirium en personas con demencia con una sensibilidad del 88% (IC95% 81-93) y una especificidad del 79% (65-88), según un metaanálisis de solo 5 estudios. Es una herramienta clínica, gratuita y con licencia CC BY 4.0, pero toda versión modificada debe declararse como tal y no puede atribuirse la validación original.",
+   "evidence_level": "B",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12714330/ (Dementia & Neuropsychologia 2025, PROSPERO CRD42025636378)",
+    "https://pubmed.ncbi.nlm.nih.gov/36584541/ (4AT en población general, Asian J Psychiatr 2023)",
+    "https://www.the4at.com/attribution-and-reuse"
+   ],
+   "app_implication": "No incluir un '4AT para cuidadores'. Lo que sí se puede hacer: 1) un enlace al 4AT oficial dentro del modo 'acompañante en el hospital', con el texto 'puedes pedir al personal que lo valore'; 2) la línea base que registra la familia (cómo está normalmente: orientación, atención, sueño, habla) para enseñarla al profesional.",
+   "negative_or_conflicting": "Solo 5 estudios. En demencia grave la especificidad baja (un estudio con n=26: 56%). Ninguna validación se hizo con cuidadores como evaluadores. Se baja el nivel de A a B por el número pequeño de estudios y la imprecisión.",
+   "safety_notes": "La licencia CC BY 4.0 permite reutilizarlo, pero una versión adaptada para cuidadores no tendría validez y, si da un resultado de cribado, podría ser producto sanitario (MDR)."
+  },
+  {
+   "claim": "Las intervenciones no farmacológicas multicomponente (reorientación, estimulación cognitiva, higiene del sueño, hidratación, movilización, gafas y audífonos, revisión de la medicación) reducen la incidencia de delirium en adultos hospitalizados en torno a un 43%, con certeza moderada. En personas con demencia la evidencia directa es escasa y se extrapola.",
+   "evidence_level": "B",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/34826144/ (Burton et al., Cochrane 2021, CD013307.pub3)",
+    "https://pubmed.ncbi.nlm.nih.gov/25643002/ (Hshieh et al., JAMA Intern Med 2015)",
+    "https://www.nice.org.uk/guidance/cg103",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9778046/"
+   ],
+   "app_implication": "Modo 'acompañante en el hospital o en una enfermedad aguda' con una lista diaria para el familiar: gafas y audífonos puestos, objetos y fotos familiares, reloj y calendario visibles, hablarle de dónde está y qué día es, luz natural de día y oscuridad de noche, ayudarla a moverse si el equipo lo permite, ofrecer de beber 'según indique el equipo', y preguntar al equipo por cualquier medicamento nuevo. Una opción para enseñar al personal la ficha 'Esta es mi historia'.",
+   "negative_or_conflicting": "Ningún efecto sobre la mortalidad. En residencias y en demencia, los resultados son preliminares y heterogéneos. En el análisis de componentes, algunos (reducir la deprivación sensorial, movilizar) tuvieron estimaciones inciertas, compatibles con no tener beneficio.",
+   "safety_notes": "Las indicaciones de hidratación y movilización deben respetar las restricciones médicas (insuficiencia cardíaca o renal, riesgo de caída, disfagia): poner siempre 'según indique el equipo'. Las sujeciones físicas aumentan el delirium y las lesiones. Informar de que en España existen planes de reducción de contenciones."
+  },
+  {
+   "claim": "Hay fármacos que precipitan o empeoran el delirium y las caídas en la demencia: anticolinérgicos fuertes, benzodiacepinas y otros hipnóticos, antipsicóticos, opioides y algunos antihistamínicos. Los criterios Beers 2023 recomiendan evitarlos o usarlos con precaución en personas mayores con demencia o delirium.",
+   "evidence_level": "B",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/37139824/ (AGS Beers Criteria 2023, J Am Geriatr Soc)",
+    "https://www.nice.org.uk/guidance/cg103"
+   ],
+   "app_implication": "En el registro de medicación (que lo introduce el cuidador): marcar 'medicamento nuevo o cambio de dosis' con fecha, para poder relacionar en el tiempo un cambio de comportamiento y enseñárselo al médico. Contenido educativo general, no personalizado: 'Algunos medicamentos para dormir, alergias o vejiga pueden aumentar la confusión. Pregunta a tu médico o farmacéutico antes de iniciar o retirar cualquiera'. Incluye productos sin receta y de herbolario (p. ej., antihistamínicos para dormir, valeriana combinada con sedantes).",
+   "negative_or_conflicting": "Los Beers son un consenso de expertos de Estados Unidos basado en evidencia de calidad variable. En España existen criterios equivalentes (STOPP/START). Retirar un fármaco de golpe también puede ser peligroso.",
+   "safety_notes": "La app NO debe cruzar automáticamente la medicación del paciente con listas de riesgo para emitir alertas individuales: eso es apoyo a la decisión clínica y probablemente producto sanitario de clase IIa o superior. Nunca sugerir suspender, reducir ni cambiar una dosis."
+  },
+  {
+   "claim": "Las alarmas de salida de cama no han demostrado reducir caídas en ensayo aleatorizado, y la detección automática de caídas con relojes es irregular: en un estudio de laboratorio con jóvenes sanos que se dejaban caer de una silla de ruedas, el Apple Watch detectó el 4,7% de las caídas.",
+   "evidence_level": "B",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/23165660/ (Shorr et al., Ann Intern Med 2012, ensayo aleatorizado por conglomerados, 27.672 pacientes: más uso de alarmas, sin reducción de caídas ni de lesiones)",
+    "https://pubmed.ncbi.nlm.nih.gov/33900885/ (Apple Watch y silla de ruedas, Assist Technol 2021, n=25 jóvenes sanos)",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8981002/ (app de reloj para caídas inducidas, JMIR 2022)",
+    "https://doi.org/10.1002/14651858.CD016064 (Cochrane 2025, prevención de caídas en centros residenciales; no se pudo leer completa)"
+   ],
+   "app_implication": "Usar los sensores de cama y de movimiento para describir el sueño y las levantadas nocturnas (información para la familia y el médico), no como garantía contra las caídas. Checklist de seguridad del hogar (alfombras, luz nocturna, calzado cerrado, barras en el baño). Asistente para activar la detección de caídas del reloj, explicando sus límites. Botón de ayuda visible.",
+   "negative_or_conflicting": "Un estudio cuasiexperimental en un hospital de Taiwán (JMIR 2024, n=1.300, https://www.jmir.org/2024/1/e58380) con colchón sensor integrado en el sistema de avisos del personal informó menos caídas junto a la cama (OR 0,12, IC 0,01-0,97). No era aleatorizado, el intervalo es muy amplio y el contexto es hospitalario con respuesta profesional. Se ha corregido la fuente original, que lo citaba como prueba de lo contrario. El estudio del reloj no se hizo con personas mayores ni con caídas reales.",
+   "safety_notes": "Una alarma que suena junto a la cama puede asustar y aumentar la agitación: es mejor una luz tenue y un aviso silencioso al cuidador. No confiar en la detección automática de caídas."
+  },
+  {
+   "claim": "Con domótica de bajo coste (Home Assistant, sensores Zigbee) se pueden reproducir funciones de los sistemas de investigación sobre deambulación nocturna: sensores de puerta, de movimiento y de cama, mensajes de voz y aviso al cuidador solo cuando se abre la puerta de salida.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.cabhi.com/?p=20724 (sistema de Ottawa para detectar y redirigir la deambulación nocturna, piloto)",
+    "https://www.home-assistant.io"
+   ],
+   "app_implication": "Modo avanzado opcional con recetas: 'puerta de la calle abierta entre las 23:00 y las 06:00' envía una notificación al cuidador y enciende la luz del pasillo; 'se levanta de la cama' enciende una luz guía hacia el baño. La app no depende de esto para sus funciones básicas.",
+   "negative_or_conflicting": "Solo hay pilotos y estudios de viabilidad. No se encontraron ensayos de Home Assistant en demencia. Se baja a D porque la afirmación se basa en la capacidad técnica y en un piloto, no en resultados.",
+   "safety_notes": "Un fallo de wifi, de batería o de actualización deja el sistema sin avisar: hay que mostrar el estado de los sensores y un aviso de 'sensor sin señal'. No encerrar a la persona: las cerraduras que impiden salir son un riesgo en caso de incendio y pueden ser una sujeción no autorizada."
+  },
+  {
+   "claim": "La vulnerabilidad a las estafas es frecuente en la demencia y puede ser una señal precoz: en una cohorte de Rush, una baja conciencia de las estafas se asoció con aproximadamente el doble de riesgo de demencia de Alzheimer en el seguimiento.",
+   "evidence_level": "C",
+   "sources": [
+    "https://www.aarp.org/espanol/salud/enfermedades-y-tratamientos/info-2019/caer-en-fraude-puede-ser-demencia.html (divulgación del estudio Boyle et al., Ann Intern Med 2019)",
+    "https://www.brightfocus.org/espanol/alzheimer/la-demencia-y-el-manejo-del-dinero-consejos-utiles-para-el-cuidador"
+   ],
+   "app_implication": "Módulo 'Dinero y estafas': checklist de medidas acordadas con la persona (límite en la tarjeta, alertas del banco al familiar, lista de contactos de confianza, bloqueo de llamadas desconocidas), un guion para colgar y un registro de llamadas o visitas sospechosas. También contenido para hablar de dinero sin humillar.",
+   "negative_or_conflicting": "Estudio observacional sin causalidad, citado aquí a través de divulgación. Se elimina la fuente japonesa (Nippon.com), que no aportaba datos sobre demencia aplicables a España.",
+   "safety_notes": "No limitar la autonomía económica sin acuerdo o sin medidas de apoyo. En España, la Ley 8/2021 sustituyó la incapacitación por medidas de apoyo (poderes preventivos, guarda de hecho, curatela): remitir a asesoramiento jurídico o al notario."
+  },
+  {
+   "claim": "En España, el Reglamento General de Conductores (RD 818/2009, anexo IV, apartado 10.1) dice que para el Grupo 1 no debe existir delirium ni demencia. Solo de forma excepcional, con dictamen favorable de neurología o psiquiatría, puede obtenerse o prorrogarse el permiso, con una vigencia máxima de 1 año. Para el Grupo 2 (profesionales) no se admite.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.boe.es/buscar/act.php?id=BOE-A-2009-9481 (texto consolidado del BOE, actualizado el 06/12/2023, anexo IV, 10.1)"
+   ],
+   "app_implication": "Módulo 'Conducir' con señales de alerta (se pierde en rutas conocidas, golpes nuevos en el coche, multas, dudas en los cruces), un guion para hablarlo, alternativas de movilidad y un texto legal exacto con enlace al BOE: 'el diagnóstico de demencia es, por norma, incompatible con conducir salvo valoración excepcional; consulta con tu médico y con un Centro de Reconocimiento de Conductores'. Registro de incidentes de conducción para compartir con el médico.",
+   "negative_or_conflicting": "Se corrige la afirmación original ('no implica retirada automática'), que se basaba en prensa: la norma es más restrictiva de lo que decía. Queda por verificar cómo se aplica en la práctica (cuándo informa el médico, el papel del CRC). Conducir es además un desencadenante conocido de desapariciones (Rowe 2011).",
+   "safety_notes": "La app informa de la norma, no decide si la persona es apta. Quitar las llaves es una decisión familiar delicada: ofrecer una guía de comunicación y remitir a la evaluación médica. Revisar el texto si la norma cambia y mostrar la fecha de verificación."
+  },
+  {
+   "claim": "Los modos de dispositivo simplificado (Assistive Access en iOS 17 o posterior, modo de tarea bloqueada o Lock Task en Android) reducen el teléfono a pocas apps grandes. El ID médico de iPhone y la información de emergencia de Android muestran datos en la pantalla bloqueada.",
+   "evidence_level": "D",
+   "sources": [
+    "https://support.apple.com/guide/iphone/assistive-access-iph3f4f20a4f/ios",
+    "https://developer.android.com/work/dpc/dedicated-devices/lock-task-mode"
+   ],
+   "app_implication": "Asistente que guía al cuidador: activar Assistive Access con la app y las llamadas como apps principales, y rellenar el ID médico. En Android, un launcher sencillo y la información de emergencia. Idea fuera de la caja y fiable: la app genera un fondo de pantalla de bloqueo con 'Si me encuentras, llama a [nombre], [teléfono]', porque una app de terceros no puede mostrar contenido propio en la pantalla bloqueada de iOS.",
+   "negative_or_conflicting": "Para Lock Task completo, el teléfono tiene que estar gestionado como dispositivo dedicado (Device Owner), algo poco práctico en un móvil personal. Se ha quitado una fuente de prensa (Perkins) porque la documentación oficial basta.",
+   "safety_notes": "Lo que aparece en la pantalla bloqueada lo puede ver cualquiera: limitarlo a un nombre de pila, un contacto y alergias relevantes. Comprobar siempre que las llamadas al 112 funcionan en el modo simplificado."
+  },
+  {
+   "claim": "En España hay programas de identificación con QR de ámbito autonómico o local (Comunidad de Madrid, 'No me olvides si me olvido'; Ceuta aprobó un sistema voluntario). La teleasistencia se presta dentro del sistema de dependencia (Ley 39/2006) y la gestionan las comunidades autónomas y los ayuntamientos, con requisitos distintos en cada territorio.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.comunidad.madrid/node/48093",
+    "https://elfarodeceuta.es/alzheimer-demencias-dispositivos-identificacion/",
+    "https://ajuntament.barcelona.cat/personesgrans/sites/default/files/2024-09/servei-teleassistencia-municipal_es.pdf"
+   ],
+   "app_implication": "Directorio de recursos por comunidad y municipio (teleasistencia, identificación QR, centro de día, trabajador social), con fecha de última verificación y enlace oficial. La app ayuda a reunir los documentos para el trámite; no lo tramita ella.",
+   "negative_or_conflicting": "Se elimina un enlace de la Comunidad de Madrid que daba error 404. No se ha confirmado un servicio estatal único del IMSERSO, ni un canal de SMS al 112 para estos casos, ni el protocolo de la Policía Nacional con la Fundación CRE5.",
+   "safety_notes": "No prometer gratuidad ni plazos: dependen de la comunidad y del grado de dependencia. Mantener el directorio mediante contribución verificada (p. ej., asociaciones de familiares)."
+  },
+  {
+   "claim": "Marco regulatorio: según el Reglamento (UE) 2017/745 (MDR), regla 11, y la guía MDCG 2019-11, un software que da información para tomar decisiones diagnósticas o terapéuticas sobre un paciente concreto es producto sanitario, normalmente de clase IIa o superior. Registrar datos, comunicarse y dar información general no lo es.",
+   "evidence_level": "D",
+   "sources": [
+    "https://eur-lex.europa.eu/eli/reg/2017/745/oj",
+    "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_en (incluye MDCG 2019-11)",
+    "https://www.aemps.gob.es/productos-sanitarios/"
+   ],
+   "app_implication": "Regla de diseño para toda la dimensión: la app registra, recuerda, comunica, exporta e informa con nivel de evidencia. No puntúa síntomas para dar un resultado clínico, no prioriza la urgencia según algoritmos, no cruza medicación con alertas individuales y no 'detecta delirium'. Los mensajes de alerta son fijos e iguales para todos (p. ej., 'ante un cambio brusco, contacta hoy con el médico'). Los mismos límites aplican a cualquier funcionalidad con IA o LLM.",
+   "negative_or_conflicting": "La frontera es interpretativa: un mismo checklist puede ser 'información' o 'apoyo al diagnóstico' según cómo se redacte y qué salida dé. Conviene una consulta informal a la AEMPS o a un consultor regulatorio antes del lanzamiento.",
+   "safety_notes": "Los datos de salud y ubicación son categoría especial (artículo 9 del RGPD): almacenamiento local cifrado por defecto, sincronización opcional con cifrado de extremo a extremo y evaluación de impacto si se compartirán entre varios cuidadores."
+  }
+ ],
+ "app_features": [
+  "Botón 'Se ha perdido': 112 primero, checklist de los primeros 15 minutos, ficha para el agente (foto, ropa de hoy, matrícula si conduce, cómo acercarse), última ubicación y aviso a la red preparada",
+  "Mapa de zonas de riesgo cercanas que marca la familia (agua, maleza, vías, descampados) para orientar a los servicios de emergencia",
+  "Temporizador de vuelta para salidas permitidas, con foto de la ropa y ruta prevista",
+  "Ficha 'Esta es mi historia' (plantilla propia inspirada en This is me) exportable a PDF y QR, con dos niveles: público mínimo y clínico protegido",
+  "Fondo de pantalla de bloqueo generado por la app con 'Si me encuentras, llama a...', más asistente para el ID médico y la información de emergencia",
+  "Pantalla 'Hoy está distinto': preguntas de sí o no sobre cambios bruscos (incluida la somnolencia), con un mensaje fijo de contactar con el médico o llamar al 112 y PDF con fecha y hora; sin puntuación ni diagnóstico",
+  "Línea base de 'cómo está normalmente' (orientación, sueño, habla, apetito) para comparar y enseñarla al profesional",
+  "Registro de medicamentos nuevos o cambios de dosis con fecha, para relacionarlos en el tiempo con cambios de conducta, sin alertas automáticas",
+  "Modo acompañante en el hospital con una lista diaria de prevención del delirium y un enlace al 4AT oficial para pedir al personal que lo valore",
+  "Compartir ubicación con consentimiento registrado y revocable, geocercas con responsable asignado y horario, y alerta de batería",
+  "Comparador de localizadores y acuerdo familiar de localización",
+  "Asistente para Assistive Access (iOS) y launcher sencillo (Android) que comprueba que el 112 funciona",
+  "Recetas de Home Assistant (puerta de noche, luz guía al baño) con indicador de estado de los sensores",
+  "Checklist de seguridad del hogar (cocina y gas, agua caliente, baño, medicación guardada, caídas, calor y frío extremos)",
+  "Módulo de estafas y dinero con medidas acordadas y orientación a la Ley 8/2021",
+  "Módulo de conducción con el texto exacto del RD 818/2009 y guía para la conversación",
+  "Directorio de recursos por comunidad con fecha de verificación",
+  "Simulacro de desaparición para la familia, con el papel de cada miembro y un cronómetro (idea fuera de la caja)"
+ ],
+ "questions_for_owner": [
+  "¿Se ha perdido alguna vez o sale sola con permiso (pasear, comprar, conducir, autobús)? ¿Cuándo fue la última vez y dónde apareció? (Rowe 2011: la mayoría de las desapariciones empiezan así)",
+  "¿En qué fase está y qué dispositivo llevaría de verdad sin perderlo ni rechazarlo: móvil, reloj, colgante, nada?",
+  "¿Puede entender y dar su consentimiento a que se comparta su ubicación? ¿Hay medidas de apoyo (poderes preventivos, curatela) según la Ley 8/2021?",
+  "¿iPhone o Android, para ella y para cada cuidador? ¿Aceptáis comprar hardware barato (GPS, sensores) o tiene que ser coste cero absoluto?",
+  "¿En qué comunidad autónoma y municipio vivís? ¿Hay cerca agua, campo o vías de tren?",
+  "¿Quién responde a una alerta de día y de noche, y con qué tiempo de llegada? Sin respuesta definida, no activamos geocercas.",
+  "¿Ha tenido episodios de confusión brusca, infecciones de orina, caídas o ingresos? ¿Quién lleva su medicación y la anota?",
+  "¿Conduce todavía? ¿Su médico lo ha valorado? ¿Maneja dinero o tarjeta sola? ¿Ha recibido llamadas o visitas sospechosas?",
+  "¿Hay cocina de gas, escaleras, bañera, puertas a la calle o a una piscina?",
+  "¿Aceptáis que los datos de salud y ubicación se guarden solo en los móviles (cifrados) y se sincronicen entre cuidadores con cifrado de extremo a extremo, sin servidor propio?",
+  "¿La app será gratuita y sin ánimo de lucro, y quién la publicará (persona física, asociación)? Afecta a la responsabilidad, al RGPD y a la evaluación de si es producto sanitario.",
+  "¿Podemos contar con un médico de familia, un geriatra o una enfermera que revise los textos de alerta antes de publicarlos?",
+  "¿Hay una asociación de familiares (AFA) cercana que pudiera validar el directorio de recursos y probar la app?"
+ ],
+ "free_resources": [
+  {
+   "name": "This is me (Alzheimer's Society)",
+   "url": "https://www.alzheimers.org.uk/get-support/publications-factsheets/this-is-me",
+   "what": "Perfil personal para hospital o residencia; sirve de inspiración para una plantilla propia (no copiarlo)",
+   "cost": "Gratis (PDF)"
+  },
+  {
+   "name": "4AT, atribución y reutilización",
+   "url": "https://www.the4at.com/attribution-and-reuse",
+   "what": "Licencia CC BY 4.0 del 4AT y reglas para versiones modificadas; herramienta clínica para enlazar desde el modo hospital",
+   "cost": "Gratis"
+  },
+  {
+   "name": "NICE CG103 Delirium",
+   "url": "https://www.nice.org.uk/guidance/cg103",
+   "what": "Guía de prevención, diagnóstico y manejo del delirium",
+   "cost": "Gratis"
+  },
+  {
+   "name": "NICE NG97 Demencia",
+   "url": "https://www.nice.org.uk/guidance/ng97",
+   "what": "Guía de evaluación y manejo de la demencia, incluido el delirium superpuesto",
+   "cost": "Gratis"
+  },
+  {
+   "name": "RD 818/2009 Reglamento General de Conductores (BOE consolidado)",
+   "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2009-9481",
+   "what": "Texto oficial del anexo IV, 10.1, sobre demencia y conducción",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Ley 8/2021 de medidas de apoyo (BOE)",
+   "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2021-9233",
+   "what": "Marco legal español que sustituye la incapacitación; relevante para el consentimiento, el dinero y la localización",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Guías MDCG (Comisión Europea)",
+   "url": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_en",
+   "what": "Incluye MDCG 2019-11 sobre la calificación del software como producto sanitario",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Home Assistant",
+   "url": "https://www.home-assistant.io",
+   "what": "Domótica de código abierto para sensores de puerta, cama y movimiento",
+   "cost": "Gratis (los sensores tienen coste)"
+  },
+  {
+   "name": "Traccar",
+   "url": "https://www.traccar.org",
+   "what": "Servidor GPS de código abierto autoalojable con geocercas",
+   "cost": "Gratis si se autoaloja"
+  },
+  {
+   "name": "Apple Assistive Access",
+   "url": "https://support.apple.com/guide/iphone/assistive-access-iph3f4f20a4f/ios",
+   "what": "Guía oficial del modo simplificado de iPhone",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Android Lock Task mode",
+   "url": "https://developer.android.com/work/dpc/dedicated-devices/lock-task-mode",
+   "what": "Documentación para el modo quiosco en dispositivos dedicados",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Comunidad de Madrid, 'No me olvides si me olvido'",
+   "url": "https://www.comunidad.madrid/node/48093",
+   "what": "Ejemplo de programa público de identificación con QR",
+   "cost": "Gratuito según requisitos"
+  },
+  {
+   "name": "Petonito et al. 2013",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3551207",
+   "what": "Revisión crítica de programas de localización y datos de supervivencia",
+   "cost": "Acceso abierto"
+  },
+  {
+   "name": "Rowe et al. 2011",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/21639942/",
+   "what": "Desaparición frente a deambulación: desencadenantes y lugares donde se encontró a las personas fallecidas",
+   "cost": "Acceso abierto (BMC Geriatrics)"
+  },
+  {
+   "name": "Cullen et al. 2022",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9104067/",
+   "what": "Revisión sobre GPS en demencia, con autonomía y limitaciones",
+   "cost": "Acceso abierto"
+  }
+ ],
+ "verification_notes": "Comprobé las URLs con HTTP y los metadatos con PubMed, Crossref y Europe PMC. El presupuesto de WebSearch estaba agotado. Correcciones: 1) Carné de conducir: el BOE (RD 818/2009, anexo IV 10.1) dice 'no deben existir supuestos de delirium o demencia', con excepción por dictamen favorable y vigencia máxima de 1 año. La afirmación original ('no implica retirada automática') era engañosa. 2) El PMID 21544961 era otro artículo; lo sustituí por Fick 2002, fuente del rango 22-89%. 3) Quité la incidencia de 79/1000, que no está en el resumen de 2026. Bajé el delirium y el 4AT de A a B: estudios observacionales heterogéneos y solo 5 estudios. 4) El estudio de JMIR 2024 se citaba como negativo, pero informa un beneficio cuasiexperimental. Puse el ensayo aleatorizado negativo de Shorr 2012 y moví el de JMIR a conflicto. El 4,7% del Apple Watch se midió con jóvenes sanos. 5) Licencia del 4AT verificada: las versiones modificadas no heredan la validación, así que no lo adapto. 6) Eliminé el enlace de Madrid con error 404, Perkins, ResearchGate, Nippon y la asesoría legal de Estados Unidos. 7) Añadí Rowe 2011, FAM-CAM, Beers 2023, la Ley 8/2021 y la regla 11 del MDR con RGPD. Las funciones ya no puntúan síntomas ni dan alertas individuales. Sin verificar: la Cochrane 2025 de caídas, la licencia y la versión española del FAM-CAM, los protocolos policiales y el estudio de Rush (solo por divulgación)."
+}

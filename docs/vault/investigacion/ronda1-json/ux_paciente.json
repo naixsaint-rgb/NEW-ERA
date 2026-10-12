@@ -1,0 +1,350 @@
+{
+  "key": "ux_paciente",
+  "title": "UX para la persona con Alzheimer y cuidadores mayores",
+  "summary": "Hay muy poca evidencia directa sobre qué interfaz funciona mejor en demencia, y la que hay es de baja calidad: guías de expertos, estudios de usabilidad pequeños y revisiones de apps comerciales. La UX se apoya entonces en principios de diseño inclusivo y en probar con la familia. Esos principios son contraste WCAG, texto grande, una acción por pantalla, sin azul como único indicador de estado y sin fondos con patrón, más lectura fácil y pictogramas en español. Tras la verificación, los hallazgos clave son estos. (1) El reloj de orientación (día, fecha y parte del día) tiene sobre todo respaldo descriptivo sin grupo control. Es la función de mayor valor por coste, pero no hay que prometer eficacia. (2) La presencia simulada (voz o vídeo de familiares) tiene evidencia Cochrane de certeza muy baja con resultados mixtos. La reminiscencia digital solo mostró efecto en síntomas conductuales, con 2 ensayos pequeños, y no en cognición, ánimo ni participación. Por eso ambas son funciones opcionales y la familia registra la reacción. (3) Para Assistive Access, Apple ofrece AccessibilitySettings.isAssistiveAccessEnabled, la clave UISupportsFullScreenInAssistiveAccess y, desde iOS 26, la escena SwiftUI AssistiveAccess. En Android, el modo kiosco real exige Device Owner. (4) Vosk (Apache-2.0, repo oficial alphacep) permite registrar por voz sin conexión y en español. (5) La regulación también forma parte de la UX. Según MDCG 2019-11 rev.1, registrar, mostrar y comunicar datos sin interpretarlos clínicamente queda en principio fuera del MDR. En cambio, puntuar la etapa, generar alertas clínicas o ajustar dosis empuja la app hacia la regla 11. (6) En medicación, los recordatorios dirigidos al propio paciente pueden causar dobles tomas. El aviso principal va al cuidador, que registra dado o no dado. Arquitectura: dos modos en una app, Paciente (una pantalla, bloqueable) y Cuidador (registro de un toque, por voz o con foto). Los niveles de interfaz los elige el cuidador; no son etapas diagnosticadas. Coste: publicar en la App Store cuesta 99 USD al año, así que el coste cero no es literal en iOS.",
+  "findings": [
+    {
+      "claim": "Las apps existentes para demencia y cuidadores suelen tener poca usabilidad y casi no hay evidencia de qué funciones cambian conductas o resultados. Las revisiones piden diseño centrado en el usuario y evaluación rigurosa.",
+      "evidence_level": "C",
+      "sources": [
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7007594/",
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6715112/",
+        "https://www.jmir.org/2023/1/e46188"
+      ],
+      "negative_or_conflicting": "Son revisiones de calidad y contenido de apps comerciales, no de eficacia clínica, y no demuestran que funcione ninguna función concreta. El contenido de JMIR 2023 e46188 no se pudo abrir ni en la pasada original ni en esta revisión, así que su conclusión se basa en el resumen del buscador.",
+      "safety_notes": "En la tienda y en las pantallas, no prometer beneficio clínico: la app ayuda a organizar y a comunicarse, no trata.",
+      "app_implication": "Co-diseñar con la familia desde el primer día, siguiendo guías de participación como las de DEEP (Dementia Engagement and Empowerment Project). Medir el uso real (toques, abandonos, errores) solo en un registro local y con consentimiento. No copiar funciones de la competencia sin probarlas, y mantener corta la lista de funciones del modo Paciente."
+    },
+    {
+      "claim": "Las Dementia Digital Design Guidelines de Alzheimer's Society recomiendan tipografía sans-serif, texto grande con alto contraste, fondos lisos sin patrones ni imágenes detrás del texto, no usar el azul como color de selección o foco e implicar a personas con demencia en cada fase.",
+      "evidence_level": "D",
+      "sources": [
+        "https://www.alzheimers.org.uk/blog/how-design-website-someone-affected-dementia",
+        "https://abilitynet.org.uk/factsheets/designing-dementia"
+      ],
+      "negative_or_conflicting": "Es consenso de expertos, no un ensayo. La propia entidad reconoce que parte de la guía está desactualizada. La hoja de análisis completa no se pudo abrir, así que los umbrales numéricos de esa guía no están verificados y los valores WCAG de la implicación vienen de WCAG, no de ella.",
+      "safety_notes": "Tomarlas como mínimos y validarlas con usuarios reales; no son suficientes por sí solas.",
+      "app_implication": "Tema por defecto: fondo liso, texto sans-serif muy grande y contraste mínimo WCAG 2.2 de 4,5:1 (3:1 en texto grande), con objetivo de 7:1 (AAA) en el modo Paciente. Los estados seleccionado y en foco se marcan con borde grueso y cambio de forma, nunca solo con color. El tema oscuro no se activa solo: lo elige el cuidador."
+    },
+    {
+      "claim": "Hay listados de pautas de accesibilidad para software y webs dirigidos a adultos con Alzheimer: una revisión recopiló unas 146 pautas en 11 categorías, y la Universidad de Portsmouth propone 11 pautas para interfaces amigables con la demencia. El DSDC de Stirling trabaja sobre todo el diseño del entorno físico, con su guía online de viviendas de 2012, y no interfaces digitales.",
+      "evidence_level": "D",
+      "sources": [
+        "https://cedric.cnam.fr/index2.php/publis/article/GME17",
+        "https://researchportal.port.ac.uk/en/publications/designing-dementia-friendly-user-interfaces/",
+        "https://www.stir.ac.uk/news/2012/00/sally-magnusson-dementia-centre/index.html"
+      ],
+      "negative_or_conflicting": "La ficha de CEDRIC devolvió un error 503 en esta revisión, así que las cifras de 146 pautas y 11 categorías siguen sin comprobarse en la fuente. La página de Stirling sí existe, pero habla de una guía de diseño de viviendas, no de pantallas. Una revisión sistemática previa estimó que solo una pequeña parte de estas pautas se ha validado con usuarios.",
+      "safety_notes": "No atribuir al DSDC pautas de pantalla. No presentar la checklist como estándar validado.",
+      "app_implication": "Crear una checklist interna de diseño: una acción por pantalla, sin tiempos de espera que expulsen al usuario, sin jerga, iconos siempre con texto y sin gestos ocultos. Usarla como criterio de aceptación de cada pantalla del modo Paciente y revisarla tras cada prueba con la familia."
+    },
+    {
+      "claim": "Reloj de orientación (día de la semana, fecha y parte del día): estudios descriptivos y de usabilidad de relojes calendario día/noche indican que muchas personas con demencia y sus cuidadores los encuentran útiles. Algunos modelos muestran para etapas avanzadas solo una frase mínima del tipo 'Ahora es jueves por la tarde'. La Ephéméride 3D se está estudiando en un piloto (NCT06824142, 20 participantes, en reclutamiento, sin resultados).",
+      "evidence_level": "D",
+      "sources": [
+        "https://www.researchgate.net/publication/314630103_A_Clock_That_Does_Not_Tell_the_Time_How_the_Day_Clock_Meets_the_Needs_of_People_Living_with_Dementia",
+        "https://clinicaltrials.gov/study/NCT06824142",
+        "https://relish-life.com/en-us/products/day-connect"
+      ],
+      "negative_or_conflicting": "No hay ensayos con grupo control. La cifra original de 50 personas en 5 países durante un año, probablemente del proyecto europeo ENABLE, no aparece en las fuentes citadas y no se ha verificado, por eso se baja de C a D. Casi todas las afirmaciones de eficacia vienen de vendedores. El piloto NCT06824142 todavía no tiene resultados.",
+      "safety_notes": "Una fecha incorrecta (zona horaria, cambio de hora) desorienta: la hora siempre se toma del sistema, con comprobación al cambiar de horario. Evitar referencias relativas ambiguas como 'ayer' o 'mañana'.",
+      "app_implication": "Pantalla principal del paciente: DÍA DE LA SEMANA en letras enormes, la fecha y la parte del día con icono (mañana, tarde o noche) y un fondo que cambia suavemente. Variante mínima: 'Es jueves por la tarde'. El cuidador elige entre reloj analógico, digital o ninguno, según lo que la persona leía de siempre. Se ofrece como ayuda de orientación, sin decir que mejora la memoria."
+    },
+    {
+      "claim": "Terapia de presencia simulada (vídeo o audio de familiares): la revisión Cochrane de 2020 incluyó 3 ensayos con 144 personas con demencia en residencias. Los resultados fueron mixtos según la medida, no hubo metaanálisis y la certeza GRADE es muy baja. Dos ensayos no encontraron diferencias frente a música personalizada.",
+      "evidence_level": "C",
+      "sources": [
+        "https://www.cochrane.org/evidence/CD011882_simulated-presence-therapy-dementia",
+        "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD011882.pub3/full"
+      ],
+      "negative_or_conflicting": "La observación directa no mostró mejoría en retraimiento, interés ni ánimo; solo el registro del personal la mostró. No se midieron la calidad de vida ni la carga del cuidador. Por la certeza muy baja, el nivel C es generoso: está en el límite con D.",
+      "safety_notes": "Puede angustiar si la persona no reconoce a quien habla o busca a alguien fallecido. No usar mensajes de personas fallecidas y permitir que el cuidador retire un mensaje al instante.",
+      "app_implication": "Función opcional 'Mensajes de la familia', desactivada por defecto: audios o vídeos cortos grabados por familiares, que se reproducen a petición o en franjas que elige el cuidador. Lleva un botón de parada inmediata y un registro de la reacción (más calmada, igual, más inquieta). Tras varias reacciones negativas seguidas, la app propone al cuidador pausar la función. No se presenta como terapia."
+    },
+    {
+      "claim": "Prompts tecnológicos para actividades de la vida diaria: en un experimento publicado en JMIR Aging en 2024, la modalidad auditiva tuvo efecto significativo en los avisos de inicio y mantenimiento de tareas. Un estudio cualitativo con 15 personas en una casa inteligente mostró que el contexto y la forma de comunicar deciden si el aviso funciona.",
+      "evidence_level": "C",
+      "sources": [
+        "https://doi.org/10.2196/56055",
+        "https://academic.oup.com/gerontologist/article/59/1/101/5036159",
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12742637/"
+      ],
+      "negative_or_conflicting": "No se encontró ningún ensayo aleatorizado que compare voz familiar con voz sintética. El texto completo de JMIR Aging 56055 no se pudo abrir, solo el resumen. CUE-D es un estudio de co-diseño (75% de tareas completadas), no un ensayo. Las muestras son pequeñas y de entornos experimentales.",
+      "safety_notes": "Los avisos repetidos o a deshora frustran. Limitar su número diario y permitir pausarlos. En medicación, ver el hallazgo específico: el aviso directo al paciente puede provocar dobles tomas.",
+      "app_implication": "Rutinas no farmacológicas (beber agua, asearse, vestirse): tono suave, frase corta grabada por un familiar con la voz TTS del sistema como respaldo, y un paso por pantalla con foto. El cuidador puede comparar en casa voz familiar y voz sintética y anotar el resultado en un A/B sencillo."
+    },
+    {
+      "claim": "Reminiscencia digital con tablet: el metaanálisis de Tran, Hu y Kuan (BMC Neurology, 2026) reúne 13 estudios con 718 participantes (7 ensayos aleatorizados). Solo halló efecto significativo en síntomas conductuales y psicológicos (NPI, diferencia media de -3,70; 2 ensayos, 78 personas). No lo halló en cognición global, memoria, ánimo ni comunicación y participación, y la terapia digital no superó a la tradicional. Ningún ensayo evaluó fotos de familiares con nombre y parentesco como ayuda para reconocerlos.",
+      "evidence_level": "C",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC13137691/",
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8369094/"
+      ],
+      "negative_or_conflicting": "Baja de B a C. De los 7 ensayos, 5 tienen algunas dudas de sesgo y 2 alto riesgo; faltó cegamiento. La heterogeneidad es alta en cognición (I² del 92,5%). El efecto en síntomas conductuales se apoya en 2 ensayos pequeños con comparadores distintos. Los propios autores hablan de beneficio limitado.",
+      "safety_notes": "Las fotos de épocas pasadas pueden provocar tristeza o confusión temporal, así que el cuidador debe poder retirarlas. Privacidad: guardar los medios en el dispositivo o en una nube cifrada de la familia, y que el álbum de una persona identificable lo apruebe el responsable familiar.",
+      "app_implication": "Álbum 'Mi gente': foto grande con nombre y parentesco ('Marta, tu hija') en texto, y en voz al tocarla, más llamada con un toque. La familia sube las fotos desde su móvil con un código. Se presenta como una forma de conectar, no como terapia cognitiva. El cuidador marca qué fotos calman y cuáles inquietan, y las que inquietan dejan de mostrarse."
+    },
+    {
+      "claim": "iOS Assistive Access (desde iOS 17) es un modo para discapacidad cognitiva, con botones de alto contraste, texto grande y alternativas visuales; lo configura un cuidador, que elige las apps permitidas. Para apps de terceros existen la propiedad AccessibilitySettings.isAssistiveAccessEnabled, el valor de entorno SwiftUI accessibilityAssistiveAccessEnabled y la clave de Info.plist UISupportsFullScreenInAssistiveAccess. Desde iOS y iPadOS 26 hay además una escena SwiftUI AssistiveAccess para dar una interfaz propia en ese modo.",
+      "evidence_level": "D",
+      "sources": [
+        "https://developer.apple.com/documentation/accessibility/assistive-access",
+        "https://support.apple.com/guide/assistive-access-iphone/devcd5016d31"
+      ],
+      "negative_or_conflicting": "No hay estudios de eficacia en demencia: es un mecanismo de plataforma. Las APIs son nativas (Swift); con Flutter o React Native hace falta un puente nativo, y la escena dedicada exige iOS 26.",
+      "safety_notes": "Solo para iOS y iPadOS. No sustituye la supervisión, y el cuidador debe saber salir del modo con el triple clic y el código.",
+      "app_implication": "Declarar UISupportsFullScreenInAssistiveAccess y adaptar el modo Paciente cuando el sistema indique que Assistive Access está activo. Valorar la escena AssistiveAccess si la versión mínima es iOS 26. Incluir en el onboarding una guía ilustrada de 3 pasos para activarlo."
+    },
+    {
+      "claim": "En Android, el modo kiosco real (lock task) exige que la app sea Device Owner o esté en la lista de DevicePolicyManager; sin eso queda el fijado de pantalla, que el usuario puede quitar. Hay opciones de código abierto: FreeKiosk (MIT, Android 8+, React Native con Kotlin, Device Owner por adb y PIN), Webview Kiosk (AGPL) y Kiosk Launcher (contraseña de salida y horarios).",
+      "evidence_level": "D",
+      "sources": [
+        "https://developer.android.com/work/dpc/dedicated-devices/lock-task-mode",
+        "https://github.com/RushB-fr/freekiosk",
+        "https://github.com/osamaalek/Kiosk-Launcher",
+        "https://pub.dev/packages/kiosk_mode",
+        "https://f-droid.org/packages/uk.nktnet.webviewkiosk"
+      ],
+      "negative_or_conflicting": "Ninguno de estos proyectos está pensado para personas mayores con demencia. FreeKiosk reconoce que parte de sus funciones está poco probada en hardware real. Hay que verificar mantenimiento y licencia antes de integrar nada: AGPL obliga a publicar el código. Configurar Device Owner exige restablecer el dispositivo y usar adb, una barrera alta para familias.",
+      "safety_notes": "Un bloqueo total puede impedir llamar a emergencias. Dejar siempre un botón de llamada que funcione, una salida para el cuidador con PIN y un plan si se pierde el PIN. Las actualizaciones del sistema o una batería agotada pueden dejar la tablet en un estado inesperado.",
+      "app_implication": "Modo 'tablet siempre encendida': fijado de pantalla por defecto (sin adb) y lock task con Device Owner como opción avanzada documentada paso a paso. Pantalla siempre activa, arranque automático y aviso al cuidador si la batería baja o la app lleva horas sin abrirse."
+    },
+    {
+      "claim": "Tamaño de los objetivos táctiles y temblor: en estudios de laboratorio, los mayores aciertan mejor con objetivos de 14 a 17,5 mm (10 mm aceptable si falta espacio) y de unos 19,5 mm si tienen poca destreza. Material Design recomienda un mínimo de 48 dp. El gesto de deslizar para seleccionar (swabbing) redujo los errores por temblor frente al toque, con pocos objetivos en pantalla. Los mayores eligen bien su propio tamaño óptimo.",
+      "evidence_level": "C",
+      "sources": [
+        "https://hci.rwth-aachen.de/publications/wacharamanotham2011a.pdf",
+        "https://savie.ca/BaseConnaissances/upload/pdf/3032_mottietal_2013_interaction_techniques_for_older_adults_using_touchscreen_Index3032.pdf",
+        "https://www.siteimprove.com/blog/motor-impairments-and-mobile-ui-the-touch-target-problem/"
+      ],
+      "negative_or_conflicting": "Baja de B a C: son estudios de laboratorio con muestras pequeñas y cifras que varían entre ellos. Según la revisión de Motti, solo una minoría de las pautas está validada. No hay datos específicos de personas con demencia ni de baja visión.",
+      "safety_notes": "Los toques accidentales pueden borrar o crear registros. Las acciones destructivas deben confirmarse o poder deshacerse.",
+      "app_implication": "Modo Cuidador: botones de al menos 19 mm con 6 mm de separación, ajuste de tamaño de texto y objetivos, 'Deshacer' visible tras cada registro, filtro de toques repetidos para el temblor y opción de deslizar para confirmar. Modo Paciente: 1 a 4 objetivos por pantalla."
+    },
+    {
+      "claim": "Reconocimiento de voz offline gratuito: Vosk (repositorio oficial alphacep/vosk-api, licencia Apache-2.0) funciona sin conexión en Android e iOS, cubre más de 20 idiomas, entre ellos el español, y usa modelos pequeños de unos 50 MB. Whisper.cpp es una alternativa probablemente más precisa, pero no hay comparación verificada en español ni datos de rendimiento en móviles modestos.",
+      "evidence_level": "D",
+      "sources": [
+        "https://github.com/alphacep/vosk-api",
+        "https://alphacephei.com/vosk/"
+      ],
+      "negative_or_conflicting": "No se ha verificado la precisión con voz de personas mayores, disartria o acentos regionales. La URL original apuntaba a un fork (IntrospecterDev) y se ha sustituido por el repositorio oficial.",
+      "safety_notes": "Por defecto, el audio no sale del dispositivo porque son datos de salud. Una transcripción errónea nunca debe guardarse sin que el cuidador la confirme, y la app no extrae de ella ninguna conclusión clínica.",
+      "app_implication": "Registro por voz del cuidador ('ha comido poco', 'durmió mal'), transcrito en el dispositivo y con una pantalla de confirmación grande antes de guardar. La síntesis de voz usa el motor TTS nativo del sistema, gratuito, en español de España."
+    },
+    {
+      "claim": "Alertas nocturnas con sensores ambientales: Serban et al. (Alzheimer's & Dementia, 2025) siguieron 94 hogares durante 365 noches con sensores de puerta, movimiento y cama. Hubo 200 alertas en 33 hogares y el 91,2% se validó como salida nocturna. Un piloto anterior con 53 sujetos no encontró diferencias en el análisis por intención de tratar. No se encontró ningún estudio que mida directamente la fatiga de alarmas en cuidadores de personas con demencia.",
+      "evidence_level": "C",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12725205/",
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7864330/",
+        "https://www.sciencedirect.com/science/article/abs/pii/S1552526008028641"
+      ],
+      "negative_or_conflicting": "El estudio de 2025 no informa de falsos negativos (salidas no detectadas). Además, la cifra del 91,2% de salidas y la del 14,9% de actividades rutinarias se solapan sin explicación. El piloto anterior fue negativo en el análisis principal, y eNightLog se evaluó en simulaciones, no en hogares.",
+      "safety_notes": "Los falsos negativos son peligrosos y los falsos positivos desgastan al cuidador. La app no debe presentarse como sistema de seguridad ni de vigilancia, y no usa sensores en la primera versión.",
+      "app_implication": "Para el paciente: ninguna notificación ansiógena, sin sonidos de alarma, sin rojo ni mensajes de error. Los avisos van al cuidador, agrupados, con horario silencioso y un máximo diario configurables. La detección de salidas y el GPS quedan fuera de la primera versión."
+    },
+    {
+      "claim": "Adaptar la interfaz según avanza la enfermedad: las guías sugieren simplificar con el tiempo, y los relojes y otras ayudas pasan de la información completa a una frase mínima. No existe una guía validada que fije qué mostrar en cada etapa GDS.",
+      "evidence_level": "D",
+      "sources": [
+        "https://www.alzheimers.org.uk/blog/how-design-website-someone-affected-dementia",
+        "https://relish-life.com/en-us/products/day-connect"
+      ],
+      "negative_or_conflicting": "La progresión es distinta en cada persona, no es lineal y fluctúa a lo largo del día.",
+      "safety_notes": "Quitar funciones demasiado pronto puede humillar a la persona, y mantenerlas demasiado tiempo, frustrarla. Si la app asignara una etapa GDS a partir de un cuestionario, estaría haciendo una estadificación clínica, lo que la acercaría a producto sanitario.",
+      "app_implication": "Tres niveles de interfaz con nombres funcionales, no clínicos: 'Con agenda', 'Guiada' (3 o 4 botones) y 'Mínima' (reloj, fotos y una llamada). El cuidador los cambia a mano y puede volver atrás. El asistente inicial pregunta qué hace la persona hoy y sugiere un nivel, sin puntuaciones, sin etapa GDS y sin mensajes de 'empeoramiento'."
+    },
+    {
+      "claim": "Productos de referencia: RecallCue (mensajes y fotos de la familia, videollamada con respuesta automática y recordatorios remotos en tablet), Reminisce (fotos, vídeos y voz con códigos de conexión para centros) y GreyMatters (iOS). Lo que se sabe de ellos son declaraciones de los fabricantes, sin ensayos.",
+      "evidence_level": "anecdotal",
+      "sources": [
+        "https://www.recallcue.com/",
+        "https://play.google.com/store/apps/details?id=co.uk.reminisceapp&hl=en_NZ",
+        "https://play.google.com/store/apps/details?id=com.recallcue.care&hl=en_US"
+      ],
+      "negative_or_conflicting": "RecallCue declara en su web que no pretende curar ni tratar la demencia. No se han verificado precios ni funciones actuales, y Timeless y Memory Lane TV no se pudieron comprobar.",
+      "safety_notes": "La videollamada con respuesta automática plantea problemas de privacidad y de dignidad, porque permite ver a la persona sin que lo sepa. Limitar los contactos a una lista cerrada e indicar con claridad, en pantalla y con sonido, cuándo la cámara está activa.",
+      "app_implication": "Tomar como base el patrón 'tablet siempre encendida con la familia en remoto' y diferenciarse por el registro del cuidador, el español y el coste. Si hay videollamada con respuesta automática, que sea solo con contactos aprobados y con aviso visible y sonoro."
+    },
+    {
+      "claim": "En España hay programas gratuitos de apoyo a cuidadores, como 'Aprende a cuidar y a cuidarte' y los grupos online de la Fundación Pasqual Maragall. También se ha comunicado una mejora del bienestar con psicoterapia de grupo en un proyecto con la Obra Social la Caixa y CEAFA.",
+      "evidence_level": "D",
+      "sources": [
+        "https://www.redaccionmedica.com/ultimas-noticias/20230127/la-fundacion-pasqual-maragall-pone-en-marcha-grupos-de-apoyo-on-line-para-cuidadores-personas-con-alzheimer/97600_0.html",
+        "https://fpmaragall.org/wp-content/uploads/2024/11/02-np-grups-acc_cast-def.pdf"
+      ],
+      "negative_or_conflicting": "Baja de C a D: las fuentes son notas de prensa, no se ha comprobado que el estudio esté revisado por pares y la disponibilidad actual no está verificada.",
+      "safety_notes": "Enlazar los recursos sin garantizar disponibilidad ni requisitos, con fecha de la última comprobación.",
+      "app_implication": "Sección 'Apoyo para ti' en el modo Cuidador, con enlaces revisados periódicamente a la Fundación Pasqual Maragall, CEAFA y las AFA locales. El onboarding incluye un paso opcional sobre cómo está la persona cuidadora, sin puntuarla."
+    },
+    {
+      "claim": "Marco regulatorio como requisito de UX: la guía MDCG 2019-11 rev.1 (junio de 2025) sobre cualificación y clasificación de software con el MDR establece que el software que solo almacena, archiva, comunica, muestra o busca datos de forma sencilla no es, en principio, producto sanitario. Si da información para decisiones diagnósticas o terapéuticas, o calcula o interpreta datos de cada paciente con fines médicos, puede serlo y, por la regla 11, sería como mínimo de clase IIa.",
+      "evidence_level": "D",
+      "sources": [
+        "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_en"
+      ],
+      "negative_or_conflicting": "La guía no es vinculante, y la cualificación depende de la finalidad prevista que declare el fabricante, incluidos los textos de la tienda. El PDF devolvió 403 al verificar; las líneas generales proceden de la ficha oficial y del conocimiento previo del texto.",
+      "safety_notes": "Funciones de riesgo regulatorio: puntuar la etapa, avisar de 'empeoramiento cognitivo', sugerir cambiar o ajustar dosis, recomendar suplementos para tratar la enfermedad o interpretar patrones de sueño o conducta como signos clínicos.",
+      "app_implication": "Fijar por escrito la finalidad prevista: 'organización, comunicación familiar y registro de cuidados; no diagnostica ni trata'. Cada pantalla se revisa con esa pregunta. Los resúmenes muestran datos, sin juicio clínico, y terminan con 'coméntalo con su médico'. La información sobre terapias complementarias se da como contenido educativo, con su nivel de evidencia y sin recomendación personalizada."
+    },
+    {
+      "claim": "Medicación y personas con demencia: la falta de adherencia, las tomas olvidadas y las dobles tomas son errores frecuentes cuando la persona se medica sola. Un recordatorio dirigido al paciente que no sabe si la dosis ya se tomó puede provocar una doble toma. No hay evidencia sólida de que las apps de recordatorio dirigidas al paciente mejoren la seguridad de la medicación en demencia moderada o grave.",
+      "evidence_level": "D",
+      "sources": [
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7007594/",
+        "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_en"
+      ],
+      "negative_or_conflicting": "En demencia leve y con supervisión, los recordatorios pueden ayudar a la autonomía. Es un razonamiento farmacéutico basado en la práctica, no un ensayo específico.",
+      "safety_notes": "La app nunca calcula dosis, nunca dice 'si olvidaste, toma ahora' y nunca sugiere suspender ni modificar un tratamiento. La pauta la copia el cuidador desde la receta o la hoja de tratamiento de la tarjeta sanitaria.",
+      "app_implication": "La medicación se gestiona desde el modo Cuidador: aviso al cuidador y registro 'dado / no dado / rechazado'. En el modo Paciente, solo en el nivel 'Con agenda' y si el cuidador lo activa, aparece un aviso que se marca hecho con un toque y no se repite. Si una toma se marca dos veces, la app avisa al cuidador; nunca lo resuelve por su cuenta. Se puede exportar el historial para llevarlo al médico o al farmacéutico."
+    },
+    {
+      "claim": "En España, la Ley 8/2021 de apoyos a las personas con discapacidad sustituyó la incapacitación por medidas de apoyo: la persona con demencia sigue siendo titular de sus decisiones y datos en la medida de sus capacidades. Sus datos de salud son de categoría especial según el artículo 9 del RGPD.",
+      "evidence_level": "D",
+      "sources": [
+        "https://www.boe.es/buscar/act.php?id=BOE-A-2021-9233"
+      ],
+      "negative_or_conflicting": "Ningún estudio relaciona esto con resultados de uso. Es un requisito legal y ético, y su aplicación a una app familiar sin ánimo de lucro debe confirmarla un experto en protección de datos.",
+      "safety_notes": "Las cámaras, la respuesta automática, la ubicación y el compartir fotos de la persona afectan a su intimidad. Distribuirla a muchas familias obliga a una evaluación de impacto (EIPD) y a definir quién es el responsable del tratamiento.",
+      "app_implication": "Onboarding con un paso de consentimiento explicado a la persona con demencia en lectura fácil y con pictogramas, y registro de quién actúa como apoyo. Datos locales por defecto y minimización: sin analítica de terceros. Cualquier función de supervisión (cámara, ubicación) es opcional, visible para la persona y revisable."
+    },
+    {
+      "claim": "Para el español hay recursos gratuitos de comprensión cognitiva: la norma experimental UNE 153101:2018 EX de lectura fácil y los pictogramas ARASAAC (Gobierno de Aragón), con licencia Creative Commons BY-NC-SA según su web.",
+      "evidence_level": "D",
+      "sources": [
+        "https://arasaac.org/",
+        "https://www.une.org/encuentra-tu-norma/busca-tu-norma/norma?c=N0060036"
+      ],
+      "negative_or_conflicting": "No hay evidencia específica de eficacia en demencia. La licencia de ARASAAC no se pudo leer en esta revisión porque la web carga con JavaScript; hay que confirmar los términos y la atribución, y la cláusula NC impide un uso comercial futuro. La ficha UNE devolvió 403.",
+      "safety_notes": "Algunos pictogramas pueden resultar infantiles; validarlos con la persona para no infantilizarla.",
+      "app_implication": "Todos los textos del modo Paciente en lectura fácil (frases cortas, una idea, sin negaciones dobles) e iconos de ARASAAC o fotos reales de los objetos de la casa, a elección de la familia. Incluir la atribución de ARASAAC en 'Acerca de'."
+    }
+  ],
+  "app_features": [
+    "Modo Paciente de una sola pantalla: día de la semana, fecha y parte del día en letras enormes, con variante mínima ('Es jueves por la tarde')",
+    "'Mi gente': fotos con nombre y parentesco, voz al tocar, llamada con un toque y marca del cuidador sobre qué fotos calman o inquietan",
+    "Mensajes de voz o vídeo de familiares (opcional, desactivado por defecto), con parada inmediata y registro de reacción",
+    "Bloqueo de la tablet: iOS Assistive Access (UISupportsFullScreenInAssistiveAccess) y en Android fijado de pantalla, o lock task con Device Owner como opción avanzada; botón de llamada y salida con PIN siempre disponibles",
+    "Registro del cuidador con un toque, por voz (Vosk, sin conexión) o con foto; confirmación grande y botón Deshacer",
+    "Medicación en el modo Cuidador: aviso al cuidador, registro dado/no dado/rechazado, detección de doble marca y exportación para el médico; sin dosificación ni consejo clínico",
+    "Tres niveles de interfaz con nombres funcionales (Con agenda, Guiada, Mínima), cambiados a mano y reversibles; sin estadificar",
+    "Onboarding familiar: código de unión, plantilla de fotos, asistente de tamaño de texto y botones, y consentimiento en lectura fácil con pictogramas",
+    "Avisos solo al cuidador, agrupados, con horario silencioso y máximo diario; ninguna alarma en el modo Paciente",
+    "Rutinas no farmacológicas con voz familiar (o TTS de respaldo) y un paso por pantalla con foto",
+    "Sesión de calma de 5 minutos con la música y las fotos de la persona, en franja elegida por el cuidador, con registro de reacción",
+    "Tarjeta de emergencia imprimible con datos, alergias y contactos introducidos por la familia",
+    "Modo demostración para que la familia pruebe la interfaz del paciente",
+    "Funcionamiento sin conexión con datos locales por defecto, aviso de batería baja o de app inactiva al cuidador y copia cifrada opcional",
+    "Sección 'Apoyo para ti' con recursos españoles revisados periódicamente"
+  ],
+  "questions_for_owner": [
+    "¿Qué hace hoy la persona sola: lee texto grande, reconoce fotos de la familia, entiende un reloj, usa el teléfono? (Para elegir el nivel de interfaz sin estadificar)",
+    "¿Qué dispositivo habría en casa (tablet o móvil, iPhone o Android y su versión)? ¿Estaría siempre enchufado y con wifi? ¿Alguien de la familia podría configurar Device Owner con un ordenador?",
+    "¿Quién usará el modo Cuidador (edad, temblor, vista, nivel digital) y cuántos cuidadores comparten el registro?",
+    "¿Cómo reacciona la persona a voces grabadas, videollamadas y fotos antiguas? ¿Hay personas cuya voz o foto la calman o la angustian, incluidas personas fallecidas?",
+    "¿Hay momentos del día de más inquietud y qué la calma hoy?",
+    "¿Qué idioma y variante habla en casa? ¿Hace falta catalán, gallego o euskera en la primera versión?",
+    "¿Quién le da hoy la medicación y cómo (pastillero semanal, sistema personalizado de dosificación de la farmacia)? ¿Ha habido olvidos o dobles tomas?",
+    "¿La persona puede participar en decidir qué se registra y qué ve la familia? ¿Hay medidas de apoyo formales (Ley 8/2021)?",
+    "¿Los datos y fotos se quedan solo en el dispositivo o queréis una copia en una nube privada? ¿Aceptáis que la versión pública obligue a una evaluación de impacto de privacidad?",
+    "La App Store cuesta 99 USD al año y Google Play 25 USD una sola vez. ¿Lo asumimos, buscamos una entidad (AFA, fundación) que publique la app, o empezamos solo con Android o una app web instalable?",
+    "¿Qué tecnología preferís (Flutter, React Native o nativa)? Assistive Access y lock task necesitan código nativo en cualquier caso.",
+    "¿Habéis probado antes algún dispositivo o app (reloj de día, tablet, Alexa) y qué falló?",
+    "¿Qué le pesa más hoy al cuidador: registrar, recordar, coordinarse con otros familiares o encontrar tiempo para sí?",
+    "¿Hay una AFA o un profesional (neurólogo, terapeuta ocupacional) dispuesto a revisar las pantallas y a hacer pruebas con más familias?"
+  ],
+  "free_resources": [
+    {
+      "name": "Alzheimer's Society: Dementia Digital Design Guidelines",
+      "url": "https://www.alzheimers.org.uk/blog/how-design-website-someone-affected-dementia",
+      "what": "Guía de diseño digital para demencia: contraste, tipografía, fondos y color",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Apple Assistive Access (documentación para desarrolladores)",
+      "url": "https://developer.apple.com/documentation/accessibility/assistive-access",
+      "what": "isAssistiveAccessEnabled, UISupportsFullScreenInAssistiveAccess y escena AssistiveAccess (iOS 26)",
+      "cost": "Gratis (publicar en la App Store: 99 USD al año)"
+    },
+    {
+      "name": "Guía de usuario de Assistive Access",
+      "url": "https://support.apple.com/guide/assistive-access-iphone/devcd5016d31",
+      "what": "Cómo configura el modo un cuidador",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Android lock task mode",
+      "url": "https://developer.android.com/work/dpc/dedicated-devices/lock-task-mode",
+      "what": "Documentación oficial del modo kiosco y requisitos de Device Owner",
+      "cost": "Gratis"
+    },
+    {
+      "name": "FreeKiosk",
+      "url": "https://github.com/RushB-fr/freekiosk",
+      "what": "Kiosco Android de código abierto (MIT) con Device Owner y PIN",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Kiosk Launcher",
+      "url": "https://github.com/osamaalek/Kiosk-Launcher",
+      "what": "Launcher Android que bloquea una o varias apps con contraseña de salida",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Paquete Flutter kiosk_mode",
+      "url": "https://pub.dev/packages/kiosk_mode",
+      "what": "Plugin de lock task para Flutter",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Vosk (repositorio oficial)",
+      "url": "https://github.com/alphacep/vosk-api",
+      "what": "Reconocimiento de voz offline con español, Apache-2.0, Android e iOS",
+      "cost": "Gratis"
+    },
+    {
+      "name": "ARASAAC",
+      "url": "https://arasaac.org/",
+      "what": "Pictogramas en español del Gobierno de Aragón (confirmar licencia CC BY-NC-SA y atribución)",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Guías MDCG (incluye MDCG 2019-11 rev.1)",
+      "url": "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_en",
+      "what": "Criterios para saber si el software es producto sanitario (regla 11)",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Ley 8/2021 de apoyos (BOE)",
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2021-9233",
+      "what": "Marco legal español de apoyos a la capacidad jurídica",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Revisión de apps de autocuidado en Alzheimer",
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7007594/",
+      "what": "Análisis sistemático de apps existentes",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Revisión Cochrane de presencia simulada",
+      "url": "https://www.cochrane.org/evidence/CD011882_simulated-presence-therapy-dementia",
+      "what": "Evidencia sobre voz o vídeo de familiares",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Metaanálisis de reminiscencia digital (BMC Neurology, 2026)",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13137691/",
+      "what": "13 estudios y 718 participantes; solo efecto en síntomas conductuales y psicológicos",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Fundación Pasqual Maragall: grupos para cuidadores",
+      "url": "https://fpmaragall.org/wp-content/uploads/2024/11/02-np-grups-acc_cast-def.pdf",
+      "what": "Programa gratuito de apoyo online para cuidadores",
+      "cost": "Gratis"
+    }
+  ],
+  "verification_notes": "Abrí con WebFetch el metaanálisis PMC13137691, la documentación de Apple (vía JSON), FreeKiosk, el repositorio oficial de Vosk, PMC12725205, ClinicalTrials.gov (vía API), la página de Stirling y la ficha MDCG de la Comisión Europea. El presupuesto compartido de WebSearch estaba agotado y ninguna búsqueda llegó a ejecutarse. Cambios: (1) La reminiscencia digital baja de B a C con datos reales: 13 estudios y 718 personas; solo hay efecto significativo en síntomas conductuales, con 2 ensayos, y no en cognición, ánimo ni participación. (2) Los objetivos táctiles bajan de B a C (estudios de laboratorio pequeños). (3) El reloj de orientación baja a D: la cifra de 50 personas en 5 países no aparece en las fuentes, y NCT06824142 tiene 20 participantes y sigue sin resultados. (4) Los programas de cuidadores bajan a D (notas de prensa). (5) Corregí las APIs de Apple: AccessibilitySettings.isAssistiveAccessEnabled y la escena AssistiveAccess de iOS 26. (6) Sustituí el fork de Vosk por alphacep (Apache-2.0). (7) Añadí cuatro hallazgos: MDCG 2019-11 y la regla 11, seguridad de la medicación (riesgo de doble toma con avisos al paciente), Ley 8/2021 y RGPD, y lectura fácil con ARASAAC. (8) Reescribí las implicaciones de etapas: niveles funcionales elegidos por el cuidador y nunca estadificación GDS automática. La medicación pasa al modo Cuidador. (9) Señalé el coste de las tiendas, que contradice el coste cero. Sin verificar: CEDRIC (503), JMIR e46188 y 56055 (contenido vacío), el PDF de MDCG y la ficha UNE (403) y la licencia de ARASAAC (web en JavaScript)."
+}

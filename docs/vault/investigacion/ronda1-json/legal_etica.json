@@ -1,0 +1,351 @@
+{
+ "key": "legal_etica",
+ "title": "Legal, ética y regulación",
+ "summary": "Seis decisiones de arquitectura fijan el marco de una app gratuita de apoyo en Alzheimer publicada desde España. 1) Producto sanitario: según el MDR 2017/745 y la guía MDCG 2019-11 Rev.1 (17 de junio de 2025), decide el propósito previsto. Si la app registra, recuerda, informa y sugiere consultar al médico, sin diagnosticar, dosificar, predecir ni interpretar, queda fuera del MDR, y la regla 11 no llega a aplicarse. Los umbrales los fijan personas, nunca un algoritmo. 2) Contenido: las tiendas exigen aviso de 'no es producto sanitario'. El RD 1907/1996 prohíbe prometer curas, usar testimonios, presentar 'natural' como argumento terapéutico o sugerir que el médico es prescindible, lo que encaja la sección de terapias complementarias en fichas de evidencia neutras. 3) Datos: la salud es categoría especial (art. 9 RGPD). La base será el consentimiento explícito y granular, y la EIPD es muy probable. La excepción doméstica protege a la familia usuaria, no al proveedor. Para fallecidos rige el art. 3 LOPDGDD. 4) Capacidad: con la Ley 8/2021, la persona decide con apoyos. Ni la familia ni la app otorgan representación. El consentimiento es un proceso revisable. 5) Proporcionalidad: GPS, audio e imagen solo con acuerdo, por niveles y con revisión periódica. Si hay una cuidadora contratada, se aplican el art. 89 LOPDGDD y la normativa laboral. Cualquier IA externa requiere permiso explícito (Apple 5.1.2.i) y transparencia (art. 50 del Reglamento de IA). 6) Coste cero y responsabilidad: local por defecto, cifrado de extremo a extremo si hay sincronización, sin analítica ni monetización. Mantener la app no comercial la acerca a las exclusiones de software libre de la nueva Directiva de productos defectuosos y del Reglamento de Ciberresiliencia. Una asociación sin ánimo de lucro puede pedir la exención de la cuota de Apple. Queda por verificar: la legislación de LatAm país por país, la transposición española de la Directiva de productos defectuosos y la responsabilidad civil. Nada de esto es asesoramiento jurídico, y antes del lanzamiento debe revisarlo un jurista colegiado.",
+ "findings": [
+  {
+   "claim": "La cualificación como producto sanitario depende del propósito previsto que declara el fabricante (art. 2.1 MDR). El software de bienestar, organización o estilo de vida sin fin médico no es MDSW. La regla 11 (clases I a III) solo clasifica software que ya es producto sanitario. La MDCG 2019-11 Rev.1 (publicada el 17 de junio de 2025) no hace cambios sustantivos: añade ejemplos de la regla 11 (incluido software que informa pronóstico o predicción), introduce el término MDAI (IA como producto sanitario, sujeta también al Reglamento de IA) y añade ejemplos del Anexo XVI y de apps de bienestar.",
+   "evidence_level": "A",
+   "sources": [
+    "https://health.ec.europa.eu/system/files/2020-09/md_mdcg_2019_11_guidance_en_0.pdf",
+    "https://www.emergobyul.com/news/european-revision-primary-software-guidance-mdcg-2019-11-revision-1-small-changes-meaningful"
+   ],
+   "app_implication": "Documento interno de propósito previsto, versionado y congelado: registrar, recordar, informar, organizar y facilitar la comunicación con profesionales. Lista cerrada de funciones prohibidas: diagnosticar o estadificar (tampoco con test cognitivos puntuados tipo MMSE o MoCA dentro de la app), interpretar síntomas, calcular o ajustar dosis, sugerir cambios de medicación, y predecir riesgo de caídas, fugas o empeoramiento con algoritmos. Cada texto de tienda, notificación y pantalla se revisa contra esa lista antes de publicarse.",
+   "negative_or_conflicting": "No se leyó el texto oficial completo de la Rev.1. La descripción procede de una consultora (Emergo by UL) y el PDF enlazado es la versión de 2019. Ninguna fuente consultada cita los recordatorios simples de medicación. Que no sean producto sanitario es una inferencia razonable (solo replican lo que el usuario introduce), pero no una afirmación verificada de la guía.",
+   "safety_notes": "El lenguaje de marketing puede reclasificar la app: 'detecta empeoramiento', 'predice caídas' o 'evalúa la memoria'. Un test cognitivo puntuado o un algoritmo que alerta de deterioro puede llevarla a clase IIa o superior."
+  },
+  {
+   "claim": "La monitorización de procesos fisiológicos y el apoyo a decisiones diagnósticas o terapéuticas son lo que activa la regla 11. Por eso el diseño más seguro es 'dato registrado + umbral fijado por una persona', sin interpretación propia de la app. Es una inferencia de diseño a partir de la guía, no una regla explícita de ella.",
+   "evidence_level": "C",
+   "sources": [
+    "https://health.ec.europa.eu/system/files/2020-09/md_mdcg_2019_11_guidance_en_0.pdf"
+   ],
+   "app_implication": "Los umbrales los fija el cuidador o el médico, nunca un modelo: por ejemplo, avisar si no se marca la toma de las 9:00 o si el sueño registrado baja de X horas. La app muestra recuentos y tendencias y exporta un informe para el médico redactado de forma neutra ('se registraron 3 despertares nocturnos'), sin etiquetas clínicas. Si se olvida una toma, la app no dice qué hacer (nada de 'tome dos'): remite al prospecto, al farmacéutico o al médico.",
+   "negative_or_conflicting": "Las fuentes no resuelven con claridad la frontera entre 'mostrar tendencia' y 'monitorizar un proceso fisiológico'. Hay incertidumbre jurídica real, y algunos organismos notificados interpretan las alertas con más amplitud.",
+   "safety_notes": "Riesgo de falsa seguridad: un gráfico sin alerta puede retrasar la consulta. Cada informe debe recordar que hay que contrastarlo con el equipo médico, y los recordatorios de medicación deben probarse como funcionalidad crítica (zonas horarias, cambio de hora, modo ahorro de batería, permisos de notificación revocados)."
+  },
+  {
+   "claim": "Google Play exige rellenar la declaración de apps de salud en Play Console. Las apps de salud que no son producto sanitario deben incluir en la descripción que la app 'no es un producto sanitario y no diagnostica, trata, cura ni previene ninguna enfermedad', y recordar que se consulte a un profesional. Prohíbe la funcionalidad médica engañosa, promover o vender sustancias no aprobadas y la desinformación sanitaria. Apple (1.4.1) revisa con más rigor las apps médicas que puedan dar información inexacta y exige recordar que se consulte al médico. La regla 1.4.2 solo admite calculadoras de dosis de entidades aprobadas, y la 5.1.1(ix) pide que las apps de sectores muy regulados, como la sanidad, las publique una entidad legal y no un desarrollador individual.",
+   "evidence_level": "A",
+   "sources": [
+    "https://support.google.com/googleplay/android-developer/answer/16679511?hl=en",
+    "https://developer.apple.com/app-store/review/guidelines/"
+   ],
+   "app_implication": "Lista de comprobación para publicar: declaración de app de salud en Play Console, frase literal de exención en la descripción y dentro de la app, política de privacidad enlazada en la ficha y en la app, y recordatorio visible de consultar al médico en las pantallas de medicación, sueño, alimentación y terapias. No incluir ninguna calculadora ni conversor de dosis. Publicar a nombre de una asociación sin ánimo de lucro, que además puede pedir la exención de la cuota del Apple Developer Program.",
+   "negative_or_conflicting": "Los foros de desarrolladores muestran que la revisión de Apple por la 1.4.1 es irregular, incluso con apps solo de bienestar. La exención de cuota de Apple excluye a particulares y a quien venda bienes o servicios digitales, y su concesión es discrecional. El pago único de unos 25 USD de Google no se verificó aquí.",
+   "safety_notes": "La exención de responsabilidad no protege si la funcionalidad real contradice el texto. Manda lo que la app hace, no lo que dice."
+  },
+  {
+   "claim": "Medicina tradicional china, natural y holística: Google no prohíbe tratar la medicina complementaria como tema, pero sí promover o vender sustancias no aprobadas, las afirmaciones de salud engañosas contrarias al consenso médico y la defensa de tratamientos no aprobados dañinos. Apple no tiene una norma específica, pero aplica la 1.4.1 con más rigor. Es posible presentar terapias no probadas como información etiquetada con su nivel de evidencia, sin promesas ni venta.",
+   "evidence_level": "B",
+   "sources": [
+    "https://support.google.com/googleplay/android-developer/answer/16679511?hl=en",
+    "https://developer.apple.com/app-store/review/guidelines/"
+   ],
+   "app_implication": "Sección 'Otras tradiciones y terapias complementarias' con ficha uniforme: qué es, nivel de evidencia (A-D o anecdótico), estudios a favor y en contra (incluidos los ensayos negativos), riesgos e interacciones conocidas, fecha de la última revisión y la frase 'consulta con tu médico o farmacéutico antes de probarlo; no suspendas ningún medicamento'. Sin enlaces de compra, sin afiliados, sin marcas y sin verbos como 'cura', 'previene' o 'revierte'. Etiqueta visible de 'No probado' cuando corresponda.",
+   "negative_or_conflicting": "No hay un criterio oficial de Apple sobre medicina alternativa: se infiere de la 1.4.1 y su revisión es discrecional. Una ficha con evidencia D puede ser rechazada aunque esté bien etiquetada.",
+   "safety_notes": "El riesgo principal son las interacciones (ginkgo con anticoagulantes o antiagregantes, hipérico con antidepresivos y otros fármacos, hierbas sedantes con fármacos del sistema nervioso central) y el abandono del tratamiento. Los suplementos nunca se presentan como sustituto de la medicación."
+  },
+  {
+   "claim": "Los datos de salud son categoría especial (art. 9 RGPD) y solo pueden tratarse con una excepción del art. 9.2. Las letras g), h) e i) exigen en España una norma con rango de ley (art. 9.2 LOPDGDD), y la DA 17 LOPDGDD las vincula al ámbito sanitario regulado. Una app de familiares, ajena a la asistencia sanitaria, se basará normalmente en el consentimiento explícito (9.2.a) del interesado o con sus apoyos. El interés vital (9.2.c) solo cubre emergencias en las que la persona no puede consentir.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.aepd.es/documento/2020-0098.pdf",
+    "https://www.boe.es/buscar/act.php?id=BOE-A-2018-16673"
+   ],
+   "app_implication": "Registro de actividades de tratamiento y registro de consentimientos por finalidad (medicación, ubicación, audio, fotos, investigación, IA): fecha, quién consintió, con qué apoyo y qué versión del texto, con retirada en un toque. Consentimientos separados y granulares, nunca agrupados, y la investigación solo con su propio opt-in.",
+   "negative_or_conflicting": "Que la excepción 9.2.h no cubra a los cuidadores familiares es la lectura mayoritaria, pero debe confirmarla un jurista. Se retiró una fuente de blog comercial (legiscope) porque añadía poco frente a la norma.",
+   "safety_notes": "El 'aceptar' de una persona con deterioro cognitivo que no entiende lo que acepta puede no ser válido. Ver el hallazgo sobre capacidad y apoyos."
+  },
+  {
+   "claim": "La EIPD es obligatoria cuando el tratamiento implica alto riesgo (art. 35 RGPD). La lista de la AEPD la exige si concurren dos o más criterios, entre ellos datos de categoría especial, geolocalización u observación sistemática, sujetos vulnerables y uso innovador de tecnología. Una app con datos de salud de personas con demencia, ubicación y varios usuarios cumple con holgura.",
+   "evidence_level": "B",
+   "sources": [
+    "https://www.aepd.es/prensa-y-comunicacion/notas-de-prensa/la-aepd-publica-el-listado-de-tratamientos-en-los-que-es",
+    "https://www.aepd.es/prensa-y-comunicacion/notas-de-prensa/la-aepd-publica-lista-verificacion-para-ayudar-responsables-evaluaciones"
+   ],
+   "app_implication": "Hacer la EIPD antes de escribir código, con la lista de verificación de la AEPD, y publicarla en el repositorio como plantilla para otras familias. De ella salen decisiones concretas: minimización, cifrado, plazos de retención, roles y ubicación desactivada por defecto.",
+   "negative_or_conflicting": "No se comprobó el texto exacto de cada criterio de la lista vigente. Para una sola familia que usa la app en casa puede no ser obligatoria (excepción doméstica), pero sí lo es para un servicio abierto a muchas familias.",
+   "safety_notes": "Si se abre a muchas familias con un servidor, el promotor pasa a ser responsable del tratamiento: notificación de brechas en 72 horas y probablemente un delegado de protección de datos."
+  },
+  {
+   "claim": "La excepción doméstica (art. 2.2.c RGPD) se interpreta de forma restrictiva (TJUE Lindqvist C-101/01 y Ryneš C-212/13), y según el considerando 18 el RGPD sigue aplicándose a quien proporciona los medios del tratamiento. La familia que usa la app puede quedar exenta, pero el proveedor que la distribuye a otras familias y gestiona un servidor no lo está.",
+   "evidence_level": "B",
+   "sources": [
+    "https://www.dataprotection.ie/en/faqs/general/what-household-exemption",
+    "https://gdprhub.eu/Article_2_GDPR",
+    "https://www.hldataprotection.com/2014/12/articles/international-eu-privacy/cjeu-narrows-the-scope-of-the-household-exemption/"
+   ],
+   "app_implication": "Dos modos. (1) Local, sin cuenta ni servidor: el proveedor no accede a ningún dato y el riesgo regulatorio baja mucho. Es el modo por defecto. (2) Sincronización multifamiliar con cifrado de extremo a extremo, con el promotor como responsable o encargado, documentado en la EIPD.",
+   "negative_or_conflicting": "Se bajó el nivel de A a B porque la jurisprudencia se vio en resúmenes y no en las sentencias. Las fuentes no tratan a cuidadores remunerados ni la compartición entre familiares. Si interviene un profesional o una entidad, la excepción probablemente no se aplica.",
+   "safety_notes": "Compartir la agenda de medicación con un centro de día o una cuidadora contratada saca ese tratamiento del ámbito doméstico."
+  },
+  {
+   "claim": "La Ley 8/2021 elimina la incapacitación y la tutela de adultos: la persona decide con apoyos, respetando su voluntad, deseos y preferencias. Las medidas judiciales solo se adoptan si son necesarias y se revisan como regla cada tres años, y la curatela representativa es excepcional. La guarda de hecho es una figura reconocida. En el ámbito sanitario, el consentimiento por representación (art. 9 Ley 41/2002) opera cuando el médico aprecia que la persona no puede decidir, y las instrucciones previas (art. 11) permiten designar un representante.",
+   "evidence_level": "B",
+   "sources": [
+    "https://www.comunidad.madrid/node/75932",
+    "https://ical.es/wp-content/uploads/2022/09/La-ley-8-21-Discapacidad.pdf",
+    "https://castillalamancha.es/sites/default/files/documentos/pdf/20230110/modelo_medidas_judiciales_de_apoyo_discapacidad.pdf"
+   ],
+   "app_implication": "Perfil 'Quién me apoya' (guardador de hecho, curador, representante en instrucciones previas), con documento adjunto opcional y fecha de revisión. Los permisos sensibles de la app dependen de lo que la familia acuerde y deje documentado, pero la app nunca da a entender que un rol en ella equivale a una representación legal. Módulo 'Mis preferencias', rellenado en fase temprana por la propia persona: música, comidas, rutinas, límites de monitorización, qué compartir y con quién. Con enlace informativo a cómo registrar instrucciones previas en su comunidad autónoma.",
+   "negative_or_conflicting": "Ninguna fuente específica explica cómo combinar el consentimiento RGPD con el sistema de apoyos del Código Civil. Las leyes autonómicas de instrucciones previas varían y no se revisaron.",
+   "safety_notes": "El administrador de la app no es un curador. La app no debe generar documentos que parezcan tener validez jurídica."
+  },
+  {
+   "claim": "El consentimiento debe tratarse como un proceso (process consent, Dewing 2008). En investigación con personas con demencia se pide de nuevo el día de la entrevista, antes de grabar la voz, atendiendo a señales verbales y no verbales, y se recomienda hablar del consentimiento a la tecnología de forma explícita en la planificación anticipada tras el diagnóstico.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9889957/",
+    "https://journals.sagepub.com/doi/10.1177/09697330231161687"
+   ],
+   "app_implication": "Flujo de asentimiento continuo: reconfirmar con lenguaje claro y pictogramas cada vez que se activa una función sensible, permitir pausar la monitorización con un gesto sencillo y anotar las señales de rechazo. Revisión periódica del consentimiento con la persona y su apoyo, no solo con el cuidador. Propuesta de conversación guiada sobre tecnología poco después del diagnóstico.",
+   "negative_or_conflicting": "Es práctica extrapolada de la ética de investigación (PMC9889957: estudio cualitativo en Irlanda del Norte con 22 inquilinos), no evidencia sobre apps domésticas. Se retiró PMC13180133 de este hallazgo porque es un estudio de un asistente de voz (GRACE) sin participantes con demencia, no un estudio sobre consentimiento. El artículo de SAGE devolvió 403 y no se verificó.",
+   "safety_notes": "El asentimiento no sustituye la base jurídica. La app debe documentar quién decide y por qué."
+  },
+  {
+   "claim": "Sobre la geolocalización en demencia no hay consenso ético. La revisión de literatura argumentativa de Howes y Gastmans (Arch Gerontol Geriatr, 2021) describe efectos ambivalentes sobre la autonomía, la seguridad y la intimidad. Las recomendaciones de práctica piden decidir de forma conjunta, cerca del diagnóstico, si se usa GPS, cuándo y cómo.",
+   "evidence_level": "C",
+   "sources": [
+    "https://www.sciencedirect.com/science/article/abs/pii/S0167494321000819",
+    "https://www.sciencedirect.com/science/article/pii/S1041610224020738",
+    "https://link.springer.com/article/10.1186/s12910-026-01423-5",
+    "https://www.tandfonline.com/doi/full/10.1080/15228835.2025.2528781"
+   ],
+   "app_implication": "Ubicación por niveles: apagada por defecto; 'ver mi ubicación solo si me pierdo', activada bajo petición y con registro de quién la consultó y cuándo; geovalla opcional; sin historial guardado por defecto. Acuerdo de ubicación registrado y revisable cada pocos meses, con un registro de consultas que la propia persona pueda ver. Incluir un protocolo de 'persona desaparecida' (llamar al 112, foto reciente, ropa del día) que no dependa del GPS.",
+   "negative_or_conflicting": "Todas las fuentes son ética argumentativa o cualitativa, sin evidencia de que el GPS reduzca daños. No se pudo abrir ninguno de los cuatro artículos (403 o redirección a inicio de sesión), así que su contenido no está verificado, incluido el jurado ciudadano de 2026. Los familiares tienden a priorizar la seguridad y los profesionales la autonomía.",
+   "safety_notes": "El rastreo no sustituye la supervisión y la falsa seguridad puede aumentar el riesgo. La geolocalización es criterio de EIPD."
+  },
+  {
+   "claim": "Voz, imagen e IA: grabar audio o vídeo en el domicilio exige base jurídica y proporcionalidad. El Reglamento de IA (UE) 2024/1689 prohíbe explotar vulnerabilidades por edad o discapacidad (art. 5.1.b) y el reconocimiento de emociones en el trabajo y la educación (art. 5.1.f). Además obliga a informar de que se interactúa con una IA (art. 50, aplicable desde el 2 de agosto de 2026). Los cuidadores de un asistente de voz para demencia (estudio GRACE, 2026) señalan como preocupación de privacidad la escucha pasiva de conversaciones de terceros.",
+   "evidence_level": "C",
+   "sources": [
+    "https://www.regulation-ai.eu/en/articles/article-5/",
+    "https://fpf.org/blog/red-lines-under-eu-ai-act-unpacking-the-prohibition-of-emotion-recognition-in-the-workplace-and-education-institutions/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC13180133/"
+   ],
+   "app_implication": "Sin grabación continua ni escucha pasiva. Diario de voz manual (el cuidador dicta notas) con transcripción en el dispositivo. Sin detección de emociones ni de estado de ánimo por voz o cara en la v1. Si hay un asistente conversacional, se presenta como IA en cada sesión, con voz neutra. Prohibido imitar la voz o la imagen de familiares, vivos o fallecidos.",
+   "negative_or_conflicting": "Los artículos del Reglamento de IA se consultaron en reproducciones no oficiales y blogs, no en el DOUE. El estudio GRACE no incluyó a personas con demencia.",
+   "safety_notes": "Una persona con demencia puede no entender que habla con una máquina. Simular a un familiar es una forma de engaño que se acerca a la explotación de vulnerabilidades."
+  },
+  {
+   "claim": "El Tribunal General confirmó el Marco de Privacidad de Datos UE-EE. UU. el 3 de septiembre de 2025 (Latombe, T-553/23), y el 31 de octubre de 2025 se recurrió en casación ante el TJUE. El marco sigue siendo jurídicamente frágil.",
+   "evidence_level": "B",
+   "sources": [
+    "https://www.wilmerhale.com/en/insights/blogs/wilmerhale-privacy-and-cybersecurity-law/20251201-european-court-of-justice-to-review-challenge-to-eu-us-data-privacy-framework",
+    "https://iapp.org/news/a/european-general-court-dismisses-latombe-challenge-upholds-eu-us-data-privacy-framework",
+    "https://eucrim.eu/news/general-court-confirms-adequacy-of-us-data-protection/"
+   ],
+   "app_implication": "Datos de salud locales y cifrados por defecto. Si hay sincronización, servidor en la UE o cifrado de extremo a extremo con claves solo en los dispositivos de la familia. Sin SDK de analítica, informes de fallos con datos personales ni publicidad. Notificaciones push sin contenido sensible (APNs y FCM pasan por EE. UU.): 'Tienes un recordatorio', y el detalle solo al abrir la app.",
+   "negative_or_conflicting": "No se verificó el número del asunto de casación (el original indicaba C-703/25 P). Tampoco se verificaron orientaciones del CEPD sobre salud en la nube ni los planes gratuitos de proveedores europeos.",
+   "safety_notes": "Si el TJUE anula el marco, las transferencias basadas en él dejan de ser lícitas. Hay que diseñar sin depender de él."
+  },
+  {
+   "claim": "Derechos, retención y fallecimiento: el RGPD reconoce acceso, rectificación, supresión y portabilidad. Apple exige poder eliminar la cuenta desde la app (5.1.1.v) y prohíbe usar datos de salud para publicidad o minería de datos (5.1.2.vi y 5.1.3.i). En España, el art. 3 LOPDGDD permite a familiares y herederos acceder a los datos de un fallecido, rectificarlos o suprimirlos, salvo prohibición expresa de este. También permite que la persona designe en vida a quién ejerce esos derechos, y a las personas con discapacidad, que lo hagan sus apoyos si la medida lo cubre. La app no es una historia clínica.",
+   "evidence_level": "A",
+   "sources": [
+    "https://developer.apple.com/app-store/review/guidelines/",
+    "https://www.boe.es/buscar/act.php?id=BOE-A-2018-16673",
+    "https://www.aepd.es/documento/2020-0098.pdf"
+   ],
+   "app_implication": "Exportación completa en formatos abiertos (JSON o CSV, y PDF para el médico) y borrado total con un botón. Instrucciones de legado digital escritas por la propia persona mientras pueda: borrar, conservar para la familia o donar anonimizado, y a quién designa, conforme al art. 3 LOPDGDD. Retención corta por defecto, por ejemplo borrar la ubicación a las 72 horas.",
+   "negative_or_conflicting": "El acceso a la historia clínica de fallecidos (art. 18.4 Ley 41/2002) afecta al centro sanitario, no a la app. El reglamento que desarrolle los mandatos del art. 3 LOPDGDD no se verificó.",
+   "safety_notes": "Los conflictos de borrado (el cuidador quiere borrar y la persona no, o al revés) deben resolverse con reglas de roles acordadas por adelantado."
+  },
+  {
+   "claim": "Los datos seudonimizados siguen siendo personales, y la AEPD insiste en evaluar el riesgo de reidentificación, que crece con el tiempo. El EHDS (Reglamento (UE) 2025/327) regula el uso secundario de datos de salud y prevé el etiquetado de las apps de bienestar que declaren interoperabilidad con historias clínicas electrónicas. Apple (5.1.3.iii-iv) y Google exigen consentimiento y aprobación de un comité de ética para la investigación con personas.",
+   "evidence_level": "B",
+   "sources": [
+    "https://www.aepd.es/guias/guia-orientaciones-procedimientos-anonimizacion.pdf",
+    "https://www.aepd.es/prensa-y-comunicacion/blog/anonimizacion-y-seudonimizacion",
+    "https://www.boe.es/buscar/doc.php?id=DOUE-L-2025-80382",
+    "https://developer.apple.com/app-store/review/guidelines/",
+    "https://support.google.com/googleplay/android-developer/answer/16679511?hl=en"
+   ],
+   "app_implication": "Ciencia ciudadana solo en una fase posterior, con opt-in separado y aprobación previa de un comité de ética (de una universidad o una asociación). Solo agregados con un tamaño mínimo de grupo, fechas y localidades generalizadas, sin texto libre ni ubicación. En la v1 no se declara interoperabilidad con la historia clínica, para evitar el régimen de etiquetado del EHDS.",
+   "negative_or_conflicting": "No se verificaron en el texto oficial el alcance exacto del EHDS para apps de bienestar ni sus plazos escalonados.",
+   "safety_notes": "Los datos de demencia en municipios pequeños se reidentifican con facilidad (edad, localidad y medicación)."
+  },
+  {
+   "claim": "Para apps en tiendas, MIT o Apache 2.0 son las licencias de menor fricción. La GPL o AGPL genera incertidumbre con las condiciones de distribución de Apple (no hay resolución, y existen apps GPL en la tienda). Apache 2.0 incluye una concesión de patentes y puede integrarse en proyectos GPLv3 o AGPLv3, pero no a la inversa. La AGPL impide versiones cerradas ofrecidas como servicio.",
+   "evidence_level": "D",
+   "sources": [
+    "https://producingoss.com/en/license-choosing.html",
+    "https://discourse.joplinapp.org/t/changing-project-license-from-mit-to-gpl/25558"
+   ],
+   "app_implication": "App móvil bajo Apache 2.0, servidor opcional bajo AGPL-3.0 y contenidos (fichas de evidencia, EIPD y plantillas) bajo CC BY-SA 4.0. Publicar el código permite auditar la privacidad de forma independiente.",
+   "negative_or_conflicting": "Las fuentes son foros y guías no oficiales, y Apple no ha publicado un criterio. Se retiró una fuente comercial (fossa.com) que no aportaba nada específico. La decisión debe validarla un abogado.",
+   "safety_notes": "Código abierto no equivale a seguro. Hace falta una política de divulgación de vulnerabilidades y no subir nunca datos reales ni claves al repositorio."
+  },
+  {
+   "claim": "La protección de datos en LatAm es heterogénea y varios países restringen las transferencias a países sin protección adecuada. Argentina (Ley 25.326) trata la salud como dato sensible y está reformando su ley. La Red Iberoamericana de Protección de Datos publicó cláusulas modelo en 2022. Si un familiar en otro país accede a datos de un responsable europeo, el RGPD sigue aplicándose a ese responsable.",
+   "evidence_level": "C",
+   "sources": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11349313/",
+    "https://iapp.org/news/a/los-desafios-juridicos-y-practicos-de-la-transferencia-de-datos-dentro-y-fuera-de-latinoamerica"
+   ],
+   "app_implication": "Con arquitectura local o de extremo a extremo, el acceso de un familiar remoto ocurre entre dispositivos de la familia y el proveedor no transfiere datos. Aun así, la política de privacidad debe advertirlo. El lanzamiento fuera de España se hará por fases, tras revisar la ley de cada país (México LFPDPPP 2025, Colombia Ley 1581, Brasil LGPD y Argentina Ley 25.326).",
+   "negative_or_conflicting": "No se verificó el contenido de las leyes de México, Colombia ni Brasil. México sustituyó su ley en 2025, y no se comprobó su contenido. Se retiró una nota de la IAPP de 2021 sin contenido específico.",
+   "safety_notes": "La capacidad jurídica y el consentimiento médico cambian de un país a otro. La app no debe afirmar que un documento tenga validez legal fuera de España."
+  },
+  {
+   "claim": "Publicidad sanitaria en España: el Real Decreto 1907/1996 prohíbe, en la publicidad o promoción directa o indirecta de productos, actividades o servicios con pretendida finalidad sanitaria, prometer alivio o curación segura, usar testimonios de profesionales, famosos o pacientes, utilizar 'natural' como argumento de efecto preventivo o terapéutico, presentar el producto como sustituto de medicamentos y sugerir que la consulta profesional es innecesaria. También prohíbe atribuir efectos que la Administración sanitaria no haya reconocido. A escala UE, el Reglamento (CE) 1924/2006 solo admite declaraciones de salud autorizadas en alimentos y complementos, y ninguna autoriza prevenir o tratar la demencia.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/rd/1996/08/02/1907",
+    "https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32006R1924"
+   ],
+   "app_implication": "Convertir el art. 4 del RD 1907/1996 en una guía de estilo obligatoria para la sección de terapias complementarias: sin testimonios ('a mi madre le funcionó'), sin 'natural' como argumento de eficacia, sin marcas ni productos concretos, sin 'sustituye a' y sin 'no hace falta ir al médico'. Los testimonios de familias se recogen como experiencias sobre la vida diaria, nunca como pruebas de eficacia. Esta guía alimenta el detector de lenguaje de riesgo en la integración continua.",
+   "negative_or_conflicting": "El RD se dirige a publicidad y promoción. Una ficha informativa sin fin comercial puede quedar fuera, pero es una zona gris si se mencionan productos. El texto se leyó en el BOE. El Reglamento 1924/2006 no se abrió y su descripción procede de conocimiento previo.",
+   "safety_notes": "Las experiencias de otras familias pueden actuar como testimonios encubiertos. Hay que moderarlas y etiquetarlas como experiencia personal, no como evidencia."
+  },
+  {
+   "claim": "Responsabilidad por producto: la nueva Directiva (UE) 2024/2853 de productos defectuosos incluye el software como producto y excluye el software libre desarrollado o suministrado fuera de una actividad comercial. Debe transponerse antes del 9 de diciembre de 2026. El Reglamento de Ciberresiliencia (UE) 2024/2847 también excluye el software libre no comercial; sus obligaciones de notificación de vulnerabilidades se aplican desde el 11 de septiembre de 2026 y el resto desde el 11 de diciembre de 2027.",
+   "evidence_level": "B",
+   "sources": [
+    "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024L2853",
+    "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R2847"
+   ],
+   "app_implication": "Mantener la app claramente no comercial (sin anuncios, sin venta de datos, sin plan de pago, sin afiliados ni patrocinio de laboratorios o herbolarios) refuerza las exclusiones de software libre. Aun así, conviene aplicar buenas prácticas de ciberseguridad: política de divulgación de vulnerabilidades (security.txt), lista de dependencias (SBOM), actualizaciones de seguridad y pruebas automáticas de los recordatorios. Términos de uso redactados por un abogado y un seguro de responsabilidad civil de la asociación si es asequible.",
+   "negative_or_conflicting": "Las páginas de EUR-Lex no se mostraron en la verificación, y las fechas y exclusiones proceden de conocimiento previo. No se comprobó si las donaciones o subvenciones a una asociación cuentan como 'actividad comercial', ni la transposición española de la Directiva.",
+   "safety_notes": "Un fallo en un recordatorio de medicación puede causar daño real con independencia de cualquier exclusión legal. Debe tratarse como funcionalidad crítica."
+  },
+  {
+   "claim": "Cuidadoras contratadas en el domicilio: si una empleada de hogar o cuidadora interna puede quedar grabada o geolocalizada, se aplica el art. 89 LOPDGDD. Exige informar de forma previa, expresa y clara, limita la monitorización a funciones de control laboral proporcionadas, solo permite grabar sonido ante riesgos relevantes para la seguridad y prohíbe en todo caso grabar en zonas de descanso.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/buscar/act.php?id=BOE-A-2018-16673"
+   ],
+   "app_implication": "Si la familia indica que hay una cuidadora contratada, la app desactiva el audio ambiental y muestra un aviso con un modelo de información previa para firmar. Los registros de la cuidadora (tomas dadas, comidas, incidencias) son anotaciones voluntarias suyas y no sirven para vigilarla. La cuidadora tiene un rol propio con acceso limitado y caducidad.",
+   "negative_or_conflicting": "No se verificó cómo se combinan la excepción doméstica y el empleo en el hogar familiar. La jurisprudencia (TC y TEDH López Ribalda) no se revisó.",
+   "safety_notes": "Usar la app para vigilar en secreto a una trabajadora tiene riesgo legal y deteriora la relación de cuidado de la que depende la persona."
+  },
+  {
+   "claim": "IA de terceros: Apple 5.1.2(i) exige informar con claridad y obtener permiso explícito antes de compartir datos personales con terceros, incluida una IA de terceros. Enviar datos de salud a un modelo de lenguaje alojado fuera de la UE supone, además, una transferencia internacional de categoría especial y un nuevo encargado del tratamiento.",
+   "evidence_level": "A",
+   "sources": [
+    "https://developer.apple.com/app-store/review/guidelines/"
+   ],
+   "app_implication": "IA en el dispositivo por defecto (transcripción, resúmenes y lectura fácil). Cualquier modelo en la nube será opcional, con consentimiento propio, sin datos de salud identificables y preferiblemente de un proveedor con alojamiento en la UE. La IA nunca responde preguntas clínicas personalizadas sobre dosis o síntomas: deriva al profesional o a las fichas de evidencia.",
+   "negative_or_conflicting": "Los modelos que caben en un móvil tienen menos calidad. Usar modelos gratuitos en la nube suele implicar que el proveedor use los datos, lo que choca con la privacidad.",
+   "safety_notes": "Un chatbot de salud puede inventar interacciones o dosis. Las respuestas deben basarse solo en las fichas revisadas, citando la fuente."
+  },
+  {
+   "claim": "Accesibilidad cognitiva como cuestión ética: la W3C (nota COGA) y las WCAG 2.2 dan pautas para personas con dificultades cognitivas (lenguaje claro, pocos pasos, ayudas a la memoria, sin límites de tiempo y autenticación sin pruebas de memoria). Diseñar solo para el cuidador convierte a la persona en objeto de vigilancia y no en usuaria.",
+   "evidence_level": "B",
+   "sources": [
+    "https://www.w3.org/TR/coga-usable/",
+    "https://www.w3.org/TR/WCAG22/"
+   ],
+   "app_implication": "Una interfaz propia para la persona: pocas opciones, pictogramas, letra grande, voz, sin contraseñas que memorizar (desbloqueo biométrico o del dispositivo) y su propia pantalla de 'quién ve mis datos'. Probarla con personas con demencia leve y su entorno, por ejemplo con una asociación de familiares, antes de publicar.",
+   "negative_or_conflicting": "Las WCAG no son obligatorias para apps privadas sin fines comerciales en España (la Ley 11/2023 y el RD 1112/2018 tienen otros ámbitos). Es una recomendación ética, no un requisito legal. No se abrieron las URL en esta verificación.",
+   "safety_notes": "La accesibilidad también es seguridad: un recordatorio que la persona no entiende es un riesgo."
+  }
+ ],
+ "app_features": [
+  "Modo local por defecto: sin cuenta, datos cifrados en el dispositivo, sin servidor, sin analítica y sin publicidad",
+  "Perfil 'Mis preferencias y quién me apoya': voluntades, límites de monitorización, figuras de apoyo con fecha de revisión e instrucciones de legado digital (art. 3 LOPDGDD)",
+  "Consentimientos granulares por finalidad con historial de versiones, retirada en un toque y reconfirmación periódica con pictogramas",
+  "Ubicación por niveles (apagada, 'solo si me pierdo', geovalla) con registro de consultas visible para la persona y protocolo de desaparición que no depende del GPS",
+  "Ficha de evidencia estandarizada (A-D o anecdótico) con estudios a favor y en contra, interacciones, fecha de revisión y aviso de consultar al médico, redactada según el RD 1907/1996 y sin enlaces de compra",
+  "Informe neutro exportable para el médico (PDF y JSON), sin interpretación ni etiquetas diagnósticas",
+  "Exportación completa y borrado total desde la app",
+  "Sincronización multifamiliar opcional con cifrado de extremo a extremo y notificaciones push sin contenido sensible",
+  "Roles con permisos y caducidad (familiar, cuidadora contratada, profesional) y avisos laborales automáticos si hay cuidadora contratada",
+  "Interfaz propia para la persona con accesibilidad cognitiva (COGA) y pantalla 'quién ve mis datos'",
+  "IA solo en el dispositivo por defecto; la IA en la nube es opcional, con consentimiento propio y sin responder sobre dosis ni síntomas",
+  "Guía de estilo regulatoria (MDR, tiendas y RD 1907/1996) aplicada como detector de lenguaje de riesgo en la integración continua",
+  "Política de seguridad: security.txt, SBOM y pruebas automáticas críticas de los recordatorios de medicación",
+  "Kit abierto con EIPD, modelos de consentimiento, acuerdo de ubicación y aviso a cuidadoras, para otras familias y asociaciones",
+  "Ciencia ciudadana opt-in (fase posterior) con agregados de grupo mínimo y comité de ética"
+ ],
+ "questions_for_owner": [
+  "¿Quién será el editor legal: una persona, una asociación o una fundación? Apple pide una entidad legal en sanidad, y una asociación sin ánimo de lucro inscrita puede pedir la exención de la cuota anual.",
+  "¿Habrá alguna fuente de ingresos, aunque sea mínima (donaciones, subvenciones, patrocinio de laboratorios, herbolarios o centros)? Cambia la exclusión de software libre no comercial, los conflictos de interés y la credibilidad de las fichas.",
+  "¿Empezamos solo con vuestra familia (modo local) o abierta a otras familias desde el primer día? De esto depende si sois responsables del tratamiento y si la EIPD es obligatoria.",
+  "¿La persona tiene diagnóstico, en qué fase está y qué apoyos tiene hoy (guarda de hecho, curatela, instrucciones previas)? ¿Quién decide ahora en la práctica?",
+  "¿Qué opina la propia persona, mientras pueda expresarlo, sobre la ubicación, el audio, las fotos y qué pasa con sus datos cuando fallezca? ¿Podemos dejarlo por escrito con ella?",
+  "¿Hay o habrá una cuidadora contratada, interna o por horas, un centro de día o profesionales con acceso? ¿Pensáis usar cámaras o audio en casa?",
+  "¿Queréis IA en la app? ¿Para qué exactamente (transcribir notas, resumir, lectura fácil, responder preguntas) y aceptáis que en la v1 funcione solo en el dispositivo?",
+  "Si no queréis pagar ninguna cuenta de desarrollador, ¿aceptáis distribuir solo como app web progresiva o APK, con menos alcance y la incertidumbre de los requisitos de verificación de desarrolladores que Google ha anunciado para Android?",
+  "¿Qué terapias complementarias usa ya la familia, junto con qué medicación? Así priorizamos las fichas con interacciones relevantes.",
+  "¿Qué países de LatAm u otros tienen familiares que usarían la app y desde dónde accederían?",
+  "¿Queréis publicar el código, la EIPD y las fichas con licencia abierta y permitir que otras entidades las reutilicen?",
+  "¿Contamos con asesoría jurídica gratuita (clínica jurídica universitaria, colegio de abogados, CEAFA o una asociación local de Alzheimer) y con un comité de ética si hay investigación?"
+ ],
+ "free_resources": [
+  {
+   "name": "MDCG 2019-11 (cualificación y clasificación de software, Comisión Europea)",
+   "url": "https://health.ec.europa.eu/system/files/2020-09/md_mdcg_2019_11_guidance_en_0.pdf",
+   "what": "Guía oficial para decidir si el software es producto sanitario. Buscar la Rev.1 de junio de 2025 en la página de guías MDCG",
+   "cost": "Gratis"
+  },
+  {
+   "name": "AEPD: listado de tratamientos que requieren EIPD",
+   "url": "https://www.aepd.es/prensa-y-comunicacion/notas-de-prensa/la-aepd-publica-el-listado-de-tratamientos-en-los-que-es",
+   "what": "Criterios para exigir una evaluación de impacto (basta con dos o más)",
+   "cost": "Gratis"
+  },
+  {
+   "name": "AEPD: lista de verificación de EIPD",
+   "url": "https://www.aepd.es/prensa-y-comunicacion/notas-de-prensa/la-aepd-publica-lista-verificacion-para-ayudar-responsables-evaluaciones",
+   "what": "Lista de comprobación para validar una EIPD",
+   "cost": "Gratis"
+  },
+  {
+   "name": "AEPD: orientaciones sobre anonimización",
+   "url": "https://www.aepd.es/guias/guia-orientaciones-procedimientos-anonimizacion.pdf",
+   "what": "Guía sobre anonimización, seudonimización y riesgo de reidentificación",
+   "cost": "Gratis"
+  },
+  {
+   "name": "LOPDGDD (texto consolidado, BOE)",
+   "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2018-16673",
+   "what": "Art. 3 (datos de fallecidos), art. 9 (categorías especiales) y art. 89 (videovigilancia laboral)",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Real Decreto 1907/1996 (BOE)",
+   "url": "https://www.boe.es/eli/es/rd/1996/08/02/1907",
+   "what": "Prohibiciones en la publicidad de productos con pretendida finalidad sanitaria; base de la guía de estilo de las fichas",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Google Play: Health Content and Services",
+   "url": "https://support.google.com/googleplay/android-developer/answer/16679511?hl=en",
+   "what": "Declaración de apps de salud, exención literal, desinformación y requisitos de investigación",
+   "cost": "Gratis (la cuenta de desarrollador tiene un pago único)"
+  },
+  {
+   "name": "Apple App Store Review Guidelines",
+   "url": "https://developer.apple.com/app-store/review/guidelines/",
+   "what": "Normas 1.4.1, 1.4.2, 5.1.1, 5.1.2 y 5.1.3 sobre salud, datos e IA de terceros",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Apple Developer: exención de cuota",
+   "url": "https://developer.apple.com/help/account/membership/fee-waivers/",
+   "what": "Exención de la cuota anual para entidades sin ánimo de lucro reconocidas, si no venden bienes ni servicios digitales",
+   "cost": "Gratis si se concede"
+  },
+  {
+   "name": "Reglamento (UE) 2025/327 EHDS (BOE)",
+   "url": "https://www.boe.es/buscar/doc.php?id=DOUE-L-2025-80382",
+   "what": "Texto del Espacio Europeo de Datos de Salud",
+   "cost": "Gratis"
+  },
+  {
+   "name": "W3C COGA: Making Content Usable for People with Cognitive and Learning Disabilities",
+   "url": "https://www.w3.org/TR/coga-usable/",
+   "what": "Pautas de accesibilidad cognitiva aplicables a la interfaz de la persona con demencia",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Ministerio de Sanidad: presentación del EEDS",
+   "url": "https://www.sanidad.gob.es/areas/saludDigital/espacioEuropeoDS/docs/EEDS_WEB.pdf",
+   "what": "Resumen oficial en España del EHDS",
+   "cost": "Gratis"
+  }
+ ],
+ "verification_notes": "Fuentes verificadas con WebFetch: Google Play (frase literal de exención, comité de ética), Apple Review Guidelines (1.4.1, 1.4.2, 5.1.1.v y ix, 5.1.2.i sobre IA de terceros, 5.1.3), exención de cuota de Apple para entidades sin ánimo de lucro, LOPDGDD arts. 3 y 89, RD 1907/1996, la Rev.1 de MDCG 2019-11 (17-06-2025, sin cambios sustantivos, según Emergo) y las fechas del caso Latombe (WilmerHale). No se verificó el número C-703/25 P. PMC13180133 resultó ser un estudio sobre el asistente de voz GRACE sin personas con demencia: se retiró del hallazgo de consentimiento y se movió al de voz e IA. PMC9889957 sí trata el consentimiento como proceso, pero es cualitativo y no sobre apps. Los artículos de SAGE, ScienceDirect, Springer y Tandfonline dieron 403 o redirección y quedan sin verificar. Niveles: hogar doméstico de A a B (jurisprudencia vista en resúmenes) y umbrales/regla 11 de B a C (inferencia de diseño). Se retiraron tres fuentes de poco valor. El hallazgo de responsabilidad civil se sustituyó por uno sobre la Directiva de productos defectuosos y el Reglamento de Ciberresiliencia (fechas de conocimiento previo; EUR-Lex no se mostró). Se añadieron RD 1907/1996, cuidadoras contratadas (art. 89), IA de terceros y accesibilidad cognitiva, y el art. 3 LOPDGDD se integró en derechos. Las implicaciones se reescribieron para no dosificar, diagnosticar ni puntuar test cognitivos, para que la app no diga qué hacer ante una dosis olvidada y para que la IA no responda preguntas clínicas. Sin búsquedas web (presupuesto agotado); solo WebFetch."
+}

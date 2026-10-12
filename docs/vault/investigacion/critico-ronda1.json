@@ -1,0 +1,183 @@
+{
+  "missing_topics": [
+    {
+      "key": "final_de_vida_paliativos",
+      "title": "Fase avanzada, cuidados paliativos y final de vida",
+      "brief": "Investigar la trayectoria de la demencia avanzada y lo que necesita la familia en ella: criterios de enfermedad avanzada (FAST 7, GDS 7) y su pronóstico incierto; recomendaciones de la EAPC sobre cuidados paliativos en demencia (van der Steen 2014 y actualizaciones) y la Cochrane de planificación anticipada de la atención en demencia; decisiones frecuentes (hospitalizar o no, antibióticos en neumonía, alimentación de confort, sedación paliativa); dolor en personas que no comunican (PAINAD, MOBID-2, con licencia y validación española verificadas). Marco español: Estrategia de Cuidados Paliativos del SNS, SECPAL, leyes autonómicas de muerte digna, registros de instrucciones previas por comunidad autónoma y la LO 3/2021 de eutanasia en su relación con el documento de instrucciones previas en demencia. Cerrar con el duelo tras el fallecimiento y con lo que hace la app con el cuidador y los datos después.",
+      "why_it_matters": "El diseño actual se detiene en la fase leve-moderada (la planificación anticipada solo aparece a propósito de la sonda). La fase avanzada puede durar años y concentra las decisiones más duras, los ingresos evitables y la culpa. Esas decisiones deben prepararse mientras la persona aún puede expresarlas, y la app puede abandonar a la familia justo cuando más la necesita."
+    },
+    {
+      "key": "incontinencia_cuidado_intimo",
+      "title": "Incontinencia, higiene íntima, piel e infecciones urinarias",
+      "brief": "Buscar evidencia sobre el manejo de la incontinencia en demencia en el domicilio (Cochrane de micción incitada y de programas de aseo programado, guías NICE e ICS de continencia), el rechazo al baño y a la higiene (enfoques centrados en la persona del tipo Bathing Without a Battle), la dermatitis asociada a incontinencia y la prevención de úlceras por presión (GNEAUPP, guía internacional EPUAP/NPIAP 2019) y el estreñimiento. Revisar el sobrediagnóstico de infección de orina como 'causa' de confusión: bacteriuria asintomática, recomendaciones 'No hacer' de SEGG y semFYC, Choosing Wisely y el riesgo de antibióticos innecesarios. Incluir la prestación de absorbentes del SNS (visado, diferencias entre comunidades), las ayudas técnicas y la dignidad y el género de quien hace el aseo íntimo. Objetivo: un registro que no convierta el olor o el color de la orina en una alerta.",
+      "why_it_matters": "La incontinencia es una de las primeras causas de ingreso en residencia y de sobrecarga del cuidador. La pantalla 'Hoy está distinto' y la cascada de IACE y antimuscarínico ya rozan el tema sin contenido propio. Sin una guía, la app puede empujar a las familias a pedir antibióticos por orinas oscuras o malolientes, un daño frecuente y evitable."
+    },
+    {
+      "key": "vacunas_infecciones",
+      "title": "Vacunas, prevención de infecciones y la señal del herpes zóster",
+      "brief": "Revisar la evidencia reciente sobre vacuna del herpes zóster y demencia: el experimento natural de Gales (Eyting y cols., Nature 2025), sus réplicas en Australia y otros países, y los estudios observacionales con la vacuna recombinante (Taquet y cols., Nature Medicine 2024), con su nivel real (cuasiexperimental, sin RCT, probablemente C) y los ensayos registrados. Añadir gripe, neumococo, COVID-19 y VRS en mayores y en cuidadores, el calendario de vacunación del adulto del Ministerio de Sanidad y de cada comunidad autónoma (financiación de la vacuna recombinante por cohortes y grupos de riesgo), la neumonía por aspiración y su relación con la higiene oral, y la vacunación del entorno familiar. Proponer un registro de vacunas con recordatorios que crea la familia y una ficha que no prometa 'prevenir el Alzheimer'. Fuentes: Nature, Nature Medicine, JAMA, Ministerio de Sanidad, ECDC.",
+      "why_it_matters": "Es la única intervención barata con una señal causal reciente sobre demencia. Además, las infecciones son el desencadenante principal de delirium, ingresos y muerte en demencia. Ninguna dimensión la cubrió (cero menciones de zóster o de gripe), y la pregunta de la familia sobre 'qué más podemos hacer' llegará."
+    },
+    {
+      "key": "economia_trabajo_patrimonio",
+      "title": "Derechos laborales del cuidador, economía familiar y abuso patrimonial",
+      "brief": "Mapear para España los derechos laborales del cuidador: reducción de jornada (art. 37.6 ET), adaptación de jornada (art. 34.8 tras el RDL 5/2023), permiso por enfermedad grave u hospitalización de un familiar y ausencia por fuerza mayor (art. 37), y excedencia por cuidado de familiares (art. 46.3), con su efecto en cotización y desempleo; casos de autónomos y empleados públicos. Añadir los beneficios del grado de discapacidad y la fiscalidad (mínimos y deducciones del IRPF por ascendiente con discapacidad, deducciones autonómicas) y las obligaciones de la familia que contrata a una empleada de hogar. Investigar el abuso financiero y las estafas en demencia con fuentes primarias, no con divulgación: prevalencia, señales, protocolos bancarios, el abuso de poderes preventivos bajo la Ley 8/2021 y las vías de la Fiscalía.",
+      "why_it_matters": "La cuidadora principal suele estar en edad laboral: perder el empleo es un daño grande y evitable, y el dinero es la primera fuente de conflicto entre hermanos (pregunta 5.8). Hoy no hay ninguna guía de derechos ni de fiscalidad, y el módulo de estafas se apoya en un artículo divulgativo de AARP."
+    },
+    {
+      "key": "transiciones_hospital_residencia",
+      "title": "Transiciones: urgencias, hospitalización, residencia y sujeciones",
+      "brief": "Investigar cómo acompañar los cambios de entorno: derecho de acompañamiento en urgencias y planta para personas con demencia (protocolos autonómicos y planes de humanización), hospitalizaciones evitables, planificación del alta, hojas de traspaso (tipo This is me) y conciliación de la medicación al alta. Revisar también la decisión de ingreso en residencia (factores predictores, culpa, acceso a plaza pública vía dependencia) y el uso de sujeciones físicas y químicas: Programa Desatar de CEOMA, Instrucción 1/2022 de la Fiscalía y acuerdos del Consejo Territorial sobre residencias. Definir qué pasa con la app cuando la persona entra en una residencia o un centro de día: acceso del personal, uso para varias personas, exportación y quién es responsable de los datos. Fuentes: Cochrane, NICE NG97, BOE, Fiscalía, CEOMA e Imserso.",
+      "why_it_matters": "Las transiciones concentran delirium, errores de medicación y pérdida de información, y la mayoría de las personas con Alzheimer avanzado pasan por un hospital o una residencia. En ese momento cambian por completo el modelo de datos, los roles y la posición ante el RGPD. Hoy solo lo cubre la lista antidelirium del modo hospital."
+    }
+  ],
+  "contradictions": [
+    {
+      "between": "medicacion (etiquetas por sustancia, tarjetas al registrar BZD o antipsicótico, aviso de principio activo duplicado) frente a sueno_circadiano, seguridad_delirium y cuidador_familia (no cruzar medicación con listas de riesgo)",
+      "issue": "Medicación propone que, al registrar un fármaco, aparezcan etiquetas fijas (QT, anticolinérgico, sedante) y tarjetas como 'riesgo de caídas y confusión'. En la práctica, eso es cruzar la lista de un paciente concreto con una tabla de riesgo, que es justo lo que sueño retiró por la regla 11 y lo que seguridad prohíbe expresamente. La hipótesis de un comprobador automático de interacciones queda descartada por todas las dimensiones, pero vuelve a entrar por esta vía.",
+      "resolution": "V1: las etiquetas se ven solo en la ficha del fármaco, igual para todos, cuando el usuario la abre. No hay tarjetas, avisos ni resúmenes disparados por la combinación registrada. El aviso de duplicado se redacta como integridad del registro ('hay dos entradas con el mismo nombre'), no como alerta clínica. Todo lo demás espera a una consulta formal de cualificación ante la AEMPS."
+    },
+    {
+      "between": "seguridad_delirium y sueno_circadiano (geovallas, compartir ubicación, avisos nocturnos, Home Assistant) frente a ux_paciente (GPS, detección de salidas y sensores fuera de la v1), tecnologia_stack (Google Play restringe la geovalla en segundo plano) y legal_etica (ubicación apagada por defecto)",
+      "issue": "Seguridad pone la ubicación y las geovallas en el núcleo, mientras UX las saca de la v1. Tecnología advierte de latencias de minutos y de un cambio de política de Play sobre geovallas en segundo plano. Legal exige un acuerdo y una revisión periódica bajo la Ley 8/2021, aunque nadie ha resuelto quién consiente si la persona no puede.",
+      "resolution": "V1 sin GPS ni geovallas propias: botón 'Se ha perdido', ficha de identificación, fondo de pantalla y QR, y guía para activar la ubicación compartida del sistema (Buscar o Google) con un acuerdo familiar firmado. La geovalla propia, los sensores y los avisos nocturnos pasan a la v2, condicionados a tener un responsable de respuesta definido, a la verificación de la política de Play y a un dictamen sobre el consentimiento con apoyos."
+    },
+    {
+      "between": "ux_paciente (recordatorios al paciente solo en nivel 'Con agenda') frente a tecnologia_stack (recordatorios locales al dispositivo con reintentos) y nutricion (recordatorios suaves de bebida)",
+      "issue": "Reintentar un recordatorio en el móvil del paciente es justo lo que provoca dobles tomas según UX. Tecnología diseña los reintentos sin distinguir quién recibe el aviso.",
+      "resolution": "Por defecto, los avisos de medicación van solo al cuidador. En el modo Paciente, si el cuidador lo activa, se muestra un estado ('ya tomada a las 9:02 por María') y no un recordatorio repetido. Los reintentos solo se envían al cuidador."
+    },
+    {
+      "between": "natural_holistico, sueno_circadiano y nutricion (n de 1, 'estas 5 canciones coinciden con más calma', frecuencia de antecedentes, medias por periodo) frente a competencia_apps (sin inferencias estadísticas ni conclusiones de 'funciona') y legal_etica (frontera gris de las tendencias)",
+      "issue": "Unas dimensiones proponen ordenar y destacar 'lo que funciona con esta persona' y otras lo prohíben. Ordenar intervenciones según los datos de un paciente es recomendar.",
+      "resolution": "Mostrar los registros y las medias en paralelo, sin ordenar, sin destacar y sin palabras como 'funciona' o 'mejor'. Las conclusiones las escribe el cuidador en un campo propio. Sin módulo n de 1 para fármacos ni suplementos."
+    },
+    {
+      "between": "cuidador_familia (Zarit-4/12 y PHQ-2/9 con puntos de corte y sugerencias), mtc_oriental (NPI simplificado) y medicacion (PAINAD) frente a datos_investigacion (escalas con licencia; ítems propios hasta tener permiso) y la restricción del orquestador",
+      "issue": "Se proponen escalas con titular (Zarit vía Mapi, NPI de Cummings) e incluso versiones 'simplificadas', que son obras derivadas. Además, la regla '≥8 sugiere sobrecarga alta' con una sugerencia automática es un cribado con umbral, que choca con 'nunca puntuar'.",
+      "resolution": "V1 con un termómetro propio de 0 a 10 y una lista de conductas en palabras de la familia. El PHQ se usa solo para una ruta fija: si se responde sí al ítem de autolesión, aparecen el 024 y el 112, sin puntuación total. Hay que pedir por escrito los permisos de Zarit, NPI y PAINAD y verificar la validación española antes de la v2."
+    },
+    {
+      "between": "Licencias de contenidos: iSupport (CC BY-NC-SA), ARASAAC (BY-NC-SA), IDDSI (BY-SA sin modificaciones) y Open Food Facts (ODbL) frente a la propuesta de contenidos en CC BY-SA 4.0 (competencia_apps, legal_etica)",
+      "issue": "NC y SA son incompatibles entre sí: no se pueden mezclar en un corpus único CC BY-SA. Además, la cláusula NC puede verse comprometida si la entidad recibe donaciones o patrocinio.",
+      "resolution": "Una matriz de licencias por activo y módulos separados con su propia licencia. El contenido propio va en CC BY-SA. Hay que pedir confirmación escrita a la OMS y a ARASAAC sobre el uso por una asociación financiada con donaciones."
+    },
+    {
+      "between": "Versiones de fuentes entre dimensiones: MDCG 2019-11 Rev.1 (2023 en datos_investigacion frente a 17/06/2025 en legal_etica y competencia_apps); Cochrane de musicoterapia (2018 en datos frente a 2025 pub5 en natural); ensayo de huperzina de Rafii 2011 (verificado y negativo en medicacion frente a sin verificar o sin resultados publicados en mtc_oriental)",
+      "issue": "La misma intervención o norma aparece con fechas y estados de verificación distintos, y además nadie leyó el texto oficial de la MDCG (403 en todas las dimensiones).",
+      "resolution": "Un registro único de evidencia, con una entrada canónica por intervención o norma, su versión, su fecha y quién la verificó. Antes de fijar la finalidad prevista, alguien debe leer el PDF oficial de la MDCG 2019-11 Rev.1."
+    },
+    {
+      "between": "Escala A-D aplicada a hallazgos negativos (ginkgo, MIND, ACHIEVE y luz con A), a normas (RD 3/2023 y EFSA con A) y a precios de servicios (Supabase y Firebase con A) frente al uso previsto de la etiqueta para las familias",
+      "issue": "Una 'A' junto a 'ginkgo' o 'audífonos' puede leerse como 'recomendado', y una A en una norma o en una tarifa no mide lo mismo. El propio verificador técnico aclara que sus niveles miden la fiabilidad de la fuente.",
+      "resolution": "Adoptar en toda la app el sistema de dos ejes de mtc_oriental (dirección del efecto y certeza). Las normas se marcan como 'dato normativo' y las tarifas no llevan etiqueta de evidencia."
+    },
+    {
+      "between": "final.md 2.1 (sin parches en la v1, por defecto) frente a medicacion (errores fatales documentados con doble parche de rivastigmina)",
+      "issue": "Aplazar el soporte de parches deja sin protección el error de medicación más grave descrito en la ficha técnica precisamente cuando la persona lo usa.",
+      "resolution": "Si la familia usa parche, el registro de colocación y retirada con la confirmación 'retiré el anterior' entra en la v1."
+    },
+    {
+      "between": "legal_etica y datos_investigacion (umbrales fijados por el cuidador, por ejemplo 'avisar si el sueño baja de X horas') frente a sueno_circadiano y final.md 6.3 (sin alertas por paciente; 'sin avisar de que algo va peor')",
+      "issue": "Una alerta sobre un parámetro fisiológico, aunque el umbral lo fije una persona, puede considerarse monitorización. Además contradice lo que se promete a la familia en la pregunta 6.3.",
+      "resolution": "V1 solo con alertas de proceso: toma no registrada, ausencia de registros o batería baja. Las alertas sobre sueño, peso o ingesta, aunque las configure el cuidador, se aplazan hasta la consulta regulatoria."
+    },
+    {
+      "between": "legal_etica (base jurídica: consentimiento explícito; 'ni la familia ni la app otorgan representación') frente al modelo de datos de casi todas las dimensiones, donde el cuidador registra datos de salud de la persona",
+      "issue": "Si la persona ya no puede consentir y el apoyo no equivale a representación, no queda claro quién da el consentimiento del art. 9.2.a en el modo sincronizado.",
+      "resolution": "Pedir un dictamen jurídico sobre la combinación de la excepción doméstica (modo local), el consentimiento de la persona mientras pueda darlo, la guarda de hecho o la curatela representativa cuando exista y el art. 9.2.c (interés vital) solo para la emergencia de desaparición."
+    }
+  ],
+  "weak_or_risky_claims": [
+    {
+      "dimension": "cobre_metales",
+      "claim": "Litio en microdosis como 'línea fuera de la caja más interesante', con tarjeta de nivel C y buscador de ensayos",
+      "concern": "El dato causal procede de ratones (Nature 2025) y la asociación danesa es no lineal, así que el nivel real para personas es D. Una tarjeta de 'lo que se investiga' sobre algo que se vende por internet (orotato de litio) puede empujar a comprarlo pese al aviso, con riesgo de toxicidad renal en mayores con diuréticos o IECA."
+    },
+    {
+      "dimension": "cobre_metales",
+      "claim": "Guía 'Mi agua' con plantilla al ayuntamiento, SINAC y valores del RD 3/2023 (etiquetada como A)",
+      "concern": "Es una norma, no evidencia, y la etiqueta A le da una autoridad que no tiene. Además, una guía del agua dentro de una app de Alzheimer refuerza el relato de que 'el cobre del grifo causa Alzheimer', que la propia dimensión califica de D. Es alcance con poco valor y riesgo de alarma."
+    },
+    {
+      "dimension": "nutricion",
+      "claim": "Cobre en UK Biobank: riesgo con 3 mg/día o más (HR 2,73), rango de menor riesgo entre 1,3 y 2,0 mg/día, mostrado en la ficha de alimentos",
+      "concern": "Es un único estudio observacional de 2026, con la ingesta medida por cuestionario y pocos casos en la categoría alta. Dar cifras de mg/día junto a los alimentos invita a la familia a restringir frutos secos, legumbres y marisco en una persona con riesgo de desnutrición."
+    },
+    {
+      "dimension": "sueno_circadiano",
+      "claim": "[A] Cochrane de terapia de luz (Forbes 2014)",
+      "concern": "Una revisión que concluye 'pruebas insuficientes' no es evidencia A de ausencia de efecto. Etiquetarla como A mezcla la calidad de la revisión con la certeza del efecto, que es muy baja. Lo mismo ocurre con [A] ginkgo, [A] MIND y [A] ACHIEVE si se muestran a la familia sin el eje de dirección."
+    },
+    {
+      "dimension": "medicacion",
+      "claim": "Resumen: 'la melatonina no mejora el sueño en EA'",
+      "concern": "Cochrane dice 'probablemente poco o ningún efecto, certeza baja'. La frase absoluta exagera la evidencia, y la propia dimensión de sueño la matiza. En la app debe aparecer con el condicional y la certeza."
+    },
+    {
+      "dimension": "nutricion",
+      "claim": "[A] ESPEN recomienda suplementos orales para nutrir, mientras la guía ESPEN en su conjunto se bajó a B",
+      "concern": "Dentro de la misma dimensión, la misma guía lleva A y B. Una recomendación de consenso no es nivel A porque la cite una guía."
+    },
+    {
+      "dimension": "seguridad_delirium",
+      "claim": "Supervivencia de solo un 54% aproximado tras 24 h y mortalidad del 16% al 39% entre los desaparecidos",
+      "concern": "Son series estadounidenses basadas en prensa y en programas, con sesgo hacia los casos graves. Mostradas en el botón de pánico, aterrorizan sin cambiar la acción, que es 'llama al 112 ya'. El mensaje debe ser la acción, sin la cifra."
+    },
+    {
+      "dimension": "seguridad_delirium",
+      "claim": "Vulnerabilidad a estafas: 'doble riesgo de demencia' (cohorte Rush) citada a través de AARP y BrightFocus",
+      "concern": "Lleva nivel C con fuentes divulgativas, sin el artículo original. Además es un dato de predicción de demencia, irrelevante para una persona ya diagnosticada. El módulo de dinero necesita fuentes primarias sobre abuso financiero."
+    },
+    {
+      "dimension": "seguridad_delirium",
+      "claim": "Pantalla 'Hoy está distinto': preguntas de sí o no con un mensaje fijo de consultar o llamar al 112",
+      "concern": "Aunque el mensaje sea igual para todos, una lista de síntomas con una salida de acción funciona como un comprobador de síntomas. El FAM-CAM en que se inspira tiene 52 díadas y 7 casos. Hay que validar la redacción con la AEMPS o con un consultor, porque es la función con más riesgo de reclasificar la app."
+    },
+    {
+      "dimension": "medicacion",
+      "claim": "Registro de agitación con escala observacional de dolor 'p. ej. PAINAD'",
+      "concern": "Ni la licencia ni la validación española de PAINAD están confirmadas (datos_investigacion lo deja pendiente). Puntuar dolor dentro de la app es puntuar una escala, justo lo que se quiere evitar."
+    },
+    {
+      "dimension": "mtc_oriental",
+      "claim": "Tai Chi y Qigong como 'prioridad alta, coste cero y bajo riesgo'",
+      "concern": "La evidencia es B en mayores, con sesgo de publicación y muy pocos ensayos en demencia establecida, y hay riesgo de caídas sin supervisión. 'Prioridad alta' es una decisión de producto que no se deriva de la evidencia: debería ir detrás del registro de medicación, la ficha de traspaso y el sueño."
+    },
+    {
+      "dimension": "sueno_circadiano",
+      "claim": "Módulo de 6 sesiones inspirado en DREAMS START como 'pieza central', 'sin riesgo regulatorio'",
+      "concern": "Es un solo RCT del Reino Unido, con desenlaces informados por el cuidador, sin cegamiento y con un manual de UCL cuya licencia se desconoce. Sin permiso no se puede adaptar, y sin validar no se le pueden atribuir los resultados. Es un plan B débil si la licencia no llega."
+    },
+    {
+      "dimension": "tecnologia_stack y legal_etica",
+      "claim": "Basta con que una asociación figure como editora para cumplir Apple 5.1.1(ix)",
+      "concern": "Nadie verificó el número D-U-N-S obligatorio para darse de alta como organización en Apple, ni si Google Play exige también cuenta de organización para apps de salud, ni los plazos. Tampoco la responsabilidad civil y el seguro de la entidad si falla un recordatorio."
+    }
+  ],
+  "risky_assumptions_in_thesis": [
+    "'Coste cero o casi': la evidencia exige una entidad jurídica, 99 USD al año (salvo exención), un backend de 25 a 50 USD al mes si hay sincronización, la revisión jurídica de la EIPD y de la finalidad prevista, un seguro de responsabilidad civil y, sobre todo, un mantenedor técnico estable. El coste real no es dinero sino mantenimiento: el 20% de las apps del sector nunca se actualiza y YoTeCuido murió en 2020.",
+    "'Registrar, recordar, informar y derivar' deja la app fuera del MDR: ningún verificador pudo leer el texto oficial de la MDCG 2019-11 (403 en todas las dimensiones) y varias funciones propuestas (etiquetas por sustancia, 'Hoy está distinto', tendencias, umbrales del cuidador, n de 1) están en zona gris. La tesis necesita una consulta formal, no una inferencia.",
+    "Una app 'para la persona con Alzheimer': la evidencia de las funciones dirigidas al paciente es D o C de certeza muy baja (reloj, presencia simulada, reminiscencia digital), y su uso cae con la fase. El usuario real y sostenido es el cuidador; la app debe diseñarse primero para él, con un modo paciente opcional.",
+    "'Todos los ángulos con niveles honestos' es suficiente para publicar MTC, natural y holístico: la honestidad no protege frente al RD 1907/1996 si se mencionan productos, frente a la política de desinformación de Google Play ni frente a la revisión discrecional de Apple (1.4.1). Además, homeopatía, reiki, Bredesen, CBD y cannabis no se investigaron, aunque la pregunta 3.4 los ofrece a la familia.",
+    "Que una biblioteca de evidencia viva es mantenible: hay más de 200 hallazgos con caducidad trimestral y revisor con nombre, y el promotor aún no tiene ningún revisor clínico comprometido. Sin un tope de fichas en la v1, la biblioteca se queda desactualizada o sin publicar.",
+    "Que el cobre merece ser un eje propio: ninguna intervención sobre metales ha funcionado (cobre oral neutro, zinc negativo, quelantes sin beneficio, deferiprona perjudicial). Elevarlo a pilar legitima una hipótesis marginal; debería ser una ficha dentro de suplementos y seguridad.",
+    "Que lo que sirve a esta familia sirve a muchas: al abrir la app a otras familias se pierde la excepción doméstica, el promotor pasa a ser responsable del tratamiento (EIPD, brechas en 72 horas, quizá un DPD) y el abandono es el modo de fallo principal del sector. Las convenciones de trabajo propias de la familia no se trasladan a otras.",
+    "Que 'gratis', 'local primero' y 'sincronización multicuidador en tiempo real' son compatibles: la sincronización fiable exige un servidor de pago o un cifrado de extremo a extremo que el equipo tendría que construir y mantener."
+  ],
+  "questions_missing": [
+    "Si la persona entra en una residencia, en un centro de día o en un hospital en el próximo año, ¿la app debe seguir sirviendo allí (acceso del personal, traspaso, sujeciones), o se queda en casa?",
+    "Cuando la enfermedad avance, ¿queréis que la app acompañe también la fase final (cuidados paliativos, decisiones sobre hospitalizar o tratar infecciones, instrucciones previas) y el duelo posterior? ¿Ha expresado ella deseos sobre el final de su vida?",
+    "¿Hay incontinencia o rechazo al aseo? ¿Quién hace la higiene íntima y cómo lo vive cada uno? ¿Recibís absorbentes del sistema público?",
+    "¿Tiene puestas la vacuna de la gripe, la del neumococo, la de la COVID-19 y la del herpes zóster? ¿Y el cuidador principal?",
+    "¿El cuidador principal trabaja? ¿Ha pedido reducción de jornada, adaptación o excedencia, o ha dejado el empleo? ¿Queréis que la app oriente sobre derechos laborales y deducciones fiscales?",
+    "¿Quién gestiona hoy las cuentas y el patrimonio? ¿Hay poderes notariales? ¿Ha habido estafas, compras raras o presiones de terceros?",
+    "¿A qué edad empezaron los síntomas y hay antecedentes en la familia? Si es de inicio precoz, ¿hay hijos preocupados por su propio riesgo o por el consejo genético?",
+    "¿Vivís en un pueblo o zona rural? ¿A qué distancia está el centro de salud? ¿Cómo lleváis el calor del verano: hay aire acondicionado y quién vigila que beba en una ola de calor?",
+    "Si el cuidador principal es la pareja, ¿hay cambios en la intimidad, en dormir juntos o conductas de desinhibición que os preocupen y sobre las que querríais orientación privada?",
+    "¿Qué entidad firmará como fabricante y responsable, y tiene seguro de responsabilidad civil y número D-U-N-S? ¿Aceptáis pedir una consulta formal de cualificación a la AEMPS antes de abrir la app a otras familias?",
+    "¿Aceptáis lanzar la v1 con un tope de unas 20 fichas de evidencia revisadas y firmadas, en lugar de una biblioteca completa, hasta tener revisores estables?",
+    "¿Qué criterio usaremos para retirar una función que nadie usa a los tres meses, y quién toma esa decisión?"
+  ],
+  "overall": "El material es amplio y riguroso: trece dimensiones verificadas con escepticismo, niveles rebajados con criterio, fuentes comerciales retiradas y una línea regulatoria coherente: registrar, recordar, informar y derivar. Destacan la medicación, el sueño, la frontera MDR y RGPD, el stack técnico y la crítica a los suplementos. Pero la completitud es desigual en tres sentidos. Primero, el arco vital está cortado: casi todo se piensa para la fase leve-moderada en casa, y faltan la fase avanzada y el final de vida, la incontinencia y el cuidado íntimo, las transiciones a hospital y residencia, las vacunas (incluida la señal reciente del zóster) y la economía del cuidador (derechos laborales, fiscalidad, abuso patrimonial). Segundo, las dimensiones se contradicen en puntos de diseño decisivos (etiquetas por sustancia, geovallas, n de 1, escalas con licencia, umbrales configurables y licencias NC frente a SA) que el consolidador no resolvió. Además, la escala A-D se usa con tres significados distintos y confundiría a las familias. Tercero, la base regulatoria descansa en fuentes secundarias: nadie leyó la MDCG oficial, y el 'coste cero' choca con la entidad jurídica, el backend y, sobre todo, el mantenimiento. Las 70 preguntas son buenas en lo operativo, pero no tocan el final de la enfermedad, la responsabilidad legal ni el tope de alcance. Veredicto: basta para diseñar una v1 centrada en el cuidador; no basta para cerrar el alcance o prometer una app 'para todas las familias' sin otra ronda sobre estos huecos y una consulta regulatoria formal."
+}

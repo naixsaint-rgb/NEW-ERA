@@ -1,0 +1,202 @@
+{
+  "key": "cobre_metales",
+  "title": "Cobre y metales en Alzheimer",
+  "summary": "Dimension de alto interes y baja solidez. Hay asociacion observacional (metaanalisis Li 2017: cobre serico mas alto y zinc mas bajo en AD, con heterogeneidad I2 89-98%; metaanalisis Squitti 2014 de cobre no unido a ceruloplasmina), pero ninguna intervencion sobre metales ha demostrado beneficio: cobre oral (Kessler 2008, 68 pacientes) neutro; zinc (Brewer 2013; ZINCAiD 2025) negativo en la variable primaria; quelantes (clioquinol, PBT2; Cochrane) sin beneficio; deferiprona (Ayton, JAMA Neurol 2025) acelero el deterioro y causo neutropenia en 7,5%; selenio (PREADViSE, 7.540 hombres) no previno demencia. El aluminio sigue sin causalidad probada (PAQUID es una sola cohorte). Lo mas accionable para la app es la SEGURIDAD, no la terapia: (1) el zinc en exceso provoca deficit de cobre con dano neurologico y anemia/neutropenia, y hay casos documentados por cremas adhesivas de dentadura en mayores; (2) el 20,7% de los productos ayurvedicos vendidos por internet contenian plomo, mercurio o arsenico (JAMA 2008), riesgo directo para una app que tambien quiere cubrir medicina tradicional; (3) los limites UE (EFSA) son 25 mg/dia de zinc y 5 mg/dia de cobre en adultos; (4) el agua de grifo tiene limites legales verificados (RD 3/2023: cobre 2,0 mg/L, plomo 5 ug/L con transitorio de 10 ug/L en grifo hasta 2035). El litio en microdosis es la linea 'fuera de la caja' mas interesante (Nature 2025 en ratones, Dinamarca observacional, dos RCT pequenos), pero tiene margen terapeutico estrecho. Enfoque: registrar, informar con nivel de evidencia y derivar al medico/farmaceutico; nunca diagnosticar, dosificar ni calcular interacciones de forma automatica (riesgo de producto sanitario por MDR regla 11).",
+  "findings": [
+    {
+      "claim": "El cobre serico es mas alto y el zinc serico mas bajo en pacientes con Alzheimer que en controles en un metaanalisis de 35 estudios caso-control (Li 2017; diferencia media de cobre 9,27 ug/dL); el hierro no difiere de forma robusta.",
+      "evidence_level": "C",
+      "sources": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC5605551/"],
+      "negative_or_conflicting": "Heterogeneidad extrema (I2 89-98%), sesgo de publicacion posible y diseno caso-control (no permite saber si el cobre alto es causa, consecuencia de la enfermedad, de la inflamacion o de la dieta). El hierro solo es significativo tras excluir dos estudios. La revision sistematica Toxics 2024 (7 estudios) recoge resultados contradictorios, incluido cobre serico menor en AD.",
+      "app_implication": "Tarjeta educativa 'Que sabemos y que no sobre los metales' con etiqueta C. Campo opcional para guardar resultados de analisis que el medico ya haya pedido (cobre, zinc, ceruloplasmina, ferritina), copiando el valor y el rango que figura en el informe del laboratorio, sin interpretacion automatica.",
+      "safety_notes": "Una asociacion poblacional no sirve para decidir en un individuo. La app no debe mostrar rangos propios, semaforos ni alertas sobre estos valores: eso seria funcion de diagnostico (MDR regla 11)."
+    },
+    {
+      "claim": "El cobre no unido a ceruloplasmina (non-Cp Cu, 'cobre libre') aparece elevado en AD en un metaanalisis (Squitti 2014) y en una cohorte de MCI (141 sujetos) se propuso como predictor de conversion a AD; el mismo grupo propone un subtipo 'cobre' (CuAD).",
+      "evidence_level": "C",
+      "sources": ["https://content.iospress.com/articles/journal-of-alzheimers-disease/jad131247", "https://onlinelibrary.wiley.com/doi/abs/10.1002/ana.24136", "https://pubmed.ncbi.nlm.nih.gov/16832081/", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10094789/"],
+      "negative_or_conflicting": "Casi toda la evidencia procede de un mismo grupo investigador (Squitti) sin replicacion independiente amplia; los indices se calculan de formas distintas y el 'cobre ajustado' es poco fiable; muestras pequenas (el estudio de 2006 tenia 28 AD y 25 controles). No figura en ninguna guia clinica ni es una prueba diagnostica validada. El articulo CuAD de 2023 incluye un caso clinico, no una validacion.",
+      "app_implication": "Glosario 'Cobre libre': que es, quien lo investiga y que NO esta validado. Pregunta abierta para la consulta: 'tiene sentido en nuestro caso mirar cobre y ceruloplasmina?'. Si el medico lo pide, campo para guardar el valor tal como viene en el informe.",
+      "safety_notes": "La app no debe calcular non-Cp Cu a partir de cobre y ceruloplasmina ni compararlo con cortes (calculo con finalidad diagnostica = software sanitario). Prohibido el lenguaje 'su familiar es tipo cobre'."
+    },
+    {
+      "claim": "La suplementacion oral de cobre no modifica la evolucion del Alzheimer: RCT fase 2 doble ciego (68 pacientes con AD leve, cobre orotato 8 mg/dia, 12 meses) sin diferencias en ADAS-cog ni MMSE; en el analisis de LCR, el Abeta42 cayo menos en el grupo cobre, sin cambios en tau.",
+      "evidence_level": "B",
+      "sources": ["https://pubmed.ncbi.nlm.nih.gov/18587525/", "https://link.springer.com/article/10.1007/s00702-008-0136-2"],
+      "negative_or_conflicting": "Ensayo piloto, unico y pequeno, sin potencia para descartar efectos modestos en ninguna direccion. Los autores concluyen que el cobre oral no fue ni perjudicial ni beneficioso, lo que tambien debilita la idea de que 'el cobre de la dieta empeora el Alzheimer'. Un estudio comunitario (Rush, Mol Psychiatry 2022) asocio mas cobre cerebral con menor declive.",
+      "app_implication": "Mensaje neutro: 'No hay pruebas de que tomar cobre ayude, ni de que evitar el cobre de los alimentos ayude'. En el registro de suplementos, si la etiqueta incluye cobre, mostrar un texto fijo 'Revise este producto con su medico o farmaceutico', sin juicio de dosis.",
+      "safety_notes": "Tanto el deficit (anemia, neutropenia, mielopatia) como el exceso de cobre (toxicidad hepatica y digestiva) son daninos. Limite superior tolerable UE para adultos: 5 mg/dia de cobre (EFSA/SCF). No sugerir dietas bajas en cobre en una poblacion con riesgo de desnutricion."
+    },
+    {
+      "claim": "El zinc a dosis altas reduce el cobre libre; Brewer publico un RCT pequeno de 6 meses de zinc en AD cuyo efecto cognitivo aparecio solo en un subgrupo de mayores de 70 anos analizado a posteriori.",
+      "evidence_level": "C",
+      "sources": ["https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3810325/", "https://iubmb.onlinelibrary.wiley.com/doi/10.1002/biof.1005", "https://pmc.ncbi.nlm.nih.gov/articles/PMC6405820/"],
+      "negative_or_conflicting": "Resultado global negativo; el efecto es post hoc. El autor defiende desde hace anos la hipotesis 'cobre inorganico causa AD' (sesgo de promotor) y el ensayo uso una formulacion comercial de zinc. ZINCAiD 2025 tampoco confirmo efecto en la variable primaria.",
+      "app_implication": "Ficha 'Zinc': que se investiga, por que no hay recomendacion, y que dosis altas mantenidas exigen control medico. El registro de suplementos muestra la cantidad de zinc que declara la etiqueta junto al limite de referencia publico de la EFSA (25 mg/dia en adultos), sin calcular si 'se pasa' para esa persona y con el texto 'Consulte a su farmaceutico'.",
+      "safety_notes": "El zinc cronico en exceso causa deficit de cobre (anemia, neutropenia, mielopatia y neuropatia). Los ensayos usaron 65-150 mg/dia de zinc elemental, muy por encima del limite superior tolerable UE de 25 mg/dia (verificado en la tabla EFSA; el valor de EE.UU. es 40 mg/dia). La app nunca sugiere dosis."
+    },
+    {
+      "claim": "ZINCAiD (2025): RCT fase II de 24 semanas en MCI (48 analizados, 33 zinc y 15 placebo) sin diferencias significativas en la variable primaria; la estabilidad cognitiva del subgrupo 'respondedor' (descenso de ceruloplasmina >=20%) procede de un analisis post hoc.",
+      "evidence_level": "B",
+      "sources": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC12466942/"],
+      "negative_or_conflicting": "Primario negativo tras ajuste multiple; el subgrupo se definio post hoc (es hipotesis, no prueba: nivel D para ese subgrupo); asignacion 2:1 con potencia limitada; ceruloplasmina disponible solo en parte de la muestra; los respondedores partian con ceruloplasmina mas alta (confusor); investigadores principales son los proponentes de la hipotesis.",
+      "app_implication": "Apartado 'Ensayos recientes': presentar siempre primero el resultado primario negativo y despues, como hipotesis, el subgrupo. Enlace al registro del ensayo para seguir novedades.",
+      "safety_notes": "Efectos adversos digestivos frecuentes con dosis altas de zinc. Riesgo de que la familia interprete 'respondedores estables' como promesa: redactar con lenguaje condicional y revisado por un profesional."
+    },
+    {
+      "claim": "Los quelantes/moduladores de metales (clioquinol/PBT1 y PBT2) no han demostrado beneficio cognitivo: la revision Cochrane (2014) incluye solo 2 RCT pequenos (36 pacientes con clioquinol, 78 con PBT2); la fase 2 IMAGINE de PBT2 (42 participantes) no cumplio su objetivo primario de carga amiloide en PET.",
+      "evidence_level": "B",
+      "sources": ["https://www.cochrane.org/CD005380/DEMENTIA_there-is-no-evidence-that-mpacs-pbt1-or-pbt2-are-of-benefit-in-alzheimers-dementia", "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD005380.pub2/full", "https://www.alzforum.org/news/research-news/pbt2-takes-dive-phase-2-alzheimers-trial"],
+      "negative_or_conflicting": "Bajado de A a B: aunque es una revision Cochrane, se basa en dos ensayos pequenos de baja calidad, asi que 'no hay prueba de beneficio' no equivale a 'prueba de ausencia de efecto'. En la fase 2a de PBT2, la dosis de 250 mg mejoro dos pruebas ejecutivas, hallazgo no replicado.",
+      "app_implication": "Seccion 'Lo que se probo y no funciono' (ayuda a detectar el hype). Ficha antibulos sobre 'quelacion', 'detox de metales' y EDTA intravenoso ofrecidos en clinicas o por internet.",
+      "safety_notes": "El clioquinol se retiro historicamente por neurotoxicidad (SMON en Japon; dato de conocimiento general, no verificado en esta sesion). La quelacion no supervisada puede eliminar minerales esenciales. La app debe desaconsejar de forma explicita la quelacion fuera de ensayo clinico."
+    },
+    {
+      "claim": "Reducir hierro con deferiprona empeoro la cognicion en un RCT fase 2 (81 participantes con MCI o AD temprano con amiloide positivo, 15 mg/kg dos veces al dia, 12 meses): bajo el hierro del hipocampo pero el compuesto cognitivo empeoro mas que con placebo (-0,80 vs -0,30; p=0,002), sobre todo en funcion ejecutiva.",
+      "evidence_level": "B",
+      "sources": ["https://jamanetwork.com/journals/jamaneurology/fullarticle/2825846", "https://pmc.ncbi.nlm.nih.gov/articles/PMC11713090/"],
+      "negative_or_conflicting": "Un solo ensayo, mediano, en Australia; mas abandonos con deferiprona (37,7% vs 25%). Contradice la intuicion 'menos metal es mejor'.",
+      "app_implication": "Argumento central contra los consejos de 'eliminar metales'. En el registro, la ferritina y la hemoglobina son datos para compartir con el medico, nunca un objetivo que la familia deba bajar.",
+      "safety_notes": "Neutropenia probablemente relacionada en 4 de 53 pacientes (7,5%); no hubo agranulocitosis en el ensayo, pero es un riesgo conocido del farmaco. La anemia ferropenica es frecuente en mayores con demencia y la trata el medico."
+    },
+    {
+      "claim": "El aluminio es una hipotesis antigua sin causalidad demostrada; la cohorte francesa PAQUID (1.925 personas, 15 anos) asocio una ingesta de aluminio por agua del grifo >=0,1 mg/dia con mas declive cognitivo y mas demencia, pero no la exposicion geografica, y la silice se asocio a menor riesgo.",
+      "evidence_level": "C",
+      "sources": ["https://pubmed.ncbi.nlm.nih.gov/19064650/", "https://pubmed.ncbi.nlm.nih.gov/38541362/", "https://lx.iriss.org.uk/content/aluminium-and-alzheimers-disease"],
+      "negative_or_conflicting": "Una revision sistematica de 2024 sobre composicion del agua (10 estudios) encontro asociacion con el aluminio en 4 de 8 estudios: resultados inconsistentes, observacionales y con posible confusion por zona. Las organizaciones de pacientes (Alzheimer's Society) lo consideran no causal. Se retiraron fuentes debiles del original (un fact-check periodistico y una revision de 2005 que en realidad defiende el papel del aluminio).",
+      "app_implication": "Ficha 'Aluminio: mito y matices' con nivel C. Sin alertas sobre ollas ni desodorantes; si la familia pregunta, explicar la incertidumbre y que el agua de red espanola tiene limite legal de aluminio (200 ug/L, parametro indicador del RD 3/2023).",
+      "safety_notes": "Evitar culpa en cuidadores por haber usado ollas o desodorantes. No promover filtros ni productos 'anti-aluminio'. En enfermedad renal avanzada o dialisis el aluminio si importa: lo gestiona el nefrologo."
+    },
+    {
+      "claim": "No hay pruebas de que el cobre del agua o de los alimentos cause Alzheimer; la hipotesis del 'cobre inorganico' (agua de tuberias, suplementos) frente al cobre de los alimentos es mecanistica y la sostienen sobre todo sus proponentes.",
+      "evidence_level": "D",
+      "sources": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC6405820/", "https://pmc.ncbi.nlm.nih.gov/articles/PMC11511397/", "https://www.sciencedirect.com/science/article/pii/S0197458014003595"],
+      "negative_or_conflicting": "La revision sistematica Toxics 2024 recoge un estudio en el que el cobre del agua no modifico el cobre serico. Las cohortes de cobre dietetico dan resultados opuestos. Brewer 2019 es un articulo de opinion del principal defensor de la hipotesis.",
+      "app_implication": "Guia opcional 'Mi agua' (ver hallazgo siguiente) orientada a calidad general del agua, nunca como explicacion de la enfermedad ya diagnosticada.",
+      "safety_notes": "No recomendar osmosis ni filtros sin criterio sanitario (pueden requerir mantenimiento higienico y retirar minerales). Agua azulada o con sabor metalico: avisar al gestor del abastecimiento."
+    },
+    {
+      "claim": "El RD 3/2023 (transposicion de la Directiva UE 2020/2184) fija, en el Anexo I, cobre 2,0 mg/L, plomo 5,0 ug/L (10 ug/L en el grifo hasta el 2 de enero de 2035), niquel 20 ug/L y aluminio 200 ug/L (indicador); el Ministerio de Sanidad publica datos de calidad del agua a traves del SINAC.",
+      "evidence_level": "A",
+      "sources": ["https://www.boe.es/buscar/act.php?id=BOE-A-2023-628"],
+      "negative_or_conflicting": "Es un hecho normativo, no evidencia sobre Alzheimer. Los valores aplican al grifo, pero las instalaciones interiores de edificios antiguos (tuberias de plomo o cobre) son responsabilidad del titular. En Latinoamerica los limites varian por pais.",
+      "app_implication": "Pantalla 'Pedir un analisis de agua': plantilla de correo al ayuntamiento o gestor y enlace al SINAC; campo para registrar resultado y fecha junto al valor legal (dato publico normativo, no clinico). Pregunta clave para la familia: 'el edificio es anterior a los anos 80 y conserva tuberias de plomo?'.",
+      "safety_notes": "Superar el limite legal significa contactar con el gestor del agua, no un problema medico inmediato. No convertirlo en alerta sanitaria."
+    },
+    {
+      "claim": "Los multivitaminicos y suplementos con cobre, zinc y hierro son una fuente evitable de dosis no controladas en una persona mayor polimedicada; los ensayos de suplementos antioxidantes con o sin zinc y cobre no mostraron beneficio cognitivo.",
+      "evidence_level": "C",
+      "sources": ["https://www.cambridge.org/core/journals/british-journal-of-nutrition/article/copper-and-iron-in-alzheimers-disease-a-systematic-review-and-its-dietary-implications/57BCD5FF706594AD982363573AC75DFF", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1087502/"],
+      "negative_or_conflicting": "La revision del British Journal of Nutrition es sistematica pero con estudios heterogeneos; el argumento de que los nutraceuticos empeoran la patologia por metales es teorico (2005). En deficit real (anemia, desnutricion) la suplementacion indicada por el medico es correcta.",
+      "app_implication": "Modulo 'Botiquin y suplementos': nombre, dosis segun etiqueta, quien lo indico y desde cuando; lectura de etiqueta en el dispositivo (OCR local) que solo resalta las palabras 'cobre', 'zinc', 'hierro' y genera la lista completa para que la revise el farmaceutico. Sin motor automatico de interacciones: en su lugar, enlace a la ficha tecnica oficial (CIMA de la AEMPS).",
+      "safety_notes": "Interacciones conocidas (zinc reduce la absorcion de cobre; hierro y zinc reducen la de levotiroxina, quinolonas y tetraciclinas; dato de conocimiento general, a confirmar con ficha tecnica). Un comprobador automatico de interacciones convertiria la app en producto sanitario (MDR regla 11, clase IIa o superior) y exige validacion clinica."
+    },
+    {
+      "claim": "No existe guia que recomiende medir cobre, ceruloplasmina o cobre libre de rutina en el estudio del deterioro cognitivo; la analitica basica de deterioro cognitivo busca causas tratables (B12, tiroides, funcion renal y hepatica, hemograma).",
+      "evidence_level": "D",
+      "sources": ["https://content.iospress.com/articles/journal-of-alzheimers-disease/jad131247", "https://pmc.ncbi.nlm.nih.gov/articles/PMC11511397/"],
+      "negative_or_conflicting": "No se ha comprobado directamente ninguna guia (NICE, SEN, SEGG) en esta revision; la composicion exacta de la analitica estandar debe confirmarse con la guia de la Sociedad Espanola de Neurologia antes de publicar.",
+      "app_implication": "Checklist 'Preguntas para la consulta' con preguntas abiertas ('se han descartado causas tratables?', 'tiene sentido mirar cobre o ceruloplasmina?'), nunca como peticion de pruebas.",
+      "safety_notes": "No presionar al medico ni empujar a analiticas privadas innecesarias (coste y falsos positivos)."
+    },
+    {
+      "claim": "El selenio aparece asociado a menos AD en estudios transversales de sangre y orina, pero el gran ensayo PREADViSE (7.540 hombres, seguimiento de anos) no encontro que la suplementacion con selenio previniera la demencia (HR 0,83; IC95 0,60-1,13).",
+      "evidence_level": "B",
+      "sources": ["https://pubmed.ncbi.nlm.nih.gov/28319243/", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9224238/", "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12156812/"],
+      "negative_or_conflicting": "Subido de C a B al anadir el ensayo PREADViSE (negativo). Los estudios de metales en sangre y orina son transversales o caso-control, con confusion por dieta y funcion renal, y no coinciden entre poblaciones.",
+      "app_implication": "Ejemplo didactico de 'correlacion no es causa': la tarjeta muestra la asociacion y el ensayo negativo lado a lado. Semaforo de evidencia (A-D, anecdotico) en todas las tarjetas.",
+      "safety_notes": "El selenio en exceso es toxico; no sugerir nueces de Brasil ni suplementos de selenio 'para la memoria'."
+    },
+    {
+      "claim": "El cobre de la dieta (frutos secos, legumbres, mariscos, higado) es esencial y no hay base para restringirlo en una persona con Alzheimer; la 'dieta baja en cobre' procede de hipotesis y estudios observacionales sin ensayos.",
+      "evidence_level": "D",
+      "sources": ["https://www.nature.com/articles/s41380-022-01802-5", "https://www.sciencedirect.com/science/article/pii/S0197458014003595", "https://nutritionfacts.org/es/video/enfermedad-de-alzheimer-cobre-y-grasa-saturada/"],
+      "negative_or_conflicting": "El estudio comunitario Rush (Mol Psychiatry 2022) asocio mas cobre cerebral con menor declive y menos patologia; otros trabajos asocian dieta rica en cobre y grasa saturada con peor cognicion. NutritionFacts es divulgacion con sesgo de promotor (dieta vegetal), se mantiene solo como ejemplo de la narrativa que circula.",
+      "app_implication": "El modulo de alimentacion no marca alimentos ricos en cobre como 'malos'; coherente con la dimension de dieta mediterranea.",
+      "safety_notes": "Las dietas restrictivas en demencia agravan perdida de peso y desnutricion; la prioridad es comer suficiente."
+    },
+    {
+      "claim": "Variantes del gen ATP7B (el de la enfermedad de Wilson) se han asociado al subgrupo con cobre libre alto en AD en una muestra italiana de 287 pacientes.",
+      "evidence_level": "D",
+      "sources": ["https://link.springer.com/article/10.1007/s12035-015-9664-6"],
+      "negative_or_conflicting": "Bajado de C a D: estudio genetico de asociacion, de un solo grupo y poblacion, sin replicacion independiente; no hay test genetico clinico recomendado.",
+      "app_implication": "Solo mencion en glosario. Sin cribado ni registro genetico.",
+      "safety_notes": "Los datos geneticos son categoria especial (RGPD art. 9). No recogerlos."
+    },
+    {
+      "claim": "Marco de comunicacion: en metales hay mas incertidumbre que hallazgos y el mayor riesgo practico para las familias es el autotratamiento (suplementos, quelacion, 'detox', remedios tradicionales contaminados).",
+      "evidence_level": "D",
+      "sources": ["https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1087502/", "https://www.cochrane.org/CD005380/DEMENTIA_there-is-no-evidence-that-mpacs-pbt1-or-pbt2-are-of-benefit-in-alzheimers-dementia"],
+      "negative_or_conflicting": "Es un juicio de diseno; no hay estudios que midan el dano de la desinformacion sobre metales en cuidadores.",
+      "app_implication": "Reglas de contenido: cada tarjeta con nivel de evidencia, fecha de revision, fuente y revisor; lenguaje condicional; prohibido 'cura', 'previene', 'detox'; boton 'Hablarlo con el medico' que genera un resumen imprimible.",
+      "safety_notes": "Aviso: la app informa y registra, no diagnostica ni dosifica. Cada ficha la revisa un farmaceutico o medico antes de publicarse."
+    },
+    {
+      "claim": "NUEVO. Las cremas adhesivas para dentadura con zinc, usadas en grandes cantidades durante anos, han causado hiperzincemia, deficit de cobre y enfermedad neurologica (mielopatia, neuropatia) en series de casos; los niveles mejoraron al retirar la crema.",
+      "evidence_level": "C",
+      "sources": ["https://pubmed.ncbi.nlm.nih.gov/18525032/", "https://pubmed.ncbi.nlm.nih.gov/34912740/"],
+      "negative_or_conflicting": "Series y casos clinicos (4 pacientes en Neurology 2008; caso con neutropenia en 2021); se desconoce la frecuencia. Varios fabricantes reformularon productos sin zinc, pero la composicion actual de cada marca debe comprobarse en la etiqueta. El deficit de cobre puede confundirse con empeoramiento de la demencia o con otras causas de problemas de marcha.",
+      "app_implication": "En el registro de productos de uso diario se incluye 'adhesivo de dentadura' y la ficha 'Zinc oculto' explica el riesgo. Pregunta para la consulta si hay dentadura, uso abundante de crema y aparecen problemas de marcha, hormigueos o anemia: 'puede tener relacion la crema adhesiva?'. La persona con demencia puede reaplicar la crema muchas veces al dia sin recordarlo: el cuidador puede registrar el consumo de tubos.",
+      "safety_notes": "La app no diagnostica deficit de cobre; solo sugiere comentarlo con el medico. Idea fuera de la caja de bajo riesgo y alto valor en mayores con protesis dental."
+    },
+    {
+      "claim": "NUEVO. Productos de medicina tradicional pueden contener metales toxicos: en JAMA 2008, el 20,7% de 193 productos ayurvedicos comprados por internet contenian plomo, mercurio o arsenico detectables (40,6% de los de tipo rasa shastra) y todos ellos superaban al menos un limite de ingesta aceptable.",
+      "evidence_level": "B",
+      "sources": ["https://pubmed.ncbi.nlm.nih.gov/18728265/"],
+      "negative_or_conflicting": "Muestra de productos de 2005-2007 vendidos en EE.UU.; la situacion actual en Espana y en otros productos (medicina tradicional china, remedios importados) puede ser distinta y no se ha verificado aqui. No implica que todas las preparaciones tradicionales sean peligrosas.",
+      "app_implication": "Como la app quiere cubrir medicina tradicional, china y natural, cada remedio registrado lleva la pregunta '¿tiene registro sanitario en Espana y procedencia conocida?' y la ficha 'Remedios tradicionales: como reducir el riesgo' (comprar en farmacia, evitar venta online sin registro, llevar el envase al medico). Enlace a alertas oficiales de la AEMPS sobre productos ilegales.",
+      "safety_notes": "El plomo y el mercurio son neurotoxicos y empeoran la cognicion; una persona con demencia es especialmente vulnerable. No convertir en rechazo a lo tradicional: informar del riesgo de calidad y derivar al farmaceutico."
+    },
+    {
+      "claim": "NUEVO. El litio en dosis muy bajas es una linea emergente: en Nature 2025 (Aron, Yankner) el litio cerebral estaba reducido en MCI y AD y su deficit inducia patologia en ratones, que el orotato de litio prevenia; en Dinamarca, mas litio en el agua (>15 ug/L) se asocio a menos demencia (IRR 0,83) y dos RCT pequenos en MCI (45 y 61 pacientes, litio a dosis subterapeuticas) sugirieron estabilizacion.",
+      "evidence_level": "C",
+      "sources": ["https://pubmed.ncbi.nlm.nih.gov/40770094/", "https://pubmed.ncbi.nlm.nih.gov/28832877/", "https://pubmed.ncbi.nlm.nih.gov/21525519/", "https://pubmed.ncbi.nlm.nih.gov/30947755/"],
+      "negative_or_conflicting": "El dato causal es en ratones; la asociacion danesa es no lineal (niveles intermedios, 5-10 ug/L, se asociaron a MAS demencia) y con posible confusion geografica; los RCT son pequenos y del mismo grupo brasileno; una revision sistematica de 2025 sobre litio y cognicion halla resultados mixtos. No hay ensayo humano con orotato de litio.",
+      "app_implication": "Tarjeta 'Litio: lo que se investiga' con nivel C y la advertencia clara de no comprar orotato de litio por internet. Buscador de ensayos clinicos para familias interesadas en participar.",
+      "safety_notes": "El litio tiene margen terapeutico estrecho; en mayores interactua con diureticos, IECA/ARA-II y AINE y puede causar toxicidad renal, tiroidea y neurologica. La app nunca debe sugerir tomarlo; solo un medico puede indicarlo y monitorizarlo."
+    },
+    {
+      "claim": "NUEVO. Limites superiores tolerables de ingesta en adultos en la UE (EFSA/SCF): zinc 25 mg/dia y cobre 5 mg/dia; para el hierro no hay UL sino niveles seguros. En EE.UU. el limite de zinc es 40 mg/dia.",
+      "evidence_level": "A",
+      "sources": ["https://www.efsa.europa.eu/sites/default/files/assets/UL_Summary_tables.pdf"],
+      "negative_or_conflicting": "Son valores de seguridad poblacional, no objetivos individuales: en tratamientos prescritos (p. ej. zinc en enfermedad de Wilson) se superan bajo control medico. La EFSA reevaluo el cobre en 2023 (IDA 0,07 mg/kg). El original citaba por error 40 mg/dia como valor de la UE.",
+      "app_implication": "Valor de referencia publico que la app puede mostrar junto a la cantidad declarada en la etiqueta, con el texto 'Este dato no tiene en cuenta su situacion; revise con su farmaceutico'. No sumar automaticamente todas las fuentes ni emitir 'exceso/no exceso' para la persona.",
+      "safety_notes": "Mostrar un valor publico no es dosificar; calcular la ingesta total y avisar de exceso individual se acerca a funcion de decision clinica (revisar con un asesor regulatorio antes de construirlo)."
+    }
+  ],
+  "app_features": [
+    "Registro de suplementos, remedios tradicionales y productos de uso diario (incluido el adhesivo de dentadura) con lectura de etiqueta en el propio dispositivo que resalta cobre, zinc, hierro y litio y muestra el valor de referencia publico de la EFSA al lado; sin juicio individual de dosis.",
+    "Pregunta de procedencia para cada remedio natural o tradicional (registro sanitario en Espana, lugar de compra) y enlace a las alertas de la AEMPS sobre productos ilegales.",
+    "Tarjetas de evidencia con semaforo A/B/C/D/anecdotico, fecha de revision, revisor y fuentes; seccion 'Lo que se probo y no funciono' (cobre oral, zinc, quelantes, deferiprona, selenio).",
+    "Resumen imprimible o PDF 'Para la consulta' con medicacion, suplementos, analiticas registradas y preguntas abiertas sobre metales, para que la revise el medico o el farmaceutico.",
+    "Registro opcional de analiticas que copia valor y rango del informe del laboratorio, con grafica de tendencia y sin interpretacion ni alertas propias.",
+    "Guia 'Mi agua': plantilla de solicitud al ayuntamiento o gestor, enlace al SINAC, registro del resultado junto a los valores legales del RD 3/2023 (cobre 2,0 mg/L, plomo 5 ug/L) y pregunta sobre tuberias de plomo en edificios antiguos.",
+    "Enlace a la ficha tecnica oficial (CIMA AEMPS) de cada medicamento registrado en lugar de un motor propio de interacciones.",
+    "Modulo antibulos: quelacion, detox de metales, EDTA, filtros milagro, orotato de litio por internet y miedo al aluminio, con respuesta honesta y tono tranquilizador.",
+    "Buscador de ensayos clinicos abiertos (zinc, litio, metales) filtrado por pais, para familias que quieran participar.",
+    "Modo investigacion opcional con consentimiento explicito, solo si un comite de etica y un DPD lo aprueban; nunca datos geneticos."
+  ],
+  "questions_for_owner": [
+    "El familiar toma suplementos, multivitaminicos o remedios naturales o tradicionales (ayurveda, medicina china, herbolario)? Cuales, donde se compran y quien los indico? (prioridad del registro y del modulo de procedencia)",
+    "Usa dentadura postiza con crema adhesiva? Con que frecuencia y que marca? (riesgo de zinc oculto)",
+    "Hay analitica reciente o antecedentes de anemia, neutropenia, enfermedad hepatica o renal, o de enfermedad de Wilson en la familia? (contexto para el medico, no para la app)",
+    "Que agua beben (grifo, embotellada, filtro, pozo) y de que ano es el edificio? Hay tuberias de plomo? (decide si la guia 'Mi agua' aporta o es ruido)",
+    "Se ha probado alguna quelacion, 'detox' o suplemento de litio o zinc por cuenta propia? Con que resultado? (contenido del modulo antibulos)",
+    "Aceptais que la app no recomiende ni desaconseje tratamientos, solo informe, registre y derive? Y que no tenga comprobador automatico de interacciones para no convertirse en producto sanitario? (limite legal y etico)",
+    "Quien revisara cada ficha antes de publicar (farmaceutico comunitario, medico, asociacion de familiares como CEAFA)? Con que frecuencia se actualiza? (credibilidad y responsabilidad)",
+    "La app sera solo para Espana al principio o tambien para Latinoamerica? (normativa de agua y registro sanitario de productos por pais)",
+    "Teneis o quereis un asesor regulatorio para valorar el MDR y el RGPD antes de construir funciones de analiticas o suplementos? (evita rehacer el producto)"
+  ],
+  "free_resources": [
+    {"name": "Cochrane: MPACs (PBT1/PBT2) en demencia de Alzheimer", "url": "https://www.cochrane.org/CD005380/DEMENTIA_there-is-no-evidence-that-mpacs-pbt1-or-pbt2-are-of-benefit-in-alzheimers-dementia", "what": "Resumen en lenguaje sencillo de la revision Cochrane sobre quelantes.", "cost": "gratuito"},
+    {"name": "Metaanalisis cobre, zinc y hierro serico en AD (Li 2017)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5605551/", "what": "Articulo de acceso abierto con las cifras de asociacion.", "cost": "gratuito"},
+    {"name": "ZINCAiD, RCT fase II de zinc en MCI (Biomolecules 2025)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12466942/", "what": "Ensayo reciente de acceso abierto.", "cost": "gratuito"},
+    {"name": "Revision sistematica del cobre en Alzheimer (Toxics 2024)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11511397/", "what": "Revision de 7 estudios sobre cobre y non-Cp Cu.", "cost": "gratuito"},
+    {"name": "BOE: Real Decreto 3/2023, calidad del agua de consumo", "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2023-628", "what": "Anexo I con los valores legales de cobre, plomo, niquel y aluminio; menciona el SINAC.", "cost": "gratuito"},
+    {"name": "EFSA: tablas de limites superiores tolerables", "url": "https://www.efsa.europa.eu/sites/default/files/assets/UL_Summary_tables.pdf", "what": "Valores de referencia UE de zinc, cobre y otros minerales para mostrar junto a etiquetas.", "cost": "gratuito"},
+    {"name": "CIMA (AEMPS)", "url": "https://cima.aemps.es", "what": "Fichas tecnicas y prospectos oficiales de medicamentos en Espana, para enlazar en lugar de un motor propio de interacciones.", "cost": "gratuito"},
+    {"name": "Europe PMC REST API", "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search", "what": "API publica sin clave para buscar articulos y mantener las fichas actualizadas (usada en esta revision).", "cost": "gratuito"},
+    {"name": "JAMA 2008: metales en productos ayurvedicos", "url": "https://pubmed.ncbi.nlm.nih.gov/18728265/", "what": "Estudio de referencia para la ficha de seguridad de remedios tradicionales.", "cost": "gratuito (resumen)"}
+  ],
+  "verification_notes": "WebSearch estaba agotado; verifique con WebFetch, la API de Europe PMC y descargas directas. Confirmado en el texto del BOE (RD 3/2023): cobre 2,0 mg/L, plomo 5 ug/L (10 en el grifo hasta 2035), niquel 20 ug/L, aluminio 200 ug/L y el SINAC. Confirmado en la tabla de la EFSA: limite de zinc de 25 mg/dia en la UE (el original decia por error 40) y de cobre de 5 mg/dia. Corregido Kessler: n=68; el DOI citado era el del articulo de LCR y anadi el de cognicion. Deferiprona: neutropenia 7,5% y sin agranulocitosis; quite la nota de prensa. Aluminio: quite un fact-check periodistico y una revision de 2005 que defiende la hipotesis contraria, y anadi PAQUID (PMID 19064650) sin el HR, que no pude verificar, y la revision de 2024. Niveles: Cochrane de quelantes de A a B (dos ensayos pequenos), ATP7B de C a D, selenio de C a B tras anadir PREADViSE (negativo). Hallazgos nuevos: zinc en cremas de dentadura, metales en productos ayurvedicos, litio (Nature 2025, Dinamarca, RCT pequenos) y limites UE. Reescribi las implicaciones para evitar la regla 11 del MDR: se quitan el motor de interacciones, el calculo de non-Cp Cu y los semaforos sobre analiticas, y se usa la ficha CIMA. No verificado: SMON del clioquinol, interacciones de hierro y zinc (conocimiento general), contenido de IMAGINE, la URL de sciencedirect S0197458014003595 (probable revision de 2014 sobre dieta baja en cobre) ni el contenido completo del enlace IRISS."
+}

@@ -1,0 +1,44 @@
+# Datos reales de la familia: nunca en el repo
+datos-reales/
+*.db
+*.sqlite
+*.sqlite3
+*.m4a
+*.aac
+*.opus
+*.wav
+*.mp3
+*.mp4
+*.mov
+exportaciones/
+memoria-privada/
+
+# Flutter / Dart
+app/.dart_tool/
+app/.packages
+app/build/
+app/.flutter-plugins
+app/.flutter-plugins-dependencies
+app/.metadata.bak
+app/pubspec.lock.bak
+app/ios/Pods/
+app/ios/.symlinks/
+app/ios/Flutter/ephemeral/
+app/android/.gradle/
+app/android/local.properties
+app/android/key.properties
+app/android/**/*.keystore
+app/android/**/*.jks
+app/macos/Flutter/ephemeral/
+app/linux/flutter/ephemeral/
+app/windows/flutter/ephemeral/
+app/web/.dart_tool/
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.log
+__pycache__/
+*.pyc
+.venv/
+node_modules/

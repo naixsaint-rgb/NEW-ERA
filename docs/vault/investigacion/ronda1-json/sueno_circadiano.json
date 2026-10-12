@@ -1,0 +1,351 @@
+{
+ "key": "sueno_circadiano",
+ "title": "Sueño y ritmo circadiano en Alzheimer",
+ "summary": "Las alteraciones del sueño son frecuentes en el Alzheimer (hasta un 40% según Cochrane 2023) y están entre los primeros motivos de claudicación del cuidador y de ingreso en residencia. La evidencia es modesta y casi toda de baja certeza. En fármacos (Cochrane 2020, 9 RCT): la melatonina hasta 10 mg probablemente tiene poco o ningún efecto en Alzheimer; la trazodona 50 mg dio +42 min en un único RCT de 30 pacientes (certeza baja); los antagonistas de orexina dan +28 min (certeza moderada), pero suvorexant y lemborexant no están autorizados en la UE, y daridorexant sí lo está (2022) aunque no se ha ensayado en demencia. No existe ningún RCT de benzodiacepinas, Z-drugs ni antipsicóticos para el sueño en demencia, pese a que se usan mucho. En medidas no farmacológicas (Cochrane 2023, 19 RCT): la luz tiene certeza muy baja; la actividad física, la actividad social y las intervenciones con el cuidador muestran un beneficio pequeño (certeza baja). La novedad más útil es DREAMS START (RCT en el Reino Unido, 2026, n=377 díadas en domicilio): un programa manualizado de 6 sesiones para familiares, impartido por personal no clínico, redujo la alteración del sueño a los 8 meses, con probabilidad de ser coste-efectivo. Es el modelo que más se acerca a lo que una app puede ofrecer. No hay ningún RCT sobre el síndrome del atardecer. Los wearables son poco fiables y se toleran mal en demencia. Las alarmas de cama no reducen caídas en hospital y alteran el sueño. Por eso la app debe registrar, mostrar tendencias, preparar la consulta y ofrecer un programa conductual para el cuidador. No debe dosificar, diagnosticar, puntuar riesgos ni emitir alertas clínicas automáticas por paciente, porque eso la acercaría a producto sanitario (MDR regla 11).",
+ "findings": [
+  {
+   "claim": "Revisión Cochrane de terapia de luz en demencia (Forbes 2014, 11 ensayos): no hay pruebas suficientes de efecto sobre cognición, sueño, agitación ni síntomas psiquiátricos. La revisión Cochrane posterior de intervenciones no farmacológicas (Wilfling 2023, 6 ensayos de luz) mantiene la conclusión: no se sabe si la luz tiene algún efecto sobre el sueño (certeza muy baja).",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD003946.pub4/full",
+    "https://pubmed.ncbi.nlm.nih.gov/24574061/",
+    "https://pubmed.ncbi.nlm.nih.gov/36594432/"
+   ],
+   "negative_or_conflicting": "Es el hallazgo negativo central y lo confirman dos revisiones Cochrane. El metaanálisis de Fong 2023 solo halló efecto en el número de despertares. La luz diseñada para todo el día (Figueiro) es un caso aparte y no está replicada. Los ensayos son heterogéneos en dosis, horario, duración y entorno (casi todos en residencias de EE. UU.).",
+   "app_implication": "Presentar la luz natural de la mañana como un hábito de bajo coste con evidencia incierta, nunca como tratamiento. Registrar con un toque los minutos de luz exterior o junto a la ventana y mostrarlos junto al sueño, para que la familia observe su propio caso, con el aviso de que una correlación no demuestra causa.",
+   "safety_notes": "No recomendar lámparas de fototerapia ni intensidades concretas. Comentar con el médico si hay patología ocular, fármacos fotosensibilizantes o trastorno bipolar. Evitar la luz intensa por la noche."
+  },
+  {
+   "claim": "Metaanálisis de Fong et al. 2023 (11 RCT en el análisis): la terapia de luz redujo el número de despertares nocturnos (SMD -0,31; 4 estudios; I2=0%), pero no de forma significativa el tiempo despierto tras dormirse, la agitación (SMD -0,28, I2=87%) ni la depresión (SMD -0,20, I2=85%). Los efectos a largo plazo no están claros.",
+   "evidence_level": "B",
+   "sources": [
+    "https://journals.sagepub.com/doi/full/10.1177/15333175231160682",
+    "https://pubmed.ncbi.nlm.nih.gov/36924042/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9767231/"
+   ],
+   "negative_or_conflicting": "CORREGIDO: el borrador decía que había un efecto pequeño-moderado sobre sueño, agitación y depresión, pero solo fue significativo en despertares y con pocos estudios. La revisión de 2022 en residencias (PMC9767231) concluye que la evidencia es insuficiente. La heterogeneidad es muy alta en agitación y depresión.",
+   "app_implication": "Recordatorio opcional para salir o sentarse junto a la ventana por la mañana, con registro en un toque. El texto debe decir que puede ayudar a algunas personas a despertarse menos y que la evidencia es limitada.",
+   "safety_notes": "No prometer mejora del ánimo, la agitación ni la cognición. Exterior supervisado, evitando el calor extremo."
+  },
+  {
+   "claim": "Iluminación personalizada todo el día (Figueiro et al., JCSM 2019/2020; RCT cruzado con placebo, n=46 con demencia en 8 residencias, 2 periodos de 4 semanas): mejoró el PSQI (10,30 basal, 6,67 con luz activa, 8,41 con control), la variabilidad intradiaria, la depresión (Cornell) y la agitación (CMAI). El mismo grupo publicó después un seguimiento de exposición prolongada.",
+   "evidence_level": "C",
+   "sources": [
+    "https://doi.org/10.5664/jcsm.8078",
+    "https://pubmed.ncbi.nlm.nih.gov/31855161/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7504981/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC9753196/"
+   ],
+   "negative_or_conflicting": "CORREGIDO: el borrador decía que el efecto sobre el sueño era menos consistente, pero el PSQI (desenlace primario) sí mejoró. Nivel bajado a C: un solo ensayo pequeño en residencias con iluminación instalada a medida, sin replicación independiente, hecho por el grupo que desarrolló la intervención (que también firma la revisión de 2021). Las dos revisiones Cochrane no lo trasladan a una recomendación. No es aplicable sin más a una vivienda con bombillas comerciales.",
+   "app_implication": "Guía orientativa de iluminación del hogar: más luz por la mañana, luz cálida y tenue desde media tarde y oscuridad de noche con luz de orientación baja en el camino al baño. Se presenta como ambiente favorable, no como tratamiento, y se marca qué cosas tienen evidencia y cuáles son sentido común.",
+   "safety_notes": "No dar cifras de lux ni de estímulo circadiano como prescripción. Riesgo de caídas: nunca oscuridad total, sino luz de guía cálida y de baja intensidad."
+  },
+  {
+   "claim": "Caminar y exponerse a luz en casa (McCurry 2011, RCT n=132 díadas en domicilio): los grupos de caminata, luz y combinado redujeron el tiempo despierto medido por actigrafía al final del tratamiento (tamaño de efecto 0,51-0,63) frente a control, sin mejora en la escala del cuidador (SDI) y sin diferencias entre grupos a los 6 meses. Quienes cumplieron al menos 4 días por semana mejoraron más. Base del programa NITE-AD.",
+   "evidence_level": "B",
+   "sources": [
+    "https://agsjournals.onlinelibrary.wiley.com/doi/abs/10.1111/j.1532-5415.2011.03519.x",
+    "https://pubmed.ncbi.nlm.nih.gov/21797835/",
+    "https://clinicaltrials.gov/study/NCT00183378"
+   ],
+   "negative_or_conflicting": "AÑADIDO: el efecto no se mantuvo a los 6 meses y no mejoró la valoración del cuidador. El análisis de adherencia es observacional, porque los que cumplen pueden ser distintos de los que no.",
+   "app_implication": "Plan diario sencillo (paseo con luz, siesta limitada, rutina estable) con registro del cumplimiento. Como el efecto se pierde al dejarlo, conviene diseñar para que el hábito se mantenga: recordatorios suaves, rachas sin culpa y reparto entre familiares.",
+   "safety_notes": "Adaptar a la movilidad, el riesgo de caídas y la deambulación. Paseo siempre acompañado."
+  },
+  {
+   "claim": "Ensayo DREAMS START (Livingston et al., HTA 2026; RCT multicéntrico en el Reino Unido, n=377 díadas en domicilio): un programa manualizado de 6 sesiones para familiares (información sobre sueño y demencia, calma nocturna, rutina de acostarse, activación diurna, más luz, sueño del cuidador y plan de acción a medida), impartido presencialmente o a distancia por titulados no clínicos, redujo la alteración del sueño a los 8 meses (SDI -4,70; IC95% -7,65 a -1,74; p=0,002). Probabilidad del 78% de ser coste-efectivo, sin diferencia en calidad de vida.",
+   "evidence_level": "B",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/41665080/",
+    "https://doi.org/10.3310/gjpr2620",
+    "https://pubmed.ncbi.nlm.nih.gov/40116618/",
+    "https://pubmed.ncbi.nlm.nih.gov/40412418/"
+   ],
+   "negative_or_conflicting": "NUEVO. Los desenlaces los informa el propio cuidador, sin cegamiento ni actigrafía, lo que supone riesgo de sesgo de expectativa. Un solo ensayo, sin replicar fuera del Reino Unido. No se ha probado en formato solo app sin facilitador.",
+   "app_implication": "Es la pieza central basada en evidencia. Se propone un módulo de 6 sesiones inspirado en los componentes de DREAMS START, adaptado al español y a España, con plan de acción personalizado y seguimiento. Antes hay que comprobar la licencia y los derechos del manual (UCL) y, si es posible, colaborar con sus autores. Como el ensayo usó facilitadores humanos, valorar un modo acompañado (asociación de familiares o voluntario) y medir si la versión digital funciona igual.",
+   "safety_notes": "Sigue siendo educación conductual para el cuidador y no tratamiento médico, por lo que no hay riesgo regulatorio si no hace afirmaciones diagnósticas. No se deben atribuir a la app los resultados del ensayo sin validarla."
+  },
+  {
+   "claim": "Cochrane 2020 sobre fármacos para el sueño en demencia (McCleery y Sharpley, 9 RCT): hay una falta clara de evidencia. Melatonina: poco o ningún efecto (certeza baja). Trazodona 50 mg: +42 min (certeza baja, 1 RCT, n=30). Ramelteón: sin efecto. Antagonistas de orexina: +28 min de sueño y -16 min despierto (certeza moderada). No se encontró ningún RCT de benzodiacepinas, Z-drugs ni antipsicóticos, a pesar de su uso frecuente.",
+   "evidence_level": "A",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/33189083/",
+    "https://doi.org/10.1002/14651858.CD009178.pub4"
+   ],
+   "negative_or_conflicting": "NUEVO, y es la fuente de mayor nivel que faltaba. Solo 4 de los 9 estudios evaluaron sistemáticamente los efectos adversos. Desde 2020 hay pocos RCT nuevos de calidad.",
+   "app_implication": "Ficha educativa general, igual para todos los usuarios, que explique que los fármacos para dormir en demencia tienen poca evidencia y riesgos, y que las medidas no farmacológicas son la primera línea. Se enlaza a la lista de preguntas para el médico.",
+   "safety_notes": "Nunca proponer, comparar ni elegir fármacos para un paciente concreto."
+  },
+  {
+   "claim": "Melatonina en demencia: el metaanálisis de Xu 2015 (7 RCT, n=520) halló +24 min de sueño total sin efecto cognitivo. La Cochrane 2020, con criterios más estrictos, halló poco o ningún efecto en Alzheimer (dosis de hasta 10 mg durante 8-10 semanas; sueño total +10,7 min, IC95% -16 a 38). Otro metaanálisis encontró beneficio solo en medidas subjetivas. Un metaanálisis de 2025 estudia el efecto cognitivo con resultados heterogéneos.",
+   "evidence_level": "B",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/25614508/",
+    "https://pubmed.ncbi.nlm.nih.gov/33189083/",
+    "https://pubmed.ncbi.nlm.nih.gov/26255301/",
+    "https://pubmed.ncbi.nlm.nih.gov/41185054/"
+   ],
+   "negative_or_conflicting": "Nivel bajado de A a B: la certeza es baja y la revisión de más calidad es negativa. Se eliminó una URL de ScienceDirect que no se pudo verificar. Las afirmaciones de que las dosis bajas funcionan mejor y de que mejora el MMSE a más de 12 semanas proceden de fuentes secundarias no verificadas, por lo que se retiran de la app.",
+   "app_implication": "Si el médico la ha indicado, registrar fecha de inicio, hora y producto, y mostrar el sueño antes y después como dato para la consulta. Ficha informativa: evidencia débil o negativa en Alzheimer, bajo riesgo de efectos graves y calidad variable de los suplementos.",
+   "safety_notes": "En España existe como medicamento con receta (melatonina de liberación prolongada) y como complemento alimenticio de dosis baja, con contenido real variable. Posible interacción con fluvoxamina y somnolencia diurna. La app no indica dosis ni la recomienda."
+  },
+  {
+   "claim": "Suvorexant en Alzheimer con insomnio (Herring 2020, RCT de 4 semanas, n=285 aleatorizados y 274 analizados): +28 min de sueño total en polisomnografía frente a placebo (IC95% 11-45); somnolencia del 4,2% frente al 1,4%. Cochrane lo califica de certeza moderada. Situación regulatoria: suvorexant y lemborexant no figuran autorizados en la UE; daridorexant (Quviviq) está autorizado por la EMA desde abril de 2022 para insomnio en adultos, pero sin ensayos en demencia.",
+   "evidence_level": "B",
+   "sources": [
+    "https://alz-journals.onlinelibrary.wiley.com/doi/10.1002/alz.12035",
+    "https://pubmed.ncbi.nlm.nih.gov/33189083/",
+    "https://www.ema.europa.eu/en/medicines/human/EPAR/quviviq",
+    "https://link.springer.com/article/10.1007/s40265-024-02096-3"
+   ],
+   "negative_or_conflicting": "AÑADIDO: el contexto regulatorio europeo, que hace que el dato de suvorexant tenga poca utilidad práctica en España. 28 minutos es una ganancia modesta, sin efecto en el número de despertares ni datos a largo plazo. Extrapolar a daridorexant no está justificado. El interés por la orexina y la limpieza glinfática procede sobre todo de modelos animales.",
+   "app_implication": "Si el médico prescribe cualquier fármaco para dormir, la app ofrece una plantilla neutra: fecha de inicio, hora de toma, efectos observados (somnolencia matinal, caídas, pesadillas, confusión) y una fecha que la familia elige para revisarlo con el médico. Sin nombres de fármacos sugeridos.",
+   "safety_notes": "No afirmar disponibilidad, precio ni financiación en España sin consultar CIMA (AEMPS). Riesgo de somnolencia, caídas y alucinaciones hipnagógicas."
+  },
+  {
+   "claim": "Trazodona 50 mg en Alzheimer moderado-grave (Camargos 2014, RCT doble ciego, n=30, 2 semanas): +42,5 min de sueño nocturno (IC95% 0,9-84) y mejor eficiencia del sueño, sin más siestas ni cambio cognitivo. Cochrane lo califica de certeza baja.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/24495406/",
+    "https://pubmed.ncbi.nlm.nih.gov/33189083/",
+    "https://www.alzforum.org/therapeutics/trazodone"
+   ],
+   "negative_or_conflicting": "Nivel bajado de B a C: un solo ensayo de 30 pacientes y 2 semanas, con un IC que roza el cero, imprecisión muy grave en los despertares y sin seguimiento de seguridad a largo plazo. Las cohortes observacionales sobre trazodona y riesgo de demencia son contradictorias y probablemente están confundidas por causalidad inversa. Se sustituyó la fuente de ResearchGate por PubMed.",
+   "app_implication": "La misma plantilla neutra de registro de medicación. La lista general de efectos que conviene vigilar con fármacos sedantes (mareo al levantarse, caídas, confusión) se muestra igual para todos y no depende del fármaco introducido.",
+   "safety_notes": "Ortostatismo, caídas, prolongación del QT e interacciones serotoninérgicas. La app solo informa y no dosifica."
+  },
+  {
+   "claim": "Benzodiacepinas y Z-drugs en demencia: Cochrane 2020 no encontró ningún RCT. Los criterios Beers 2023 recomiendan evitarlos en mayores (deterioro cognitivo, delirium, caídas, fracturas). Una revisión de 2025 (3 RCT, 192 pacientes) concluye que los Z-drugs son eficaces y seguros, pero con muestras mínimas y en contradicción con las guías.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/33189083/",
+    "https://pubmed.ncbi.nlm.nih.gov/37139824/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12193173/",
+    "https://www.aafp.org/pubs/afp/issues/2020/0101/p56.html"
+   ],
+   "negative_or_conflicting": "La revisión de 2025 (Int J Mol Sci) es de baja calidad y sus conclusiones de seguridad no se sostienen con 192 pacientes, así que no debe usarse para tranquilizar. Ahora sí se verifica la referencia de Beers 2023 (PMID 37139824).",
+   "app_implication": "CAMBIADO: el borrador proponía detectar automáticamente estos fármacos en la lista del paciente y avisar. Un software que analiza la medicación de un paciente concreto para apoyar decisiones terapéuticas puede considerarse producto sanitario (MDR regla 11, guía MDCG 2019-11). La alternativa segura para la versión 1 es una ficha educativa general sobre medicación y sueño en mayores, visible para todos, y un botón 'Añadir a mis preguntas para el médico o farmacéutico' que el cuidador pulsa por decisión propia. Cualquier detección automática necesita evaluación regulatoria previa.",
+   "safety_notes": "No sugerir nunca la retirada: la suspensión brusca de benzodiacepinas puede causar abstinencia y convulsiones. El mensaje debe limitarse a revisarlo con el profesional."
+  },
+  {
+   "claim": "Antihistamínicos sedantes de venta sin receta (doxilamina, difenhidramina), muy usados en España como 'pastilla para dormir': los criterios Beers 2023 aconsejan evitarlos en mayores por su fuerte efecto anticolinérgico (confusión, retención urinaria, estreñimiento, caídas). Un gran estudio de casos y controles (Coupland 2019) asoció la exposición acumulada a anticolinérgicos fuertes con más riesgo de demencia.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/37139824/",
+    "https://pubmed.ncbi.nlm.nih.gov/31233095/"
+   ],
+   "negative_or_conflicting": "NUEVO. La asociación con demencia es observacional y puede haber causalidad inversa. Lo que sí está bien establecido es el efecto agudo anticolinérgico en personas con demencia. No se verificó qué marcas concretas se comercializan hoy en España.",
+   "app_implication": "El registro de medicación incluye de forma explícita los productos sin receta, los complementos y las plantas ('lo que toma sin receta también cuenta'), para que el médico vea la lista completa. Ficha educativa general sobre los somníferos de farmacia en personas mayores.",
+   "safety_notes": "No nombrar marcas ni decir 'deje de tomar'. Remitir al farmacéutico comunitario, que es un recurso gratuito y cercano."
+  },
+  {
+   "claim": "Donepezilo, el anticolinesterásico más usado, suele tomarse por la noche, y la información del medicamento incluye entre sus efectos adversos el insomnio y los sueños anormales o pesadillas. En la práctica clínica, a veces se valora cambiar la hora de toma.",
+   "evidence_level": "C",
+   "sources": [
+    "https://medlineplus.gov/druginfo/meds/a697032.html",
+    "https://cima.aemps.es/cima/publico/lista.html"
+   ],
+   "negative_or_conflicting": "NUEVO. La relación de los efectos con la hora de toma se basa en la ficha técnica y en la práctica clínica, no en RCT comparativos sólidos. Que la persona tenga pesadillas no implica que la causa sea el fármaco.",
+   "app_implication": "Registrar la hora de toma de cada medicamento en la misma línea temporal que el sueño. Si la familia anota pesadillas o insomnio, la app puede mostrar una tarjeta general: 'Algunos medicamentos para la memoria pueden alterar el sueño; si te preocupa, coméntalo con el médico'. Debe salir igual para todos y nunca indicar un cambio de horario.",
+   "safety_notes": "No cambiar nunca la hora ni la dosis sin indicación médica."
+  },
+  {
+   "claim": "Síndrome del atardecer: aparición o empeoramiento de síntomas neuropsiquiátricos al final de la tarde, con una prevalencia descrita muy variable según la definición. No hay ningún RCT específico ni una definición consensuada. Los desencadenantes propuestos (alteración del núcleo supraquiasmático, poca luz diurna, siestas, dolor, hambre, fatiga, fármacos, déficits sensoriales, ruido, cambio de turno) proceden de una revisión narrativa y de opinión experta.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5187352/",
+    "https://pubmed.ncbi.nlm.nih.gov/28083535/"
+   ],
+   "negative_or_conflicting": "Se eliminó la cifra del 20% atribuida a la Alzheimer's Association porque no se verificó. El manejo descrito es de nivel D (opinión experta). Faltan herramientas de cribado validadas.",
+   "app_implication": "Registro estructurado de la tarde: hora de inicio, intensidad, qué pasó antes (siesta, hambre, dolor, ruido, visitas, cambio de rutina, medicación) y qué ayudó. La app muestra la frecuencia de cada antecedente para esa persona como estadística descriptiva, con aviso de que coincidir no significa causar, y prepara un resumen para el médico.",
+   "safety_notes": "En lugar de una alerta algorítmica de delirium, que sería diagnóstica, ofrecer una tarjeta fija de 'señales para consultar hoy mismo' (empeoramiento brusco en horas o días, fiebre, caída, somnolencia o confusión nuevas, dolor, no orina), siempre visible y con el 112 y el teléfono del centro de salud."
+  },
+  {
+   "claim": "Ejercicio y sueño en deterioro cognitivo o Alzheimer: un metaanálisis de 2024 (J Sleep Res, 20 ensayos controlados) muestra beneficio en el sueño. Un metaanálisis de 2026 (Front Med, 12 RCT, n=893) mejora el PSQI (SMD -0,81) pero no de forma significativa la eficiencia ni la duración objetivas. Cochrane 2023: la actividad física puede aumentar ligeramente el sueño nocturno y reducir el tiempo despierto (certeza baja).",
+   "evidence_level": "B",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/38462491/",
+    "https://pubmed.ncbi.nlm.nih.gov/42180720/",
+    "https://pubmed.ncbi.nlm.nih.gov/36594432/"
+   ],
+   "negative_or_conflicting": "Nivel bajado de A a B: Cochrane le da certeza baja, hay diferencias entre lo subjetivo y lo objetivo, mucha heterogeneidad de programas y sesgo de percepción del cuidador. No se verificaron las cifras exactas del metaanálisis de 2026 más allá del título.",
+   "app_implication": "Planificador de actividad diurna (física y social, ya que Cochrane también ve beneficio en la social) con tolerancia registrada, mostrado junto a la noche siguiente.",
+   "safety_notes": "Adaptarlo a caídas, cardiopatía y dolor, con supervisión. No prometer mejora cognitiva."
+  },
+  {
+   "claim": "Siestas: en el Rush Memory and Aging Project (actigrafía, unos 1.400 mayores, hasta 14 años) las siestas más largas y frecuentes se asocian a mayor riesgo de Alzheimer, y la enfermedad acelera el aumento de las siestas (relación bidireccional). El Million Women Study describe asociaciones inconsistentes y probable causalidad inversa. Cochrane 2023: restringir las siestas diurnas no cambió el sueño nocturno en el único RCT.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/35297533/",
+    "https://pubmed.ncbi.nlm.nih.gov/37083147/",
+    "https://pubmed.ncbi.nlm.nih.gov/36594432/"
+   ],
+   "negative_or_conflicting": "Se eliminó la afirmación sobre una cohorte japonesa con siestas de menos de 30 min, porque no tenía fuente verificable (la URL citada era el Million Women Study). AÑADIDO: el RCT de restricción de siestas fue negativo, lo que debilita la recomendación de limitarlas.",
+   "app_implication": "Registrar hora y duración de las siestas y mostrarlas junto a la noche. No presentar la siesta como mala ni imponer restricciones: la sugerencia de una siesta corta y temprana se marca como consejo de sentido común con evidencia débil.",
+   "safety_notes": "Un aumento brusco de la somnolencia diurna justifica consultar al médico (fármacos, infección, apnea, depresión)."
+  },
+  {
+   "claim": "Apnea del sueño y CPAP en Alzheimer (Ancoli-Israel 2008, RCT doble ciego, n=52): 3 semanas de CPAP terapéutico frente a placebo no produjeron diferencias cognitivas significativas. Ambos grupos mejoraron tras recibir CPAP real y el estudio tenía poca potencia. Un seguimiento exploratorio con 10 pacientes sugiere menor deterioro con el uso mantenido.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/18795985/",
+    "https://pubmed.ncbi.nlm.nih.gov/19968005/",
+    "https://www.alzforum.org/therapeutics/continuous-positive-airway-pressure"
+   ],
+   "negative_or_conflicting": "Nivel bajado de B a C: el RCT fue negativo en su comparación principal, el seguimiento solo tiene n=10 sin control aleatorizado y la tolerancia de la mascarilla en demencia es un problema. Se retiró el protocolo NCT06773416 porque es un ensayo en curso en deterioro cognitivo leve y no aporta evidencia.",
+   "app_implication": "Lista de observaciones para el cuidador (ronquidos, pausas respiratorias, somnolencia diurna, despertares con ahogo) que se exporta como texto al informe médico, SIN puntuación de riesgo: un cuestionario puntuado tipo STOP-Bang convertiría la función en cribado diagnóstico. Si la persona usa CPAP, registrar uso y dificultades.",
+   "safety_notes": "No diagnosticar. Tratar la apnea mejora la somnolencia y la calidad de vida aunque no haya beneficio cognitivo demostrado."
+  },
+  {
+   "claim": "Sueño y limpieza cerebral: en adultos sanos, un RCT cruzado (2025) muestra que dormir reduce la concentración de beta-amiloide y tau en el LCR frente a la privación de sueño. Hay datos que vinculan menos sueño profundo con más patología tau. Ningún ensayo ha demostrado que mejorar el sueño, o un hipnótico, reduzca la patología ni frene el Alzheimer en personas con la enfermedad.",
+   "evidence_level": "D",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/40830882/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC7340158/",
+    "https://pubmed.ncbi.nlm.nih.gov/42634303/",
+    "https://www.medrxiv.org/content/10.1101/2024.07.30.24311248.full.pdf"
+   ],
+   "negative_or_conflicting": "Nivel bajado de C a D en cuanto a relevancia clínica: es investigación mecanística en sanos, la dirección causal no está resuelta, una fuente es un preprint sin revisión por pares y otra es una revisión exploratoria que genera hipótesis.",
+   "app_implication": "Contenido divulgativo prudente: dormir bien importa para el bienestar de los dos, sin prometer que frene la enfermedad y sin culpabilizar al cuidador por las malas noches.",
+   "safety_notes": "No afirmar que sedar 'limpia el cerebro', porque podría empujar a la sobremedicación."
+  },
+  {
+   "claim": "Wearables en demencia: en el estudio de Wei y Boger 2021, una pulsera de consumo (Mi Band 2) estimó mal el sueño en 8 personas con demencia (errores de cientos de minutos en el inicio, el final y la duración, y días sin detección). En un estudio de viabilidad con Fitbit Charge 3 (2023), solo 1 de 9 personas con demencia la llevó de forma constante y el apoyo del cuidador fue imprescindible. En mayores sanos, los dispositivos de consumo también se apartan de la referencia.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8207254/",
+    "https://pubmed.ncbi.nlm.nih.gov/36814072/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC12936866"
+   ],
+   "negative_or_conflicting": "Se retiró la cifra de 74 min de sesgo de Fitbit porque la URL de ScienceDirect no se pudo verificar. Las muestras son muy pequeñas y la referencia del estudio de la Mi Band era un diario incompleto. PMC12936866 es en adultos sanos y no en demencia.",
+   "app_implication": "Integración opcional con Health Connect y HealthKit solo para tendencias del ritmo de actividad y reposo, con un indicador de fiabilidad baja y comparación con el diario. El diario del cuidador es la fuente principal. El acelerómetro del móvil sobre el colchón queda como experimento, sin validar.",
+   "safety_notes": "No generar alertas de salud a partir de wearables. Las pulseras pueden causar agitación o retirarse. Tratar los datos de salud según el RGPD (categoría especial) y con consentimiento."
+  },
+  {
+   "claim": "Alarmas de cama y de movilización: en un ensayo hospitalario aleatorizado por unidades (Shorr 2012, 16 unidades, 27.672 pacientes), multiplicar el uso de alarmas de cama no redujo las caídas. Un ensayo australiano de 2026 (18 unidades) mostró que reducir las alarmas no fue inferior a mantenerlas y que eliminarlas disminuyó las alteraciones del sueño causadas por ellas.",
+   "evidence_level": "B",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/23165660/",
+    "https://pubmed.ncbi.nlm.nih.gov/41422595/"
+   ],
+   "negative_or_conflicting": "NUEVO. La evidencia es hospitalaria e indirecta para el domicilio. En casa, una alerta silenciosa al móvil del cuidador puede servir para la deambulación nocturna (salir de casa), que es un objetivo distinto de prevenir caídas.",
+   "app_implication": "Si se ofrece aviso nocturno de levantarse de la cama o salir de la habitación, debe ser silencioso para la persona (notificación al cuidador, nunca sonido en el dormitorio), configurable y sin anunciarse como prevención de caídas. Es mejor presentarlo como apoyo para que el cuidador descanse sabiendo que le avisarán.",
+   "safety_notes": "No crear falsa seguridad: un aviso no evita una caída. Los falsos positivos y las alertas repetidas destruyen el sueño del cuidador. Una función de detección de caídas o de monitorización con fin médico requeriría evaluación regulatoria."
+  },
+  {
+   "claim": "Terapias tradicionales: la revisión Cochrane de acupuntura para insomnio (actualización 2012, 33 ensayos, 2.293 participantes, no en demencia) halló beneficios pequeños con alto riesgo de sesgo, mucha heterogeneidad y probable sesgo de publicación, sin pruebas suficientes. No se encontraron ensayos de acupuntura ni de suanzaoren sobre el sueño en demencia. Yokukansan (kampo; metaanálisis 2016) reduce modestamente los síntomas conductuales, pero no en el subgrupo de solo Alzheimer y sin resultados de sueño.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/22972087/",
+    "https://pubmed.ncbi.nlm.nih.gov/27497482/",
+    "https://content.iospress.com/articles/journal-of-alzheimers-disease/jad160418"
+   ],
+   "negative_or_conflicting": "CORREGIDO: el borrador citaba la versión de 2007 (7 ensayos, n=590), que está superada por la actualización de 2012. Nivel bajado de B a C para el sueño en demencia, donde no hay datos directos. Yokukansan puede causar hipopotasemia (contiene regaliz) y no tiene una vía de comercialización clara en España.",
+   "app_implication": "Sección informativa de terapias complementarias con nivel de evidencia, precauciones y registro de lo que se usa, para que el médico lo sepa. Se informa con respeto, sin recomendar ni desacreditar, y con indicación clara de lo que no está probado.",
+   "safety_notes": "Las plantas pueden interactuar con anticoagulantes y sedantes. La calidad de los productos es variable. Nunca hablar de cura."
+  },
+  {
+   "claim": "Sueño del cuidador: revisiones sistemáticas de 2026 (Gerontologist y J Appl Gerontol) recogen RCT de intervenciones no farmacológicas (higiene del sueño, relajación, control de estímulos, TCC-I, también en formato web) que mejoran el sueño del cuidador. DREAMS START incluyó el sueño del cuidador como componente.",
+   "evidence_level": "C",
+   "sources": [
+    "https://doi.org/10.1093/geront/gnag081",
+    "https://pubmed.ncbi.nlm.nih.gov/42049191/",
+    "https://clinicaltrials.gov/study/NCT04632628",
+    "https://doi.org/10.3928/19404921-20090731-02"
+   ],
+   "negative_or_conflicting": "Nivel bajado de B a C: no se verificó el efecto agrupado y muchos estudios son pilotos pequeños con resultados sin significación.",
+   "app_implication": "Módulo del sueño del cuidador: diario propio breve, turnos de noche compartidos entre familiares, mini-programa de hábitos y aviso de sobrecarga basado en lo que el propio cuidador registra.",
+   "safety_notes": "Si el cuidador indica desesperanza o ideas de hacerse daño, mostrar el 024 (línea de atención a la conducta suicida en España) y el 112. La app no sustituye la atención psicológica."
+  }
+ ],
+ "app_features": [
+  "Diario de noche y tarde en menos de 30 segundos (acostarse, despertares, inquietud, siestas, atardecer), compartido entre familiares, con modo nocturno de pantalla oscura y botones grandes",
+  "Línea temporal unificada (sueño, siestas, luz, actividad, comidas, dolor, horas de toma de cada medicamento, agitación) con estadística descriptiva explicada en lenguaje llano y aviso de que coincidir no significa causar",
+  "Programa de 6 sesiones para familiares inspirado en DREAMS START (pendiente de licencia), con plan de acción personalizado y modo acompañado opcional",
+  "Informe para el médico de 2-4 semanas en PDF, con lista de preguntas elegidas por el cuidador, todos los productos (incluidos los sin receta y las plantas) y observaciones de ronquidos y pausas en texto, sin puntuaciones ni diagnósticos",
+  "Tarjeta fija de 'señales para consultar hoy' (cambio brusco, fiebre, caída, confusión nueva) con 112 y centro de salud, igual para todos y no algorítmica",
+  "Fichas educativas con etiqueta de nivel de evidencia (luz, ejercicio, siestas, melatonina, somníferos de farmacia, terapias complementarias), iguales para todos y revisadas por un profesional",
+  "Plan de luz y rutina diaria con recordatorios suaves y rachas sin culpa, repartible entre familiares",
+  "Aviso nocturno silencioso al móvil del cuidador (levantarse o salir de la habitación), nunca sonoro en el dormitorio y sin presentarse como prevención de caídas",
+  "Experimentos n de 1: la familia elige una medida no farmacológica durante 2 semanas y la app compara antes y después avisando de sesgos y del efecto de regresión a la media",
+  "Módulo del sueño del cuidador con turnos nocturnos y autovaloración de sobrecarga, con recursos 024 y 112",
+  "Integración opcional con Health Connect y HealthKit solo para tendencias, con indicador de fiabilidad",
+  "Datos locales y cifrados por defecto, funcionamiento sin conexión y control granular de qué ve cada familiar o profesional (RGPD, datos de salud)"
+ ],
+ "questions_for_owner": [
+  "En qué fase está la persona y cuál es hoy el problema principal: insomnio, inversión día-noche, atardecer o deambulación nocturna? Sirve para decidir qué módulo construir primero.",
+  "Qué toma para dormir o para la agitación, incluidos productos sin receta, plantas y complementos, y a qué hora toma el medicamento para la memoria? Sirve para diseñar el registro, no para aconsejar.",
+  "Aceptas que la versión 1 se limite a registrar, educar y preparar la consulta, sin alertas automáticas por paciente, para evitar la clasificación como producto sanitario (MDR regla 11)? O prefieres planificar una certificación CE a futuro?",
+  "Hay algún profesional sanitario (geriatra, neurólogo, enfermera, farmacéutico) dispuesto a revisar gratis los textos educativos y a firmar como revisor?",
+  "Podemos contactar con el equipo de DREAMS START (UCL) o con una asociación de familiares de Alzheimer en España (por ejemplo, CEAFA) para adaptar el programa y probarlo con familias reales?",
+  "Quién cuida de noche, cuántas horas duerme y se turnan varios familiares? Cuántos cuidadores comparten la app y con qué permisos?",
+  "Qué dispositivos hay en casa y la persona tolera llevar algo en la muñeca? Queremos depender de wearables o solo del diario?",
+  "Hay riesgo de caídas o de salir de casa de noche? Cómo es el camino al baño y qué luz tiene?",
+  "Quieres que la app sirva también en residencias y centros de día (multi-paciente) o solo en domicilio? Cambia el modelo de datos y de privacidad.",
+  "Dónde se guardarán los datos: solo en el dispositivo, en una sincronización cifrada de extremo a extremo o en un servidor en la UE? Quién actúa como responsable del tratamiento según el RGPD?",
+  "Qué médico sigue el caso y en qué formato le resulta útil el informe (papel, PDF, una página)?"
+ ],
+ "free_resources": [
+  {
+   "name": "Cochrane 2020: Pharmacotherapies for sleep disturbances in dementia",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/33189083/",
+   "what": "Síntesis de referencia sobre fármacos para el sueño en demencia con nivel de certeza GRADE",
+   "cost": "Gratis (resumen)"
+  },
+  {
+   "name": "Cochrane 2023: Non-pharmacological interventions for sleep disturbances in people with dementia",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/36594432/",
+   "what": "19 RCT de luz, actividad, cuidador e intervenciones multimodales con certeza GRADE",
+   "cost": "Gratis (resumen)"
+  },
+  {
+   "name": "DREAMS START, informe completo NIHR HTA 2026",
+   "url": "https://doi.org/10.3310/gjpr2620",
+   "what": "Descripción del programa de 6 sesiones para familiares, resultados y coste-efectividad; base para el módulo central",
+   "cost": "Gratis, acceso abierto (NIHR Journals Library)"
+  },
+  {
+   "name": "Cochrane: Light therapy in dementia (Forbes 2014)",
+   "url": "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD003946.pub4/full",
+   "what": "Revisión sistemática sobre terapia de luz",
+   "cost": "Gratis (resumen)"
+  },
+  {
+   "name": "Canevelli 2016, Sundowning in Dementia",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5187352/",
+   "what": "Revisión narrativa sobre definición, desencadenantes y manejo del síndrome del atardecer",
+   "cost": "Gratis, acceso abierto"
+  },
+  {
+   "name": "CIMA (AEMPS), Centro de Información de Medicamentos",
+   "url": "https://cima.aemps.es/cima/publico/lista.html",
+   "what": "Fichas técnicas y prospectos oficiales en España para verificar autorización y textos de medicamentos citados en la app",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Europe PMC REST API",
+   "url": "https://europepmc.org/RestfulWebService",
+   "what": "API gratuita para mantener actualizada la biblioteca de evidencia de la app (búsqueda de resúmenes por PMID o DOI)",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Android Health Connect: sesiones de sueño",
+   "url": "https://developer.android.com/health-and-fitness/health-connect/features/sleep-sessions",
+   "what": "API de Android para leer registros de sueño de apps y relojes",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Apple HealthKit: HKCategoryValueSleepAnalysis",
+   "url": "https://developer.apple.com/documentation/healthkit/hkcategoryvaluesleepanalysis",
+   "what": "Categorías de sueño en iOS",
+   "cost": "Gratis para desarrollar; publicar en App Store requiere el Apple Developer Program de pago (99 USD al año), dato no verificado aquí"
+  },
+  {
+   "name": "ClinicalTrials.gov: NITE-AD",
+   "url": "https://clinicaltrials.gov/study/NCT00183378",
+   "what": "Descripción del programa de higiene del sueño con luz y caminata",
+   "cost": "Gratis"
+  }
+ ],
+ "verification_notes": "Las comprobaciones se hicieron con la API de Europe PMC y WebFetch, porque el presupuesto de WebSearch estaba agotado; se verificaron todos los PMID y DOI. Correcciones: (1) Fong 2023 solo halló efecto en el número de despertares, no en agitación ni en depresión. (2) En Figueiro, el PSQI sí mejoró; aun así se bajó a C por ser un único ensayo pequeño en residencias sin replicación independiente. (3) Se bajaron de nivel melatonina, ejercicio, trazodona, CPAP, la limpieza glinfática (D), las terapias tradicionales y el sueño del cuidador, porque el borrador ignoraba la certeza GRADE de Cochrane. (4) La revisión Cochrane de acupuntura citada (2007) estaba superada por la de 2012. (5) Se retiraron la cohorte japonesa de siestas, los 74 min de Fitbit, el 20% de atardecer y dos URL, por no poder verificarse. Añadidos: Cochrane 2020 de fármacos, Cochrane 2023 no farmacológica, DREAMS START 2026 (el hallazgo más útil), el estado en la UE de los antagonistas de orexina (daridorexant autorizado; suvorexant y lemborexant no figuran), los antihistamínicos sin receta, el donepezilo nocturno y la evidencia negativa sobre alarmas de cama. En lo regulatorio, se sustituyeron la detección automática de fármacos inapropiados, la alerta algorítmica de delirium y el cuestionario puntuado de apnea por contenido general y listas para el médico, para no caer en MDR regla 11. La guía MDCG 2019-11 devolvió 403 y debe revisarla un experto. No se verificó la financiación de daridorexant en España."
+}

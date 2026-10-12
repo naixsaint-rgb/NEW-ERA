@@ -1,0 +1,346 @@
+{
+ "key": "gap-economia_trabajo_patrimonio",
+ "title": "Derechos laborales del cuidador, economía familiar y abuso patrimonial (España)",
+ "summary": "Revisión escéptica, verificada contra los textos consolidados del BOE a 12/10/2026, del mapa de derechos laborales del cuidador (ET 34.8, 37.3.b, 37.6, 37.9, 46.3 y 55.5.b; TREBEP 48 y 89.4; LETA 30), cotización y desempleo (LGSS 237 y 270.6), dependencia (Ley 39/2006 arts. 4 bis y 18 tras la Ley 4/2026, en vigor el 23/10/2026; convenio especial de cuidadores), fiscalidad (LIRPF 54, 59, 60 y 81 bis; patrimonio protegido de la Ley 41/2003), empleo de hogar (RD 1620/2011 tras el RDL 16/2022; cotización 2026) y abuso patrimonial (CC tras la Ley 8/2021; CP 248, 250, 252, 253 y 268; protocolos Fiscalía-banca; Memoria FGE 2024). Correcciones clave: el plazo de negociación del art. 34.8 es de 15 días con presunción de concesión (no 30); el art. 34.8 no cubre afines no convivientes; el desistimiento del empleo de hogar ya no existe; el art. 81 bis también lo aplican pensionistas y desempleados; el TREBEP tiene reducción por cuidado de familiar (48.h) y reserva de puesto de 2 años; los autónomos tienen una bonificación verificada (art. 30 LETA); la prevalencia de abuso baja a evidencia C. Se añaden 4 hallazgos: nulidad del despido, derechos y convenio especial del cuidador no profesional, patrimonio protegido y bono social eléctrico. Para normas, A significa 'texto legal vigente verificado'; para datos empíricos se usa la escala clínica. La app solo registra, informa con nivel y fecha, y deriva; no calcula derechos, plazos ni importes.",
+ "findings": [
+  {
+   "claim": "Reducción de jornada por cuidado de familiar (art. 37.6 ET, párrafo 2.º): quien precise encargarse del cuidado directo de un familiar hasta el 2.º grado de consanguinidad o afinidad que, por razones de edad, accidente o enfermedad, no pueda valerse por sí mismo y no desempeñe actividad retribuida tiene derecho a reducir la jornada diaria entre al menos 1/8 y un máximo de 1/2, con disminución proporcional del salario. La Ley 4/2026, de 1 de octubre (DF 10.ª, BOE 3/10/2026, en vigor el 23/10/2026), reescribe el art. 37.6 pero el párrafo de familiares mantiene el mismo contenido; los cambios afectan sobre todo a hijos con enfermedad grave o gran dependencia. Es un derecho individual; la concreción horaria corresponde a la persona trabajadora dentro de su jornada ordinaria (art. 37.7) y las discrepancias se resuelven en la jurisdicción social.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/rdlg/2015/10/23/2/con",
+    "https://www.boe.es/eli/es/l/2026/10/01/4/con"
+   ],
+   "app_implication": "Ficha informativa 'Reducir jornada para cuidar' con el texto del artículo en lenguaje llano, nivel 'A = texto legal vigente verificado' y fecha de verificación. Plantilla genérica de solicitud escrita y registro de fecha de entrega, respuesta y copia firmada. Derivación a sindicato, graduado social o abogado laboralista para el caso concreto. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "No afirmar que el derecho esté concedido ni que el familiar cumpla el requisito de 'no poder valerse': eso lo valoran la empresa y, en su caso, el juzgado. El convenio colectivo puede mejorar la norma. Avisar de que el salario baja proporcionalmente y remitir a la ficha de cotización (art. 237 LGSS).",
+   "negative_or_conflicting": "Los requisitos 'no pueda valerse por sí mismo' y 'no desempeñe actividad retribuida' se interpretan caso por caso; no se ha consultado jurisprudencia. Si dos personas de la misma empresa lo piden por el mismo familiar, la empresa puede limitar el ejercicio simultáneo por razones justificadas de funcionamiento (párrafo final del art. 37.6, no releído tras la Ley 4/2026)."
+  },
+  {
+   "claim": "Adaptación de jornada (art. 34.8 ET): derecho a SOLICITAR adaptaciones de duración, distribución, ordenación del tiempo y forma de prestación (incluido trabajo a distancia), razonables y proporcionadas. Alcanza a quien tenga necesidades de cuidado del cónyuge o pareja de hecho, de familiares por CONSANGUINIDAD hasta el 2.º grado y de otras personas dependientes solo si conviven en el mismo domicilio (un yerno o nuera que cuide a su suegra no conviviente queda fuera de este apartado), justificando las circunstancias. Sin regulación en convenio, la empresa abre una negociación de máximo 15 días y se presume concedida si no hay oposición motivada expresa en ese plazo; si deniega o propone alternativa, debe motivarlo por escrito con razones objetivas. Derecho a volver a la situación anterior. Discrepancias: procedimiento del art. 139 LRJS.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/rdlg/2015/10/23/2/con"
+   ],
+   "app_implication": "Plantilla genérica de solicitud de adaptación y registro de fechas: entrega, fin del plazo de negociación que figure en la norma o en el convenio, respuesta de la empresa y documentos. Informar (nivel A, con fecha de verificación) de que existe la presunción de concesión y la obligación de motivar, y derivar a asesoría laboral si hay denegación o propuesta alternativa. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "No calcular automáticamente el vencimiento ni afirmar que la petición se ha concedido por silencio: el cómputo y la aplicación de la presunción dependen del convenio y del caso. El plazo para demandar por el art. 139 LRJS es breve; derivar sin demora a un profesional en caso de denegación.",
+   "negative_or_conflicting": "Corrige el hallazgo original: el plazo de negociación es de 15 días (no 30) y existe presunción de concesión. El plazo exacto para demandar (art. 139 LRJS) no se ha releído en esta pasada. La exclusión de afines no convivientes es literal y puede sorprender a muchas familias."
+  },
+  {
+   "claim": "Permisos de corta duración (art. 37 ET): 5 días por accidente o enfermedad graves, hospitalización o intervención quirúrgica sin hospitalización que precise reposo domiciliario del cónyuge, pareja de hecho o parientes hasta el 2.º grado por consanguinidad o afinidad (incluido el familiar consanguíneo de la pareja de hecho) y de convivientes que requieran cuidado efectivo (37.3.b). Además, ausencia por fuerza mayor por motivos familiares urgentes de familiares o convivientes por enfermedad o accidente que hagan indispensable la presencia inmediata (37.9); se retribuyen las horas equivalentes a 4 días al año conforme al convenio o, en su defecto, a acuerdo con la representación legal, con acreditación del motivo.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/rdlg/2015/10/23/2/con"
+   ],
+   "app_implication": "Registro de hechos (ingreso hospitalario, urgencias, alta con reposo) con fecha y justificante adjunto, y ficha informativa con el texto legal (nivel A). Recordatorio de consultar el convenio colectivo, que puede mejorar los días. Derivación a la representación sindical o asesoría laboral. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "No calcular fechas de inicio ni fin, ni decir si un episodio de la persona con Alzheimer es 'enfermedad grave' a efectos laborales: lo acredita el informe médico y lo valora la empresa o el juzgado. La retribución de la fuerza mayor depende del convenio o acuerdo.",
+   "negative_or_conflicting": "El cómputo (días naturales o laborables, inicio en día no laborable) lo han matizado tribunales y convenios; no verificado aquí. Un empeoramiento crónico de la demencia no siempre se considera 'enfermedad grave' u 'hospitalización'."
+  },
+  {
+   "claim": "Excedencia por cuidado de familiares (art. 46.3 ET): hasta 2 años (más si lo prevé el convenio) para cuidar del cónyuge o pareja de hecho o de un familiar hasta el 2.º grado de consanguinidad o afinidad (incluido el consanguíneo de la pareja de hecho) que por edad, accidente, enfermedad o discapacidad no pueda valerse por sí mismo y no desempeñe actividad retribuida. Fraccionable; derecho individual; computa para antigüedad; derecho a cursos de formación. Reserva del mismo puesto durante el primer año (15 meses en familia numerosa general, 18 en especial) y después de un puesto del mismo grupo profesional o categoría equivalente. Es sin sueldo.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/rdlg/2015/10/23/2/con"
+   ],
+   "app_implication": "Ficha comparativa informativa 'reducción de jornada / adaptación / excedencia' que expone lo que dice cada norma (salario, reserva de puesto, cotización), con nivel A y fecha de verificación, sin recomendar ninguna opción. Recordatorio de solicitar por escrito y guardar acuse. Derivación a sindicato o asesoría laboral. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "La app no recomienda cuál elegir. Avisar de que no hay salario durante la excedencia, que tras el primer año la reserva es de un puesto equivalente y que la excedencia no genera prestación por desempleo mientras dura.",
+   "negative_or_conflicting": "Si dos o más personas de la misma empresa generan el derecho por el mismo familiar (p. ej., hermanos), la empresa puede limitar el ejercicio simultáneo por razones fundadas y motivadas por escrito, ofreciendo un plan alternativo. Un nuevo sujeto causante pone fin a la excedencia en curso."
+  },
+  {
+   "claim": "Cotización y desempleo: el art. 237.2 LGSS (redacción del RDL 2/2023) considera efectivamente cotizados los 3 primeros años de excedencia por cuidado de familiares hasta el 2.º grado a efectos de jubilación, incapacidad permanente, muerte y supervivencia, y nacimiento y cuidado de menor; el art. 237.3 computa al 100 % las cotizaciones de los 3 primeros años de reducción de jornada en los supuestos del primer y segundo párrafo del art. 37.6 ET (incluido el de familiares). Para la prestación por desempleo, el art. 270.6 LGSS computa las bases incrementadas al 100 % en las reducciones de jornada del art. 37.5, 6 y 8 ET.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/rdlg/2015/10/30/8/con"
+   ],
+   "app_implication": "Tarjeta informativa 'Qué dice la ley sobre mi cotización si reduzco jornada o pido excedencia' con el texto de los arts. 237 y 270.6 en lenguaje llano (nivel A) y enlace a los servicios oficiales de la Seguridad Social y del SEPE para consultar la vida laboral y el caso concreto. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "No estimar pensión ni paro. Subrayar que la protección es solo para excedencia y reducción con causa legal (no para una baja voluntaria ni un contrato a tiempo parcial pactado) y que la cotización 'ficticia' no es salario.",
+   "negative_or_conflicting": "Corrige el hallazgo original: el art. 270.6 sí se ha leído y protege la base de desempleo en reducciones del 37.6. El art. 237 se modifica con frecuencia (2017, 2019, 2023): revalidar en cada actualización de la app."
+  },
+  {
+   "claim": "Empleados públicos (TREBEP, norma básica): art. 48.a, 5 días hábiles por accidente o enfermedad grave, hospitalización o intervención con reposo domiciliario del cónyuge, pareja de hecho o familiar de 1.er grado (o conviviente que requiera cuidado) y 4 días hábiles si es de 2.º grado; art. 48.h, reducción de jornada con disminución de retribuciones para el cuidado directo de un familiar hasta el 2.º grado que no pueda valerse por sí mismo y no trabaje (equivalente al 37.6 ET); art. 48.i, reducción de hasta el 50 % retribuida, máximo 1 mes, por enfermedad muy grave de familiar de 1.er grado (prorrateable entre titulares). Art. 89.4: excedencia de hasta 3 años por cuidado de familiar a cargo hasta el 2.º grado, única por sujeto causante, computable a trienios, carrera y Seguridad Social, con reserva del puesto al menos 2 años y después en la misma localidad e igual retribución. La Ley 4/2026 (DF 11.ª) añade párrafos al art. 49.e para gran dependencia de hijos.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/rdlg/2015/10/30/5/con",
+    "https://www.boe.es/eli/es/l/2026/10/01/4/con"
+   ],
+   "app_implication": "Selector 'trabajo en la Administración' que muestre la ficha de la norma básica (nivel A) con aviso de que cada Administración (AGE, comunidad, ayuntamiento) y el personal laboral con convenio propio pueden tener reglas distintas, y derive al servicio de personal o a la junta de personal. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "No mezclar con el ET: la excedencia es de 3 años en TREBEP frente a 2 en ET, y los días se cuentan como hábiles. El personal laboral de la Administración se rige por el ET y su convenio.",
+   "negative_or_conflicting": "Corrige y completa el hallazgo original: añade el art. 48.h (reducción por cuidado de familiar) y la reserva de puesto de 2 años del art. 89.4, que estaban sin verificar. Las normas autonómicas de función pública no se han revisado."
+  },
+  {
+   "claim": "Autónomos (RETA): no existe un derecho legal equivalente a la reducción de jornada o a la excedencia por cuidado de familiares (el art. 4.3.g LETA reconoce la conciliación con suspensión de actividad solo en nacimiento, lactancia, riesgo en embarazo y adopción/acogimiento). Sí existe el art. 30 LETA: bonificación del 100 % de la cuota por contingencias comunes, hasta 12 meses, por tener a cargo un familiar hasta el 2.º grado en situación de dependencia acreditada (o con determinada discapacidad), condicionada a contratar a una persona trabajadora (mínimo 3 meses; 50 % si es a tiempo parcial, que no puede ser inferior al 50 % de la jornada) para la actividad del negocio, con reintegro si no se cumple. La vía del convenio especial de cuidadores no profesionales (RD 615/2007, RDL 6/2019) se trata en otro hallazgo.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/l/2007/07/11/20/con",
+    "https://www.boe.es/eli/es/rdl/2019/03/01/6/con"
+   ],
+   "app_implication": "Ficha 'Si eres autónomo/a' que diga con honestidad que no hay excedencia ni reducción legal equivalente, describa la bonificación del art. 30 LETA con su texto y requisitos (nivel A) y derive a la TGSS, a la mutua, a un gestor o a una asociación de autónomos. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "No sugerir contratar para obtener la bonificación ni el cese de actividad como atajo; informar del riesgo de reintegro. Vigencia y compatibilidades de la bonificación a confirmar con la TGSS.",
+   "negative_or_conflicting": "Corrige el hallazgo original (nivel C con fuente de 2019): el art. 30 LETA está verificado en BOE, por lo que sube a A. Se elimina la fuente de la revista de la Seguridad Social (respondió 403). La compatibilidad de un autónomo a tiempo completo con el convenio especial de cuidador no se ha verificado."
+  },
+  {
+   "claim": "Prestación económica para cuidados en el entorno familiar (art. 18 Ley 39/2006, en la redacción de la Ley 4/2026, en vigor el 23/10/2026): se reconoce cuando la persona dependiente lo desee, esté atendida por su entorno familiar 'o relacional', haya condiciones de convivencia y habitabilidad y el PIA la considere idónea; excepcionalmente puede no exigirse convivencia si hay compromiso de cuidados sin contraprestación y viviendas próximas. La misma ley elimina el plazo suspensivo máximo de 2 años de esta prestación y su disposición adicional décima reactiva las prestaciones suspendidas antes de su entrada en vigor, con la cuantía que corresponda.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/l/2006/12/14/39/con",
+    "https://www.boe.es/eli/es/l/2026/10/01/4/con"
+   ],
+   "app_implication": "En el 'cuaderno de papeles', registrar grado de dependencia, fechas de solicitud, resolución y PIA, y quién figura como persona cuidadora. Aviso informativo (nivel A, fecha de verificación) de que la norma cambia el 23/10/2026 y enlace al servicio social de la comunidad autónoma para el caso concreto. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "La cuantía, el acceso y la aplicación de la excepción de convivencia dependen de la comunidad y del desarrollo reglamentario; no estimar importes ni garantizar el reconocimiento. No interpretar si una prestación concreta fue 'suspendida' a efectos de la DA 10.ª: derivar a servicios sociales.",
+   "negative_or_conflicting": "Listas de espera y desigualdad territorial notables, no cuantificadas en esta pasada. Las condiciones de acceso las fijará el Consejo Territorial y un real decreto aún no publicado."
+  },
+  {
+   "claim": "IRPF estatal por ascendiente: mínimo por ascendientes (art. 59 LIRPF) de 1.150 EUR/año por ascendiente mayor de 65 años o con discapacidad que conviva con el contribuyente y no tenga rentas anuales, excluidas las exentas, superiores a 8.000 EUR (+1.400 EUR si es mayor de 75); se asimila a convivencia el internamiento en centro especializado de un ascendiente con discapacidad que dependa del contribuyente. Mínimo por discapacidad de ascendientes (art. 60): 3.000 EUR (grado >=33 %) o 9.000 EUR (>=65 %), más 3.000 EUR por gastos de asistencia si se acredita necesidad de ayuda de terceros, movilidad reducida o grado >=65 %. Deducción del art. 81 bis: hasta 1.200 EUR/año por ascendiente con discapacidad que dé derecho al mínimo del art. 59, para contribuyentes de alta en la Seguridad Social o mutualidad y también para quienes cobran prestaciones de desempleo o pensiones, con límite en las cotizaciones, prorrateo entre varios con derecho y posible abono anticipado.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/l/2006/11/28/35/con"
+   ],
+   "app_implication": "Lista de comprobación informativa 'documentos para la declaración' (certificado de discapacidad, empadronamiento o convivencia, rentas del familiar) con el texto legal (nivel A), recordatorio anual en el periodo de la campaña de la renta y enlace a la AEAT. Derivación a la AEAT o a un asesor fiscal. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "No calcular el ahorro ni decidir qué hermano aplica el mínimo (hay prorrateo). Un diagnóstico de Alzheimer o un grado de dependencia no equivale por sí solo a un grado de discapacidad: hace falta el certificado o una de las equiparaciones del art. 60.3; derivar. Muchas personas mayores superan los 8.000 EUR de pensión y no generan el mínimo por ascendiente.",
+   "negative_or_conflicting": "Corrige el original: el art. 81 bis no exige solo trabajar; también lo pueden aplicar pensionistas y perceptores de desempleo. Las deducciones autonómicas por cuidado de mayores o discapacidad no se han verificado. El art. 60.3 aún usa la expresión 'incapacidad declarada judicialmente' (anterior a la Ley 8/2021); su encaje con las medidas de apoyo actuales es interpretativo."
+  },
+  {
+   "claim": "Empleada o empleado de hogar (RD 1620/2011, modificado por el RDL 16/2022): sin pacto escrito, el contrato se presume indefinido y a jornada completa (art. 5.2); jornada máxima de 40 h semanales de trabajo efectivo y tiempos de presencia limitados a 20 h semanales de promedio mensual salvo compensación con descanso (art. 9); el empleador debe garantizar condiciones de seguridad y salud (art. 7.2; desarrollado por el RD 893/2024). Ya NO existe el desistimiento libre: el art. 11 permite extinguir por causas justificadas (disminución de ingresos o aumento de gastos sobrevenidos, modificación sustancial de las necesidades de la familia, pérdida de confianza razonable) por escrito, con indemnización de 12 días por año (máximo 6 mensualidades) y preaviso de 20 días (más de 1 año de servicio) o 7 días; si no se cumplen la forma escrita o la indemnización, se presume despido; la extinción de la persona interna no puede hacerse entre las 17 h y las 8 h salvo falta muy grave. Cotización 2026 (TGSS): contingencias comunes 28,30 % (23,60 % empleador), desempleo 7,05 % indefinido u 8,30 % temporal, FOGASA 0,20 %, MEI 0,90 %; reducción del 20 % en la cuota empresarial por contingencias comunes (o beneficio del 45 % en familia numerosa, no acumulable) y bonificación del 80 % en desempleo y FOGASA.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/rd/2011/11/14/1620/con",
+    "https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/CotizacionRecaudacionTrabajadores/36537",
+    "https://www.boe.es/eli/es/rd/2024/09/10/893/con"
+   ],
+   "app_implication": "Guía informativa 'Si contratamos a una cuidadora' (nivel A, fecha de verificación): contrato escrito, alta en la TGSS, nóminas, registro de horas y de pagos compartido entre hermanos, y qué dice la norma si la relación termina (ingreso en residencia o fallecimiento). Derivación a la TGSS, una gestoría o una asociación de empleo de hogar. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "El empleador es el titular del hogar familiar que firma el alta, con responsabilidad por infracciones; si ese titular es la persona con Alzheimer, quién actúa por ella es una cuestión de medidas de apoyo (Ley 8/2021): derivar. No calcular cuotas, indemnizaciones ni preavisos. Los porcentajes cambian cada año.",
+   "negative_or_conflicting": "Corrige el original: el desistimiento fue eliminado por el RDL 16/2022. Las cifras de cotización proceden de la web de la TGSS (no de la orden de cotización, que no se ha leído). Las obligaciones concretas del RD 893/2024 (evaluación de riesgos y plazos) no se han leído; solo se ha verificado que existe. Las sanciones citadas en prensa no se han verificado."
+  },
+  {
+   "claim": "Prevalencia de abuso y explotación financiera en demencia: un metaanálisis (Gerontology 2025; 30 estudios de 8 países, 6.789 díadas, estudios de 1990 a marzo de 2023) estima abuso global del 42,6 % (IC95 % 34-51 %) en personas con demencia en la comunidad, con abuso financiero del 28,3 % (IC95 % 3-53 %), psicológico 44,8 %, negligencia 19,8 % y físico 10 %. Una revisión de alcance (Trauma Violence Abuse 2025; 21 artículos en inglés hasta julio de 2024) concluye que la explotación financiera es de las formas más comunicadas, con investigación fragmentada y sin evidencia sólida sobre intervenciones. No hay prevalencia española específica verificada.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/40552876/",
+    "https://pubmed.ncbi.nlm.nih.gov/41163334/"
+   ],
+   "app_implication": "Texto de concienciación sin cifras destacadas ('las personas con demencia tienen más riesgo de abuso económico'), etiquetado como evidencia C (estudios observacionales heterogéneos), y registro libre de observaciones con fecha. Derivación a servicios sociales, a la Fiscalía provincial y, si hay peligro inmediato, al 112. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "No presentar las cifras como riesgo individual ni insinuar sospecha sobre el cuidador familiar. La app no detecta, puntúa ni alerta automáticamente de abuso.",
+   "negative_or_conflicting": "Se baja de B a C: es un metaanálisis de estudios observacionales con heterogeneidad alta, muestras de conveniencia, autoinforme de cuidadores y un IC del abuso financiero (3-53 %) tan amplio que no permite dar una cifra. Contextos no españoles; la revisión de alcance no da estimación combinada."
+  },
+  {
+   "claim": "Protocolos Fiscalía-banca: el 19/7/2023 la Fiscalía General del Estado, AEB, CECA y UNACC (Banco de España como observador) firmaron un protocolo marco para la efectividad de las medidas de apoyo en el ámbito bancario, acompañado del documento interpretativo 'La guarda de hecho en la Ley 8/2021' que propone la 'declaración responsable' del guardador ante el banco, y un segundo protocolo de protección patrimonial que canaliza la comunicación directa entre bancos y fiscalías provinciales ante indicadores de abuso o influencia indebida. La Memoria FGE 2024 (datos de 2023) recoge 27 casos comunicados a la Unidad en la experiencia piloto previa (el triple que en 2022), aumento de la detección temprana por la implantación del protocolo, uso de medidas cautelares urgentes del art. 762 LEC y dificultades por falta de medios y retrasos judiciales.",
+   "evidence_level": "C",
+   "sources": [
+    "https://www.bde.es/f/webbe/GAP/Secciones/SalaPrensa/NotasInformativas/23/presbe2023-63.pdf",
+    "https://www.fiscal.es/memorias/memoria2024/FISCALIA_SITE/recursos/pdf/capitulo_III/cap_III_9_1.pdf"
+   ],
+   "app_implication": "Guía informativa para la familia (con fuentes oficiales y fecha): qué es la guarda de hecho ante el banco, que existe una declaración responsable como fórmula orientativa, y qué hacer si el banco bloquea operaciones (pedir explicación por escrito, acudir a la Fiscalía provincial o a un abogado). Lista de documentos en el 'cuaderno de papeles'. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "Los protocolos son de colaboración entre instituciones, no un derecho exigible por la familia, y su aplicación varía según entidad y oficina. La app no decide si hay abuso; ante riesgo inmediato, indicar Fiscalía o policía.",
+   "negative_or_conflicting": "Datos administrativos de casos comunicados, no de prevalencia. La propia Memoria señala falta de medios y medidas cautelares que se demoran. El texto íntegro de los protocolos no se ha leído y la Memoria 2025 no se ha vuelto a verificar en esta pasada."
+  },
+  {
+   "claim": "Poderes preventivos y medidas de apoyo (Código Civil tras la Ley 8/2021): el poderdante puede incluir cláusula de subsistencia para cuando precise apoyo (art. 256) o un poder solo para ese momento (art. 257); puede fijar controles, salvaguardas frente a abusos, conflicto de intereses o influencia indebida, plazos de revisión y formas de extinción (art. 258); el poder otorgado al cónyuge o pareja se extingue con el cese de la convivencia salvo voluntad contraria o internamiento; cualquier legitimado o el curador pueden pedir judicialmente su extinción si el apoderado incurre en causa de remoción del curador. Quien presta apoyo no puede recibir liberalidades (salvo regalos de costumbre o de escaso valor), actuar con conflicto de intereses ni comprar o vender bienes a la persona (art. 251, salvo exclusión expresa en medidas voluntarias). El guardador de hecho necesita autorización judicial para actuar como representante y para los actos del art. 287, pero no para solicitar prestaciones económicas sin cambio significativo de vida ni para actos de escasa relevancia económica (art. 264).",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/l/2021/06/02/8/con",
+    "https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763"
+   ],
+   "app_implication": "Módulo informativo 'Documentos de futuro' (nivel A): qué es un poder preventivo, que se otorga ante notario, y qué salvaguardas prevé la ley (revisión, rendición de cuentas, más de un apoderado). Registro de qué documentos existen, fecha y notaría. Derivación a notaría, abogado y Fiscalía. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "La app no valora si la persona puede otorgar un poder (lo juzga el notario) ni redacta poderes. Si ya no puede otorgarlo, derivar al juzgado y a la Fiscalía. No sugerir actos de disposición del guardador sin asesoramiento.",
+   "negative_or_conflicting": "Rendición de cuentas y curatela (arts. 249-294) no leídas por completo; la práctica notarial y bancaria con la guarda de hecho varía y genera conflictos (ver protocolos)."
+  },
+  {
+   "claim": "Vía penal: estafa (art. 248 CP, prisión de 6 meses a 3 años; multa si no excede de 400 EUR; modificado por la LO 1/2026), agravada (art. 250) entre otros supuestos por abuso de las relaciones personales entre víctima y defraudador o por especial gravedad; administración desleal (art. 252) para quien infringe facultades de administrar un patrimonio ajeno; y apropiación indebida (art. 253) de dinero o bienes recibidos en depósito o custodia. El art. 268 CP exime de responsabilidad penal (subsiste la civil) en delitos patrimoniales entre cónyuges no separados, ascendientes, descendientes, hermanos y afines en primer grado si viven juntos, SALVO que concurra violencia, intimidación o abuso de la vulnerabilidad de la víctima por edad o discapacidad; no ampara a extraños que participen.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/lo/1995/11/23/10/con"
+   ],
+   "app_implication": "Ficha informativa 'Qué hacer si me preocupa el uso del dinero de mi familiar' (nivel A): guardar extractos y documentos, anotar hechos con fecha y sin interpretaciones, y acudir a un abogado, a la Fiscalía provincial o a la policía. Registro de hechos neutral; derivación a mediación familiar cuando sea un desacuerdo y no un posible delito. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "La app no califica hechos ni señala culpables. Que la víctima tenga demencia no excluye automáticamente la excusa del art. 268: el juez debe apreciar abuso de su vulnerabilidad. Evitar mensajes que alimenten conflictos entre hermanos.",
+   "negative_or_conflicting": "La aplicación del art. 268 en casos de vulnerabilidad se decide caso por caso y no se ha consultado jurisprudencia. Muchos conflictos económicos familiares son civiles, no penales."
+  },
+  {
+   "claim": "NUEVO. Protección frente al despido (art. 55.5.b ET, redacción LO 1/2025): es nulo el despido de quien haya solicitado o esté disfrutando los permisos del art. 37.3.b, 37.4, 37.5 y 37.6 (incluida la reducción por cuidado de familiar), las adaptaciones del art. 34.8 o la excedencia del art. 46.3, salvo que se declare procedente por motivos no relacionados con esos derechos. El despido nulo conlleva readmisión inmediata y salarios dejados de percibir (art. 55.6).",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/rdlg/2015/10/23/2/con"
+   ],
+   "app_implication": "Mensaje informativo (nivel A) en las fichas de reducción, adaptación, permisos y excedencia: la ley protege frente al despido a quien ejerce estos derechos. Recordatorio de guardar las solicitudes con fecha, que pueden servir de prueba, y derivación urgente a abogado laboralista o sindicato si hay despido o represalia. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "No afirmar que un despido concreto sea nulo: lo declara el juzgado. Los plazos para impugnar un despido son muy cortos (caducidad); indicar que se consulte de inmediato sin calcular plazos.",
+   "negative_or_conflicting": "La nulidad no impide un despido procedente por causas ajenas al ejercicio del derecho. El plazo de caducidad de la acción de despido no se ha releído en esta pasada."
+  },
+  {
+   "claim": "NUEVO. Persona cuidadora no profesional en el sistema de dependencia: la Ley 4/2026 añade el art. 4 bis a la Ley 39/2006 (en vigor el 23/10/2026): las personas cuidadoras no profesionales identificadas en el PIA tienen derecho a información accesible sobre prestaciones y a acompañamiento y formación para el cuidado y el autocuidado; la persona cuidadora principal designada en la resolución de la prestación del art. 18 tiene además derecho a ser colectivo prioritario de la política de empleo, a medidas de conciliación (con continuidad de la atención si enferma o es hospitalizada) y a su incorporación a la Seguridad Social. Hoy esa incorporación se hace mediante el convenio especial del RD 615/2007, cuyas cuotas abona directamente el IMSERSO a la TGSS desde el 1/4/2019 (RDL 6/2019); surte efectos desde el reconocimiento de la prestación si se solicita en los 90 días naturales siguientes, y si no, desde la solicitud.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/l/2026/10/01/4/con",
+    "https://www.boe.es/eli/es/l/2006/12/14/39/con",
+    "https://www.boe.es/eli/es/rdl/2019/03/01/6/con"
+   ],
+   "app_implication": "Registro en el 'cuaderno de papeles' de la fecha de la resolución de la prestación y de la solicitud del convenio especial, con ficha informativa (nivel A) sobre la existencia del plazo legal de 90 días para que surta efecto desde el reconocimiento. Derivación a la TGSS y a los servicios sociales de la comunidad. Enlace a formación oficial para cuidadores cuando exista. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "No calcular el fin del plazo de 90 días ni afirmar que la persona cumple los requisitos del convenio (compatibilidad con trabajo o pensión): derivar a la TGSS. Los derechos del art. 4 bis requieren desarrollo autonómico y criterios del Consejo Territorial (plazo de 6 meses).",
+   "negative_or_conflicting": "Derechos recién creados y de contenido programático; su efectividad dependerá de cada comunidad. Los requisitos detallados del RD 615/2007 no se han releído."
+  },
+  {
+   "claim": "NUEVO. Patrimonio protegido (Ley 41/2003): puede constituirse a favor de personas con discapacidad psíquica igual o superior al 33 % o física o sensorial igual o superior al 65 %, acreditada por certificado o resolución judicial firme (art. 2). Las aportaciones de parientes en línea directa o colateral hasta el 3.er grado, del cónyuge o de quien la tenga a cargo reducen la base imponible del IRPF del aportante hasta 10.000 EUR anuales, con un máximo conjunto de 24.250 EUR por patrimonio, y el exceso se traslada a los 4 ejercicios siguientes (art. 54 LIRPF). La Ley 4/2026 (DF 20.ª) obliga al Gobierno a remitir en 18 meses un proyecto para actualizar esta figura y ampliar su tratamiento fiscal.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/l/2003/11/18/41/con",
+    "https://www.boe.es/eli/es/l/2006/11/28/35/con",
+    "https://www.boe.es/eli/es/l/2026/10/01/4/con"
+   ],
+   "app_implication": "Ficha informativa (nivel A) 'Patrimonio protegido: qué es' con requisitos legales y aviso de reforma anunciada, y derivación a notaría y asesor fiscal. Registro de si existe y de las aportaciones documentadas, sin cálculos. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "No decidir si la persona encaja (el grado y tipo de discapacidad los fija el certificado) ni calcular reducciones. Una aportación al patrimonio protegido tiene reglas de disposición y efectos fiscales para el aportante y el titular: siempre asesoramiento profesional.",
+   "negative_or_conflicting": "Se discute si la demencia encaja en 'discapacidad psíquica' en cada certificado; depende de la valoración. Las reglas de disposición y la tributación del titular no se han revisado en esta pasada. La reforma anunciada puede cambiar requisitos."
+  },
+  {
+   "claim": "NUEVO. Bono social eléctrico (RD 897/2017, art. 3.3): los umbrales de renta para ser consumidor vulnerable se incrementan cuando algún miembro de la unidad de convivencia tiene dependencia reconocida de grado II o III o discapacidad igual o superior al 33 %; además, no puede suspenderse el suministro por impago al beneficiario del bono social cuando en la unidad familiar hay una persona con dependencia de grado II o III o discapacidad igual o superior al 33 %.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.boe.es/eli/es/rd/2017/10/06/897/con"
+   ],
+   "app_implication": "Ficha informativa 'Ayudas en facturas del hogar' (nivel A) que explique que la dependencia o la discapacidad reconocidas son circunstancias que la norma tiene en cuenta, y derive a la comercializadora de referencia, a servicios sociales o a una oficina de consumo. Registro del certificado de dependencia en el 'cuaderno de papeles'. La app solo registra lo que la familia anota, muestra el texto legal con su fecha de verificación y deriva; no decide si la persona tiene derecho, no calcula importes ni plazos y no emite valoraciones clínicas ni jurídicas.",
+   "safety_notes": "No calcular si la familia cumple los umbrales de renta ni tramitar la solicitud. Solo las comercializadoras de referencia aplican el bono social.",
+   "negative_or_conflicting": "Los multiplicadores de renta y los descuentos se han modificado varias veces por normas temporales; revisar la cuantía vigente antes de publicar. Solo se ha verificado el artículo de circunstancias especiales y de no suspensión."
+  }
+ ],
+ "app_features": [
+  "Guía de derechos laborales por tipo de trabajo (cuenta ajena, función pública, autónomo) con texto legal en lenguaje llano, etiqueta 'A = texto legal vigente verificado', fecha de última verificación y avisos de cambio normativo (Ley 4/2026, en vigor el 23/10/2026)",
+  "Plantillas genéricas descargables (reducción de jornada, adaptación, excedencia) y registro de fechas de entrega, respuestas y justificantes, sin cálculo automático de plazos ni valoración de la respuesta",
+  "Aviso transversal de protección frente al despido (art. 55.5.b ET) con derivación urgente a sindicato o abogado laboralista",
+  "Cuaderno de papeles: certificados de discapacidad y dependencia, resoluciones, PIA, convenio especial de cuidador, poderes, contratos y extractos, con checklist de documentos para la renta",
+  "Guía de contratación de empleo de hogar con checklist de obligaciones legales vigentes (contrato escrito, alta, registro de horas, prevención de riesgos, extinción sin desistimiento) y hoja compartida de horas y pagos",
+  "Registro compartido de gastos familiares (quién paga qué, justificantes), con permisos por rol, sin repartos ni cálculos vinculantes",
+  "Módulo 'Documentos de futuro' sobre poderes preventivos, guarda de hecho y patrimonio protegido, con derivación a notaría, abogado y Fiscalía",
+  "Registro neutral de observaciones sobre el dinero (cambios de operativa, regalos inusuales, firmas, accesos), sin puntuación, detección ni alerta automática",
+  "Guía de pasos ante preocupación por abuso patrimonial: documentar, hablar con el banco, Fiscalía provincial, abogado, policía y 112 si hay peligro inmediato",
+  "Ficha de ayudas en el hogar (bono social eléctrico) y directorio de derivación: sindicatos, servicios sociales, Fiscalía provincial, TGSS, SEPE, AEAT, colegios de abogados y notarios, asociaciones de familiares"
+ ],
+ "questions_for_owner": [
+  "¿Quién cuida y cuál es su situación laboral (cuenta ajena, autónoma, funcionaria, personal laboral de la Administración, sin empleo, jubilada)? Decide qué fichas se priorizan.",
+  "¿La persona con Alzheimer tiene ya grado de dependencia reconocido, PIA y prestación del art. 18? ¿Se solicitó el convenio especial de cuidador dentro de los 90 días?",
+  "¿Tiene certificado de discapacidad? Sin él no se aplican el mínimo por discapacidad, el art. 81 bis ni el patrimonio protegido.",
+  "¿Existe poder preventivo, guarda de hecho o curatela? ¿Hay desacuerdo entre hermanos sobre dinero o patrimonio?",
+  "¿La app ofrecerá información por comunidad autónoma desde el inicio o solo la norma estatal con aviso de variación? ¿En qué comunidad vive la familia?",
+  "¿Quién revisará jurídicamente los textos (abogado laboralista, graduado social, asesor fiscal) y con qué periodicidad? La Ley 4/2026 demuestra que las normas cambian a mitad de año.",
+  "¿Quién verá el registro de gastos y el de observaciones patrimoniales (todos los hermanos o solo la persona cuidadora principal)? ¿Quién custodia esos datos (RGPD art. 9 y datos económicos)?",
+  "¿Contratan o piensan contratar empleo de hogar? ¿Quién figuraría como titular del hogar y empleador?",
+  "¿La entidad jurídica acepta ofrecer plantillas de cartas con redacción genérica o prefiere limitarse a enlaces a fuentes oficiales?"
+ ],
+ "free_resources": [
+  {
+   "name": "Estatuto de los Trabajadores, texto consolidado (BOE)",
+   "url": "https://www.boe.es/eli/es/rdlg/2015/10/23/2/con",
+   "what": "Arts. 34.8, 37, 46.3 y 55.5. Verificado (HTTP 200, texto leído a 12/10/2026, ya refleja la DF 10.ª de la Ley 4/2026).",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Ley 4/2026, de 1 de octubre (BOE)",
+   "url": "https://www.boe.es/eli/es/l/2026/10/01/4/con",
+   "what": "Reforma de la Ley 39/2006 (arts. 4 bis y 18, DA 10.ª), ET 37.6, TREBEP 49.e y anuncio de reforma del patrimonio protegido. En vigor el 23/10/2026.",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Ley General de la Seguridad Social, texto consolidado (BOE)",
+   "url": "https://www.boe.es/eli/es/rdlg/2015/10/30/8/con",
+   "what": "Art. 237 (cotización en excedencia y reducción por cuidado) y art. 270.6 (desempleo).",
+   "cost": "Gratis"
+  },
+  {
+   "name": "TREBEP, texto consolidado (BOE)",
+   "url": "https://www.boe.es/eli/es/rdlg/2015/10/30/5/con",
+   "what": "Permisos (arts. 48 y 49) y excedencia por cuidado de familiares (art. 89.4).",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Ley 20/2007 del Estatuto del Trabajo Autónomo (BOE)",
+   "url": "https://www.boe.es/eli/es/l/2007/07/11/20/con",
+   "what": "Art. 30: bonificación por conciliación vinculada a la contratación.",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Ley 39/2006 de dependencia, texto consolidado (BOE)",
+   "url": "https://www.boe.es/eli/es/l/2006/12/14/39/con",
+   "what": "Prestación económica para cuidados en el entorno familiar (art. 18) y derechos de cuidadores (art. 4 bis).",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Real Decreto-ley 6/2019 (BOE)",
+   "url": "https://www.boe.es/eli/es/rdl/2019/03/01/6/con",
+   "what": "Convenio especial de cuidadores no profesionales con cuotas abonadas por el IMSERSO; plazo de 90 días.",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Ley 35/2006 del IRPF, texto consolidado (BOE)",
+   "url": "https://www.boe.es/eli/es/l/2006/11/28/35/con",
+   "what": "Arts. 54 (patrimonio protegido), 59 y 60 (mínimos) y 81 bis (deducción).",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Ley 41/2003 de protección patrimonial (BOE)",
+   "url": "https://www.boe.es/eli/es/l/2003/11/18/41/con",
+   "what": "Patrimonio protegido de personas con discapacidad.",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Ley 8/2021 (BOE)",
+   "url": "https://www.boe.es/eli/es/l/2021/06/02/8/con",
+   "what": "Reforma del apoyo a personas con discapacidad en el ejercicio de su capacidad jurídica.",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Código Civil, texto consolidado (BOE)",
+   "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1889-4763",
+   "what": "Arts. 251, 256-258 y 264 sobre poderes preventivos, prohibiciones y guarda de hecho.",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Código Penal, texto consolidado (BOE)",
+   "url": "https://www.boe.es/eli/es/lo/1995/11/23/10/con",
+   "what": "Arts. 248, 250, 252, 253 y 268.",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Real Decreto 1620/2011, empleo de hogar (BOE)",
+   "url": "https://www.boe.es/eli/es/rd/2011/11/14/1620/con",
+   "what": "Relación laboral especial del servicio del hogar familiar (extinción en art. 11 tras el RDL 16/2022).",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Real Decreto 893/2024, prevención de riesgos en el hogar (BOE)",
+   "url": "https://www.boe.es/eli/es/rd/2024/09/10/893/con",
+   "what": "Seguridad y salud en el servicio del hogar familiar (existencia verificada; contenido pendiente de lectura).",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Seguridad Social: Sistema Especial para Empleados de Hogar",
+   "url": "https://www.seg-social.es/wps/portal/wss/internet/Trabajadores/CotizacionRecaudacionTrabajadores/36537",
+   "what": "Tipos de cotización 2026, reducciones y bonificaciones.",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Real Decreto 897/2017, bono social eléctrico (BOE)",
+   "url": "https://www.boe.es/eli/es/rd/2017/10/06/897/con",
+   "what": "Consumidor vulnerable; dependencia de grado II-III y discapacidad como circunstancias especiales.",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Memoria FGE 2024, cap. III 9.1: personas con discapacidad y mayores",
+   "url": "https://www.fiscal.es/memorias/memoria2024/FISCALIA_SITE/recursos/pdf/capitulo_III/cap_III_9_1.pdf",
+   "what": "Protocolos con la banca, declaración responsable del guardador, art. 762 LEC y abuso patrimonial a mayores.",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Banco de España: nota de prensa 2023-63",
+   "url": "https://www.bde.es/f/webbe/GAP/Secciones/SalaPrensa/NotasInformativas/23/presbe2023-63.pdf",
+   "what": "Firma el 19/7/2023 de los protocolos Fiscalía-banca.",
+   "cost": "Gratis"
+  },
+  {
+   "name": "PubMed: metaanálisis de abuso en demencia comunitaria (Gerontology 2025)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/40552876/",
+   "what": "Prevalencia de abuso global y financiero en demencia (evidencia C).",
+   "cost": "Gratis (resumen)"
+  },
+  {
+   "name": "PubMed: revisión de alcance sobre explotación financiera en demencia (2025)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/41163334/",
+   "what": "Temas, señales de alerta y barreras de protección.",
+   "cost": "Gratis (resumen)"
+  }
+ ],
+ "verification_notes": "Revisión escéptica hecha el 12/10/2026 descargando los textos consolidados del BOE (ET, LGSS, TREBEP, LETA, LIRPF, CC, CP, Ley 39/2006, Ley 41/2003, RD 1620/2011, RDL 6/2019, RD 897/2017 y Ley 4/2026) y extrayendo cada artículo citado; todas las URL ELI devolvieron HTTP 200. Se leyeron la web de la TGSS sobre empleo de hogar (tipos de 2026), la nota del Banco de España y el PDF de la Memoria FGE 2024, y los resúmenes de PubMed por E-utilities. Correcciones: art. 34.8 con 15 días de negociación, presunción de concesión y exclusión de afines no convivientes; desistimiento del empleo de hogar eliminado por el RDL 16/2022; art. 81 bis ampliado a pensionistas y desempleados; TREBEP 48.h y reserva de 2 años del art. 89.4; art. 270.6 LGSS verificado; autónomos suben de C a A por el art. 30 LETA; la prevalencia de abuso baja de B a C; la Ley 4/2026 entra en vigor completa el 23/10/2026 (no solo el art. 18). Se retiró la fuente de la revista de la Seguridad Social (HTTP 403) y la referencia no reverificada a la Memoria FGE 2025. Se añadieron 4 hallazgos (art. 55.5.b ET, art. 4 bis Ley 39/2006 y convenio especial, patrimonio protegido y bono social). Pendiente: jurisprudencia, plazos del art. 139 LRJS y de caducidad del despido, deducciones autonómicas, contenido del RD 893/2024 y del RD 615/2007, y texto íntegro de los protocolos. Todo el contenido es informativo y no constituye asesoramiento jurídico; requiere revisión profesional antes de publicarse."
+}

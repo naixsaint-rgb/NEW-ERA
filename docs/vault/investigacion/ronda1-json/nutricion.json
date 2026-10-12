@@ -1,0 +1,309 @@
+{
+ "key": "nutricion",
+ "title": "Nutrición e hidratación en Alzheimer y demencias (revisado)",
+ "summary": "La nutrición es la dimensión con mejor relación impacto/riesgo para una app gratuita, pero ningún alimento, dieta o suplemento ha demostrado de forma sólida frenar el Alzheimer establecido. La guía ESPEN 2024 (40 recomendaciones, la mayoría puntos de buena práctica por falta de ensayos) prioriza cribado de malnutrición y deshidratación, vigilancia estrecha, eliminar causas tratables (boca, fármacos, ánimo), ayuda y entorno en la comida; recomienda suplementos orales para nutrir, no para la cognición; desaconseja de rutina suplementos específicos de demencia, dieta cetogénica, omega-3 y estimulantes del apetito; y no recomienda sonda ni nutrición artificial en demencia grave o fase terminal. Ensayos clave nulos o modestos: MIND (NEJM 2023) nulo; Cochrane de vitaminas y minerales en sanos sin efecto relevante; vitamina E y omega-3 sin beneficio. Señales débiles: VITACOG (B12/folato en MCI con homocisteína alta, variable intermedia), LipiDiDiet (variable principal negativa a 24 meses, financiado por el fabricante), cetonas/MCT (ensayos pequeños, fase 3 del fabricante sin resultados publicados en registro). Cobre: asociación en U observacional (UK Biobank, 2026), sin ensayo. Prevención multidominio (FINGER, US POINTER 2025) sí muestra beneficio modesto, pero en personas en riesgo sin demencia: útil para los familiares. Para el producto: la app registra, muestra tendencias sin interpretarlas clínicamente, informa con nivel de evidencia y deriva al profesional; no calcula diagnósticos (malnutrición, deshidratación, delirium), no asigna texturas ni dosis y no comprueba interacciones de forma automática, para quedar fuera de la regla 11 del MDR. Ojo a licencias: MNA es marca de Nestlé y requiere permiso; IDDSI es CC BY-SA sin modificaciones; BEDCA requiere autorización para usos no personales.",
+ "findings": [
+  {
+   "claim": "La guía ESPEN 2024 (Volkert et al., Clin Nutr 2024;43:1599-1626) formula 40 recomendaciones: cribado rutinario de malnutrición y deshidratación, valoración nutricional y vigilancia estrecha del peso, con abordaje individualizado en todas las fases. Por falta de estudios adecuados, la mayoría son puntos de buena práctica (consenso), no recomendaciones basadas en ensayos.",
+   "evidence_level": "B",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/38772068/",
+    "https://www.espen.org/files/ESPEN-Guidelines/ESPEN-guideline-on-nutrition-and-hydration-in-dementia-update-2024.pdf"
+   ],
+   "app_implication": "Registro de peso con recordatorio configurable por la familia o por indicación del profesional, y gráfica de tendencia con el % de cambio respecto a hace 1, 3 y 6 meses, mostrado como dato y no como diagnóstico. Texto fijo de ESPEN, igual para todos los usuarios: 'Una pérdida de peso no buscada merece comentarse con el médico o la enfermera'. Exportación para la consulta.",
+   "negative_or_conflicting": "Bajado de A a B: la guía tiene buena metodología (SIGN, consenso formal), pero el propio resumen reconoce que casi todo es consenso de expertos. Los umbrales exactos de pérdida de peso y la frecuencia de pesado no se verificaron en el texto completo.",
+   "safety_notes": "No fijar umbrales propios ni etiquetar 'desnutrido'. Si la app calcula y clasifica el riesgo con datos del paciente, pasa a ser software de cribado (posible producto sanitario de clase IIa por la regla 11). Nunca sugerir adelgazar a una persona con demencia, aunque tenga sobrepeso."
+  },
+  {
+   "claim": "ESPEN 2024 recomienda suplementos nutricionales orales para mejorar el estado nutricional, no para corregir ni prevenir el deterioro cognitivo, y no recomienda de rutina suplementos específicos de demencia, dieta cetogénica, omega-3 ni estimulantes del apetito.",
+   "evidence_level": "A",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/38772068/"
+   ],
+   "app_implication": "Contenido educativo con semáforo de evidencia general (no personalizado): separar 'nutrir bien' (útil) de 'tratar el Alzheimer con suplementos' (no demostrado). No mostrar publicidad ni enlaces de compra de suplementos.",
+   "negative_or_conflicting": "Hay señales pequeñas en MCI o Alzheimer prodrómico (MCT, Fortasyn Connect) que no cambian la recomendación; ver los hallazgos correspondientes.",
+   "safety_notes": "La familia puede gastar dinero o sustituir el tratamiento. Política explícita: la app no tiene patrocinio de fabricantes de nutrición. Aviso de consulta en cada ficha."
+  },
+  {
+   "claim": "Ensayo MIND (Barnes et al., NEJM 2023, n=604, mayores sin deterioro cognitivo, con sobrepeso y antecedentes familiares, 3 años): la dieta MIND con restricción calórica leve no mejoró la cognición ni la RM frente a una dieta control con la misma restricción. Ambos grupos mejoraron, probablemente por la pérdida de peso y el seguimiento.",
+   "evidence_level": "A",
+   "sources": [
+    "https://www.nejm.org/doi/full/10.1056/NEJMoa2302368",
+    "https://clinicaltrials.gov/study/NCT02817074"
+   ],
+   "app_implication": "Recetas mediterráneas como apoyo a la salud general y al placer de comer, no como terapia. Texto honesto: 'buena para el corazón y para toda la familia; el mejor ensayo no demostró que frene el deterioro cognitivo'.",
+   "negative_or_conflicting": "El ensayo es nulo frente a un control activo y la evidencia observacional previa era favorable. Eliminé la mención a un análisis genético exploratorio de 2026 (COMT) porque no pude verificarlo.",
+   "safety_notes": "Población sin demencia: no extrapolar al Alzheimer establecido. No proponer restricción calórica a personas con demencia."
+  },
+  {
+   "claim": "VITACOG (Smith et al., 2010, n=271 con MCI, 168 con RM, 2 años): dosis altas de folato, B12 y B6 redujeron la tasa de atrofia cerebral, una variable intermedia, sobre todo con homocisteína alta. Análisis posteriores sugieren que el efecto depende de un omega-3 plasmático basal alto.",
+   "evidence_level": "C",
+   "sources": [
+    "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0012244",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC4927899/",
+    "https://doi.org/10.1002/14651858.CD011906.pub2"
+   ],
+   "app_implication": "Campo para guardar analíticas que sube la familia (B12, folato, homocisteína, vitamina D, función renal), sin interpretación automática, con el texto 'llevadlo a vuestro médico'. Ficha informativa sobre VITACOG con su nivel de evidencia.",
+   "negative_or_conflicting": "Bajado de B a C: la variable principal es intermedia (atrofia), la cognición fue secundaria, el subgrupo omega-3 es post hoc y no hay réplica de fase 3. La Cochrane 2018 (28 estudios, más de 83.000 participantes) no encontró efecto relevante de vitaminas B en adultos cognitivamente sanos.",
+   "safety_notes": "El folato en dosis altas puede enmascarar un déficit de B12. La B6 alta y prolongada produce neuropatía. El déficit de B12 sí es una causa tratable de deterioro cognitivo: lo diagnostica el médico."
+  },
+  {
+   "claim": "LipiDiDiet (Fortasyn Connect/Souvenaid, Alzheimer prodrómico con biomarcadores): la variable principal (NTB a 24 meses) no fue significativa (Lancet Neurol 2017). En la extensión a 36 meses hubo menor declive en CDR-SB, memoria y atrofia hipocampal (variables secundarias).",
+   "evidence_level": "C",
+   "sources": [
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5697936/",
+    "https://alz-journals.onlinelibrary.wiley.com/doi/full/10.1002/alz.12172"
+   ],
+   "app_implication": "Ficha neutral 'Souvenaid: qué se probó, en quién y qué no se demostró' para comentar con el neurólogo. Si la persona lo toma por indicación médica, se registra como cualquier otro producto, con su adherencia.",
+   "negative_or_conflicting": "Bajado de B a C: variable principal negativa, beneficios en análisis secundarios y de extensión con pérdidas, participación del fabricante (Nutricia) y un solo ensayo sin réplica independiente. ESPEN no lo recomienda de rutina. Sin datos en demencia moderada o grave.",
+   "safety_notes": "No presentarlo como tratamiento. Coste elevado. Solo encaja en la población estudiada (prodrómico con biomarcadores)."
+  },
+  {
+   "claim": "Cetonas y MCT: un ensayo de 6 meses con bebida cetogénica de MCT mejoró algunos dominios cognitivos en MCI (Fortier 2021). En Alzheimer, un cruzado de 12 semanas con dieta cetogénica modificada no cambió la cognición pero mejoró la función diaria y la calidad de vida (Phillips 2021). AC-1202 (Henderson 2009, n=152, fabricante Accera) mostró diferencia en ADAS-Cog a los 45 días y solo en no portadores de APOE4 a los 90 días. Su ensayo de fase 3 (AC-1204, NCT01741194, n=418) figura como completado sin resultados en el registro.",
+   "evidence_level": "C",
+   "sources": [
+    "https://alz-journals.onlinelibrary.wiley.com/doi/10.1002/alz.12206",
+    "https://alzres.biomedcentral.com/articles/10.1186/s13195-021-00783-x",
+    "https://doi.org/10.1186/1743-7075-6-31",
+    "https://clinicaltrials.gov/study/NCT01741194",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10949529/"
+   ],
+   "app_implication": "Módulo informativo con evidencia 'mixta y débil'. Si la familia lo prueba con supervisión profesional, la app ofrece un diario genérico de tolerancia (deposiciones, náuseas, apetito), peso y comidas, sin proponer cantidades ni pautas de escalada.",
+   "negative_or_conflicting": "Bajado de B a C: ensayos pequeños y cortos, efectos en subgrupos, financiación de la industria, fase 3 sin resultados publicados (posible sesgo de publicación) y sin cegamiento en las dietas. ESPEN no recomienda la dieta cetogénica.",
+   "safety_notes": "Riesgo de pérdida de peso en personas ya desnutridas, diarrea, hipoglucemia o ajustes en diabéticos, y grasa saturada (el aceite de coco no equivale a MCT). Nunca sin médico o dietista-nutricionista."
+  },
+  {
+   "claim": "Vajilla de alto contraste: un estudio muy pequeño en Alzheimer avanzado (Dunne et al., Clin Nutr 2004) mostró más ingesta de comida y líquidos con vajilla roja de alto contraste. Un cruzado en Ontario (n=18, BMC Res Notes 2020) con platos azules no halló mejora significativa (82,1% frente a 77,1%; p=0,06), aunque algunos residentes respondieron.",
+   "evidence_level": "D",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/15297089/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7379787/"
+   ],
+   "app_implication": "Idea fuera de la caja y segura: una comparación personal opcional de 2 semanas (plato habitual frente a plato de contraste) con registro del % comido. La app muestra la media de cada periodo sin conclusiones causales. Coste y riesgo casi nulos.",
+   "negative_or_conflicting": "Bajado de C a D: dos estudios diminutos y contradictorios, sin réplica. Eliminé el blog comercial (Felgains) como fuente y cito el estudio original. En adultos sanos, los platos rojos se asociaron a menor ingesta en algún estudio.",
+   "safety_notes": "No prometer resultados. Evitar dibujos en el plato que se confundan con comida."
+  },
+  {
+   "claim": "La deshidratación por baja ingesta es frecuente en la demencia (sed alterada, olvido, disfagia, fármacos) y es una causa reversible de confusión y delirium. Según la Cochrane de Hooper 2015, ningún síntoma, signo o prueba aislada (sequedad de boca, color de orina, turgencia de la piel) identifica bien la deshidratación en mayores, y ESPEN recomienda el cribado.",
+   "evidence_level": "B",
+   "sources": [
+    "https://doi.org/10.1002/14651858.CD009647.pub2",
+    "https://pubmed.ncbi.nlm.nih.gov/38772068/",
+    "https://www.segg.es/media/descargas/Acreditacion%20de%20Calidad%20SEGG/CentrosDia/Gu%C3%ADa%20de%20buena%20pr%C3%A1ctica%20cl%C3%ADnica%20en%20Geriatr%C3%ADa%20-%20Hidrataci%C3%B3n%20y%20salud.pdf"
+   ],
+   "app_implication": "Registro de bebida con un toque (vasos o tazas, incluidos sopas, gelatinas y fruta), recordatorios suaves y gráfica diaria comparada con la media de la propia persona. Tarjeta fija de 'señales de alarma' (confusión o somnolencia de aparición brusca, no bebe en todo el día, fiebre, caídas) con el mensaje 'consultar hoy / 112 si es grave', siempre visible y sin cálculo a partir de los datos. La app no infiere deshidratación ni delirium.",
+   "negative_or_conflicting": "Subido de C a B en lo diagnóstico gracias a la Cochrane. No hay ensayo que demuestre que los recordatorios por app reduzcan el delirium. Retiré a Sanitas y Quirón como fuentes (divulgación) y la cifra del 20-40% de delirium, que no se verificó. 'Orina oscura' no debe presentarse como señal fiable.",
+   "safety_notes": "Sin objetivo fijo en litros: la insuficiencia cardiaca o renal puede exigir restricción. Con disfagia, solo líquidos con la textura prescrita. Una alerta algorítmica tipo 'poca bebida + confusión = delirium' sería una función diagnóstica (MDR regla 11, clase IIa o superior)."
+  },
+  {
+   "claim": "IDDSI define 8 niveles (0-4 bebidas, 3-7 alimentos) para personas con disfagia, con pruebas sencillas (flujo con jeringa, presión con tenedor, cuchara inclinada). Se publica gratis bajo CC BY-SA 4.0 y prohíbe modificar sus descriptores.",
+   "evidence_level": "C",
+   "sources": [
+    "https://iddsi.org/framework",
+    "https://iddsi.org/About-Us/Mission"
+   ],
+   "app_implication": "Ficha de disfagia donde la familia copia el nivel prescrito del informe del logopeda o del médico; recetas etiquetadas por nivel; vídeos o guías de las pruebas oficiales sin alterarlas. Tarjeta fija de señales de alarma (tos al comer, voz húmeda, neumonías repetidas, comidas muy largas) y enlace a primeros auxilios por atragantamiento.",
+   "negative_or_conflicting": "Es un estándar de consenso; la evidencia de resultados clínicos (neumonía, mortalidad) es limitada. La revisión de Abdelhamid 2016 halló pocos estudios de calidad sobre modificación de texturas. No verifiqué la traducción oficial al español.",
+   "safety_notes": "La app nunca asigna ni sugiere un nivel: lo decide el logopeda o el médico. Respetar la licencia (atribución, sin cambios)."
+  },
+  {
+   "claim": "Cobre: en UK Biobank (J Nutr Health Aging 2026, seguimiento mediano de 13,3 años, 619 casos de Alzheimer) la ingesta dietética de cobre mostró asociación en U con el riesgo de Alzheimer; el riesgo más alto apareció con 3 mg/día o más (HR 2,73) y el rango con menor riesgo, hacia 1,3-2,0 mg/día. La hipótesis de toxicidad por 'cobre libre' tratada con zinc (Brewer) no está probada en ensayos.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/42102760/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4030141/"
+   ],
+   "app_implication": "Solo informativo: en la ficha de alimentos (USDA) se muestra el cobre y el zinc como un nutriente más, sin objetivos ni semáforos personales. Ficha 'Cobre y Alzheimer: lo que se sabe' con nivel C.",
+   "negative_or_conflicting": "Corregí las cifras originales (1,57 mg/día y unas 126.000 personas no coinciden con el resumen verificado). Es observacional, la ingesta se midió por cuestionario, hay confusión residual y pocos casos con ingesta alta. PMC4030141 es un artículo de opinión del autor que defiende la hipótesis, no un ensayo. Eliminé un enlace de Neurobiology of Aging que no pude verificar.",
+   "safety_notes": "El zinc en dosis altas causa déficit de cobre, anemia y neuropatía. No restringir marisco, frutos secos o legumbres en una persona en riesgo de desnutrición."
+  },
+  {
+   "claim": "Medicina herbal china y otras hierbas en Alzheimer y síntomas conductuales: las revisiones sistemáticas encuentran mejoras, pero con baja calidad metodológica, alto riesgo de sesgo y probable sesgo de publicación en ensayos de origen único.",
+   "evidence_level": "D",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8664324/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8353144/",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8874541/"
+   ],
+   "app_implication": "Sección 'Tradiciones' con etiqueta de evidencia visible y lenguaje respetuoso. Campo libre para anotar hierbas, infusiones y suplementos que toma la persona, con exportación para que el médico o el farmacéutico revise interacciones. Sin comprobador automático de interacciones.",
+   "negative_or_conflicting": "Bajado de C a D por calidad metodológica. Las Cochrane de ginkgo y huperzina no se verificaron en esta revisión. La acupuntura queda fuera de esta dimensión.",
+   "safety_notes": "Ginkgo con anticoagulantes o antiagregantes aumenta el riesgo de sangrado. Huperzina más donepezilo o rivastigmina suma efectos colinérgicos (bradicardia, síncope). Riesgo de contaminación por metales en preparados. Nunca sustituir fármacos."
+  },
+  {
+   "claim": "Vitamina E (Cochrane 2017): no hay evidencia de beneficio en el Alzheimer ni en el MCI. Omega-3 en prevención (Cochrane 2012, más de 3.500 mayores sanos): sin efecto cognitivo en estudios de hasta 40 meses.",
+   "evidence_level": "A",
+   "sources": [
+    "https://doi.org/10.1002/14651858.CD002854.pub5",
+    "https://doi.org/10.1002/14651858.CD005379.pub3"
+   ],
+   "app_implication": "Ficha 'Suplementos con evidencia negativa' en la biblioteca general (información no personalizada), para evitar gastos inútiles.",
+   "negative_or_conflicting": "Corregí la versión de la Cochrane de vitamina E (la de 2017 es pub5, no pub2) y sustituí el artículo de NutraIngredients por la Cochrane original. Puede haber subgrupos con omega-3 relevante (VITACOG), pero solo en análisis post hoc.",
+   "safety_notes": "Vitamina E en dosis altas: sangrado e interacción con anticoagulantes; algún metaanálisis la asocia con más mortalidad."
+  },
+  {
+   "claim": "Ayuda y entorno en las comidas: la revisión sistemática de Abdelhamid 2016 (43 intervenciones, ninguna con bajo riesgo de sesgo) no encontró pruebas definitivas. Los suplementos orales mejoraron el estado nutricional a corto plazo; la ayuda para comer dio resultados inconsistentes; las comidas con fuerte componente social sugirieron mejor calidad de vida. En el cruzado de Ontario se comió más en el almuerzo que en la cena (83,5% frente a 75,8%).",
+   "evidence_level": "C",
+   "sources": [
+    "https://doi.org/10.1186/s12877-016-0196-3",
+    "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7379787/"
+   ],
+   "app_implication": "Diario de comidas por franja horaria (% comido, dificultad, ánimo, quién acompañó) con un resumen descriptivo ('esta semana come más en el almuerzo') para que la familia ajuste la rutina. Biblioteca de técnicas prácticas (un plato cada vez, poca distracción, comer juntos, finger foods), etiquetadas como buena práctica.",
+   "negative_or_conflicting": "Subido de D a C con la revisión sistemática. Sustituí la web comercial de residencias por la revisión. Las prácticas concretas siguen siendo de consenso.",
+   "safety_notes": "Finger foods con riesgo de atragantamiento si hay disfagia: tienen que respetar el nivel IDDSI prescrito. Supervisión siempre."
+  },
+  {
+   "claim": "Alimentación por sonda en demencia grave: la Cochrane 2021 (14 estudios no aleatorizados, sin ensayos) no halló evidencia de que la sonda mejore la supervivencia, la calidad de vida o la nutrición, y halló más úlceras por presión (certeza moderada) y probablemente más neumonía. ESPEN 2024 no recomienda nutrición ni hidratación artificial en demencia grave o terminal, y la American Geriatrics Society (2014) recomienda la alimentación oral cuidadosa a mano.",
+   "evidence_level": "B",
+   "sources": [
+    "https://doi.org/10.1002/14651858.CD013503.pub2",
+    "https://pubmed.ncbi.nlm.nih.gov/38772068/",
+    "https://doi.org/10.1111/jgs.12924"
+   ],
+   "app_implication": "Módulo 'Planificación anticipada' con información neutral y respetuosa sobre la alimentación en fases avanzadas y un espacio para anotar las preferencias expresadas por la persona y la existencia de documento de instrucciones previas (testamento vital). Guía para preparar la conversación con el equipo sanitario. Biblioteca de 'alimentación de confort'.",
+   "negative_or_conflicting": "No hay ensayos aleatorizados y los estudios tienen alto riesgo de confusión. Es una decisión individual con dimensiones culturales, religiosas y legales.",
+   "safety_notes": "La app no recomienda poner ni retirar una sonda: es una decisión clínica y familiar compartida. El tono es crítico, porque es una fuente de culpa para las familias. Enlace a cuidados paliativos."
+  },
+  {
+   "claim": "Los inhibidores de la colinesterasa (donepezilo, rivastigmina, galantamina) se asocian a pérdida de peso: en una cohorte emparejada de 1.188 nuevos usuarios (Sheffrin 2015), el 29,3% perdió peso al año frente al 22,8% de los no usuarios (HR 1,23; un caso adicional por cada 21 tratados). La anorexia, las náuseas y la diarrea son efectos adversos conocidos en los ensayos.",
+   "evidence_level": "B",
+   "sources": [
+    "https://doi.org/10.1111/jgs.13511",
+    "https://doi.org/10.1002/14651858.CD001190.pub3",
+    "https://cima.aemps.es/cima/publico/home.html"
+   ],
+   "app_implication": "Línea temporal única donde se ven juntos el peso, el apetito y las fechas de inicio o cambio de cada medicamento (dato registrado, sin inferir causa). Texto fijo: 'si notas menos apetito o pérdida de peso tras un cambio de medicación, coméntalo con el médico; no suspendas nada por tu cuenta'. Enlace a la ficha técnica oficial (CIMA-AEMPS).",
+   "negative_or_conflicting": "Estudio observacional en veteranos estadounidenses (mayoritariamente hombres). Otros fármacos (antidepresivos, antipsicóticos, opioides) y la propia enfermedad también influyen.",
+   "safety_notes": "Nunca sugerir retirar ni reducir un fármaco. Mostrar correlaciones temporales como causalidad sería engañoso y tendría finalidad clínica."
+  },
+  {
+   "claim": "Prevención multidominio para los familiares en riesgo: FINGER (Lancet 2015, n=1.260) y US POINTER (JAMA 2025, n=2.111, de 60 a 79 años con riesgo) mostraron que una intervención estructurada de dieta, ejercicio, estimulación cognitiva, vida social y control cardiovascular mejora algo la cognición global frente a un consejo general (0,029 DE al año en US POINTER).",
+   "evidence_level": "B",
+   "sources": [
+    "https://doi.org/10.1016/S0140-6736(15)60461-5",
+    "https://doi.org/10.1001/jama.2025.12923"
+   ],
+   "app_implication": "Idea fuera de la caja: un 'modo cuidador' opcional con hábitos para la salud del propio cuidador y de los hijos en riesgo (menús mediterráneos compartidos, actividad, sueño, contacto social), dejando claro que es prevención general y no tratamiento de la persona con Alzheimer. Ayuda a aliviar la sobrecarga y da sentido de control.",
+   "negative_or_conflicting": "Efecto pequeño y de relevancia clínica incierta. US POINTER fue simple ciego, ambos grupos mejoraron y algunos autores declaran vínculos con la industria. La dieta aislada (MIND) no mostró efecto. No aplica a personas con demencia.",
+   "safety_notes": "No prometer 'evitar el Alzheimer'. Bajo RGPD, los datos de salud del cuidador son un perfil separado con consentimiento propio."
+  },
+  {
+   "claim": "Vitaminas y minerales en adultos cognitivamente sanos: la Cochrane 2018 (28 estudios, más de 83.000 participantes) no encontró que ninguna estrategia de suplementación tenga un efecto relevante sobre el deterioro cognitivo o la demencia. La vitamina D muestra asociaciones favorables solo en cohortes observacionales (por ejemplo NACC, 2023).",
+   "evidence_level": "A",
+   "sources": [
+    "https://doi.org/10.1002/14651858.CD011906.pub2",
+    "https://doi.org/10.1002/dad2.12404"
+   ],
+   "app_implication": "Ficha de la vitamina D y del 'multivitamínico para la memoria' con el mensaje: corregir un déficit medido es asunto médico; suplementar 'por si acaso' no ha demostrado proteger la memoria.",
+   "negative_or_conflicting": "La Cochrane admite que muchos estudios eran cortos o no estaban diseñados para medir la cognición; hay señales débiles con antioxidantes a muy largo plazo. El estudio NACC es observacional y está sujeto a confusión. No verifiqué los ensayos específicos de vitamina D (VITAL, D-Health) en esta revisión.",
+   "safety_notes": "Vitamina D en megadosis: hipercalcemia y caídas. Sin dosis en la app."
+  },
+  {
+   "claim": "Causas tratables de comer poco: ESPEN 2024 recomienda identificar y eliminar las posibles causas de malnutrición y deshidratación (dolor dental, prótesis mal ajustadas, boca seca por fármacos, estreñimiento, depresión, dolor, problemas de visión o de posicionamiento) y apoyar con ayuda, utensilios adaptados, formación y cuidado bucal.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pubmed.ncbi.nlm.nih.gov/38772068/"
+   ],
+   "app_implication": "Lista de comprobación para preparar la visita ('¿revisión dental en el último año?', '¿la prótesis se ajusta?', '¿cuántos días sin deposición?', '¿le cuesta ver el plato?') y registro sencillo de deposiciones e higiene bucal. Enlace a utensilios adaptados sin recomendar marcas.",
+   "negative_or_conflicting": "Son puntos de buena práctica por consenso, sin ensayos que comparen listas de comprobación.",
+   "safety_notes": "La lista orienta la conversación con el profesional; no diagnostica. Las preguntas de ánimo no deben interpretarse como cribado de depresión dentro de la app."
+  },
+  {
+   "claim": "El MNA y el MNA-SF son instrumentos validados de cribado nutricional en mayores, pero son marca registrada y tienen copyright de Nestlé. Su web indica que incorporarlos en registros electrónicos exige permiso y cumplir los requisitos de copyright y marca.",
+   "evidence_level": "C",
+   "sources": [
+    "https://www.mna-elderly.com/"
+   ],
+   "app_implication": "No integrar el MNA-SF con puntuación automática sin licencia ni análisis regulatorio: puntuar y clasificar es cribado y puede convertir la app en producto sanitario. Alternativa segura: registrar datos brutos (peso, apetito, movilidad, cambios recientes) y enlazar al formulario oficial para que lo pase el profesional.",
+   "negative_or_conflicting": "Puede existir un permiso gratuito para uso no comercial; hay que pedirlo por escrito. Otras herramientas (MUST de BAPEN) también tienen condiciones de uso. No verifiqué la validación del MNA en esta revisión.",
+   "safety_notes": "Riesgo legal (marca y copyright) y regulatorio (MDR regla 11)."
+  }
+ ],
+ "app_features": [
+  "Diario de comidas e hidratación de un toque (% comido, vasos o tazas, hora, ánimo, quién acompañó) con resumen descriptivo por franja horaria, sin interpretación clínica",
+  "Peso con gráfica de tendencia y % de cambio, recordatorio configurable y texto fijo de 'coméntalo con el médico' (sin umbrales propios ni etiquetas diagnósticas)",
+  "Línea temporal integrada: peso, apetito y fechas de inicio o cambio de cada medicamento, en la misma vista para la consulta",
+  "Tarjetas fijas de señales de alarma (confusión brusca, no bebe, atragantamientos, fiebre) con 'consultar hoy / 112', iguales para todos y no calculadas",
+  "Ficha de disfagia con el nivel IDDSI copiado del informe del profesional, recetas filtradas por textura y enlace a primeros auxilios por atragantamiento",
+  "Comparación personal opcional de vajilla de contraste (2 semanas frente a 2 semanas), mostrada como medias descriptivas",
+  "Biblioteca de recetas mediterráneas, finger foods y 'platos de su vida' (biografía gustativa y reminiscencia), filtrada por textura, alergias y cultura (España y LatAm)",
+  "Registro de suplementos, hierbas e infusiones con fichas de evidencia A-D generales y exportación para el médico o el farmacéutico, sin comprobador automático de interacciones",
+  "Lista de comprobación de causas tratables antes de la consulta (boca y prótesis, estreñimiento, visión, fármacos)",
+  "Informe PDF para la consulta: peso, ingesta, hidratación, deposiciones, medicación, suplementos y analíticas subidas",
+  "Módulo de planificación anticipada: preferencias sobre la alimentación en fases avanzadas e información sobre la alimentación de confort",
+  "Modo cuidador: hábitos multidominio para la salud del propio cuidador y de los familiares en riesgo, con perfil y consentimiento separados",
+  "Multicuidador con sincronización y registro de quién apuntó cada dato (relevos, residencia, centro de día)",
+  "Funcionamiento sin conexión con sincronización posterior y datos cifrados (RGPD art. 9)"
+ ],
+ "questions_for_owner": [
+  "¿Cuál es la finalidad prevista por escrito? ¿Aceptáis que la app solo registre, informe y derive, sin cribar ni diagnosticar, para quedar fuera del MDR? ¿O queréis certificarla como producto sanitario (coste, organismo notificado)?",
+  "¿La usarán solo familias o también residencias y centros de día? Con profesionales cambian la responsabilidad, los permisos y la clasificación.",
+  "¿Quién validará el contenido clínico (dietista-nutricionista colegiado, geriatra, logopeda, farmacéutico)? ¿Cada cuánto se revisa?",
+  "¿Qué fase tiene la persona (MCI, leve, moderada, avanzada)? ¿Hay pérdida de peso, disfagia o informe de logopedia con nivel de textura?",
+  "¿Qué medicación toma (inhibidores de colinesterasa, memantina, anticoagulantes, antidiabéticos, antipsicóticos) y qué otras enfermedades limitan líquidos o sal (cardiaca, renal)?",
+  "¿Qué suplementos, hierbas o dietas (cetogénica, coco, Bredesen, medicina china) usa o ha probado la familia, y con qué experiencia?",
+  "¿Quién cocina y quién da de comer? ¿Cuántos cuidadores comparten la app, y con qué roles y permisos?",
+  "¿Dónde se guardan los datos (solo en el dispositivo, en la nube europea) y quién da el consentimiento si la persona ya no puede (tutela, curatela, representante)?",
+  "¿Aceptaríais fotografiar los platos para estimar lo comido, sabiendo que son datos de salud y de imagen?",
+  "¿Queréis la sección de tradiciones (medicina china, natural) con su nivel de evidencia explícito aunque a veces sea 'D'?",
+  "¿Idiomas necesarios (castellano, catalán, gallego, euskera, variantes de LatAm) y nivel de accesibilidad para cuidadores mayores (letra grande, voz)?",
+  "¿Hay presupuesto cero absoluto? Las licencias (MNA de Nestlé, BEDCA de AESAN) requieren pedir permiso aunque sea gratis.",
+  "¿Queréis tratar con la misma importancia la planificación anticipada (sonda, alimentación de confort), aunque sea un tema emocionalmente duro?"
+ ],
+ "free_resources": [
+  {
+   "name": "Open Food Facts (API y volcados)",
+   "url": "https://world.openfoodfacts.org/data",
+   "what": "Base abierta de productos con nutrientes y alérgenos; API JSON y exportaciones",
+   "cost": "Gratis; ODbL (atribución y compartir mejoras); para volúmenes grandes, usar los volcados"
+  },
+  {
+   "name": "USDA FoodData Central API",
+   "url": "https://fdc.nal.usda.gov/api-guide",
+   "what": "Composición de alimentos, incluidos cobre y zinc",
+   "cost": "Gratis; CC0; clave gratuita con límite de peticiones"
+  },
+  {
+   "name": "BEDCA (AESAN)",
+   "url": "https://www.bedca.net/bdpub/UsoBD.pdf",
+   "what": "Composición de alimentos españoles; condiciones de uso",
+   "cost": "Consulta gratuita; los usos no personales requieren autorización de AESAN"
+  },
+  {
+   "name": "AESAN datos abiertos",
+   "url": "https://www.aesan.gob.es/datos-abiertos/alimentos-y-bebidas",
+   "what": "Datos abiertos oficiales españoles de alimentación",
+   "cost": "Gratis"
+  },
+  {
+   "name": "IDDSI Framework",
+   "url": "https://iddsi.org/framework",
+   "what": "Estándar de texturas para disfagia, pruebas y descriptores",
+   "cost": "Gratis; CC BY-SA 4.0; no alterar los elementos"
+  },
+  {
+   "name": "CIMA AEMPS (API REST de medicamentos)",
+   "url": "https://cima.aemps.es/cima/publico/home.html",
+   "what": "Fichas técnicas y prospectos oficiales de medicamentos autorizados en España, enlazables desde la app",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Guía ESPEN 2024 de nutrición e hidratación en demencia",
+   "url": "https://www.espen.org/files/ESPEN-Guidelines/ESPEN-guideline-on-nutrition-and-hydration-in-dementia-update-2024.pdf",
+   "what": "Guía de referencia (40 recomendaciones)",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Guía SEGG de hidratación y salud",
+   "url": "https://www.segg.es/media/descargas/Acreditacion%20de%20Calidad%20SEGG/CentrosDia/Gu%C3%ADa%20de%20buena%20pr%C3%A1ctica%20cl%C3%ADnica%20en%20Geriatr%C3%ADa%20-%20Hidrataci%C3%B3n%20y%20salud.pdf",
+   "what": "Guía española de buena práctica en geriatría sobre hidratación",
+   "cost": "Gratis"
+  },
+  {
+   "name": "NCBI E-utilities (PubMed)",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK25501/",
+   "what": "API para mantener actualizadas las fichas de evidencia con resúmenes y referencias",
+   "cost": "Gratis; clave opcional para más peticiones"
+  }
+ ],
+ "verification_notes": "WebSearch agotado; verifiqué con PubMed E-utilities, Crossref, doi.org y la API de ClinicalTrials.gov. Confirmados: ESPEN 2024 (la mayoría son puntos de buena práctica; no recomienda sonda en demencia grave), cobre UK Biobank (cifras corregidas: el riesgo máximo aparece con 3 mg/día o más y el rango con menor riesgo es 1,3-2,0 mg/día), Dunne 2004, Cochrane de vitamina E (es pub5), omega-3, vitaminas 2018 y sonda 2021, AC-1202 con su fase 3 sin resultados publicados, US POINTER, Abdelhamid 2016, Sheffrin 2015 y la licencia del MNA. Niveles bajados: ESPEN A->B, VITACOG B->C, LipiDiDiet B->C, cetonas B->C, vajilla C->D, hierbas C->D. Subidos: hidratación a B (la Cochrane de Hooper invalida 'orina oscura' como alerta) y rutina de comidas a C. Retiré fuentes comerciales o divulgativas (Felgains, Gardens, NutraIngredients, Sanitas, Quirón), un enlace no verificado y el análisis COMT de 2026. Para evitar la regla 11 del MDR, la alerta algorítmica de delirium, la puntuación del MNA-SF y los umbrales de peso pasan a tarjetas fijas, datos brutos y tendencias descriptivas. Añadí 6 hallazgos: sonda en demencia grave, pérdida de peso por inhibidores de la colinesterasa, prevención multidominio para cuidadores, vitaminas y minerales, causas tratables y licencia del MNA. Sin verificar: texto completo de ESPEN, ginkgo, huperzina, VITAL y D-Health, IDDSI en español y la guía MDCG 2019-11 (403)."
+}

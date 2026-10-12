@@ -1,0 +1,455 @@
+{
+  "key": "tecnologia_stack",
+  "title": "Stack técnico a coste cero para app de Alzheimer (iOS y Android)",
+  "summary": "Recomendación revisada: Flutter con arquitectura offline-first sobre SQLite local cifrado (Drift + SQLCipher), recordatorios como notificaciones/alarmas locales y backend opcional desacoplado; la app funciona entera sin cuenta ni red y la nube solo sincroniza cuidador-familia. Para sincronizar a coste cero: Supabase Free (500 MB, pausa tras 1 semana sin actividad; regiones UE disponibles, p. ej. Frankfurt) vale para piloto, no para producción sin el plan de 25 USD/mes; Appwrite Cloud tiene región Frankfurt; Cloudflare D1 y PocketBase autoalojado son alternativas con riesgos propios; Firebase Spark (cuotas diarias verificadas en la página oficial) sirve sobre todo por FCM. Costes inevitables: Google Play 25 USD (12 testers durante 14 días en cuentas personales nuevas) y Apple 99 USD/año. Corrección clave: Apple exige que las apps de ámbito sanitario las publique una entidad jurídica, no un particular (guideline 5.1.1(ix)), y Google Play exige la declaración de apps de salud; por tanto hace falta una asociación o fundación desde el principio, lo que además abre la exención de cuota de Apple para ONG reconocidas. Alarmas: en Android una app de medicación no encaja en USE_EXACT_ALARM según la política de Play (solo alarmas/temporizadores y calendarios), hay que pedir SCHEDULE_EXACT_ALARM al usuario (también la necesita setAlarmClock); en iOS hay un tope de 64 notificaciones locales pendientes, Critical Alerts requiere entitlement aprobado por Apple y AlarmKit (iOS 26) abre una vía nueva. Regulación: mientras la app solo registre, recuerde lo que pautó el médico e informe, no es producto sanitario; calcular dosis, puntuar riesgo o 'detectar' deterioro la llevaría a la regla 11 del MDR. IA: on-device opcional y acotada; ninguna API en la nube debe recibir datos de salud. Riesgo principal: lock-in y topes del free tier; mitigación: capa de repositorio abstracta, exportación JSON/PDF (FHIR como objetivo posterior) y presupuesto de 25 a 50 USD/mes asumido por la entidad.",
+  "findings": [
+    {
+      "claim": "Supabase Free: 500 MB de base de datos, 1 GB de archivos, 5 GB de egress, 50.000 MAU, 2 proyectos activos, y los proyectos se pausan tras 1 semana de inactividad; Pro cuesta 25 USD/mes y quita la pausa. Hay regiones en la UE (Frankfurt eu-central-1, Irlanda, París, Estocolmo); Supabase advierte que elegir región es un control de localización, no una prueba de cumplimiento.",
+      "evidence_level": "A",
+      "sources": [
+        "https://supabase.com/pricing",
+        "https://supabase.com/docs/guides/platform/regions"
+      ],
+      "app_implication": "Usar Supabase Free solo para un piloto con pocas familias, en región UE (Frankfurt o París; evitar Londres y Zúrich si se exige UE estricta). Un ping programado para evitar la pausa es frágil y no sustituye al plan Pro: presupuestarlo antes de abrir al público. Postgres con Row Level Security encaja con el modelo familia/cuidador, pero las políticas RLS deben tener tests automáticos.",
+      "safety_notes": "Una pausa del backend no debe romper recordatorios: viven en el dispositivo. Mostrar estado de sincronización ('última sincronización hace X') para que nadie asuma que otro familiar vio un registro que no llegó. Firmar el DPA de Supabase (encargado del tratamiento, art. 28 RGPD).",
+      "negative_or_conflicting": "Blogs de terceros difieren en detalles (RAM, funciones edge); prevalece la página oficial. Las cifras del plan gratuito cambian sin aviso; revalidar antes de decidir."
+    },
+    {
+      "claim": "Firebase Spark (página oficial): Firestore 1 GiB almacenado, 50.000 lecturas, 20.000 escrituras y 20.000 borrados al día, 10 GiB de egress al mes; FCM sin coste ni límite numérico; Cloud Functions y Cloud Storage aparecen como 'no aplicable' en Spark y requieren el plan Blaze.",
+      "evidence_level": "A",
+      "sources": [
+        "https://firebase.google.com/pricing"
+      ],
+      "app_implication": "Usar FCM (gratis) como canal de push remoto aunque el backend sea otro. No usar Firestore como fuente única de verdad por lock-in y por el corte al agotar cuota diaria. Las cargas útiles de push deben ser genéricas ('Hay un aviso nuevo en la app') sin nombre del medicamento, diagnóstico ni nombre del paciente: el contenido pasa por Google y se ve en la pantalla de bloqueo.",
+      "safety_notes": "Un corte de cuota dejaría sin alertas remotas: las alertas críticas no deben depender de un único servicio con cuota diaria. La privacidad en la pantalla de bloqueo importa: el móvil del paciente o del cuidador lo ven otras personas.",
+      "negative_or_conflicting": "El comportamiento exacto al superar la cuota diaria (corte hasta el reinicio diario) se tomó de fuentes secundarias; la página oficial solo da los límites. Las fuentes de blog originales se sustituyeron por la oficial."
+    },
+    {
+      "claim": "Cloudflare D1 en plan gratuito: 5 millones de filas leídas/día, 100.000 escritas/día, 5 GB totales, 500 MB por base, 10 bases; al superar el límite diario las consultas fallan hasta las 00:00 UTC. Cada base procesa una consulta a la vez; Time Travel de 7 días.",
+      "evidence_level": "A",
+      "sources": [
+        "https://developers.cloudflare.com/d1/platform/pricing/",
+        "https://developers.cloudflare.com/d1/platform/limits/"
+      ],
+      "app_implication": "Opción válida para una API ligera (Workers + D1), sin pausa por inactividad. Exige escribir a mano autenticación, autorización, API y sincronización, lo que añade superficie de errores de seguridad para un equipo pequeño. Verificar si se puede fijar jurisdicción UE para los datos antes de elegirla.",
+      "safety_notes": "Fallo duro por límite diario: diseñar degradación (la app sigue en local, cola de cambios pendientes con reintento).",
+      "negative_or_conflicting": "Un solo escritor por base: no escala con una base única compartida por todas las familias. Se eliminó la afirmación de un blog sobre un 'corte estricto desde septiembre de 2026' por no estar verificada. No se verificó la opción de jurisdicción UE de D1."
+    },
+    {
+      "claim": "Oracle Cloud Always Free: las instancias inactivas (p95 de CPU, red y memoria por debajo del 20% durante 7 días) pueden reclamarse; según blogs de 2026 el tier ARM gratuito se habría reducido de 4 OCPU/24 GB a 2 OCPU/12 GB. Oracle tiene región en Madrid.",
+      "evidence_level": "C",
+      "sources": [
+        "https://dev.to/karthik_yk/oracles-famous-free-4-core24gb-arm-tier-is-now-2-core12gb-check-the-docs-2jln",
+        "https://blog.51sec.org/2023/02/oracle-cloud-cleaning-up-idle-compute.html"
+      ],
+      "app_implication": "Solo como laboratorio técnico, no para datos reales de familias: sin SLA, riesgo de reclamación de la instancia y de cambio unilateral de condiciones. Si se usa en piloto, backup diario cifrado fuera de Oracle con prueba de restauración mensual.",
+      "safety_notes": "Perder el historial de una persona vulnerable es inaceptable: backups verificados y plan de restauración antes de lanzar.",
+      "negative_or_conflicting": "Las cifras del recorte provienen de blogs, no de la documentación de Oracle. Se retiró una fuente de blog con fecha futura dudosa. Verificar en la documentación oficial de Always Free."
+    },
+    {
+      "claim": "Fly.io ya no ofrece capa gratuita a organizaciones nuevas. PocketBase (Go + SQLite, binario único) es práctico para cargas pequeñas y medianas con escalado vertical, pero el proyecto aún no ha llegado a la versión 1.0 y avisa de que puede romper compatibilidad entre versiones.",
+      "evidence_level": "C",
+      "sources": [
+        "https://temps.sh/blog/fly-io-pricing-2026",
+        "https://github.com/pocketbase/pocketbase/discussions/537",
+        "https://betterstack.com/community/guides/database-platforms/pocketbase-backend/"
+      ],
+      "app_implication": "Descartar Fly.io como gratuito. PocketBase es la opción de menor lock-in, pero fijar versión y probar migraciones. Un mini PC o Raspberry Pi en casa del promotor solo es aceptable para el piloto con la propia familia del promotor, nunca para datos de terceras familias.",
+      "safety_notes": "Autoalojar datos de salud de otras personas convierte al promotor en responsable técnico (parches, TLS, backups, control de acceso, notificación de brechas en 72 h a la AEPD). Un servidor doméstico tiene riesgo de robo, corte de luz y exposición de red.",
+      "negative_or_conflicting": "La cifra de unos 10.000 usuarios que circulaba en guías no está medida ni replicada; se eliminó. No hay benchmarks propios."
+    },
+    {
+      "claim": "Appwrite Cloud Free: 2 proyectos, 5 GB de ancho de banda, 2 GB de almacenamiento, 75.000 MAU; al agotar el ancho de banda se deniega el acceso a la API. Appwrite Cloud tiene región Frankfurt (FRA), con Ámsterdam anunciada.",
+      "evidence_level": "B",
+      "sources": [
+        "https://appwrite.io/docs/advanced/billing/free",
+        "https://appwrite.io/docs/products/network/regions"
+      ],
+      "app_implication": "Alternativa a Supabase con SDK Flutter, open source y autoalojable, y con región UE verificada. Confirmar política de pausa del plan gratuito y DPA antes de elegirla.",
+      "safety_notes": "Mismo riesgo de corte por cuota que los demás: la app debe seguir funcionando en local.",
+      "negative_or_conflicting": "Las fuentes discrepan sobre si el plan gratuito se pausa por inactividad; no resuelto."
+    },
+    {
+      "claim": "Costes y requisitos de publicación: Google Play 25 USD únicos; las cuentas personales creadas desde noviembre de 2023 deben hacer una prueba cerrada con al menos 12 testers durante 14 días antes de producción. Apple Developer Program 99 USD/año; la exención de cuota es para entidades sin ánimo de lucro reconocidas por una autoridad (Apple cita como ejemplo 'un registro local de entidades benéficas en la UE'), centros educativos y administraciones que no vendan nada; no pueden pedirla particulares ni autónomos. La página oficial actual no publica lista de países.",
+      "evidence_level": "A",
+      "sources": [
+        "https://support.google.com/googleplay/android-developer/answer/14151465?hl=en",
+        "https://developer.apple.com/support/membership-fee-waiver/"
+      ],
+      "app_implication": "Constituir o apoyarse en una asociación o fundación inscrita (por ejemplo, una asociación de familiares de Alzheimer) y solicitar la exención de Apple con ella. Reclutar los 12 testers entre familias de la asociación (también valida la usabilidad). TestFlight requiere cuenta de pago; APK directo solo para el piloto.",
+      "safety_notes": "Una app de salud por APK fuera de Play pierde revisión y actualizaciones automáticas; los cuidadores mayores pueden no saber instalarla ni actualizarla, y una versión antigua con un error de recordatorios seguiría en uso.",
+      "negative_or_conflicting": "Se retiró la afirmación sobre la lista de países de 2020 (fuente de foro, desactualizada). La aceptación concreta de una entidad española no está confirmada; solo se sabe al solicitarla."
+    },
+    {
+      "claim": "Android: desde Android 12 cualquier alarma exacta, incluidas setExact, setExactAndAllowWhileIdle y setAlarmClock, requiere el acceso especial 'Alarmas y recordatorios'. SCHEDULE_EXACT_ALARM la concede el usuario y puede revocarla (denegada por defecto en apps nuevas que apuntan a API 33+ en Android 14). USE_EXACT_ALARM se concede al instalar, pero la política de Google Play lo restringe a apps cuya función principal es de alarma o temporizador, o de calendario, y retira de Play las que no cumplan.",
+      "evidence_level": "A",
+      "sources": [
+        "https://developer.android.com/about/versions/14/changes/schedule-exact-alarms",
+        "https://developer.android.com/develop/background-work/services/alarms",
+        "https://support.google.com/googleplay/android-developer/answer/13161072?hl=en"
+      ],
+      "app_implication": "No declarar USE_EXACT_ALARM (riesgo de rechazo en Play). Pedir SCHEDULE_EXACT_ALARM con una pantalla explicativa en el onboarding del cuidador, comprobar en cada arranque si sigue concedido y mostrar un banner rojo si se revocó. Reprogramar tras reinicio y tras actualizar la app. Si no hay permiso, degradar a ventana inexacta y avisarlo explícitamente al cuidador. Segundo canal de respaldo: push al cuidador si una toma no se confirma en un plazo configurable.",
+      "safety_notes": "Una alarma que no suena puede suponer una dosis omitida, y una repetida puede inducir a duplicarla. Registrar confirmación de toma y nunca asumir que el recordatorio llegó. Las optimizaciones de batería de fabricantes (Xiaomi, Huawei, Samsung) matan alarmas: guía por fabricante y prueba de alarma desde la propia app.",
+      "negative_or_conflicting": "Se corrigió el original: setAlarmClock no es una alternativa sin permiso, también es una alarma exacta. Se sustituyó una PR de un repositorio de terceros por la política oficial de Play. WorkManager no sirve para horas exactas (periodicidad mínima de 15 min e inexacta)."
+    },
+    {
+      "claim": "iOS: los niveles de interrupción son passive, active, timeSensitive y critical. Time Sensitive se activa como capability sin aprobación de Apple y puede atravesar los modos de concentración si el usuario lo permite; Critical Alerts (suena con silencio o No Molestar) requiere un entitlement que Apple concede por solicitud para casos médicos o de seguridad, y el usuario debe aceptarlas aparte.",
+      "evidence_level": "B",
+      "sources": [
+        "https://developer.apple.com/documentation/usernotifications/unnotificationinterruptionlevel",
+        "https://developer.apple.com/forums/thread/794822",
+        "https://newly.app/articles/critical-alerts-entitlement"
+      ],
+      "app_implication": "Usar Time Sensitive para recordatorios de toma. Solicitar Critical Alerts solo para seguridad (salida de zona segura, botón de ayuda pulsado, toma marcada como crítica por el cuidador no confirmada), con justificación clara; el diseño no debe depender de que Apple lo apruebe.",
+      "safety_notes": "El exceso de alertas críticas provoca fatiga y que el cuidador las desactive: limitarlas a eventos graves y permitir configurarlas.",
+      "negative_or_conflicting": "La página de Apple sobre niveles de interrupción no se pudo leer completa con las herramientas; los detalles de Time Sensitive proceden de documentación conocida, no de lectura literal. El tiempo de aprobación del entitlement es variable según terceros."
+    },
+    {
+      "claim": "Sincronización offline-first: PowerSync Cloud Free ofrece 2 GB sincronizados/mes, 50 clientes simultáneos y se desactiva tras 1 semana sin actividad; el SDK Flutter es Apache-2.0 y el servicio autoalojable (Open Edition) es source-available bajo FSL. Drift (SQLite tipado para Flutter) funciona sin servidor.",
+      "evidence_level": "B",
+      "sources": [
+        "https://powersync.com/pricing",
+        "https://pub.dev/packages/powersync",
+        "https://powersync.com/blog/powersync-open-edition-release"
+      ],
+      "app_implication": "Fase 1: Drift local sin sincronización. Fase 2: sincronización cuidador-familia mediante un registro de eventos append-only (toma registrada, sueño, ánimo, incidencia) con identificador único y autor, que se reconcilia casi sin conflictos porque casi todo son inserciones; PowerSync Open Edition autoalojado como alternativa si se usa Postgres.",
+      "safety_notes": "Dos cuidadores pueden marcar la misma toma sin conexión: al sincronizar, detectar dos confirmaciones para la misma toma programada y mostrar un aviso claro de 'posible duplicado, comprobad antes de dar otra dosis', con quién y cuándo registró cada una.",
+      "negative_or_conflicting": "El tope de 50 clientes y la pausa hacen inviable el plan gratuito en producción; FSL no es una licencia open source OSI."
+    },
+    {
+      "claim": "Integraciones de salud: el paquete Flutter 'health' cubre HealthKit (iOS) y Health Connect (Android), requiere FlutterFragmentActivity, entradas queries en el manifiesto y una política de privacidad enlazada. Google Play exige además declarar el acceso a los permisos de Health Connect.",
+      "evidence_level": "C",
+      "sources": [
+        "https://pub.dev/packages/health",
+        "https://docs.carp.dk/packages/flutter-health-plugin"
+      ],
+      "app_implication": "Opcional y en fase posterior: leer pasos y sueño de un reloj o pulsera y mostrar solo tendencias descriptivas ('esta semana durmió menos horas registradas que la anterior'), sin umbrales ni interpretación clínica, con la sugerencia de comentarlo con el médico.",
+      "safety_notes": "Los sensores de consumo son poco precisos en mayores; una falsa tranquilidad o una falsa alarma erosiona la confianza. Presentar tendencias como 'detección de deterioro' convertiría la app en producto sanitario. Permisos mínimos y explicados.",
+      "negative_or_conflicting": "El detalle del formulario de declaración de Health Connect en Play no se leyó en la fuente oficial."
+    },
+    {
+      "claim": "Modo kiosco: en Android, lock task mode con Device Owner bloquea el dispositivo en la app; sin Device Owner solo existe el anclado de pantalla, del que el usuario puede salir. iOS no tiene equivalente sin MDM; solo Acceso Guiado configurado a mano.",
+      "evidence_level": "B",
+      "sources": [
+        "https://developer.android.com/work/dpc/dedicated-devices/lock-task-mode",
+        "https://pub.dev/documentation/screen_pinning/latest/",
+        "https://pub.dev/packages/kiosk_mode"
+      ],
+      "app_implication": "Ofrecer un 'Modo paciente' de una sola pantalla (hora, día de la semana y momento del día en palabras, siguiente actividad, foto de la familia, botón de llamar) con guía para anclar la pantalla o activar Acceso Guiado. La tablet dedicada con Device Owner por QR queda como opción avanzada para la fase posterior.",
+      "safety_notes": "El bloqueo nunca puede impedir llamar al 112 ni al cuidador; la salida del modo debe estar documentada para el cuidador. Validar con familias y terapeutas ocupacionales.",
+      "negative_or_conflicting": "Ninguna fuente es específica de demencia; el diseño requiere validación con usuarios reales."
+    },
+    {
+      "claim": "IA en el dispositivo: flutter_gemma envuelve MediaPipe y LiteRT-LM para Android e iOS; los modelos grandes pueden agotar la memoria en iOS. sherpa-onnx ofrece STT y TTS offline en Flutter (voces Piper de unos 30 MB); hay voces españolas comunitarias, sin un modelo oficial verificado.",
+      "evidence_level": "C",
+      "sources": [
+        "https://pub.dev/packages/flutter_gemma_litertlm",
+        "https://huggingface.co/google/gemma-3n-E2B-it-litert-lm/discussions/9",
+        "https://github.com/yundddd/voice-agent"
+      ],
+      "app_implication": "Primera opción: TTS del sistema y, sobre todo, audios grabados por la familia (gratis y más familiares para el paciente). LLM local solo como extra opcional para tareas acotadas del cuidador (borrador de resumen del diario para la consulta), siempre junto al registro original completo. Nada de chat libre con el paciente.",
+      "safety_notes": "Un resumen automático puede omitir un evento importante (una caída, un vómito) o inventar uno: el informe para el médico debe basarse en el registro estructurado y el resumen ir marcado como 'borrador generado automáticamente'. Nunca generar dosis ni diagnóstico. Descarga de modelos solo por wifi y en móviles recientes.",
+      "negative_or_conflicting": "Los paquetes cambian de nombre con frecuencia; fijar versiones. Sin pruebas propias de calidad en español."
+    },
+    {
+      "claim": "Gemini API: los términos prohíben enviar información sensible, confidencial o personal a los servicios gratuitos y permiten revisión humana de entradas y salidas; para usuarios en el EEE, Suiza y Reino Unido se aplican a todos los servicios, incluidos los gratuitos, las condiciones de uso de datos de los servicios de pago (no se usan para mejorar productos).",
+      "evidence_level": "A",
+      "sources": [
+        "https://ai.google.dev/gemini-api/terms"
+      ],
+      "app_implication": "No enviar nunca datos identificables ni de salud a ninguna API de IA en la nube sin contrato de encargado del tratamiento y EIPD. Si se usa nube, solo para contenido genérico sin datos del paciente (textos educativos, ideas de actividades) generado de antemano por el equipo y revisado. La app debe funcionar completa sin IA.",
+      "safety_notes": "Datos de salud enviados a un tercero sin base legal ni contrato vulneran los arts. 9 y 28 del RGPD.",
+      "negative_or_conflicting": "Se corrigió el original: la regla especial para el EEE está en los términos oficiales, aunque no levanta la prohibición de enviar datos personales al nivel gratuito. Se eliminaron cifras de límites de peticiones no verificadas. Mistral y Workers AI no se compararon."
+    },
+    {
+      "claim": "RGPD y derecho español: los datos de salud son categoría especial (art. 9 RGPD); tratarlos a gran escala o de personas vulnerables suele exigir evaluación de impacto (EIPD), y la AEPD publica una guía de gestión de riesgo y EIPD. En España, la Ley 8/2021 sustituyó la incapacitación y la tutela de adultos por medidas de apoyo (curatela, guarda de hecho), lo que afecta a quién puede consentir por el paciente.",
+      "evidence_level": "B",
+      "sources": [
+        "https://www.aepd.es/guias/gestion-riesgo-y-evaluacion-impacto-en-tratamientos-datos-personales.pdf",
+        "https://www.boe.es/buscar/act.php?id=BOE-A-2021-9233",
+        "https://www.legiscope.com/blog/rgpd-sanidad-salud-espana.html"
+      ],
+      "app_implication": "Consentimiento explícito y granular; minimización (sin DNI, sin número de historia clínica); cifrado en tránsito y en reposo (SQLCipher en el dispositivo); backend en región UE con DPA firmado; exportación y borrado desde la app; registro de accesos. Modelar quién actúa por el paciente con los conceptos actuales (persona de apoyo, curador, guardador de hecho), no 'tutor', y dar al paciente voz en lo que pueda decidir mientras conserve capacidad.",
+      "safety_notes": "Los familiares pueden tener intereses distintos de los del paciente (económicos, conflictos): permisos por rol, revocables y auditables. Una brecha de datos de personas con demencia tiene riesgo alto de abuso o estafa.",
+      "negative_or_conflicting": "No se consultó a un DPD; la base jurídica concreta (consentimiento frente a otras) y si la entidad es responsable o encargada deben revisarse con asesoría legal. El blog legal es secundario; se añadieron fuentes oficiales."
+    },
+    {
+      "claim": "CI/CD y monitorización gratuitos: Codemagic ofrece 500 min/mes en macOS M2 a cuentas personales (sin equipos); Sentry tiene plan Developer gratuito para un usuario con cuota limitada de errores; GlitchTip es una alternativa open source autoalojable compatible con el SDK de Sentry.",
+      "evidence_level": "B",
+      "sources": [
+        "https://docs.codemagic.io/billing/pricing/",
+        "https://sentry.io/pricing/",
+        "https://glitchtip.com/"
+      ],
+      "app_implication": "GitHub Actions (Linux) para tests y compilación Android; Codemagic M2 para iOS y TestFlight; Sentry o GlitchTip para errores con scrubbing activado y sin capturas de pantalla ni texto de usuario. Analítica solo agregada y anónima, sin SDK publicitarios.",
+      "safety_notes": "Los informes de error pueden filtrar datos de salud (nombres de medicamentos en una excepción, textos del diario): filtrar en el cliente antes de enviar y revisarlo en la EIPD.",
+      "negative_or_conflicting": "La cuota exacta de errores del plan gratuito de Sentry no se leyó literalmente en la página oficial; la cuenta personal de Codemagic no permite colaboradores, lo que no sirve para un equipo. No se verificaron los minutos macOS de GitHub Actions."
+    },
+    {
+      "claim": "Comparativa de frameworks: blogs de 2026 sitúan React Native y Flutter como mayoritarios y Kotlin Multiplatform en crecimiento. React Native usa componentes nativos; Flutter dibuja su propia UI con una capa semántica propia para lectores de pantalla.",
+      "evidence_level": "D",
+      "sources": [
+        "https://stora.sh/blog/2026-04-03-react-native-vs-flutter-vs-kotlin-multiplatform-2026",
+        "https://idealogic.io/blog/react-native-vs-flutter"
+      ],
+      "app_implication": "Flutter es una elección razonable por UI idéntica en ambos sistemas, control fino de tamaño y contraste y plugins necesarios (notificaciones locales, Drift, health). Probar TalkBack, VoiceOver y tamaño de fuente del sistema al 200% desde el primer sprint. Si quien vaya a mantener la app domina TypeScript, Expo es igual de válido: la decisión depende del equipo, no de la encuesta.",
+      "safety_notes": "Una UI propia puede ignorar ajustes de accesibilidad del sistema (tamaño de fuente, reducir movimiento) si no se respetan explícitamente; textos que se cortan pueden ocultar una instrucción.",
+      "negative_or_conflicting": "Se eliminaron los porcentajes de uso: proceden de una encuesta secundaria sin metodología conocida. AlarmKit (iOS 26) y otras API nuevas pueden requerir código nativo vía platform channels en cualquiera de los frameworks."
+    },
+    {
+      "claim": "Las tiendas tratan esta app como app de salud: Apple exige que las apps de campos muy regulados, incluida la sanidad, o que pidan información sensible las publique una entidad jurídica que preste el servicio, no un desarrollador individual (guideline 5.1.1(ix)). Google Play obliga a completar la declaración de apps de salud (categorías como 'Gestión de medicación y tratamiento' o 'Gestión de enfermedades') y, si la app fuera producto sanitario bajo el MDR, a publicar en la ficha datos regulatorios (fabricante, UDI-DI, instrucciones de uso).",
+      "evidence_level": "A",
+      "sources": [
+        "https://developer.apple.com/app-store/review/guidelines/",
+        "https://support.google.com/googleplay/android-developer/answer/14738291?hl=en"
+      ],
+      "app_implication": "Publicar desde el inicio a nombre de una asociación o fundación (no de una persona física) en ambas tiendas. Preparar la declaración de salud de Play describiéndola como gestión de rutinas, recordatorios y registro para cuidadores, sin afirmaciones médicas en la ficha.",
+      "safety_notes": "Afirmaciones de marketing como 'mejora la memoria' o 'detecta el empeoramiento' activan la revisión como app médica y pueden ser publicidad sanitaria engañosa.",
+      "negative_or_conflicting": "Apple puede aplicar la regla de forma desigual; algunas apps de bienestar publicadas por particulares siguen en la tienda, pero no conviene arriesgarse con datos de pacientes."
+    },
+    {
+      "claim": "Calificación regulatoria: según el MDR (regla 11) y la guía MDCG 2019-11, el software que solo almacena, archiva, comunica o hace búsquedas simples no es producto sanitario, pero el que aporta información para decisiones diagnósticas o terapéuticas, calcula dosis o monitoriza parámetros con finalidad médica sí lo es, normalmente como clase IIa o superior, lo que exige organismo notificado y marcado CE.",
+      "evidence_level": "B",
+      "sources": [
+        "https://health.ec.europa.eu/system/files/2020-09/md_mdcg_2019_11_guidance_qualification_classification_software_en_0.pdf"
+      ],
+      "app_implication": "Línea roja de producto: la app registra lo que pauta el médico, recuerda, informa con nivel de evidencia y sugiere consultar al profesional. No calcula ni ajusta dosis, no detecta interacciones con alertas propias, no puntúa riesgo de caída ni de deterioro y no interpreta datos de sensores. Documentar esta 'finalidad prevista' por escrito y revisarla en cada nueva funcionalidad.",
+      "safety_notes": "Cruzar la línea sin marcado CE expone a la entidad a responsabilidad legal y a retirada de la app; además, un algoritmo no validado puede inducir a error al cuidador.",
+      "negative_or_conflicting": "El PDF oficial devolvió 403 a la verificación automática; el contenido se conoce por la guía publicada, pero conviene leerlo entero o consultar a un experto en regulación. La frontera es gris para funciones como 'alerta si no se confirma la toma': presentarla como recordatorio logístico, no como monitorización clínica."
+    },
+    {
+      "claim": "Límite de iOS: el sistema solo conserva 64 notificaciones locales programadas por app (las 64 más recientes según el plugin flutter_local_notifications); el resto se descartan sin error. AlarmKit (iOS 26) permite a apps de terceros programar alarmas y temporizadores destacados, puntuales o repetidos, con posponer y autorización propia del usuario.",
+      "evidence_level": "B",
+      "sources": [
+        "https://pub.dev/packages/flutter_local_notifications",
+        "https://developer.apple.com/documentation/alarmkit"
+      ],
+      "app_implication": "Con varias tomas al día más citas y rutinas se superan 64 notificaciones en pocos días: programar una ventana deslizante (por ejemplo, 48 a 72 horas) y reprogramar al abrir la app, en segundo plano y tras cada confirmación; mostrar al cuidador hasta cuándo están programados los avisos. Evaluar AlarmKit en iPhones con iOS 26 para tomas importantes, mediante código nativo, con notificación normal como reserva en versiones anteriores.",
+      "safety_notes": "Si el cuidador no abre la app en varios días, los avisos posteriores pueden no estar programados: aviso visible ('los recordatorios terminan el día X, abre la app') y push remoto de respaldo.",
+      "negative_or_conflicting": "La documentación de Apple sobre el límite de 64 no se pudo leer literalmente (se confirmó vía el README del plugin y conocimiento previo). Que las alarmas de AlarmKit suenen con el modo silencio activado no se verificó en el texto leído; probarlo en dispositivo."
+    },
+    {
+      "claim": "Geovallas para deambulación: en Android hay un máximo de 100 geovallas por app, requieren ACCESS_BACKGROUND_LOCATION, se recomienda un radio mínimo de 100 a 150 m y la latencia típica en segundo plano es de unos 2 a 3 minutos, hasta 6 si el móvil estuvo quieto. Google Play retirará la geovalla como uso aprobado de servicio en primer plano (plazo 27-01-2027) y remite a la Geofence API. La ubicación en segundo plano exige además una declaración en Play.",
+      "evidence_level": "A",
+      "sources": [
+        "https://developer.android.com/develop/sensors-and-location/location/geofencing",
+        "https://support.google.com/googleplay/android-developer/answer/12253906?hl=en"
+      ],
+      "app_implication": "Plantear la 'zona segura' como aviso de apoyo con retraso de minutos, nunca como localizador en tiempo real. Usar la Geofence API (no un servicio en primer plano) y radio de al menos 150 m. Ofrecer alternativas sin app: tarjeta con QR o NFC en la ropa y la cartera que abra una página con 'llamar a mi familia', y enlace a la ubicación compartida nativa del sistema (Buscar en iOS, Google en Android).",
+      "safety_notes": "La persona con demencia suele no llevar el móvil o dejar que se apague: la ausencia de alerta no significa que esté a salvo. El seguimiento de ubicación afecta a la dignidad y autonomía del paciente: consentimiento y uso proporcional. En iOS el límite de regiones monitorizadas es menor (unas 20) y no se verificó aquí.",
+      "negative_or_conflicting": "La fiabilidad real en móviles con ahorro agresivo de batería es peor que la documentada; sin pruebas propias."
+    },
+    {
+      "claim": "La AEMPS ofrece la API REST pública y gratuita CIMA (sin autenticación) con el registro oficial de medicamentos autorizados en España: nombre, laboratorio, condiciones de prescripción, si está comercializado, problemas de suministro y enlaces a ficha técnica y prospecto en PDF y HTML.",
+      "evidence_level": "A",
+      "sources": [
+        "https://cima.aemps.es/cima/rest/medicamentos?nombre=donepezilo",
+        "https://cima.aemps.es/cima/resources/docs/CIMA_REST_API.pdf"
+      ],
+      "app_implication": "Autocompletar el nombre del medicamento al registrar la pauta que dio el médico (evita errores de escritura), enlazar al prospecto oficial y avisar si hay un problema de suministro comunicado por la AEMPS. La pauta (dosis y horario) la introduce el cuidador tal como la prescribió el médico; la app no la sugiere ni la modifica. Cachear los datos para uso sin red.",
+      "safety_notes": "No mostrar automáticamente contraindicaciones ni interacciones como alertas propias (sería producto sanitario y genera alarma sin contexto); enlazar al prospecto y sugerir consultar al farmacéutico o médico. Nombres comerciales parecidos pueden confundirse: mostrar principio activo y dosis por unidad.",
+      "negative_or_conflicting": "Las condiciones de uso y límites de peticiones de la API no se revisaron; verificar el documento de la AEMPS antes de usarla en producción."
+    }
+  ],
+  "app_features": [
+    "Recordatorios de medicación locales con confirmación de toma, reintentos y aviso al cuidador si no se confirma (funciona sin red)",
+    "Ventana deslizante de recordatorios en iOS (límite de 64) con aviso de 'recordatorios programados hasta el día X'",
+    "Comprobación de salud de las alarmas: estado del permiso de alarmas exactas, optimización de batería y botón 'probar alarma ahora'",
+    "Guía de configuración de batería por fabricante para que las alarmas no se pierdan",
+    "Modo paciente de una sola pantalla (hora, día y momento del día en palabras, siguiente actividad, foto de la familia, botón de llamar) con texto muy grande y poco movimiento",
+    "Mensajes de voz grabados por la familia como recordatorios",
+    "Registro rápido de un toque para el cuidador: sueño, ánimo, apetito, agitación, caídas, con exportación a PDF para la consulta",
+    "Detección de tomas duplicadas al sincronizar, con quién y cuándo registró cada una",
+    "Selector de medicamentos con la API CIMA de la AEMPS, enlace al prospecto y aviso de problemas de suministro (sin sugerir dosis)",
+    "Zona segura como aviso de apoyo con latencia indicada, más tarjeta QR o NFC 'llamar a mi familia' que no depende del móvil del paciente",
+    "Modo sin conexión completo con sincronización opcional cuidador-familia basada en eventos inmutables",
+    "Panel familiar con roles y permisos revocables y auditables (cuidador principal, familiares, persona de apoyo, profesional)",
+    "Notificaciones push con texto genérico, sin datos de salud en la pantalla de bloqueo",
+    "Lectura opcional de pasos y sueño vía HealthKit/Health Connect mostrada solo como tendencia descriptiva",
+    "Borrador de resumen del diario con IA local opcional, siempre junto al registro original",
+    "Contenido educativo offline para cuidadores con etiquetas de nivel de evidencia",
+    "Espacio 'cuidar al cuidador': registro de carga y recordatorios de descanso",
+    "i18n desde el principio (español, catalán, gallego, euskera, inglés)",
+    "Exportación y borrado de todos los datos con un botón (portabilidad y anti lock-in)"
+  ],
+  "questions_for_owner": [
+    "¿Tenéis ya una asociación o fundación inscrita, o una entidad dispuesta a ser la titular? Apple exige entidad jurídica para apps sanitarias, y además es quien solicitaría la exención de cuota, firmaría los DPA y sería responsable del tratamiento.",
+    "¿Cuántas familias esperáis en el primer año y en tres años? Define si basta un backend gratuito o hay que presupuestar unos 25 a 50 USD al mes.",
+    "¿Aceptáis un presupuesto mínimo mensual a cambio de fiabilidad? El coste cero absoluto tiene riesgos reales para datos de salud.",
+    "¿Qué móviles y tablets usan el paciente y los cuidadores (marca, versión de Android, modelo de iPhone e iOS)? Determina alarmas, AlarmKit, ahorro de batería e IA local.",
+    "¿El paciente usará el dispositivo por sí mismo o solo el cuidador? ¿Lleva el móvil encima cuando sale? Define el modo paciente y si la zona segura tiene sentido.",
+    "¿Quién desarrollará y mantendrá la app dentro de dos años, y con qué lenguaje se maneja? Decide entre Flutter y Expo.",
+    "¿Aceptáis la línea roja de que la app no calcule dosis, no detecte interacciones ni puntúe riesgos, para no convertirse en producto sanitario?",
+    "¿Basta con sincronizar entre familiares cuando hay red, o necesitáis avisos remotos en el momento (toma no confirmada, salida de zona)?",
+    "¿Aceptáis que no haya IA en la nube con datos del paciente y que la IA local sea un extra opcional?",
+    "¿Quién actuará por el paciente en el consentimiento (persona de apoyo, curador, guardador de hecho) y cómo se recoge la voluntad del propio paciente mientras pueda expresarla?",
+    "¿Qué idiomas y variantes son prioritarios (España, Latinoamérica, lenguas cooficiales)?",
+    "¿Tenéis 12 personas con Android dispuestas a probar la app durante 14 días, y algún profesional (médico, farmacéutico, terapeuta ocupacional) que revise contenidos y flujos?",
+    "¿Hay presupuesto o contacto para una revisión legal puntual (DPD o abogado) de la EIPD y de la finalidad prevista antes de abrir al público?"
+  ],
+  "free_resources": [
+    {
+      "name": "Supabase pricing",
+      "url": "https://supabase.com/pricing",
+      "what": "Límites del plan gratuito y precio Pro",
+      "cost": "Gratis hasta 500 MB; Pro 25 USD/mes"
+    },
+    {
+      "name": "Supabase regiones",
+      "url": "https://supabase.com/docs/guides/platform/regions",
+      "what": "Regiones disponibles, incluidas UE",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Firebase pricing",
+      "url": "https://firebase.google.com/pricing",
+      "what": "Cuotas oficiales de Spark (Firestore, FCM)",
+      "cost": "Gratis dentro de límites"
+    },
+    {
+      "name": "Cloudflare D1 pricing",
+      "url": "https://developers.cloudflare.com/d1/platform/pricing/",
+      "what": "Límites diarios del plan gratuito",
+      "cost": "Gratis dentro de límites"
+    },
+    {
+      "name": "Cloudflare D1 limits",
+      "url": "https://developers.cloudflare.com/d1/platform/limits/",
+      "what": "Tamaños máximos y número de bases",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Appwrite plan gratuito",
+      "url": "https://appwrite.io/docs/advanced/billing/free",
+      "what": "Backend alternativo con límites gratuitos",
+      "cost": "Gratis dentro de límites"
+    },
+    {
+      "name": "Appwrite regiones",
+      "url": "https://appwrite.io/docs/products/network/regions",
+      "what": "Región Frankfurt disponible",
+      "cost": "Gratis"
+    },
+    {
+      "name": "PowerSync pricing",
+      "url": "https://powersync.com/pricing",
+      "what": "Sincronización offline-first; plan gratuito limitado",
+      "cost": "Free; planes de pago"
+    },
+    {
+      "name": "SDK Flutter de PowerSync",
+      "url": "https://pub.dev/packages/powersync",
+      "what": "Cliente Apache-2.0",
+      "cost": "Gratis"
+    },
+    {
+      "name": "flutter_local_notifications",
+      "url": "https://pub.dev/packages/flutter_local_notifications",
+      "what": "Notificaciones locales; documenta el límite de 64 en iOS y alarmas exactas en Android",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Android: programar alarmas",
+      "url": "https://developer.android.com/develop/background-work/services/alarms",
+      "what": "Tipos de alarma y permisos exactos",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Android 14 exact alarms",
+      "url": "https://developer.android.com/about/versions/14/changes/schedule-exact-alarms",
+      "what": "Cambios de SCHEDULE_EXACT_ALARM",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Política de Play sobre alarmas exactas",
+      "url": "https://support.google.com/googleplay/android-developer/answer/13161072?hl=en",
+      "what": "Quién puede usar USE_EXACT_ALARM",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Declaración de apps de salud en Play",
+      "url": "https://support.google.com/googleplay/android-developer/answer/14738291?hl=en",
+      "what": "Categorías y requisitos de apps de salud y productos sanitarios",
+      "cost": "Gratis"
+    },
+    {
+      "name": "App Store Review Guidelines",
+      "url": "https://developer.apple.com/app-store/review/guidelines/",
+      "what": "5.1.1(ix): apps sanitarias publicadas por entidad jurídica",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Exención de cuota de Apple",
+      "url": "https://developer.apple.com/support/membership-fee-waiver/",
+      "what": "Requisitos para ONG, centros educativos y administraciones",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Requisitos de prueba de Google Play",
+      "url": "https://support.google.com/googleplay/android-developer/answer/14151465?hl=en",
+      "what": "Regla de 12 testers durante 14 días",
+      "cost": "Gratis"
+    },
+    {
+      "name": "AlarmKit",
+      "url": "https://developer.apple.com/documentation/alarmkit",
+      "what": "Alarmas de terceros en iOS 26",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Android geofencing",
+      "url": "https://developer.android.com/develop/sensors-and-location/location/geofencing",
+      "what": "Límites, latencia y permisos de geovallas",
+      "cost": "Gratis"
+    },
+    {
+      "name": "API CIMA (AEMPS)",
+      "url": "https://cima.aemps.es/cima/resources/docs/CIMA_REST_API.pdf",
+      "what": "Documentación de la API pública del registro de medicamentos",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Guía AEPD de riesgo y EIPD",
+      "url": "https://www.aepd.es/guias/gestion-riesgo-y-evaluacion-impacto-en-tratamientos-datos-personales.pdf",
+      "what": "Cómo hacer la evaluación de impacto",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Ley 8/2021 (BOE)",
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2021-9233",
+      "what": "Medidas de apoyo a personas con discapacidad en el ejercicio de su capacidad jurídica",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Términos de Gemini API",
+      "url": "https://ai.google.dev/gemini-api/terms",
+      "what": "Uso de datos en niveles gratuitos y regla del EEE",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Paquete Flutter health",
+      "url": "https://pub.dev/packages/health",
+      "what": "HealthKit y Health Connect desde Flutter",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Android lock task mode",
+      "url": "https://developer.android.com/work/dpc/dedicated-devices/lock-task-mode",
+      "what": "Modo kiosco en Android",
+      "cost": "Gratis"
+    },
+    {
+      "name": "Codemagic pricing",
+      "url": "https://docs.codemagic.io/billing/pricing/",
+      "what": "500 min/mes macOS M2 para cuentas personales",
+      "cost": "Gratis hasta 500 min/mes"
+    },
+    {
+      "name": "GlitchTip",
+      "url": "https://glitchtip.com/",
+      "what": "Seguimiento de errores open source compatible con Sentry",
+      "cost": "Gratis autoalojado"
+    }
+  ],
+  "verification_notes": "Los niveles miden la fiabilidad de la fuente técnica o normativa, no evidencia clínica. Firebase sube de C a A tras leer la página oficial. Appwrite sube a B al verificar la región Frankfurt, y en Supabase se añaden las regiones UE. Corrección importante: el original presentaba setAlarmClock como alternativa sin permiso, pero toda alarma exacta lo exige desde Android 12. La política de Play confirma que USE_EXACT_ALARM es solo para apps de alarma o temporizador y de calendario. Sobre la exención de Apple, se retira la lista de países de 2020 y se usa la página oficial. En Gemini se corrige la regla del EEE con los términos oficiales. Se eliminan cifras no verificadas: el corte de D1 en 2026, los unos 10.000 usuarios de PocketBase, los porcentajes de frameworks y los límites de Gemini. RGPD sube a B con fuentes de la AEPD y del BOE, y añade la Ley 8/2021: ya no hay 'tutor' de adultos. Cinco hallazgos nuevos: entidad jurídica obligatoria en Apple y declaración de salud en Play, frontera del MDR (el PDF dio 403), límite de 64 notificaciones en iOS más AlarmKit, geovallas y API CIMA de la AEMPS, probada en vivo. Las implicaciones se reescriben para no dosificar ni interpretar sensores. Sin búsquedas disponibles, se verificó con WebFetch y curl. Queda sin verificar el límite de regiones de iOS, el sonido de AlarmKit en silencio, el formulario de Health Connect, la jurisdicción UE de D1 y la cuota de Sentry."
+}

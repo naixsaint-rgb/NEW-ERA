@@ -1,0 +1,268 @@
+{
+ "key": "gap-final_de_vida_paliativos",
+ "title": "Fase avanzada, cuidados paliativos y final de vida en demencia (revisado)",
+ "summary": "La demencia avanzada es una enfermedad terminal con pronostico individual incierto (CASCADE, NEJM 2009: 54,8 por ciento de muertes en 18 meses, mortalidad global a 6 meses 24,7 por ciento, supervivencia mediana ajustada 478 dias; ADEPT y criterios de hospicio predicen mal). La evidencia de intervenciones paliativas es de certeza baja o muy baja (Cochrane Walsh 2021), salvo que la planificacion anticipada probablemente aumenta la documentacion de voluntades y las conversaciones sobre objetivos (certeza moderada). La Cochrane vigente sobre sonda es Davies 2021 (CD013503, sin ensayos aleatorizados): sin beneficio demostrado en supervivencia o calidad de vida y con mas ulceras por presion con PEG (certeza moderada); sustituye a la Cochrane Sampson 2009. Los antibioticos en neumonia se asocian a mas supervivencia pero no a mas confort (observacional), los decision aids para familias reducen el conflicto decisional (ensayo aleatorizado) y en fase avanzada se mantienen con frecuencia farmacos de beneficio dudoso. En Espana, el Documento 2026-2030 de la Estrategia de Paliativos (CISNS, 9 abril 2026; en preedicion) describe la trayectoria de la demencia y obliga a respetar las voluntades expresadas antes de perder capacidad. La app, bajo MDR regla 11, debe registrar preferencias y observaciones, informar con nivel de evidencia y derivar a paliativos, atencion primaria y registros autonomicos de instrucciones previas; nunca estadificar, puntuar dolor, estimar pronostico ni proponer tratamientos o retiradas. Prioridad de producto: modulo de valores y voluntades en fase leve-moderada, plan de crisis y modo duelo con ciclo de vida de datos definido.",
+ "findings": [
+  {
+   "claim": "La demencia avanzada se comporta como enfermedad terminal: en CASCADE (323 residentes de 22 residencias de Boston, seguimiento 18 meses) murio el 54,8 por ciento; neumonia (41,1 por ciento), episodios febriles (52,6 por ciento) y problemas de alimentacion (85,8 por ciento) fueron frecuentes, con mortalidad ajustada a 6 meses tras cada uno de 46,7, 44,5 y 38,6 por ciento. Mortalidad global a 6 meses 24,7 por ciento (dato de Resultados, no del resumen) y supervivencia mediana ajustada 478 dias.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC2778850"
+   ],
+   "app_implication": "Contenido informativo (nivel C) que explica que la fase avanzada forma parte de la enfermedad y que complicaciones como neumonia o dejar de comer son esperables y no un fallo del cuidador. Permitir registrar eventos (fiebre, ingestas, ingresos, caidas) con fecha para mostrarlos en consulta y un boton 'comentar con su equipo'. No mostrar probabilidades de supervivencia, curvas ni cifras aplicadas a la persona. (Bajo MDR regla 11: la app registra, informa con nivel de evidencia y deriva; no diagnostica, no puntua, no estima pronostico ni dosifica.)",
+   "safety_notes": "Cohorte de residencias de EE.UU.; extrapolacion a Espana y a domicilio limitada. Las cifras poblacionales no son pronostico individual. Evitar que el usuario las lea como cuenta atras.",
+   "negative_or_conflicting": "El pronostico individual es poco fiable: en ADEPT (Mitchell, JAMA 2010; 606 residentes) el AUROC fue 0,67 para ADEPT y 0,55 para los criterios de hospicio de Medicare (sensibilidad 0,20), practicamente azar. Los propios autores recomiendan guiar los cuidados por objetivos, no por esperanza de vida estimada."
+  },
+  {
+   "claim": "La fase muy avanzada suele describirse con FAST 7 / GDS 7 (Reisberg): habla limitada a pocas palabras, perdida de la marcha, de la sedestacion, de la sonrisa y del control cefalico. Estas escalas tienen copyright de B. Reisberg (FAST, 1984) y las reproducciones publicadas indican 'con permiso'; su uso como predictor de supervivencia a 6 meses es pobre y la fase puede durar anos.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC2778850",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3017367"
+   ],
+   "app_implication": "No estadificar ni clasificar la fase, ni mostrar 'su familiar esta en estadio X'. Ofrecer, como diario libre, campos para que el cuidador anote cambios funcionales con sus propias palabras (por ejemplo 'ya no camina sin ayuda') y compartirlos con el equipo con el texto 'comentelo con su equipo de salud'. No reproducir descriptores de FAST/GDS sin permiso escrito del titular. (Bajo MDR regla 11: la app registra, informa con nivel de evidencia y deriva; no diagnostica, no puntua, no estima pronostico ni dosifica.)",
+   "safety_notes": "Estadificar seria funcion de diagnostico/pronostico (MDR regla 11, clase IIa o superior). Licencia: no se encontro licencia publica; las reproducciones citan permiso de Reisberg; solicitar permiso a NYU Langone si se quisiera usar.",
+   "negative_or_conflicting": "Los criterios basados en FAST 7c predijeron la mortalidad a 6 meses con AUROC 0,55 (ADEPT, JAMA 2010). Muchas personas no siguen la secuencia ordinal de FAST."
+  },
+  {
+   "claim": "El white paper de la EAPC (van der Steen et al., Palliative Medicine 2014;28:197-209) define los cuidados paliativos optimos en demencia: 11 dominios y 57 recomendaciones valorados por 64 expertos de 23 paises en un Delphi de 5 rondas; consenso inmediato en ocho dominios (entre ellos atencion centrada en la persona y decisiones compartidas, control de sintomas y confort, planificacion anticipada, apoyo a la familia), consenso tras revision en pronostico y reconocimiento de la fase de muerte, y solo consenso moderado en nutricion/deshidratacion y en la relacion entre estadios y objetivos de cuidado. El Grupo de trabajo EAPC sobre planificacion anticipada en demencia (van der Steen, Korfage) ha publicado una definicion y recomendaciones mediante un Delphi de 33 paises (Alzheimer's & Dementia; J Pain Symptom Manage 2025).",
+   "evidence_level": "D",
+   "sources": [
+    "https://pure.amsterdamumc.nl/en/publications/white-paper-defining-optimal-palliative-care-in-older-people-with/",
+    "https://eapcnet.eu/eapc-groups/reference/advance-care-planning-in-dementia/"
+   ],
+   "app_implication": "Usar los dominios del white paper como indice de contenidos informativos (confort como objetivo, decisiones compartidas, apoyo a la familia, no abandono, continuidad), etiquetados como 'consenso de expertos (D)'. No convertir las recomendaciones en instrucciones de tratamiento para la familia; cada tema termina con preguntas para llevar al equipo. (Bajo MDR regla 11: la app registra, informa con nivel de evidencia y deriva; no diagnostica, no puntua, no estima pronostico ni dosifica.)",
+   "safety_notes": "Consenso de expertos de 2014, no evidencia de resultados clinicos; algunas recomendaciones pueden haber quedado desfasadas (por ejemplo, la Cochrane de sonda de 2021).",
+   "negative_or_conflicting": "Nutricion/deshidratacion y la vinculacion de estadios con objetivos solo lograron consenso moderado; no se localizo actualizacion formal del white paper."
+  },
+  {
+   "claim": "Cochrane (Walsh et al. 2021, CD011513.pub3): 9 estudios, 2122 participantes (8 ensayos, 6 de ellos por conglomerados). Las intervenciones de organizacion y prestacion de cuidados podrian aumentar el confort al morir (DM 1,49; IC95 0,34 a 2,64; 5 estudios, 335 participantes; certeza muy baja; el efecto desaparece al excluir estudios con alto riesgo de sesgo). La planificacion anticipada probablemente aumenta la documentacion de voluntades (RR 1,23; IC95 1,07 a 1,41; certeza moderada) y las conversaciones sobre objetivos (RR 1,33; IC95 1,11 a 1,59; certeza moderada), puede aumentar ligeramente la concordancia con los objetivos (RR 1,39; certeza baja) y apenas cambia el control de sintomas (certeza muy baja). No se evaluaron efectos adversos y los datos sobre la familia son escasos.",
+   "evidence_level": "B",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8478014",
+    "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD011513.pub3/information"
+   ],
+   "app_implication": "La app puede ofrecer un guion de conversacion y un registro de valores y preferencias, presentado con su nivel de evidencia: 'ayuda a que las preferencias queden escritas y se hablen (certeza moderada); no se ha demostrado que mejore los sintomas'. Recordar periodicamente revisar el documento con el medico y el representante. (Bajo MDR regla 11: la app registra, informa con nivel de evidencia y deriva; no diagnostica, no puntua, no estima pronostico ni dosifica.)",
+   "safety_notes": "No prometer beneficio clinico ni mejor muerte. Los estudios son mayoritariamente de residencias en EE.UU. y Europa del norte.",
+   "negative_or_conflicting": "Sin mejora clara de sintomas con la planificacion anticipada; el conflicto decisional del cuidador no cambio de forma significativa (DM -0,30; IC95 -0,63 a 0,03; certeza baja)."
+  },
+  {
+   "claim": "Planificacion anticipada en demencia: la revision paraguas de Wendrich-van Dael et al. (International Journal of Nursing Studies 2020;107:103576; 19 revisiones con 163 estudios y 11 articulos primarios) la considera aceptable para personas con demencia y cuidadores y la asocia con menos hospitalizaciones y mayor concordancia entre cuidados recibidos y deseos previos. En CASCADE, cuando el apoderado creia que quedaban menos de 6 meses y entendia las complicaciones esperables, las intervenciones gravosas en los ultimos 3 meses fueron mucho menos probables (OR ajustado 0,12; IC95 0,04 a 0,37).",
+   "evidence_level": "C",
+   "sources": [
+    "https://uhra.herts.ac.uk/id/eprint/8257/",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC2778850"
+   ],
+   "app_implication": "Prioridad de producto: modulo de valores y preferencias (que es para mi una buena vida, que temo, quien quiero que hable por mi) que la propia persona completa en fase leve-moderada, con su voz o con ayuda, exportable a PDF para el medico y para tramitar el documento oficial en su CCAA. La app no sugiere ninguna opcion: solo recoge lo que la persona expresa y recuerda revisarlo. (Bajo MDR regla 11: la app registra, informa con nivel de evidencia y deriva; no diagnostica, no puntua, no estima pronostico ni dosifica.)",
+   "safety_notes": "Datos observacionales; asociacion no implica causalidad. Si la persona ya no puede expresarse, la app no debe presentar respuestas de familiares como voluntades de la persona; separar claramente 'lo que dijo la persona' de 'lo que cree la familia'.",
+   "negative_or_conflicting": "Calidad heterogenea de las revisiones incluidas (busqueda hasta 2018); las preferencias cambian con el tiempo y los documentos rigidos pueden no ajustarse a la situacion real. El journal correcto es Int J Nurs Stud, no Palliative Medicine."
+  },
+  {
+   "claim": "Sonda de alimentacion en demencia grave: la Cochrane vigente es Davies et al. 2021 (CD013503.pub2, busqueda hasta abril 2021), que sustituye en la practica a Sampson et al. 2009 (CD007209). No hay ensayos aleatorizados; 14 estudios no aleatorizados (49.714 participantes, 6203 con sonda) con riesgo de sesgo alto o muy alto. PEG frente a no sonda: puede no cambiar la supervivencia (certeza baja) y aumenta las ulceras por presion (1 estudio, 4421 personas; certeza moderada). Estudios con sonda mixta o no especificada sugirieron mas supervivencia en 3 de 4 (certeza muy baja). El balance sugiere mas neumonia con la sonda, con resultados inconsistentes. Ningun estudio midio calidad de vida. El white paper EAPC favorece la alimentacion oral asistida y cuidadosa.",
+   "evidence_level": "C",
+   "sources": [
+    "https://www.cochrane.org/evidence/CD013503_enteral-tube-feeding-people-severe-dementia",
+    "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD013503/abstract",
+    "https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD007209.pub2/information"
+   ],
+   "app_implication": "Informar con nivel C de que no se ha demostrado que la sonda mejore supervivencia ni calidad de vida en demencia grave y que la PEG se asocia a mas ulceras por presion; ofrecer preguntas para hablar con el equipo y un campo para registrar la preferencia anticipada de la persona. Incluir informacion general sobre alimentacion de confort (cuchara, tomar lo que apetece, acompanar) y derivar a logopedia o enfermeria para la tecnica, sin pautar texturas, volumenes ni espesantes. (Bajo MDR regla 11: la app registra, informa con nivel de evidencia y deriva; no diagnostica, no puntua, no estima pronostico ni dosifica.)",
+   "safety_notes": "No decir 'no ponga sonda' ni 'ponga sonda'. Decision individual con el equipo (disfagia de causa reversible, deseos previos). Los problemas de deglucion requieren valoracion profesional.",
+   "negative_or_conflicting": "Evidencia observacional con fuerte sesgo de indicacion; algunos estudios con sonda mixta sugieren mayor supervivencia (certeza muy baja). Por ser solo observacional se baja de B a C."
+  },
+  {
+   "claim": "Hospitalizacion e intervenciones gravosas: en CASCADE el 40,7 por ciento de los fallecidos recibio en los ultimos 3 meses al menos una intervencion gravosa (hospitalizacion, urgencias, tratamiento parenteral o sonda). Las decisiones sobre ingreso, antibiotico o tratamiento sintomatico exclusivo conviene hablarlas con el equipo antes de la crisis.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC2778850"
+   ],
+   "app_implication": "Plantilla 'plan de crisis' en la que la familia anota lo ya acordado con el medico (sin opciones precargadas que induzcan), el contacto 24 h de su equipo de paliativos o atencion primaria y los telefonos 112/061. Ante fiebre, dificultad respiratoria, dolor intenso o empeoramiento brusco, la app solo muestra 'contacte con su equipo o llame al 112'; no hace triaje. (Bajo MDR regla 11: la app registra, informa con nivel de evidencia y deriva; no diagnostica, no puntua, no estima pronostico ni dosifica.)",
+   "safety_notes": "La app no decide hospitalizar ni indica antibioticos. El plan de crisis no sustituye a una orden medica ni a un documento de instrucciones previas.",
+   "negative_or_conflicting": "En algunos casos el ingreso o el antibiotico alivian sintomas o responden a los deseos de la persona; 'gravoso' es una categoria de investigacion, no una norma."
+  },
+  {
+   "claim": "Antibioticos en neumonia en demencia avanzada (nuevo): en CASCADE (Givens et al., Arch Intern Med 2010;170:1102-7) el tratamiento antimicrobiano de neumonias sospechadas se asocio a mayor supervivencia (HR ajustados 0,20 a 0,26 segun via oral, intramuscular o intravenosa/hospitalaria) pero a peor confort medido con la escala SM-EOLD frente a no tratar.",
+   "evidence_level": "C",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC2914628"
+   ],
+   "app_implication": "Contenido informativo (nivel C) que explica que el antibiotico puede prolongar la vida pero no necesariamente mejora el confort, y que es una decision para hablar con el equipo segun los objetivos de la persona. Registrar la preferencia previamente comentada en el plan de crisis. Nunca sugerir iniciar, evitar o retirar un antibiotico. (Bajo MDR regla 11: la app registra, informa con nivel de evidencia y deriva; no diagnostica, no puntua, no estima pronostico ni dosifica.)",
+   "safety_notes": "Indicar o desaconsejar antibioticos seria funcion terapeutica prohibida. La sospecha de neumonia requiere valoracion medica.",
+   "negative_or_conflicting": "Observacional, con confusion por indicacion; la menor puntuacion de confort puede reflejar ingresos y vias invasivas. No hay ensayos aleatorizados."
+  },
+  {
+   "claim": "Ayudas a la decision para familias (nuevo): en un ensayo por conglomerados (Hanson et al., J Am Geriatr Soc 2011; 24 residencias, 256 diadas) un decision aid en audio o papel sobre opciones de alimentacion redujo el conflicto decisional del sustituto a 3 meses (1,65 frente a 1,90; p<0,001), mejoro el conocimiento y aumento las conversaciones con el profesional (46 frente a 33 por ciento). Un ensayo posterior de objetivos de cuidado (Hanson et al., JAMA Intern Med 2017; 22 residencias) no cambio sus resultados primarios (acuerdo familia-profesional) pero se asocio a mas documentos de ordenes medicas y menos traslados hospitalarios como resultados secundarios.",
+   "evidence_level": "B",
+   "sources": [
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC3227016",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC8478014"
+   ],
+   "app_implication": "Justifica incluir guias de decision informativas (sonda, hospitalizacion, antibioticos) con lenguaje neutro, opciones presentadas de forma equilibrada, nivel de evidencia de cada dato y una lista de preguntas para el equipo. La app no recomienda ninguna opcion ni calcula cual 'encaja' con la persona. (Bajo MDR regla 11: la app registra, informa con nivel de evidencia y deriva; no diagnostica, no puntua, no estima pronostico ni dosifica.)",
+   "safety_notes": "Las ayudas a la decision deben revisarse por clinicos de paliativos y adaptarse culturalmente a Espana; un decision aid mal equilibrado puede inducir decisiones.",
+   "negative_or_conflicting": "Ensayos en EE.UU. y en residencias; resultados secundarios con comparaciones multiples. Solo el 35 por ciento de los participantes de Hanson 2011 tenia GDS 7."
+  },
+  {
+   "claim": "Medicacion de beneficio dudoso al final de la vida (nuevo): en 5406 residentes con demencia avanzada de EE.UU. (Tjia et al., JAMA Intern Med 2014) el 53,9 por ciento recibia al menos un farmaco considerado de beneficio dudoso cuando el objetivo es el confort (sobre todo inhibidores de colinesterasa 36,4 por ciento, memantina 25,2 por ciento e hipolipemiantes 22,4 por ciento).",
+   "evidence_level": "C",
+   "sources": [
+    "https://repository.escholarship.umassmed.edu/entities/publication/02efef23-1ce0-4330-852a-5ea78c70ef4f"
+   ],
+   "app_implication": "El modulo de medicacion puede recordar a la familia que pida al medico o al farmaceutico una revision de toda la medicacion cuando cambian los objetivos de cuidado, y exportar la lista actual para esa consulta. La app no marca farmacos como innecesarios, no propone retiradas ni cambios de dosis. (Bajo MDR regla 11: la app registra, informa con nivel de evidencia y deriva; no diagnostica, no puntua, no estima pronostico ni dosifica.)",
+   "safety_notes": "La retirada de farmacos (por ejemplo, anticolinesterasicos o antipsicoticos) debe ser decidida y supervisada por el medico; una retirada brusca puede empeorar sintomas.",
+   "negative_or_conflicting": "Estudio transversal en EE.UU.; la lista de 'nunca apropiado' procede de consenso de expertos. Algunas familias observan empeoramiento al retirar farmacos; la decision es individual."
+  },
+  {
+   "claim": "Dolor en personas que no comunican: la autovaloracion es util en fases iniciales, pero en fases avanzadas hacen falta escalas observacionales (PAINAD, MOBID-2, PACSLAC, DOLO-Plus), mejor aplicadas durante el movimiento (hoja informativa EFIC/IASP n.o 3). PAINAD-Sp (Canton-Habas et al., BMJ Open 2021;11:e049211): 100 personas con demencia GDS 5-7 en Andalucia, alfa 0,76, concordancia interobservador alta (CCI 0,94) y estabilidad temporal moderada (CCI 0,55). Adaptacion PAINAD-Sp_Hosp en 325 pacientes hospitalizados no comunicativos en Barcelona (tesis UB 2019, fiabilidad interobservador 0,80). MOBID-2 tiene validaciones noruega e italiana; no se encontro validacion espanola.",
+   "evidence_level": "C",
+   "sources": [
+    "https://doaj.org/article/d81b655ee22249e9b23ddec67c093f98",
+    "https://diposit.ub.edu/items/2269c868-a463-4a23-8a11-eb014b913bfc",
+    "https://europeanpainfederation.eu/wp-content/uploads/2019/06/No3-Pain-Assessment-in-Dementia-Spanish-converted.pdf"
+   ],
+   "app_implication": "No incluir ninguna escala puntuable de dolor ni umbrales. Ofrecer una lista de signos observables (gesto, quejidos, rigidez, agitacion, rechazo a moverse) que el cuidador anota en texto o casillas sin suma, con fecha y contexto (en reposo o al movilizar), para ensenar al profesional; si los signos persisten o son intensos, mostrar 'contacte con su equipo'. Informar de que la ausencia de queja no significa ausencia de dolor. (Bajo MDR regla 11: la app registra, informa con nivel de evidencia y deriva; no diagnostica, no puntua, no estima pronostico ni dosifica.)",
+   "safety_notes": "Puntuar dolor y sugerir analgesia seria diagnostico/dosificacion. PAINAD (Warden, Hurley, Volicer 2003) circula ampliamente pero no se encontro licencia publica explicita: pedir permiso escrito antes de reproducir los items; MOBID-2 tampoco verificado.",
+   "negative_or_conflicting": "Estabilidad temporal moderada de PAINAD-Sp y muestra pequena; sin datos de sensibilidad/especificidad frente a patron de referencia. Las escalas observacionales se implantan poco en la practica."
+  },
+  {
+   "claim": "Marco espanol de paliativos: la Estrategia de Cuidados Paliativos del SNS (aprobada en 2007, actualizada 2010-2014, evaluada en 2022) se desarrolla en el Documento 2026-2030, aprobado por el CISNS el 9 de abril de 2026 (version en preedicion). Este documento reconoce la demencia y la fragilidad como la trayectoria mas frecuente (deterioro lento, edad media mayor de 85 anos), senala que la delegacion formal de decisiones es poco comun y que hay que respetar las voluntades expresadas antes de perder capacidad, y enumera necesidades: planificar con paciente y familia, alto riesgo de delirium, evitar intervenciones no beneficiosas y apoyar a cuidadores de larga duracion. Diez CCAA tienen leyes propias de derechos al final de la vida (Andalucia 2/2010, Aragon 10/2011, Navarra LF 8/2011, Baleares 4/2015, Canarias 1/2015, Galicia 5/2015, Euskadi 11/2016, Madrid 4/2017, Asturias 5/2018, C. Valenciana 16/2018).",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.sanidad.gob.es/areas/calidadAsistencial/estrategias/cuidadosPaliativos/docs/Documento_desarrollo_2026_2030_Estrategia_Cuidados_Paliativos_SNS_1.pdf",
+    "https://derechoamorir.org/leyes-en-espana"
+   ],
+   "app_implication": "Mostrar informacion sobre derechos al final de la vida segun la CCAA (acompanamiento, informacion, rechazo de tratamiento, sedacion paliativa cuando la indique el equipo) y como pedir acceso a los equipos de paliativos de su area a traves de atencion primaria, con enlaces oficiales por CCAA y fecha de ultima revision. La app informa derechos; no asesora juridicamente ni valora si procede la sedacion. (Bajo MDR regla 11: la app registra, informa con nivel de evidencia y deriva; no diagnostica, no puntua, no estima pronostico ni dosifica.)",
+   "safety_notes": "Verificar cada ley autonomica en el BOE/boletin autonomico y revision por jurista; derechoamorir.org es fuente de una asociacion con posicion propia. El documento 2026-2030 esta en preedicion: revisar la version definitiva.",
+   "negative_or_conflicting": "Cobertura desigual de recursos de paliativos entre CCAA; siete CCAA sin ley autonomica especifica se rigen por la Ley 41/2002 y la normativa general."
+  },
+  {
+   "claim": "Instrucciones previas: la Ley 41/2002 (art. 11) las regula; el RD 124/2007 creo el Registro Nacional de Instrucciones Previas, al que las CCAA remiten sus inscripciones, y el RD 415/2022 (BOE 1 junio 2022) lo adapto a la LO 3/2021 para incluir la prestacion de ayuda para morir. Cada CCAA tiene su registro, requisitos (notario, testigos o funcionario) y modelos propios.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.boe.es/eli/es/rd/2007/02/02/124",
+    "https://www.boe.es/eli/es/rd/2022/05/31/415",
+    "https://www.sanidad.gob.es/areas/profesionesSanitarias/rnip/home.htm"
+   ],
+   "app_implication": "Guia por CCAA: que es el documento, quien puede ser representante, donde y como inscribirlo, y aviso de que debe estar registrado y conocido por medico y familia. La app puede guardar una copia cifrada, recordar su revision y exportarla; no redacta el documento oficial ni certifica su validez. (Bajo MDR regla 11: la app registra, informa con nivel de evidencia y deriva; no diagnostica, no puntua, no estima pronostico ni dosifica.)",
+   "safety_notes": "Guardar la copia es tratamiento de datos de salud (RGPD art. 9) y requiere consentimiento explicito, cifrado y responsable del tratamiento identificado. La validez legal depende del procedimiento autonomico.",
+   "negative_or_conflicting": "Muchos documentos no se consultan en la practica clinica; que el representante y el medico conozcan el documento probablemente mejora su uso (inferencia no verificada con datos espanoles)."
+  },
+  {
+   "claim": "LO 3/2021 de regulacion de la eutanasia y demencia: exige capacidad plena para solicitar la prestacion; el art. 5.2 permite aplicarla a quien el medico responsable certifique en situacion de incapacidad de hecho solo si suscribio antes un documento de instrucciones previas o equivalente, que se aplicara conforme a lo dispuesto en el (art. 9), siendo el representante designado el interlocutor. La valoracion de la incapacidad de hecho sigue el protocolo aprobado por el CISNS (2021), que indica que con GDS 3-4 suele conservarse la capacidad y con GDS mayor de 5 habitualmente no, y que las escalas cognitivas no bastan por si solas. El art. 16 regula la objecion de conciencia. La aplicacion a demencia avanzada genera debate juridico y etico.",
+   "evidence_level": "D",
+   "sources": [
+    "https://www.boe.es/buscar/act.php?id=BOE-A-2021-4628",
+    "https://www.sanidad.gob.es/eutanasia/docs/Protocolo_de_valoracion_de_la_situacion_de_la_incapacidad_de_hecho.pdf"
+   ],
+   "app_implication": "Si el promotor decide incluir el tema, ofrecer solo informacion neutral y literal sobre lo que dice la ley (con enlace al BOE y al protocolo), y derivar al medico responsable, a la Comision de Garantia y Evaluacion de su CCAA y al registro de instrucciones previas. Sin recomendar, desaconsejar ni valorar la capacidad de la persona. (Bajo MDR regla 11: la app registra, informa con nivel de evidencia y deriva; no diagnostica, no puntua, no estima pronostico ni dosifica.)",
+   "safety_notes": "Tema sensible: revision juridica y etica obligatoria; evitar lenguaje que induzca. Si un usuario expresa ideas de muerte propias (persona o cuidador), mostrar 024 y 112. Los modelos de asociaciones que vinculan opciones a estadios GDS no son criterio oficial.",
+   "negative_or_conflicting": "Posiciones divergentes entre juristas, bioeticistas y sociedades sobre la aplicabilidad en demencia avanzada via instrucciones previas; la fuente academica original (TFM ULL 2022) trata sobre todo de menores y se ha retirado por poco pertinente."
+  },
+  {
+   "claim": "Duelo: en la revision sistematica de Crawley, Sampson et al. (International Psychogeriatrics 2022; 55 estudios) entre el 6 y el 26 por ciento de los cuidadores familiares cumplia criterios de duelo complicado tras el fallecimiento (solo 4 estudios), y un estudio hallo 17 por ciento de duelo prolongado antes de la muerte; el mayor duelo se asocio a ser conyuge, menor nivel educativo, demencia avanzada y mayor sobrecarga. Otras fuentes estiman 10-20 por ciento. Las intervenciones especificas de duelo anticipado tienen ensayos escasos y de calidad mixta.",
+   "evidence_level": "C",
+   "sources": [
+    "https://discovery.ucl.ac.uk/id/eprint/10144204/"
+   ],
+   "app_implication": "Tras el fallecimiento, la app pasa a modo duelo solo si un usuario lo activa: mensaje de condolencia, recursos (atencion primaria, asociaciones, grupos de duelo), sugerencia de hablar con un profesional si el malestar persiste, y opciones explicitas de exportar, conservar o borrar los datos de la persona. Durante la fase avanzada, ofrecer informacion sobre el duelo anticipado y recursos de apoyo al cuidador. No usar cuestionarios de duelo puntuables. (Bajo MDR regla 11: la app registra, informa con nivel de evidencia y deriva; no diagnostica, no puntua, no estima pronostico ni dosifica.)",
+   "safety_notes": "No diagnosticar duelo prolongado. Si aparece ideacion suicida, mostrar 024 y 112. Desactivar recordatorios y notificaciones automaticas sobre la persona fallecida salvo consentimiento.",
+   "negative_or_conflicting": "Rango de prevalencia basado en pocos estudios y definiciones heterogeneas; la eficacia de intervenciones especificas es insuficiente. Se retiro la cita a Wilson 2017 (JBI) por no poder verificarse."
+  }
+ ],
+ "app_features": [
+  "Modulo de valores y preferencias completable por la propia persona en fase leve-moderada, separando 'lo que dijo la persona' de 'lo que cree la familia', con exportacion PDF y guion de conversacion",
+  "Guia por CCAA de instrucciones previas: representante, donde inscribir, enlaces oficiales y recordatorio de revision; copia cifrada opcional",
+  "Plan de crisis: acuerdos ya hablados con el medico (sin opciones precargadas), contactos 24 h de paliativos/atencion primaria, 112/061; sin triaje",
+  "Guias de decision informativas y equilibradas (sonda, hospitalizacion, antibioticos) con nivel de evidencia de cada dato y preguntas para el equipo",
+  "Diario de eventos (fiebre, ingestas, ingresos, cambios funcionales) en texto libre para compartir en consulta; sin estadificar ni pronosticar",
+  "Registro de signos observables de malestar o dolor sin suma ni umbral, con contexto (reposo/movimiento) y derivacion si persisten",
+  "Recordatorio para solicitar revision de toda la medicacion al medico o farmaceutico cuando cambian los objetivos, con exportacion de la lista; sin proponer retiradas",
+  "Directorio de recursos de paliativos y apoyo por CCAA/provincia con fecha de ultima revision",
+  "Modo duelo activado por el usuario: condolencia, recursos, 024/112, cierre de cuenta, exportacion y borrado de datos de la persona",
+  "Apoyo al cuidador en fase avanzada: respiro, culpa, duelo anticipado, grupos de apoyo y derivacion",
+  "Informacion neutral y literal sobre LO 3/2021 y derechos autonomicos de final de vida (si el promotor decide incluirla tras revision etico-juridica)"
+ ],
+ "questions_for_owner": [
+  "En que fase esta ahora la persona con Alzheimer de su familia y existe ya un documento de instrucciones previas inscrito en su CCAA?",
+  "La app incluira informacion sobre la ayuda para morir (LO 3/2021) o solo sobre paliativos, rechazo de tratamiento e instrucciones previas? Quien hara la revision etico-juridica?",
+  "Se contactara con SECPAL, SEGG o una unidad de paliativos para revisar los contenidos y las guias de decision?",
+  "Se pediran permisos para PAINAD, MOBID-2 y FAST/GDS o se opta definitivamente por listas descriptivas sin puntuacion?",
+  "Que ocurre con los datos tras el fallecimiento: plazo de conservacion, borrado, acceso de familiares y que familiar puede activar el modo duelo?",
+  "Quien es la entidad juridica responsable del tratamiento (RGPD art. 9) y de los contenidos ante familias en duelo?",
+  "En que CCAA se lanza primero y quien mantendra actualizados los enlaces a registros y leyes autonomicas?",
+  "Un farmaceutico o medico revisara el texto del recordatorio de revision de medicacion para que no se interprete como consejo de retirar farmacos?"
+ ],
+ "free_resources": [
+  {
+   "name": "Registro Nacional de Instrucciones Previas (Ministerio de Sanidad)",
+   "url": "https://www.sanidad.gob.es/areas/profesionesSanitarias/rnip/home.htm",
+   "what": "Normativa, preguntas frecuentes y enlaces a registros autonomicos",
+   "cost": "Gratis"
+  },
+  {
+   "name": "RD 124/2007 (BOE)",
+   "url": "https://www.boe.es/eli/es/rd/2007/02/02/124",
+   "what": "Norma que crea el Registro Nacional de Instrucciones Previas",
+   "cost": "Gratis"
+  },
+  {
+   "name": "RD 415/2022 (BOE)",
+   "url": "https://www.boe.es/eli/es/rd/2022/05/31/415",
+   "what": "Modificacion del registro para adaptarlo a la LO 3/2021",
+   "cost": "Gratis"
+  },
+  {
+   "name": "LO 3/2021 texto consolidado (BOE)",
+   "url": "https://www.boe.es/buscar/act.php?id=BOE-A-2021-4628",
+   "what": "Texto oficial de la ley de regulacion de la eutanasia",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Protocolo de valoracion de la incapacidad de hecho (Ministerio de Sanidad)",
+   "url": "https://www.sanidad.gob.es/eutanasia/docs/Protocolo_de_valoracion_de_la_situacion_de_la_incapacidad_de_hecho.pdf",
+   "what": "Protocolo aprobado por el CISNS para el art. 5.2 de la LO 3/2021",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Documento 2026-2030 Estrategia de Cuidados Paliativos del SNS",
+   "url": "https://www.sanidad.gob.es/areas/calidadAsistencial/estrategias/cuidadosPaliativos/docs/Documento_desarrollo_2026_2030_Estrategia_Cuidados_Paliativos_SNS_1.pdf",
+   "what": "Documento de desarrollo de la estrategia nacional (incluye trayectoria de demencia)",
+   "cost": "Gratis"
+  },
+  {
+   "name": "EAPC - Advance care planning in dementia",
+   "url": "https://eapcnet.eu/eapc-groups/reference/advance-care-planning-in-dementia/",
+   "what": "Definicion y recomendaciones de planificacion anticipada en demencia (Delphi de 33 paises)",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Cochrane - Palliative care interventions in advanced dementia (texto en PMC)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8478014",
+   "what": "Revision sistematica de intervenciones paliativas (Walsh 2021)",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Cochrane - Enteral tube feeding for people with severe dementia",
+   "url": "https://www.cochrane.org/evidence/CD013503_enteral-tube-feeding-people-severe-dementia",
+   "what": "Resumen en lenguaje claro de la revision vigente sobre sonda (Davies 2021)",
+   "cost": "Gratis"
+  },
+  {
+   "name": "CASCADE (Mitchell, NEJM 2009) en PMC",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2778850",
+   "what": "Curso clinico de la demencia avanzada",
+   "cost": "Gratis"
+  },
+  {
+   "name": "EFIC/IASP Hoja informativa 3: evaluacion del dolor en la demencia (espanol)",
+   "url": "https://europeanpainfederation.eu/wp-content/uploads/2019/06/No3-Pain-Assessment-in-Dementia-Spanish-converted.pdf",
+   "what": "Resumen divulgativo sobre autovaloracion y escalas observacionales",
+   "cost": "Gratis"
+  },
+  {
+   "name": "Derecho a Morir Dignamente - leyes en Espana",
+   "url": "https://derechoamorir.org/leyes-en-espana",
+   "what": "Listado de leyes autonomicas (fuente de asociacion, no oficial)",
+   "cost": "Gratis"
+  }
+ ],
+ "verification_notes": "Revision esceptica con WebFetch y WebSearch. Confirmadas en el texto de PMC las cifras de CASCADE (incluido 24,7 por ciento a 6 meses, que esta en Resultados, y OR 0,12) y de la Cochrane Walsh 2021, anadiendo los RR de certeza moderada y la perdida del efecto sobre el confort al excluir sesgo. Correccion principal: existe Cochrane posterior sobre sonda (Davies 2021, CD013503), sin ensayos aleatorizados, con PEG asociada a mas ulceras por presion (certeza moderada); el hallazgo se baja de B a C. El umbrella review de Wendrich-van Dael se publico en Int J Nurs Stud, no en Palliative Medicine. Se extrajo el texto del Documento 2026-2030 (aprobado por el CISNS el 9 abril 2026, en preedicion) y del protocolo de incapacidad de hecho (GDS 3-4 frente a GDS mayor de 5); se verifico el art. 5.2 y 9 de la LO 3/2021 en el BOE y el RD 415/2022. La fuente ULL (TFM sobre menores) se retiro por no pertinente; la cita core.ac.uk/Wilson 2017 se elimino por no verificable. PAINAD-Sp confirmado (BMJ Open 2021); la referencia catalana es una tesis de 2019 en pacientes hospitalizados, no en demencia. No se hallaron licencias publicas de PAINAD ni FAST (FAST con copyright de Reisberg). Anadidos: antibioticos (Givens 2010), decision aids (Hanson 2011 y 2017) y farmacos de beneficio dudoso (Tjia 2014); la cita Tjia procede de un repositorio institucional con cifras de resumen. Todas las implicaciones se reescribieron para registrar, informar con nivel y derivar."
+}
