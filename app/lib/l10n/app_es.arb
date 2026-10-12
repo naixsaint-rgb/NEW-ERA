@@ -1,0 +1,481 @@
+{
+  "@@locale": "es",
+  "appTitulo": "NEW-ERA",
+  "avisoDemo": "Demo con datos de ejemplo. Sin cifrar: no escribas datos reales.",
+  "cambiarPerfil": "Cambiar perfil",
+  "cambiarPerfilAyuda": "Vuelve a elegir de quién es este móvil.",
+  "perfilTitulo": "¿De quién es este móvil?",
+  "perfilAyuda": "Se puede cambiar más tarde desde Ajustes.",
+  "perfilPersona": "De la persona",
+  "perfilFamilia": "De un familiar o cuidador",
+  "errorGenerico": "Algo ha ido mal. Inténtalo otra vez.",
+  "alguien": "alguien",
+  "cancelar": "Cancelar",
+  "noConsta": "No consta",
+  "campoObligatorio": "Este campo es obligatorio",
+  "pestanaHoy": "Hoy",
+  "pestanaMedicacion": "Medicación",
+  "pestanaCalendario": "Calendario",
+  "pestanaConsultas": "Consultas",
+  "pestanaAlarmas": "Alarmas",
+  "pestanaVoces": "Voces",
+  "pestanaAlimentacion": "Alimentación",
+  "pestanaIdeas": "Ideas y tablas",
+  "pestanaCirculo": "Círculo",
+  "pestanaAjustes": "Ajustes",
+  "pestanaMas": "Más",
+  "tendraTitulo": "Lo que tendrá",
+  "llegaEnSemana": "Llega en la semana {n}",
+  "@llegaEnSemana": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "llegaEnSemanas": "Llega en las semanas {a} y {b}",
+  "@llegaEnSemanas": {
+    "placeholders": {
+      "a": {
+        "type": "int"
+      },
+      "b": {
+        "type": "int"
+      }
+    }
+  },
+  "calendarioTendra": "Un calendario con las tomas, las citas y las visitas de la familia, para verlo todo de un vistazo.",
+  "consultasTendra": "Preparar las consultas con el médico: preguntas, grabación con permiso y un resumen para la familia.",
+  "alarmasTendra": "Avisos escalonados: si la pastilla no se confirma, se avisa a la familia por orden. Y el control por horas, de 9 a 21.",
+  "controlHorasTitulo": "Control por horas",
+  "controlHorasTendra": "Tres preguntas cada hora, de 9 a 21, con horas ajustables: cómo está, si hay dolor y qué plan tiene.",
+  "verControlHoras": "Ver el control por horas",
+  "vocesTendra": "Mensajes grabados por los familiares para acompañar cada aviso.",
+  "alimentacionTendra": "Registro de comidas y de vasos de agua, con foto si se quiere.",
+  "parteManana": "Por la mañana",
+  "parteTarde": "Por la tarde",
+  "parteNoche": "Por la noche",
+  "loSiguiente": "Lo siguiente",
+  "noHayMasPastillas": "Ahora no hay más pastillas.",
+  "aLasHoraPastilla": "A las {hora}, {nombre}",
+  "@aLasHoraPastilla": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      },
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "esLaHora": "Es la hora: {nombre}",
+  "@esLaHora": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "miGente": "Mi gente",
+  "llamarA": "Llamar a {nombre}",
+  "@llamarA": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "necesitoAyuda": "Necesito ayuda",
+  "ayudaLlamando": "Estoy llamando a {nombre}.",
+  "@ayudaLlamando": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "ayudaAvisada": "He anotado que necesitas ayuda.",
+  "mensajeDeLaFamilia": "Mensaje de la familia",
+  "yaMeLaHeTomado": "YA ME LA HE TOMADO",
+  "compartimentoEs": "Compartimento: {compartimento}",
+  "@compartimentoEs": {
+    "placeholders": {
+      "compartimento": {
+        "type": "String"
+      }
+    }
+  },
+  "ensenaLaPastilla": "Enséñame la pastilla y tómatela delante del móvil",
+  "cuentaAtras": "Quedan {n} segundos",
+  "@cuentaAtras": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "muyBien": "Muy bien",
+  "yaEstaTomada": "Ya está tomada",
+  "volverAlInicio": "Volver al inicio",
+  "tomaNoEncontrada": "No encuentro esta toma.",
+  "semanticaFotoPastilla": "Foto de la pastilla: {nombre}",
+  "@semanticaFotoPastilla": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "camaraDemo": "Demo: aquí se vería la cámara frontal",
+  "estadoPrevista": "Prevista",
+  "estadoConfirmada": "Confirmada",
+  "estadoConfirmadaSinVideo": "Confirmada sin vídeo",
+  "estadoNoConfirmada": "No confirmada",
+  "estadoCerradaPorFamiliar": "Cerrada por un familiar",
+  "semanticaEstadoToma": "Estado de la toma: {estado}",
+  "@semanticaEstadoToma": {
+    "placeholders": {
+      "estado": {
+        "type": "String"
+      }
+    }
+  },
+  "semaforoRojo": "Hoy hay una toma sin confirmar",
+  "semaforoNaranja": "Hay una toma confirmada sin vídeo",
+  "semaforoVerde": "Todo en orden por ahora",
+  "semanticaSemaforo": "Semáforo del día: {texto}",
+  "@semanticaSemaforo": {
+    "placeholders": {
+      "texto": {
+        "type": "String"
+      }
+    }
+  },
+  "ultimaToma": "Última toma",
+  "sinTomasAun": "Todavía no ha habido ninguna toma.",
+  "tomasDeHoy": "Tomas de hoy",
+  "sinTomasHoy": "Hoy no hay tomas previstas.",
+  "confirmadaPorDesde": "Confirmada por {quien}, {como}",
+  "@confirmadaPorDesde": {
+    "placeholders": {
+      "quien": {
+        "type": "String"
+      },
+      "como": {
+        "type": "String"
+      }
+    }
+  },
+  "origenMovil": "desde el móvil",
+  "origenReloj": "desde el reloj",
+  "origenFamiliar": "por un familiar",
+  "cerradaPor": "Cerrada por {nombre}",
+  "@cerradaPor": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "sinConfirmarAun": "Sin confirmar",
+  "reservadaVideo": "Vídeo de la toma",
+  "reservadaUbicacion": "Ubicación",
+  "reservadaControl": "Respuesta de control",
+  "anadirMedicamento": "Añadir medicamento",
+  "probarPantallaToma": "Probar pantalla de toma",
+  "medicamentos": "Medicamentos",
+  "sinMedicamentos": "Todavía no hay medicamentos.",
+  "verMedicamento": "Ver {nombre}",
+  "@verMedicamento": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "resumenPauta": "{horas} · {dosis}",
+  "@resumenPauta": {
+    "placeholders": {
+      "horas": {
+        "type": "String"
+      },
+      "dosis": {
+        "type": "String"
+      }
+    }
+  },
+  "pautaSuspendida": "Pauta suspendida",
+  "altaTitulo": "Nuevo medicamento",
+  "nombreMedicamento": "Nombre del medicamento",
+  "nombreParaPersona": "Nombre para la persona",
+  "nombreParaPersonaAyuda": "Como lo va a leer ella o él, por ejemplo: pastilla blanca pequeña",
+  "formaTitulo": "Forma",
+  "formaRedonda": "Redonda",
+  "formaOvalada": "Ovalada",
+  "formaCapsula": "Cápsula",
+  "formaOtra": "Otra",
+  "colorTitulo": "Color",
+  "colorBlanco": "Blanco",
+  "colorAmarillo": "Amarillo",
+  "colorRojo": "Rojo",
+  "colorRosa": "Rosa",
+  "colorNaranja": "Naranja",
+  "colorVerde": "Verde",
+  "colorAzul": "Azul",
+  "colorMarron": "Marrón",
+  "fotoCaja": "Foto de la caja",
+  "fotoPastilla": "Foto de la pastilla",
+  "hacerFoto": "Hacer foto",
+  "elegirDeLaGaleria": "Elegir de la galería",
+  "pautaTitulo": "Pauta",
+  "horasDeToma": "Horas de la toma (24 h)",
+  "anadirHora": "Añadir hora",
+  "quitarHora": "Quitar la hora {hora}",
+  "@quitarHora": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "diasDeToma": "Días",
+  "diaLunes": "Lunes",
+  "diaMartes": "Martes",
+  "diaMiercoles": "Miércoles",
+  "diaJueves": "Jueves",
+  "diaViernes": "Viernes",
+  "diaSabado": "Sábado",
+  "diaDomingo": "Domingo",
+  "dosis": "Dosis",
+  "compartimentoEtiqueta": "Compartimento del pastillero (opcional)",
+  "comprobacionTitulo": "Cómo se comprueba",
+  "comprobacionVideo": "Vídeo de 10 s",
+  "comprobacionFoto": "Foto",
+  "comprobacionNinguna": "Ninguna",
+  "guardarMedicamento": "Guardar medicamento",
+  "todosLosDias": "Todos los días",
+  "medicamentoNoEncontrado": "No encuentro este medicamento.",
+  "formaYColor": "Forma {forma} · color {color}",
+  "@formaYColor": {
+    "placeholders": {
+      "forma": {
+        "type": "String"
+      },
+      "color": {
+        "type": "String"
+      }
+    }
+  },
+  "sinColor": "sin indicar",
+  "pautaActual": "Pauta actual",
+  "lineaHoras": "Horas: {valor}",
+  "@lineaHoras": {
+    "placeholders": {
+      "valor": {
+        "type": "String"
+      }
+    }
+  },
+  "lineaDias": "Días: {valor}",
+  "@lineaDias": {
+    "placeholders": {
+      "valor": {
+        "type": "String"
+      }
+    }
+  },
+  "lineaDosis": "Dosis: {valor}",
+  "@lineaDosis": {
+    "placeholders": {
+      "valor": {
+        "type": "String"
+      }
+    }
+  },
+  "lineaCompartimento": "Compartimento: {valor}",
+  "@lineaCompartimento": {
+    "placeholders": {
+      "valor": {
+        "type": "String"
+      }
+    }
+  },
+  "lineaComprobacion": "Comprobación: {valor}",
+  "@lineaComprobacion": {
+    "placeholders": {
+      "valor": {
+        "type": "String"
+      }
+    }
+  },
+  "cambiarPauta": "Cambiar la pauta",
+  "reanudarPauta": "Reanudar la pauta",
+  "suspenderPauta": "Suspender la pauta",
+  "suspender": "Suspender",
+  "motivo": "Motivo",
+  "historialPauta": "Historial de la pauta",
+  "versionDesde": "Versión {version} desde {desde}",
+  "@versionDesde": {
+    "placeholders": {
+      "version": {
+        "type": "int"
+      },
+      "desde": {
+        "type": "String"
+      }
+    }
+  },
+  "motivoDe": "Motivo: {motivo}",
+  "@motivoDe": {
+    "placeholders": {
+      "motivo": {
+        "type": "String"
+      }
+    }
+  },
+  "motivoDelCambio": "Motivo del cambio",
+  "guardarCambio": "Guardar el cambio",
+  "sinFamiliares": "Todavía no hay familiares.",
+  "rolResponsable": "Responsable",
+  "rolCuidador": "Cuidador o cuidadora",
+  "rolApoyo": "Apoyo",
+  "rolLectura": "Solo lectura",
+  "ordenDeAviso": "Se le avisa en el puesto {orden}",
+  "@ordenDeAviso": {
+    "placeholders": {
+      "orden": {
+        "type": "int"
+      }
+    }
+  },
+  "circuloGestion": "Añadir, quitar y cambiar los permisos de los familiares llega en la semana 16.",
+  "cargarEjemplo": "Cargar datos de ejemplo",
+  "cargarEjemploAyuda": "Añade una persona de ejemplo, familiares y medicamentos ficticios.",
+  "ejemploCargado": "Datos de ejemplo cargados.",
+  "ejemploYaCargado": "Ya hay medicamentos: no se han cargado datos de ejemplo.",
+  "ajustesPlataforma": "Plataforma de este dispositivo: {plataforma}",
+  "@ajustesPlataforma": {
+    "placeholders": {
+      "plataforma": {
+        "type": "String"
+      }
+    }
+  },
+  "ajustesMas": "El resto de los ajustes llega en la semana 16.",
+  "catalogoCabecera": "Cada fila dice lo que reporta su fuente, con su cifra tal cual y quién lo pagó. Nadie hace de juez.",
+  "catalogoNoCargado": "No se ha podido cargar el catálogo.",
+  "resumenPorGrupo": "Resumen por grupo",
+  "dosieresPorTema": "Dosieres por tema",
+  "nFilas": "{n} filas",
+  "@nFilas": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "buscar": "Buscar",
+  "filtrarPorTema": "Filtrar por tema",
+  "filtrarPorDireccion": "Dirección según la fuente",
+  "filtrarPorTipoFuente": "Filtrar por tipo de fuente",
+  "grupoFiltrado": "Grupo: {grupo}",
+  "@grupoFiltrado": {
+    "placeholders": {
+      "grupo": {
+        "type": "String"
+      }
+    }
+  },
+  "nDeTotal": "{n} de {total}",
+  "@nDeTotal": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "quitarFiltros": "Quitar filtros",
+  "abrirFicha": "Abrir la ficha de {nombre}",
+  "@abrirFicha": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "direccionMejora": "Mejora",
+  "direccionSinCambio": "Sin cambio",
+  "direccionEmpeora": "Empeora",
+  "direccionMixto": "Mixto",
+  "direccionNoAplica": "No aplica",
+  "semanticaDireccion": "Dirección según la fuente: {texto}",
+  "@semanticaDireccion": {
+    "placeholders": {
+      "texto": {
+        "type": "String"
+      }
+    }
+  },
+  "fichaTitulo": "Ficha",
+  "filaNoEncontrada": "No encuentro esta fila.",
+  "abrirLaFuente": "Abrir la fuente",
+  "campoTema": "Tema",
+  "campoGrupo": "Intervención (grupo)",
+  "campoIntervencion": "Intervención (tal como la nombra la fuente)",
+  "campoTradicion": "Tradición o ángulo",
+  "campoEstudio": "Estudio / fuente",
+  "campoTipoFuente": "Tipo de fuente",
+  "campoDiseno": "Diseño",
+  "campoN": "n",
+  "campoPoblacion": "Población",
+  "campoDuracion": "Duración",
+  "campoDosis": "Dosis o protocolo",
+  "campoQueMidio": "Qué midió",
+  "campoResultado": "Resultado reportado (cifra tal cual)",
+  "campoDireccion": "Dirección según la fuente",
+  "campoEfectosAdversos": "Efectos adversos reportados",
+  "campoFinanciacion": "Financiación y conflictos",
+  "campoComoProbarlo": "Cómo probarlo en casa (según la fuente)",
+  "campoCoste": "Coste aprox.",
+  "campoVerificacion": "Verificación documental",
+  "campoIdentificador": "Identificador",
+  "campoEnlace": "Enlace",
+  "dosierTitulo": "Dosier",
+  "temaNoEncontrado": "No encuentro este tema.",
+  "verFilasDelTema": "Ver las filas de este tema",
+  "dosierTesis": "Tesis",
+  "dosierDefensores": "Defensores",
+  "dosierMecanismos": "Mecanismos",
+  "dosierConsenso": "Consenso y quién lo paga",
+  "dosierEnterrado": "Lo enterrado",
+  "dosierProtocolos": "Protocolos reportados",
+  "dosierRiesgos": "Riesgos reconocidos por los defensores",
+  "dosierFuentes": "Fuentes heterodoxas",
+  "dosierIdeas": "Ideas para la app",
+  "relacionYRol": "{relacion} · {rol}",
+  "@relacionYRol": {
+    "placeholders": {
+      "relacion": {
+        "type": "String"
+      },
+      "rol": {
+        "type": "String"
+      }
+    }
+  },
+  "etiquetaConConteo": "{texto} · {n}",
+  "@etiquetaConConteo": {
+    "placeholders": {
+      "texto": {
+        "type": "String"
+      },
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "todosLosTemas": "Todos los temas"
+}

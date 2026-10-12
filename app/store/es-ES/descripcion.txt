@@ -1,0 +1,9 @@
+NEW-ERA es una app pensada para una persona con Alzheimer y para su familia.
+
+En el móvil de la persona: una pantalla muy sencilla con la fecha y la hora, lo siguiente que le toca, las personas de su gente y un botón grande de ayuda. Cuando llega la hora de la pastilla, se le enseña una foto de esa pastilla y un único botón para confirmar que se la ha tomado.
+
+En el móvil de la familia: un resumen del día con un semáforo, las tomas previstas y el estado de cada una, el alta de los medicamentos con sus fotos y su pauta, y un apartado de ideas y tablas con lo que cada fuente publicada reporta, con su cifra tal cual, quién lo financió y el enlace para comprobarlo. Cada familia saca sus propias conclusiones.
+
+NEW-ERA no da consejo médico ni diagnostica. Consulta siempre con el equipo médico antes de cambiar nada de la medicación.
+
+Los datos de cada familia se guardan cifrados en su propio móvil.

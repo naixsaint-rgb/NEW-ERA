@@ -1,0 +1,60 @@
+name: newera
+description: "NEW-ERA: ayuda diaria con la medicación para una persona con Alzheimer y su familia."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.13.0
+  flutter: ">=3.47.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  go_router: ^18.0.2
+  flutter_riverpod: ^3.4.3
+  drift: ^2.35.2
+  # sqlite3 3.x: SQLCipher se elige con "hooks" más abajo; sqlcipher_flutter_libs ya no hace falta.
+  sqlite3: ^3.7.0
+  flutter_secure_storage: ^11.2.0
+  intl: any
+  camera: ^0.12.1
+  image_picker: ^1.2.4
+  url_launcher: ^6.3.3
+  permission_handler: ^13.0.2
+  alarm: ^5.15.0
+  path_provider: ^2.1.6
+  path: ^1.9.1
+  uuid: ^4.6.0
+  timezone: ^0.9.4
+  safety_core:
+    path: packages/safety_core
+  crypto: ^3.0.7
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  lints: ^6.0.0
+  drift_dev: ^2.35.1
+  build_runner: ^2.16.1
+  test: ^1.31.1
+
+# SQLCipher en Android e iOS; SQLite normal en el resto (tests en Linux, escritorio).
+hooks:
+  user_defines:
+    sqlite3:
+      source:
+        android: sqlcipher
+        ios: sqlcipher
+        default: sqlite3
+
+flutter:
+  uses-material-design: true
+  generate: true
+  assets:
+    # catalogo.json e indice.json los genera tools/build_catalogo_app.py
+    - assets/catalogo/
+    - assets/audio/

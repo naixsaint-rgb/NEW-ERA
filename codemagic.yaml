@@ -1,0 +1,61 @@
+# Codemagic: iOS sin firma (simulador). Sin secretos.
+workflows:
+  ios-simulador:
+    name: iOS simulador
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    environment:
+      flutter: 3.47.7
+      xcode: latest # debe ser Xcode 26 o posterior (AlarmKit)
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+        - pattern: claude/alzheimer-caregiver-app-uxrrni
+          include: true
+    scripts:
+      - name: Dependencias
+        working_directory: app
+        script: flutter pub get
+      - name: Tests
+        working_directory: app
+        script: flutter test
+      - name: Compilar para el simulador
+        working_directory: app
+        script: flutter build ios --simulator --debug
+      - name: Empaquetar Runner.app
+        working_directory: app/build/ios/iphonesimulator
+        script: zip -r Runner.app.zip Runner.app
+    artifacts:
+      - app/build/ios/iphonesimulator/Runner.app.zip
+
+  # Para cuando haya cuenta de Apple Developer: descomentar y configurar la
+  # integración de App Store Connect y la firma automática en Codemagic.
+  # ios-firmado:
+  #   name: iOS firmado
+  #   instance_type: mac_mini_m2
+  #   environment:
+  #     flutter: 3.47.7
+  #     xcode: latest
+  #     ios_signing:
+  #       distribution_type: app_store
+  #       bundle_identifier: io.github.naixsaintrgb.newera
+  #   integrations:
+  #     app_store_connect: NEWERA
+  #   scripts:
+  #     - name: Dependencias
+  #       working_directory: app
+  #       script: flutter pub get
+  #     - name: Firma
+  #       script: xcode-project use-profiles
+  #     - name: IPA
+  #       working_directory: app
+  #       script: flutter build ipa --release --export-options-plist=/Users/builder/export_options.plist
+  #   artifacts:
+  #     - app/build/ios/ipa/*.ipa
+  #   publishing:
+  #     app_store_connect:
+  #       auth: integration
+  #       submit_to_testflight: true

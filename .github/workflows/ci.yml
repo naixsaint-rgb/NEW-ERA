@@ -1,0 +1,125 @@
+name: CI
+
+on:
+  push:
+    branches: [main, claude/alzheimer-caregiver-app-uxrrni]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Regenerar catálogo y comprobar que está al día
+        run: |
+          python3 -I tools/build_catalogo_app.py
+          git diff --exit-code app/assets/catalogo
+
+      - name: Instalar libsqlite3
+        run: sudo apt-get update && sudo apt-get install -y libsqlite3-dev
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.47.x
+          cache: true
+
+      - name: Dependencias
+        working-directory: app
+        run: flutter pub get
+
+      - name: Regenerar código de drift y comprobar que está al día
+        working-directory: app
+        run: |
+          dart run build_runner build --delete-conflicting-outputs
+          git diff --exit-code
+
+      - name: Análisis
+        working-directory: app
+        run: flutter analyze --no-fatal-infos
+
+      - name: Tests de la app
+        working-directory: app
+        run: flutter test
+
+      - name: safety_core
+        working-directory: app/packages/safety_core
+        run: |
+          dart pub get
+          dart analyze
+          dart test
+
+  web:
+    needs: pruebas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.47.x
+          cache: true
+      - name: Compilar web
+        working-directory: app
+        run: |
+          flutter pub get
+          flutter build web --release --base-href /NEW-ERA/
+      - name: Comprobar salida
+        working-directory: app
+        run: |
+          test -f build/web/index.html
+          test -f build/web/sqlite3.wasm
+          test -f build/web/drift_worker.js
+          test -f build/web/assets/assets/catalogo/catalogo.json
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: app/build/web
+
+  desplegar:
+    needs: web
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - id: despliegue
+        uses: actions/deploy-pages@v4
+
+  apk:
+    needs: pruebas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.47.x
+          cache: true
+      - name: Compilar APK de depuración
+        working-directory: app
+        run: |
+          flutter pub get
+          flutter build apk --debug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: newera-debug-apk
+          path: app/build/app/outputs/flutter-apk/app-debug.apk
+          retention-days: 14
