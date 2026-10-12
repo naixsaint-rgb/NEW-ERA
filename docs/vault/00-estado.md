@@ -11,8 +11,11 @@ Actualizado: 2026-10-12 (sesión 1). Plan vigente: [[planes/PLAN-v3]].
   catálogo dentro de la app, CI con demo web y APK, codemagic.yaml. Commit 05e1e81.
 - CI en verde (análisis, 99 tests, build web, APK de Android) desde el commit 4d36143; solo falla el despliegue
   a Pages porque Pages no está activado en el repositorio (el token del flujo no puede activarlo).
-- Demo web publicada por vía alternativa (artefacto privado de claude.ai) el 12/10/2026; la vía definitiva es
-  GitHub Pages en https://naixsaint-rgb.github.io/NEW-ERA/ cuando el promotor lo active.
+- Demo web servida desde el repo con githack (carpeta demo/web, base href relativa) mientras Pages no está activo:
+  https://rawcdn.githack.com/naixsaint-rgb/NEW-ERA/b4d375777cd0ffceedac249a1ba8df092f89b661/demo/web/index.html
+  (githack muestra un aviso "One more step" la primera vez; hay que pulsar "Open the page"). El artefacto de claude.ai
+  no sirve: su visor bloquea WebAssembly o los workers y la app queda en blanco. La vía definitiva sigue siendo
+  GitHub Pages en https://naixsaint-rgb.github.io/NEW-ERA/ cuando el promotor lo active; entonces se borra demo/web.
 
 ## Qué sigue (semana 2 del plan v3)
 1. Confirmar la demo web publicada y el APK de la CI.
