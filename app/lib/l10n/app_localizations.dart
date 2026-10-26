@@ -1851,6 +1851,114 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'D'**
   String get hoyInicialDomingo;
+
+  /// No description provided for @medicVispera.
+  ///
+  /// In es, this message translates to:
+  /// **'Pastillero y pastillas'**
+  String get medicVispera;
+
+  /// No description provided for @medicPastilleroTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Pastillero de la semana'**
+  String get medicPastilleroTitulo;
+
+  /// No description provided for @medicPastilleroVacio.
+  ///
+  /// In es, this message translates to:
+  /// **'El pastillero aparecerá cuando haya una pauta activa.'**
+  String get medicPastilleroVacio;
+
+  /// No description provided for @medicInicialesDias.
+  ///
+  /// In es, this message translates to:
+  /// **'L M X J V S D'**
+  String get medicInicialesDias;
+
+  /// No description provided for @medicDiaHoy.
+  ///
+  /// In es, this message translates to:
+  /// **'{dia}, hoy'**
+  String medicDiaHoy(String dia);
+
+  /// No description provided for @medicCeldaEtiqueta.
+  ///
+  /// In es, this message translates to:
+  /// **'{dia} {hora}: {estado}'**
+  String medicCeldaEtiqueta(String dia, String hora, String estado);
+
+  /// No description provided for @medicEstadoTomada.
+  ///
+  /// In es, this message translates to:
+  /// **'tomada'**
+  String get medicEstadoTomada;
+
+  /// No description provided for @medicEstadoNoConfirmada.
+  ///
+  /// In es, this message translates to:
+  /// **'no confirmada'**
+  String get medicEstadoNoConfirmada;
+
+  /// No description provided for @medicEstadoAhora.
+  ///
+  /// In es, this message translates to:
+  /// **'ahora'**
+  String get medicEstadoAhora;
+
+  /// No description provided for @medicEstadoPrevista.
+  ///
+  /// In es, this message translates to:
+  /// **'prevista'**
+  String get medicEstadoPrevista;
+
+  /// No description provided for @medicEstadoParcial.
+  ///
+  /// In es, this message translates to:
+  /// **'{hechas} de {total} tomadas'**
+  String medicEstadoParcial(int hechas, int total);
+
+  /// No description provided for @medicProbarTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Probar'**
+  String get medicProbarTitulo;
+
+  /// No description provided for @medicProbarPregunta.
+  ///
+  /// In es, this message translates to:
+  /// **'Probar pregunta'**
+  String get medicProbarPregunta;
+
+  /// No description provided for @medicProbarPreguntaAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Modo prueba: no se guarda nada.'**
+  String get medicProbarPreguntaAyuda;
+
+  /// No description provided for @medicPastillasTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Pastillas · con su foto'**
+  String get medicPastillasTitulo;
+
+  /// No description provided for @medicPastillasPie.
+  ///
+  /// In es, this message translates to:
+  /// **'La foto la hace la familia una vez. Se ve en la alarma de ella, en el pastillero y en el vídeo de comprobación.'**
+  String get medicPastillasPie;
+
+  /// No description provided for @medicFotoDe.
+  ///
+  /// In es, this message translates to:
+  /// **'Foto de {autor} · {fecha}'**
+  String medicFotoDe(String autor, String fecha);
+
+  /// No description provided for @medicHorasUnidas.
+  ///
+  /// In es, this message translates to:
+  /// **'{resto} y {ultima}'**
+  String medicHorasUnidas(String resto, String ultima);
 }
 
 class _AppLocalizationsDelegate

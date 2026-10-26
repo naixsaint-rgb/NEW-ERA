@@ -8,6 +8,7 @@ import '../../core/db/repositorios/medicacion_repositorio.dart';
 import '../../core/enrutado/rutas.dart';
 import '../../core/providers.dart';
 import '../../shared/l10n_ext.dart';
+import '../../shared/widgets/tarjeta_grande.dart';
 import 'formulario_pauta.dart';
 
 /// Cambio de pauta: crea una versión nueva (`vigente_desde = ahora`) con un
@@ -93,22 +94,28 @@ class _CambioState extends ConsumerState<CambioPautaPantalla> {
           : Form(
               key: _formulario,
               child: ListView(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
                 children: [
-                  CamposPauta(
-                    valor: pauta,
-                    alCambiar: (v) => setState(() => _pauta = v),
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    controller: _motivo,
-                    decoration: InputDecoration(
-                      labelText: l.motivoDelCambio,
-                      border: const OutlineInputBorder(),
+                  TarjetaGrande(
+                    margen: EdgeInsets.zero,
+                    child: CamposPauta(
+                      valor: pauta,
+                      alCambiar: (v) => setState(() => _pauta = v),
                     ),
-                    validator: (s) => (s == null || s.trim().isEmpty)
-                        ? l.campoObligatorio
-                        : null,
+                  ),
+                  const SizedBox(height: 14),
+                  TarjetaGrande(
+                    margen: EdgeInsets.zero,
+                    child: TextFormField(
+                      controller: _motivo,
+                      decoration: InputDecoration(
+                        labelText: l.motivoDelCambio,
+                        border: const OutlineInputBorder(),
+                      ),
+                      validator: (s) => (s == null || s.trim().isEmpty)
+                          ? l.campoObligatorio
+                          : null,
+                    ),
                   ),
                   const SizedBox(height: 24),
                   FilledButton.icon(

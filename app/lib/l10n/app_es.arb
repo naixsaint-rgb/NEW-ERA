@@ -723,5 +723,73 @@
   "hoyInicialJueves": "J",
   "hoyInicialViernes": "V",
   "hoyInicialSabado": "S",
-  "hoyInicialDomingo": "D"
+  "hoyInicialDomingo": "D",
+  "medicVispera": "Pastillero y pastillas",
+  "medicPastilleroTitulo": "Pastillero de la semana",
+  "medicPastilleroVacio": "El pastillero aparecerá cuando haya una pauta activa.",
+  "medicInicialesDias": "L M X J V S D",
+  "medicDiaHoy": "{dia}, hoy",
+  "@medicDiaHoy": {
+    "placeholders": {
+      "dia": {
+        "type": "String"
+      }
+    }
+  },
+  "medicCeldaEtiqueta": "{dia} {hora}: {estado}",
+  "@medicCeldaEtiqueta": {
+    "placeholders": {
+      "dia": {
+        "type": "String"
+      },
+      "hora": {
+        "type": "String"
+      },
+      "estado": {
+        "type": "String"
+      }
+    }
+  },
+  "medicEstadoTomada": "tomada",
+  "medicEstadoNoConfirmada": "no confirmada",
+  "medicEstadoAhora": "ahora",
+  "medicEstadoPrevista": "prevista",
+  "medicEstadoParcial": "{hechas} de {total} tomadas",
+  "@medicEstadoParcial": {
+    "placeholders": {
+      "hechas": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "medicProbarTitulo": "Probar",
+  "medicProbarPregunta": "Probar pregunta",
+  "medicProbarPreguntaAyuda": "Modo prueba: no se guarda nada.",
+  "medicPastillasTitulo": "Pastillas · con su foto",
+  "medicPastillasPie": "La foto la hace la familia una vez. Se ve en la alarma de ella, en el pastillero y en el vídeo de comprobación.",
+  "medicFotoDe": "Foto de {autor} · {fecha}",
+  "@medicFotoDe": {
+    "placeholders": {
+      "autor": {
+        "type": "String"
+      },
+      "fecha": {
+        "type": "String"
+      }
+    }
+  },
+  "medicHorasUnidas": "{resto} y {ultima}",
+  "@medicHorasUnidas": {
+    "placeholders": {
+      "resto": {
+        "type": "String"
+      },
+      "ultima": {
+        "type": "String"
+      }
+    }
+  }
 }

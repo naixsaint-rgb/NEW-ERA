@@ -7,8 +7,10 @@ import '../../core/db/repositorios/circulo_repositorio.dart';
 import '../../core/db/repositorios/medicacion_repositorio.dart';
 import '../../core/enrutado/rutas.dart';
 import '../../core/providers.dart';
+import '../../core/tema/colores.dart';
 import '../../shared/l10n_ext.dart';
 import '../../shared/pictogramas/pastilla_pictograma.dart';
+import '../../shared/widgets/tarjeta_grande.dart';
 import 'datos/selector_foto.dart';
 import 'formulario_pauta.dart';
 
@@ -103,85 +105,110 @@ class _AltaState extends ConsumerState<AltaMedicamentoPantalla> {
       body: Form(
         key: _formulario,
         child: ListView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
           children: [
-            TextFormField(
-              controller: _nombre,
-              decoration: InputDecoration(
-                labelText: l.nombreMedicamento,
-                border: const OutlineInputBorder(),
-              ),
-              validator: (s) =>
-                  (s == null || s.trim().isEmpty) ? l.campoObligatorio : null,
-            ),
-            const SizedBox(height: 12),
-            TextFormField(
-              controller: _nombrePersona,
-              decoration: InputDecoration(
-                labelText: l.nombreParaPersona,
-                helperText: l.nombreParaPersonaAyuda,
-                border: const OutlineInputBorder(),
-              ),
-              validator: (s) =>
-                  (s == null || s.trim().isEmpty) ? l.campoObligatorio : null,
-            ),
-            const SizedBox(height: 16),
-            Text(l.formaTitulo, style: t.titleMedium),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              children: [
-                for (final e in formas.entries)
-                  ChoiceChip(
-                    label: Text(e.value),
-                    selected: _forma == e.key,
-                    onSelected: (_) => setState(() => _forma = e.key),
-                  ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Text(l.colorTitulo, style: t.titleMedium),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 4,
-              children: [
-                for (final e in nombresColor.entries)
-                  ChoiceChip(
-                    avatar: CircleAvatar(
-                      backgroundColor: coloresPastilla[e.key],
-                      radius: 10,
+            TarjetaGrande(
+              margen: EdgeInsets.zero,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextFormField(
+                    controller: _nombre,
+                    decoration: InputDecoration(
+                      labelText: l.nombreMedicamento,
+                      border: const OutlineInputBorder(),
                     ),
-                    label: Text(e.value),
-                    selected: _color == e.key,
-                    onSelected: (_) => setState(() => _color = e.key),
+                    validator: (s) => (s == null || s.trim().isEmpty)
+                        ? l.campoObligatorio
+                        : null,
                   ),
-              ],
+                  const SizedBox(height: 12),
+                  TextFormField(
+                    controller: _nombrePersona,
+                    decoration: InputDecoration(
+                      labelText: l.nombreParaPersona,
+                      helperText: l.nombreParaPersonaAyuda,
+                      border: const OutlineInputBorder(),
+                    ),
+                    validator: (s) => (s == null || s.trim().isEmpty)
+                        ? l.campoObligatorio
+                        : null,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(l.formaTitulo, style: t.titleMedium),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    children: [
+                      for (final e in formas.entries)
+                        ChoiceChip(
+                          label: Text(e.value),
+                          selected: _forma == e.key,
+                          onSelected: (_) => setState(() => _forma = e.key),
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Text(l.colorTitulo, style: t.titleMedium),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 4,
+                    children: [
+                      for (final e in nombresColor.entries)
+                        ChoiceChip(
+                          avatar: CircleAvatar(
+                            backgroundColor: coloresPastilla[e.key],
+                            radius: 10,
+                          ),
+                          label: Text(e.value),
+                          selected: _color == e.key,
+                          onSelected: (_) => setState(() => _color = e.key),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 16),
-            _BloqueFoto(
-              titulo: l.fotoCaja,
-              foto: _fotoCaja,
-              hacerFoto: esWeb
-                  ? null
-                  : () => _elegirFoto(ImageSource.camera, caja: true),
-              elegir: () => _elegirFoto(ImageSource.gallery, caja: true),
+            const SizedBox(height: 14),
+            TarjetaGrande(
+              margen: EdgeInsets.zero,
+              child: Column(
+                children: [
+                  _BloqueFoto(
+                    titulo: l.fotoCaja,
+                    foto: _fotoCaja,
+                    hacerFoto: esWeb
+                        ? null
+                        : () => _elegirFoto(ImageSource.camera, caja: true),
+                    elegir: () => _elegirFoto(ImageSource.gallery, caja: true),
+                  ),
+                  const SizedBox(height: 12),
+                  _BloqueFoto(
+                    titulo: l.fotoPastilla,
+                    foto: _fotoPastilla,
+                    hacerFoto: esWeb
+                        ? null
+                        : () => _elegirFoto(ImageSource.camera, caja: false),
+                    elegir: () => _elegirFoto(ImageSource.gallery, caja: false),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 12),
-            _BloqueFoto(
-              titulo: l.fotoPastilla,
-              foto: _fotoPastilla,
-              hacerFoto: esWeb
-                  ? null
-                  : () => _elegirFoto(ImageSource.camera, caja: false),
-              elegir: () => _elegirFoto(ImageSource.gallery, caja: false),
-            ),
-            const Divider(height: 32),
-            Text(l.pautaTitulo, style: t.titleLarge),
-            const SizedBox(height: 8),
-            CamposPauta(
-              valor: _pauta,
-              alCambiar: (v) => setState(() => _pauta = v),
+            const SizedBox(height: 14),
+            TarjetaGrande(
+              margen: EdgeInsets.zero,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(l.pautaTitulo, style: t.titleLarge),
+                  const SizedBox(height: 8),
+                  CamposPauta(
+                    valor: _pauta,
+                    alCambiar: (v) => setState(() => _pauta = v),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 24),
             FilledButton.icon(
@@ -213,6 +240,7 @@ class _BloqueFoto extends StatelessWidget {
   Widget build(BuildContext context) {
     final l = context.l;
     final t = Theme.of(context).textTheme;
+    final c = context.colores;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -220,13 +248,14 @@ class _BloqueFoto extends StatelessWidget {
           width: 88,
           height: 88,
           decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xFF555555)),
-            borderRadius: BorderRadius.circular(8),
+            color: c.mesa,
+            border: Border.all(color: c.mesaBorde),
+            borderRadius: BorderRadius.circular(12),
           ),
           child: foto == null
-              ? const Icon(Icons.image_outlined, size: 40)
+              ? Icon(Icons.image_outlined, size: 40, color: c.texto)
               : ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(11),
                   child: Image.memory(foto!.bytes, fit: BoxFit.cover),
                 ),
         ),

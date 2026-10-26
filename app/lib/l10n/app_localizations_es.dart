@@ -1009,4 +1009,70 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get hoyInicialDomingo => 'D';
+
+  @override
+  String get medicVispera => 'Pastillero y pastillas';
+
+  @override
+  String get medicPastilleroTitulo => 'Pastillero de la semana';
+
+  @override
+  String get medicPastilleroVacio =>
+      'El pastillero aparecerá cuando haya una pauta activa.';
+
+  @override
+  String get medicInicialesDias => 'L M X J V S D';
+
+  @override
+  String medicDiaHoy(String dia) {
+    return '$dia, hoy';
+  }
+
+  @override
+  String medicCeldaEtiqueta(String dia, String hora, String estado) {
+    return '$dia $hora: $estado';
+  }
+
+  @override
+  String get medicEstadoTomada => 'tomada';
+
+  @override
+  String get medicEstadoNoConfirmada => 'no confirmada';
+
+  @override
+  String get medicEstadoAhora => 'ahora';
+
+  @override
+  String get medicEstadoPrevista => 'prevista';
+
+  @override
+  String medicEstadoParcial(int hechas, int total) {
+    return '$hechas de $total tomadas';
+  }
+
+  @override
+  String get medicProbarTitulo => 'Probar';
+
+  @override
+  String get medicProbarPregunta => 'Probar pregunta';
+
+  @override
+  String get medicProbarPreguntaAyuda => 'Modo prueba: no se guarda nada.';
+
+  @override
+  String get medicPastillasTitulo => 'Pastillas · con su foto';
+
+  @override
+  String get medicPastillasPie =>
+      'La foto la hace la familia una vez. Se ve en la alarma de ella, en el pastillero y en el vídeo de comprobación.';
+
+  @override
+  String medicFotoDe(String autor, String fecha) {
+    return 'Foto de $autor · $fecha';
+  }
+
+  @override
+  String medicHorasUnidas(String resto, String ultima) {
+    return '$resto y $ultima';
+  }
 }

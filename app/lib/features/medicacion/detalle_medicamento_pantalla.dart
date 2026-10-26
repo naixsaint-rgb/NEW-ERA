@@ -8,6 +8,7 @@ import '../../core/db/repositorios/medicacion_repositorio.dart';
 import '../../core/enrutado/rutas.dart';
 import '../../core/i18n/fechas.dart';
 import '../../core/providers.dart';
+import '../../core/tema/colores.dart';
 import '../../shared/l10n_ext.dart';
 import '../../shared/pictogramas/pastilla_pictograma.dart';
 import '../../shared/widgets/foto_imagen.dart';
@@ -91,7 +92,7 @@ class DetalleMedicamentoPantalla extends ConsumerWidget {
         ),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
         children: [
           Row(
             children: [
@@ -231,6 +232,7 @@ class _Foto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
+    final c = context.colores;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -243,12 +245,13 @@ class _Foto extends StatelessWidget {
             child: FotoImagen(
               fotoId: fotoId,
               alternativa: Container(
-                color: const Color(0xFFF3EEE2),
+                color: c.mesa,
                 alignment: Alignment.center,
                 child: PastillaPictograma(
                   forma: med.forma,
                   color: med.color,
                   tamano: 96,
+                  colorBorde: c.mesaBorde,
                 ),
               ),
             ),

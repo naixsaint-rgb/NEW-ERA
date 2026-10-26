@@ -102,7 +102,7 @@ class _CamposPautaState extends State<CamposPauta> {
       l.diaSabado,
       l.diaDomingo,
     ];
-    final diasCortos = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+    final diasCortos = l.medicInicialesDias.split(' ');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -210,7 +210,7 @@ class _CamposPautaState extends State<CamposPauta> {
 String resumenDias(BuildContext context, int mascara) {
   final l = context.l;
   if (mascara == DiasSemana.todos) return l.todosLosDias;
-  const letras = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+  final letras = l.medicInicialesDias.split(' ');
   return [
     for (var i = 0; i < 7; i++)
       if (DiasSemana.incluye(mascara, i + 1)) letras[i],
