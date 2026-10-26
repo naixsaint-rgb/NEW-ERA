@@ -67,12 +67,7 @@ void main() {
     );
     await montarApp(tester, entorno!);
     await pasar(tester, const Duration(seconds: 1));
-    expect(
-      find.text(
-        'Demo con datos de ejemplo, sin cifrar.',
-      ),
-      findsOneWidget,
-    );
+    expect(find.text('Demo con datos de ejemplo, sin cifrar.'), findsOneWidget);
     await tester.tap(find.text('Cambiar perfil'));
     await pasar(tester, const Duration(seconds: 1));
     expect(find.text('¿De quién es este móvil?'), findsOneWidget);
