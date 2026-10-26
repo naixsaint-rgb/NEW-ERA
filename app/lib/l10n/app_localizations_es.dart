@@ -788,4 +788,59 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get todosLosTemas => 'Todos los temas';
+
+  @override
+  String get personaAhoraNoTocaNada => 'Ahora no toca nada';
+
+  @override
+  String get personaTomarlaAhora => 'Tomarla ahora';
+
+  @override
+  String personaHoyDia(String dia) {
+    return 'Hoy, $dia';
+  }
+
+  @override
+  String personaHoraCompartimento(String hora, String compartimento) {
+    return '$hora · $compartimento';
+  }
+
+  @override
+  String personaAhoraCon(String texto) {
+    return 'Ahora · $texto';
+  }
+
+  @override
+  String get personaYaTomada => 'Ya tomada';
+
+  @override
+  String get personaLuego => 'Luego';
+
+  @override
+  String get personaSinTomar => 'Sin tomar';
+
+  @override
+  String get personaYaMeLaHeTomado => 'Ya me la he tomado';
+
+  @override
+  String get personaHoyNoHayPastillas => 'Hoy no hay pastillas';
+
+  @override
+  String personaHola(String nombre) {
+    return 'Hola, $nombre';
+  }
+
+  @override
+  String personaDiaYHora(String dia, String hora) {
+    return '$dia · $hora';
+  }
+
+  @override
+  String get personaAhoraToca => 'Ahora toca';
+
+  @override
+  String get personaLlamar => 'Llamar';
+
+  @override
+  String get personaAyuda => 'Ayuda';
 }

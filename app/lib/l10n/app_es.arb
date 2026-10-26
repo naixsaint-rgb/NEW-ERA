@@ -490,5 +490,61 @@
       }
     }
   },
-  "todosLosTemas": "Todos los temas"
+  "todosLosTemas": "Todos los temas",
+  "personaAhoraNoTocaNada": "Ahora no toca nada",
+  "personaTomarlaAhora": "Tomarla ahora",
+  "personaHoyDia": "Hoy, {dia}",
+  "@personaHoyDia": {
+    "placeholders": {
+      "dia": {
+        "type": "String"
+      }
+    }
+  },
+  "personaHoraCompartimento": "{hora} · {compartimento}",
+  "@personaHoraCompartimento": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      },
+      "compartimento": {
+        "type": "String"
+      }
+    }
+  },
+  "personaAhoraCon": "Ahora · {texto}",
+  "@personaAhoraCon": {
+    "placeholders": {
+      "texto": {
+        "type": "String"
+      }
+    }
+  },
+  "personaYaTomada": "Ya tomada",
+  "personaLuego": "Luego",
+  "personaSinTomar": "Sin tomar",
+  "personaYaMeLaHeTomado": "Ya me la he tomado",
+  "personaHoyNoHayPastillas": "Hoy no hay pastillas",
+  "personaHola": "Hola, {nombre}",
+  "@personaHola": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "personaDiaYHora": "{dia} · {hora}",
+  "@personaDiaYHora": {
+    "placeholders": {
+      "dia": {
+        "type": "String"
+      },
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "personaAhoraToca": "Ahora toca",
+  "personaLlamar": "Llamar",
+  "personaAyuda": "Ayuda"
 }

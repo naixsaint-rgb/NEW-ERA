@@ -1491,6 +1491,96 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Todos los temas'**
   String get todosLosTemas;
+
+  /// No description provided for @personaAhoraNoTocaNada.
+  ///
+  /// In es, this message translates to:
+  /// **'Ahora no toca nada'**
+  String get personaAhoraNoTocaNada;
+
+  /// No description provided for @personaTomarlaAhora.
+  ///
+  /// In es, this message translates to:
+  /// **'Tomarla ahora'**
+  String get personaTomarlaAhora;
+
+  /// No description provided for @personaHoyDia.
+  ///
+  /// In es, this message translates to:
+  /// **'Hoy, {dia}'**
+  String personaHoyDia(String dia);
+
+  /// No description provided for @personaHoraCompartimento.
+  ///
+  /// In es, this message translates to:
+  /// **'{hora} · {compartimento}'**
+  String personaHoraCompartimento(String hora, String compartimento);
+
+  /// No description provided for @personaAhoraCon.
+  ///
+  /// In es, this message translates to:
+  /// **'Ahora · {texto}'**
+  String personaAhoraCon(String texto);
+
+  /// No description provided for @personaYaTomada.
+  ///
+  /// In es, this message translates to:
+  /// **'Ya tomada'**
+  String get personaYaTomada;
+
+  /// No description provided for @personaLuego.
+  ///
+  /// In es, this message translates to:
+  /// **'Luego'**
+  String get personaLuego;
+
+  /// No description provided for @personaSinTomar.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin tomar'**
+  String get personaSinTomar;
+
+  /// No description provided for @personaYaMeLaHeTomado.
+  ///
+  /// In es, this message translates to:
+  /// **'Ya me la he tomado'**
+  String get personaYaMeLaHeTomado;
+
+  /// No description provided for @personaHoyNoHayPastillas.
+  ///
+  /// In es, this message translates to:
+  /// **'Hoy no hay pastillas'**
+  String get personaHoyNoHayPastillas;
+
+  /// No description provided for @personaHola.
+  ///
+  /// In es, this message translates to:
+  /// **'Hola, {nombre}'**
+  String personaHola(String nombre);
+
+  /// No description provided for @personaDiaYHora.
+  ///
+  /// In es, this message translates to:
+  /// **'{dia} · {hora}'**
+  String personaDiaYHora(String dia, String hora);
+
+  /// No description provided for @personaAhoraToca.
+  ///
+  /// In es, this message translates to:
+  /// **'Ahora toca'**
+  String get personaAhoraToca;
+
+  /// No description provided for @personaLlamar.
+  ///
+  /// In es, this message translates to:
+  /// **'Llamar'**
+  String get personaLlamar;
+
+  /// No description provided for @personaAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Ayuda'**
+  String get personaAyuda;
 }
 
 class _AppLocalizationsDelegate

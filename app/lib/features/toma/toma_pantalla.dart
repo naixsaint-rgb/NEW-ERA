@@ -1,12 +1,15 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:safety_core/safety_core.dart';
 
 import '../../core/db/base_datos.dart';
 import '../../core/enrutado/rutas.dart';
+import '../../core/i18n/fechas.dart';
 import '../../core/plataforma/camara/camara_comprobacion.dart';
 import '../../core/providers.dart';
 import '../../core/tema/colores.dart';
@@ -16,12 +19,15 @@ import '../../shared/pictogramas/pastilla_pictograma.dart';
 import '../../shared/widgets/avatar_familiar.dart';
 import '../../shared/widgets/boton_grande.dart';
 import '../../shared/widgets/foto_imagen.dart';
+import '../../shared/widgets/tarjeta_grande.dart';
 import '../hoy/dominio/tomas.dart';
+import '../persona_inicio/llamadas.dart';
 
 enum _Fase { confirmar, camara, muyBien }
 
-/// Pantalla de toma: foto de la pastilla, un botón enorme, la comprobación
-/// con cámara y el "Muy bien" final.
+/// Pantalla de toma (maqueta B-Persona): "Ahora toca" con la foto grande de
+/// la pastilla, un botón enorme, la comprobación con cámara y el "Muy bien"
+/// final. Abajo, "Llamar" y "Ayuda" como en el inicio.
 class TomaPantalla extends ConsumerStatefulWidget {
   const TomaPantalla({super.key, required this.tomaId, this.prueba = false});
 
@@ -153,13 +159,16 @@ class _TomaPantallaState extends ConsumerState<TomaPantalla> {
   @override
   Widget build(BuildContext context) {
     final l = context.l;
+    final c = context.colores;
     final toma = ref.watch(tomaPorIdProvider(widget.tomaId));
     return Scaffold(
+      backgroundColor: c.fondoAgrupado,
       body: SafeArea(
         child: toma.when(
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (_, _) => _Mensaje(
             texto: l.errorGenerico,
+            icono: CupertinoIcons.info_circle_fill,
             boton: l.volverAlInicio,
             alPulsar: _volver,
           ),
@@ -167,6 +176,7 @@ class _TomaPantallaState extends ConsumerState<TomaPantalla> {
             if (t == null) {
               return _Mensaje(
                 texto: l.tomaNoEncontrada,
+                icono: CupertinoIcons.info_circle_fill,
                 boton: l.volverAlInicio,
                 alPulsar: _volver,
               );
@@ -178,6 +188,8 @@ class _TomaPantallaState extends ConsumerState<TomaPantalla> {
             if (_fase == _Fase.confirmar && yaTomada && !widget.prueba) {
               return _Mensaje(
                 texto: l.yaEstaTomada,
+                icono: CupertinoIcons.checkmark_circle_fill,
+                colorIcono: c.verde,
                 boton: l.volverAlInicio,
                 alPulsar: _volver,
               );
@@ -185,6 +197,7 @@ class _TomaPantallaState extends ConsumerState<TomaPantalla> {
             return switch (_fase) {
               _Fase.confirmar => _Confirmar(
                 toma: t,
+                prueba: widget.prueba,
                 alConfirmar: () => _confirmar(t),
               ),
               _Fase.camara => _Camara(
@@ -203,119 +216,302 @@ class _TomaPantallaState extends ConsumerState<TomaPantalla> {
   }
 }
 
+/// Aviso a pantalla completa ("Ya está tomada") con un solo botón.
 class _Mensaje extends StatelessWidget {
   const _Mensaje({
     required this.texto,
+    required this.icono,
     required this.boton,
     required this.alPulsar,
+    this.colorIcono,
   });
 
   final String texto;
+  final IconData icono;
+  final Color? colorIcono;
   final String boton;
   final VoidCallback alPulsar;
 
   @override
   Widget build(BuildContext context) {
+    final c = context.colores;
     final t = Theme.of(context).textTheme;
-    return Padding(
-      padding: const EdgeInsets.all(24),
+    return Center(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: TarjetaGrande(
+          color: c.tarjeta,
+          radio: 28,
+          margen: EdgeInsets.zero,
+          relleno: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Icon(icono, size: 72, color: colorIcono ?? c.textoSecundario),
+              const SizedBox(height: 16),
+              Text(
+                texto,
+                style: t.headlineLarge?.copyWith(fontWeight: FontWeight.w800),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 28),
+              BotonGrande(
+                key: ClavesUi.volverAlInicio,
+                texto: boton,
+                icono: CupertinoIcons.chevron_back,
+                color: c.azul,
+                colorTexto: c.sobreAzul,
+                altura: 88,
+                onPressed: alPulsar,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// "Hola, Carmen" · "Ahora toca" con la foto, el nombre, el compartimento y
+/// "YA ME LA HE TOMADO"; debajo, "Llamar" y "Ayuda".
+class _Confirmar extends ConsumerStatefulWidget {
+  const _Confirmar({
+    required this.toma,
+    required this.prueba,
+    required this.alConfirmar,
+  });
+
+  final TomaVista toma;
+  final bool prueba;
+  final VoidCallback alConfirmar;
+
+  @override
+  ConsumerState<_Confirmar> createState() => _ConfirmarState();
+}
+
+class _ConfirmarState extends ConsumerState<_Confirmar> {
+  /// Aviso tras "Llamar" o "Ayuda".
+  String? _aviso;
+
+  Future<void> _llamar(Miembro? familiar, {required bool ayuda}) async {
+    final l = context.l;
+    if (widget.prueba) {
+      setState(() => _aviso = l.preguntaModoPrueba);
+      return;
+    }
+    setState(
+      () => _aviso = familiar == null
+          ? l.ayudaAvisada
+          : l.ayudaLlamando(familiar.nombre),
+    );
+    await llamarDesdePersona(ref, familiar, ayuda: ayuda);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l;
+    final c = context.colores;
+    final t = Theme.of(context).textTheme;
+    final toma = widget.toma;
+    final med = toma.medicamento;
+    final compartimento = toma.pauta?.compartimento;
+    final alias = ref.watch(personaProvider).value?.alias;
+    final familiar = primerFamiliar(
+      ref.watch(miembrosProvider).value ?? const <Miembro>[],
+    );
+    final zona = ref.watch(contextoProvider).zonaHoraria;
+    final dia = DateFormat(
+      'EEEE d',
+      'es_ES',
+    ).format(aLocal(toma.toma.previstaPara, zona));
+    final aviso = _aviso;
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            texto,
-            style: t.displaySmall?.copyWith(
-              fontSize: 40,
-              fontWeight: FontWeight.w700,
+          if (alias != null && alias.isNotEmpty)
+            Text(
+              l.personaHola(alias),
+              style: t.headlineLarge?.copyWith(
+                fontWeight: FontWeight.w800,
+                letterSpacing: -0.5,
+                height: 1.1,
+              ),
             ),
-            textAlign: TextAlign.center,
+          const SizedBox(height: 4),
+          Text(
+            l.personaDiaYHora(dia, toma.toma.horaLocal),
+            style: t.titleSmall?.copyWith(
+              fontWeight: FontWeight.w500,
+              color: c.textoSecundario,
+            ),
           ),
-          const SizedBox(height: 32),
-          BotonGrande(
-            texto: boton,
-            color: Colores.azul,
-            altura: 96,
-            onPressed: alPulsar,
+          const SizedBox(height: 16),
+          TarjetaGrande(
+            color: c.tarjeta,
+            radio: 28,
+            margen: EdgeInsets.zero,
+            conSombra: true,
+            relleno: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    Icon(CupertinoIcons.bell_fill, size: 22, color: c.verde),
+                    const SizedBox(width: 8),
+                    Flexible(
+                      child: Text(
+                        l.personaAhoraToca.toUpperCase(),
+                        semanticsLabel: l.personaAhoraToca,
+                        style: t.labelMedium?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: c.verde,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 14),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: ColoredBox(
+                    color: c.mesa,
+                    child: SizedBox(
+                      height: 220,
+                      width: double.infinity,
+                      child: FotoImagen(
+                        fotoId: med?.fotoPastillaId,
+                        ajuste: BoxFit.contain,
+                        etiquetaSemantica: l.semanticaFotoPastilla(
+                          toma.nombreParaPersona,
+                        ),
+                        alternativa: Center(
+                          child: PastillaPictograma(
+                            forma: med?.forma ?? 'otra',
+                            color: med?.color,
+                            tamano: 176,
+                            colorBorde: c.mesaBorde,
+                            etiquetaSemantica: l.semanticaFotoPastilla(
+                              toma.nombreParaPersona,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 14),
+                Semantics(
+                  header: true,
+                  child: Text(
+                    toma.nombreParaPersona,
+                    style: t.headlineSmall?.copyWith(
+                      letterSpacing: -0.3,
+                      height: 1.2,
+                    ),
+                  ),
+                ),
+                if (compartimento != null && compartimento.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  _Compartimento(compartimento: compartimento),
+                ],
+                const SizedBox(height: 16),
+                BotonGrande(
+                  key: ClavesUi.confirmarToma,
+                  texto: l.yaMeLaHeTomado,
+                  icono: CupertinoIcons.checkmark_alt,
+                  color: c.verde,
+                  colorTexto: c.sobreVerde,
+                  altura: 88,
+                  tamanoTexto: 26,
+                  radio: 22,
+                  onPressed: widget.alConfirmar,
+                ),
+              ],
+            ),
           ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              if (familiar != null) ...[
+                Expanded(
+                  child: BotonGrande(
+                    texto: l.personaLlamar,
+                    etiquetaSemantica: l.llamarA(familiar.nombre),
+                    icono: CupertinoIcons.phone_fill,
+                    color: c.tarjeta,
+                    colorTexto: c.texto,
+                    altura: 84,
+                    tamanoTexto: 22,
+                    radio: 22,
+                    onPressed: () => _llamar(familiar, ayuda: false),
+                  ),
+                ),
+                const SizedBox(width: 12),
+              ],
+              Expanded(
+                child: BotonGrande(
+                  texto: l.personaAyuda,
+                  etiquetaSemantica: l.necesitoAyuda,
+                  icono: CupertinoIcons.exclamationmark_triangle_fill,
+                  color: c.tarjeta,
+                  colorTexto: c.texto,
+                  altura: 84,
+                  tamanoTexto: 22,
+                  radio: 22,
+                  onPressed: () => _llamar(familiar, ayuda: true),
+                ),
+              ),
+            ],
+          ),
+          if (aviso != null) ...[
+            const SizedBox(height: 12),
+            Semantics(
+              liveRegion: true,
+              child: Text(
+                aviso,
+                textAlign: TextAlign.center,
+                style: t.titleMedium,
+              ),
+            ),
+          ],
         ],
       ),
     );
   }
 }
 
-class _Confirmar extends StatelessWidget {
-  const _Confirmar({required this.toma, required this.alConfirmar});
+/// "Compartimento: Mediodía" con el compartimento en negrita.
+class _Compartimento extends StatelessWidget {
+  const _Compartimento({required this.compartimento});
 
-  final TomaVista toma;
-  final VoidCallback alConfirmar;
+  final String compartimento;
 
   @override
   Widget build(BuildContext context) {
-    final l = context.l;
+    final c = context.colores;
     final t = Theme.of(context).textTheme;
-    final med = toma.medicamento;
-    final compartimento = toma.pauta?.compartimento;
-    return Column(
-      children: [
-        Expanded(
-          child: Container(
-            width: double.infinity,
-            color: const Color(0xFFF3EEE2),
-            child: FotoImagen(
-              fotoId: med?.fotoPastillaId,
-              ajuste: BoxFit.contain,
-              etiquetaSemantica: l.semanticaFotoPastilla(
-                toma.nombreParaPersona,
-              ),
-              alternativa: Center(
-                child: PastillaPictograma(
-                  forma: med?.forma ?? 'otra',
-                  color: med?.color,
-                  tamano: 240,
-                  etiquetaSemantica: l.semanticaFotoPastilla(
-                    toma.nombreParaPersona,
-                  ),
-                ),
-              ),
-            ),
+    final completo = context.l.compartimentoEs(compartimento);
+    final i = completo.lastIndexOf(compartimento);
+    final base = t.bodyMedium?.copyWith(color: c.textoSecundario, height: 1.3);
+    if (i < 0) return Text(completo, style: base);
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(text: completo.substring(0, i)),
+          TextSpan(
+            text: compartimento,
+            style: TextStyle(color: c.texto, fontWeight: FontWeight.w700),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
-          child: Column(
-            children: [
-              Semantics(
-                header: true,
-                child: Text(
-                  toma.nombreParaPersona,
-                  textAlign: TextAlign.center,
-                  style: t.displaySmall?.copyWith(
-                    fontSize: 40,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              if (compartimento != null && compartimento.isNotEmpty)
-                Text(
-                  l.compartimentoEs(compartimento),
-                  textAlign: TextAlign.center,
-                  style: t.headlineSmall?.copyWith(fontSize: 28),
-                ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16),
-          child: BotonGrande(
-            key: ClavesUi.confirmarToma,
-            texto: l.yaMeLaHeTomado,
-            icono: Icons.check_circle,
-            color: Colores.verde,
-            altura: 120,
-            onPressed: alConfirmar,
-          ),
-        ),
-      ],
+          TextSpan(text: completo.substring(i + compartimento.length)),
+        ],
+      ),
+      style: base,
     );
   }
 }
@@ -334,26 +530,26 @@ class _Camara extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l;
+    final c = context.colores;
     final t = Theme.of(context).textTheme;
     final s = sesion;
+    final velo = c.texto.withValues(alpha: 0.8);
     return Stack(
       fit: StackFit.expand,
       children: [
-        s == null
-            ? const ColoredBox(color: Color(0xFF1A1A1A))
-            : s.vistaPrevia(context),
+        s == null ? ColoredBox(color: c.texto) : s.vistaPrevia(context),
         Positioned(
           left: 0,
           right: 0,
           top: 0,
           child: Container(
-            color: const Color(0xCC000000),
+            color: velo,
             padding: const EdgeInsets.all(20),
             child: Text(
               l.ensenaLaPastilla,
               textAlign: TextAlign.center,
               style: t.headlineMedium?.copyWith(
-                color: Colors.white,
+                color: Colores.blanco,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -373,13 +569,13 @@ class _Camara extends StatelessWidget {
                   vertical: 8,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xCC000000),
+                  color: velo,
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Text(
                   restante.toString(),
                   style: t.displayLarge?.copyWith(
-                    color: Colors.white,
+                    color: Colores.blanco,
                     fontSize: 72,
                     fontWeight: FontWeight.w700,
                   ),
@@ -399,13 +595,11 @@ class _MuyBien extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l;
+    final c = context.colores;
     final t = Theme.of(context).textTheme;
-    final miembros = ref.watch(miembrosProvider).value ?? const <Miembro>[];
-    final conOrden = miembros.where((m) => m.ordenEscalado != null).toList()
-      ..sort((a, b) => a.ordenEscalado!.compareTo(b.ordenEscalado!));
-    final familiar = conOrden.isNotEmpty
-        ? conOrden.first
-        : (miembros.isEmpty ? null : miembros.first);
+    final familiar = primerFamiliar(
+      ref.watch(miembrosProvider).value ?? const <Miembro>[],
+    );
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -416,7 +610,7 @@ class _MuyBien extends ConsumerWidget {
             style: t.displayMedium?.copyWith(
               fontSize: 48,
               fontWeight: FontWeight.w700,
-              color: Colores.verde,
+              color: c.verde,
             ),
           ),
           const SizedBox(height: 24),
@@ -425,7 +619,7 @@ class _MuyBien extends ConsumerWidget {
             const SizedBox(height: 8),
             Text(familiar.nombre, style: t.headlineMedium),
           ] else
-            const Icon(Icons.favorite, size: 120, color: Colores.verde),
+            Icon(CupertinoIcons.heart_fill, size: 120, color: c.verde),
         ],
       ),
     );

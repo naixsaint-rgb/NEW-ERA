@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -12,16 +13,20 @@ import '../../core/i18n/fechas.dart';
 import '../../core/providers.dart';
 import '../../core/tema/colores.dart';
 import '../../shared/claves_ui.dart';
+import '../../shared/ios/ios.dart';
 import '../../shared/l10n_ext.dart';
-import '../../shared/pictogramas/pastilla_pictograma.dart';
 import '../../shared/widgets/avatar_familiar.dart';
 import '../../shared/widgets/boton_grande.dart';
-import '../../shared/widgets/foto_imagen.dart';
 import '../../shared/widgets/tarjeta_grande.dart';
 import '../hoy/dominio/tomas.dart';
+import 'llamadas.dart';
 
-/// Inicio de la persona, sin menús: fecha, hora, lo siguiente, su gente,
-/// ayuda y el último mensaje de la familia.
+/// Inicio de la persona (maqueta A-Persona), sin menús: hora enorme, fecha,
+/// la tarjeta "ahora", "Mis pastillas", su gente, el último mensaje de la
+/// familia y "Necesito ayuda" fijo abajo.
+///
+/// Nunca más de tres botones grandes a la vez: "Mis pastillas", "Es la hora"
+/// (solo a su hora) y "Necesito ayuda".
 class PersonaInicioPantalla extends ConsumerStatefulWidget {
   const PersonaInicioPantalla({super.key});
 
@@ -30,50 +35,25 @@ class PersonaInicioPantalla extends ConsumerStatefulWidget {
 }
 
 class _PersonaInicioState extends ConsumerState<PersonaInicioPantalla> {
+  /// Nombre del familiar al que se llama; vacío si se anotó la ayuda sin
+  /// nadie a quien llamar; nulo si no hay aviso.
   String? _llamando;
 
-  Future<void> _llamar(Miembro m, {required bool ayuda}) async {
-    final eventos = ref.read(eventosRepositorioProvider);
-    if (ayuda) {
-      await eventos.registrar(TipoEvento.ayudaPedida);
-    }
-    await eventos.registrar(
-      TipoEvento.llamadaIniciada,
-      payload: {'miembroId': m.id},
-    );
-    final telefono = m.telefono;
-    if (telefono != null && telefono.isNotEmpty) {
-      try {
-        await ref.read(abrirEnlaceProvider)(Uri(scheme: 'tel', path: telefono));
-      } catch (_) {
-        // Sin teléfono en este aparato: no pasa nada.
-      }
-    }
+  Future<void> _llamar(Miembro m) async {
+    setState(() => _llamando = m.nombre);
+    await llamarDesdePersona(ref, m, ayuda: false);
   }
 
   Future<void> _pedirAyuda(List<Miembro> miembros) async {
-    final primero = _primerFamiliar(miembros);
-    if (primero == null) {
-      await ref
-          .read(eventosRepositorioProvider)
-          .registrar(TipoEvento.ayudaPedida);
-      setState(() => _llamando = '');
-      return;
-    }
-    setState(() => _llamando = primero.nombre);
-    await _llamar(primero, ayuda: true);
-  }
-
-  static Miembro? _primerFamiliar(List<Miembro> miembros) {
-    final conOrden = miembros.where((m) => m.ordenEscalado != null).toList()
-      ..sort((a, b) => a.ordenEscalado!.compareTo(b.ordenEscalado!));
-    if (conOrden.isNotEmpty) return conOrden.first;
-    return miembros.isEmpty ? null : miembros.first;
+    final primero = primerFamiliar(miembros);
+    setState(() => _llamando = primero?.nombre ?? '');
+    await llamarDesdePersona(ref, primero, ayuda: true);
   }
 
   @override
   Widget build(BuildContext context) {
     final l = context.l;
+    final c = context.colores;
     final t = Theme.of(context).textTheme;
     final contexto = ref.watch(contextoProvider);
     final ahoraUtc =
@@ -93,13 +73,17 @@ class _PersonaInicioState extends ConsumerState<PersonaInicioPantalla> {
     final siguiente = ref.watch(siguienteTomaProvider).value;
     final esWeb = ref.watch(esDemoWebProvider);
 
-    final hora = Text(
-      horaCorta(local),
-      style: t.displaySmall?.copyWith(
-        fontSize: 48,
-        fontWeight: FontWeight.w700,
+    // Nunca en dos líneas: si no cabe (escala 1,3 en pantallas estrechas),
+    // se encoge.
+    final hora = FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Text(
+        horaCorta(local),
+        maxLines: 1,
+        style: t.displayLarge?.copyWith(height: 1),
       ),
     );
+    final llamando = _llamando;
 
     return Scaffold(
       body: SafeArea(
@@ -107,42 +91,59 @@ class _PersonaInicioState extends ConsumerState<PersonaInicioPantalla> {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
+                padding: const EdgeInsets.fromLTRB(20, 24, 20, 16),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    // En móvil, una pulsación de 5 s sobre la hora saca de
+                    // este perfil.
+                    Center(
+                      child: esWeb
+                          ? hora
+                          : _PulsacionLarga(
+                              duracion: const Duration(seconds: 5),
+                              alCompletar: () => context.go(Rutas.perfil),
+                              child: hora,
+                            ),
+                    ),
+                    const SizedBox(height: 8),
                     Semantics(
                       header: true,
                       child: Text(
                         fechaLarga(local),
-                        style: t.displaySmall?.copyWith(
-                          fontSize: 48,
-                          fontWeight: FontWeight.w700,
+                        textAlign: TextAlign.center,
+                        style: t.headlineSmall?.copyWith(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                          color: c.textoSecundario,
                         ),
                       ),
                     ),
-                    Text(parte, style: t.headlineLarge?.copyWith(fontSize: 40)),
-                    const SizedBox(height: 4),
-                    // En móvil, una pulsación de 5 s sobre la hora saca de este perfil.
-                    esWeb
-                        ? hora
-                        : _PulsacionLarga(
-                            duracion: const Duration(seconds: 5),
-                            alCompletar: () => context.go(Rutas.perfil),
-                            child: hora,
-                          ),
-                    const SizedBox(height: 20),
-                    _LoSiguiente(
-                      siguiente: siguiente,
-                      ahora: ahoraUtc,
-                      zona: contexto.zonaHoraria,
+                    Text(
+                      parte,
+                      textAlign: TextAlign.center,
+                      style: t.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: c.textoSecundario,
+                      ),
                     ),
                     const SizedBox(height: 20),
-                    Text(
-                      l.miGente,
-                      style: t.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+                    _Ahora(siguiente: siguiente, ahora: ahoraUtc),
+                    const SizedBox(height: 16),
+                    BotonGrande(
+                      key: ClavesUi.misPastillas,
+                      texto: l.misPastillas,
+                      icono: CupertinoIcons.capsule_fill,
+                      color: c.azul,
+                      colorTexto: c.sobreAzul,
+                      altura: 104,
+                      alinear: AlineacionBoton.izquierda,
+                      onPressed: () => context.push(Rutas.personaPastillas),
+                    ),
+                    const SizedBox(height: 24),
+                    Semantics(
+                      header: true,
+                      child: Text(l.miGente, style: t.headlineSmall),
                     ),
                     const SizedBox(height: 8),
                     Wrap(
@@ -151,48 +152,12 @@ class _PersonaInicioState extends ConsumerState<PersonaInicioPantalla> {
                       runSpacing: 12,
                       children: [
                         for (final m in gente)
-                          Semantics(
-                            button: true,
-                            label: l.llamarA(m.nombre),
-                            excludeSemantics: true,
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(16),
-                              onTap: () => _llamar(m, ayuda: false),
-                              child: Padding(
-                                padding: const EdgeInsets.all(4),
-                                child: Column(
-                                  children: [
-                                    AvatarFamiliar(miembro: m, tamano: 96),
-                                    const SizedBox(height: 4),
-                                    ConstrainedBox(
-                                      constraints: const BoxConstraints(
-                                        maxWidth: 140,
-                                      ),
-                                      child: Text(
-                                        m.nombre,
-                                        style: t.titleLarge,
-                                        textAlign: TextAlign.center,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                          _Cara(miembro: m, alPulsar: () => _llamar(m)),
                       ],
                     ),
-                    if (_llamando != null) ...[
+                    if (llamando != null) ...[
                       const SizedBox(height: 16),
-                      TarjetaGrande(
-                        color: const Color(0xFFFDECEA),
-                        child: Text(
-                          _llamando!.isEmpty
-                              ? l.ayudaAvisada
-                              : l.ayudaLlamando(_llamando!),
-                          style: t.titleLarge,
-                        ),
-                      ),
+                      _AvisoLlamada(llamando: llamando),
                     ],
                     if (mensaje != null) ...[
                       const SizedBox(height: 20),
@@ -207,8 +172,9 @@ class _PersonaInicioState extends ConsumerState<PersonaInicioPantalla> {
               child: BotonGrande(
                 key: ClavesUi.necesitoAyuda,
                 texto: l.necesitoAyuda,
-                icono: Icons.sos,
-                color: Colores.rojo,
+                icono: CupertinoIcons.exclamationmark_triangle_fill,
+                color: c.rojo,
+                colorTexto: c.sobreRojo,
                 altura: 96,
                 onPressed: () => _pedirAyuda(miembros),
               ),
@@ -220,81 +186,159 @@ class _PersonaInicioState extends ConsumerState<PersonaInicioPantalla> {
   }
 }
 
-class _LoSiguiente extends ConsumerWidget {
-  const _LoSiguiente({
-    required this.siguiente,
-    required this.ahora,
-    required this.zona,
-  });
+/// Tarjeta "ahora": "Ahora no toca nada" con la hora de la siguiente o, a su
+/// hora, la foto de la pastilla y el botón "Es la hora".
+class _Ahora extends StatelessWidget {
+  const _Ahora({required this.siguiente, required this.ahora});
 
   final TomaVista? siguiente;
   final DateTime ahora;
-  final String zona;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final l = context.l;
+    final c = context.colores;
     final t = Theme.of(context).textTheme;
     final s = siguiente;
-    return TarjetaGrande(
-      key: ClavesUi.loSiguiente,
-      relleno: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    final Widget contenido;
+    if (s != null && !ahora.isBefore(s.toma.previstaPara)) {
+      final nombre = s.nombreParaPersona.toLowerCase();
+      contenido = Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            l.loSiguiente,
-            style: t.headlineMedium?.copyWith(fontWeight: FontWeight.w700),
+          Row(
+            children: [
+              FotoPastilla(s.medicamento, tamano: 104),
+              const SizedBox(width: 16),
+              Expanded(child: Text(l.esLaHora(nombre), style: t.headlineSmall)),
+            ],
           ),
-          const SizedBox(height: 8),
-          if (s == null)
-            Text(l.noHayMasPastillas, style: t.titleLarge)
-          else ...[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+          const SizedBox(height: 16),
+          BotonGrande(
+            key: ClavesUi.esLaHora,
+            texto: l.personaTomarlaAhora,
+            icono: CupertinoIcons.bell_fill,
+            color: c.verde,
+            colorTexto: c.sobreVerde,
+            altura: 96,
+            onPressed: () => context.push(Rutas.toma(s.toma.id)),
+          ),
+        ],
+      );
+    } else {
+      contenido = Row(
+        children: [
+          IconoCuadrado(
+            CupertinoIcons.checkmark_alt,
+            redondo: true,
+            tamano: 48,
+            fondo: c.verdeClaro,
+            color: c.verde,
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  width: 96,
-                  height: 96,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: FotoImagen(
-                      fotoId: s.medicamento?.fotoPastillaId,
-                      ancho: 96,
-                      alto: 96,
-                      alternativa: PastillaPictograma(
-                        forma: s.medicamento?.forma ?? 'otra',
-                        color: s.medicamento?.color,
-                        tamano: 96,
-                      ),
-                    ),
-                  ),
+                Text(
+                  l.personaAhoraNoTocaNada,
+                  style: t.titleMedium?.copyWith(fontWeight: FontWeight.w700),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Text(
-                    l.aLasHoraPastilla(
-                      s.toma.horaLocal,
-                      s.nombreParaPersona.toLowerCase(),
-                    ),
-                    style: t.titleLarge,
-                  ),
+                Text(
+                  s == null
+                      ? l.noHayMasPastillas
+                      : l.aLasHoraPastilla(
+                          s.toma.horaLocal,
+                          s.nombreParaPersona.toLowerCase(),
+                        ),
+                  style: t.bodyMedium?.copyWith(color: c.textoSecundario),
                 ),
               ],
             ),
-            if (!ahora.isBefore(s.toma.previstaPara)) ...[
-              const SizedBox(height: 16),
-              BotonGrande(
-                key: ClavesUi.esLaHora,
-                texto: l.esLaHora(s.nombreParaPersona.toLowerCase()),
-                icono: Icons.alarm,
-                color: Colores.verde,
-                altura: 96,
-                onPressed: () => context.push(Rutas.toma(s.toma.id)),
+          ),
+        ],
+      );
+    }
+    return TarjetaGrande(
+      key: ClavesUi.loSiguiente,
+      radio: 20,
+      margen: EdgeInsets.zero,
+      relleno: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+      child: contenido,
+    );
+  }
+}
+
+/// Cara de un familiar (96) con su nombre; tocarla le llama.
+class _Cara extends StatelessWidget {
+  const _Cara({required this.miembro, required this.alPulsar});
+
+  final Miembro miembro;
+  final VoidCallback alPulsar;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Theme.of(context).textTheme;
+    return Semantics(
+      button: true,
+      label: context.l.llamarA(miembro.nombre),
+      excludeSemantics: true,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: alPulsar,
+        child: Padding(
+          padding: const EdgeInsets.all(4),
+          child: Column(
+            children: [
+              AvatarFamiliar(miembro: miembro, tamano: 96),
+              const SizedBox(height: 4),
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 140),
+                child: Text(
+                  miembro.nombre,
+                  style: t.titleMedium,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// "Estoy llamando a Lucía." o "He anotado que necesitas ayuda.".
+class _AvisoLlamada extends StatelessWidget {
+  const _AvisoLlamada({required this.llamando});
+
+  /// Vacío si no hay a quién llamar.
+  final String llamando;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l;
+    final c = context.colores;
+    final t = Theme.of(context).textTheme;
+    return TarjetaGrande(
+      color: c.rojoClaro,
+      radio: 20,
+      margen: EdgeInsets.zero,
+      child: Semantics(
+        liveRegion: true,
+        child: Row(
+          children: [
+            Icon(CupertinoIcons.phone_fill, size: 32, color: c.rojo),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                llamando.isEmpty ? l.ayudaAvisada : l.ayudaLlamando(llamando),
+                style: t.titleMedium,
+              ),
+            ),
           ],
-        ],
+        ),
       ),
     );
   }
@@ -308,26 +352,36 @@ class _MensajeFamilia extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l;
+    final c = context.colores;
     final t = Theme.of(context).textTheme;
     final texto = (_texto(mensaje) ?? '').trim();
     return TarjetaGrande(
+      radio: 20,
+      margen: EdgeInsets.zero,
+      relleno: const EdgeInsets.all(18),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              const Icon(Icons.mail, size: 32),
-              const SizedBox(width: 8),
+              IconoCuadrado(
+                CupertinoIcons.envelope_fill,
+                redondo: true,
+                tamano: 40,
+                fondo: c.azulClaro,
+                color: c.azul,
+              ),
+              const SizedBox(width: 12),
               Expanded(
                 child: Text(
                   l.mensajeDeLaFamilia,
-                  style: t.titleLarge?.copyWith(fontWeight: FontWeight.w700),
+                  style: t.titleMedium?.copyWith(fontWeight: FontWeight.w700),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          Text(texto, style: t.headlineSmall),
+          const SizedBox(height: 10),
+          Text(texto, style: t.bodyLarge),
         ],
       ),
     );
