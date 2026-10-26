@@ -123,23 +123,6 @@ void main() {
     }
   });
 
-  testWidgets('Hoy: semáforo, última toma y tomas de hoy', (tester) async {
-    final entorno = await tester.runAsync(
-      () => prepararEntorno(perfil: PerfilApp.familia),
-    );
-    await montarApp(tester, entorno!);
-    await pasar(tester, const Duration(seconds: 1));
-    expect(find.byKey(ClavesUi.semaforo), findsOneWidget);
-    // Hoy 09:00 confirmada con clip y ayer 21:00 sin confirmar: el semáforo de
-    // hoy es verde.
-    expect(find.text('Todo en orden por ahora'), findsOneWidget);
-    expect(find.text('Última toma'), findsOneWidget);
-    expect(find.textContaining('Confirmada por Carmen'), findsOneWidget);
-    expect(find.text('Tomas de hoy'), findsOneWidget);
-    await tester.scrollUntilVisible(find.text('Respuesta de control'), 300);
-    expect(find.text('Respuesta de control'), findsOneWidget);
-  });
-
   testWidgets('Medicación: tomas de hoy, lista y alta de un medicamento', (
     tester,
   ) async {

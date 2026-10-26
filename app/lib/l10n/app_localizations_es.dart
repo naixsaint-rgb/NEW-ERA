@@ -843,4 +843,170 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get personaAyuda => 'Ayuda';
+
+  @override
+  String get hoySegmentoAyer => 'Ayer';
+
+  @override
+  String get hoySegmentoHoy => 'Hoy';
+
+  @override
+  String get hoySegmentoManana => 'Mañana';
+
+  @override
+  String get hoySegmentoSemana => 'Semana';
+
+  @override
+  String get hoyCasillaTomas => 'Tomas';
+
+  @override
+  String get hoyCasillaVideos => 'Vídeos';
+
+  @override
+  String get hoyCasillaAvisos => 'Avisos';
+
+  @override
+  String hoyDeTotal(int total) {
+    return 'de $total';
+  }
+
+  @override
+  String hoySemanticaCasilla(String titulo, String valor) {
+    return '$titulo: $valor';
+  }
+
+  @override
+  String get hoyProximaToma => 'Próxima toma';
+
+  @override
+  String hoyHoraYCompartimento(String hora, String compartimento) {
+    return '$hora · $compartimento';
+  }
+
+  @override
+  String hoySiNoLaToma(String hora) {
+    return 'Si no la toma: aviso a las $hora';
+  }
+
+  @override
+  String get hoyComprobaciones => 'Comprobaciones';
+
+  @override
+  String hoyVideoDeLaToma(String hora, int segundos) {
+    return 'Vídeo de la toma de las $hora · $segundos s';
+  }
+
+  @override
+  String hoyVideoDeLaTomaSinDuracion(String hora) {
+    return 'Vídeo de la toma de las $hora';
+  }
+
+  @override
+  String hoyFotoDeLaToma(String hora) {
+    return 'Foto de la toma de las $hora';
+  }
+
+  @override
+  String get hoySinComprobacionesHoy => 'Sin comprobaciones hoy';
+
+  @override
+  String get hoySinComprobacionesAyer => 'Sin comprobaciones ayer';
+
+  @override
+  String get hoyLlegaPronto => 'Llega pronto';
+
+  @override
+  String get hoyTomasDeAyer => 'Tomas de ayer';
+
+  @override
+  String get hoySinTomasAyer => 'Ayer no había tomas previstas.';
+
+  @override
+  String hoyRespuestasControlLlega(int n) {
+    return 'Respuestas de control: llega en la semana $n';
+  }
+
+  @override
+  String get hoyTomasDeManana => 'Tomas de mañana';
+
+  @override
+  String get hoySinTomasManana => 'Mañana no hay tomas previstas.';
+
+  @override
+  String get hoyQuienRecibeAvisos => 'Quién recibe los avisos';
+
+  @override
+  String hoyAvisoAMinutos(String nombre, int minutos) {
+    return '$nombre a los $minutos min';
+  }
+
+  @override
+  String get hoyQuienRecibeAyuda =>
+      'Si no confirma una toma, el aviso llega en este orden.';
+
+  @override
+  String get hoySinFamiliares => 'Todavía no hay familiares en el círculo.';
+
+  @override
+  String hoyUltimos7Dias(String desde, String hasta) {
+    return 'Últimos 7 días · $desde a $hasta';
+  }
+
+  @override
+  String hoyTomasHechasQuedan(int k) {
+    return 'tomas hechas · hoy quedan $k';
+  }
+
+  @override
+  String hoySemanticaTotales(int hechas, int previstas, int k) {
+    return '$hechas de $previstas tomas hechas · hoy quedan $k';
+  }
+
+  @override
+  String hoyRespuestasLlega(int n) {
+    return 'Respuestas: llega en la semana $n';
+  }
+
+  @override
+  String get hoyFilaTomas => 'Tomas';
+
+  @override
+  String get hoyFilaRespondio => 'Respondió';
+
+  @override
+  String hoySemanticaCeldaDia(String dia, int hechas, int previstas) {
+    return '$dia: $hechas de $previstas tomas hechas';
+  }
+
+  @override
+  String hoySemanticaCeldaSinTomas(String dia) {
+    return '$dia: sin tomas';
+  }
+
+  @override
+  String get hoyLoQueDijo => 'Lo que dijo esta semana';
+
+  @override
+  String get hoyLoQueDijoAviso => 'Sus respuestas a las preguntas de cada hora';
+
+  @override
+  String get hoyInicialLunes => 'L';
+
+  @override
+  String get hoyInicialMartes => 'M';
+
+  @override
+  String get hoyInicialMiercoles => 'X';
+
+  @override
+  String get hoyInicialJueves => 'J';
+
+  @override
+  String get hoyInicialViernes => 'V';
+
+  @override
+  String get hoyInicialSabado => 'S';
+
+  @override
+  String get hoyInicialDomingo => 'D';
 }

@@ -546,5 +546,182 @@
   },
   "personaAhoraToca": "Ahora toca",
   "personaLlamar": "Llamar",
-  "personaAyuda": "Ayuda"
+  "personaAyuda": "Ayuda",
+  "hoySegmentoAyer": "Ayer",
+  "hoySegmentoHoy": "Hoy",
+  "hoySegmentoManana": "Mañana",
+  "hoySegmentoSemana": "Semana",
+  "hoyCasillaTomas": "Tomas",
+  "hoyCasillaVideos": "Vídeos",
+  "hoyCasillaAvisos": "Avisos",
+  "hoyDeTotal": "de {total}",
+  "@hoyDeTotal": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "hoySemanticaCasilla": "{titulo}: {valor}",
+  "@hoySemanticaCasilla": {
+    "placeholders": {
+      "titulo": {
+        "type": "String"
+      },
+      "valor": {
+        "type": "String"
+      }
+    }
+  },
+  "hoyProximaToma": "Próxima toma",
+  "hoyHoraYCompartimento": "{hora} · {compartimento}",
+  "@hoyHoraYCompartimento": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      },
+      "compartimento": {
+        "type": "String"
+      }
+    }
+  },
+  "hoySiNoLaToma": "Si no la toma: aviso a las {hora}",
+  "@hoySiNoLaToma": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "hoyComprobaciones": "Comprobaciones",
+  "hoyVideoDeLaToma": "Vídeo de la toma de las {hora} · {segundos} s",
+  "@hoyVideoDeLaToma": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      },
+      "segundos": {
+        "type": "int"
+      }
+    }
+  },
+  "hoyVideoDeLaTomaSinDuracion": "Vídeo de la toma de las {hora}",
+  "@hoyVideoDeLaTomaSinDuracion": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "hoyFotoDeLaToma": "Foto de la toma de las {hora}",
+  "@hoyFotoDeLaToma": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "hoySinComprobacionesHoy": "Sin comprobaciones hoy",
+  "hoySinComprobacionesAyer": "Sin comprobaciones ayer",
+  "hoyLlegaPronto": "Llega pronto",
+  "hoyTomasDeAyer": "Tomas de ayer",
+  "hoySinTomasAyer": "Ayer no había tomas previstas.",
+  "hoyRespuestasControlLlega": "Respuestas de control: llega en la semana {n}",
+  "@hoyRespuestasControlLlega": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "hoyTomasDeManana": "Tomas de mañana",
+  "hoySinTomasManana": "Mañana no hay tomas previstas.",
+  "hoyQuienRecibeAvisos": "Quién recibe los avisos",
+  "hoyAvisoAMinutos": "{nombre} a los {minutos} min",
+  "@hoyAvisoAMinutos": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      },
+      "minutos": {
+        "type": "int"
+      }
+    }
+  },
+  "hoyQuienRecibeAyuda": "Si no confirma una toma, el aviso llega en este orden.",
+  "hoySinFamiliares": "Todavía no hay familiares en el círculo.",
+  "hoyUltimos7Dias": "Últimos 7 días · {desde} a {hasta}",
+  "@hoyUltimos7Dias": {
+    "placeholders": {
+      "desde": {
+        "type": "String"
+      },
+      "hasta": {
+        "type": "String"
+      }
+    }
+  },
+  "hoyTomasHechasQuedan": "tomas hechas · hoy quedan {k}",
+  "@hoyTomasHechasQuedan": {
+    "placeholders": {
+      "k": {
+        "type": "int"
+      }
+    }
+  },
+  "hoySemanticaTotales": "{hechas} de {previstas} tomas hechas · hoy quedan {k}",
+  "@hoySemanticaTotales": {
+    "placeholders": {
+      "hechas": {
+        "type": "int"
+      },
+      "previstas": {
+        "type": "int"
+      },
+      "k": {
+        "type": "int"
+      }
+    }
+  },
+  "hoyRespuestasLlega": "Respuestas: llega en la semana {n}",
+  "@hoyRespuestasLlega": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "hoyFilaTomas": "Tomas",
+  "hoyFilaRespondio": "Respondió",
+  "hoySemanticaCeldaDia": "{dia}: {hechas} de {previstas} tomas hechas",
+  "@hoySemanticaCeldaDia": {
+    "placeholders": {
+      "dia": {
+        "type": "String"
+      },
+      "hechas": {
+        "type": "int"
+      },
+      "previstas": {
+        "type": "int"
+      }
+    }
+  },
+  "hoySemanticaCeldaSinTomas": "{dia}: sin tomas",
+  "@hoySemanticaCeldaSinTomas": {
+    "placeholders": {
+      "dia": {
+        "type": "String"
+      }
+    }
+  },
+  "hoyLoQueDijo": "Lo que dijo esta semana",
+  "hoyLoQueDijoAviso": "Sus respuestas a las preguntas de cada hora",
+  "hoyInicialLunes": "L",
+  "hoyInicialMartes": "M",
+  "hoyInicialMiercoles": "X",
+  "hoyInicialJueves": "J",
+  "hoyInicialViernes": "V",
+  "hoyInicialSabado": "S",
+  "hoyInicialDomingo": "D"
 }

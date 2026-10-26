@@ -1581,6 +1581,276 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Ayuda'**
   String get personaAyuda;
+
+  /// No description provided for @hoySegmentoAyer.
+  ///
+  /// In es, this message translates to:
+  /// **'Ayer'**
+  String get hoySegmentoAyer;
+
+  /// No description provided for @hoySegmentoHoy.
+  ///
+  /// In es, this message translates to:
+  /// **'Hoy'**
+  String get hoySegmentoHoy;
+
+  /// No description provided for @hoySegmentoManana.
+  ///
+  /// In es, this message translates to:
+  /// **'Mañana'**
+  String get hoySegmentoManana;
+
+  /// No description provided for @hoySegmentoSemana.
+  ///
+  /// In es, this message translates to:
+  /// **'Semana'**
+  String get hoySegmentoSemana;
+
+  /// No description provided for @hoyCasillaTomas.
+  ///
+  /// In es, this message translates to:
+  /// **'Tomas'**
+  String get hoyCasillaTomas;
+
+  /// No description provided for @hoyCasillaVideos.
+  ///
+  /// In es, this message translates to:
+  /// **'Vídeos'**
+  String get hoyCasillaVideos;
+
+  /// No description provided for @hoyCasillaAvisos.
+  ///
+  /// In es, this message translates to:
+  /// **'Avisos'**
+  String get hoyCasillaAvisos;
+
+  /// No description provided for @hoyDeTotal.
+  ///
+  /// In es, this message translates to:
+  /// **'de {total}'**
+  String hoyDeTotal(int total);
+
+  /// No description provided for @hoySemanticaCasilla.
+  ///
+  /// In es, this message translates to:
+  /// **'{titulo}: {valor}'**
+  String hoySemanticaCasilla(String titulo, String valor);
+
+  /// No description provided for @hoyProximaToma.
+  ///
+  /// In es, this message translates to:
+  /// **'Próxima toma'**
+  String get hoyProximaToma;
+
+  /// No description provided for @hoyHoraYCompartimento.
+  ///
+  /// In es, this message translates to:
+  /// **'{hora} · {compartimento}'**
+  String hoyHoraYCompartimento(String hora, String compartimento);
+
+  /// No description provided for @hoySiNoLaToma.
+  ///
+  /// In es, this message translates to:
+  /// **'Si no la toma: aviso a las {hora}'**
+  String hoySiNoLaToma(String hora);
+
+  /// No description provided for @hoyComprobaciones.
+  ///
+  /// In es, this message translates to:
+  /// **'Comprobaciones'**
+  String get hoyComprobaciones;
+
+  /// No description provided for @hoyVideoDeLaToma.
+  ///
+  /// In es, this message translates to:
+  /// **'Vídeo de la toma de las {hora} · {segundos} s'**
+  String hoyVideoDeLaToma(String hora, int segundos);
+
+  /// No description provided for @hoyVideoDeLaTomaSinDuracion.
+  ///
+  /// In es, this message translates to:
+  /// **'Vídeo de la toma de las {hora}'**
+  String hoyVideoDeLaTomaSinDuracion(String hora);
+
+  /// No description provided for @hoyFotoDeLaToma.
+  ///
+  /// In es, this message translates to:
+  /// **'Foto de la toma de las {hora}'**
+  String hoyFotoDeLaToma(String hora);
+
+  /// No description provided for @hoySinComprobacionesHoy.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin comprobaciones hoy'**
+  String get hoySinComprobacionesHoy;
+
+  /// No description provided for @hoySinComprobacionesAyer.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin comprobaciones ayer'**
+  String get hoySinComprobacionesAyer;
+
+  /// No description provided for @hoyLlegaPronto.
+  ///
+  /// In es, this message translates to:
+  /// **'Llega pronto'**
+  String get hoyLlegaPronto;
+
+  /// No description provided for @hoyTomasDeAyer.
+  ///
+  /// In es, this message translates to:
+  /// **'Tomas de ayer'**
+  String get hoyTomasDeAyer;
+
+  /// No description provided for @hoySinTomasAyer.
+  ///
+  /// In es, this message translates to:
+  /// **'Ayer no había tomas previstas.'**
+  String get hoySinTomasAyer;
+
+  /// No description provided for @hoyRespuestasControlLlega.
+  ///
+  /// In es, this message translates to:
+  /// **'Respuestas de control: llega en la semana {n}'**
+  String hoyRespuestasControlLlega(int n);
+
+  /// No description provided for @hoyTomasDeManana.
+  ///
+  /// In es, this message translates to:
+  /// **'Tomas de mañana'**
+  String get hoyTomasDeManana;
+
+  /// No description provided for @hoySinTomasManana.
+  ///
+  /// In es, this message translates to:
+  /// **'Mañana no hay tomas previstas.'**
+  String get hoySinTomasManana;
+
+  /// No description provided for @hoyQuienRecibeAvisos.
+  ///
+  /// In es, this message translates to:
+  /// **'Quién recibe los avisos'**
+  String get hoyQuienRecibeAvisos;
+
+  /// No description provided for @hoyAvisoAMinutos.
+  ///
+  /// In es, this message translates to:
+  /// **'{nombre} a los {minutos} min'**
+  String hoyAvisoAMinutos(String nombre, int minutos);
+
+  /// No description provided for @hoyQuienRecibeAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Si no confirma una toma, el aviso llega en este orden.'**
+  String get hoyQuienRecibeAyuda;
+
+  /// No description provided for @hoySinFamiliares.
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no hay familiares en el círculo.'**
+  String get hoySinFamiliares;
+
+  /// No description provided for @hoyUltimos7Dias.
+  ///
+  /// In es, this message translates to:
+  /// **'Últimos 7 días · {desde} a {hasta}'**
+  String hoyUltimos7Dias(String desde, String hasta);
+
+  /// No description provided for @hoyTomasHechasQuedan.
+  ///
+  /// In es, this message translates to:
+  /// **'tomas hechas · hoy quedan {k}'**
+  String hoyTomasHechasQuedan(int k);
+
+  /// No description provided for @hoySemanticaTotales.
+  ///
+  /// In es, this message translates to:
+  /// **'{hechas} de {previstas} tomas hechas · hoy quedan {k}'**
+  String hoySemanticaTotales(int hechas, int previstas, int k);
+
+  /// No description provided for @hoyRespuestasLlega.
+  ///
+  /// In es, this message translates to:
+  /// **'Respuestas: llega en la semana {n}'**
+  String hoyRespuestasLlega(int n);
+
+  /// No description provided for @hoyFilaTomas.
+  ///
+  /// In es, this message translates to:
+  /// **'Tomas'**
+  String get hoyFilaTomas;
+
+  /// No description provided for @hoyFilaRespondio.
+  ///
+  /// In es, this message translates to:
+  /// **'Respondió'**
+  String get hoyFilaRespondio;
+
+  /// No description provided for @hoySemanticaCeldaDia.
+  ///
+  /// In es, this message translates to:
+  /// **'{dia}: {hechas} de {previstas} tomas hechas'**
+  String hoySemanticaCeldaDia(String dia, int hechas, int previstas);
+
+  /// No description provided for @hoySemanticaCeldaSinTomas.
+  ///
+  /// In es, this message translates to:
+  /// **'{dia}: sin tomas'**
+  String hoySemanticaCeldaSinTomas(String dia);
+
+  /// No description provided for @hoyLoQueDijo.
+  ///
+  /// In es, this message translates to:
+  /// **'Lo que dijo esta semana'**
+  String get hoyLoQueDijo;
+
+  /// No description provided for @hoyLoQueDijoAviso.
+  ///
+  /// In es, this message translates to:
+  /// **'Sus respuestas a las preguntas de cada hora'**
+  String get hoyLoQueDijoAviso;
+
+  /// No description provided for @hoyInicialLunes.
+  ///
+  /// In es, this message translates to:
+  /// **'L'**
+  String get hoyInicialLunes;
+
+  /// No description provided for @hoyInicialMartes.
+  ///
+  /// In es, this message translates to:
+  /// **'M'**
+  String get hoyInicialMartes;
+
+  /// No description provided for @hoyInicialMiercoles.
+  ///
+  /// In es, this message translates to:
+  /// **'X'**
+  String get hoyInicialMiercoles;
+
+  /// No description provided for @hoyInicialJueves.
+  ///
+  /// In es, this message translates to:
+  /// **'J'**
+  String get hoyInicialJueves;
+
+  /// No description provided for @hoyInicialViernes.
+  ///
+  /// In es, this message translates to:
+  /// **'V'**
+  String get hoyInicialViernes;
+
+  /// No description provided for @hoyInicialSabado.
+  ///
+  /// In es, this message translates to:
+  /// **'S'**
+  String get hoyInicialSabado;
+
+  /// No description provided for @hoyInicialDomingo.
+  ///
+  /// In es, this message translates to:
+  /// **'D'**
+  String get hoyInicialDomingo;
 }
 
 class _AppLocalizationsDelegate
