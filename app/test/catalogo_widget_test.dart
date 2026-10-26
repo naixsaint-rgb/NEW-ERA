@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:newera/core/contexto.dart';
+import 'package:newera/core/tema/colores.dart';
+import 'package:newera/features/catalogo/etiqueta_direccion.dart';
 import 'package:newera/features/catalogo/datos/catalogo_repositorio.dart';
 import 'package:newera/features/catalogo/dominio/filtro.dart';
 import 'package:newera/shared/claves_ui.dart';
@@ -12,6 +14,12 @@ Finder get _filas => find.byWidgetPredicate(
       w.key is ValueKey<String> &&
       (w.key! as ValueKey<String>).value.startsWith('fila_'),
 );
+
+double _contraste(Color a, Color b) {
+  final la = a.computeLuminance() + 0.05;
+  final lb = b.computeLuminance() + 0.05;
+  return la > lb ? la / lb : lb / la;
+}
 
 void main() {
   testWidgets('el catálogo filtra y abre una ficha con enlace', (tester) async {
@@ -118,5 +126,63 @@ void main() {
       scrollable: find.byType(Scrollable).first,
     );
     expect(find.text('Ideas para la app'), findsOneWidget);
+  });
+
+  test('los colores de la dirección llegan a 4,5:1 en claro y en oscuro', () {
+    const direcciones = [
+      'mejora',
+      'empeora',
+      'mixto',
+      'no aplica',
+      'sin cambio',
+    ];
+    for (final c in [ColoresApp.claro, ColoresApp.oscuro]) {
+      for (final d in direcciones) {
+        expect(
+          _contraste(EtiquetaDireccion.colorDe(d, c), c.tarjeta),
+          greaterThanOrEqualTo(4.5),
+          reason: '$d en ${c == ColoresApp.claro ? 'claro' : 'oscuro'}',
+        );
+      }
+    }
+  });
+
+  testWidgets('Ideas y tablas en oscuro: contraste del texto', (tester) async {
+    tester.platformDispatcher.platformBrightnessTestValue = Brightness.dark;
+    addTearDown(tester.platformDispatcher.clearAllTestValues);
+    final manejador = tester.ensureSemantics();
+    final entorno = await tester.runAsync(
+      () => prepararEntorno(perfil: PerfilApp.familia),
+    );
+    await montarApp(tester, entorno!, rutaInicial: '/familia/ideas');
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 500)),
+    );
+    await pasar(tester, const Duration(seconds: 1));
+    expect(
+      Theme.of(tester.element(find.byType(Scaffold).first)).brightness,
+      Brightness.dark,
+    );
+    await tester.scrollUntilVisible(
+      find.byType(EtiquetaDireccion),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.pump();
+    expect(find.byType(EtiquetaDireccion), findsWidgets);
+    for (final e in tester.widgetList<EtiquetaDireccion>(
+      find.byType(EtiquetaDireccion),
+    )) {
+      final texto = tester.widget<Text>(
+        find.descendant(of: find.byWidget(e), matching: find.byType(Text)),
+      );
+      expect(
+        _contraste(texto.style!.color!, ColoresOscuro.tarjeta),
+        greaterThanOrEqualTo(4.5),
+        reason: '${e.direccion}',
+      );
+    }
+    await expectLater(tester, meetsGuideline(textContrastGuideline));
+    manejador.dispose();
   });
 }

@@ -9,13 +9,17 @@ class EtiquetaDireccion extends StatelessWidget {
 
   final String? direccion;
 
-  static Color colorDe(String? d) => switch (d) {
-    'mejora' => Colores.verde,
-    'empeora' => Colores.rojo,
-    'mixto' => Colores.naranja,
-    'no aplica' => Colores.morado,
-    _ => Colores.gris,
-  };
+  /// Color de la dirección en el modo de [c] (claro por defecto). Todos
+  /// llegan a 4,5:1 sobre la tarjeta: el gris de relleno de oscuro (#636366)
+  /// no, así que ahí "sin cambio" usa el texto secundario.
+  static Color colorDe(String? d, [ColoresApp c = ColoresApp.claro]) =>
+      switch (d) {
+        'mejora' => c.verde,
+        'empeora' => c.rojo,
+        'mixto' => c.naranja,
+        'no aplica' => c.morado,
+        _ => c.textoSecundario,
+      };
 
   static IconData iconoDe(String? d) => switch (d) {
     'mejora' => Icons.trending_up,
@@ -39,7 +43,7 @@ class EtiquetaDireccion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = colorDe(direccion);
+    final color = colorDe(direccion, context.colores);
     final texto = textoDe(context, direccion);
     return Semantics(
       label: context.l.semanticaDireccion(texto),

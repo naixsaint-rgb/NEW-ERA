@@ -1286,4 +1286,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String fixFechaHora(String fecha, String hora) {
     return '$fecha, $hora';
   }
+
+  @override
+  String get fixComprobacionVideoCorto => 'Vídeo';
 }

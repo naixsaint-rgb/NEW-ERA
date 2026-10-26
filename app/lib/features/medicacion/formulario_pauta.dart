@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:safety_core/safety_core.dart';
 
 import '../../core/db/repositorios/medicacion_repositorio.dart';
+import '../../core/tema/colores.dart';
+import '../../shared/claves_ui.dart';
+import '../../shared/ios/ios.dart';
 import '../../shared/l10n_ext.dart';
 
 /// Valores editables de una pauta.
@@ -113,15 +116,18 @@ class _CamposPautaState extends State<CamposPauta> {
           runSpacing: 8,
           children: [
             for (final h in v.horas)
-              InputChip(
-                label: Text(h),
-                deleteButtonTooltipMessage: l.quitarHora(h),
-                onDeleted: v.horas.length > 1
-                    ? () => widget.alCambiar(
-                        v.copiar(horas: [...v.horas]..remove(h)),
-                      )
-                    : null,
-              ),
+              // Con una sola hora no se puede borrar: Chip normal (un InputChip
+              // sin acciones se pinta deshabilitado, con poco contraste).
+              if (v.horas.length > 1)
+                InputChip(
+                  label: Text(h),
+                  deleteButtonTooltipMessage: l.quitarHora(h),
+                  onDeleted: () => widget.alCambiar(
+                    v.copiar(horas: [...v.horas]..remove(h)),
+                  ),
+                )
+              else
+                Chip(label: Text(h)),
             ActionChip(
               avatar: const Icon(Icons.add),
               label: Text(l.anadirHora),
@@ -178,29 +184,29 @@ class _CamposPautaState extends State<CamposPauta> {
         const SizedBox(height: 16),
         Text(l.comprobacionTitulo, style: t.titleMedium),
         const SizedBox(height: 8),
-        SegmentedButton<TipoComprobacion>(
-          showSelectedIcon: true,
-          segments: [
-            ButtonSegment(
-              value: TipoComprobacion.video,
-              label: Text(l.comprobacionVideo),
-              icon: const Icon(Icons.videocam),
-            ),
-            ButtonSegment(
-              value: TipoComprobacion.foto,
-              label: Text(l.comprobacionFoto),
-              icon: const Icon(Icons.photo_camera),
-            ),
-            ButtonSegment(
-              value: TipoComprobacion.ninguna,
-              label: Text(l.comprobacionNinguna),
-              icon: const Icon(Icons.block),
-            ),
-          ],
-          selected: {v.comprobacion},
-          onSelectionChanged: (s) =>
-              widget.alCambiar(v.copiar(comprobacion: s.first)),
+        SizedBox(
+          width: double.infinity,
+          child: SelectorSegmentos<TipoComprobacion>(
+            valores: TipoComprobacion.values,
+            etiqueta: (c) => switch (c) {
+              TipoComprobacion.video => l.fixComprobacionVideoCorto,
+              TipoComprobacion.foto => l.comprobacionFoto,
+              TipoComprobacion.ninguna => l.comprobacionNinguna,
+            },
+            seleccionado: v.comprobacion,
+            alCambiar: (c) => widget.alCambiar(v.copiar(comprobacion: c)),
+            clave: (c) => ClavesUi.segmento('comprobacion_${c.name}'),
+          ),
         ),
+        if (v.comprobacion == TipoComprobacion.video) ...[
+          const SizedBox(height: 6),
+          Text(
+            l.comprobacionVideo,
+            style: t.bodySmall?.copyWith(
+              color: context.colores.textoSecundario,
+            ),
+          ),
+        ],
       ],
     );
   }

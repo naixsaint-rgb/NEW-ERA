@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:newera/core/contexto.dart';
 import 'package:newera/core/enrutado/familia_shell.dart';
@@ -113,4 +114,42 @@ void main() {
       expect(find.byKey(ClavesUi.pestana(slug)), findsOneWidget, reason: slug);
     }
   });
+
+  testWidgets('el botón Más solo sale en las pestañas, no en las anidadas', (
+    tester,
+  ) async {
+    final entorno = await tester.runAsync(
+      () => prepararEntorno(perfil: PerfilApp.familia),
+    );
+    await montarApp(tester, entorno!, rutaInicial: '/familia/medicacion');
+    await pasar(tester, const Duration(seconds: 1));
+    expect(find.byKey(ClavesUi.pestana('mas')), findsOneWidget);
+
+    // Alta de medicamento (anidada, con su AppBar): sin botón Más.
+    await tester.tap(find.text('Añadir medicamento'));
+    await pasar(tester, const Duration(seconds: 1));
+    expect(find.byKey(ClavesUi.pestana('mas')), findsNothing);
+    expect(find.byType(AppBar), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
+  for (final ruta in [
+    '/familia/medicacion/nuevo',
+    '/familia/ideas/resumen',
+    '/familia/ideas/tema/cobre_metales',
+    '/familia/alarmas/control-horas',
+  ]) {
+    testWidgets('sin botón Más en la pantalla anidada $ruta', (tester) async {
+      final entorno = await tester.runAsync(
+        () => prepararEntorno(perfil: PerfilApp.familia),
+      );
+      await montarApp(tester, entorno!, rutaInicial: ruta);
+      await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 300)),
+      );
+      await pasar(tester, const Duration(seconds: 1));
+      expect(find.byKey(ClavesUi.pestana('mas')), findsNothing);
+      expect(tester.takeException(), isNull);
+    });
+  }
 }

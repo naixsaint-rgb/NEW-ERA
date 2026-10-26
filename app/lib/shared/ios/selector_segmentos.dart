@@ -8,8 +8,8 @@ import '../../core/tema/colores.dart';
 ///
 /// Cada segmento mide [altoMinimo] (48 por defecto, el mínimo táctil de
 /// Android). [clave] da la `Key` de cada segmento para los tests, p. ej.
-/// `clave: (v) => ClavesUi.segmento(v.name)`. Las etiquetas largas pasan a
-/// dos líneas en vez de cortarse.
+/// `clave: (v) => ClavesUi.segmento(v.name)`. Las etiquetas largas encogen
+/// (nunca se parten a media palabra ni se recortan).
 class SelectorSegmentos<T extends Object> extends StatelessWidget {
   const SelectorSegmentos({
     super.key,
@@ -47,16 +47,20 @@ class SelectorSegmentos<T extends Object> extends StatelessWidget {
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
-                child: Text(
-                  etiqueta(v),
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  style: base?.copyWith(
-                    fontSize: 13,
-                    color: c.texto,
-                    fontWeight: v == seleccionado
-                        ? FontWeight.w700
-                        : FontWeight.w600,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    etiqueta(v),
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    softWrap: false,
+                    style: base?.copyWith(
+                      fontSize: 13,
+                      color: c.texto,
+                      fontWeight: v == seleccionado
+                          ? FontWeight.w700
+                          : FontWeight.w600,
+                    ),
                   ),
                 ),
               ),

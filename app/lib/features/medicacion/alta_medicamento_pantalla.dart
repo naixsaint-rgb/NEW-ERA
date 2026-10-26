@@ -83,6 +83,7 @@ class _AltaState extends ConsumerState<AltaMedicamentoPantalla> {
   Widget build(BuildContext context) {
     final l = context.l;
     final t = Theme.of(context).textTheme;
+    final c = context.colores;
     final esWeb = ref.watch(esDemoWebProvider);
     final formas = {
       'redonda': l.formaRedonda,
@@ -128,6 +129,7 @@ class _AltaState extends ConsumerState<AltaMedicamentoPantalla> {
                     decoration: InputDecoration(
                       labelText: l.nombreParaPersona,
                       helperText: l.nombreParaPersonaAyuda,
+                      helperMaxLines: 3,
                       border: const OutlineInputBorder(),
                     ),
                     validator: (s) => (s == null || s.trim().isEmpty)
@@ -157,9 +159,14 @@ class _AltaState extends ConsumerState<AltaMedicamentoPantalla> {
                     children: [
                       for (final e in nombresColor.entries)
                         ChoiceChip(
-                          avatar: CircleAvatar(
-                            backgroundColor: coloresPastilla[e.key],
-                            radius: 10,
+                          avatar: Container(
+                            width: 20,
+                            height: 20,
+                            decoration: BoxDecoration(
+                              color: coloresPastilla[e.key],
+                              shape: BoxShape.circle,
+                              border: Border.all(color: c.gris),
+                            ),
                           ),
                           label: Text(e.value),
                           selected: _color == e.key,

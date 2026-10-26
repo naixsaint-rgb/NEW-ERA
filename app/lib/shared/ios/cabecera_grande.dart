@@ -86,13 +86,20 @@ class CabeceraGrande extends StatelessWidget {
                           letterSpacing: 0.4,
                         ),
                       ),
-                    Semantics(
-                      header: true,
-                      child: Text(
-                        titulo,
-                        style: t.headlineLarge?.copyWith(
-                          color: c.texto,
-                          height: 1.1,
+                    // El título de 34 se limita a 1,5x: al 200 % se partiría a
+                    // media palabra.
+                    MediaQuery.withClampedTextScaling(
+                      maxScaleFactor: 1.5,
+                      child: Semantics(
+                        header: true,
+                        child: Text(
+                          titulo,
+                          maxLines: 2,
+                          softWrap: true,
+                          style: t.headlineLarge?.copyWith(
+                            color: c.texto,
+                            height: 1.1,
+                          ),
                         ),
                       ),
                     ),

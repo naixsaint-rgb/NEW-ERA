@@ -175,4 +175,83 @@ void main() {
     await pasar(tester, const Duration(seconds: 1));
     expect(find.byKey(ClavesUi.loSiguiente), findsOneWidget);
   });
+
+  testWidgets('alta de medicamento: comprobación en segmentos, hora fija y '
+      'muestras con borde', (tester) async {
+    final manejador = tester.ensureSemantics();
+    final entorno = await tester.runAsync(
+      () => prepararEntorno(perfil: PerfilApp.familia),
+    );
+    await montarApp(tester, entorno!, rutaInicial: '/familia/medicacion/nuevo');
+    await pasar(tester, const Duration(seconds: 1));
+
+    // La ayuda del nombre admite hasta tres líneas.
+    final ayuda = tester.widget<InputDecorator>(
+      find.descendant(
+        of: find.widgetWithText(TextFormField, 'Nombre para la persona'),
+        matching: find.byType(InputDecorator),
+      ),
+    );
+    expect(ayuda.decoration.helperMaxLines, 3);
+
+    // La muestra "Blanco" lleva un borde de 1 px.
+    await tester.scrollUntilVisible(
+      find.widgetWithText(ChoiceChip, 'Blanco'),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    final blanco = find.descendant(
+      of: find.widgetWithText(ChoiceChip, 'Blanco'),
+      matching: find.byType(Container),
+    );
+    final decoracion = tester
+        .widgetList<Container>(blanco)
+        .map((c) => c.decoration)
+        .whereType<BoxDecoration>()
+        .where((d) => d.shape == BoxShape.circle)
+        .single;
+    expect(decoracion.border, isNotNull);
+    expect(decoracion.border!.top.width, 1);
+
+    await tester.scrollUntilVisible(
+      find.text('09:00'),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    // Una sola hora: chip normal, habilitado y sin botón de borrar.
+    expect(find.byType(InputChip), findsNothing);
+    final hora = tester.widget<Chip>(find.widgetWithText(Chip, '09:00'));
+    expect(hora.onDeleted, isNull);
+
+    // Comprobación: selector de segmentos con etiquetas cortas.
+    await tester.scrollUntilVisible(
+      find.text('Cómo se comprueba'),
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(find.byType(SegmentedButton<Object>), findsNothing);
+    for (final v in ['video', 'foto', 'ninguna']) {
+      expect(
+        find.byKey(ClavesUi.segmento('comprobacion_$v')),
+        findsOneWidget,
+        reason: v,
+      );
+    }
+    expect(find.text('Vídeo'), findsOneWidget);
+    expect(find.text('Ninguna'), findsOneWidget);
+    // El vídeo está elegido por defecto y su duración sale como ayuda.
+    expect(find.text('Vídeo de 10 s'), findsOneWidget);
+    await tester.ensureVisible(
+      find.byKey(ClavesUi.segmento('comprobacion_ninguna')),
+    );
+    await tester.pump();
+    await tester.tap(find.byKey(ClavesUi.segmento('comprobacion_ninguna')));
+    await pasar(tester, const Duration(milliseconds: 500));
+    expect(find.text('Vídeo de 10 s'), findsNothing);
+
+    await expectLater(tester, meetsGuideline(textContrastGuideline));
+    await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
+    expect(tester.takeException(), isNull);
+    manejador.dispose();
+  });
 }

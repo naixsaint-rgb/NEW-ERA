@@ -2300,6 +2300,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'{fecha}, {hora}'**
   String fixFechaHora(String fecha, String hora);
+
+  /// No description provided for @fixComprobacionVideoCorto.
+  ///
+  /// In es, this message translates to:
+  /// **'Vídeo'**
+  String get fixComprobacionVideoCorto;
 }
 
 class _AppLocalizationsDelegate

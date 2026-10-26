@@ -1007,5 +1007,6 @@
         "type": "String"
       }
     }
-  }
+  },
+  "fixComprobacionVideoCorto": "Vídeo"
 }

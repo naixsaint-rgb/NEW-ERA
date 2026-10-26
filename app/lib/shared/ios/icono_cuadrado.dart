@@ -5,7 +5,7 @@ import '../../core/tema/colores.dart';
 /// Icono de 30×30 de las listas de iOS (decorativo: no se lee).
 ///
 /// Cuadrado (radio 8): fondo de color ([fondo], azul por defecto) y símbolo
-/// blanco. Redondo ([redondo]): fondo claro (azulClaro por defecto) y símbolo
+/// blanco (o oscuro si el fondo es claro). Redondo ([redondo]): fondo claro (azulClaro por defecto) y símbolo
 /// de color, para estados. Sobre fondos naranjas pasa
 /// `color: context.colores.sobreNaranja`.
 class IconoCuadrado extends StatelessWidget {
@@ -28,11 +28,20 @@ class IconoCuadrado extends StatelessWidget {
   final bool redondo;
   final double tamano;
 
+  /// Símbolo legible sobre [fondo]: el de más contraste entre el blanco y el
+  /// texto oscuro de la paleta (p. ej. oscuro sobre el índigo de la noche).
+  static Color simboloSobre(Color fondo) {
+    final l = fondo.computeLuminance() + 0.05;
+    final conBlanco = 1.05 / l;
+    final conOscuro = l / (Colores.texto.computeLuminance() + 0.05);
+    return conOscuro > conBlanco ? Colores.texto : Colores.blanco;
+  }
+
   @override
   Widget build(BuildContext context) {
     final c = context.colores;
     final relleno = fondo ?? (redondo ? c.azulClaro : c.azul);
-    final simbolo = color ?? (redondo ? c.azul : Colores.blanco);
+    final simbolo = color ?? (redondo ? c.azul : simboloSobre(relleno));
     return ExcludeSemantics(
       child: Container(
         width: tamano,

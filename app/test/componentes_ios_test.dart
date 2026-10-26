@@ -372,4 +372,125 @@ void main() {
     expect(activa.color, Colores.azul);
     expect(inactiva.color, Colores.textoSecundario);
   });
+
+  group('texto al 200 %', () {
+    testWidgets('el selector encoge las etiquetas en vez de partirlas', (
+      tester,
+    ) async {
+      tester.platformDispatcher.textScaleFactorTestValue = 2.0;
+      addTearDown(tester.platformDispatcher.clearAllTestValues);
+      tester.view.physicalSize = const Size(390 * 3, 844 * 3);
+      tester.view.devicePixelRatio = 3;
+      addTearDown(tester.view.reset);
+      const etiquetas = {
+        'ayer': 'Ayer',
+        'hoy': 'Hoy',
+        'manana': 'Mañana',
+        'semana': 'Semana',
+        'auto': 'Automático',
+        'noche': 'Oscuro',
+      };
+      await _montar(
+        tester,
+        SelectorSegmentos<String>(
+          valores: etiquetas.keys.toList(),
+          etiqueta: (v) => etiquetas[v]!,
+          seleccionado: 'hoy',
+          clave: ClavesUi.segmento,
+          alCambiar: (_) {},
+        ),
+      );
+      expect(tester.takeException(), isNull);
+      for (final e in etiquetas.entries) {
+        final segmento = find.byKey(ClavesUi.segmento(e.key));
+        final texto = find.descendant(
+          of: segmento,
+          matching: find.text(e.value),
+        );
+        expect(texto, findsOneWidget, reason: e.value);
+        final t = tester.widget<Text>(texto);
+        expect(t.maxLines, 1);
+        expect(t.softWrap, isFalse);
+        // La etiqueta cabe dentro de su segmento (encoge, no se recorta).
+        final caja = find.descendant(
+          of: segmento,
+          matching: find.byType(FittedBox),
+        );
+        expect(caja, findsOneWidget, reason: e.value);
+        expect(
+          tester.getSize(caja).width,
+          lessThanOrEqualTo(tester.getSize(segmento).width),
+          reason: e.value,
+        );
+        expect(
+          tester.getSize(segmento).height,
+          greaterThanOrEqualTo(48),
+          reason: e.value,
+        );
+      }
+    });
+
+    testWidgets('la cabecera limita la escala del título a 1,5', (
+      tester,
+    ) async {
+      tester.platformDispatcher.textScaleFactorTestValue = 2.0;
+      addTearDown(tester.platformDispatcher.clearAllTestValues);
+      await _montar(tester, const CabeceraGrande(titulo: 'Medicación'));
+      expect(tester.takeException(), isNull);
+      expect(find.text('Medicación'), findsOneWidget);
+      final texto = find.text('Medicación');
+      final escala = MediaQuery.textScalerOf(tester.element(texto));
+      expect(escala.scale(10), closeTo(15, 0.001));
+      expect(tester.widget<Text>(texto).maxLines, 2);
+    });
+  });
+
+  group('IconoCuadrado', () {
+    double contraste(Color a, Color b) {
+      final la = a.computeLuminance() + 0.05;
+      final lb = b.computeLuminance() + 0.05;
+      return la > lb ? la / lb : lb / la;
+    }
+
+    test('símbolo blanco u oscuro según el fondo, siempre el más legible', () {
+      expect(IconoCuadrado.simboloSobre(Colores.azul), Colores.blanco);
+      expect(IconoCuadrado.simboloSobre(Colores.verde), Colores.blanco);
+      // El índigo de la noche (#8E8AFF) no admite blanco (2,9:1).
+      expect(IconoCuadrado.simboloSobre(ColoresOscuro.indigo), Colores.texto);
+      expect(
+        contraste(
+          ColoresOscuro.indigo,
+          IconoCuadrado.simboloSobre(ColoresOscuro.indigo),
+        ),
+        greaterThanOrEqualTo(4.5),
+      );
+    });
+
+    testWidgets('sin color, el símbolo se elige por el fondo', (tester) async {
+      await _montar(
+        tester,
+        const IconoCuadrado(
+          CupertinoIcons.doc_text_fill,
+          fondo: ColoresOscuro.indigo,
+        ),
+        oscuro: true,
+      );
+      expect(tester.widget<Icon>(find.byType(Icon)).color, Colores.texto);
+      await _montar(
+        tester,
+        const IconoCuadrado(CupertinoIcons.doc_text_fill, fondo: Colores.verde),
+      );
+      expect(tester.widget<Icon>(find.byType(Icon)).color, Colores.blanco);
+      // Con color explícito, se respeta.
+      await _montar(
+        tester,
+        const IconoCuadrado(
+          CupertinoIcons.doc_text_fill,
+          fondo: Colores.verde,
+          color: Colores.texto,
+        ),
+      );
+      expect(tester.widget<Icon>(find.byType(Icon)).color, Colores.texto);
+    });
+  });
 }

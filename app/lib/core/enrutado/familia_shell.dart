@@ -37,11 +37,11 @@ class PestanaFamilia {
   /// Fondo del icono cuadrado en "Más" y el color de su símbolo.
   (Color fondo, Color simbolo) coloresEnMas(ColoresApp c) => switch (slug) {
     'calendario' => (c.rojo, c.sobreRojo),
-    'consultas' => (c.indigo, Colores.blanco),
+    'consultas' => (c.indigo, IconoCuadrado.simboloSobre(c.indigo)),
     'alarmas' => (c.naranjaRelleno, c.sobreNaranja),
-    'voces' => (c.morado, Colores.blanco),
+    'voces' => (c.morado, IconoCuadrado.simboloSobre(c.morado)),
     'circulo' => (c.verde, c.sobreVerde),
-    'ajustes' => (c.gris, Colores.blanco),
+    'ajustes' => (c.gris, IconoCuadrado.simboloSobre(c.gris)),
     _ => (c.azul, c.sobreAzul),
   };
 }
@@ -148,15 +148,20 @@ class FamiliaShell extends ConsumerWidget {
     // El círculo de 40 queda a 12 de la zona segura y a 20 del borde; la zona
     // táctil (48) sobresale 4 por cada lado.
     const sobra = (BotonMas.zonaTactil - BotonMas.diametro) / 2;
+    // Solo en las pestañas de primer nivel: en las pantallas anidadas (con su
+    // AppBar) taparía el título.
+    final ruta = GoRouterState.of(context).uri.path;
+    final enPestana = Rutas.slugs.any((s) => ruta == Rutas.pestana(s));
     return Scaffold(
       body: Stack(
         children: [
           Positioned.fill(child: navigationShell),
-          PositionedDirectional(
-            top: arriba + 12 - sobra,
-            end: 20 - sobra,
-            child: BotonMas(iniciales: ref.watch(inicialesUsuarioProvider)),
-          ),
+          if (enPestana)
+            PositionedDirectional(
+              top: arriba + 12 - sobra,
+              end: 20 - sobra,
+              child: BotonMas(iniciales: ref.watch(inicialesUsuarioProvider)),
+            ),
         ],
       ),
       bottomNavigationBar: BarraPestanas(
