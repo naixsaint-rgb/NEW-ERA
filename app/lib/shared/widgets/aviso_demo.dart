@@ -5,8 +5,8 @@ import '../l10n_ext.dart';
 
 /// Banner fijo de la demo web: datos de ejemplo, sin cifrar.
 ///
-/// Discreto: una franja tintada de naranja con texto de 13 y el botón
-/// "Cambiar perfil" subrayado; se lee en claro y en oscuro.
+/// Discreto: una sola línea tintada de naranja con texto de 13 y el botón
+/// "Cambiar perfil" subrayado a la derecha; se lee en claro y en oscuro.
 class AvisoDemo extends StatelessWidget {
   const AvisoDemo({super.key, required this.alCambiarPerfil});
 
@@ -23,21 +23,22 @@ class AvisoDemo extends StatelessWidget {
         bottom: false,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-          child: Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 8,
+          child: Row(
             children: [
-              Text(
-                l.avisoDemo,
-                style: t.bodySmall?.copyWith(
-                  color: c.texto,
-                  fontWeight: FontWeight.w600,
+              Expanded(
+                child: Text(
+                  l.avisoDemo,
+                  style: t.bodySmall?.copyWith(
+                    color: c.texto,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
               TextButton(
                 onPressed: alCambiarPerfil,
                 style: TextButton.styleFrom(
                   foregroundColor: c.texto,
+                  minimumSize: const Size(44, 44),
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   textStyle: t.bodySmall?.copyWith(
                     fontWeight: FontWeight.w700,

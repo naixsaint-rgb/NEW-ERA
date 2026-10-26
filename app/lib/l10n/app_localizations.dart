@@ -103,7 +103,7 @@ abstract class AppLocalizations {
   /// No description provided for @avisoDemo.
   ///
   /// In es, this message translates to:
-  /// **'Demo con datos de ejemplo. Sin cifrar: no escribas datos reales.'**
+  /// **'Demo con datos de ejemplo, sin cifrar.'**
   String get avisoDemo;
 
   /// No description provided for @cambiarPerfil.

@@ -13,6 +13,8 @@ estudios: `catalogo/`. Decisiones del promotor: `docs/vault/01-promotor/`.
 - **ENOLA**: parar todo y explicar con detalle qué se estaba haciendo, por qué y qué falta.
 - **NACHO**: cada respuesta al promotor empieza por NACHO (una vez por respuesta). En documentos,
   el título y los encabezados `##` empiezan por "NACHO · ". Es un canario de memoria.
+- **TRIÁNGULO**: autoriza el rediseño de la interfaz (dada el 26/10/2026 para la interfaz iOS de
+  `docs/vault/specs/interfaz-ios.md`). Antes de tocar la interfaz se enseñan opciones y se espera la palabra.
 
 ## Postura de investigación (la fija el promotor; no se discute)
 - El promotor investiga por su cuenta y saca sus propias conclusiones. Nadie de la industria médica

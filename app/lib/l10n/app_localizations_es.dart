@@ -13,8 +13,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get appTitulo => 'NEW-ERA';
 
   @override
-  String get avisoDemo =>
-      'Demo con datos de ejemplo. Sin cifrar: no escribas datos reales.';
+  String get avisoDemo => 'Demo con datos de ejemplo, sin cifrar.';
 
   @override
   String get cambiarPerfil => 'Cambiar perfil';

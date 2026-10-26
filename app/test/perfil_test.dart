@@ -69,7 +69,7 @@ void main() {
     await pasar(tester, const Duration(seconds: 1));
     expect(
       find.text(
-        'Demo con datos de ejemplo. Sin cifrar: no escribas datos reales.',
+        'Demo con datos de ejemplo, sin cifrar.',
       ),
       findsOneWidget,
     );

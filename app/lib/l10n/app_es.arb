@@ -1,7 +1,7 @@
 {
   "@@locale": "es",
   "appTitulo": "NEW-ERA",
-  "avisoDemo": "Demo con datos de ejemplo. Sin cifrar: no escribas datos reales.",
+  "avisoDemo": "Demo con datos de ejemplo, sin cifrar.",
   "cambiarPerfil": "Cambiar perfil",
   "cambiarPerfilAyuda": "Vuelve a elegir de quién es este móvil.",
   "perfilTitulo": "¿De quién es este móvil?",
