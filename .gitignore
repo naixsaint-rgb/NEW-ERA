@@ -43,3 +43,6 @@ __pycache__/
 *.pyc
 .venv/
 node_modules/
+
+# Worktrees temporales de los agentes
+.claude/worktrees/
