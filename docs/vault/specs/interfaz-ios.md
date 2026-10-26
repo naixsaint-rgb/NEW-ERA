@@ -217,3 +217,26 @@ con el aviso; no se pintan respuestas.
   cada pantalla nueva trae su test de widget y pasa `textContrastGuideline` y `androidTapTargetGuideline`.
 - `flutter analyze` sin avisos; `dart format`.
 - Commits en castellano, Conventional Commits con ámbito (`feat(ui): …`, `feat(hoy): …`).
+
+## NACHO · 9. Decisiones tomadas al construir (26/10/2026)
+Lo que los constructores decidieron donde la spec no llegaba, para que no se pierda:
+- Cabecera: `CabeceraGrande(titulo:, vispera:, accion:, alVolver:, reservarBotonMas:)`; la víspera y los títulos de
+  sección se muestran en mayúsculas (el lector de pantalla lee el texto normal). El botón "Más" lo pinta el shell
+  una sola vez, solo en las pestañas de primer nivel; abre Más con `push` y "Volver" regresa a la pestaña.
+- Aspecto: clave `newera.aspecto` en el almacén seguro, leída al arrancar para que el tema no parpadee. La persona
+  siempre en claro. En oscuro todos los rellenos vivos llevan texto negro (el blanco sobre `#0A84FF` o `#FF453A` no
+  llega a 4,5:1); morado oscuro `#BF5AF2`; fondo "mesa" oscuro `#2C2C2E`.
+- Colores por contraste: `BotonGrande` elige solo texto blanco u oscuro según el color de fondo; `IconoCuadrado`
+  hace lo mismo con el símbolo.
+- Hoy: el selector guarda la vista en el estado de la pantalla (la URL no cambia); `?vista=semana` abre en Semana.
+  Celdas de la semana: completa si todas hechas, naranja si alguna, roja si ninguna hecha y alguna no confirmada.
+  "Hecha" = confirmada, confirmada sin vídeo o cerrada por un familiar (una sola función, `esHecha`).
+- Resumen: el subtítulo del héroe lleva la hora real de la confirmación, no la prevista. Los textos del héroe se
+  ciñen al dato (tomas al día, una toma se retrasa, una toma sin confirmar). El semáforo pasa a naranja cuando
+  vence la hora prevista más los minutos del primer aviso (5) y a rojo a los 30 min.
+- Medicación: el pastillero calcula las tomas de la semana con todas las versiones de las pautas; "Foto de
+  <quien> · <fecha>" sale del evento `medicamento_creado`. El botón "Añadir medicamento" va bajo la cabecera.
+- Persona: a su hora, la tarjeta dice "Es la hora: …" y el botón "Tomarla ahora". En Mis pastillas, "Volver al
+  inicio" va fijo abajo. En la toma, "Llamar" y "Ayuda" usan el mismo helper que el inicio
+  (`persona_inicio/llamadas.dart`). La pregunta no guarda nada y "Prefiero decirlo" cuenta como respuesta.
+- Demo web: CanvasKit se sirve desde la propia carpeta (`app/web/flutter_bootstrap.js`), sin gstatic.com.
