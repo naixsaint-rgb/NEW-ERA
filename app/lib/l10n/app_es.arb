@@ -791,5 +791,132 @@
         "type": "String"
       }
     }
-  }
+  },
+  "resumenEstaBien": "{alias} está bien",
+  "@resumenEstaBien": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "resumenNecesitaVistazo": "{alias} necesita un vistazo",
+  "@resumenNecesitaVistazo": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "resumenNecesitaAtencion": "{alias} necesita atención",
+  "@resumenNecesitaAtencion": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "resumenUltimaToma": "Toma confirmada a las {hora}: {medicamento} · {quien}, {como}",
+  "@resumenUltimaToma": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      },
+      "medicamento": {
+        "type": "String"
+      },
+      "quien": {
+        "type": "String"
+      },
+      "como": {
+        "type": "String"
+      }
+    }
+  },
+  "resumenSinTomasAun": "Sin tomas aún",
+  "resumenUltimaSenal": "Última señal {hora}",
+  "@resumenUltimaSenal": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "resumenOrigenMovil": "móvil",
+  "resumenOrigenReloj": "reloj",
+  "resumenOrigenFamiliar": "familiar",
+  "resumenTarjetaTomas": "Tomas",
+  "resumenTarjetaVideos": "Vídeos",
+  "resumenTarjetaAvisos": "Avisos",
+  "resumenTarjetaMensaje": "Mensaje",
+  "resumenDeTotal": " de {total}",
+  "@resumenDeTotal": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "resumenSemanticaTomas": "{hechas} de {total} tomas hechas",
+  "@resumenSemanticaTomas": {
+    "placeholders": {
+      "hechas": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "resumenSiguiente": "siguiente {hora}",
+  "@resumenSiguiente": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "resumenSinMasTomas": "sin más tomas",
+  "resumenSinTomasHoy": "Sin tomas hoy",
+  "resumenHoy": "hoy",
+  "resumenVer": "Ver",
+  "resumenAyudaYLlamadas": "ayuda y llamadas, hoy",
+  "resumenMensajeDe": "De {nombre} · {hora}",
+  "@resumenMensajeDe": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      },
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "resumenSinMensajes": "Sin mensajes",
+  "resumenRelojLlega": "Pulso, pasos y sueño llegan con el reloj",
+  "resumenProximaToma": "Próxima toma",
+  "resumenHoraCompartimento": "{hora} · {compartimento}",
+  "@resumenHoraCompartimento": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      },
+      "compartimento": {
+        "type": "String"
+      }
+    }
+  },
+  "resumenAvisoA": "Si no la toma, aviso a {nombre} a las {hora}",
+  "@resumenAvisoA": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      },
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "resumenControlHoras": "Control por horas",
+  "resumenControlRango": "9 a 21 h"
 }

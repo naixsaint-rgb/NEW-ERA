@@ -16,7 +16,6 @@ import '../../shared/l10n_ext.dart';
 import '../../shared/pictogramas/pastilla_pictograma.dart';
 import '../../shared/widgets/tarjeta_grande.dart';
 import '../hoy/dominio/tomas.dart';
-import '../hoy/hoy_pantalla.dart' show nombresAutoresProvider;
 import 'formulario_pauta.dart';
 import 'pastillero.dart';
 

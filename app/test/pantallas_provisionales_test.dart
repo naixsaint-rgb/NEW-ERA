@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:newera/core/contexto.dart';
 import 'package:newera/features/persona_pastillas/persona_pastillas_pantalla.dart';
 import 'package:newera/features/pregunta/pregunta_pantalla.dart';
-import 'package:newera/features/resumen/resumen_pantalla.dart';
 import 'package:newera/shared/claves_ui.dart';
 
 import 'utiles/app_prueba.dart';
@@ -10,25 +9,6 @@ import 'utiles/app_prueba.dart';
 /// Pantallas provisionales de la fase 1: existen, se leen bien y se sale de
 /// ellas. Las pantallas de verdad las sustituyen.
 void main() {
-  testWidgets('Resumen: pestaña con su cabecera y el aviso', (tester) async {
-    final manejador = tester.ensureSemantics();
-    final entorno = await tester.runAsync(
-      () => prepararEntorno(perfil: PerfilApp.familia),
-    );
-    await montarApp(tester, entorno!);
-    await pasar(tester, const Duration(seconds: 1));
-    await tester.tap(find.byKey(ClavesUi.pestana('resumen')));
-    await pasar(tester, const Duration(seconds: 1));
-
-    expect(find.byType(ResumenPantalla), findsOneWidget);
-    expect(find.byKey(ClavesUi.pantallaResumen), findsOneWidget);
-    expect(find.text('Resumen'), findsWidgets);
-    expect(find.text('En construcción'), findsOneWidget);
-    await expectLater(tester, meetsGuideline(textContrastGuideline));
-    await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
-    manejador.dispose();
-  });
-
   testWidgets('Mis pastillas (persona): "Volver al inicio" vuelve', (
     tester,
   ) async {

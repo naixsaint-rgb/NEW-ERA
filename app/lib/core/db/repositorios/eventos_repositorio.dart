@@ -137,4 +137,43 @@ class EventosRepositorio {
   }
 
   static Map<String, Object?> payloadDe(Evento e) => _decodificar(e.payload);
+
+  /// Eventos desde [desde] (incluido), del más antiguo al más reciente.
+  /// Con [tipos], solo esos tipos (nombres guardados, p. ej. `ayuda_pedida`).
+  Stream<List<Evento>> observarEventosDesde(
+    DateTime desde, {
+    Set<String>? tipos,
+  }) {
+    final q = _db.select(_db.eventos)
+      ..where((e) {
+        final reciente = e.ocurridoEn.isBiggerOrEqualValue(
+          desde.millisecondsSinceEpoch,
+        );
+        return tipos == null ? reciente : reciente & e.tipo.isIn(tipos);
+      })
+      ..orderBy([
+        (e) => OrderingTerm.asc(e.ocurridoEn),
+        (e) => OrderingTerm.asc(e.ulid),
+      ]);
+    return q.watch();
+  }
+
+  /// Último evento de alguno de los [tipos], opcionalmente de un [autor].
+  Stream<Evento?> observarUltimoEvento({
+    required Set<String> tipos,
+    String? autor,
+  }) {
+    final q = _db.select(_db.eventos)
+      ..where(
+        (e) => autor == null
+            ? e.tipo.isIn(tipos)
+            : e.tipo.isIn(tipos) & e.autor.equals(autor),
+      )
+      ..orderBy([
+        (e) => OrderingTerm.desc(e.ocurridoEn),
+        (e) => OrderingTerm.desc(e.ulid),
+      ])
+      ..limit(1);
+    return q.watchSingleOrNull();
+  }
 }

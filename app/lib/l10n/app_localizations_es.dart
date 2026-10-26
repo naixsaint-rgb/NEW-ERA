@@ -1075,4 +1075,118 @@ class AppLocalizationsEs extends AppLocalizations {
   String medicHorasUnidas(String resto, String ultima) {
     return '$resto y $ultima';
   }
+
+  @override
+  String resumenEstaBien(String alias) {
+    return '$alias está bien';
+  }
+
+  @override
+  String resumenNecesitaVistazo(String alias) {
+    return '$alias necesita un vistazo';
+  }
+
+  @override
+  String resumenNecesitaAtencion(String alias) {
+    return '$alias necesita atención';
+  }
+
+  @override
+  String resumenUltimaToma(
+    String hora,
+    String medicamento,
+    String quien,
+    String como,
+  ) {
+    return 'Toma confirmada a las $hora: $medicamento · $quien, $como';
+  }
+
+  @override
+  String get resumenSinTomasAun => 'Sin tomas aún';
+
+  @override
+  String resumenUltimaSenal(String hora) {
+    return 'Última señal $hora';
+  }
+
+  @override
+  String get resumenOrigenMovil => 'móvil';
+
+  @override
+  String get resumenOrigenReloj => 'reloj';
+
+  @override
+  String get resumenOrigenFamiliar => 'familiar';
+
+  @override
+  String get resumenTarjetaTomas => 'Tomas';
+
+  @override
+  String get resumenTarjetaVideos => 'Vídeos';
+
+  @override
+  String get resumenTarjetaAvisos => 'Avisos';
+
+  @override
+  String get resumenTarjetaMensaje => 'Mensaje';
+
+  @override
+  String resumenDeTotal(int total) {
+    return ' de $total';
+  }
+
+  @override
+  String resumenSemanticaTomas(int hechas, int total) {
+    return '$hechas de $total tomas hechas';
+  }
+
+  @override
+  String resumenSiguiente(String hora) {
+    return 'siguiente $hora';
+  }
+
+  @override
+  String get resumenSinMasTomas => 'sin más tomas';
+
+  @override
+  String get resumenSinTomasHoy => 'Sin tomas hoy';
+
+  @override
+  String get resumenHoy => 'hoy';
+
+  @override
+  String get resumenVer => 'Ver';
+
+  @override
+  String get resumenAyudaYLlamadas => 'ayuda y llamadas, hoy';
+
+  @override
+  String resumenMensajeDe(String nombre, String hora) {
+    return 'De $nombre · $hora';
+  }
+
+  @override
+  String get resumenSinMensajes => 'Sin mensajes';
+
+  @override
+  String get resumenRelojLlega => 'Pulso, pasos y sueño llegan con el reloj';
+
+  @override
+  String get resumenProximaToma => 'Próxima toma';
+
+  @override
+  String resumenHoraCompartimento(String hora, String compartimento) {
+    return '$hora · $compartimento';
+  }
+
+  @override
+  String resumenAvisoA(String nombre, String hora) {
+    return 'Si no la toma, aviso a $nombre a las $hora';
+  }
+
+  @override
+  String get resumenControlHoras => 'Control por horas';
+
+  @override
+  String get resumenControlRango => '9 a 21 h';
 }

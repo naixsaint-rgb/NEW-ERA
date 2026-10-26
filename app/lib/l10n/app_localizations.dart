@@ -1959,6 +1959,185 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'{resto} y {ultima}'**
   String medicHorasUnidas(String resto, String ultima);
+
+  /// No description provided for @resumenEstaBien.
+  ///
+  /// In es, this message translates to:
+  /// **'{alias} está bien'**
+  String resumenEstaBien(String alias);
+
+  /// No description provided for @resumenNecesitaVistazo.
+  ///
+  /// In es, this message translates to:
+  /// **'{alias} necesita un vistazo'**
+  String resumenNecesitaVistazo(String alias);
+
+  /// No description provided for @resumenNecesitaAtencion.
+  ///
+  /// In es, this message translates to:
+  /// **'{alias} necesita atención'**
+  String resumenNecesitaAtencion(String alias);
+
+  /// No description provided for @resumenUltimaToma.
+  ///
+  /// In es, this message translates to:
+  /// **'Toma confirmada a las {hora}: {medicamento} · {quien}, {como}'**
+  String resumenUltimaToma(
+    String hora,
+    String medicamento,
+    String quien,
+    String como,
+  );
+
+  /// No description provided for @resumenSinTomasAun.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin tomas aún'**
+  String get resumenSinTomasAun;
+
+  /// No description provided for @resumenUltimaSenal.
+  ///
+  /// In es, this message translates to:
+  /// **'Última señal {hora}'**
+  String resumenUltimaSenal(String hora);
+
+  /// No description provided for @resumenOrigenMovil.
+  ///
+  /// In es, this message translates to:
+  /// **'móvil'**
+  String get resumenOrigenMovil;
+
+  /// No description provided for @resumenOrigenReloj.
+  ///
+  /// In es, this message translates to:
+  /// **'reloj'**
+  String get resumenOrigenReloj;
+
+  /// No description provided for @resumenOrigenFamiliar.
+  ///
+  /// In es, this message translates to:
+  /// **'familiar'**
+  String get resumenOrigenFamiliar;
+
+  /// No description provided for @resumenTarjetaTomas.
+  ///
+  /// In es, this message translates to:
+  /// **'Tomas'**
+  String get resumenTarjetaTomas;
+
+  /// No description provided for @resumenTarjetaVideos.
+  ///
+  /// In es, this message translates to:
+  /// **'Vídeos'**
+  String get resumenTarjetaVideos;
+
+  /// No description provided for @resumenTarjetaAvisos.
+  ///
+  /// In es, this message translates to:
+  /// **'Avisos'**
+  String get resumenTarjetaAvisos;
+
+  /// No description provided for @resumenTarjetaMensaje.
+  ///
+  /// In es, this message translates to:
+  /// **'Mensaje'**
+  String get resumenTarjetaMensaje;
+
+  /// No description provided for @resumenDeTotal.
+  ///
+  /// In es, this message translates to:
+  /// **' de {total}'**
+  String resumenDeTotal(int total);
+
+  /// No description provided for @resumenSemanticaTomas.
+  ///
+  /// In es, this message translates to:
+  /// **'{hechas} de {total} tomas hechas'**
+  String resumenSemanticaTomas(int hechas, int total);
+
+  /// No description provided for @resumenSiguiente.
+  ///
+  /// In es, this message translates to:
+  /// **'siguiente {hora}'**
+  String resumenSiguiente(String hora);
+
+  /// No description provided for @resumenSinMasTomas.
+  ///
+  /// In es, this message translates to:
+  /// **'sin más tomas'**
+  String get resumenSinMasTomas;
+
+  /// No description provided for @resumenSinTomasHoy.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin tomas hoy'**
+  String get resumenSinTomasHoy;
+
+  /// No description provided for @resumenHoy.
+  ///
+  /// In es, this message translates to:
+  /// **'hoy'**
+  String get resumenHoy;
+
+  /// No description provided for @resumenVer.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver'**
+  String get resumenVer;
+
+  /// No description provided for @resumenAyudaYLlamadas.
+  ///
+  /// In es, this message translates to:
+  /// **'ayuda y llamadas, hoy'**
+  String get resumenAyudaYLlamadas;
+
+  /// No description provided for @resumenMensajeDe.
+  ///
+  /// In es, this message translates to:
+  /// **'De {nombre} · {hora}'**
+  String resumenMensajeDe(String nombre, String hora);
+
+  /// No description provided for @resumenSinMensajes.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin mensajes'**
+  String get resumenSinMensajes;
+
+  /// No description provided for @resumenRelojLlega.
+  ///
+  /// In es, this message translates to:
+  /// **'Pulso, pasos y sueño llegan con el reloj'**
+  String get resumenRelojLlega;
+
+  /// No description provided for @resumenProximaToma.
+  ///
+  /// In es, this message translates to:
+  /// **'Próxima toma'**
+  String get resumenProximaToma;
+
+  /// No description provided for @resumenHoraCompartimento.
+  ///
+  /// In es, this message translates to:
+  /// **'{hora} · {compartimento}'**
+  String resumenHoraCompartimento(String hora, String compartimento);
+
+  /// No description provided for @resumenAvisoA.
+  ///
+  /// In es, this message translates to:
+  /// **'Si no la toma, aviso a {nombre} a las {hora}'**
+  String resumenAvisoA(String nombre, String hora);
+
+  /// No description provided for @resumenControlHoras.
+  ///
+  /// In es, this message translates to:
+  /// **'Control por horas'**
+  String get resumenControlHoras;
+
+  /// No description provided for @resumenControlRango.
+  ///
+  /// In es, this message translates to:
+  /// **'9 a 21 h'**
+  String get resumenControlRango;
 }
 
 class _AppLocalizationsDelegate
