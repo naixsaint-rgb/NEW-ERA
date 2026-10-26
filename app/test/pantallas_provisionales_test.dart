@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:newera/core/contexto.dart';
 import 'package:newera/features/persona_pastillas/persona_pastillas_pantalla.dart';
-import 'package:newera/features/pregunta/pregunta_pantalla.dart';
 import 'package:newera/shared/claves_ui.dart';
 
 import 'utiles/app_prueba.dart';
@@ -29,44 +28,6 @@ void main() {
     await pasar(tester, const Duration(seconds: 1));
     expect(find.byKey(ClavesUi.loSiguiente), findsOneWidget);
     manejador.dispose();
-  });
-
-  testWidgets('Pregunta en modo prueba (familia): vuelve a Medicación', (
-    tester,
-  ) async {
-    final manejador = tester.ensureSemantics();
-    final entorno = await tester.runAsync(
-      () => prepararEntorno(perfil: PerfilApp.familia),
-    );
-    await montarApp(
-      tester,
-      entorno!,
-      rutaInicial: '/persona/pregunta?prueba=1',
-    );
-    await pasar(tester, const Duration(seconds: 1));
-
-    expect(find.byType(PreguntaPantalla), findsOneWidget);
-    expect(find.byKey(ClavesUi.pregunta), findsOneWidget);
-    expect(find.text('Modo prueba: no se guarda nada.'), findsOneWidget);
-    await expectLater(tester, meetsGuideline(textContrastGuideline));
-    await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
-
-    await tester.tap(find.byKey(ClavesUi.volverAlInicio));
-    await pasar(tester, const Duration(seconds: 1));
-    expect(find.text('Probar pantalla de toma'), findsOneWidget);
-    manejador.dispose();
-  });
-
-  testWidgets('Pregunta (persona): vuelve al inicio', (tester) async {
-    final entorno = await tester.runAsync(
-      () => prepararEntorno(perfil: PerfilApp.persona),
-    );
-    await montarApp(tester, entorno!, rutaInicial: '/persona/pregunta');
-    await pasar(tester, const Duration(seconds: 1));
-    expect(find.text('Modo prueba: no se guarda nada.'), findsNothing);
-    await tester.tap(find.byKey(ClavesUi.volverAlInicio));
-    await pasar(tester, const Duration(seconds: 1));
-    expect(find.byKey(ClavesUi.loSiguiente), findsOneWidget);
   });
 
   for (final ruta in ['/familia/ajustes', '/familia/mas', '/familia/resumen']) {

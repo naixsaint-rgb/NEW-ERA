@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/enrutado/rutas.dart';
 import '../../shared/claves_ui.dart';
+import '../../shared/ios/ios.dart';
 import '../../shared/l10n_ext.dart';
 import '../../shared/widgets/tarjeta_grande.dart';
 import 'datos/catalogo_repositorio.dart';
@@ -36,26 +37,44 @@ class CatalogoPantalla extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l;
     final catalogo = ref.watch(catalogoProvider);
+    final cabecera = Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: CabeceraGrande(titulo: l.pestanaIdeas),
+    );
     return Scaffold(
-      appBar: AppBar(title: Text(l.pestanaIdeas)),
       body: catalogo.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Text(l.catalogoNoCargado),
-          ),
+        loading: () => Column(
+          children: [
+            cabecera,
+            const Expanded(child: Center(child: CircularProgressIndicator())),
+          ],
         ),
-        data: (c) => _Contenido(catalogo: c),
+        error: (e, _) => Column(
+          children: [
+            cabecera,
+            Expanded(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Text(l.catalogoNoCargado),
+                ),
+              ),
+            ),
+          ],
+        ),
+        data: (c) => _Contenido(catalogo: c, cabecera: cabecera),
       ),
     );
   }
 }
 
 class _Contenido extends ConsumerStatefulWidget {
-  const _Contenido({required this.catalogo});
+  const _Contenido({required this.catalogo, required this.cabecera});
 
   final Catalogo catalogo;
+
+  /// Cabecera grande, que se desplaza con la lista.
+  final Widget cabecera;
 
   @override
   ConsumerState<_Contenido> createState() => _ContenidoState();
@@ -93,9 +112,10 @@ class _ContenidoState extends ConsumerState<_Contenido> {
 
     return CustomScrollView(
       slivers: [
+        SliverToBoxAdapter(child: widget.cabecera),
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+            padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -234,7 +254,7 @@ class _ContenidoState extends ConsumerState<_Contenido> {
           ),
         ),
         SliverPadding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
           sliver: SliverList.builder(
             itemCount: filas.length,
             itemBuilder: (context, i) =>

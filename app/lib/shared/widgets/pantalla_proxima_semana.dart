@@ -1,9 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../core/tema/colores.dart';
+import '../ios/ios.dart';
 import '../l10n_ext.dart';
-import 'tarjeta_grande.dart';
 
 /// Pantalla reservada: su título, lo que tendrá y cuándo llega.
+///
+/// Aspecto iOS: cabecera grande y una lista agrupada con dos filas apagadas
+/// ("Lo que tendrá" y "Llega en la semana N"). Si se llegó con un push (hay
+/// adónde volver), la cabecera trae el botón "Volver". Las [acciones] van
+/// debajo.
 class PantallaProximaSemana extends StatelessWidget {
   const PantallaProximaSemana({
     super.key,
@@ -20,30 +28,35 @@ class PantallaProximaSemana extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context).textTheme;
     final l = context.l;
+    final c = context.colores;
+    final abajo = MediaQuery.paddingOf(context).bottom;
+    final router = GoRouter.maybeOf(context);
+    final puedeVolver = router != null && router.canPop();
     return Scaffold(
-      appBar: AppBar(title: Text(titulo)),
+      backgroundColor: c.fondoAgrupado,
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.fromLTRB(20, 0, 20, 24 + abajo),
         children: [
-          TarjetaGrande(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(l.tendraTitulo, style: t.titleMedium),
-                const SizedBox(height: 8),
-                Text(tendra, style: t.bodyLarge),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    const Icon(Icons.event_available),
-                    const SizedBox(width: 8),
-                    Flexible(child: Text(semana, style: t.titleMedium)),
-                  ],
-                ),
-              ],
-            ),
+          CabeceraGrande(
+            titulo: titulo,
+            alVolver: puedeVolver ? router.pop : null,
+          ),
+          const SizedBox(height: 14),
+          GrupoLista(
+            children: [
+              FilaLista(
+                apagada: true,
+                leading: IconoCuadrado(CupertinoIcons.sparkles, fondo: c.gris),
+                titulo: l.tendraTitulo,
+                subtitulo: tendra,
+              ),
+              FilaLista(
+                apagada: true,
+                leading: IconoCuadrado(CupertinoIcons.calendar, fondo: c.gris),
+                titulo: semana,
+              ),
+            ],
           ),
           ...acciones,
         ],

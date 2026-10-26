@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/enrutado/rutas.dart';
+import '../../shared/ios/ios.dart';
 import '../../shared/l10n_ext.dart';
 import '../../shared/widgets/pantalla_proxima_semana.dart';
 
@@ -16,14 +17,15 @@ class AlarmasPantalla extends StatelessWidget {
       tendra: l.alarmasTendra,
       semana: l.llegaEnSemanas(4, 5),
       acciones: [
-        const SizedBox(height: 16),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: OutlinedButton.icon(
-            onPressed: () => context.go(Rutas.controlHoras),
-            icon: const Icon(Icons.schedule),
-            label: Text(l.verControlHoras),
-          ),
+        const SizedBox(height: 14),
+        GrupoLista(
+          children: [
+            FilaLista(
+              leading: const IconoCuadrado(CupertinoIcons.clock_fill),
+              titulo: l.verControlHoras,
+              onTap: () => context.go(Rutas.controlHoras),
+            ),
+          ],
         ),
       ],
     );

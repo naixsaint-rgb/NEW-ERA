@@ -1189,4 +1189,79 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get resumenControlRango => '9 a 21 h';
+
+  @override
+  String preguntaProgreso(String hora, int n) {
+    return '$hora · pregunta $n de 3';
+  }
+
+  @override
+  String preguntaPuntos(int n) {
+    return 'Pregunta $n de 3';
+  }
+
+  @override
+  String preguntaTeLoPregunta(String nombre) {
+    return 'Te lo pregunta $nombre';
+  }
+
+  @override
+  String get preguntaTeLoPreguntaFamilia => 'Te lo pregunta tu familia';
+
+  @override
+  String get preguntaVolverAOir => 'Toca para volver a oírla';
+
+  @override
+  String get preguntaVozLlega => 'La voz grabada llega en la semana 5';
+
+  @override
+  String get preguntaComoEstas => '¿Cómo estás?';
+
+  @override
+  String get preguntaTeDuele => '¿Te duele algo?';
+
+  @override
+  String get preguntaQueHaras => '¿Qué vas a hacer luego?';
+
+  @override
+  String get preguntaRespBien => 'Bien';
+
+  @override
+  String get preguntaRespRegular => 'Regular';
+
+  @override
+  String get preguntaRespMal => 'Mal';
+
+  @override
+  String get preguntaRespNada => 'Nada';
+
+  @override
+  String get preguntaRespUnPoco => 'Un poco';
+
+  @override
+  String get preguntaRespMucho => 'Mucho';
+
+  @override
+  String get preguntaRespPasear => 'Pasear';
+
+  @override
+  String get preguntaRespDescansar => 'Descansar';
+
+  @override
+  String get preguntaRespVerLaTele => 'Ver la tele';
+
+  @override
+  String get preguntaRespOtraCosa => 'Otra cosa';
+
+  @override
+  String get preguntaPrefieroDecirlo => 'Prefiero decirlo';
+
+  @override
+  String get preguntaDecirloLlega => 'Llega en la semana 5';
+
+  @override
+  String get preguntaGracias => 'Gracias';
+
+  @override
+  String get preguntaHasContestado => 'Esto has contestado';
 }

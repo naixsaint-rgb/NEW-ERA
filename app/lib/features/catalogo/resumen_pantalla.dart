@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/enrutado/rutas.dart';
+import '../../shared/ios/ios.dart';
 import '../../shared/l10n_ext.dart';
 import 'datos/catalogo_repositorio.dart';
 import 'estado_filtro.dart';
@@ -28,14 +29,27 @@ class _ResumenState extends ConsumerState<ResumenPantalla> {
   Widget build(BuildContext context) {
     final l = context.l;
     final catalogo = ref.watch(catalogoProvider);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(l.resumenPorGrupo),
-        leading: BackButton(onPressed: () => context.go(Rutas.ideas)),
+    final cabecera = Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: CabeceraGrande(
+        titulo: l.resumenPorGrupo,
+        alVolver: () => context.go(Rutas.ideas),
       ),
+    );
+    return Scaffold(
       body: catalogo.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, _) => Center(child: Text(l.catalogoNoCargado)),
+        loading: () => Column(
+          children: [
+            cabecera,
+            const Expanded(child: Center(child: CircularProgressIndicator())),
+          ],
+        ),
+        error: (_, _) => Column(
+          children: [
+            cabecera,
+            Expanded(child: Center(child: Text(l.catalogoNoCargado))),
+          ],
+        ),
         data: (c) {
           if (!_temaFijado) {
             _tema = c.temas.first.key;
@@ -54,8 +68,9 @@ class _ResumenState extends ConsumerState<ResumenPantalla> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                cabecera,
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
                   child: DropdownButton<String?>(
                     value: _tema,
                     isExpanded: true,

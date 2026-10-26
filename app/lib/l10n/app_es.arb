@@ -918,5 +918,52 @@
     }
   },
   "resumenControlHoras": "Control por horas",
-  "resumenControlRango": "9 a 21 h"
+  "resumenControlRango": "9 a 21 h",
+  "preguntaProgreso": "{hora} · pregunta {n} de 3",
+  "@preguntaProgreso": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      },
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "preguntaPuntos": "Pregunta {n} de 3",
+  "@preguntaPuntos": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "preguntaTeLoPregunta": "Te lo pregunta {nombre}",
+  "@preguntaTeLoPregunta": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "preguntaTeLoPreguntaFamilia": "Te lo pregunta tu familia",
+  "preguntaVolverAOir": "Toca para volver a oírla",
+  "preguntaVozLlega": "La voz grabada llega en la semana 5",
+  "preguntaComoEstas": "¿Cómo estás?",
+  "preguntaTeDuele": "¿Te duele algo?",
+  "preguntaQueHaras": "¿Qué vas a hacer luego?",
+  "preguntaRespBien": "Bien",
+  "preguntaRespRegular": "Regular",
+  "preguntaRespMal": "Mal",
+  "preguntaRespNada": "Nada",
+  "preguntaRespUnPoco": "Un poco",
+  "preguntaRespMucho": "Mucho",
+  "preguntaRespPasear": "Pasear",
+  "preguntaRespDescansar": "Descansar",
+  "preguntaRespVerLaTele": "Ver la tele",
+  "preguntaRespOtraCosa": "Otra cosa",
+  "preguntaPrefieroDecirlo": "Prefiero decirlo",
+  "preguntaDecirloLlega": "Llega en la semana 5",
+  "preguntaGracias": "Gracias",
+  "preguntaHasContestado": "Esto has contestado"
 }

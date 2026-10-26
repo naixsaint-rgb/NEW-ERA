@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/enrutado/rutas.dart';
 import '../../l10n/app_localizations.dart';
+import '../../shared/ios/ios.dart';
 import '../../shared/l10n_ext.dart';
 import '../../shared/widgets/tarjeta_grande.dart';
 import 'datos/catalogo_repositorio.dart';
@@ -34,20 +35,34 @@ class DosierPantalla extends ConsumerWidget {
     final l = context.l;
     final t = Theme.of(context).textTheme;
     final catalogo = ref.watch(catalogoProvider);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(l.dosierTitulo),
-        leading: BackButton(onPressed: () => context.go(Rutas.ideas)),
+    final cabecera = Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: CabeceraGrande(
+        titulo: l.dosierTitulo,
+        alVolver: () => context.go(Rutas.ideas),
       ),
+    );
+    Widget conCabecera(Widget centro) => Column(
+      children: [
+        cabecera,
+        Expanded(child: Center(child: centro)),
+      ],
+    );
+    return Scaffold(
       body: catalogo.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, _) => Center(child: Text(l.catalogoNoCargado)),
+        loading: () => conCabecera(const CircularProgressIndicator()),
+        error: (_, _) => conCabecera(Text(l.catalogoNoCargado)),
         data: (c) {
           final tema = c.tema(temaKey);
-          if (tema == null) return Center(child: Text(l.temaNoEncontrado));
+          if (tema == null) return conCabecera(Text(l.temaNoEncontrado));
           return ListView(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
             children: [
+              CabeceraGrande(
+                titulo: l.dosierTitulo,
+                alVolver: () => context.go(Rutas.ideas),
+              ),
+              const SizedBox(height: 14),
               Text(tema.titulo, style: t.headlineSmall),
               const SizedBox(height: 4),
               Text(l.nFilas(tema.nFilas), style: t.bodyMedium),

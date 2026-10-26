@@ -2138,6 +2138,144 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'9 a 21 h'**
   String get resumenControlRango;
+
+  /// No description provided for @preguntaProgreso.
+  ///
+  /// In es, this message translates to:
+  /// **'{hora} · pregunta {n} de 3'**
+  String preguntaProgreso(String hora, int n);
+
+  /// No description provided for @preguntaPuntos.
+  ///
+  /// In es, this message translates to:
+  /// **'Pregunta {n} de 3'**
+  String preguntaPuntos(int n);
+
+  /// No description provided for @preguntaTeLoPregunta.
+  ///
+  /// In es, this message translates to:
+  /// **'Te lo pregunta {nombre}'**
+  String preguntaTeLoPregunta(String nombre);
+
+  /// No description provided for @preguntaTeLoPreguntaFamilia.
+  ///
+  /// In es, this message translates to:
+  /// **'Te lo pregunta tu familia'**
+  String get preguntaTeLoPreguntaFamilia;
+
+  /// No description provided for @preguntaVolverAOir.
+  ///
+  /// In es, this message translates to:
+  /// **'Toca para volver a oírla'**
+  String get preguntaVolverAOir;
+
+  /// No description provided for @preguntaVozLlega.
+  ///
+  /// In es, this message translates to:
+  /// **'La voz grabada llega en la semana 5'**
+  String get preguntaVozLlega;
+
+  /// No description provided for @preguntaComoEstas.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Cómo estás?'**
+  String get preguntaComoEstas;
+
+  /// No description provided for @preguntaTeDuele.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Te duele algo?'**
+  String get preguntaTeDuele;
+
+  /// No description provided for @preguntaQueHaras.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Qué vas a hacer luego?'**
+  String get preguntaQueHaras;
+
+  /// No description provided for @preguntaRespBien.
+  ///
+  /// In es, this message translates to:
+  /// **'Bien'**
+  String get preguntaRespBien;
+
+  /// No description provided for @preguntaRespRegular.
+  ///
+  /// In es, this message translates to:
+  /// **'Regular'**
+  String get preguntaRespRegular;
+
+  /// No description provided for @preguntaRespMal.
+  ///
+  /// In es, this message translates to:
+  /// **'Mal'**
+  String get preguntaRespMal;
+
+  /// No description provided for @preguntaRespNada.
+  ///
+  /// In es, this message translates to:
+  /// **'Nada'**
+  String get preguntaRespNada;
+
+  /// No description provided for @preguntaRespUnPoco.
+  ///
+  /// In es, this message translates to:
+  /// **'Un poco'**
+  String get preguntaRespUnPoco;
+
+  /// No description provided for @preguntaRespMucho.
+  ///
+  /// In es, this message translates to:
+  /// **'Mucho'**
+  String get preguntaRespMucho;
+
+  /// No description provided for @preguntaRespPasear.
+  ///
+  /// In es, this message translates to:
+  /// **'Pasear'**
+  String get preguntaRespPasear;
+
+  /// No description provided for @preguntaRespDescansar.
+  ///
+  /// In es, this message translates to:
+  /// **'Descansar'**
+  String get preguntaRespDescansar;
+
+  /// No description provided for @preguntaRespVerLaTele.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver la tele'**
+  String get preguntaRespVerLaTele;
+
+  /// No description provided for @preguntaRespOtraCosa.
+  ///
+  /// In es, this message translates to:
+  /// **'Otra cosa'**
+  String get preguntaRespOtraCosa;
+
+  /// No description provided for @preguntaPrefieroDecirlo.
+  ///
+  /// In es, this message translates to:
+  /// **'Prefiero decirlo'**
+  String get preguntaPrefieroDecirlo;
+
+  /// No description provided for @preguntaDecirloLlega.
+  ///
+  /// In es, this message translates to:
+  /// **'Llega en la semana 5'**
+  String get preguntaDecirloLlega;
+
+  /// No description provided for @preguntaGracias.
+  ///
+  /// In es, this message translates to:
+  /// **'Gracias'**
+  String get preguntaGracias;
+
+  /// No description provided for @preguntaHasContestado.
+  ///
+  /// In es, this message translates to:
+  /// **'Esto has contestado'**
+  String get preguntaHasContestado;
 }
 
 class _AppLocalizationsDelegate
