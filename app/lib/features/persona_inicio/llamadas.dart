@@ -6,12 +6,27 @@ import '../../core/providers.dart';
 
 /// Llamadas de la persona (inicio y toma): a quién se llama y qué se anota.
 
-/// Familiar 1: el de menor `ordenEscalado`; si nadie tiene orden, el primero.
+/// Familiares por orden de aviso: si alguno tiene `ordenEscalado`, solo esos,
+/// de menor a mayor (los empates, en el orden de la lista); si nadie lo
+/// tiene, todos en el orden de la lista. Es la única regla: la usan el
+/// inicio, la toma, la pregunta, Resumen y "Quién recibe los avisos".
+List<Miembro> familiaresPorOrden(List<Miembro> miembros) {
+  final conOrden = [
+    for (var i = 0; i < miembros.length; i++)
+      if (miembros[i].ordenEscalado != null) (i, miembros[i]),
+  ];
+  if (conOrden.isEmpty) return List.of(miembros);
+  conOrden.sort((a, b) {
+    final c = a.$2.ordenEscalado!.compareTo(b.$2.ordenEscalado!);
+    return c != 0 ? c : a.$1.compareTo(b.$1);
+  });
+  return [for (final (_, m) in conOrden) m];
+}
+
+/// Familiar 1: el primero de [familiaresPorOrden], o nulo si no hay nadie.
 Miembro? primerFamiliar(List<Miembro> miembros) {
-  final conOrden = miembros.where((m) => m.ordenEscalado != null).toList()
-    ..sort((a, b) => a.ordenEscalado!.compareTo(b.ordenEscalado!));
-  if (conOrden.isNotEmpty) return conOrden.first;
-  return miembros.isEmpty ? null : miembros.first;
+  final orden = familiaresPorOrden(miembros);
+  return orden.isEmpty ? null : orden.first;
 }
 
 /// Llama a [miembro] (deja `llamada_iniciada` y abre `tel:`).

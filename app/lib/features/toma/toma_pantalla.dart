@@ -181,10 +181,7 @@ class _TomaPantallaState extends ConsumerState<TomaPantalla> {
                 alPulsar: _volver,
               );
             }
-            final yaTomada =
-                t.estado == EstadoToma.confirmada ||
-                t.estado == EstadoToma.confirmadaSinVideo ||
-                t.estado == EstadoToma.cerradaPorFamiliar;
+            final yaTomada = esHecha(t.estado);
             if (_fase == _Fase.confirmar && yaTomada && !widget.prueba) {
               return _Mensaje(
                 texto: l.yaEstaTomada,
@@ -440,30 +437,24 @@ class _ConfirmarState extends ConsumerState<_Confirmar> {
             children: [
               if (familiar != null) ...[
                 Expanded(
-                  child: BotonGrande(
+                  child: _BotonPequeno(
                     texto: l.personaLlamar,
                     etiquetaSemantica: l.llamarA(familiar.nombre),
                     icono: CupertinoIcons.phone_fill,
                     color: c.tarjeta,
                     colorTexto: c.texto,
-                    altura: 84,
-                    tamanoTexto: 22,
-                    radio: 22,
                     onPressed: () => _llamar(familiar, ayuda: false),
                   ),
                 ),
                 const SizedBox(width: 12),
               ],
               Expanded(
-                child: BotonGrande(
+                child: _BotonPequeno(
                   texto: l.personaAyuda,
                   etiquetaSemantica: l.necesitoAyuda,
                   icono: CupertinoIcons.exclamationmark_triangle_fill,
                   color: c.tarjeta,
                   colorTexto: c.texto,
-                  altura: 84,
-                  tamanoTexto: 22,
-                  radio: 22,
                   onPressed: () => _llamar(familiar, ayuda: true),
                 ),
               ),
@@ -585,6 +576,76 @@ class _Camara extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+/// "Llamar" y "Ayuda": como un [BotonGrande] de 84 (texto 22, radio 22),
+/// pero el texto va en una línea y se encoge si no cabe (letra al 130 % en
+/// 375 de ancho), en vez de partirse en "Llama / r".
+class _BotonPequeno extends StatelessWidget {
+  const _BotonPequeno({
+    required this.texto,
+    required this.etiquetaSemantica,
+    required this.icono,
+    required this.color,
+    required this.colorTexto,
+    required this.onPressed,
+  });
+
+  final String texto;
+  final String etiquetaSemantica;
+  final IconData icono;
+  final Color color;
+  final Color colorTexto;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final estilo = Theme.of(context).textTheme.headlineSmall?.copyWith(
+      fontWeight: FontWeight.w700,
+      color: colorTexto,
+      fontSize: 22,
+      letterSpacing: 0,
+    );
+    return Semantics(
+      button: true,
+      label: etiquetaSemantica,
+      excludeSemantics: true,
+      onTap: onPressed,
+      child: SizedBox(
+        width: double.infinity,
+        height: 84,
+        child: FilledButton(
+          onPressed: onPressed,
+          style: FilledButton.styleFrom(
+            backgroundColor: color,
+            foregroundColor: colorTexto,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(22),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icono, size: 36),
+              const SizedBox(width: 12),
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    texto,
+                    maxLines: 1,
+                    softWrap: false,
+                    style: estilo,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

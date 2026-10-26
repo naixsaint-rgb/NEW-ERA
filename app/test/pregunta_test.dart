@@ -215,4 +215,37 @@ void main() {
     final scaffold = tester.widget<Scaffold>(find.byKey(ClavesUi.pregunta));
     expect(scaffold.backgroundColor, Colors.white);
   });
+
+  testWidgets('375×728 con la letra al 130 %: las tres respuestas se pulsan', (
+    tester,
+  ) async {
+    tester.platformDispatcher.textScaleFactorTestValue = 1.3;
+    addTearDown(tester.platformDispatcher.clearAllTestValues);
+    final e = await entorno(tester, PerfilApp.persona);
+    await montarApp(
+      tester,
+      e,
+      ancho: 375,
+      alto: 728,
+      rutaInicial: '/persona/pregunta',
+    );
+    await pasar(tester, const Duration(seconds: 1));
+
+    for (final r in ['bien', 'regular', 'mal']) {
+      final boton = find.byKey(ClavesUi.respuesta(r));
+      expect(boton, findsOneWidget, reason: r);
+      // Pantalla baja: botones de 84 en vez de 108.
+      expect(tester.getSize(boton).height, 84, reason: r);
+    }
+    final mal = find.byKey(ClavesUi.respuesta('mal'));
+    await tester.ensureVisible(mal);
+    await tester.pump();
+    final rect = tester.getRect(mal);
+    expect(rect.top, greaterThanOrEqualTo(0));
+    expect(rect.bottom, lessThanOrEqualTo(728));
+    await tester.tap(mal);
+    await pasar(tester, const Duration(milliseconds: 300));
+    expect(find.text('¿Te duele algo?'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
 }

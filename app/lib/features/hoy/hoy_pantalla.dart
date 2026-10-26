@@ -17,7 +17,7 @@ import 'vistas/vista_semana.dart';
 // Siguen importables desde aquí, como antes del rediseño.
 export 'dominio/tomas.dart'
     show NivelSemaforo, nivelSemaforo, nombresAutoresProvider;
-export 'vistas/piezas_hoy.dart' show quienConfirmo, quienYComo;
+export 'vistas/piezas_hoy.dart' show TextoQueCabe, quienConfirmo, quienYComo;
 
 /// Las cuatro vistas del selector; su `name` es el valor de `?vista=`.
 enum PeriodoHoy { ayer, hoy, manana, semana }

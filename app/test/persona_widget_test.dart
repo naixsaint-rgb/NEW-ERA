@@ -1,6 +1,9 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:newera/core/contexto.dart';
+import 'package:newera/core/providers.dart';
 import 'package:newera/shared/claves_ui.dart';
+import 'package:safety_core/safety_core.dart';
 
 import 'utiles/app_prueba.dart';
 
@@ -292,5 +295,45 @@ void main() {
       () => entorno.db.select(entorno.db.eventos).get(),
     );
     expect(despues!.length, antes!.length);
+  });
+
+  testWidgets('a las 21:30 con todo tomado: "Mañana a las 09:00, …"', (
+    tester,
+  ) async {
+    final entorno = await tester.runAsync(
+      () => prepararEntorno(perfil: PerfilApp.persona),
+    );
+    await tester.runAsync(() async {
+      final c = ProviderContainer(overrides: entorno!.overrides);
+      try {
+        final eventos = c.read(eventosRepositorioProvider);
+        await eventos.registrar(
+          TipoEvento.tomaConfirmada,
+          sujeto: await entorno.idToma('Cápsula roja', '20261013', '1400'),
+          ocurridoEn: DateTime.utc(2026, 10, 13, 12, 1),
+        );
+        await eventos.registrar(
+          TipoEvento.tomaConfirmada,
+          sujeto: await entorno.idToma(
+            'Comprimido amarillo',
+            '20261013',
+            '2100',
+          ),
+          ocurridoEn: DateTime.utc(2026, 10, 13, 19, 1),
+        );
+      } finally {
+        c.dispose();
+      }
+    });
+    entorno!.reloj.fijar(DateTime.utc(2026, 10, 13, 19, 30)); // 21:30
+    await montarApp(tester, entorno);
+    await pasar(tester, const Duration(seconds: 1));
+
+    expect(find.text('Ahora no toca nada'), findsOneWidget);
+    expect(
+      find.text('Mañana a las 09:00, pastilla blanca pequeña'),
+      findsOneWidget,
+    );
+    expect(find.text('A las 09:00, pastilla blanca pequeña'), findsNothing);
   });
 }

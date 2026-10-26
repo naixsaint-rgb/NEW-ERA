@@ -13,6 +13,28 @@ import '../dominio/tomas.dart';
 /// Separación entre bloques de la pantalla (spec §5).
 const separacionBloques = SizedBox(height: 14);
 
+/// Texto de una línea que, si no cabe (letra muy grande), se encoge en vez
+/// de partir una palabra ("09: / 00") o cortarla con "…".
+class TextoQueCabe extends StatelessWidget {
+  const TextoQueCabe(
+    this.texto, {
+    super.key,
+    this.estilo,
+    this.alineacion = AlignmentDirectional.centerStart,
+  });
+
+  final String texto;
+  final TextStyle? estilo;
+  final AlignmentGeometry alineacion;
+
+  @override
+  Widget build(BuildContext context) => FittedBox(
+    fit: BoxFit.scaleDown,
+    alignment: alineacion,
+    child: Text(texto, maxLines: 1, softWrap: false, style: estilo),
+  );
+}
+
 /// "Confirmada por Carmen, desde el móvil", "Cerrada por Lucía" o nulo si
 /// nadie la ha confirmado ni cerrado.
 String? quienConfirmo(
@@ -85,9 +107,9 @@ class FilaTomaHoy extends StatelessWidget {
             children: [
               SizedBox(
                 width: 56,
-                child: Text(
+                child: TextoQueCabe(
                   toma.toma.horaLocal,
-                  style: t.titleSmall?.copyWith(
+                  estilo: t.titleSmall?.copyWith(
                     color: c.texto,
                     fontWeight: FontWeight.w700,
                   ),

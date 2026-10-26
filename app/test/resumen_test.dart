@@ -8,6 +8,7 @@ import 'package:newera/core/db/base_datos.dart';
 import 'package:newera/core/tema/aspecto.dart';
 import 'package:newera/features/hoy/hoy_pantalla.dart';
 import 'package:newera/features/medicacion/detalle_medicamento_pantalla.dart';
+import 'package:newera/features/persona_inicio/llamadas.dart';
 import 'package:newera/features/resumen/dominio/resumen.dart';
 import 'package:newera/features/resumen/resumen_pantalla.dart';
 import 'package:newera/shared/claves_ui.dart';
@@ -89,7 +90,7 @@ void main() {
       expect(find.text('Resumen'), findsWidgets);
 
       // Tarjeta héroe: hoy 09:00 confirmada con clip → verde.
-      expect(find.text('Carmen está bien'), findsOneWidget);
+      expect(find.text('Tomas de Carmen al día'), findsOneWidget);
       expect(
         find.text(
           'Toma confirmada a las 09:02: pastilla blanca pequeña · Carmen, móvil',
@@ -172,7 +173,7 @@ void main() {
 
     expect(find.text('2'), findsOneWidget);
     expect(find.text('Última señal 11:40'), findsOneWidget);
-    expect(find.text('Carmen está bien'), findsOneWidget);
+    expect(find.text('Tomas de Carmen al día'), findsOneWidget);
   });
 
   testWidgets('Un clip anulado deja la toma sin vídeo: necesita un vistazo', (
@@ -202,8 +203,8 @@ void main() {
     });
     await _abrirResumen(tester, entorno);
 
-    expect(find.text('Carmen necesita un vistazo'), findsOneWidget);
-    expect(find.text('Carmen está bien'), findsNothing);
+    expect(find.text('Carmen: una toma sin vídeo'), findsOneWidget);
+    expect(find.text('Tomas de Carmen al día'), findsNothing);
     // Confirmada sin vídeo: cuenta como hecha, pero no hay clips.
     expect(find.text('1 de 3'), findsOneWidget);
     expect(find.text('0'), findsNWidgets(2));
@@ -217,10 +218,73 @@ void main() {
     entorno.reloj.fijar(_madrid(14, 35));
     await _abrirResumen(tester, entorno);
 
-    expect(find.text('Carmen necesita atención'), findsOneWidget);
+    expect(find.text('Carmen: una toma sin confirmar'), findsOneWidget);
     expect(find.text('1 de 3'), findsOneWidget);
     // Sigue siendo lo próximo que hay que mirar.
     expect(find.text('siguiente 14:00'), findsOneWidget);
+    // Pero ya no es "próxima": está pendiente y el aviso de las 14:05 pasó.
+    await tester.ensureVisible(
+      find.text('Pendiente desde las 14:00 · Mediodía'),
+    );
+    await tester.pump();
+    expect(find.text('Pendiente desde las 14:00 · Mediodía'), findsOneWidget);
+    expect(find.textContaining('aviso a Lucía'), findsNothing);
+  });
+
+  testWidgets('Última señal y mensaje de otro día dicen "ayer" o la fecha', (
+    tester,
+  ) async {
+    final entorno = await _entorno(tester);
+    // Miércoles 14 a las 08:00 en Madrid.
+    entorno.reloj.fijar(DateTime.utc(2026, 10, 14, 6));
+    await _abrirResumen(tester, entorno);
+    expect(find.text('Última señal ayer 09:02'), findsOneWidget);
+    expect(find.text('De Lucía · ayer 11:00'), findsOneWidget);
+  });
+
+  testWidgets('Última señal de hace dos días: con su fecha', (tester) async {
+    final entorno = await _entorno(tester);
+    // Jueves 15 a las 08:00 en Madrid.
+    entorno.reloj.fijar(DateTime.utc(2026, 10, 15, 6));
+    await _abrirResumen(tester, entorno);
+    expect(find.text('Última señal 13 de octubre, 09:02'), findsOneWidget);
+    expect(find.text('De Lucía · 13 de octubre, 11:00'), findsOneWidget);
+  });
+
+  testWidgets('a las 21:30 con lo de hoy hecho: lo siguiente es de mañana', (
+    tester,
+  ) async {
+    final entorno = await _entorno(tester);
+    await tester.runAsync(() async {
+      final persona = entorno.contexto.personaId;
+      await _insertar(
+        entorno,
+        ulid: '01K00000000000000000000011',
+        autor: persona,
+        tipo: 'toma_confirmada',
+        cuando: _madrid(14, 1),
+        sujeto: await entorno.idToma('Cápsula roja', '20261013', '1400'),
+      );
+      await _insertar(
+        entorno,
+        ulid: '01K00000000000000000000012',
+        autor: persona,
+        tipo: 'toma_confirmada',
+        cuando: _madrid(21, 1),
+        sujeto: await entorno.idToma('Comprimido amarillo', '20261013', '2100'),
+      );
+    });
+    entorno.reloj.fijar(_madrid(21, 30));
+    await _abrirResumen(tester, entorno);
+    expect(find.text('3 de 3'), findsOneWidget);
+    expect(find.text('siguiente mañana 09:00'), findsOneWidget);
+    await tester.ensureVisible(find.text('Mañana a las 09:00 · Mañana'));
+    await tester.pump();
+    expect(find.text('Mañana a las 09:00 · Mañana'), findsOneWidget);
+    expect(
+      find.text('Si no la toma, aviso a Lucía a las 09:05'),
+      findsOneWidget,
+    );
   });
 
   testWidgets('Sin datos: nada inventado', (tester) async {
@@ -294,21 +358,25 @@ void main() {
   }
 
   group('dominio', () {
-    test('primerFamiliar: el de menor orden de escalado', () {
-      Miembro m(String id, int? orden) => Miembro(
-        id: id,
-        circuloId: 'c',
-        nombre: id,
-        relacion: 'r',
-        rol: 'apoyo',
-        ordenEscalado: orden,
-        enMiGente: true,
-        creadoEn: 0,
-      );
-      expect(primerFamiliar(const []), isNull);
-      expect(primerFamiliar([m('a', null)]), isNull);
-      expect(primerFamiliar([m('a', 3), m('b', 1), m('c', 2)])?.id, 'b');
-    });
+    test(
+      'primerFamiliar: el de menor orden; si nadie lo tiene, el primero',
+      () {
+        Miembro m(String id, int? orden) => Miembro(
+          id: id,
+          circuloId: 'c',
+          nombre: id,
+          relacion: 'r',
+          rol: 'apoyo',
+          ordenEscalado: orden,
+          enMiGente: true,
+          creadoEn: 0,
+        );
+        expect(primerFamiliar(const []), isNull);
+        expect(primerFamiliar([m('a', null)])?.id, 'a');
+        expect(primerFamiliar([m('a', null), m('b', 2)])?.id, 'b');
+        expect(primerFamiliar([m('a', 3), m('b', 1), m('c', 2)])?.id, 'b');
+      },
+    );
 
     test('minutosAvisoFamiliar1: 5 por defecto; nulo si no hay paso', () {
       expect(minutosAvisoFamiliar1(const ConfigEscalado()), 5);

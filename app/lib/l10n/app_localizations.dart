@@ -256,12 +256,6 @@ abstract class AppLocalizations {
   /// **'Volver'**
   String get volver;
 
-  /// No description provided for @enConstruccion.
-  ///
-  /// In es, this message translates to:
-  /// **'En construcción'**
-  String get enConstruccion;
-
   /// No description provided for @aspecto.
   ///
   /// In es, this message translates to:
@@ -303,12 +297,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Mis pastillas'**
   String get misPastillas;
-
-  /// No description provided for @preguntaTitulo.
-  ///
-  /// In es, this message translates to:
-  /// **'Pregunta'**
-  String get preguntaTitulo;
 
   /// No description provided for @preguntaModoPrueba.
   ///
@@ -586,12 +574,6 @@ abstract class AppLocalizations {
   /// **'Última toma'**
   String get ultimaToma;
 
-  /// No description provided for @sinTomasAun.
-  ///
-  /// In es, this message translates to:
-  /// **'Todavía no ha habido ninguna toma.'**
-  String get sinTomasAun;
-
   /// No description provided for @tomasDeHoy.
   ///
   /// In es, this message translates to:
@@ -640,12 +622,6 @@ abstract class AppLocalizations {
   /// **'Sin confirmar'**
   String get sinConfirmarAun;
 
-  /// No description provided for @reservadaVideo.
-  ///
-  /// In es, this message translates to:
-  /// **'Vídeo de la toma'**
-  String get reservadaVideo;
-
   /// No description provided for @reservadaUbicacion.
   ///
   /// In es, this message translates to:
@@ -681,12 +657,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Todavía no hay medicamentos.'**
   String get sinMedicamentos;
-
-  /// No description provided for @verMedicamento.
-  ///
-  /// In es, this message translates to:
-  /// **'Ver {nombre}'**
-  String verMedicamento(String nombre);
 
   /// No description provided for @resumenPauta.
   ///
@@ -1630,12 +1600,6 @@ abstract class AppLocalizations {
   /// **'de {total}'**
   String hoyDeTotal(int total);
 
-  /// No description provided for @hoySemanticaCasilla.
-  ///
-  /// In es, this message translates to:
-  /// **'{titulo}: {valor}'**
-  String hoySemanticaCasilla(String titulo, String valor);
-
   /// No description provided for @hoyProximaToma.
   ///
   /// In es, this message translates to:
@@ -1945,7 +1909,7 @@ abstract class AppLocalizations {
   /// No description provided for @medicPastillasPie.
   ///
   /// In es, this message translates to:
-  /// **'La foto la hace la familia una vez. Se ve en la alarma de ella, en el pastillero y en el vídeo de comprobación.'**
+  /// **'La foto la hace la familia una vez. Ella la ve en la alarma y en Mis pastillas; aquí, en la lista.'**
   String get medicPastillasPie;
 
   /// No description provided for @medicFotoDe.
@@ -1959,24 +1923,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'{resto} y {ultima}'**
   String medicHorasUnidas(String resto, String ultima);
-
-  /// No description provided for @resumenEstaBien.
-  ///
-  /// In es, this message translates to:
-  /// **'{alias} está bien'**
-  String resumenEstaBien(String alias);
-
-  /// No description provided for @resumenNecesitaVistazo.
-  ///
-  /// In es, this message translates to:
-  /// **'{alias} necesita un vistazo'**
-  String resumenNecesitaVistazo(String alias);
-
-  /// No description provided for @resumenNecesitaAtencion.
-  ///
-  /// In es, this message translates to:
-  /// **'{alias} necesita atención'**
-  String resumenNecesitaAtencion(String alias);
 
   /// No description provided for @resumenUltimaToma.
   ///
@@ -2276,6 +2222,84 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Esto has contestado'**
   String get preguntaHasContestado;
+
+  /// No description provided for @fixSemaforoRetraso.
+  ///
+  /// In es, this message translates to:
+  /// **'Una toma se retrasa'**
+  String get fixSemaforoRetraso;
+
+  /// No description provided for @fixSinTomasAunHoy.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin tomas aún hoy'**
+  String get fixSinTomasAunHoy;
+
+  /// No description provided for @fixPendienteDesde.
+  ///
+  /// In es, this message translates to:
+  /// **'Pendiente desde las {hora}'**
+  String fixPendienteDesde(String hora);
+
+  /// No description provided for @fixMananaALas.
+  ///
+  /// In es, this message translates to:
+  /// **'Mañana a las {hora}'**
+  String fixMananaALas(String hora);
+
+  /// No description provided for @fixMananaALasHoraPastilla.
+  ///
+  /// In es, this message translates to:
+  /// **'Mañana a las {hora}, {nombre}'**
+  String fixMananaALasHoraPastilla(String hora, String nombre);
+
+  /// No description provided for @fixReservadaVerVideo.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver el vídeo de cada toma desde el móvil de la familia'**
+  String get fixReservadaVerVideo;
+
+  /// No description provided for @fixResumenAlDia.
+  ///
+  /// In es, this message translates to:
+  /// **'Tomas de {alias} al día'**
+  String fixResumenAlDia(String alias);
+
+  /// No description provided for @fixResumenSeRetrasa.
+  ///
+  /// In es, this message translates to:
+  /// **'{alias}: una toma se retrasa'**
+  String fixResumenSeRetrasa(String alias);
+
+  /// No description provided for @fixResumenSinVideo.
+  ///
+  /// In es, this message translates to:
+  /// **'{alias}: una toma sin vídeo'**
+  String fixResumenSinVideo(String alias);
+
+  /// No description provided for @fixResumenSinConfirmar.
+  ///
+  /// In es, this message translates to:
+  /// **'{alias}: una toma sin confirmar'**
+  String fixResumenSinConfirmar(String alias);
+
+  /// No description provided for @fixResumenSiguienteManana.
+  ///
+  /// In es, this message translates to:
+  /// **'siguiente mañana {hora}'**
+  String fixResumenSiguienteManana(String hora);
+
+  /// No description provided for @fixAyerHora.
+  ///
+  /// In es, this message translates to:
+  /// **'ayer {hora}'**
+  String fixAyerHora(String hora);
+
+  /// No description provided for @fixFechaHora.
+  ///
+  /// In es, this message translates to:
+  /// **'{fecha}, {hora}'**
+  String fixFechaHora(String fecha, String hora);
 }
 
 class _AppLocalizationsDelegate

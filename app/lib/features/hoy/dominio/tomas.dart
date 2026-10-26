@@ -167,6 +167,25 @@ TomaVista? siguienteToma(List<TomaVista> tomas, DateTime ahora) {
   return null;
 }
 
+/// `true` si [t] es de mañana o más tarde (su fecha local no es la de hoy y
+/// aún no ha llegado).
+bool esDeOtroDia(TomaVista t, DateTime ahora, String zona) =>
+    t.toma.previstaPara.isAfter(ahora) &&
+    t.toma.fechaLocal != fechaLocalTexto(ahora, zona);
+
+/// `true` si la hora de [t] ya ha pasado y sigue sin hacerse.
+bool estaPendiente(TomaVista t, DateTime ahora) =>
+    t.toma.previstaPara.isBefore(ahora) && !esHecha(t.estado);
+
+/// La última de [deHoy] cuya hora ya ha llegado, o nula.
+TomaVista? ultimaTomaDeHoy(Iterable<TomaVista> deHoy, DateTime ahora) {
+  TomaVista? r;
+  for (final t in deHoy) {
+    if (!t.toma.previstaPara.isAfter(ahora)) r = t;
+  }
+  return r;
+}
+
 final siguienteTomaProvider = Provider<AsyncValue<TomaVista?>>((ref) {
   final ahora =
       ref.watch(ahoraProvider).value ?? ref.read(relojProvider).ahora();
@@ -219,7 +238,8 @@ final tomaPorIdProvider = Provider.family<AsyncValue<TomaVista?>, String>((
 // ------------------------------------------------------------ Por días
 
 /// `true` si la toma cuenta como hecha: confirmada (con o sin vídeo) o
-/// cerrada por un familiar.
+/// cerrada por un familiar. Es la única regla: la usan Hoy, Resumen, el
+/// pastillero, "Mis pastillas" y la pantalla de toma.
 bool esHecha(EstadoToma e) =>
     e == EstadoToma.confirmada ||
     e == EstadoToma.confirmadaSinVideo ||
@@ -426,7 +446,8 @@ final _fechaDeHoyProvider = Provider<String>((ref) {
   return fechaLocalTexto(ahora, zona);
 });
 
-/// Avisos de hoy: ayuda pedida y llamadas iniciadas desde las 00:00 local.
+/// Avisos de hoy: cuántas ayudas pedidas y llamadas iniciadas hay desde las
+/// 00:00 local. Lo usan Hoy y Resumen.
 final avisosDeHoyProvider = StreamProvider<int>((ref) {
   ref.watch(_fechaDeHoyProvider);
   final zona = ref.watch(contextoProvider).zonaHoraria;
@@ -450,13 +471,37 @@ final avisosDeHoyProvider = StreamProvider<int>((ref) {
 /// Nivel del semáforo del día.
 enum NivelSemaforo { verde, naranja, rojo }
 
+/// `true` si [t] sigue `prevista` y ya ha llegado el minuto del paso
+/// `avisarFamiliar1` de [config] (5 por defecto): se avisa a la familia.
+bool tomaRetrasada(TomaVista t, DateTime ahora, ConfigEscalado config) {
+  if (t.estado != EstadoToma.prevista) return false;
+  final minutos = minutoDePaso(
+    config,
+    AccionEscalado.avisarFamiliar1,
+    porDefecto: 5,
+  );
+  return !t.toma.previstaPara.add(Duration(minutes: minutos)).isAfter(ahora);
+}
+
+/// `true` si alguna de [tomas] está [tomaRetrasada].
+bool hayRetraso(
+  Iterable<TomaVista> tomas,
+  DateTime ahora,
+  ConfigEscalado config,
+) => tomas.any((t) => tomaRetrasada(t, ahora, config));
+
 /// Rojo si hoy hay una `noConfirmada`; naranja si hay una
-/// `confirmadaSinVideo`; si no, verde.
-NivelSemaforo nivelSemaforo(Iterable<TomaVista> deHoy) {
+/// `confirmadaSinVideo` o una [tomaRetrasada]; si no, verde.
+NivelSemaforo nivelSemaforo(
+  Iterable<TomaVista> deHoy,
+  DateTime ahora,
+  ConfigEscalado config,
+) {
   var nivel = NivelSemaforo.verde;
   for (final t in deHoy) {
     if (t.estado == EstadoToma.noConfirmada) return NivelSemaforo.rojo;
-    if (t.estado == EstadoToma.confirmadaSinVideo) {
+    if (t.estado == EstadoToma.confirmadaSinVideo ||
+        tomaRetrasada(t, ahora, config)) {
       nivel = NivelSemaforo.naranja;
     }
   }

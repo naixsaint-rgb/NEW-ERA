@@ -1,12 +1,16 @@
+import 'package:drift/drift.dart' show BooleanExpressionOperators;
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:newera/core/contexto.dart';
+import 'package:newera/core/providers.dart';
 import 'package:newera/core/enrutado/rutas.dart';
 import 'package:newera/features/hoy/hoy_pantalla.dart';
 import 'package:newera/features/hoy/vistas/piezas_hoy.dart';
 import 'package:newera/features/hoy/vistas/vista_semana.dart';
 import 'package:newera/shared/claves_ui.dart';
 import 'package:newera/shared/ios/ios.dart';
+import 'package:safety_core/safety_core.dart';
 
 import 'utiles/app_prueba.dart';
 
@@ -67,6 +71,12 @@ void main() {
     await tester.scrollUntilVisible(find.text('Respuesta de control'), 300);
     expect(find.text('Respuesta de control'), findsOneWidget);
     expect(find.text('LLEGA PRONTO'), findsOneWidget);
+    // Lo que llega no repite lo que ya está en Comprobaciones.
+    expect(
+      find.text('Ver el vídeo de cada toma desde el móvil de la familia'),
+      findsOneWidget,
+    );
+    expect(find.text('Vídeo de la toma'), findsNothing);
     expect(tester.takeException(), isNull);
   });
 
@@ -227,4 +237,91 @@ void main() {
       manejador.dispose();
     });
   }
+
+  testWidgets('a las 11:00 con la de las 09:00 sin confirmar: "Pendiente '
+      'desde las 09:00" y sin aviso pasado', (tester) async {
+    final entorno = await tester.runAsync(
+      () => prepararEntorno(perfil: PerfilApp.familia),
+    );
+    // Se anula la confirmación de hoy a las 09:00.
+    await tester.runAsync(() async {
+      final id = await entorno!.idToma(
+        'Pastilla blanca pequeña',
+        '20261013',
+        '0900',
+      );
+      final conf =
+          await (entorno.db.select(entorno.db.eventos)..where(
+                (e) => e.tipo.equals('toma_confirmada') & e.sujeto.equals(id),
+              ))
+              .getSingle();
+      final c = ProviderContainer(overrides: entorno.overrides);
+      try {
+        await c
+            .read(eventosRepositorioProvider)
+            .registrar(
+              TipoEvento.anulacion,
+              sujeto: id,
+              corrigeA: conf.ulid,
+              ocurridoEn: DateTime.utc(2026, 10, 13, 8, 30),
+            );
+      } finally {
+        c.dispose();
+      }
+    });
+    entorno!.reloj.fijar(DateTime.utc(2026, 10, 13, 9)); // 11:00 en Madrid
+    await montarApp(tester, entorno);
+    await pasar(tester, const Duration(seconds: 1));
+
+    expect(find.text('Pendiente desde las 09:00 · Mañana'), findsOneWidget);
+    expect(find.text('Si no la toma: aviso a las 09:05'), findsNothing);
+    expect(find.text('09:00 · Mañana'), findsNothing);
+  });
+
+  testWidgets('a las 08:00 la última toma no es la de ayer: "Sin tomas aún '
+      'hoy"', (tester) async {
+    final entorno = await tester.runAsync(
+      () => prepararEntorno(perfil: PerfilApp.familia),
+    );
+    entorno!.reloj.fijar(DateTime.utc(2026, 10, 13, 6)); // 08:00 en Madrid
+    await montarApp(tester, entorno);
+    await pasar(tester, const Duration(seconds: 1));
+
+    expect(find.text('Última toma'), findsOneWidget);
+    expect(find.text('Sin tomas aún hoy'), findsOneWidget);
+    // Ni la de ayer a las 21:00 (sin confirmar).
+    expect(find.text('A las 21:00, comprimido amarillo'), findsNothing);
+  });
+
+  testWidgets('a las 21:30 con lo de hoy hecho, la próxima dice "Mañana"', (
+    tester,
+  ) async {
+    final entorno = await tester.runAsync(
+      () => prepararEntorno(perfil: PerfilApp.familia),
+    );
+    await tester.runAsync(() async {
+      final c = ProviderContainer(overrides: entorno!.overrides);
+      try {
+        final eventos = c.read(eventosRepositorioProvider);
+        for (final (nombre, hora, cuando) in [
+          ('Cápsula roja', '1400', DateTime.utc(2026, 10, 13, 12, 1)),
+          ('Comprimido amarillo', '2100', DateTime.utc(2026, 10, 13, 19, 1)),
+        ]) {
+          await eventos.registrar(
+            TipoEvento.tomaConfirmada,
+            sujeto: await entorno.idToma(nombre, '20261013', hora),
+            ocurridoEn: cuando,
+          );
+        }
+      } finally {
+        c.dispose();
+      }
+    });
+    entorno!.reloj.fijar(DateTime.utc(2026, 10, 13, 19, 30)); // 21:30
+    await montarApp(tester, entorno);
+    await pasar(tester, const Duration(seconds: 1));
+
+    expect(find.text('Mañana a las 09:00 · Mañana'), findsOneWidget);
+    expect(find.text('Si no la toma: aviso a las 09:05'), findsOneWidget);
+  });
 }

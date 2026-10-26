@@ -16,6 +16,9 @@ import '../../shared/widgets/boton_grande.dart';
 import '../../shared/widgets/tarjeta_grande.dart';
 import '../hoy/dominio/tomas.dart';
 
+/// Alto del botón fijo "Volver al inicio".
+const double _altoBotonVolver = 72;
+
 /// "Mis pastillas" de la persona (maqueta D-Persona-Pastillas): las tomas de
 /// hoy con la foto de cada una y su estado en palabras; la de ahora (o la
 /// siguiente) resaltada con borde azul y, si ya es su hora, el botón "Ya me la
@@ -35,6 +38,22 @@ class PersonaPastillasPantalla extends ConsumerWidget {
     final dia = DateFormat('EEEE', 'es_ES').format(local);
     final tomas = ref.watch(tomasDeHoyProvider);
     final siguiente = ref.watch(siguienteTomaProvider).value;
+    // Si lo siguiente ya es de mañana, se dice al final: "Mañana a las 09:00,
+    // pastilla blanca pequeña".
+    final manana =
+        siguiente == null ||
+            !esDeOtroDia(siguiente, ahora, contexto.zonaHoraria)
+        ? null
+        : Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Text(
+              l.fixMananaALasHoraPastilla(
+                siguiente.toma.horaLocal,
+                siguiente.nombreParaPersona.toLowerCase(),
+              ),
+              style: t.titleMedium?.copyWith(color: c.textoSecundario),
+            ),
+          );
 
     final Widget contenido = tomas.when(
       loading: () => const Padding(
@@ -44,9 +63,15 @@ class PersonaPastillasPantalla extends ConsumerWidget {
       error: (_, _) => Text(l.errorGenerico, style: t.titleMedium),
       data: (lista) {
         if (lista.isEmpty) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 24),
-            child: Text(l.personaHoyNoHayPastillas, style: t.headlineSmall),
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 24),
+                child: Text(l.personaHoyNoHayPastillas, style: t.headlineSmall),
+              ),
+              ?manana,
+            ],
           );
         }
         return Column(
@@ -55,11 +80,12 @@ class PersonaPastillasPantalla extends ConsumerWidget {
             for (final toma in lista) ...[
               _TarjetaToma(
                 toma: toma,
-                actual: toma.toma.id == siguiente?.toma.id,
+                actual: _esActual(toma, siguiente),
                 esSuHora: !ahora.isBefore(toma.toma.previstaPara),
               ),
               const SizedBox(height: 14),
             ],
+            ?manana,
           ],
         );
       },
@@ -73,7 +99,15 @@ class PersonaPastillasPantalla extends ConsumerWidget {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
+                // Hueco al final del alto del botón fijo + 24: la última
+                // tarjeta y su botón nunca quedan pegados a "Volver al
+                // inicio", ni con la letra al 130 %.
+                padding: const EdgeInsets.fromLTRB(
+                  20,
+                  0,
+                  20,
+                  _altoBotonVolver + 24,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -98,7 +132,7 @@ class PersonaPastillasPantalla extends ConsumerWidget {
                 icono: CupertinoIcons.chevron_back,
                 color: c.rellenoSuave,
                 colorTexto: c.texto,
-                altura: 72,
+                altura: _altoBotonVolver,
                 tamanoTexto: 22,
                 onPressed: () => context.go(Rutas.persona),
               ),
@@ -109,6 +143,14 @@ class PersonaPastillasPantalla extends ConsumerWidget {
     );
   }
 }
+
+/// `true` si [toma] es "la de ahora": a la misma hora que [siguiente] y aún
+/// pendiente (dos pastillas a la misma hora van las dos resaltadas).
+bool _esActual(TomaVista toma, TomaVista? siguiente) =>
+    siguiente != null &&
+    toma.toma.previstaPara == siguiente.toma.previstaPara &&
+    (toma.estado == EstadoToma.prevista ||
+        toma.estado == EstadoToma.noConfirmada);
 
 /// Una toma de hoy: foto, "09:00 · Mañana", nombre y estado. La [actual]
 /// lleva borde azul, foto de 104 y, si [esSuHora], el botón para tomarla.
@@ -214,7 +256,7 @@ class _TarjetaToma extends StatelessWidget {
               const SizedBox(height: 12),
               _LineaEstado(estado: estado),
             ],
-            if (esSuHora && !_Estado.esTomada(toma.estado)) ...[
+            if (esSuHora && !esHecha(toma.estado)) ...[
               const SizedBox(height: 14),
               BotonGrande(
                 texto: l.personaYaMeLaHeTomado,
@@ -240,14 +282,9 @@ enum _Estado {
   luego,
   sinTomar;
 
-  static bool esTomada(EstadoToma e) =>
-      e == EstadoToma.confirmada ||
-      e == EstadoToma.confirmadaSinVideo ||
-      e == EstadoToma.cerradaPorFamiliar;
-
   /// Nulo si la toma está prevista y ya ha llegado su hora (es "ahora").
   static _Estado? de(EstadoToma e, {required bool esSuHora}) {
-    if (esTomada(e)) return _Estado.tomada;
+    if (esHecha(e)) return _Estado.tomada;
     if (e == EstadoToma.noConfirmada) return _Estado.sinTomar;
     return esSuHora ? null : _Estado.luego;
   }

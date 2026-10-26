@@ -92,9 +92,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get volver => 'Volver';
 
   @override
-  String get enConstruccion => 'En construcción';
-
-  @override
   String get aspecto => 'Aspecto';
 
   @override
@@ -115,9 +112,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get misPastillas => 'Mis pastillas';
-
-  @override
-  String get preguntaTitulo => 'Pregunta';
 
   @override
   String get preguntaModoPrueba => 'Modo prueba: no se guarda nada.';
@@ -287,9 +281,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get ultimaToma => 'Última toma';
 
   @override
-  String get sinTomasAun => 'Todavía no ha habido ninguna toma.';
-
-  @override
   String get tomasDeHoy => 'Tomas de hoy';
 
   @override
@@ -318,9 +309,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get sinConfirmarAun => 'Sin confirmar';
 
   @override
-  String get reservadaVideo => 'Vídeo de la toma';
-
-  @override
   String get reservadaUbicacion => 'Ubicación';
 
   @override
@@ -337,11 +325,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get sinMedicamentos => 'Todavía no hay medicamentos.';
-
-  @override
-  String verMedicamento(String nombre) {
-    return 'Ver $nombre';
-  }
 
   @override
   String resumenPauta(String horas, String dosis) {
@@ -870,11 +853,6 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String hoySemanticaCasilla(String titulo, String valor) {
-    return '$titulo: $valor';
-  }
-
-  @override
   String get hoyProximaToma => 'Próxima toma';
 
   @override
@@ -1063,7 +1041,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get medicPastillasPie =>
-      'La foto la hace la familia una vez. Se ve en la alarma de ella, en el pastillero y en el vídeo de comprobación.';
+      'La foto la hace la familia una vez. Ella la ve en la alarma y en Mis pastillas; aquí, en la lista.';
 
   @override
   String medicFotoDe(String autor, String fecha) {
@@ -1073,21 +1051,6 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String medicHorasUnidas(String resto, String ultima) {
     return '$resto y $ultima';
-  }
-
-  @override
-  String resumenEstaBien(String alias) {
-    return '$alias está bien';
-  }
-
-  @override
-  String resumenNecesitaVistazo(String alias) {
-    return '$alias necesita un vistazo';
-  }
-
-  @override
-  String resumenNecesitaAtencion(String alias) {
-    return '$alias necesita atención';
   }
 
   @override
@@ -1263,4 +1226,64 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get preguntaHasContestado => 'Esto has contestado';
+
+  @override
+  String get fixSemaforoRetraso => 'Una toma se retrasa';
+
+  @override
+  String get fixSinTomasAunHoy => 'Sin tomas aún hoy';
+
+  @override
+  String fixPendienteDesde(String hora) {
+    return 'Pendiente desde las $hora';
+  }
+
+  @override
+  String fixMananaALas(String hora) {
+    return 'Mañana a las $hora';
+  }
+
+  @override
+  String fixMananaALasHoraPastilla(String hora, String nombre) {
+    return 'Mañana a las $hora, $nombre';
+  }
+
+  @override
+  String get fixReservadaVerVideo =>
+      'Ver el vídeo de cada toma desde el móvil de la familia';
+
+  @override
+  String fixResumenAlDia(String alias) {
+    return 'Tomas de $alias al día';
+  }
+
+  @override
+  String fixResumenSeRetrasa(String alias) {
+    return '$alias: una toma se retrasa';
+  }
+
+  @override
+  String fixResumenSinVideo(String alias) {
+    return '$alias: una toma sin vídeo';
+  }
+
+  @override
+  String fixResumenSinConfirmar(String alias) {
+    return '$alias: una toma sin confirmar';
+  }
+
+  @override
+  String fixResumenSiguienteManana(String hora) {
+    return 'siguiente mañana $hora';
+  }
+
+  @override
+  String fixAyerHora(String hora) {
+    return 'ayer $hora';
+  }
+
+  @override
+  String fixFechaHora(String fecha, String hora) {
+    return '$fecha, $hora';
+  }
 }

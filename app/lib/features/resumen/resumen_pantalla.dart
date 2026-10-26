@@ -14,11 +14,27 @@ import '../../shared/claves_ui.dart';
 import '../../shared/ios/ios.dart';
 import '../../shared/l10n_ext.dart';
 import '../../shared/widgets/tarjeta_grande.dart';
-import '../hoy/hoy_pantalla.dart' show NivelSemaforo, nombresAutoresProvider;
+import '../hoy/dominio/tomas.dart'
+    show NivelSemaforo, diaLocal, esDeOtroDia, estaPendiente;
+import '../hoy/hoy_pantalla.dart' show TextoQueCabe, nombresAutoresProvider;
 import 'dominio/resumen.dart';
 
 /// Radio de las tarjetas destacadas de Resumen.
 const double _radio = 20;
+
+/// "09:02" si [utc] es de hoy; "ayer 21:00"; si no, "12 de octubre, 21:00".
+String cuandoCorto(
+  AppLocalizations l,
+  DateTime utc,
+  DateTime ahora,
+  String zona,
+) {
+  final hora = horaCorta(aLocal(utc, zona));
+  final fecha = fechaLocalTexto(utc, zona);
+  if (fecha == fechaLocalTexto(ahora, zona)) return hora;
+  if (fecha == diaLocal(ahora, zona, -1).fecha) return l.fixAyerHora(hora);
+  return l.fixFechaHora(fechaCorta(aLocal(utc, zona)), hora);
+}
 
 /// Resumen de la familia (maqueta B-Familia): cómo está la persona de un
 /// vistazo, con las cifras reales de hoy. Lo que aún no existe (pulso, pasos,
@@ -78,7 +94,9 @@ class _Contenido extends ConsumerWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(child: _CasillaTomas(datos: datos)),
+              Expanded(
+                child: _CasillaTomas(datos: datos, zona: zona),
+              ),
               const SizedBox(width: 12),
               Expanded(child: _CasillaVideos(videos: datos.videos)),
             ],
@@ -96,6 +114,7 @@ class _Contenido extends ConsumerWidget {
                   mensaje: datos.mensaje,
                   nombres: nombres,
                   zona: zona,
+                  ahora: datos.ahora,
                 ),
               ),
             ],
@@ -142,19 +161,21 @@ class _TarjetaEstado extends StatelessWidget {
         CupertinoIcons.checkmark,
         c.verde,
         c.verdeClaro,
-        l.resumenEstaBien(alias),
+        l.fixResumenAlDia(alias),
       ),
       NivelSemaforo.naranja => (
         CupertinoIcons.exclamationmark,
         c.naranja,
         c.naranjaClaro,
-        l.resumenNecesitaVistazo(alias),
+        datos.retraso
+            ? l.fixResumenSeRetrasa(alias)
+            : l.fixResumenSinVideo(alias),
       ),
       NivelSemaforo.rojo => (
         CupertinoIcons.xmark,
         c.rojo,
         c.rojoClaro,
-        l.resumenNecesitaAtencion(alias),
+        l.fixResumenSinConfirmar(alias),
       ),
     };
     final ultima = datos.ultimaConfirmacion;
@@ -205,7 +226,7 @@ class _TarjetaEstado extends StatelessWidget {
                     const SizedBox(height: 8),
                     _Chip(
                       texto: l.resumenUltimaSenal(
-                        horaCorta(aLocal(senal, zona)),
+                        cuandoCorto(l, senal, datos.ahora, zona),
                       ),
                     ),
                   ],
@@ -297,9 +318,9 @@ class _Casilla extends StatelessWidget {
               ExcludeSemantics(child: Icon(icono, size: 18, color: color)),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(
+                child: TextoQueCabe(
                   titulo,
-                  style: t.titleSmall?.copyWith(
+                  estilo: t.titleSmall?.copyWith(
                     color: color,
                     fontWeight: FontWeight.w700,
                   ),
@@ -346,9 +367,10 @@ class _Cifra extends StatelessWidget {
 }
 
 class _CasillaTomas extends StatelessWidget {
-  const _CasillaTomas({required this.datos});
+  const _CasillaTomas({required this.datos, required this.zona});
 
   final ResumenDatos datos;
+  final String zona;
 
   @override
   Widget build(BuildContext context) {
@@ -358,6 +380,8 @@ class _CasillaTomas extends StatelessWidget {
     final siguiente = datos.siguiente;
     final leyenda = siguiente == null
         ? l.resumenSinMasTomas
+        : esDeOtroDia(siguiente, datos.ahora, zona)
+        ? l.fixResumenSiguienteManana(siguiente.toma.horaLocal)
         : l.resumenSiguiente(siguiente.toma.horaLocal);
     final sinTomas = datos.previstas == 0;
     final semantica = sinTomas
@@ -417,9 +441,9 @@ class _CasillaTomas extends StatelessWidget {
                       ),
                     ),
                   const SizedBox(height: 2),
-                  Text(
+                  TextoQueCabe(
                     leyenda,
-                    style: t.bodySmall?.copyWith(color: c.textoSecundario),
+                    estilo: t.bodySmall?.copyWith(color: c.textoSecundario),
                   ),
                 ],
               ),
@@ -488,11 +512,13 @@ class _CasillaMensaje extends StatelessWidget {
     required this.mensaje,
     required this.nombres,
     required this.zona,
+    required this.ahora,
   });
 
   final Evento? mensaje;
   final Map<String, String> nombres;
   final String zona;
+  final DateTime ahora;
 
   @override
   Widget build(BuildContext context) {
@@ -527,7 +553,7 @@ class _CasillaMensaje extends StatelessWidget {
           Text(
             l.resumenMensajeDe(
               nombres[m.autor] ?? l.alguien,
-              horaCorta(aLocal(cuando, zona)),
+              cuandoCorto(l, cuando, ahora, zona),
             ),
             style: t.bodySmall?.copyWith(color: c.textoSecundario),
           ),
@@ -607,12 +633,21 @@ class _TarjetaProximaToma extends StatelessWidget {
       );
     }
     final compartimento = siguiente.pauta?.compartimento?.trim() ?? '';
+    final ahora = datos.ahora;
     final hora = siguiente.toma.horaLocal;
+    final cuando = estaPendiente(siguiente, ahora)
+        ? l.fixPendienteDesde(hora)
+        : esDeOtroDia(siguiente, ahora, zona)
+        ? l.fixMananaALas(hora)
+        : hora;
     final linea = compartimento.isEmpty
-        ? hora
-        : l.resumenHoraCompartimento(hora, compartimento);
+        ? cuando
+        : l.resumenHoraCompartimento(cuando, compartimento);
     final familiar = datos.familiar1;
     final minutos = datos.minutosAvisoFamiliar1;
+    final aviso = minutos == null
+        ? null
+        : siguiente.toma.previstaPara.add(Duration(minutes: minutos));
     final medicamentoId = siguiente.medicamento?.id;
     return TarjetaGrande(
       radio: _radio,
@@ -635,18 +670,12 @@ class _TarjetaProximaToma extends StatelessWidget {
                   siguiente.nombreParaPersona,
                   style: t.bodyMedium?.copyWith(color: c.texto),
                 ),
-                if (familiar != null && minutos != null)
+                // Solo mientras el aviso está por llegar.
+                if (familiar != null && aviso != null && aviso.isAfter(ahora))
                   Text(
                     l.resumenAvisoA(
                       familiar.nombre,
-                      horaCorta(
-                        aLocal(
-                          siguiente.toma.previstaPara.add(
-                            Duration(minutes: minutos),
-                          ),
-                          zona,
-                        ),
-                      ),
+                      horaCorta(aLocal(aviso, zona)),
                     ),
                     style: t.bodySmall?.copyWith(color: c.textoSecundario),
                   ),

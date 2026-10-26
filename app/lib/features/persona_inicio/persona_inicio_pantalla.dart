@@ -128,7 +128,11 @@ class _PersonaInicioState extends ConsumerState<PersonaInicioPantalla> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    _Ahora(siguiente: siguiente, ahora: ahoraUtc),
+                    _Ahora(
+                      siguiente: siguiente,
+                      ahora: ahoraUtc,
+                      zona: contexto.zonaHoraria,
+                    ),
                     const SizedBox(height: 16),
                     BotonGrande(
                       key: ClavesUi.misPastillas,
@@ -189,10 +193,15 @@ class _PersonaInicioState extends ConsumerState<PersonaInicioPantalla> {
 /// Tarjeta "ahora": "Ahora no toca nada" con la hora de la siguiente o, a su
 /// hora, la foto de la pastilla y el botón "Es la hora".
 class _Ahora extends StatelessWidget {
-  const _Ahora({required this.siguiente, required this.ahora});
+  const _Ahora({
+    required this.siguiente,
+    required this.ahora,
+    required this.zona,
+  });
 
   final TomaVista? siguiente;
   final DateTime ahora;
+  final String zona;
 
   @override
   Widget build(BuildContext context) {
@@ -247,6 +256,11 @@ class _Ahora extends StatelessWidget {
                 Text(
                   s == null
                       ? l.noHayMasPastillas
+                      : esDeOtroDia(s, ahora, zona)
+                      ? l.fixMananaALasHoraPastilla(
+                          s.toma.horaLocal,
+                          s.nombreParaPersona.toLowerCase(),
+                        )
                       : l.aLasHoraPastilla(
                           s.toma.horaLocal,
                           s.nombreParaPersona.toLowerCase(),

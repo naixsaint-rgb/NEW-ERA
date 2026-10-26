@@ -16,7 +16,6 @@ import '../../shared/l10n_ext.dart';
 import '../../shared/pictogramas/pastilla_pictograma.dart';
 import '../../shared/widgets/tarjeta_grande.dart';
 import '../hoy/dominio/tomas.dart';
-import 'formulario_pauta.dart';
 import 'pastillero.dart';
 
 /// Última versión de cada pauta, por medicamento.
@@ -423,7 +422,3 @@ class _FilaPastilla extends StatelessWidget {
     );
   }
 }
-
-/// Resumen corto de días para otras pantallas.
-String resumenDiasDe(BuildContext context, Pauta p) =>
-    resumenDias(context, p.diasSemana);

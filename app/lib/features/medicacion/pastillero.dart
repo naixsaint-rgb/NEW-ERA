@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:safety_core/safety_core.dart';
 
 import '../../core/db/base_datos.dart';
-import '../../core/db/repositorios/medicacion_repositorio.dart';
 import '../../core/providers.dart';
 import '../../shared/ios/celda_dia.dart';
 import '../hoy/dominio/tomas.dart';
@@ -57,7 +56,7 @@ final class DatosPastillero {
   /// 0 = lunes ... 6 = domingo.
   final int indiceHoy;
 
-  /// Una fila por hora distinta (`HH:mm`) entre las pautas activas vigentes.
+  /// Una fila por hora distinta (`HH:mm`) entre las tomas de la semana.
   final List<String> horas;
 
   /// `celdas[fila][dia]`; nula si ese día y a esa hora no hay toma.
@@ -97,15 +96,13 @@ final class DatosPastillero {
   );
 }
 
-bool _hecha(EstadoToma e) =>
-    e == EstadoToma.confirmada ||
-    e == EstadoToma.confirmadaSinVideo ||
-    e == EstadoToma.cerradaPorFamiliar;
-
 /// Calcula el pastillero de la semana de [ahora].
 ///
 /// Las tomas salen de [calcularTomas] entre el lunes 00:00 y el lunes
-/// siguiente 00:00. Cada celda agrupa las tomas de ese día y hora:
+/// siguiente 00:00, con todas las versiones de cada pauta: hay una fila por
+/// cada hora con alguna toma esta semana (también la hora antigua de una
+/// pauta que cambió o se suspendió). Cada celda agrupa las tomas de ese día y
+/// hora:
 /// - todas hechas: completa; algunas hechas: parcial;
 /// - ninguna hecha y alguna no confirmada: fallida;
 /// - la toma "de ahora" ([siguienteToma]): hoy;
@@ -123,12 +120,6 @@ DatosPastillero calcularPastillero({
     for (final m in medicamentos)
       if (m.retiradoEn != null) m.id,
   };
-  final vigentes = pautasVigentesDe(pautas);
-  final horas = {
-    for (final p in vigentes.values)
-      if (p.activa && !retirados.contains(p.medicamentoId))
-        ...MedicacionRepositorio.horasDe(p),
-  }.toList()..sort();
   final tomas = [
     for (final t in calcularTomas(
       pautas: pautas,
@@ -142,6 +133,7 @@ DatosPastillero calcularPastillero({
     ))
       if (!retirados.contains(t.toma.medicamentoId)) t,
   ];
+  final horas = {for (final t in tomas) t.toma.horaLocal}.toList()..sort();
   final deAhora = siguienteToma(tomas, ahora)?.toma.id;
   final porCelda = <String, List<TomaVista>>{};
   for (final t in tomas) {
@@ -152,7 +144,7 @@ DatosPastillero calcularPastillero({
   CeldaPastillero? celda(String fecha, String hora) {
     final lista = porCelda['$fecha|$hora'];
     if (lista == null || lista.isEmpty) return null;
-    final hechas = lista.where((t) => _hecha(t.estado)).length;
+    final hechas = lista.where((t) => esHecha(t.estado)).length;
     final EstadoCelda estado;
     if (hechas == lista.length) {
       estado = EstadoCelda.completa;

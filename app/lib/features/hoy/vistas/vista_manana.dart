@@ -7,23 +7,9 @@ import '../../../core/providers.dart';
 import '../../../core/tema/colores.dart';
 import '../../../shared/ios/ios.dart';
 import '../../../shared/l10n_ext.dart';
+import '../../persona_inicio/llamadas.dart';
 import '../dominio/tomas.dart';
 import 'piezas_hoy.dart';
-
-/// Familiares por orden de aviso: primero los que tienen `ordenEscalado`
-/// (de menor a mayor), luego el resto en el orden de la lista.
-List<Miembro> porOrdenDeAviso(List<Miembro> miembros) {
-  final indices = [for (var i = 0; i < miembros.length; i++) i];
-  indices.sort((a, b) {
-    final oa = miembros[a].ordenEscalado;
-    final ob = miembros[b].ordenEscalado;
-    if (oa != null && ob != null && oa != ob) return oa.compareTo(ob);
-    if (oa != null && ob == null) return -1;
-    if (oa == null && ob != null) return 1;
-    return a.compareTo(b);
-  });
-  return [for (final i in indices) miembros[i]];
-}
 
 /// Vista "Mañana": tomas previstas y quién recibe los avisos.
 class VistaManana extends ConsumerWidget {
@@ -37,7 +23,7 @@ class VistaManana extends ConsumerWidget {
     final c = context.colores;
     final config = ref.watch(configEscaladoProvider);
     final miembros = ref.watch(miembrosProvider).value ?? const <Miembro>[];
-    final orden = porOrdenDeAviso(miembros);
+    final orden = familiaresPorOrden(miembros);
     final minutos = [
       minutoDePaso(config, AccionEscalado.avisarFamiliar1, porDefecto: 5),
       minutoDePaso(

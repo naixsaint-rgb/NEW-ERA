@@ -3,9 +3,9 @@ import 'package:safety_core/safety_core.dart';
 
 import '../../../core/db/base_datos.dart';
 import '../../../core/db/repositorios/eventos_repositorio.dart';
-import '../../../core/i18n/fechas.dart';
 import '../../../core/providers.dart';
 import '../../hoy/dominio/tomas.dart';
+import '../../persona_inicio/llamadas.dart';
 
 /// Cómo se confirmó la última toma.
 enum OrigenConfirmacion { movil, reloj, familiar }
@@ -35,6 +35,8 @@ final class ResumenDatos {
     required this.previstas,
     required this.videos,
     required this.avisos,
+    required this.ahora,
+    this.retraso = false,
     this.alias,
     this.ultimaConfirmacion,
     this.ultimaSenal,
@@ -45,6 +47,12 @@ final class ResumenDatos {
   });
 
   final NivelSemaforo nivel;
+
+  /// `true` si el naranja es por una toma que se retrasa ([hayRetraso]).
+  final bool retraso;
+
+  /// El instante con el que se calculó (para "ayer", "mañana", "pendiente").
+  final DateTime ahora;
 
   /// Alias de la persona (nulo mientras carga).
   final String? alias;
@@ -69,18 +77,15 @@ final class ResumenDatos {
   /// Último mensaje a la persona.
   final Evento? mensaje;
 
-  /// Primer miembro por `ordenEscalado` y los minutos de su paso de aviso.
+  /// Familiar 1 ([primerFamiliar]) y los minutos de su paso de aviso.
   final Miembro? familiar1;
   final int? minutosAvisoFamiliar1;
 }
 
-/// `true` si la toma está confirmada (con o sin vídeo).
-bool estaHecha(TomaVista t) =>
-    t.estado == EstadoToma.confirmada ||
-    t.estado == EstadoToma.confirmadaSinVideo;
-
-/// Tomas de [deHoy] confirmadas.
-int contarHechas(Iterable<TomaVista> deHoy) => deHoy.where(estaHecha).length;
+/// Tomas de [deHoy] hechas ([esHecha]: confirmadas o cerradas por un
+/// familiar).
+int contarHechas(Iterable<TomaVista> deHoy) =>
+    deHoy.where((t) => esHecha(t.estado)).length;
 
 /// Clips grabados (`clip_grabado`, sin contar los anulados) en las tomas de
 /// [deHoy].
@@ -107,7 +112,7 @@ int contarVideos(Iterable<TomaVista> deHoy) {
 UltimaConfirmacion? ultimaConfirmacionDe(Iterable<TomaVista> deHoy) {
   UltimaConfirmacion? mejor;
   for (final t in deHoy) {
-    if (!estaHecha(t)) continue;
+    if (!esHecha(t.estado)) continue;
     final e = t.ultimoDe(TipoEvento.tomaConfirmada);
     if (e == null) continue;
     final cuando = _instante(e);
@@ -134,17 +139,6 @@ int? minutosAvisoFamiliar1(ConfigEscalado config) {
   return null;
 }
 
-/// Primer miembro del escalado (el de menor `ordenEscalado`).
-Miembro? primerFamiliar(Iterable<Miembro> miembros) {
-  Miembro? mejor;
-  for (final m in miembros) {
-    final orden = m.ordenEscalado;
-    if (orden == null) continue;
-    if (mejor == null || orden < mejor.ordenEscalado!) mejor = m;
-  }
-  return mejor;
-}
-
 /// Eventos con los que la persona "da señales de vida".
 const tiposDeSenal = {
   'toma_confirmada',
@@ -156,27 +150,6 @@ const tiposDeSenal = {
 
 DateTime _instante(Evento e) =>
     DateTime.fromMillisecondsSinceEpoch(e.ocurridoEn, isUtc: true);
-
-/// Principio del día de hoy (00:00 local) en UTC.
-final inicioDeHoyProvider = Provider<DateTime>((ref) {
-  final ahora =
-      ref.watch(ahoraProvider).value ?? ref.read(relojProvider).ahora();
-  return inicioDelDia(ahora, ref.watch(contextoProvider).zonaHoraria);
-});
-
-/// Avisos de hoy: ayuda pedida y llamadas iniciadas.
-final avisosDeHoyProvider = StreamProvider<List<Evento>>((ref) {
-  final desde = ref.watch(inicioDeHoyProvider);
-  return ref
-      .watch(eventosRepositorioProvider)
-      .observarEventosDesde(
-        desde,
-        tipos: {
-          TipoEvento.ayudaPedida.nombre,
-          TipoEvento.llamadaIniciada.nombre,
-        },
-      );
-});
 
 /// Último evento firmado por la persona que cuenta como señal.
 final ultimoEventoDePersonaProvider = StreamProvider<Evento?>((ref) {
@@ -202,23 +175,27 @@ final resumenProvider = Provider<AsyncValue<ResumenDatos>>((ref) {
   if (!hoy.hasValue) return const AsyncValue.loading();
   final deHoy = hoy.requireValue;
   final siguiente = ref.watch(siguienteTomaProvider).value;
-  final avisos = ref.watch(avisosDeHoyProvider).value ?? const <Evento>[];
+  final avisos = ref.watch(avisosDeHoyProvider).value ?? 0;
   final deLaPersona = ref.watch(ultimoEventoDePersonaProvider).value;
   final global = ref.watch(ultimaConfirmacionGlobalProvider).value;
   final miembros = ref.watch(miembrosProvider).value ?? const <Miembro>[];
   final config = ref.watch(configEscaladoProvider);
+  final ahora =
+      ref.watch(ahoraProvider).value ?? ref.read(relojProvider).ahora();
 
   final senal = deLaPersona ?? global;
   return AsyncValue.data(
     ResumenDatos(
-      nivel: nivelSemaforo(deHoy),
+      nivel: nivelSemaforo(deHoy, ahora, config),
+      retraso: hayRetraso(deHoy, ahora, config),
+      ahora: ahora,
       alias: ref.watch(personaProvider).value?.alias,
       ultimaConfirmacion: ultimaConfirmacionDe(deHoy),
       ultimaSenal: senal == null ? null : _instante(senal),
       hechas: contarHechas(deHoy),
       previstas: deHoy.length,
       videos: contarVideos(deHoy),
-      avisos: avisos.length,
+      avisos: avisos,
       siguiente: siguiente,
       mensaje: ref.watch(ultimoMensajeProvider).value,
       familiar1: primerFamiliar(miembros),

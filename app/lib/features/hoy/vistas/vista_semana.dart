@@ -154,9 +154,9 @@ class VistaSemana extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: anchoEtiqueta,
-                    child: Text(
+                    child: TextoQueCabe(
                       l.hoyFilaTomas,
-                      style: t.labelMedium?.copyWith(color: c.texto),
+                      estilo: t.labelMedium?.copyWith(color: c.texto),
                     ),
                   ),
                   for (var i = 0; i < dias.length; i++)
@@ -191,7 +191,10 @@ class VistaSemana extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: anchoEtiqueta,
-                      child: Text(l.hoyFilaRespondio, style: secundario),
+                      child: TextoQueCabe(
+                        l.hoyFilaRespondio,
+                        estilo: secundario,
+                      ),
                     ),
                     Expanded(
                       child: Padding(

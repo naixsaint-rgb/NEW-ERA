@@ -26,20 +26,19 @@ class VistaHoy extends ConsumerWidget {
     final l = context.l;
     final deHoy = datos.de(datos.hoy);
     final todas = [for (final d in datos.dias) ...datos.de(d)];
-    TomaVista? ultima;
-    for (final x in todas) {
-      if (!x.toma.previstaPara.isAfter(ahora)) ultima = x;
-    }
+    final ultima = ultimaTomaDeHoy(deHoy, ahora);
     final siguiente = siguienteToma(todas, ahora);
     final cuenta = contarTomas(deHoy);
     final avisos = ref.watch(avisosDeHoyProvider).value;
+    final config = ref.watch(configEscaladoProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
         _TarjetaEstado(
-          nivel: nivelSemaforo(deHoy),
+          nivel: nivelSemaforo(deHoy, ahora, config),
+          retraso: hayRetraso(deHoy, ahora, config),
           ultima: ultima,
           cuenta: cuenta,
           videos: clipsDe(deHoy).length,
@@ -47,7 +46,7 @@ class VistaHoy extends ConsumerWidget {
         ),
         separacionBloques,
         TituloSeccion(l.hoyProximaToma),
-        _ProximaToma(toma: siguiente),
+        _ProximaToma(toma: siguiente, ahora: ahora),
         separacionBloques,
         GrupoTomas(titulo: l.tomasDeHoy, tomas: deHoy, vacio: l.sinTomasHoy),
         separacionBloques,
@@ -57,7 +56,7 @@ class VistaHoy extends ConsumerWidget {
           titulo: l.hoyLlegaPronto,
           children: [
             FilaLlegaPronto(
-              titulo: l.reservadaVideo,
+              titulo: l.fixReservadaVerVideo,
               subtitulo: l.llegaEnSemana(3),
             ),
             FilaLlegaPronto(
@@ -79,6 +78,7 @@ class VistaHoy extends ConsumerWidget {
 class _TarjetaEstado extends ConsumerWidget {
   const _TarjetaEstado({
     required this.nivel,
+    required this.retraso,
     required this.ultima,
     required this.cuenta,
     required this.videos,
@@ -86,6 +86,9 @@ class _TarjetaEstado extends ConsumerWidget {
   });
 
   final NivelSemaforo nivel;
+
+  /// El naranja es por una toma que se retrasa (y no por un vídeo).
+  final bool retraso;
   final TomaVista? ultima;
   final CuentaTomas cuenta;
   final int videos;
@@ -108,7 +111,7 @@ class _TarjetaEstado extends ConsumerWidget {
         c.naranja,
         c.naranjaClaro,
         CupertinoIcons.exclamationmark_triangle_fill,
-        l.semaforoNaranja,
+        retraso ? l.fixSemaforoRetraso : l.semaforoNaranja,
       ),
       NivelSemaforo.verde => (
         c.verde,
@@ -164,7 +167,7 @@ class _TarjetaEstado extends ConsumerWidget {
                 const SizedBox(height: 2),
                 if (x == null)
                   Text(
-                    l.sinTomasAun,
+                    l.fixSinTomasAunHoy,
                     style: t.bodyMedium?.copyWith(color: c.texto),
                   )
                 else ...[
@@ -240,11 +243,9 @@ class _Casilla extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
+            TextoQueCabe(
               titulo,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: t.labelMedium?.copyWith(color: c.textoSecundario),
+              estilo: t.labelMedium?.copyWith(color: c.textoSecundario),
             ),
             Text.rich(
               TextSpan(
@@ -266,11 +267,14 @@ class _Casilla extends StatelessWidget {
   }
 }
 
-/// "Próxima toma": foto, "14:00 · Mediodía", nombre y cuándo se avisa.
+/// "Próxima toma": foto, "14:00 · Mediodía", nombre y cuándo se avisa. Si
+/// su hora ya pasó, "Pendiente desde las 09:00" (y sin el aviso, si también
+/// pasó); si es de mañana, "Mañana a las 09:00".
 class _ProximaToma extends ConsumerWidget {
-  const _ProximaToma({required this.toma});
+  const _ProximaToma({required this.toma, required this.ahora});
 
   final TomaVista? toma;
+  final DateTime ahora;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -290,9 +294,21 @@ class _ProximaToma extends ConsumerWidget {
       AccionEscalado.avisarFamiliar1,
       porDefecto: 5,
     );
-    final aviso = horaCorta(
-      aLocal(x.toma.previstaPara.add(Duration(minutes: minutos)), zona),
-    );
+    final instanteAviso = x.toma.previstaPara.add(Duration(minutes: minutos));
+    final aviso = horaCorta(aLocal(instanteAviso, zona));
+    final pendiente = estaPendiente(x, ahora);
+    // La línea del aviso solo mientras el aviso está por llegar.
+    final conAviso = instanteAviso.isAfter(ahora);
+    final hora = x.toma.horaLocal;
+    final cuando = pendiente
+        ? l.fixPendienteDesde(hora)
+        : esDeOtroDia(x, ahora, zona)
+        ? l.fixMananaALas(hora)
+        : hora;
+    final comp = x.pauta?.compartimento;
+    final titulo = comp == null || comp.trim().isEmpty
+        ? cuando
+        : l.hoyHoraYCompartimento(cuando, comp);
     return TarjetaGrande(
       margen: EdgeInsets.zero,
       relleno: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -306,21 +322,19 @@ class _ProximaToma extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    horaYCompartimento(l, x),
-                    style: t.titleMedium?.copyWith(color: c.texto),
-                  ),
+                  Text(titulo, style: t.titleMedium?.copyWith(color: c.texto)),
                   Text(
                     x.nombreParaPersona,
                     style: t.bodySmall?.copyWith(color: c.textoSecundario),
                   ),
-                  Text(
-                    l.hoySiNoLaToma(aviso),
-                    style: t.bodySmall?.copyWith(
-                      color: c.naranja,
-                      fontWeight: FontWeight.w600,
+                  if (conAviso)
+                    Text(
+                      l.hoySiNoLaToma(aviso),
+                      style: t.bodySmall?.copyWith(
+                        color: c.naranja,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),

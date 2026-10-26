@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:newera/core/contexto.dart';
+import 'package:newera/core/providers.dart';
 import 'package:newera/features/medicacion/medicacion_pantalla.dart';
 import 'package:newera/features/medicacion/pastillero.dart';
 import 'package:newera/shared/claves_ui.dart';
 import 'package:newera/shared/ios/ios.dart';
+import 'package:safety_core/safety_core.dart';
 
 import 'utiles/app_prueba.dart';
 
@@ -58,6 +61,13 @@ void main() {
     await tester.scrollUntilVisible(find.text('Medicamento A (ejemplo)'), 300);
     expect(find.text('Medicamento A (ejemplo)'), findsOneWidget);
     expect(find.text('PASTILLAS · CON SU FOTO'), findsOneWidget);
+    // El pie dice dónde se ve la foto hoy, sin prometer lo que aún no hay.
+    await tester.scrollUntilVisible(
+      find.textContaining('Ella la ve en la alarma y en Mis pastillas'),
+      300,
+    );
+    expect(find.textContaining('vídeo de comprobación'), findsNothing);
+    await tester.scrollUntilVisible(find.text('Medicamento A (ejemplo)'), -300);
     expect(find.textContaining('09:00 · 1 comprimido'), findsOneWidget);
     // La foto la hizo quien dio de alta el medicamento (la semilla, la persona).
     expect(find.textContaining('Foto de Carmen · 13 de octubre'), findsWidgets);
@@ -249,4 +259,54 @@ void main() {
       },
     );
   }
+
+  testWidgets('pastillero: si la pauta cambia de hora, la hora antigua sigue', (
+    tester,
+  ) async {
+    final entorno = await tester.runAsync(
+      () => prepararEntorno(perfil: PerfilApp.familia),
+    );
+    // El martes a las 12:00 la pastilla de las 09:00 pasa a las 10:00.
+    await tester.runAsync(() async {
+      final meds = await entorno!.db.select(entorno.db.medicamentos).get();
+      final med = meds.firstWhere(
+        (m) => m.nombreParaPersona == 'Pastilla blanca pequeña',
+      );
+      final pautas = await entorno.db.select(entorno.db.pautas).get();
+      final pauta = pautas.firstWhere((p) => p.medicamentoId == med.id);
+      final c = ProviderContainer(overrides: entorno.overrides);
+      try {
+        await c
+            .read(medicacionRepositorioProvider)
+            .cambiarPauta(
+              pautaId: pauta.pautaId,
+              motivo: 'Cambio de prueba',
+              horas: const ['10:00'],
+              diasSemana: pauta.diasSemana,
+              dosis: pauta.dosis,
+              compartimento: pauta.compartimento,
+              comprobacion: TipoComprobacion.desdeNombre(pauta.comprobacion),
+              segundosVideo: pauta.segundosVideo,
+            );
+      } finally {
+        c.dispose();
+      }
+    });
+    await montarApp(tester, entorno!, rutaInicial: '/familia/medicacion');
+    await pasar(tester, const Duration(seconds: 1));
+
+    final pastillero = find.byKey(ClavesUi.pastillero);
+    for (final h in ['09:00', '10:00', '14:00', '21:00']) {
+      expect(
+        find.descendant(of: pastillero, matching: find.text(h)),
+        findsOneWidget,
+        reason: h,
+      );
+    }
+    // Lunes y martes a las 09:00, con la pauta antigua: tomadas.
+    expect(_celda(tester, '2026-10-12', '09:00').estado, EstadoCelda.completa);
+    expect(_celda(tester, '2026-10-13', '09:00').estado, EstadoCelda.completa);
+    // Desde el miércoles, a las 10:00.
+    expect(_celda(tester, '2026-10-14', '10:00').estado, EstadoCelda.futura);
+  });
 }

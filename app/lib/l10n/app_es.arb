@@ -27,7 +27,6 @@
   "pestanaResumen": "Resumen",
   "botonMasAyuda": "Calendario, consultas, alarmas, voces, círculo y ajustes",
   "volver": "Volver",
-  "enConstruccion": "En construcción",
   "aspecto": "Aspecto",
   "aspectoAutomatico": "Automático",
   "aspectoClaro": "Claro",
@@ -35,7 +34,6 @@
   "aspectoHoras": "Noche (22–⁠08)",
   "aspectoAyuda": "Automático sigue al móvil. Noche: oscuro de 22:00 a 08:00.",
   "misPastillas": "Mis pastillas",
-  "preguntaTitulo": "Pregunta",
   "preguntaModoPrueba": "Modo prueba: no se guarda nada.",
   "tendraTitulo": "Lo que tendrá",
   "llegaEnSemana": "Llega en la semana {n}",
@@ -165,7 +163,6 @@
     }
   },
   "ultimaToma": "Última toma",
-  "sinTomasAun": "Todavía no ha habido ninguna toma.",
   "tomasDeHoy": "Tomas de hoy",
   "sinTomasHoy": "Hoy no hay tomas previstas.",
   "confirmadaPorDesde": "Confirmada por {quien}, {como}",
@@ -191,21 +188,12 @@
     }
   },
   "sinConfirmarAun": "Sin confirmar",
-  "reservadaVideo": "Vídeo de la toma",
   "reservadaUbicacion": "Ubicación",
   "reservadaControl": "Respuesta de control",
   "anadirMedicamento": "Añadir medicamento",
   "probarPantallaToma": "Probar pantalla de toma",
   "medicamentos": "Medicamentos",
   "sinMedicamentos": "Todavía no hay medicamentos.",
-  "verMedicamento": "Ver {nombre}",
-  "@verMedicamento": {
-    "placeholders": {
-      "nombre": {
-        "type": "String"
-      }
-    }
-  },
   "resumenPauta": "{horas} · {dosis}",
   "@resumenPauta": {
     "placeholders": {
@@ -562,17 +550,6 @@
       }
     }
   },
-  "hoySemanticaCasilla": "{titulo}: {valor}",
-  "@hoySemanticaCasilla": {
-    "placeholders": {
-      "titulo": {
-        "type": "String"
-      },
-      "valor": {
-        "type": "String"
-      }
-    }
-  },
   "hoyProximaToma": "Próxima toma",
   "hoyHoraYCompartimento": "{hora} · {compartimento}",
   "@hoyHoraYCompartimento": {
@@ -769,7 +746,7 @@
   "medicProbarPregunta": "Probar pregunta",
   "medicProbarPreguntaAyuda": "Modo prueba: no se guarda nada.",
   "medicPastillasTitulo": "Pastillas · con su foto",
-  "medicPastillasPie": "La foto la hace la familia una vez. Se ve en la alarma de ella, en el pastillero y en el vídeo de comprobación.",
+  "medicPastillasPie": "La foto la hace la familia una vez. Ella la ve en la alarma y en Mis pastillas; aquí, en la lista.",
   "medicFotoDe": "Foto de {autor} · {fecha}",
   "@medicFotoDe": {
     "placeholders": {
@@ -788,30 +765,6 @@
         "type": "String"
       },
       "ultima": {
-        "type": "String"
-      }
-    }
-  },
-  "resumenEstaBien": "{alias} está bien",
-  "@resumenEstaBien": {
-    "placeholders": {
-      "alias": {
-        "type": "String"
-      }
-    }
-  },
-  "resumenNecesitaVistazo": "{alias} necesita un vistazo",
-  "@resumenNecesitaVistazo": {
-    "placeholders": {
-      "alias": {
-        "type": "String"
-      }
-    }
-  },
-  "resumenNecesitaAtencion": "{alias} necesita atención",
-  "@resumenNecesitaAtencion": {
-    "placeholders": {
-      "alias": {
         "type": "String"
       }
     }
@@ -965,5 +918,94 @@
   "preguntaPrefieroDecirlo": "Prefiero decirlo",
   "preguntaDecirloLlega": "Llega en la semana 5",
   "preguntaGracias": "Gracias",
-  "preguntaHasContestado": "Esto has contestado"
+  "preguntaHasContestado": "Esto has contestado",
+  "fixSemaforoRetraso": "Una toma se retrasa",
+  "fixSinTomasAunHoy": "Sin tomas aún hoy",
+  "fixPendienteDesde": "Pendiente desde las {hora}",
+  "@fixPendienteDesde": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "fixMananaALas": "Mañana a las {hora}",
+  "@fixMananaALas": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "fixMananaALasHoraPastilla": "Mañana a las {hora}, {nombre}",
+  "@fixMananaALasHoraPastilla": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      },
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "fixReservadaVerVideo": "Ver el vídeo de cada toma desde el móvil de la familia",
+  "fixResumenAlDia": "Tomas de {alias} al día",
+  "@fixResumenAlDia": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "fixResumenSeRetrasa": "{alias}: una toma se retrasa",
+  "@fixResumenSeRetrasa": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "fixResumenSinVideo": "{alias}: una toma sin vídeo",
+  "@fixResumenSinVideo": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "fixResumenSinConfirmar": "{alias}: una toma sin confirmar",
+  "@fixResumenSinConfirmar": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "fixResumenSiguienteManana": "siguiente mañana {hora}",
+  "@fixResumenSiguienteManana": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "fixAyerHora": "ayer {hora}",
+  "@fixAyerHora": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "fixFechaHora": "{fecha}, {hora}",
+  "@fixFechaHora": {
+    "placeholders": {
+      "fecha": {
+        "type": "String"
+      },
+      "hora": {
+        "type": "String"
+      }
+    }
+  }
 }

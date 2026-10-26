@@ -14,6 +14,7 @@ import '../../l10n/app_localizations.dart';
 import '../../shared/claves_ui.dart';
 import '../../shared/l10n_ext.dart';
 import '../../shared/widgets/boton_grande.dart';
+import '../persona_inicio/llamadas.dart';
 
 /// Cómo se pinta una respuesta.
 enum _Estilo { verde, naranja, rojo, azul }
@@ -143,15 +144,6 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
     );
   }
 
-  /// Familiar con el primer puesto del orden de aviso (si lo hay).
-  Miembro? _primerFamiliar(List<Miembro> miembros) {
-    final conOrden = [
-      for (final m in miembros)
-        if (m.ordenEscalado != null) m,
-    ]..sort((a, b) => a.ordenEscalado!.compareTo(b.ordenEscalado!));
-    return conOrden.isEmpty ? null : conOrden.first;
-  }
-
   @override
   Widget build(BuildContext context) {
     final l = context.l;
@@ -169,7 +161,14 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
                     prueba: widget.prueba,
                     textoDe: (i, clave) => _textoRespuesta(l, i, clave),
                   )
-                : _contenidoPregunta(context),
+                : LayoutBuilder(
+                    // Pantallas bajas (375×728 con la letra al 130 %):
+                    // botones de 84 y título de 40, y todo desplazable.
+                    builder: (context, limites) => _contenidoPregunta(
+                      context,
+                      compacta: limites.maxHeight < 760,
+                    ),
+                  ),
           ),
         ),
       ),
@@ -181,7 +180,7 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
     return _preguntas[i].opciones.firstWhere((o) => o.clave == clave).texto(l);
   }
 
-  Widget _contenidoPregunta(BuildContext context) {
+  Widget _contenidoPregunta(BuildContext context, {required bool compacta}) {
     final l = context.l;
     final c = context.colores;
     final t = Theme.of(context).textTheme;
@@ -191,7 +190,7 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
         ref.watch(ahoraProvider).value ?? ref.read(relojProvider).ahora();
     final hora = horaCorta(aLocal(ahora, contexto.zonaHoraria));
     final miembros = ref.watch(miembrosProvider).value ?? const <Miembro>[];
-    final familiar = _primerFamiliar(miembros);
+    final familiar = primerFamiliar(miembros);
     final quien = familiar == null
         ? l.preguntaTeLoPreguntaFamilia
         : l.preguntaTeLoPregunta(familiar.nombre);
@@ -225,7 +224,7 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
             child: Text(
               pregunta.texto(l),
               style: t.displayMedium?.copyWith(
-                fontSize: 48,
+                fontSize: compacta ? 40 : 48,
                 fontWeight: FontWeight.w800,
                 letterSpacing: -1,
                 height: 1.05,
@@ -237,7 +236,7 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
           if (pregunta.opciones.length <= 3)
             for (final (i, o) in pregunta.opciones.indexed) ...[
               if (i > 0) const SizedBox(height: 14),
-              _botonGrande(o, l, c),
+              _botonGrande(o, l, c, altura: compacta ? 84 : 108),
             ]
           else
             _CuadriculaOpciones(
