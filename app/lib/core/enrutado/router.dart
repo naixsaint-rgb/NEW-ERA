@@ -10,7 +10,7 @@ import '../../features/calendario/calendario_pantalla.dart';
 import '../../features/catalogo/catalogo_pantalla.dart';
 import '../../features/catalogo/dosier_pantalla.dart';
 import '../../features/catalogo/ficha_pantalla.dart';
-import '../../features/catalogo/resumen_pantalla.dart';
+import '../../features/catalogo/resumen_pantalla.dart' as catalogo;
 import '../../features/circulo/circulo_pantalla.dart';
 import '../../features/consultas/consultas_pantalla.dart';
 import '../../features/hoy/hoy_pantalla.dart';
@@ -20,6 +20,9 @@ import '../../features/medicacion/detalle_medicamento_pantalla.dart';
 import '../../features/medicacion/medicacion_pantalla.dart';
 import '../../features/perfil/perfil_pantalla.dart';
 import '../../features/persona_inicio/persona_inicio_pantalla.dart';
+import '../../features/persona_pastillas/persona_pastillas_pantalla.dart';
+import '../../features/pregunta/pregunta_pantalla.dart';
+import '../../features/resumen/resumen_pantalla.dart';
 import '../../features/toma/toma_pantalla.dart';
 import '../../features/voces/voces_pantalla.dart';
 import '../contexto.dart';
@@ -98,6 +101,18 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ),
           ),
+          GoRoute(
+            path: 'pastillas',
+            builder: (_, _) => _enTemaPersona(const PersonaPastillasPantalla()),
+          ),
+          GoRoute(
+            path: 'pregunta',
+            builder: (_, state) => _enTemaPersona(
+              PreguntaPantalla(
+                prueba: state.uri.queryParameters['prueba'] == '1',
+              ),
+            ),
+          ),
         ],
       ),
       GoRoute(path: Rutas.mas, builder: (_, _) => const MasPantalla()),
@@ -107,6 +122,9 @@ final routerProvider = Provider<GoRouter>((ref) {
         branches: [
           StatefulShellBranch(
             routes: [pestana('hoy', () => const HoyPantalla())],
+          ),
+          StatefulShellBranch(
+            routes: [pestana('resumen', () => const ResumenPantalla())],
           ),
           StatefulShellBranch(
             routes: [
@@ -177,7 +195,7 @@ final routerProvider = Provider<GoRouter>((ref) {
                   ),
                   GoRoute(
                     path: 'resumen',
-                    builder: (_, _) => const ResumenPantalla(),
+                    builder: (_, _) => const catalogo.ResumenPantalla(),
                   ),
                   GoRoute(
                     path: 'tema/:temaKey',

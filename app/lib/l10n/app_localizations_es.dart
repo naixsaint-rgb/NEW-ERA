@@ -83,6 +83,47 @@ class AppLocalizationsEs extends AppLocalizations {
   String get pestanaMas => 'Más';
 
   @override
+  String get pestanaResumen => 'Resumen';
+
+  @override
+  String get botonMasAyuda =>
+      'Calendario, consultas, alarmas, voces, círculo y ajustes';
+
+  @override
+  String get volver => 'Volver';
+
+  @override
+  String get enConstruccion => 'En construcción';
+
+  @override
+  String get aspecto => 'Aspecto';
+
+  @override
+  String get aspectoAutomatico => 'Automático';
+
+  @override
+  String get aspectoClaro => 'Claro';
+
+  @override
+  String get aspectoOscuro => 'Oscuro';
+
+  @override
+  String get aspectoHoras => 'Noche (22–⁠08)';
+
+  @override
+  String get aspectoAyuda =>
+      'Automático sigue al móvil. Noche: oscuro de 22:00 a 08:00.';
+
+  @override
+  String get misPastillas => 'Mis pastillas';
+
+  @override
+  String get preguntaTitulo => 'Pregunta';
+
+  @override
+  String get preguntaModoPrueba => 'Modo prueba: no se guarda nada.';
+
+  @override
   String get tendraTitulo => 'Lo que tendrá';
 
   @override

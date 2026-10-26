@@ -23,6 +23,7 @@ class PastillaPictograma extends StatelessWidget {
     this.color,
     this.tamano = 96,
     this.etiquetaSemantica,
+    this.colorBorde = const Color(0xFF555555),
   });
 
   /// `redonda`, `ovalada`, `capsula` u `otra`.
@@ -30,6 +31,9 @@ class PastillaPictograma extends StatelessWidget {
   final String? color;
   final double tamano;
   final String? etiquetaSemantica;
+
+  /// Contorno de la pastilla (sobre el fondo "mesa", `mesaBorde`).
+  final Color colorBorde;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +45,7 @@ class PastillaPictograma extends StatelessWidget {
         width: tamano,
         height: tamano,
         child: CustomPaint(
-          painter: _PintorPastilla(forma, colorDePastilla(color)),
+          painter: _PintorPastilla(forma, colorDePastilla(color), colorBorde),
         ),
       ),
     );
@@ -49,16 +53,17 @@ class PastillaPictograma extends StatelessWidget {
 }
 
 class _PintorPastilla extends CustomPainter {
-  _PintorPastilla(this.forma, this.color);
+  _PintorPastilla(this.forma, this.color, this.colorBorde);
 
   final String forma;
   final Color color;
+  final Color colorBorde;
 
   @override
   void paint(Canvas canvas, Size size) {
     final relleno = Paint()..color = color;
     final borde = Paint()
-      ..color = const Color(0xFF555555)
+      ..color = colorBorde
       ..style = PaintingStyle.stroke
       ..strokeWidth = size.shortestSide * 0.03;
     final brillo = Paint()..color = const Color(0x66FFFFFF);
@@ -131,5 +136,5 @@ class _PintorPastilla extends CustomPainter {
 
   @override
   bool shouldRepaint(_PintorPastilla old) =>
-      old.forma != forma || old.color != color;
+      old.forma != forma || old.color != color || old.colorBorde != colorBorde;
 }

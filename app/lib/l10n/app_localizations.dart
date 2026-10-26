@@ -238,6 +238,84 @@ abstract class AppLocalizations {
   /// **'Más'**
   String get pestanaMas;
 
+  /// No description provided for @pestanaResumen.
+  ///
+  /// In es, this message translates to:
+  /// **'Resumen'**
+  String get pestanaResumen;
+
+  /// No description provided for @botonMasAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Calendario, consultas, alarmas, voces, círculo y ajustes'**
+  String get botonMasAyuda;
+
+  /// No description provided for @volver.
+  ///
+  /// In es, this message translates to:
+  /// **'Volver'**
+  String get volver;
+
+  /// No description provided for @enConstruccion.
+  ///
+  /// In es, this message translates to:
+  /// **'En construcción'**
+  String get enConstruccion;
+
+  /// No description provided for @aspecto.
+  ///
+  /// In es, this message translates to:
+  /// **'Aspecto'**
+  String get aspecto;
+
+  /// No description provided for @aspectoAutomatico.
+  ///
+  /// In es, this message translates to:
+  /// **'Automático'**
+  String get aspectoAutomatico;
+
+  /// No description provided for @aspectoClaro.
+  ///
+  /// In es, this message translates to:
+  /// **'Claro'**
+  String get aspectoClaro;
+
+  /// No description provided for @aspectoOscuro.
+  ///
+  /// In es, this message translates to:
+  /// **'Oscuro'**
+  String get aspectoOscuro;
+
+  /// No description provided for @aspectoHoras.
+  ///
+  /// In es, this message translates to:
+  /// **'Noche (22–⁠08)'**
+  String get aspectoHoras;
+
+  /// No description provided for @aspectoAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Automático sigue al móvil. Noche: oscuro de 22:00 a 08:00.'**
+  String get aspectoAyuda;
+
+  /// No description provided for @misPastillas.
+  ///
+  /// In es, this message translates to:
+  /// **'Mis pastillas'**
+  String get misPastillas;
+
+  /// No description provided for @preguntaTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Pregunta'**
+  String get preguntaTitulo;
+
+  /// No description provided for @preguntaModoPrueba.
+  ///
+  /// In es, this message translates to:
+  /// **'Modo prueba: no se guarda nada.'**
+  String get preguntaModoPrueba;
+
   /// No description provided for @tendraTitulo.
   ///
   /// In es, this message translates to:

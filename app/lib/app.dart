@@ -8,6 +8,7 @@ import 'core/contexto.dart';
 import 'core/enrutado/router.dart';
 import 'core/enrutado/rutas.dart';
 import 'core/providers.dart';
+import 'core/tema/aspecto.dart';
 import 'core/tema/tema_familia.dart';
 import 'l10n/app_localizations.dart';
 import 'shared/widgets/aviso_demo.dart';
@@ -23,6 +24,8 @@ class NewEraApp extends ConsumerStatefulWidget {
 class _NewEraAppState extends ConsumerState<NewEraApp> {
   StreamSubscription<String>? _sonando;
   bool _programado = false;
+  final _temaClaro = temaFamilia();
+  final _temaOscuro = temaFamiliaOscuro();
 
   @override
   void initState() {
@@ -50,11 +53,16 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
   Widget build(BuildContext context) {
     final router = ref.watch(routerProvider);
     final demo = ref.watch(esDemoWebProvider);
+    final modo = ref.watch(modoTemaProvider);
     return MaterialApp.router(
       onGenerateTitle: (context) => AppLocalizations.of(context).appTitulo,
       debugShowCheckedModeBanner: false,
       routerConfig: router,
-      theme: temaFamilia(),
+      // La familia sigue el ajuste "Aspecto"; la persona va siempre en claro
+      // (su árbol lleva además `temaPersona()`).
+      theme: _temaClaro,
+      darkTheme: _temaOscuro,
+      themeMode: modo,
       locale: const Locale('es', 'ES'),
       supportedLocales: const [Locale('es', 'ES')],
       localizationsDelegates: const [

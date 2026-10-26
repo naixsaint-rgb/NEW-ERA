@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../core/tema/colores.dart';
 import '../l10n_ext.dart';
 
 /// Banner fijo de la demo web: datos de ejemplo, sin cifrar.
+///
+/// Discreto: una franja tintada de naranja con texto de 13 y el botón
+/// "Cambiar perfil" subrayado; se lee en claro y en oscuro.
 class AvisoDemo extends StatelessWidget {
   const AvisoDemo({super.key, required this.alCambiarPerfil});
 
@@ -11,25 +15,35 @@ class AvisoDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l;
+    final c = context.colores;
+    final t = Theme.of(context).textTheme;
     return Material(
-      color: const Color(0xFFFFF3CD),
+      color: c.naranjaClaro,
       child: SafeArea(
         bottom: false,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
           child: Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 12,
+            spacing: 8,
             children: [
               Text(
                 l.avisoDemo,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: const Color(0xFF1A1A1A),
+                style: t.bodySmall?.copyWith(
+                  color: c.texto,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               TextButton(
                 onPressed: alCambiarPerfil,
+                style: TextButton.styleFrom(
+                  foregroundColor: c.texto,
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  textStyle: t.bodySmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
                 child: Text(l.cambiarPerfil),
               ),
             ],

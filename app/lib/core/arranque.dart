@@ -15,6 +15,7 @@ import 'db/repositorios/circulo_repositorio.dart';
 import 'db/repositorios/eventos_repositorio.dart';
 import 'db/semilla_demo.dart';
 import 'providers.dart';
+import 'tema/aspecto.dart';
 
 /// Lee o crea los ids y la clave, abre la base y crea lo que falte.
 ///
@@ -106,11 +107,17 @@ abstract final class Arranque {
       sesion = Sesion(perfil: perfil, miembroId: miembroId);
     }
 
+    // Aspecto guardado (claro, oscuro...): así no parpadea al abrir.
+    final aspecto = Aspecto.desdeNombre(
+      await guardia.leer(ClavesAlmacen.aspecto),
+    );
+
     return [
       almacenSeguroProvider.overrideWithValue(guardia),
       baseDatosProvider.overrideWithValue(base),
       contextoProvider.overrideWithValue(contexto),
       sesionInicialProvider.overrideWithValue(sesion),
+      aspectoInicialProvider.overrideWithValue(aspecto),
       relojProvider.overrideWithValue(reloj),
       azarProvider.overrideWithValue(azarUsado),
       esDemoWebProvider.overrideWithValue(esWeb),

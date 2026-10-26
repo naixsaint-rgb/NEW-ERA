@@ -7,6 +7,9 @@ abstract final class ClavesAlmacen {
   static const circuloClave = 'newera.circulo.clave';
   static const circuloClaveVersion = 'newera.circulo.clave.version';
   static const perfil = 'newera.perfil';
+
+  /// Aspecto de la familia: `automatico`, `claro`, `oscuro` u `horas`.
+  static const aspecto = 'newera.aspecto';
 }
 
 /// Almacén de secretos e identificadores del dispositivo.

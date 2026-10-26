@@ -11,13 +11,15 @@ class EtiquetaEstadoToma extends StatelessWidget {
   final EstadoToma estado;
   final double? tamanoTexto;
 
-  static Color colorDe(EstadoToma e) => switch (e) {
-    EstadoToma.prevista => Colores.gris,
-    EstadoToma.confirmada => Colores.azul,
-    EstadoToma.confirmadaSinVideo => Colores.naranja,
-    EstadoToma.noConfirmada => Colores.rojo,
-    EstadoToma.cerradaPorFamiliar => Colores.morado,
-  };
+  /// Color de cada estado con los tokens [c] (claros si no se pasan).
+  static Color colorDe(EstadoToma e, [ColoresApp c = ColoresApp.claro]) =>
+      switch (e) {
+        EstadoToma.prevista => c.textoSecundario,
+        EstadoToma.confirmada => c.azul,
+        EstadoToma.confirmadaSinVideo => c.naranja,
+        EstadoToma.noConfirmada => c.rojo,
+        EstadoToma.cerradaPorFamiliar => c.morado,
+      };
 
   static IconData iconoDe(EstadoToma e) => switch (e) {
     EstadoToma.prevista => Icons.schedule,
@@ -37,7 +39,7 @@ class EtiquetaEstadoToma extends StatelessWidget {
       EstadoToma.noConfirmada => l.estadoNoConfirmada,
       EstadoToma.cerradaPorFamiliar => l.estadoCerradaPorFamiliar,
     };
-    final color = colorDe(estado);
+    final color = colorDe(estado, context.colores);
     final base = Theme.of(context).textTheme.bodyMedium;
     return Semantics(
       label: l.semanticaEstadoToma(texto),
