@@ -1,6 +1,6 @@
 # NACHO · Estado del proyecto
 
-Actualizado: 2026-10-26 (sesión 2). Plan vigente: [[planes/PLAN-v3]]. Interfaz: [[specs/interfaz-ios]].
+Actualizado: 2026-11-02 (sesión 3). Plan vigente: [[planes/PLAN-v3]]. Interfaz: [[specs/interfaz-ios]]. Método del catálogo: [[metodo/METODO-base-de-datos-sin-juez]].
 
 ## Dónde estamos
 - HIPOTENUSA dada el 12/10/2026 para la semana 1 del plan v3.

@@ -65,7 +65,8 @@ estudios: `catalogo/`. Decisiones del promotor: `docs/vault/01-promotor/`.
 - `catalogo/data/*.json` los 15 temas verificados (una fila por estudio); `catalogo/grupos/` nombres
   canónicos; `catalogo/out/` Excel y markdown; `tools/build_catalogo.py` los regenera.
 - `docs/vault/` bóveda Obsidian: `00-estado.md`, `01-promotor/`, `decisiones/ADR-NNNN.md`,
-  `planes/`, `investigacion/`, `catalogo/`, `sesiones/`, `specs/`, `glosario.md`.
+  `planes/`, `investigacion/`, `catalogo/`, `sesiones/`, `specs/`, `metodo/` (método reutilizable del
+  catálogo sin juez), `glosario.md`. La bóveda se abre en Obsidian apuntando a `docs/vault`.
 - `.github/workflows/` CI: análisis, tests, web a GitHub Pages, APK de Android. `codemagic.yaml` para iOS.
 
 ## Ritual de sesión
