@@ -30,9 +30,18 @@ estudios: `catalogo/`. Decisiones del promotor: `docs/vault/01-promotor/`.
 ## Reglas de trabajo
 - Coste cero o casi cero en servicios. Lo inevitable: Google Play 25 USD, Apple Developer 99 USD/año
   (o exención ONG). El hardware lo compra la familia.
-- Regla máxima de modelos: Fable piensa y orquesta; Opus diseña datos, cifrado, consentimientos y
-  lo crítico; Sonnet investiga y construye; Haiku consolida, formatea y comprueba citas. Cada uno
-  hace lo que mejor se le da gastando menos tokens. Recuentos y agregados los hace Python.
+- Regla máxima de modelos (vale para todos los chats, el promotor no tiene que repetirla):
+  **Fable** administra: planifica, reparte, revisa e integra; no programa salvo arreglos de una línea.
+  **Haiku** mira y comprueba: inventarios, lecturas, textos, citas, capturas, formato, consistencia.
+  **Sonnet** programa lo sencillo: pantallas, formularios, listas, tests, documentación.
+  **Opus** hace lo difícil y lo crítico: Swift y AlarmKit, cifrado y sincronización, consentimientos,
+  escalado y avisos, reloj; y revisa solo lo crítico. Recuentos y agregados los hace Python.
+- Ahorro de tokens (orden del promotor, 2/11/2026): un agente por tarea, y en paralelo solo si tocan
+  archivos distintos; briefs cortos que apuntan a archivos en vez de pegar su contenido; informes de
+  vuelta breves; una sola pasada de revisión (Haiku para comprobar, Opus solo en lo crítico), sin
+  paneles de varios revisores salvo que el promotor lo pida; la batería de tests una vez por entrega;
+  no regenerar builds ni capturas si no cambió la pantalla; nada de investigar lo ya investigado
+  (mirar antes la bóveda).
 - Respuestas al promotor: cortas, en español de España, sin sermones. Él decide la línea.
 - No se hacen preguntas sobre su familiar concreto; se toman decisiones de producto con valores por
   defecto que él puede cambiar.
