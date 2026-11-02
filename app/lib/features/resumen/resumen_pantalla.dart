@@ -14,8 +14,12 @@ import '../../shared/claves_ui.dart';
 import '../../shared/ios/ios.dart';
 import '../../shared/l10n_ext.dart';
 import '../../shared/widgets/tarjeta_grande.dart';
+
+import 'package:safety_core/safety_core.dart';
+
+import '../hoy/dominio/control_horas.dart';
 import '../hoy/dominio/tomas.dart'
-    show NivelSemaforo, diaLocal, esDeOtroDia, estaPendiente;
+    show MotivoSemaforo, NivelSemaforo, diaLocal, esDeOtroDia, estaPendiente;
 import '../hoy/hoy_pantalla.dart' show TextoQueCabe, nombresAutoresProvider;
 import 'dominio/resumen.dart';
 
@@ -37,8 +41,9 @@ String cuandoCorto(
 }
 
 /// Resumen de la familia (maqueta B-Familia): cómo está la persona de un
-/// vistazo, con las cifras reales de hoy. Lo que aún no existe (pulso, pasos,
-/// sueño, control por horas) se anuncia como "llega en la semana N".
+/// vistazo, con las cifras reales de hoy y el control por horas del día y de
+/// la semana. Lo que aún no existe (pulso, pasos, sueño) se anuncia como
+/// "llega en la semana N".
 class ResumenPantalla extends ConsumerWidget {
   const ResumenPantalla({super.key});
 
@@ -125,7 +130,7 @@ class _Contenido extends ConsumerWidget {
         const SizedBox(height: 14),
         _TarjetaProximaToma(datos: datos, zona: zona),
         const SizedBox(height: 14),
-        const _TarjetaControlPorHoras(),
+        _TarjetaControlPorHoras(control: datos.control),
       ],
     );
   }
@@ -167,15 +172,21 @@ class _TarjetaEstado extends StatelessWidget {
         CupertinoIcons.exclamationmark,
         c.naranja,
         c.naranjaClaro,
-        datos.retraso
-            ? l.fixResumenSeRetrasa(alias)
-            : l.fixResumenSinVideo(alias),
+        switch (datos.motivo) {
+          MotivoSemaforo.tomaRetrasada => l.fixResumenSeRetrasa(alias),
+          MotivoSemaforo.rondaSinRespuesta => l.fixResumenSinRespuesta(alias),
+          _ => l.fixResumenSinVideo(alias),
+        },
       ),
       NivelSemaforo.rojo => (
         CupertinoIcons.xmark,
         c.rojo,
         c.rojoClaro,
-        l.fixResumenSinConfirmar(alias),
+        switch (datos.motivo) {
+          MotivoSemaforo.estadoMal => l.fixResumenDijoMal(alias),
+          MotivoSemaforo.dosSinRespuesta => l.fixResumenDosSinRespuesta(alias),
+          _ => l.fixResumenSinConfirmar(alias),
+        },
       ),
     };
     final ultima = datos.ultimaConfirmacion;
@@ -700,14 +711,26 @@ class _TarjetaProximaToma extends StatelessWidget {
 
 // ------------------------------------------------------------------ Control por horas
 
-class _TarjetaControlPorHoras extends StatelessWidget {
-  const _TarjetaControlPorHoras();
+/// Franja de hoy (una celda por ronda: contestada, sin respuesta, esperando
+/// o por llegar) y las cuentas de hoy y de la semana.
+class _TarjetaControlPorHoras extends ConsumerWidget {
+  const _TarjetaControlPorHoras({required this.control});
+
+  final ControlSemana? control;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l;
     final c = context.colores;
     final t = Theme.of(context).textTheme;
+    final ajustes =
+        ref.watch(ajustesControlProvider).value ?? AjustesControl.porDefecto;
+    final control = this.control;
+    final porHora = {
+      for (final r in control?.hoy.rondas ?? const <RondaDelDia>[])
+        r.ronda.horaLocal: r.estado,
+    };
+    final secundario = t.bodySmall?.copyWith(color: c.textoSecundario);
     return TarjetaGrande(
       radio: _radio,
       conSombra: true,
@@ -726,41 +749,78 @@ class _TarjetaControlPorHoras extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
-                l.resumenControlRango,
-                style: t.bodySmall?.copyWith(color: c.textoSecundario),
-              ),
+              if (ajustes.activado)
+                Text(
+                  l.resumenControlRangoDe(ajustes.desde, ajustes.hasta),
+                  style: secundario,
+                ),
             ],
           ),
-          const SizedBox(height: 10),
-          // Franja 09–21 sin respuestas: llegan en la semana 5.
-          ExcludeSemantics(
-            child: SingleChildScrollView(
+          if (!ajustes.activado) ...[
+            const SizedBox(height: 8),
+            Text(l.resumenControlDesactivado, style: secundario),
+          ] else ...[
+            const SizedBox(height: 10),
+            SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  for (var h = 9; h <= 21; h++)
+                  for (final (i, h) in ajustes.horas.indexed)
                     Padding(
-                      padding: EdgeInsetsDirectional.only(end: h < 21 ? 6 : 0),
+                      padding: EdgeInsetsDirectional.only(
+                        end: i < ajustes.horas.length - 1 ? 6 : 0,
+                      ),
                       child: SizedBox(
                         width: 40,
-                        child: CeldaDia(
-                          estado: EstadoCelda.vacia,
-                          texto: h.toString().padLeft(2, '0'),
-                        ),
+                        child: _celda(l, h, porHora['${_dos(h)}:00']),
                       ),
                     ),
                 ],
               ),
             ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            l.llegaEnSemana(5),
-            style: t.bodySmall?.copyWith(color: c.textoSecundario),
-          ),
+            const SizedBox(height: 8),
+            if (control != null) ...[
+              Text(
+                l.resumenControlHoy(
+                  control.cuentaHoy.contestadas,
+                  control.cuentaHoy.sinRespuesta,
+                ),
+                style: t.bodyMedium?.copyWith(color: c.texto),
+              ),
+              Text(
+                l.resumenControlSemana(
+                  control.cuentaSemana.contestadas,
+                  control.cuentaSemana.sinRespuesta,
+                ),
+                style: secundario,
+              ),
+            ],
+          ],
         ],
       ),
     );
+  }
+
+  static String _dos(int n) => n.toString().padLeft(2, '0');
+
+  static Widget _celda(AppLocalizations l, int h, EstadoRonda? estado) {
+    final hora = '${_dos(h)}:00';
+    final (celda, etiqueta) = switch (estado) {
+      EstadoRonda.contestada => (
+        EstadoCelda.completa,
+        l.controlCeldaContestada(hora),
+      ),
+      EstadoRonda.sinRespuesta => (
+        EstadoCelda.fallida,
+        l.controlCeldaSinRespuesta(hora),
+      ),
+      EstadoRonda.enEspera => (EstadoCelda.hoy, l.controlCeldaEnEspera(hora)),
+      EstadoRonda.porLlegar => (
+        EstadoCelda.futura,
+        l.controlCeldaPorLlegar(hora),
+      ),
+      null => (EstadoCelda.vacia, l.controlCeldaNoEsperada(hora)),
+    };
+    return CeldaDia(estado: celda, texto: _dos(h), etiquetaSemantica: etiqueta);
   }
 }

@@ -361,3 +361,32 @@ class ClipsPendientes extends Table {
   @override
   Set<Column> get primaryKey => {clipId};
 }
+
+// ---------------------------------------------------------------- Control por horas
+// Esquema 4. Ficha que cambia la familia (no es un hecho).
+
+/// Ajustes del control por horas de un círculo (plan v3, 2.4 bis y 3.5): una
+/// fila por círculo y su id es el del círculo. Sin fila, los valores por
+/// defecto (activado, de 9 a 21, cada hora). Viaja por el cartero como ficha
+/// `ajustes_control`; gana el cambio más reciente ([modificadoEn]).
+@DataClassName('FilaAjustesControl')
+class AjustesControlHoras extends Table {
+  /// Id del círculo.
+  TextColumn get id => text().references(Circulos, #id)();
+  BoolColumn get activado => boolean()();
+
+  /// Horas locales en punto: primera y última de la franja.
+  IntColumn get desdeHora => integer()();
+  IntColumn get hastaHora => integer()();
+
+  /// 1, 2 o 3.
+  IntColumn get cadaHoras => integer()();
+
+  /// Desde cuándo está activado (ms UTC); nulo, desde siempre.
+  IntColumn get activoDesde => integer().nullable()();
+  TextColumn get modificadoPor => text()();
+  IntColumn get modificadoEn => integer()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}

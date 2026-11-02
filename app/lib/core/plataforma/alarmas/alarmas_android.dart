@@ -10,6 +10,10 @@ import 'servicio_alarmas.dart';
 /// Alarmas en Android sobre el paquete `alarm`: id numérico estable
 /// ([idAlarmaNumerico]), sonido en bucle, vibración y notificación.
 ///
+/// Las rondas del control por horas ([esIdRonda]) llevan su propio aviso
+/// ("¿Cómo estás?"), el tono suave si no hay frase grabada y menos volumen.
+/// La pantalla de la pregunta las para al abrirse.
+///
 /// Sonido: [rutaAudio] si llega (la frase `toma` de la familia, una ruta
 /// relativa `voces/….m4a`); si no, el tono. El paquete admite una ruta
 /// relativa a la carpeta de documentos de la app (en Android,
@@ -23,6 +27,8 @@ class AlarmasAndroid implements ServicioAlarmas, ConsultaAlarmaSonando {
   static const tituloNotificacion = 'Es la hora de la pastilla';
   static const botonParar = 'Parar el aviso';
   static const rutaTono = 'assets/audio/tono_alarma.wav';
+  static const tituloRonda = '¿Cómo estás?';
+  static const rutaTonoSuave = 'assets/audio/tono_suave.wav';
 
   bool _iniciada = false;
 
@@ -46,22 +52,23 @@ class AlarmasAndroid implements ServicioAlarmas, ConsultaAlarmaSonando {
       throw const ErrorAlarma(CodigoAlarma.noAutorizado, 'notificaciones');
     }
     await Permission.scheduleExactAlarm.request();
+    final ronda = esIdRonda(idToma);
     final ajustes = AlarmSettings(
       id: idAlarmaNumerico(idToma),
       dateTime: fecha.toLocal(),
-      assetAudioPath: rutaAudio ?? rutaTono,
+      assetAudioPath: rutaAudio ?? (ronda ? rutaTonoSuave : rutaTono),
       loopAudio: true,
       vibrate: true,
       warningNotificationOnKill: false,
       androidFullScreenIntent: true,
       payload: idToma,
       volumeSettings: VolumeSettings.fade(
-        volume: 0.8,
+        volume: ronda ? 0.6 : 0.8,
         fadeDuration: const Duration(seconds: 5),
         volumeEnforced: true,
       ),
       notificationSettings: NotificationSettings(
-        title: tituloNotificacion,
+        title: ronda ? tituloRonda : tituloNotificacion,
         body: titulo,
         stopButton: botonParar,
         iconColor: const Color(0xFF1B5E20),

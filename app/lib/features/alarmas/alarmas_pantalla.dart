@@ -15,7 +15,7 @@ class AlarmasPantalla extends StatelessWidget {
     return PantallaProximaSemana(
       titulo: l.pestanaAlarmas,
       tendra: l.alarmasTendra,
-      semana: l.llegaEnSemanas(4, 5),
+      semana: l.llegaEnSemana(4),
       acciones: [
         const SizedBox(height: 14),
         GrupoLista(

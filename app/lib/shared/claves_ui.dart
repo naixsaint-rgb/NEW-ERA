@@ -129,4 +129,13 @@ abstract final class ClavesUi {
 
   /// Toma: "Te lo recuerda la voz de …" (solo si hay frase).
   static const vozTeLoRecuerda = ValueKey<String>('voz_te_lo_recuerda');
+
+  /// Control por horas: interruptor, botones de hora y ritmo.
+  static const controlActivado = ValueKey<String>('control_activado');
+
+  /// [campo] `desde` o `hasta`; [accion] `menos` o `mas`.
+  static ValueKey<String> controlHora(String campo, String accion) =>
+      ValueKey<String>('control_${campo}_$accion');
+  static ValueKey<String> controlRitmo(int horas) =>
+      ValueKey<String>('control_ritmo_$horas');
 }

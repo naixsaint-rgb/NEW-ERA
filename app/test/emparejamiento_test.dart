@@ -744,7 +744,12 @@ void main() {
           () => Future<void>.delayed(const Duration(milliseconds: 300)),
         );
         await pasar(tester, const Duration(milliseconds: 500));
-        expect(alarmas.programadas, isEmpty);
+        // Sin pautas no hay tomas (las rondas del control por horas sí).
+        List<String> deTomas() => [
+          for (final id in alarmas.programadas)
+            if (!esIdRonda(id)) id,
+        ];
+        expect(deTomas(), isEmpty);
 
         // Como si llegara por el cartero: aparece un medicamento con su pauta.
         final contenedor = ProviderScope.containerOf(
@@ -755,13 +760,13 @@ void main() {
               .read(medicacionRepositorioProvider)
               .crear(_medicamento()),
         );
-        for (var i = 0; i < 20 && alarmas.programadas.isEmpty; i++) {
+        for (var i = 0; i < 20 && deTomas().isEmpty; i++) {
           await tester.runAsync(
             () => Future<void>.delayed(const Duration(milliseconds: 50)),
           );
           await tester.pump(const Duration(milliseconds: 50));
         }
-        expect(alarmas.programadas, isNotEmpty);
+        expect(deTomas(), isNotEmpty);
       },
     );
 

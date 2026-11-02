@@ -9724,6 +9724,548 @@ class ClipsPendientesCompanion extends UpdateCompanion<ClipPendiente> {
   }
 }
 
+class $AjustesControlHorasTable extends AjustesControlHoras
+    with TableInfo<$AjustesControlHorasTable, FilaAjustesControl> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AjustesControlHorasTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES circulos (id)',
+    ),
+  );
+  static const VerificationMeta _activadoMeta = const VerificationMeta(
+    'activado',
+  );
+  @override
+  late final GeneratedColumn<bool> activado = GeneratedColumn<bool>(
+    'activado',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("activado" IN (0, 1))',
+    ),
+  );
+  static const VerificationMeta _desdeHoraMeta = const VerificationMeta(
+    'desdeHora',
+  );
+  @override
+  late final GeneratedColumn<int> desdeHora = GeneratedColumn<int>(
+    'desde_hora',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _hastaHoraMeta = const VerificationMeta(
+    'hastaHora',
+  );
+  @override
+  late final GeneratedColumn<int> hastaHora = GeneratedColumn<int>(
+    'hasta_hora',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _cadaHorasMeta = const VerificationMeta(
+    'cadaHoras',
+  );
+  @override
+  late final GeneratedColumn<int> cadaHoras = GeneratedColumn<int>(
+    'cada_horas',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _activoDesdeMeta = const VerificationMeta(
+    'activoDesde',
+  );
+  @override
+  late final GeneratedColumn<int> activoDesde = GeneratedColumn<int>(
+    'activo_desde',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _modificadoPorMeta = const VerificationMeta(
+    'modificadoPor',
+  );
+  @override
+  late final GeneratedColumn<String> modificadoPor = GeneratedColumn<String>(
+    'modificado_por',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _modificadoEnMeta = const VerificationMeta(
+    'modificadoEn',
+  );
+  @override
+  late final GeneratedColumn<int> modificadoEn = GeneratedColumn<int>(
+    'modificado_en',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    activado,
+    desdeHora,
+    hastaHora,
+    cadaHoras,
+    activoDesde,
+    modificadoPor,
+    modificadoEn,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'ajustes_control_horas';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<FilaAjustesControl> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('activado')) {
+      context.handle(
+        _activadoMeta,
+        activado.isAcceptableOrUnknown(data['activado']!, _activadoMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_activadoMeta);
+    }
+    if (data.containsKey('desde_hora')) {
+      context.handle(
+        _desdeHoraMeta,
+        desdeHora.isAcceptableOrUnknown(data['desde_hora']!, _desdeHoraMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_desdeHoraMeta);
+    }
+    if (data.containsKey('hasta_hora')) {
+      context.handle(
+        _hastaHoraMeta,
+        hastaHora.isAcceptableOrUnknown(data['hasta_hora']!, _hastaHoraMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_hastaHoraMeta);
+    }
+    if (data.containsKey('cada_horas')) {
+      context.handle(
+        _cadaHorasMeta,
+        cadaHoras.isAcceptableOrUnknown(data['cada_horas']!, _cadaHorasMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_cadaHorasMeta);
+    }
+    if (data.containsKey('activo_desde')) {
+      context.handle(
+        _activoDesdeMeta,
+        activoDesde.isAcceptableOrUnknown(
+          data['activo_desde']!,
+          _activoDesdeMeta,
+        ),
+      );
+    }
+    if (data.containsKey('modificado_por')) {
+      context.handle(
+        _modificadoPorMeta,
+        modificadoPor.isAcceptableOrUnknown(
+          data['modificado_por']!,
+          _modificadoPorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_modificadoPorMeta);
+    }
+    if (data.containsKey('modificado_en')) {
+      context.handle(
+        _modificadoEnMeta,
+        modificadoEn.isAcceptableOrUnknown(
+          data['modificado_en']!,
+          _modificadoEnMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_modificadoEnMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  FilaAjustesControl map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FilaAjustesControl(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      activado: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}activado'],
+      )!,
+      desdeHora: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}desde_hora'],
+      )!,
+      hastaHora: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}hasta_hora'],
+      )!,
+      cadaHoras: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}cada_horas'],
+      )!,
+      activoDesde: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}activo_desde'],
+      ),
+      modificadoPor: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}modificado_por'],
+      )!,
+      modificadoEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}modificado_en'],
+      )!,
+    );
+  }
+
+  @override
+  $AjustesControlHorasTable createAlias(String alias) {
+    return $AjustesControlHorasTable(attachedDatabase, alias);
+  }
+}
+
+class FilaAjustesControl extends DataClass
+    implements Insertable<FilaAjustesControl> {
+  /// Id del círculo.
+  final String id;
+  final bool activado;
+
+  /// Horas locales en punto: primera y última de la franja.
+  final int desdeHora;
+  final int hastaHora;
+
+  /// 1, 2 o 3.
+  final int cadaHoras;
+
+  /// Desde cuándo está activado (ms UTC); nulo, desde siempre.
+  final int? activoDesde;
+  final String modificadoPor;
+  final int modificadoEn;
+  const FilaAjustesControl({
+    required this.id,
+    required this.activado,
+    required this.desdeHora,
+    required this.hastaHora,
+    required this.cadaHoras,
+    this.activoDesde,
+    required this.modificadoPor,
+    required this.modificadoEn,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['activado'] = Variable<bool>(activado);
+    map['desde_hora'] = Variable<int>(desdeHora);
+    map['hasta_hora'] = Variable<int>(hastaHora);
+    map['cada_horas'] = Variable<int>(cadaHoras);
+    if (!nullToAbsent || activoDesde != null) {
+      map['activo_desde'] = Variable<int>(activoDesde);
+    }
+    map['modificado_por'] = Variable<String>(modificadoPor);
+    map['modificado_en'] = Variable<int>(modificadoEn);
+    return map;
+  }
+
+  AjustesControlHorasCompanion toCompanion(bool nullToAbsent) {
+    return AjustesControlHorasCompanion(
+      id: Value(id),
+      activado: Value(activado),
+      desdeHora: Value(desdeHora),
+      hastaHora: Value(hastaHora),
+      cadaHoras: Value(cadaHoras),
+      activoDesde: activoDesde == null && nullToAbsent
+          ? const Value.absent()
+          : Value(activoDesde),
+      modificadoPor: Value(modificadoPor),
+      modificadoEn: Value(modificadoEn),
+    );
+  }
+
+  factory FilaAjustesControl.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FilaAjustesControl(
+      id: serializer.fromJson<String>(json['id']),
+      activado: serializer.fromJson<bool>(json['activado']),
+      desdeHora: serializer.fromJson<int>(json['desdeHora']),
+      hastaHora: serializer.fromJson<int>(json['hastaHora']),
+      cadaHoras: serializer.fromJson<int>(json['cadaHoras']),
+      activoDesde: serializer.fromJson<int?>(json['activoDesde']),
+      modificadoPor: serializer.fromJson<String>(json['modificadoPor']),
+      modificadoEn: serializer.fromJson<int>(json['modificadoEn']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'activado': serializer.toJson<bool>(activado),
+      'desdeHora': serializer.toJson<int>(desdeHora),
+      'hastaHora': serializer.toJson<int>(hastaHora),
+      'cadaHoras': serializer.toJson<int>(cadaHoras),
+      'activoDesde': serializer.toJson<int?>(activoDesde),
+      'modificadoPor': serializer.toJson<String>(modificadoPor),
+      'modificadoEn': serializer.toJson<int>(modificadoEn),
+    };
+  }
+
+  FilaAjustesControl copyWith({
+    String? id,
+    bool? activado,
+    int? desdeHora,
+    int? hastaHora,
+    int? cadaHoras,
+    Value<int?> activoDesde = const Value.absent(),
+    String? modificadoPor,
+    int? modificadoEn,
+  }) => FilaAjustesControl(
+    id: id ?? this.id,
+    activado: activado ?? this.activado,
+    desdeHora: desdeHora ?? this.desdeHora,
+    hastaHora: hastaHora ?? this.hastaHora,
+    cadaHoras: cadaHoras ?? this.cadaHoras,
+    activoDesde: activoDesde.present ? activoDesde.value : this.activoDesde,
+    modificadoPor: modificadoPor ?? this.modificadoPor,
+    modificadoEn: modificadoEn ?? this.modificadoEn,
+  );
+  FilaAjustesControl copyWithCompanion(AjustesControlHorasCompanion data) {
+    return FilaAjustesControl(
+      id: data.id.present ? data.id.value : this.id,
+      activado: data.activado.present ? data.activado.value : this.activado,
+      desdeHora: data.desdeHora.present ? data.desdeHora.value : this.desdeHora,
+      hastaHora: data.hastaHora.present ? data.hastaHora.value : this.hastaHora,
+      cadaHoras: data.cadaHoras.present ? data.cadaHoras.value : this.cadaHoras,
+      activoDesde: data.activoDesde.present
+          ? data.activoDesde.value
+          : this.activoDesde,
+      modificadoPor: data.modificadoPor.present
+          ? data.modificadoPor.value
+          : this.modificadoPor,
+      modificadoEn: data.modificadoEn.present
+          ? data.modificadoEn.value
+          : this.modificadoEn,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FilaAjustesControl(')
+          ..write('id: $id, ')
+          ..write('activado: $activado, ')
+          ..write('desdeHora: $desdeHora, ')
+          ..write('hastaHora: $hastaHora, ')
+          ..write('cadaHoras: $cadaHoras, ')
+          ..write('activoDesde: $activoDesde, ')
+          ..write('modificadoPor: $modificadoPor, ')
+          ..write('modificadoEn: $modificadoEn')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    activado,
+    desdeHora,
+    hastaHora,
+    cadaHoras,
+    activoDesde,
+    modificadoPor,
+    modificadoEn,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FilaAjustesControl &&
+          other.id == this.id &&
+          other.activado == this.activado &&
+          other.desdeHora == this.desdeHora &&
+          other.hastaHora == this.hastaHora &&
+          other.cadaHoras == this.cadaHoras &&
+          other.activoDesde == this.activoDesde &&
+          other.modificadoPor == this.modificadoPor &&
+          other.modificadoEn == this.modificadoEn);
+}
+
+class AjustesControlHorasCompanion extends UpdateCompanion<FilaAjustesControl> {
+  final Value<String> id;
+  final Value<bool> activado;
+  final Value<int> desdeHora;
+  final Value<int> hastaHora;
+  final Value<int> cadaHoras;
+  final Value<int?> activoDesde;
+  final Value<String> modificadoPor;
+  final Value<int> modificadoEn;
+  final Value<int> rowid;
+  const AjustesControlHorasCompanion({
+    this.id = const Value.absent(),
+    this.activado = const Value.absent(),
+    this.desdeHora = const Value.absent(),
+    this.hastaHora = const Value.absent(),
+    this.cadaHoras = const Value.absent(),
+    this.activoDesde = const Value.absent(),
+    this.modificadoPor = const Value.absent(),
+    this.modificadoEn = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AjustesControlHorasCompanion.insert({
+    required String id,
+    required bool activado,
+    required int desdeHora,
+    required int hastaHora,
+    required int cadaHoras,
+    this.activoDesde = const Value.absent(),
+    required String modificadoPor,
+    required int modificadoEn,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       activado = Value(activado),
+       desdeHora = Value(desdeHora),
+       hastaHora = Value(hastaHora),
+       cadaHoras = Value(cadaHoras),
+       modificadoPor = Value(modificadoPor),
+       modificadoEn = Value(modificadoEn);
+  static Insertable<FilaAjustesControl> custom({
+    Expression<String>? id,
+    Expression<bool>? activado,
+    Expression<int>? desdeHora,
+    Expression<int>? hastaHora,
+    Expression<int>? cadaHoras,
+    Expression<int>? activoDesde,
+    Expression<String>? modificadoPor,
+    Expression<int>? modificadoEn,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (activado != null) 'activado': activado,
+      if (desdeHora != null) 'desde_hora': desdeHora,
+      if (hastaHora != null) 'hasta_hora': hastaHora,
+      if (cadaHoras != null) 'cada_horas': cadaHoras,
+      if (activoDesde != null) 'activo_desde': activoDesde,
+      if (modificadoPor != null) 'modificado_por': modificadoPor,
+      if (modificadoEn != null) 'modificado_en': modificadoEn,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AjustesControlHorasCompanion copyWith({
+    Value<String>? id,
+    Value<bool>? activado,
+    Value<int>? desdeHora,
+    Value<int>? hastaHora,
+    Value<int>? cadaHoras,
+    Value<int?>? activoDesde,
+    Value<String>? modificadoPor,
+    Value<int>? modificadoEn,
+    Value<int>? rowid,
+  }) {
+    return AjustesControlHorasCompanion(
+      id: id ?? this.id,
+      activado: activado ?? this.activado,
+      desdeHora: desdeHora ?? this.desdeHora,
+      hastaHora: hastaHora ?? this.hastaHora,
+      cadaHoras: cadaHoras ?? this.cadaHoras,
+      activoDesde: activoDesde ?? this.activoDesde,
+      modificadoPor: modificadoPor ?? this.modificadoPor,
+      modificadoEn: modificadoEn ?? this.modificadoEn,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (activado.present) {
+      map['activado'] = Variable<bool>(activado.value);
+    }
+    if (desdeHora.present) {
+      map['desde_hora'] = Variable<int>(desdeHora.value);
+    }
+    if (hastaHora.present) {
+      map['hasta_hora'] = Variable<int>(hastaHora.value);
+    }
+    if (cadaHoras.present) {
+      map['cada_horas'] = Variable<int>(cadaHoras.value);
+    }
+    if (activoDesde.present) {
+      map['activo_desde'] = Variable<int>(activoDesde.value);
+    }
+    if (modificadoPor.present) {
+      map['modificado_por'] = Variable<String>(modificadoPor.value);
+    }
+    if (modificadoEn.present) {
+      map['modificado_en'] = Variable<int>(modificadoEn.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AjustesControlHorasCompanion(')
+          ..write('id: $id, ')
+          ..write('activado: $activado, ')
+          ..write('desdeHora: $desdeHora, ')
+          ..write('hastaHora: $hastaHora, ')
+          ..write('cadaHoras: $cadaHoras, ')
+          ..write('activoDesde: $activoDesde, ')
+          ..write('modificadoPor: $modificadoPor, ')
+          ..write('modificadoEn: $modificadoEn, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -9753,6 +10295,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $ClipsPendientesTable clipsPendientes = $ClipsPendientesTable(
     this,
   );
+  late final $AjustesControlHorasTable ajustesControlHoras =
+      $AjustesControlHorasTable(this);
   late final Index pautasPorPauta = Index(
     'pautas_por_pauta',
     'CREATE INDEX pautas_por_pauta ON pautas (pauta_id, version)',
@@ -9790,6 +10334,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     sobresEnviados,
     syncEstado,
     clipsPendientes,
+    ajustesControlHoras,
     pautasPorPauta,
     eventosPorSujeto,
     eventosPorTipo,
@@ -9905,6 +10450,30 @@ final class $$CirculosTableReferences
     ).filter((f) => f.circuloId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_eventosRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<
+    $AjustesControlHorasTable,
+    List<FilaAjustesControl>
+  >
+  _ajustesControlHorasRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.ajustesControlHoras,
+        aliasName: 'circulos__id__ajustes_control_horas__id',
+      );
+
+  $$AjustesControlHorasTableProcessedTableManager get ajustesControlHorasRefs {
+    final manager = $$AjustesControlHorasTableTableManager(
+      $_db,
+      $_db.ajustesControlHoras,
+    ).filter((f) => f.id.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _ajustesControlHorasRefsTable($_db),
+    );
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -10056,6 +10625,31 @@ class $$CirculosTableFilterComposer
           }) => $$EventosTableFilterComposer(
             $db: $db,
             $table: $db.eventos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> ajustesControlHorasRefs(
+    Expression<bool> Function($$AjustesControlHorasTableFilterComposer f) f,
+  ) {
+    final $$AjustesControlHorasTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.ajustesControlHoras,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AjustesControlHorasTableFilterComposer(
+            $db: $db,
+            $table: $db.ajustesControlHoras,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -10243,6 +10837,32 @@ class $$CirculosTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> ajustesControlHorasRefs<T extends Object>(
+    Expression<T> Function($$AjustesControlHorasTableAnnotationComposer a) f,
+  ) {
+    final $$AjustesControlHorasTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.ajustesControlHoras,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$AjustesControlHorasTableAnnotationComposer(
+                $db: $db,
+                $table: $db.ajustesControlHoras,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$CirculosTableTableManager
@@ -10264,6 +10884,7 @@ class $$CirculosTableTableManager
             bool dispositivosRefs,
             bool consentimientosRefs,
             bool eventosRefs,
+            bool ajustesControlHorasRefs,
           })
         > {
   $$CirculosTableTableManager(_$AppDatabase db, $CirculosTable table)
@@ -10320,6 +10941,7 @@ class $$CirculosTableTableManager
                 dispositivosRefs = false,
                 consentimientosRefs = false,
                 eventosRefs = false,
+                ajustesControlHorasRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -10329,6 +10951,7 @@ class $$CirculosTableTableManager
                     if (dispositivosRefs) db.dispositivos,
                     if (consentimientosRefs) db.consentimientos,
                     if (eventosRefs) db.eventos,
+                    if (ajustesControlHorasRefs) db.ajustesControlHoras,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -10438,6 +11061,27 @@ class $$CirculosTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (ajustesControlHorasRefs)
+                        await $_getPrefetchedData<
+                          Circulo,
+                          $CirculosTable,
+                          FilaAjustesControl
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CirculosTableReferences
+                              ._ajustesControlHorasRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CirculosTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).ajustesControlHorasRefs,
+                          referencedItemsForCurrentItem: (
+                            item,
+                            referencedItems,
+                          ) => referencedItems.where((e) => e.id == item.id),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -10464,6 +11108,7 @@ typedef $$CirculosTableProcessedTableManager =
         bool dispositivosRefs,
         bool consentimientosRefs,
         bool eventosRefs,
+        bool ajustesControlHorasRefs,
       })
     >;
 typedef $$FotosTableCreateCompanionBuilder = FotosCompanion Function({
@@ -20286,6 +20931,403 @@ typedef $$ClipsPendientesTableProcessedTableManager =
       ClipPendiente,
       PrefetchHooks Function()
     >;
+typedef $$AjustesControlHorasTableCreateCompanionBuilder =
+    AjustesControlHorasCompanion Function({
+      required String id,
+      required bool activado,
+      required int desdeHora,
+      required int hastaHora,
+      required int cadaHoras,
+      Value<int?> activoDesde,
+      required String modificadoPor,
+      required int modificadoEn,
+      Value<int> rowid,
+    });
+typedef $$AjustesControlHorasTableUpdateCompanionBuilder =
+    AjustesControlHorasCompanion Function({
+      Value<String> id,
+      Value<bool> activado,
+      Value<int> desdeHora,
+      Value<int> hastaHora,
+      Value<int> cadaHoras,
+      Value<int?> activoDesde,
+      Value<String> modificadoPor,
+      Value<int> modificadoEn,
+      Value<int> rowid,
+    });
+
+final class $$AjustesControlHorasTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $AjustesControlHorasTable,
+          FilaAjustesControl
+        > {
+  $$AjustesControlHorasTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $CirculosTable _idTable(_$AppDatabase db) =>
+      db.circulos.createAlias('ajustes_control_horas__id__circulos__id');
+
+  $$CirculosTableProcessedTableManager get id {
+    final $_column = $_itemColumn<String>('id')!;
+
+    final manager = $$CirculosTableTableManager(
+      $_db,
+      $_db.circulos,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_idTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$AjustesControlHorasTableFilterComposer
+    extends Composer<_$AppDatabase, $AjustesControlHorasTable> {
+  $$AjustesControlHorasTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<bool> get activado => $composableBuilder(
+    column: $table.activado,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get desdeHora => $composableBuilder(
+    column: $table.desdeHora,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get hastaHora => $composableBuilder(
+    column: $table.hastaHora,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get cadaHoras => $composableBuilder(
+    column: $table.cadaHoras,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get activoDesde => $composableBuilder(
+    column: $table.activoDesde,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get modificadoPor => $composableBuilder(
+    column: $table.modificadoPor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get modificadoEn => $composableBuilder(
+    column: $table.modificadoEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$CirculosTableFilterComposer get id {
+    final $$CirculosTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.circulos,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirculosTableFilterComposer(
+            $db: $db,
+            $table: $db.circulos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AjustesControlHorasTableOrderingComposer
+    extends Composer<_$AppDatabase, $AjustesControlHorasTable> {
+  $$AjustesControlHorasTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<bool> get activado => $composableBuilder(
+    column: $table.activado,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get desdeHora => $composableBuilder(
+    column: $table.desdeHora,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get hastaHora => $composableBuilder(
+    column: $table.hastaHora,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get cadaHoras => $composableBuilder(
+    column: $table.cadaHoras,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get activoDesde => $composableBuilder(
+    column: $table.activoDesde,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get modificadoPor => $composableBuilder(
+    column: $table.modificadoPor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get modificadoEn => $composableBuilder(
+    column: $table.modificadoEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$CirculosTableOrderingComposer get id {
+    final $$CirculosTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.circulos,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirculosTableOrderingComposer(
+            $db: $db,
+            $table: $db.circulos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AjustesControlHorasTableAnnotationComposer
+    extends Composer<_$AppDatabase, $AjustesControlHorasTable> {
+  $$AjustesControlHorasTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<bool> get activado =>
+      $composableBuilder(column: $table.activado, builder: (column) => column);
+
+  GeneratedColumn<int> get desdeHora =>
+      $composableBuilder(column: $table.desdeHora, builder: (column) => column);
+
+  GeneratedColumn<int> get hastaHora =>
+      $composableBuilder(column: $table.hastaHora, builder: (column) => column);
+
+  GeneratedColumn<int> get cadaHoras =>
+      $composableBuilder(column: $table.cadaHoras, builder: (column) => column);
+
+  GeneratedColumn<int> get activoDesde => $composableBuilder(
+    column: $table.activoDesde,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get modificadoPor => $composableBuilder(
+    column: $table.modificadoPor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get modificadoEn => $composableBuilder(
+    column: $table.modificadoEn,
+    builder: (column) => column,
+  );
+
+  $$CirculosTableAnnotationComposer get id {
+    final $$CirculosTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.circulos,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirculosTableAnnotationComposer(
+            $db: $db,
+            $table: $db.circulos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AjustesControlHorasTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $AjustesControlHorasTable,
+          FilaAjustesControl,
+          $$AjustesControlHorasTableFilterComposer,
+          $$AjustesControlHorasTableOrderingComposer,
+          $$AjustesControlHorasTableAnnotationComposer,
+          $$AjustesControlHorasTableCreateCompanionBuilder,
+          $$AjustesControlHorasTableUpdateCompanionBuilder,
+          (FilaAjustesControl, $$AjustesControlHorasTableReferences),
+          FilaAjustesControl,
+          PrefetchHooks Function({bool id})
+        > {
+  $$AjustesControlHorasTableTableManager(
+    _$AppDatabase db,
+    $AjustesControlHorasTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AjustesControlHorasTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AjustesControlHorasTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$AjustesControlHorasTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<bool> activado = const Value.absent(),
+                Value<int> desdeHora = const Value.absent(),
+                Value<int> hastaHora = const Value.absent(),
+                Value<int> cadaHoras = const Value.absent(),
+                Value<int?> activoDesde = const Value.absent(),
+                Value<String> modificadoPor = const Value.absent(),
+                Value<int> modificadoEn = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => AjustesControlHorasCompanion(
+                id: id,
+                activado: activado,
+                desdeHora: desdeHora,
+                hastaHora: hastaHora,
+                cadaHoras: cadaHoras,
+                activoDesde: activoDesde,
+                modificadoPor: modificadoPor,
+                modificadoEn: modificadoEn,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required bool activado,
+                required int desdeHora,
+                required int hastaHora,
+                required int cadaHoras,
+                Value<int?> activoDesde = const Value.absent(),
+                required String modificadoPor,
+                required int modificadoEn,
+                Value<int> rowid = const Value.absent(),
+              }) => AjustesControlHorasCompanion.insert(
+                id: id,
+                activado: activado,
+                desdeHora: desdeHora,
+                hastaHora: hastaHora,
+                cadaHoras: cadaHoras,
+                activoDesde: activoDesde,
+                modificadoPor: modificadoPor,
+                modificadoEn: modificadoEn,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$AjustesControlHorasTable, FilaAjustesControl>(
+                    table,
+                  ),
+                  $$AjustesControlHorasTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({id = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (id) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.id,
+                        referencedTable: $$AjustesControlHorasTableReferences
+                            ._idTable(db),
+                        referencedColumn: $$AjustesControlHorasTableReferences
+                            ._idTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$AjustesControlHorasTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $AjustesControlHorasTable,
+      FilaAjustesControl,
+      $$AjustesControlHorasTableFilterComposer,
+      $$AjustesControlHorasTableOrderingComposer,
+      $$AjustesControlHorasTableAnnotationComposer,
+      $$AjustesControlHorasTableCreateCompanionBuilder,
+      $$AjustesControlHorasTableUpdateCompanionBuilder,
+      (FilaAjustesControl, $$AjustesControlHorasTableReferences),
+      FilaAjustesControl,
+      PrefetchHooks Function({bool id})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -20330,4 +21372,6 @@ class $AppDatabaseManager {
       $$SyncEstadoTableTableManager(_db, _db.syncEstado);
   $$ClipsPendientesTableTableManager get clipsPendientes =>
       $$ClipsPendientesTableTableManager(_db, _db.clipsPendientes);
+  $$AjustesControlHorasTableTableManager get ajustesControlHoras =>
+      $$AjustesControlHorasTableTableManager(_db, _db.ajustesControlHoras);
 }

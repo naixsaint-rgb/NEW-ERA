@@ -331,7 +331,7 @@ abstract class AppLocalizations {
   /// No description provided for @alarmasTendra.
   ///
   /// In es, this message translates to:
-  /// **'Avisos escalonados: si la pastilla no se confirma, se avisa a la familia por orden. Y el control por horas, de 9 a 21.'**
+  /// **'Avisos escalonados: si la pastilla no se confirma o una ronda de preguntas queda sin respuesta, se avisa a la familia por orden.'**
   String get alarmasTendra;
 
   /// No description provided for @controlHorasTitulo.
@@ -339,12 +339,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Control por horas'**
   String get controlHorasTitulo;
-
-  /// No description provided for @controlHorasTendra.
-  ///
-  /// In es, this message translates to:
-  /// **'Tres preguntas cada hora, de 9 a 21, con horas ajustables: cómo está, si hay dolor y qué plan tiene.'**
-  String get controlHorasTendra;
 
   /// No description provided for @verControlHoras.
   ///
@@ -615,12 +609,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Ubicación'**
   String get reservadaUbicacion;
-
-  /// No description provided for @reservadaControl.
-  ///
-  /// In es, this message translates to:
-  /// **'Respuesta de control'**
-  String get reservadaControl;
 
   /// No description provided for @anadirMedicamento.
   ///
@@ -2100,7 +2088,7 @@ abstract class AppLocalizations {
   /// No description provided for @resumenAyudaYLlamadas.
   ///
   /// In es, this message translates to:
-  /// **'ayuda y llamadas, hoy'**
+  /// **'ayuda, llamadas y preguntas, hoy'**
   String get resumenAyudaYLlamadas;
 
   /// No description provided for @resumenMensajeDe.
@@ -2144,12 +2132,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Control por horas'**
   String get resumenControlHoras;
-
-  /// No description provided for @resumenControlRango.
-  ///
-  /// In es, this message translates to:
-  /// **'9 a 21 h'**
-  String get resumenControlRango;
 
   /// No description provided for @preguntaProgreso.
   ///
@@ -2924,6 +2906,396 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Te lo recuerda la voz de {nombre}'**
   String vozTeLoRecuerda(String nombre);
+
+  /// No description provided for @controlHorasVispera.
+  ///
+  /// In es, this message translates to:
+  /// **'Alarmas'**
+  String get controlHorasVispera;
+
+  /// No description provided for @controlInterruptor.
+  ///
+  /// In es, this message translates to:
+  /// **'Hacer las preguntas'**
+  String get controlInterruptor;
+
+  /// No description provided for @controlInterruptorAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Cómo está, si le duele algo y qué va a hacer luego'**
+  String get controlInterruptorAyuda;
+
+  /// No description provided for @controlFranja.
+  ///
+  /// In es, this message translates to:
+  /// **'Franja'**
+  String get controlFranja;
+
+  /// No description provided for @controlDesde.
+  ///
+  /// In es, this message translates to:
+  /// **'Desde'**
+  String get controlDesde;
+
+  /// No description provided for @controlHasta.
+  ///
+  /// In es, this message translates to:
+  /// **'Hasta'**
+  String get controlHasta;
+
+  /// No description provided for @controlHoraAntes.
+  ///
+  /// In es, this message translates to:
+  /// **'{campo}: una hora antes'**
+  String controlHoraAntes(String campo);
+
+  /// No description provided for @controlHoraDespues.
+  ///
+  /// In es, this message translates to:
+  /// **'{campo}: una hora después'**
+  String controlHoraDespues(String campo);
+
+  /// No description provided for @controlHoraValor.
+  ///
+  /// In es, this message translates to:
+  /// **'{campo}: {hora}'**
+  String controlHoraValor(String campo, String hora);
+
+  /// No description provided for @controlRitmo.
+  ///
+  /// In es, this message translates to:
+  /// **'Ritmo'**
+  String get controlRitmo;
+
+  /// No description provided for @controlSegCada1.
+  ///
+  /// In es, this message translates to:
+  /// **'Cada hora'**
+  String get controlSegCada1;
+
+  /// No description provided for @controlSegCada2.
+  ///
+  /// In es, this message translates to:
+  /// **'Cada 2 h'**
+  String get controlSegCada2;
+
+  /// No description provided for @controlSegCada3.
+  ///
+  /// In es, this message translates to:
+  /// **'Cada 3 h'**
+  String get controlSegCada3;
+
+  /// No description provided for @controlRitmoCada1.
+  ///
+  /// In es, this message translates to:
+  /// **'cada hora'**
+  String get controlRitmoCada1;
+
+  /// No description provided for @controlRitmoCada2.
+  ///
+  /// In es, this message translates to:
+  /// **'cada 2 horas'**
+  String get controlRitmoCada2;
+
+  /// No description provided for @controlRitmoCada3.
+  ///
+  /// In es, this message translates to:
+  /// **'cada 3 horas'**
+  String get controlRitmoCada3;
+
+  /// No description provided for @controlExplicaRondas.
+  ///
+  /// In es, this message translates to:
+  /// **'{n, plural, =1{Una ronda al día} other{{n} rondas al día}}: de {desde} a {hasta}, {ritmo}.'**
+  String controlExplicaRondas(int n, String desde, String hasta, String ritmo);
+
+  /// No description provided for @controlExplicaQue.
+  ///
+  /// In es, this message translates to:
+  /// **'En cada ronda, el móvil de {alias} le pregunta cómo está, si le duele algo y qué va a hacer luego, con la voz grabada de la familia si la hay. Nunca pregunta fuera de esta franja. Si coincide con una pastilla, la ronda espera 15 minutos.'**
+  String controlExplicaQue(String alias);
+
+  /// No description provided for @controlExplicaFamilia.
+  ///
+  /// In es, this message translates to:
+  /// **'Si a los 10 minutos no hay respuesta, Hoy marca la ronda como «sin respuesta», aunque su móvil esté apagado. Los cambios llegan a su móvil por el cartero.'**
+  String get controlExplicaFamilia;
+
+  /// No description provided for @controlExplicaApagado.
+  ///
+  /// In es, this message translates to:
+  /// **'Desactivado: el móvil de {alias} no hace preguntas y Hoy no espera respuestas.'**
+  String controlExplicaApagado(String alias);
+
+  /// No description provided for @controlEstadoBien.
+  ///
+  /// In es, this message translates to:
+  /// **'Bien'**
+  String get controlEstadoBien;
+
+  /// No description provided for @controlEstadoRegular.
+  ///
+  /// In es, this message translates to:
+  /// **'Regular'**
+  String get controlEstadoRegular;
+
+  /// No description provided for @controlEstadoMal.
+  ///
+  /// In es, this message translates to:
+  /// **'Mal'**
+  String get controlEstadoMal;
+
+  /// No description provided for @controlDolorNada.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin dolor'**
+  String get controlDolorNada;
+
+  /// No description provided for @controlDolorPoco.
+  ///
+  /// In es, this message translates to:
+  /// **'Le duele un poco'**
+  String get controlDolorPoco;
+
+  /// No description provided for @controlDolorMucho.
+  ///
+  /// In es, this message translates to:
+  /// **'Le duele mucho'**
+  String get controlDolorMucho;
+
+  /// No description provided for @controlPlanPasear.
+  ///
+  /// In es, this message translates to:
+  /// **'Va a pasear'**
+  String get controlPlanPasear;
+
+  /// No description provided for @controlPlanDescansar.
+  ///
+  /// In es, this message translates to:
+  /// **'Va a descansar'**
+  String get controlPlanDescansar;
+
+  /// No description provided for @controlPlanTele.
+  ///
+  /// In es, this message translates to:
+  /// **'Va a ver la tele'**
+  String get controlPlanTele;
+
+  /// No description provided for @controlPlanOtra.
+  ///
+  /// In es, this message translates to:
+  /// **'Otra cosa'**
+  String get controlPlanOtra;
+
+  /// No description provided for @controlDecirlo.
+  ///
+  /// In es, this message translates to:
+  /// **'Prefirió decirlo'**
+  String get controlDecirlo;
+
+  /// No description provided for @controlCuantoPoco.
+  ///
+  /// In es, this message translates to:
+  /// **'un poco'**
+  String get controlCuantoPoco;
+
+  /// No description provided for @controlCuantoMucho.
+  ///
+  /// In es, this message translates to:
+  /// **'mucho'**
+  String get controlCuantoMucho;
+
+  /// No description provided for @controlUltimaRespuesta.
+  ///
+  /// In es, this message translates to:
+  /// **'Última respuesta'**
+  String get controlUltimaRespuesta;
+
+  /// No description provided for @controlSinRespuestasHoy.
+  ///
+  /// In es, this message translates to:
+  /// **'Aún no hay respuestas hoy'**
+  String get controlSinRespuestasHoy;
+
+  /// No description provided for @controlSinMovil.
+  ///
+  /// In es, this message translates to:
+  /// **'Las rondas empiezan cuando el móvil de {alias} esté listo'**
+  String controlSinMovil(String alias);
+
+  /// No description provided for @controlDesactivado.
+  ///
+  /// In es, this message translates to:
+  /// **'Desactivado'**
+  String get controlDesactivado;
+
+  /// No description provided for @controlSinRespuesta.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin respuesta'**
+  String get controlSinRespuesta;
+
+  /// No description provided for @controlSinRespuestaNinguna.
+  ///
+  /// In es, this message translates to:
+  /// **'Ninguna ronda sin respuesta'**
+  String get controlSinRespuestaNinguna;
+
+  /// No description provided for @controlFranjaYRitmo.
+  ///
+  /// In es, this message translates to:
+  /// **'Franja y ritmo'**
+  String get controlFranjaYRitmo;
+
+  /// No description provided for @controlFranjaResumen.
+  ///
+  /// In es, this message translates to:
+  /// **'De {desde} a {hasta}, {ritmo}'**
+  String controlFranjaResumen(String desde, String hasta, String ritmo);
+
+  /// No description provided for @controlProximaRonda.
+  ///
+  /// In es, this message translates to:
+  /// **'Próxima ronda: {hora}'**
+  String controlProximaRonda(String hora);
+
+  /// No description provided for @avisosDeHoy.
+  ///
+  /// In es, this message translates to:
+  /// **'Avisos de hoy'**
+  String get avisosDeHoy;
+
+  /// No description provided for @avisosPie.
+  ///
+  /// In es, this message translates to:
+  /// **'Por ahora se apuntan aquí; el envío a la familia llega en la semana 4.'**
+  String get avisosPie;
+
+  /// No description provided for @avisoAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Pidió ayuda'**
+  String get avisoAyuda;
+
+  /// No description provided for @avisoLlamada.
+  ///
+  /// In es, this message translates to:
+  /// **'Llamó a la familia'**
+  String get avisoLlamada;
+
+  /// No description provided for @avisoEstadoMal.
+  ///
+  /// In es, this message translates to:
+  /// **'Dijo «Mal»'**
+  String get avisoEstadoMal;
+
+  /// No description provided for @avisoDolorNuevo.
+  ///
+  /// In es, this message translates to:
+  /// **'Dolor nuevo: {cuanto}'**
+  String avisoDolorNuevo(String cuanto);
+
+  /// No description provided for @avisoDolorRepetido.
+  ///
+  /// In es, this message translates to:
+  /// **'Le duele {cuanto} por tercera vez hoy'**
+  String avisoDolorRepetido(String cuanto);
+
+  /// No description provided for @avisoDosSinRespuesta.
+  ///
+  /// In es, this message translates to:
+  /// **'Dos rondas seguidas sin respuesta ({a} y {b})'**
+  String avisoDosSinRespuesta(String a, String b);
+
+  /// No description provided for @semaforoDijoMal.
+  ///
+  /// In es, this message translates to:
+  /// **'En la última pregunta dijo «Mal»'**
+  String get semaforoDijoMal;
+
+  /// No description provided for @semaforoDosSinRespuesta.
+  ///
+  /// In es, this message translates to:
+  /// **'Dos rondas seguidas sin respuesta'**
+  String get semaforoDosSinRespuesta;
+
+  /// No description provided for @semaforoSinRespuesta.
+  ///
+  /// In es, this message translates to:
+  /// **'Una ronda de preguntas sin respuesta'**
+  String get semaforoSinRespuesta;
+
+  /// No description provided for @fixResumenDijoMal.
+  ///
+  /// In es, this message translates to:
+  /// **'{alias}: dijo «Mal»'**
+  String fixResumenDijoMal(String alias);
+
+  /// No description provided for @fixResumenDosSinRespuesta.
+  ///
+  /// In es, this message translates to:
+  /// **'{alias}: dos rondas sin respuesta'**
+  String fixResumenDosSinRespuesta(String alias);
+
+  /// No description provided for @fixResumenSinRespuesta.
+  ///
+  /// In es, this message translates to:
+  /// **'{alias}: una ronda sin respuesta'**
+  String fixResumenSinRespuesta(String alias);
+
+  /// No description provided for @resumenControlRangoDe.
+  ///
+  /// In es, this message translates to:
+  /// **'{desde} a {hasta} h'**
+  String resumenControlRangoDe(int desde, int hasta);
+
+  /// No description provided for @resumenControlHoy.
+  ///
+  /// In es, this message translates to:
+  /// **'Hoy: {contestadas, plural, =1{1 contestada} other{{contestadas} contestadas}} · {sin} sin respuesta'**
+  String resumenControlHoy(int contestadas, int sin);
+
+  /// No description provided for @resumenControlSemana.
+  ///
+  /// In es, this message translates to:
+  /// **'Semana: {contestadas, plural, =1{1 contestada} other{{contestadas} contestadas}} · {sin} sin respuesta'**
+  String resumenControlSemana(int contestadas, int sin);
+
+  /// No description provided for @resumenControlDesactivado.
+  ///
+  /// In es, this message translates to:
+  /// **'Desactivado. Se activa en Alarmas › Control por horas.'**
+  String get resumenControlDesactivado;
+
+  /// No description provided for @controlCeldaContestada.
+  ///
+  /// In es, this message translates to:
+  /// **'{hora}: contestada'**
+  String controlCeldaContestada(String hora);
+
+  /// No description provided for @controlCeldaSinRespuesta.
+  ///
+  /// In es, this message translates to:
+  /// **'{hora}: sin respuesta'**
+  String controlCeldaSinRespuesta(String hora);
+
+  /// No description provided for @controlCeldaEnEspera.
+  ///
+  /// In es, this message translates to:
+  /// **'{hora}: esperando respuesta'**
+  String controlCeldaEnEspera(String hora);
+
+  /// No description provided for @controlCeldaPorLlegar.
+  ///
+  /// In es, this message translates to:
+  /// **'{hora}: aún no ha llegado'**
+  String controlCeldaPorLlegar(String hora);
+
+  /// No description provided for @controlCeldaNoEsperada.
+  ///
+  /// In es, this message translates to:
+  /// **'{hora}: sin ronda'**
+  String controlCeldaNoEsperada(String hora);
 }
 
 class _AppLocalizationsDelegate

@@ -10,6 +10,7 @@ import 'contexto.dart';
 import 'cripto/almacen_seguro.dart';
 import 'db/base_datos.dart';
 import 'db/repositorios/circulo_repositorio.dart';
+import 'db/repositorios/control_horas_repositorio.dart';
 import 'db/repositorios/eventos_repositorio.dart';
 import 'db/repositorios/medicacion_repositorio.dart';
 import 'db/repositorios/voces_repositorio.dart';
@@ -209,7 +210,25 @@ final vocesRepositorioProvider = Provider<VocesRepositorio>((ref) {
   );
 });
 
+final controlHorasRepositorioProvider = Provider<ControlHorasRepositorio>((
+  ref,
+) {
+  return ControlHorasRepositorio(
+    db: ref.watch(baseDatosProvider),
+    reloj: ref.watch(relojProvider),
+    contexto: ref.watch(contextoProvider),
+    eventos: ref.watch(eventosRepositorioProvider),
+    autor: () => autorActual(ref),
+  );
+});
+
 // ----------------------------------------------------------- Datos observados
+
+/// Ajustes del control por horas del círculo (por defecto, de 9 a 21 cada
+/// hora).
+final ajustesControlProvider = StreamProvider<AjustesControl>(
+  (ref) => ref.watch(controlHorasRepositorioProvider).observarAjustes(),
+);
 
 final personaProvider = StreamProvider<Persona?>(
   (ref) => ref.watch(circuloRepositorioProvider).observarPersona(),
@@ -258,8 +277,9 @@ final fraseSonoraProvider =
       );
     });
 
-/// Resumen de las frases `toma` que pueden sonar en una alarma (nulo
-/// mientras carga). Si cambia, se reprograman las alarmas.
+/// Resumen de las frases que pueden sonar en una alarma (`toma` en las de
+/// las tomas, `como_estas` en las del control por horas; nulo mientras
+/// carga). Si cambia, se reprograman las alarmas.
 final firmaVozTomaProvider = Provider<String?>((ref) {
   final voces = ref.watch(vocesProvider).value;
   final frases = ref.watch(frasesProvider).value;
@@ -270,11 +290,12 @@ final firmaVozTomaProvider = Provider<String?>((ref) {
   };
   return ([
     for (final f in frases)
-      if (f.uso == UsoFrase.toma.nombre &&
+      if ((f.uso == UsoFrase.toma.nombre ||
+              f.uso == UsoFrase.comoEstas.nombre) &&
           f.aprobada &&
           f.audioRuta != null &&
           activas.contains(f.vozId))
-        '${f.vozId}:${f.audioRuta}',
+        '${f.uso}:${f.vozId}:${f.audioRuta}',
   ]..sort()).join('|');
 });
 
@@ -301,6 +322,7 @@ final programadorAlarmasProvider = Provider<ProgramadorAlarmas>((ref) {
     reloj: ref.watch(relojProvider),
     contexto: ref.watch(contextoProvider),
     voces: ref.watch(vocesRepositorioProvider),
+    control: ref.watch(controlHorasRepositorioProvider),
   );
 });
 

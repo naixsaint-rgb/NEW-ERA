@@ -11,7 +11,9 @@ import '../../../shared/ios/ios.dart';
 import '../../../shared/l10n_ext.dart';
 import '../../../shared/widgets/etiqueta_estado_toma.dart';
 import '../../../shared/widgets/tarjeta_grande.dart';
+import '../dominio/control_horas.dart';
 import '../dominio/tomas.dart';
+import 'control_hoy.dart';
 import 'piezas_hoy.dart';
 
 /// Vista "Hoy" de la pestaña Hoy de la familia (maqueta A-Familia).
@@ -29,16 +31,18 @@ class VistaHoy extends ConsumerWidget {
     final ultima = ultimaTomaDeHoy(deHoy, ahora);
     final siguiente = siguienteToma(todas, ahora);
     final cuenta = contarTomas(deHoy);
-    final avisos = ref.watch(avisosDeHoyProvider).value;
+    final avisos = ref.watch(avisosDeHoyProvider).value?.length;
     final config = ref.watch(configEscaladoProvider);
+    final control = ref.watch(controlDeHoyProvider).value;
+    final semaforo = semaforoDelDia(deHoy, ahora, config, control: control);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
         _TarjetaEstado(
-          nivel: nivelSemaforo(deHoy, ahora, config),
-          retraso: hayRetraso(deHoy, ahora, config),
+          nivel: semaforo.nivel,
+          motivo: semaforo.motivo,
           ultima: ultima,
           cuenta: cuenta,
           videos: clipsDe(deHoy).length,
@@ -52,16 +56,15 @@ class VistaHoy extends ConsumerWidget {
         separacionBloques,
         GrupoComprobaciones(tomas: deHoy, vacio: l.hoySinComprobacionesHoy),
         separacionBloques,
+        const GrupoControlHoras(),
+        const GrupoAvisosHoy(),
+        separacionBloques,
         GrupoLista(
           titulo: l.hoyLlegaPronto,
           children: [
             FilaLlegaPronto(
               titulo: l.reservadaUbicacion,
               subtitulo: l.llegaEnSemana(10),
-            ),
-            FilaLlegaPronto(
-              titulo: l.reservadaControl,
-              subtitulo: l.llegaEnSemana(5),
             ),
           ],
         ),
@@ -74,7 +77,7 @@ class VistaHoy extends ConsumerWidget {
 class _TarjetaEstado extends ConsumerWidget {
   const _TarjetaEstado({
     required this.nivel,
-    required this.retraso,
+    required this.motivo,
     required this.ultima,
     required this.cuenta,
     required this.videos,
@@ -83,8 +86,8 @@ class _TarjetaEstado extends ConsumerWidget {
 
   final NivelSemaforo nivel;
 
-  /// El naranja es por una toma que se retrasa (y no por un vídeo).
-  final bool retraso;
+  /// Por qué tiene ese color (elige el texto).
+  final MotivoSemaforo motivo;
   final TomaVista? ultima;
   final CuentaTomas cuenta;
   final int videos;
@@ -101,13 +104,21 @@ class _TarjetaEstado extends ConsumerWidget {
         c.rojo,
         c.rojoClaro,
         CupertinoIcons.exclamationmark_octagon_fill,
-        l.semaforoRojo,
+        switch (motivo) {
+          MotivoSemaforo.estadoMal => l.semaforoDijoMal,
+          MotivoSemaforo.dosSinRespuesta => l.semaforoDosSinRespuesta,
+          _ => l.semaforoRojo,
+        },
       ),
       NivelSemaforo.naranja => (
         c.naranja,
         c.naranjaClaro,
         CupertinoIcons.exclamationmark_triangle_fill,
-        retraso ? l.fixSemaforoRetraso : l.semaforoNaranja,
+        switch (motivo) {
+          MotivoSemaforo.tomaRetrasada => l.fixSemaforoRetraso,
+          MotivoSemaforo.rondaSinRespuesta => l.semaforoSinRespuesta,
+          _ => l.semaforoNaranja,
+        },
       ),
       NivelSemaforo.verde => (
         c.verde,

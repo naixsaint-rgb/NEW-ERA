@@ -4,6 +4,7 @@ import 'package:safety_core/safety_core.dart';
 import '../../../core/db/base_datos.dart';
 import '../../../core/db/repositorios/eventos_repositorio.dart';
 import '../../../core/providers.dart';
+import '../../hoy/dominio/control_horas.dart';
 import '../../hoy/dominio/tomas.dart';
 import '../../persona_inicio/llamadas.dart';
 
@@ -36,7 +37,7 @@ final class ResumenDatos {
     required this.videos,
     required this.avisos,
     required this.ahora,
-    this.retraso = false,
+    this.motivo = MotivoSemaforo.ninguno,
     this.alias,
     this.ultimaConfirmacion,
     this.ultimaSenal,
@@ -44,12 +45,19 @@ final class ResumenDatos {
     this.mensaje,
     this.familiar1,
     this.minutosAvisoFamiliar1,
+    this.control,
   });
 
   final NivelSemaforo nivel;
 
+  /// Por qué el semáforo tiene su color ([semaforoDelDia]).
+  final MotivoSemaforo motivo;
+
   /// `true` si el naranja es por una toma que se retrasa ([hayRetraso]).
-  final bool retraso;
+  bool get retraso => motivo == MotivoSemaforo.tomaRetrasada;
+
+  /// Control por horas de hoy y de los últimos 7 días (nulo mientras carga).
+  final ControlSemana? control;
 
   /// El instante con el que se calculó (para "ayer", "mañana", "pendiente").
   final DateTime ahora;
@@ -69,7 +77,8 @@ final class ResumenDatos {
   /// Clips grabados en las tomas de hoy.
   final int videos;
 
-  /// `ayuda_pedida` y `llamada_iniciada` de hoy.
+  /// Avisos de hoy: `ayuda_pedida`, `llamada_iniciada` y las situaciones
+  /// del control por horas ([avisosDeHoyProvider]).
   final int avisos;
 
   final TomaVista? siguiente;
@@ -146,6 +155,7 @@ const tiposDeSenal = {
   'clip_fallido',
   'ayuda_pedida',
   'llamada_iniciada',
+  'pregunta_respondida',
 };
 
 DateTime _instante(Evento e) =>
@@ -175,7 +185,8 @@ final resumenProvider = Provider<AsyncValue<ResumenDatos>>((ref) {
   if (!hoy.hasValue) return const AsyncValue.loading();
   final deHoy = hoy.requireValue;
   final siguiente = ref.watch(siguienteTomaProvider).value;
-  final avisos = ref.watch(avisosDeHoyProvider).value ?? 0;
+  final avisos = ref.watch(avisosDeHoyProvider).value?.length ?? 0;
+  final control = ref.watch(controlSemanaProvider).value;
   final deLaPersona = ref.watch(ultimoEventoDePersonaProvider).value;
   final global = ref.watch(ultimaConfirmacionGlobalProvider).value;
   final miembros = ref.watch(miembrosProvider).value ?? const <Miembro>[];
@@ -184,10 +195,12 @@ final resumenProvider = Provider<AsyncValue<ResumenDatos>>((ref) {
       ref.watch(ahoraProvider).value ?? ref.read(relojProvider).ahora();
 
   final senal = deLaPersona ?? global;
+  final semaforo = semaforoDelDia(deHoy, ahora, config, control: control?.hoy);
   return AsyncValue.data(
     ResumenDatos(
-      nivel: nivelSemaforo(deHoy, ahora, config),
-      retraso: hayRetraso(deHoy, ahora, config),
+      nivel: semaforo.nivel,
+      motivo: semaforo.motivo,
+      control: control,
       ahora: ahora,
       alias: ref.watch(personaProvider).value?.alias,
       ultimaConfirmacion: ultimaConfirmacionDe(deHoy),

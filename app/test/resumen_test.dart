@@ -130,11 +130,17 @@ void main() {
         findsOneWidget,
       );
 
-      // Control por horas: franja 09–21 vacía y aviso.
+      // Control por horas: franja 09–21 sin rondas esperadas (aún no hay
+      // móvil de la persona) y las cuentas a cero.
       expect(find.text('Control por horas'), findsOneWidget);
       expect(find.text('9 a 21 h'), findsOneWidget);
       expect(find.text('09'), findsOneWidget);
-      expect(find.text('Llega en la semana 5'), findsOneWidget);
+      expect(find.text('21'), findsOneWidget);
+      expect(find.text('Hoy: 0 contestadas · 0 sin respuesta'), findsOneWidget);
+      expect(
+        find.text('Semana: 0 contestadas · 0 sin respuesta'),
+        findsOneWidget,
+      );
       expect(tester.takeException(), isNull);
     },
   );
@@ -317,6 +323,10 @@ void main() {
     expect(find.byType(ResumenPantalla), findsOneWidget);
     await tester.ensureVisible(find.text('Vídeos'));
     await tester.pump();
+    // Con la lista más larga (control por horas), "Vídeos" queda arriba, bajo
+    // el botón "Más": se baja un poco para tocarlo.
+    await tester.drag(find.byType(ListView).first, const Offset(0, 200));
+    await pasar(tester, const Duration(milliseconds: 500));
     await tester.tap(find.text('Vídeos'));
     await pasar(tester, const Duration(seconds: 1));
     expect(find.byType(HoyPantalla), findsOneWidget);
@@ -349,7 +359,7 @@ void main() {
       // Y lo que queda debajo: próxima toma y control por horas.
       await tester.drag(find.byType(ListView).first, const Offset(0, -3000));
       await pasar(tester, const Duration(milliseconds: 500));
-      expect(find.text('Llega en la semana 5'), findsOneWidget);
+      expect(find.text('Hoy: 0 contestadas · 0 sin respuesta'), findsOneWidget);
       await expectLater(tester, meetsGuideline(textContrastGuideline));
       await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
       await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));

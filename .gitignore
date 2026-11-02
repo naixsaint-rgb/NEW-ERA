@@ -8,6 +8,7 @@ datos-reales/
 *.opus
 *.wav
 !app/assets/audio/tono_alarma.wav
+!app/assets/audio/tono_suave.wav
 *.mp3
 *.mp4
 *.mov

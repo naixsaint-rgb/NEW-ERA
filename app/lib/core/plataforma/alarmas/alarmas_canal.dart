@@ -16,6 +16,10 @@ import 'servicio_alarmas.dart';
 /// Reservados para la semana 2, de nativo a Dart: `alarmaDisparada {idToma}` y
 /// `alarmaParada {idToma, origen}`. Parar en el sistema no confirma la toma.
 ///
+/// Las rondas del control por horas van por el mismo canal con su id
+/// (`ronda_<yyyyMMdd>_<HHmm>`): cómo las lanza AlarmKit (o una notificación
+/// local) está sin verificar; se prueba en la semana 5.
+///
 /// Implementación provisional: además de llamar al canal, registra en consola
 /// lo que pide, para poder seguir la demo sin AlarmKit.
 class AlarmasCanal implements ServicioAlarmas {

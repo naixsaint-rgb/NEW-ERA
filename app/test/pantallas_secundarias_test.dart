@@ -42,13 +42,18 @@ const _casos = [
   _Caso('Alarmas', '/familia/alarmas', [
     'Alarmas',
     'Lo que tendrá',
-    'Llega en las semanas 4 y 5',
+    'Llega en la semana 4',
     'Ver el control por horas',
   ]),
   _Caso('Control por horas', '/familia/alarmas/control-horas', [
     'Control por horas',
-    'Lo que tendrá',
-    'Llega en la semana 5',
+    'Hacer las preguntas',
+    'Desde',
+    'Hasta',
+    '09:00',
+    '21:00',
+    'Cada hora',
+    '13 rondas al día: de 09:00 a 21:00, cada hora.',
     'Volver',
   ]),
   _Caso('Voces', '/familia/voces', [

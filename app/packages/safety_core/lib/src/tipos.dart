@@ -1,4 +1,5 @@
-/// Tipos de evento de la semana 1 (sección 4.3 de la especificación).
+/// Tipos de evento (sección 4.3 de la especificación de la semana 1 y los
+/// que se han ido añadiendo).
 enum TipoEvento {
   tomaConfirmada('toma_confirmada'),
   clipGrabado('clip_grabado'),
@@ -16,6 +17,11 @@ enum TipoEvento {
   /// Alta de una ficha (persona, familiar, medicamento, versión de pauta o
   /// foto) con la fila entera, para que la vean los demás móviles del círculo.
   fichaCreada('ficha_creada'),
+
+  /// Respuesta a una pregunta del control por horas (plan v3, 2.4 bis), con
+  /// la ronda como sujeto: `{ronda, tipo: estado|dolor|plan, respuesta,
+  /// tiempo_ms, origen: movil}`.
+  preguntaRespondida('pregunta_respondida'),
   anulacion('anulacion');
 
   const TipoEvento(this.nombre);

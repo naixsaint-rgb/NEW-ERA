@@ -135,14 +135,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get alarmasTendra =>
-      'Avisos escalonados: si la pastilla no se confirma, se avisa a la familia por orden. Y el control por horas, de 9 a 21.';
+      'Avisos escalonados: si la pastilla no se confirma o una ronda de preguntas queda sin respuesta, se avisa a la familia por orden.';
 
   @override
   String get controlHorasTitulo => 'Control por horas';
-
-  @override
-  String get controlHorasTendra =>
-      'Tres preguntas cada hora, de 9 a 21, con horas ajustables: cómo está, si hay dolor y qué plan tiene.';
 
   @override
   String get verControlHoras => 'Ver el control por horas';
@@ -302,9 +298,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get reservadaUbicacion => 'Ubicación';
-
-  @override
-  String get reservadaControl => 'Respuesta de control';
 
   @override
   String get anadirMedicamento => 'Añadir medicamento';
@@ -1156,7 +1149,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get resumenVer => 'Ver';
 
   @override
-  String get resumenAyudaYLlamadas => 'ayuda y llamadas, hoy';
+  String get resumenAyudaYLlamadas => 'ayuda, llamadas y preguntas, hoy';
 
   @override
   String resumenMensajeDe(String nombre, String hora) {
@@ -1184,9 +1177,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get resumenControlHoras => 'Control por horas';
-
-  @override
-  String get resumenControlRango => '9 a 21 h';
 
   @override
   String preguntaProgreso(String hora, int n) {
@@ -1657,5 +1647,268 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String vozTeLoRecuerda(String nombre) {
     return 'Te lo recuerda la voz de $nombre';
+  }
+
+  @override
+  String get controlHorasVispera => 'Alarmas';
+
+  @override
+  String get controlInterruptor => 'Hacer las preguntas';
+
+  @override
+  String get controlInterruptorAyuda =>
+      'Cómo está, si le duele algo y qué va a hacer luego';
+
+  @override
+  String get controlFranja => 'Franja';
+
+  @override
+  String get controlDesde => 'Desde';
+
+  @override
+  String get controlHasta => 'Hasta';
+
+  @override
+  String controlHoraAntes(String campo) {
+    return '$campo: una hora antes';
+  }
+
+  @override
+  String controlHoraDespues(String campo) {
+    return '$campo: una hora después';
+  }
+
+  @override
+  String controlHoraValor(String campo, String hora) {
+    return '$campo: $hora';
+  }
+
+  @override
+  String get controlRitmo => 'Ritmo';
+
+  @override
+  String get controlSegCada1 => 'Cada hora';
+
+  @override
+  String get controlSegCada2 => 'Cada 2 h';
+
+  @override
+  String get controlSegCada3 => 'Cada 3 h';
+
+  @override
+  String get controlRitmoCada1 => 'cada hora';
+
+  @override
+  String get controlRitmoCada2 => 'cada 2 horas';
+
+  @override
+  String get controlRitmoCada3 => 'cada 3 horas';
+
+  @override
+  String controlExplicaRondas(int n, String desde, String hasta, String ritmo) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n rondas al día',
+      one: 'Una ronda al día',
+    );
+    return '$_temp0: de $desde a $hasta, $ritmo.';
+  }
+
+  @override
+  String controlExplicaQue(String alias) {
+    return 'En cada ronda, el móvil de $alias le pregunta cómo está, si le duele algo y qué va a hacer luego, con la voz grabada de la familia si la hay. Nunca pregunta fuera de esta franja. Si coincide con una pastilla, la ronda espera 15 minutos.';
+  }
+
+  @override
+  String get controlExplicaFamilia =>
+      'Si a los 10 minutos no hay respuesta, Hoy marca la ronda como «sin respuesta», aunque su móvil esté apagado. Los cambios llegan a su móvil por el cartero.';
+
+  @override
+  String controlExplicaApagado(String alias) {
+    return 'Desactivado: el móvil de $alias no hace preguntas y Hoy no espera respuestas.';
+  }
+
+  @override
+  String get controlEstadoBien => 'Bien';
+
+  @override
+  String get controlEstadoRegular => 'Regular';
+
+  @override
+  String get controlEstadoMal => 'Mal';
+
+  @override
+  String get controlDolorNada => 'Sin dolor';
+
+  @override
+  String get controlDolorPoco => 'Le duele un poco';
+
+  @override
+  String get controlDolorMucho => 'Le duele mucho';
+
+  @override
+  String get controlPlanPasear => 'Va a pasear';
+
+  @override
+  String get controlPlanDescansar => 'Va a descansar';
+
+  @override
+  String get controlPlanTele => 'Va a ver la tele';
+
+  @override
+  String get controlPlanOtra => 'Otra cosa';
+
+  @override
+  String get controlDecirlo => 'Prefirió decirlo';
+
+  @override
+  String get controlCuantoPoco => 'un poco';
+
+  @override
+  String get controlCuantoMucho => 'mucho';
+
+  @override
+  String get controlUltimaRespuesta => 'Última respuesta';
+
+  @override
+  String get controlSinRespuestasHoy => 'Aún no hay respuestas hoy';
+
+  @override
+  String controlSinMovil(String alias) {
+    return 'Las rondas empiezan cuando el móvil de $alias esté listo';
+  }
+
+  @override
+  String get controlDesactivado => 'Desactivado';
+
+  @override
+  String get controlSinRespuesta => 'Sin respuesta';
+
+  @override
+  String get controlSinRespuestaNinguna => 'Ninguna ronda sin respuesta';
+
+  @override
+  String get controlFranjaYRitmo => 'Franja y ritmo';
+
+  @override
+  String controlFranjaResumen(String desde, String hasta, String ritmo) {
+    return 'De $desde a $hasta, $ritmo';
+  }
+
+  @override
+  String controlProximaRonda(String hora) {
+    return 'Próxima ronda: $hora';
+  }
+
+  @override
+  String get avisosDeHoy => 'Avisos de hoy';
+
+  @override
+  String get avisosPie =>
+      'Por ahora se apuntan aquí; el envío a la familia llega en la semana 4.';
+
+  @override
+  String get avisoAyuda => 'Pidió ayuda';
+
+  @override
+  String get avisoLlamada => 'Llamó a la familia';
+
+  @override
+  String get avisoEstadoMal => 'Dijo «Mal»';
+
+  @override
+  String avisoDolorNuevo(String cuanto) {
+    return 'Dolor nuevo: $cuanto';
+  }
+
+  @override
+  String avisoDolorRepetido(String cuanto) {
+    return 'Le duele $cuanto por tercera vez hoy';
+  }
+
+  @override
+  String avisoDosSinRespuesta(String a, String b) {
+    return 'Dos rondas seguidas sin respuesta ($a y $b)';
+  }
+
+  @override
+  String get semaforoDijoMal => 'En la última pregunta dijo «Mal»';
+
+  @override
+  String get semaforoDosSinRespuesta => 'Dos rondas seguidas sin respuesta';
+
+  @override
+  String get semaforoSinRespuesta => 'Una ronda de preguntas sin respuesta';
+
+  @override
+  String fixResumenDijoMal(String alias) {
+    return '$alias: dijo «Mal»';
+  }
+
+  @override
+  String fixResumenDosSinRespuesta(String alias) {
+    return '$alias: dos rondas sin respuesta';
+  }
+
+  @override
+  String fixResumenSinRespuesta(String alias) {
+    return '$alias: una ronda sin respuesta';
+  }
+
+  @override
+  String resumenControlRangoDe(int desde, int hasta) {
+    return '$desde a $hasta h';
+  }
+
+  @override
+  String resumenControlHoy(int contestadas, int sin) {
+    String _temp0 = intl.Intl.pluralLogic(
+      contestadas,
+      locale: localeName,
+      other: '$contestadas contestadas',
+      one: '1 contestada',
+    );
+    return 'Hoy: $_temp0 · $sin sin respuesta';
+  }
+
+  @override
+  String resumenControlSemana(int contestadas, int sin) {
+    String _temp0 = intl.Intl.pluralLogic(
+      contestadas,
+      locale: localeName,
+      other: '$contestadas contestadas',
+      one: '1 contestada',
+    );
+    return 'Semana: $_temp0 · $sin sin respuesta';
+  }
+
+  @override
+  String get resumenControlDesactivado =>
+      'Desactivado. Se activa en Alarmas › Control por horas.';
+
+  @override
+  String controlCeldaContestada(String hora) {
+    return '$hora: contestada';
+  }
+
+  @override
+  String controlCeldaSinRespuesta(String hora) {
+    return '$hora: sin respuesta';
+  }
+
+  @override
+  String controlCeldaEnEspera(String hora) {
+    return '$hora: esperando respuesta';
+  }
+
+  @override
+  String controlCeldaPorLlegar(String hora) {
+    return '$hora: aún no ha llegado';
+  }
+
+  @override
+  String controlCeldaNoEsperada(String hora) {
+    return '$hora: sin ronda';
   }
 }

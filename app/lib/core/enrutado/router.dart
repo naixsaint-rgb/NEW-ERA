@@ -122,6 +122,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             builder: (_, state) => _enTemaPersona(
               PreguntaPantalla(
                 prueba: state.uri.queryParameters['prueba'] == '1',
+                ronda: state.uri.queryParameters['ronda'],
               ),
             ),
           ),

@@ -12,7 +12,9 @@ import 'foto_para_sobre.dart';
 
 /// Fichas que viajan por el cartero dentro de `ficha_creada` y
 /// `ficha_modificada`: `{tipo, fila: {columnas…}, omitidas?: […]}`. Las
-/// frases llevan además su audio: `audio` (base64) y `audio_ext`.
+/// frases llevan además su audio: `audio` (base64) y `audio_ext`. Los
+/// ajustes del control por horas (`ajustes_control`) son una fila por
+/// círculo con el id del círculo.
 enum TipoFicha {
   persona('persona'),
   miembro('miembro'),
@@ -21,7 +23,8 @@ enum TipoFicha {
   foto('foto'),
   consentimiento('consentimiento'),
   voz('voz'),
-  frase('frase');
+  frase('frase'),
+  ajustesControl('ajustes_control');
 
   const TipoFicha(this.nombre);
   final String nombre;
@@ -133,6 +136,17 @@ abstract final class FilasFicha {
     'creada_en': f.creadaEn,
   };
 
+  static Map<String, Object?> ajustesControl(FilaAjustesControl a) => {
+    'id': a.id,
+    'activado': a.activado,
+    'desde_hora': a.desdeHora,
+    'hasta_hora': a.hastaHora,
+    'cada_horas': a.cadaHoras,
+    'activo_desde': a.activoDesde,
+    'modificado_por': a.modificadoPor,
+    'modificado_en': a.modificadoEn,
+  };
+
   /// Tope del audio de una frase dentro de un sobre: el mismo que el de las
   /// fotos (va en base64 dentro del evento; ver `FotoParaSobre`). A
   /// 32 kbps, 8 s son unos 34 KB.
@@ -204,8 +218,8 @@ final class PublicadorFichas {
 
   /// Publica las fichas que aún no tienen `ficha_creada` (las de antes del
   /// emparejamiento): fotos, persona, familiares, consentimientos de voz,
-  /// voces, frases aprobadas, medicamentos y pautas, en ese orden para que al
-  /// otro lado existan las referencias. En un círculo que vino de fuera, la
+  /// voces, frases aprobadas, medicamentos, pautas y ajustes del control por
+  /// horas, en ese orden para que al otro lado existan las referencias. En un círculo que vino de fuera, la
   /// persona sin ficha es la provisional: no se publica. Devuelve cuántas
   /// publicó.
   Future<int> pendientes() => _db.transaction(() async {
@@ -298,6 +312,10 @@ final class PublicadorFichas {
     for (final p in pautas) {
       await una(TipoFicha.pauta, p.id);
     }
+    final ajustes = await (_db.select(
+      _db.ajustesControlHoras,
+    )..where((a) => a.id.equals(_contexto.circuloId))).getSingleOrNull();
+    if (ajustes != null) await una(TipoFicha.ajustesControl, ajustes.id);
     return n;
   });
 
@@ -380,6 +398,12 @@ final class PublicadorFichas {
           // No cabe en un sobre (o no está): la frase viaja sin audio.
           omitidas.add('audio');
         }
+      case TipoFicha.ajustesControl:
+        final a = await (_db.select(
+          _db.ajustesControlHoras,
+        )..where((t) => t.id.equals(id))).getSingleOrNull();
+        if (a == null) return null;
+        fila = FilasFicha.ajustesControl(a);
     }
     for (final columna in FilasFicha.columnasFoto[tipo] ?? const <String>[]) {
       final fotoId = fila[columna];
@@ -478,6 +502,9 @@ final class _Campos {
 ///   de este móvil ([ArchivosVoz]) y la fila, con su ruta local. Una voz
 ///   retirada no vuelve atrás: sus audios se borran y sus frases dejan de
 ///   sonar.
+/// - Ajustes del control por horas: una fila por círculo (su id es el del
+///   círculo). Gana el cambio más reciente (`modificado_en`), llegue en el
+///   orden que llegue; los valores fuera de rango se descartan.
 /// - Nunca lanza: un sobre raro no puede atascar la recepción.
 final class MaterializadorFichas {
   MaterializadorFichas(this._db, this._contexto, [this._archivos]);
@@ -617,6 +644,7 @@ final class MaterializadorFichas {
       TipoFicha.consentimiento => _consentimiento(id, c),
       TipoFicha.voz => _voz(e, id, c, creada),
       TipoFicha.frase => _frase(e, id, c, creada, payload),
+      TipoFicha.ajustesControl => _ajustesControl(id, c),
     };
   }
 
@@ -725,6 +753,39 @@ final class MaterializadorFichas {
   }
 
   // ------------------------------------------------------- Fichas
+
+  /// Ajustes del control por horas: gana el más reciente.
+  Future<_Resultado> _ajustesControl(String id, _Campos c) async {
+    final fila = AjustesControlHorasCompanion.insert(
+      id: id,
+      activado: c.logico('activado'),
+      desdeHora: c.ent('desde_hora'),
+      hastaHora: c.ent('hasta_hora'),
+      cadaHoras: c.ent('cada_horas'),
+      activoDesde: Value(c.entONulo('activo_desde')),
+      modificadoPor: c.txt('modificado_por'),
+      modificadoEn: c.ent('modificado_en'),
+    );
+    if (!c.valida || id != _contexto.circuloId) return _Resultado.descartada;
+    final valores = AjustesControl(
+      desde: fila.desdeHora.value,
+      hasta: fila.hastaHora.value,
+      cadaHoras: fila.cadaHoras.value,
+    );
+    if (!valores.valido) return _Resultado.descartada;
+    if (!await _existe(_db.circulos, id)) return _Resultado.pendiente;
+    final ya = await (_db.select(
+      _db.ajustesControlHoras,
+    )..where((t) => t.id.equals(id))).getSingleOrNull();
+    if (ya == null) {
+      await _db.into(_db.ajustesControlHoras).insert(fila);
+    } else if (fila.modificadoEn.value >= ya.modificadoEn) {
+      await (_db.update(
+        _db.ajustesControlHoras,
+      )..where((t) => t.id.equals(id))).write(fila);
+    }
+    return _Resultado.aplicada;
+  }
 
   Future<_Resultado> _voz(Evento e, String id, _Campos c, bool creada) async {
     final miembro = c.txt('miembro_id');

@@ -7,6 +7,7 @@ import '../../../core/db/repositorios/eventos_repositorio.dart';
 import '../../../core/db/repositorios/medicacion_repositorio.dart';
 import '../../../core/i18n/fechas.dart';
 import '../../../core/providers.dart';
+import 'control_horas.dart';
 
 /// Una toma con su estado, su medicamento y sus eventos.
 final class TomaVista {
@@ -446,9 +447,49 @@ final _fechaDeHoyProvider = Provider<String>((ref) {
   return fechaLocalTexto(ahora, zona);
 });
 
-/// Avisos de hoy: cuántas ayudas pedidas y llamadas iniciadas hay desde las
-/// 00:00 local. Lo usan Hoy y Resumen.
-final avisosDeHoyProvider = StreamProvider<int>((ref) {
+/// De qué es un aviso del día.
+enum TipoAviso {
+  /// La persona pidió ayuda.
+  ayudaPedida,
+
+  /// La persona llamó a un familiar.
+  llamadaIniciada,
+
+  /// Control por horas: dijo «mal».
+  estadoMal,
+
+  /// Control por horas: un dolor nuevo (más que en la respuesta anterior).
+  dolorNuevo,
+
+  /// Control por horas: dos rondas seguidas sin respuesta.
+  dosSinRespuesta,
+
+  /// Control por horas: el mismo dolor tres veces en el día.
+  dolorRepetido,
+}
+
+/// Un aviso del día. Por ahora solo se listan: el envío a la familia llega
+/// con el escalado (semana 4 del plan).
+final class AvisoDelDia {
+  const AvisoDelDia({
+    required this.tipo,
+    required this.cuando,
+    this.valor,
+    this.rondas = const [],
+  });
+
+  final TipoAviso tipo;
+  final DateTime cuando;
+
+  /// La respuesta que lo causó (`mal`, `poco`, `mucho`), si la hay.
+  final String? valor;
+
+  /// Las rondas de las que sale (ids).
+  final List<String> rondas;
+}
+
+/// `ayuda_pedida` y `llamada_iniciada` desde las 00:00 local.
+final _eventosDeAvisoHoyProvider = StreamProvider<List<Evento>>((ref) {
   ref.watch(_fechaDeHoyProvider);
   final zona = ref.watch(contextoProvider).zonaHoraria;
   final ahora = ref.read(relojProvider).ahora();
@@ -463,7 +504,33 @@ final avisosDeHoyProvider = StreamProvider<int>((ref) {
           ]) &
           e.ocurridoEn.isBiggerOrEqualValue(desde),
     );
-  return q.watch().map((l) => l.length);
+  return q.watch();
+});
+
+/// Avisos de hoy, del primero al último: ayudas pedidas y llamadas
+/// iniciadas desde las 00:00 local y las situaciones del control por horas
+/// ([ControlDelDia.avisos]). Lo usan Hoy y Resumen.
+final avisosDeHoyProvider = Provider<AsyncValue<List<AvisoDelDia>>>((ref) {
+  final eventos = ref.watch(_eventosDeAvisoHoyProvider);
+  final control = ref.watch(controlDeHoyProvider);
+  if (eventos.hasError && !eventos.hasValue) {
+    return AsyncValue.error(
+      eventos.error!,
+      eventos.stackTrace ?? StackTrace.empty,
+    );
+  }
+  if (!eventos.hasValue) return const AsyncValue.loading();
+  final r = <AvisoDelDia>[
+    for (final e in eventos.requireValue)
+      AvisoDelDia(
+        tipo: e.tipo == TipoEvento.ayudaPedida.nombre
+            ? TipoAviso.ayudaPedida
+            : TipoAviso.llamadaIniciada,
+        cuando: DateTime.fromMillisecondsSinceEpoch(e.ocurridoEn, isUtc: true),
+      ),
+    ...?control.value?.avisos,
+  ]..sort((a, b) => a.cuando.compareTo(b.cuando));
+  return AsyncValue.data(r);
 });
 
 // ------------------------------------------------------------ Semáforo
@@ -490,23 +557,84 @@ bool hayRetraso(
   ConfigEscalado config,
 ) => tomas.any((t) => tomaRetrasada(t, ahora, config));
 
-/// Rojo si hoy hay una `noConfirmada`; naranja si hay una
-/// `confirmadaSinVideo` o una [tomaRetrasada]; si no, verde.
+/// Por qué el semáforo tiene su color (el primero que manda).
+enum MotivoSemaforo {
+  ninguno,
+
+  /// Rojo: una toma de hoy sin confirmar.
+  tomaSinConfirmar,
+
+  /// Rojo: en la última pregunta de "¿Cómo estás?" dijo «mal».
+  estadoMal,
+
+  /// Rojo: dos rondas seguidas sin respuesta.
+  dosSinRespuesta,
+
+  /// Naranja: una toma se retrasa ([tomaRetrasada]).
+  tomaRetrasada,
+
+  /// Naranja: una toma confirmada sin vídeo.
+  tomaSinVideo,
+
+  /// Naranja: una ronda sin respuesta.
+  rondaSinRespuesta,
+}
+
+/// Semáforo del día con su motivo. Rojo si hoy hay una `noConfirmada`, si la
+/// última respuesta de estado es «mal» o si hay dos rondas seguidas sin
+/// respuesta; naranja si hay una [tomaRetrasada], una `confirmadaSinVideo` o
+/// una ronda sin respuesta; si no, verde. Con varios motivos manda el
+/// primero de [MotivoSemaforo].
+({NivelSemaforo nivel, MotivoSemaforo motivo}) semaforoDelDia(
+  Iterable<TomaVista> deHoy,
+  DateTime ahora,
+  ConfigEscalado config, {
+  ControlDelDia? control,
+}) {
+  var retraso = false, sinVideo = false;
+  for (final t in deHoy) {
+    if (t.estado == EstadoToma.noConfirmada) {
+      return (
+        nivel: NivelSemaforo.rojo,
+        motivo: MotivoSemaforo.tomaSinConfirmar,
+      );
+    }
+    if (tomaRetrasada(t, ahora, config)) retraso = true;
+    if (t.estado == EstadoToma.confirmadaSinVideo) sinVideo = true;
+  }
+  if (control != null) {
+    if (control.ultimoEstado?.valor == 'mal') {
+      return (nivel: NivelSemaforo.rojo, motivo: MotivoSemaforo.estadoMal);
+    }
+    if (control.dosSeguidasSinRespuesta) {
+      return (
+        nivel: NivelSemaforo.rojo,
+        motivo: MotivoSemaforo.dosSinRespuesta,
+      );
+    }
+  }
+  if (retraso) {
+    return (nivel: NivelSemaforo.naranja, motivo: MotivoSemaforo.tomaRetrasada);
+  }
+  if (sinVideo) {
+    return (nivel: NivelSemaforo.naranja, motivo: MotivoSemaforo.tomaSinVideo);
+  }
+  if (control != null && control.sinRespuesta.isNotEmpty) {
+    return (
+      nivel: NivelSemaforo.naranja,
+      motivo: MotivoSemaforo.rondaSinRespuesta,
+    );
+  }
+  return (nivel: NivelSemaforo.verde, motivo: MotivoSemaforo.ninguno);
+}
+
+/// Nivel de [semaforoDelDia].
 NivelSemaforo nivelSemaforo(
   Iterable<TomaVista> deHoy,
   DateTime ahora,
-  ConfigEscalado config,
-) {
-  var nivel = NivelSemaforo.verde;
-  for (final t in deHoy) {
-    if (t.estado == EstadoToma.noConfirmada) return NivelSemaforo.rojo;
-    if (t.estado == EstadoToma.confirmadaSinVideo ||
-        tomaRetrasada(t, ahora, config)) {
-      nivel = NivelSemaforo.naranja;
-    }
-  }
-  return nivel;
-}
+  ConfigEscalado config, {
+  ControlDelDia? control,
+}) => semaforoDelDia(deHoy, ahora, config, control: control).nivel;
 
 /// Nombres de quien firma cada evento (familiares y persona).
 final nombresAutoresProvider = Provider<Map<String, String>>((ref) {

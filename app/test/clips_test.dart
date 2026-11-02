@@ -655,7 +655,7 @@ void main() {
     final v3 = AppDatabase(NativeDatabase(archivo));
     addTearDown(v3.close);
     final version = await v3.customSelect('PRAGMA user_version').getSingle();
-    expect(version.data.values.single, 3);
+    expect(version.data.values.single, v3.schemaVersion);
     expect(await v3.select(v3.eventos).get(), hasLength(1));
     expect(await v3.select(v3.clipsPendientes).get(), isEmpty);
     await v3

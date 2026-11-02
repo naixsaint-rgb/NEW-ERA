@@ -68,8 +68,16 @@ void main() {
       300,
     );
     expect(find.text('COMPROBACIONES'), findsOneWidget);
-    await tester.scrollUntilVisible(find.text('Respuesta de control'), 300);
-    expect(find.text('Respuesta de control'), findsOneWidget);
+    // Control por horas: sin móvil de la persona aún, nada que esperar.
+    await tester.scrollUntilVisible(find.text('Última respuesta'), 300);
+    expect(find.text('CONTROL POR HORAS'), findsOneWidget);
+    expect(
+      find.text('Las rondas empiezan cuando el móvil de Carmen esté listo'),
+      findsOneWidget,
+    );
+    expect(find.text('De 09:00 a 21:00, cada hora'), findsOneWidget);
+    expect(find.text('Sin respuesta'), findsNothing);
+    await tester.scrollUntilVisible(find.text('LLEGA PRONTO'), 300);
     expect(find.text('LLEGA PRONTO'), findsOneWidget);
     // El vídeo ya se ve desde Comprobaciones: no sale como «llega pronto».
     expect(

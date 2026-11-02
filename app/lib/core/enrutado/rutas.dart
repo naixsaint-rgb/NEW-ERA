@@ -21,8 +21,15 @@ abstract final class Rutas {
   static const personaPregunta = '/persona/pregunta';
 
   /// Pregunta de la persona; con [prueba] (desde la familia) no guarda nada.
-  static String pregunta({bool prueba = false}) =>
-      '$personaPregunta${prueba ? '?prueba=1' : ''}';
+  /// Con [ronda] (`ronda_<yyyyMMdd>_<HHmm>`), las respuestas son de esa
+  /// ronda del control por horas.
+  static String pregunta({bool prueba = false, String? ronda}) {
+    final q = [
+      if (prueba) 'prueba=1',
+      if (ronda != null) 'ronda=${Uri.encodeQueryComponent(ronda)}',
+    ];
+    return q.isEmpty ? personaPregunta : '$personaPregunta?${q.join('&')}';
+  }
 
   /// Las once secciones de la familia, en el orden de sus ramas.
   static const slugs = [

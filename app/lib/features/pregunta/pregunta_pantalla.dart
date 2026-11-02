@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:safety_core/safety_core.dart';
 
 import '../../core/db/repositorios/voces_repositorio.dart';
 import '../../core/enrutado/rutas.dart';
@@ -32,64 +33,81 @@ class _Opcion {
 
 /// Una pregunta con sus respuestas y la frase grabada que la dice.
 class _Pregunta {
-  const _Pregunta(this.uso, this.texto, this.opciones);
+  const _Pregunta(this.tipo, this.uso, this.texto, this.opciones);
 
+  final TipoPreguntaControl tipo;
   final UsoFrase uso;
   final String Function(AppLocalizations) texto;
   final List<_Opcion> opciones;
 }
 
 final _preguntas = [
-  _Pregunta(UsoFrase.comoEstas, (l) => l.preguntaComoEstas, [
-    _Opcion(
-      'bien',
-      (l) => l.preguntaRespBien,
-      Icons.sentiment_satisfied_alt,
-      _Estilo.verde,
-    ),
-    _Opcion(
-      'regular',
-      (l) => l.preguntaRespRegular,
-      Icons.sentiment_neutral,
-      _Estilo.naranja,
-    ),
-    _Opcion(
-      'mal',
-      (l) => l.preguntaRespMal,
-      Icons.sentiment_dissatisfied,
-      _Estilo.rojo,
-    ),
-  ]),
-  _Pregunta(UsoFrase.teDuele, (l) => l.preguntaTeDuele, [
-    _Opcion(
-      'nada',
-      (l) => l.preguntaRespNada,
-      CupertinoIcons.checkmark_circle,
-      _Estilo.verde,
-    ),
-    _Opcion(
-      'poco',
-      (l) => l.preguntaRespUnPoco,
-      CupertinoIcons.exclamationmark_circle,
-      _Estilo.naranja,
-    ),
-    _Opcion(
-      'mucho',
-      (l) => l.preguntaRespMucho,
-      CupertinoIcons.exclamationmark_triangle,
-      _Estilo.rojo,
-    ),
-  ]),
-  _Pregunta(UsoFrase.queHaras, (l) => l.preguntaQueHaras, [
-    _Opcion('pasear', (l) => l.preguntaRespPasear, null, _Estilo.azul),
-    _Opcion('descansar', (l) => l.preguntaRespDescansar, null, _Estilo.azul),
-    _Opcion('tele', (l) => l.preguntaRespVerLaTele, null, _Estilo.azul),
-    _Opcion('otra', (l) => l.preguntaRespOtraCosa, null, _Estilo.azul),
-  ]),
+  _Pregunta(
+    TipoPreguntaControl.estado,
+    UsoFrase.comoEstas,
+    (l) => l.preguntaComoEstas,
+    [
+      _Opcion(
+        'bien',
+        (l) => l.preguntaRespBien,
+        Icons.sentiment_satisfied_alt,
+        _Estilo.verde,
+      ),
+      _Opcion(
+        'regular',
+        (l) => l.preguntaRespRegular,
+        Icons.sentiment_neutral,
+        _Estilo.naranja,
+      ),
+      _Opcion(
+        'mal',
+        (l) => l.preguntaRespMal,
+        Icons.sentiment_dissatisfied,
+        _Estilo.rojo,
+      ),
+    ],
+  ),
+  _Pregunta(
+    TipoPreguntaControl.dolor,
+    UsoFrase.teDuele,
+    (l) => l.preguntaTeDuele,
+    [
+      _Opcion(
+        'nada',
+        (l) => l.preguntaRespNada,
+        CupertinoIcons.checkmark_circle,
+        _Estilo.verde,
+      ),
+      _Opcion(
+        'poco',
+        (l) => l.preguntaRespUnPoco,
+        CupertinoIcons.exclamationmark_circle,
+        _Estilo.naranja,
+      ),
+      _Opcion(
+        'mucho',
+        (l) => l.preguntaRespMucho,
+        CupertinoIcons.exclamationmark_triangle,
+        _Estilo.rojo,
+      ),
+    ],
+  ),
+  _Pregunta(
+    TipoPreguntaControl.plan,
+    UsoFrase.queHaras,
+    (l) => l.preguntaQueHaras,
+    [
+      _Opcion('pasear', (l) => l.preguntaRespPasear, null, _Estilo.azul),
+      _Opcion('descansar', (l) => l.preguntaRespDescansar, null, _Estilo.azul),
+      _Opcion('tele', (l) => l.preguntaRespVerLaTele, null, _Estilo.azul),
+      _Opcion('otra', (l) => l.preguntaRespOtraCosa, null, _Estilo.azul),
+    ],
+  ),
 ];
 
-/// Lo que se contestó en una pregunta: una opción o "Prefiero decirlo".
-const _dichoEnVoz = '_voz';
+/// Lo que se guarda cuando contesta "Prefiero decirlo" (la grabación de su
+/// voz llega más adelante).
+const respuestaDecirlo = 'decirlo';
 
 /// Pregunta de la persona (maqueta C-Persona): "¿Cómo estás?" con la voz de un
 /// familiar y respuestas grandes. Tres preguntas en orden y una pantalla de
@@ -99,17 +117,24 @@ const _dichoEnVoz = '_voz';
 /// familia (la primera voz del círculo que la tenga aprobada) y otra vez al
 /// tocar el altavoz. Sin frase grabada no suena nada ni hay tarjeta de voz.
 ///
-/// En esta entrega NO se guarda nada en la base: ni las respuestas ni los
-/// "Prefiero decirlo". La programación por horas y las respuestas guardadas
-/// llegan en la semana 5 del plan v3.
+/// Control por horas (plan v3, 2.4 bis): fuera del modo prueba, cada
+/// respuesta se guarda al tocarla (`preguntas_control`, `respuestas` y
+/// `pregunta_respondida` con la ronda, la pregunta, la respuesta y lo que
+/// tardó desde que la vio) y viaja a la familia por el cartero. "Prefiero
+/// decirlo" se guarda como `decirlo`. Al abrirse para una ronda, para su
+/// alarma.
 ///
-/// Con [prueba] (desde la familia) al terminar vuelve a Medicación; si no, al
-/// inicio de la persona.
+/// Con [prueba] (desde la familia) no se guarda nada y al terminar vuelve a
+/// Medicación; si no, al inicio de la persona.
 class PreguntaPantalla extends ConsumerStatefulWidget {
-  const PreguntaPantalla({super.key, this.prueba = false});
+  const PreguntaPantalla({super.key, this.prueba = false, this.ronda});
 
   /// `?prueba=1` de la ruta (lo lee el router).
   final bool prueba;
+
+  /// `?ronda=` de la ruta: la ronda del control por horas que se contesta.
+  /// Sin ella (fuera del modo prueba), la de la hora en punto de ahora.
+  final String? ronda;
 
   @override
   ConsumerState<PreguntaPantalla> createState() => _PreguntaPantallaState();
@@ -124,6 +149,12 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
   /// Pregunta cuya frase ya sonó al mostrarse.
   int? _sonadaEn;
 
+  /// Cuándo se mostró la pregunta actual (para el tiempo de respuesta).
+  late DateTime _mostradaEn;
+
+  /// Ronda que se contesta (nula en modo prueba: no se guarda nada).
+  String? _ronda;
+
   /// Pregunta que se está mostrando (0–2); 3 es la pantalla de "Gracias".
   int get _indice => _respuestas.length;
   bool get _terminada => _indice >= _preguntas.length;
@@ -132,6 +163,50 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
   void initState() {
     super.initState();
     _reproductor = ref.read(reproductorProvider);
+    _mostradaEn = ref.read(relojProvider).ahora();
+    if (!widget.prueba) {
+      final ronda = widget.ronda;
+      if (ronda != null && esIdRonda(ronda)) {
+        _ronda = ronda;
+        // La alarma de la ronda deja de sonar: ahora habla la pantalla.
+        unawaited(_pararAlarma(ronda));
+      } else {
+        final l = aLocal(_mostradaEn, ref.read(contextoProvider).zonaHoraria);
+        _ronda = idRonda(l.year, l.month, l.day, l.hour);
+      }
+    }
+  }
+
+  Future<void> _pararAlarma(String ronda) async {
+    try {
+      await ref.read(servicioAlarmasProvider).cancelar(ronda);
+    } catch (_) {
+      // Si no se deja parar, la pregunta sigue igual.
+    }
+  }
+
+  /// Guarda la respuesta [clave] a la pregunta [indice] (fuera del modo
+  /// prueba). Nunca bloquea la pantalla.
+  void _guardar(int indice, String clave) {
+    final ronda = _ronda;
+    if (ronda == null) return;
+    final pregunta = _preguntas[indice];
+    final frase = ref.read(
+      fraseSonoraProvider((uso: pregunta.uso, vozId: null)),
+    );
+    final repo = ref.read(controlHorasRepositorioProvider);
+    unawaited(
+      repo
+          .responder(
+            ronda: ronda,
+            tipo: pregunta.tipo,
+            valor: clave,
+            texto: pregunta.texto(context.l),
+            mostradaEn: _mostradaEn,
+            fraseId: frase?.fraseId,
+          )
+          .then<void>((_) {}, onError: (Object _) {}),
+    );
   }
 
   @override
@@ -155,6 +230,8 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
   void _contestar(String clave) {
     if (_terminada) return;
     unawaited(_reproductor.parar());
+    _guardar(_indice, clave);
+    _mostradaEn = ref.read(relojProvider).ahora();
     setState(() => _respuestas.add(clave));
     if (_terminada) {
       _cierre = Timer(const Duration(seconds: 2), () {
@@ -204,7 +281,7 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
   }
 
   String _textoRespuesta(AppLocalizations l, int i, String clave) {
-    if (clave == _dichoEnVoz) return l.preguntaPrefieroDecirlo;
+    if (clave == respuestaDecirlo) return l.preguntaPrefieroDecirlo;
     return _preguntas[i].opciones.firstWhere((o) => o.clave == clave).texto(l);
   }
 
@@ -279,7 +356,7 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
           _BotonDecirlo(
             onPressed: () {
               _avisar(l.preguntaDecirloLlega);
-              _contestar(_dichoEnVoz);
+              _contestar(respuestaDecirlo);
             },
           ),
         ],
