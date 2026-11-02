@@ -29,7 +29,7 @@ Actualizado: 2026-11-02 (sesión 3). Plan vigente: [[planes/PLAN-v3]]. Interfaz:
   con «Ver vídeo» en Hoy y caducidad a 7 días (ADR-0008); control por horas real: rondas de 9 a 21 ajustables desde
   la familia, respuestas guardadas y por el cartero, «sin respuesta» deducido por la familia, semáforo y avisos del
   día (ADR-0009); avisos reales a la familia por ntfy.sh sin cuentas ni datos, escalado 5/10 min, con la app
-  cerrada en Android (ADR-0010). 355 tests. Regla fija de modelos y ahorro en CLAUDE.md.
+  cerrada en Android (ADR-0010); semilla de la demo con rondas y aviso. 359 tests. Regla fija de modelos y ahorro en CLAUDE.md.
 - Pendiente de la sesión 2: lo que no existe sigue marcado "llega en la semana N" (pulso, pasos y sueño con el reloj;
   vistas Ayer y Semana con respuestas). El aviso a la familia que anuncian Hoy y Resumen es el escalado
   configurado; el envío real llega en la semana 4 del plan.
