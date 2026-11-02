@@ -11,10 +11,8 @@ Actualizado: 2026-10-26 (sesión 2). Plan vigente: [[planes/PLAN-v3]]. Interfaz:
   catálogo dentro de la app, CI con demo web y APK, codemagic.yaml. Commit 05e1e81.
 - CI en verde (análisis, 99 tests, build web, APK de Android) desde el commit 4d36143; solo falla el despliegue
   a Pages porque Pages no está activado en el repositorio (el token del flujo no puede activarlo).
-- Demo web servida desde el repo con githack (carpeta demo/web, base href relativa) mientras Pages no está activo.
-  Enlace que sigue siempre a la rama: https://raw.githack.com/naixsaint-rgb/NEW-ERA/claude/alzheimer-caregiver-app-uxrrni/demo/web/index.html
-  (githack muestra un aviso "One more step" la primera vez; hay que pulsar "Open the page"). La vía definitiva sigue
-  siendo GitHub Pages en https://naixsaint-rgb.github.io/NEW-ERA/ cuando el promotor lo active; entonces se borra demo/web.
+- Demo web en GitHub Pages: https://naixsaint-rgb.github.io/NEW-ERA/ (se activó el 2/11 creando la rama
+  `gh-pages`; la CI la publica sola en cada push). La carpeta demo/web y el enlace de githack se han retirado.
 - Sesión 2 (26/10): el promotor pidió una interfaz "tipo Apple iOS" para todos y más sencilla para la persona.
   Vio tres opciones con maquetas y una propuesta de conjunto, dijo que se usen todas y dio **TRIÁNGULO**.
   Hecho: tema claro y oscuro con tokens, ajuste de aspecto (automático, claro, oscuro, noche 22–08), componentes
@@ -37,7 +35,6 @@ Actualizado: 2026-10-26 (sesión 2). Plan vigente: [[planes/PLAN-v3]]. Interfaz:
 ## Bloqueos y pendientes
 - Alta en Apple Developer: la familia la hará después de la demo (hoy en desarrollo).
 - Orden de familiares para las alarmas: lo fijará el promotor.
-- GitHub Pages: hay que activarlo una vez en Settings > Pages > Source: GitHub Actions (el flujo ya despliega solo).
 - Conocido en la demo web: aviso "RenderBox was not laid out" en consola al cargar; no bloquea, pero se corrige en la semana 2.
 - La demo web ya no depende de gstatic.com para el motor gráfico (CanvasKit va en la propia carpeta).
 - Chromium sin cabeza sin idioma del sistema anuncia "en-US@posix" y el motor web de Flutter falla al arrancar;
