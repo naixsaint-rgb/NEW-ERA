@@ -23,6 +23,7 @@ class NewEraApp extends ConsumerStatefulWidget {
 
 class _NewEraAppState extends ConsumerState<NewEraApp> {
   StreamSubscription<String>? _sonando;
+  AppLifecycleListener? _ciclo;
   bool _programado = false;
   final _temaClaro = temaFamilia();
   final _temaOscuro = temaFamiliaOscuro();
@@ -41,11 +42,21 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
     _sonando = ref.read(servicioAlarmasProvider).sonando().listen((idToma) {
       ref.read(routerProvider).go(Rutas.toma(idToma));
     }, onError: (_) {});
+    // Cartero cifrado: solo con servidor configurado. No bloquea el arranque
+    // y, al volver a primer plano, envía y recoge lo pendiente.
+    final sync = ref.read(servicioSyncProvider);
+    if (sync != null) {
+      unawaited(sync.iniciar());
+      _ciclo = AppLifecycleListener(
+        onResume: () => unawaited(sync.sincronizarAhora()),
+      );
+    }
   }
 
   @override
   void dispose() {
     _sonando?.cancel();
+    _ciclo?.dispose();
     super.dispose();
   }
 

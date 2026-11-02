@@ -40,7 +40,9 @@ Se dispara con push a `main` y a `claude/alzheimer-caregiver-app-uxrrni`, con pu
 1. `pruebas`: regenera el catálogo y comprueba que no hay diferencias; `pub get`; `build_runner` y comprobación de diferencias; `flutter analyze`; `flutter test`; `dart analyze` y `dart test` de `safety_core`.
 2. `web`: `flutter build web --release --base-href /NEW-ERA/`, comprueba la salida y la sube como artefacto de Pages.
 3. `desplegar`: solo en push; publica en GitHub Pages.
-4. `apk`: `flutter build apk --debug` y sube `newera-debug-apk` (14 días).
+4. `apk`: `flutter build apk --debug` y sube `newera-debug-apk` (14 días). Si existen los secretos
+   `SUPABASE_URL` y `SUPABASE_ANON_KEY`, los pasa con `--dart-define` (servidor cartero, ver
+   [`supabase/README.md`](../supabase/README.md)); sin ellos, la app funciona solo en local.
 
 iOS: `codemagic.yaml` (flujo `ios-simulador`, sin firma). Hace falta una cuenta de Codemagic conectada al repositorio; el flujo firmado está comentado hasta que haya cuenta de Apple Developer.
 

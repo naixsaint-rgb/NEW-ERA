@@ -305,3 +305,29 @@ class Hidrataciones extends Table {
   @override
   Set<Column> get primaryKey => {id};
 }
+
+// ---------------------------------------------------------------- Sincronización
+// Esquema 2. No son hechos: llevan la cuenta del cartero cifrado.
+
+/// Eventos que ya están en el servidor: enviados desde aquí o recibidos de
+/// él. Lo que no aparece aquí está pendiente de enviar.
+@DataClassName('SobreEnviado')
+class SobresEnviados extends Table {
+  TextColumn get ulid => text()();
+
+  /// Cuándo se supo que estaba en el servidor (ms UTC).
+  IntColumn get enviadoEn => integer()();
+
+  @override
+  Set<Column> get primaryKey => {ulid};
+}
+
+/// Estado de la sincronización: clave → valor (p. ej. el último id recibido).
+@DataClassName('ValorSync')
+class SyncEstado extends Table {
+  TextColumn get clave => text()();
+  TextColumn get valor => text()();
+
+  @override
+  Set<Column> get primaryKey => {clave};
+}

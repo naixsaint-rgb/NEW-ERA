@@ -32,6 +32,9 @@ dependencies:
   safety_core:
     path: packages/safety_core
   crypto: ^3.0.7
+  supabase: 2.16.5
+  cryptography: 2.9.0
+  http: ^1.6.0
 
 dev_dependencies:
   flutter_test:

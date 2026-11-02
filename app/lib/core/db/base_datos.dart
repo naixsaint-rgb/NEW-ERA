@@ -37,13 +37,17 @@ const tablasDeHechos = <String>[
     Consentimientos,
     Comidas,
     Hidrataciones,
+    SobresEnviados,
+    SyncEstado,
   ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
+  /// 1: semana 1. 2: tablas del cartero cifrado (`sobres_enviados` y
+  /// `sync_estado`); las tablas de hechos no cambian.
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -58,6 +62,13 @@ class AppDatabase extends _$AppDatabase {
           'CREATE TRIGGER ${t}_no_delete BEFORE DELETE ON $t '
           "BEGIN SELECT RAISE(ABORT, 'solo_insercion'); END",
         );
+      }
+    },
+    onUpgrade: (m, from, to) async {
+      // Solo se añaden tablas: los hechos y sus disparadores no se tocan.
+      if (from < 2) {
+        await m.createTable(sobresEnviados);
+        await m.createTable(syncEstado);
       }
     },
     beforeOpen: (details) async {

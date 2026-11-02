@@ -1,7 +1,8 @@
 import 'sobre_cifrado.dart';
 import 'sync_transport.dart';
 
-/// Transporte de la semana 1: nunca conecta, no acepta nada y no recibe nada.
+/// Transporte sin servidor: nunca conecta, no acepta nada y no recibe nada.
+/// Es el que se usa mientras no haya `SUPABASE_URL` y `SUPABASE_ANON_KEY`.
 final class NoopTransport implements SyncTransport {
   const NoopTransport();
 
@@ -16,7 +17,7 @@ final class NoopTransport implements SyncTransport {
       ResultadoEnvio(rechazados: [for (final s in sobres) s.ulid]);
 
   @override
-  Stream<SobreCifrado> recibidos() => const Stream.empty();
+  Stream<SobreCifrado> recibidos({int desde = 0}) => const Stream.empty();
 
   @override
   Future<void> desconectar() async {}

@@ -20,7 +20,11 @@ import 'plataforma/alarmas/servicio_alarmas.dart';
 import 'plataforma/camara/camara_comprobacion.dart';
 import 'plataforma/camara/camara_movil.dart';
 import 'plataforma/camara/camara_simulada.dart';
+import 'cripto/cifrado_sobres.dart';
+import 'sync/config_sync.dart';
 import 'sync/noop_transport.dart';
+import 'sync/servicio_sync.dart';
+import 'sync/supabase_transport.dart';
 import 'sync/sync_transport.dart';
 
 Never _sinOverride(String nombre) => throw StateError(
@@ -50,10 +54,6 @@ final sesionInicialProvider = Provider<Sesion>((ref) => const Sesion());
 final relojProvider = Provider<Reloj>((ref) => const RelojSistema());
 
 final azarProvider = Provider<Random>((ref) => Random.secure());
-
-final syncTransportProvider = Provider<SyncTransport>(
-  (ref) => const NoopTransport(),
-);
 
 /// `true` en la demo web: banner de aviso y datos de ejemplo.
 final esDemoWebProvider = Provider<bool>((ref) => kIsWeb);
@@ -197,4 +197,48 @@ final programadorAlarmasProvider = Provider<ProgramadorAlarmas>((ref) {
     reloj: ref.watch(relojProvider),
     contexto: ref.watch(contextoProvider),
   );
+});
+
+// ----------------------------------------------------------- Cartero cifrado
+
+/// URL y clave anon de Supabase fijadas al compilar (vacías: solo local).
+final configSyncProvider = Provider<ConfigSync>(
+  (ref) => ConfigSync.desdeEntorno(),
+);
+
+/// Token del servidor y clave de los sobres, derivados de la clave del
+/// círculo (nulo sin clave, como en la demo web).
+final llavesCirculoProvider = FutureProvider<LlavesCirculo?>(
+  (ref) => LlavesCirculo.desdeAlmacen(ref.watch(almacenSeguroProvider)),
+);
+
+/// Supabase si hay configuración; si no, [NoopTransport].
+final syncTransportProvider = Provider<SyncTransport>((ref) {
+  final config = ref.watch(configSyncProvider);
+  if (!config.configurada) return const NoopTransport();
+  final contexto = ref.watch(contextoProvider);
+  final transporte = SupabaseTransport(
+    config: config,
+    circuloId: contexto.circuloId,
+    remitente: contexto.dispositivoId,
+    circuloToken: () async =>
+        (await ref.read(llavesCirculoProvider.future))?.token,
+  );
+  ref.onDispose(() => unawaited(transporte.desconectar()));
+  return transporte;
+});
+
+/// Servicio de sincronización; nulo con [NoopTransport] (no toca nada).
+final servicioSyncProvider = Provider<ServicioSync?>((ref) {
+  final transporte = ref.watch(syncTransportProvider);
+  if (transporte is NoopTransport) return null;
+  final servicio = ServicioSync(
+    db: ref.watch(baseDatosProvider),
+    transporte: transporte,
+    llaves: () => ref.read(llavesCirculoProvider.future),
+    contexto: ref.watch(contextoProvider),
+    reloj: ref.watch(relojProvider),
+  );
+  ref.onDispose(() => unawaited(servicio.detener()));
+  return servicio;
 });

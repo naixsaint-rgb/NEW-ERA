@@ -8784,6 +8784,431 @@ class HidratacionesCompanion extends UpdateCompanion<Hidratacion> {
   }
 }
 
+class $SobresEnviadosTable extends SobresEnviados
+    with TableInfo<$SobresEnviadosTable, SobreEnviado> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SobresEnviadosTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _ulidMeta = const VerificationMeta('ulid');
+  @override
+  late final GeneratedColumn<String> ulid = GeneratedColumn<String>(
+    'ulid',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _enviadoEnMeta = const VerificationMeta(
+    'enviadoEn',
+  );
+  @override
+  late final GeneratedColumn<int> enviadoEn = GeneratedColumn<int>(
+    'enviado_en',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [ulid, enviadoEn];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'sobres_enviados';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SobreEnviado> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('ulid')) {
+      context.handle(
+        _ulidMeta,
+        ulid.isAcceptableOrUnknown(data['ulid']!, _ulidMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_ulidMeta);
+    }
+    if (data.containsKey('enviado_en')) {
+      context.handle(
+        _enviadoEnMeta,
+        enviadoEn.isAcceptableOrUnknown(data['enviado_en']!, _enviadoEnMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_enviadoEnMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {ulid};
+  @override
+  SobreEnviado map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SobreEnviado(
+      ulid: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}ulid'],
+      )!,
+      enviadoEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}enviado_en'],
+      )!,
+    );
+  }
+
+  @override
+  $SobresEnviadosTable createAlias(String alias) {
+    return $SobresEnviadosTable(attachedDatabase, alias);
+  }
+}
+
+class SobreEnviado extends DataClass implements Insertable<SobreEnviado> {
+  final String ulid;
+
+  /// Cuándo se supo que estaba en el servidor (ms UTC).
+  final int enviadoEn;
+  const SobreEnviado({required this.ulid, required this.enviadoEn});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['ulid'] = Variable<String>(ulid);
+    map['enviado_en'] = Variable<int>(enviadoEn);
+    return map;
+  }
+
+  SobresEnviadosCompanion toCompanion(bool nullToAbsent) {
+    return SobresEnviadosCompanion(
+      ulid: Value(ulid),
+      enviadoEn: Value(enviadoEn),
+    );
+  }
+
+  factory SobreEnviado.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SobreEnviado(
+      ulid: serializer.fromJson<String>(json['ulid']),
+      enviadoEn: serializer.fromJson<int>(json['enviadoEn']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'ulid': serializer.toJson<String>(ulid),
+      'enviadoEn': serializer.toJson<int>(enviadoEn),
+    };
+  }
+
+  SobreEnviado copyWith({String? ulid, int? enviadoEn}) => SobreEnviado(
+    ulid: ulid ?? this.ulid,
+    enviadoEn: enviadoEn ?? this.enviadoEn,
+  );
+  SobreEnviado copyWithCompanion(SobresEnviadosCompanion data) {
+    return SobreEnviado(
+      ulid: data.ulid.present ? data.ulid.value : this.ulid,
+      enviadoEn: data.enviadoEn.present ? data.enviadoEn.value : this.enviadoEn,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SobreEnviado(')
+          ..write('ulid: $ulid, ')
+          ..write('enviadoEn: $enviadoEn')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(ulid, enviadoEn);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SobreEnviado &&
+          other.ulid == this.ulid &&
+          other.enviadoEn == this.enviadoEn);
+}
+
+class SobresEnviadosCompanion extends UpdateCompanion<SobreEnviado> {
+  final Value<String> ulid;
+  final Value<int> enviadoEn;
+  final Value<int> rowid;
+  const SobresEnviadosCompanion({
+    this.ulid = const Value.absent(),
+    this.enviadoEn = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SobresEnviadosCompanion.insert({
+    required String ulid,
+    required int enviadoEn,
+    this.rowid = const Value.absent(),
+  }) : ulid = Value(ulid),
+       enviadoEn = Value(enviadoEn);
+  static Insertable<SobreEnviado> custom({
+    Expression<String>? ulid,
+    Expression<int>? enviadoEn,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (ulid != null) 'ulid': ulid,
+      if (enviadoEn != null) 'enviado_en': enviadoEn,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SobresEnviadosCompanion copyWith({
+    Value<String>? ulid,
+    Value<int>? enviadoEn,
+    Value<int>? rowid,
+  }) {
+    return SobresEnviadosCompanion(
+      ulid: ulid ?? this.ulid,
+      enviadoEn: enviadoEn ?? this.enviadoEn,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (ulid.present) {
+      map['ulid'] = Variable<String>(ulid.value);
+    }
+    if (enviadoEn.present) {
+      map['enviado_en'] = Variable<int>(enviadoEn.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SobresEnviadosCompanion(')
+          ..write('ulid: $ulid, ')
+          ..write('enviadoEn: $enviadoEn, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SyncEstadoTable extends SyncEstado
+    with TableInfo<$SyncEstadoTable, ValorSync> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SyncEstadoTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _claveMeta = const VerificationMeta('clave');
+  @override
+  late final GeneratedColumn<String> clave = GeneratedColumn<String>(
+    'clave',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _valorMeta = const VerificationMeta('valor');
+  @override
+  late final GeneratedColumn<String> valor = GeneratedColumn<String>(
+    'valor',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [clave, valor];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'sync_estado';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ValorSync> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('clave')) {
+      context.handle(
+        _claveMeta,
+        clave.isAcceptableOrUnknown(data['clave']!, _claveMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_claveMeta);
+    }
+    if (data.containsKey('valor')) {
+      context.handle(
+        _valorMeta,
+        valor.isAcceptableOrUnknown(data['valor']!, _valorMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_valorMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {clave};
+  @override
+  ValorSync map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ValorSync(
+      clave: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}clave'],
+      )!,
+      valor: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}valor'],
+      )!,
+    );
+  }
+
+  @override
+  $SyncEstadoTable createAlias(String alias) {
+    return $SyncEstadoTable(attachedDatabase, alias);
+  }
+}
+
+class ValorSync extends DataClass implements Insertable<ValorSync> {
+  final String clave;
+  final String valor;
+  const ValorSync({required this.clave, required this.valor});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['clave'] = Variable<String>(clave);
+    map['valor'] = Variable<String>(valor);
+    return map;
+  }
+
+  SyncEstadoCompanion toCompanion(bool nullToAbsent) {
+    return SyncEstadoCompanion(clave: Value(clave), valor: Value(valor));
+  }
+
+  factory ValorSync.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ValorSync(
+      clave: serializer.fromJson<String>(json['clave']),
+      valor: serializer.fromJson<String>(json['valor']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'clave': serializer.toJson<String>(clave),
+      'valor': serializer.toJson<String>(valor),
+    };
+  }
+
+  ValorSync copyWith({String? clave, String? valor}) =>
+      ValorSync(clave: clave ?? this.clave, valor: valor ?? this.valor);
+  ValorSync copyWithCompanion(SyncEstadoCompanion data) {
+    return ValorSync(
+      clave: data.clave.present ? data.clave.value : this.clave,
+      valor: data.valor.present ? data.valor.value : this.valor,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ValorSync(')
+          ..write('clave: $clave, ')
+          ..write('valor: $valor')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(clave, valor);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ValorSync &&
+          other.clave == this.clave &&
+          other.valor == this.valor);
+}
+
+class SyncEstadoCompanion extends UpdateCompanion<ValorSync> {
+  final Value<String> clave;
+  final Value<String> valor;
+  final Value<int> rowid;
+  const SyncEstadoCompanion({
+    this.clave = const Value.absent(),
+    this.valor = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SyncEstadoCompanion.insert({
+    required String clave,
+    required String valor,
+    this.rowid = const Value.absent(),
+  }) : clave = Value(clave),
+       valor = Value(valor);
+  static Insertable<ValorSync> custom({
+    Expression<String>? clave,
+    Expression<String>? valor,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (clave != null) 'clave': clave,
+      if (valor != null) 'valor': valor,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SyncEstadoCompanion copyWith({
+    Value<String>? clave,
+    Value<String>? valor,
+    Value<int>? rowid,
+  }) {
+    return SyncEstadoCompanion(
+      clave: clave ?? this.clave,
+      valor: valor ?? this.valor,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (clave.present) {
+      map['clave'] = Variable<String>(clave.value);
+    }
+    if (valor.present) {
+      map['valor'] = Variable<String>(valor.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SyncEstadoCompanion(')
+          ..write('clave: $clave, ')
+          ..write('valor: $valor, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -8808,6 +9233,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $RespuestasTable respuestas = $RespuestasTable(this);
   late final $ComidasTable comidas = $ComidasTable(this);
   late final $HidratacionesTable hidrataciones = $HidratacionesTable(this);
+  late final $SobresEnviadosTable sobresEnviados = $SobresEnviadosTable(this);
+  late final $SyncEstadoTable syncEstado = $SyncEstadoTable(this);
   late final Index pautasPorPauta = Index(
     'pautas_por_pauta',
     'CREATE INDEX pautas_por_pauta ON pautas (pauta_id, version)',
@@ -8842,6 +9269,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     respuestas,
     comidas,
     hidrataciones,
+    sobresEnviados,
+    syncEstado,
     pautasPorPauta,
     eventosPorSujeto,
     eventosPorTipo,
@@ -18772,6 +19201,302 @@ typedef $$HidratacionesTableProcessedTableManager =
       Hidratacion,
       PrefetchHooks Function({bool personaId})
     >;
+typedef $$SobresEnviadosTableCreateCompanionBuilder =
+    SobresEnviadosCompanion Function({
+      required String ulid,
+      required int enviadoEn,
+      Value<int> rowid,
+    });
+typedef $$SobresEnviadosTableUpdateCompanionBuilder =
+    SobresEnviadosCompanion Function({
+      Value<String> ulid,
+      Value<int> enviadoEn,
+      Value<int> rowid,
+    });
+
+class $$SobresEnviadosTableFilterComposer
+    extends Composer<_$AppDatabase, $SobresEnviadosTable> {
+  $$SobresEnviadosTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get ulid => $composableBuilder(
+    column: $table.ulid,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get enviadoEn => $composableBuilder(
+    column: $table.enviadoEn,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$SobresEnviadosTableOrderingComposer
+    extends Composer<_$AppDatabase, $SobresEnviadosTable> {
+  $$SobresEnviadosTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get ulid => $composableBuilder(
+    column: $table.ulid,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get enviadoEn => $composableBuilder(
+    column: $table.enviadoEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$SobresEnviadosTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SobresEnviadosTable> {
+  $$SobresEnviadosTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get ulid =>
+      $composableBuilder(column: $table.ulid, builder: (column) => column);
+
+  GeneratedColumn<int> get enviadoEn =>
+      $composableBuilder(column: $table.enviadoEn, builder: (column) => column);
+}
+
+class $$SobresEnviadosTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SobresEnviadosTable,
+          SobreEnviado,
+          $$SobresEnviadosTableFilterComposer,
+          $$SobresEnviadosTableOrderingComposer,
+          $$SobresEnviadosTableAnnotationComposer,
+          $$SobresEnviadosTableCreateCompanionBuilder,
+          $$SobresEnviadosTableUpdateCompanionBuilder,
+          (
+            SobreEnviado,
+            BaseReferences<_$AppDatabase, $SobresEnviadosTable, SobreEnviado>,
+          ),
+          SobreEnviado,
+          PrefetchHooks Function()
+        > {
+  $$SobresEnviadosTableTableManager(
+    _$AppDatabase db,
+    $SobresEnviadosTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SobresEnviadosTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SobresEnviadosTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SobresEnviadosTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> ulid = const Value.absent(),
+                Value<int> enviadoEn = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SobresEnviadosCompanion(
+                ulid: ulid,
+                enviadoEn: enviadoEn,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String ulid,
+                required int enviadoEn,
+                Value<int> rowid = const Value.absent(),
+              }) => SobresEnviadosCompanion.insert(
+                ulid: ulid,
+                enviadoEn: enviadoEn,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$SobresEnviadosTable, SobreEnviado>(table),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $SobresEnviadosTable,
+                    SobreEnviado
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$SobresEnviadosTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SobresEnviadosTable,
+      SobreEnviado,
+      $$SobresEnviadosTableFilterComposer,
+      $$SobresEnviadosTableOrderingComposer,
+      $$SobresEnviadosTableAnnotationComposer,
+      $$SobresEnviadosTableCreateCompanionBuilder,
+      $$SobresEnviadosTableUpdateCompanionBuilder,
+      (
+        SobreEnviado,
+        BaseReferences<_$AppDatabase, $SobresEnviadosTable, SobreEnviado>,
+      ),
+      SobreEnviado,
+      PrefetchHooks Function()
+    >;
+typedef $$SyncEstadoTableCreateCompanionBuilder = SyncEstadoCompanion Function({
+  required String clave,
+  required String valor,
+  Value<int> rowid,
+});
+typedef $$SyncEstadoTableUpdateCompanionBuilder = SyncEstadoCompanion Function({
+  Value<String> clave,
+  Value<String> valor,
+  Value<int> rowid,
+});
+
+class $$SyncEstadoTableFilterComposer
+    extends Composer<_$AppDatabase, $SyncEstadoTable> {
+  $$SyncEstadoTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get clave => $composableBuilder(
+    column: $table.clave,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get valor => $composableBuilder(
+    column: $table.valor,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$SyncEstadoTableOrderingComposer
+    extends Composer<_$AppDatabase, $SyncEstadoTable> {
+  $$SyncEstadoTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get clave => $composableBuilder(
+    column: $table.clave,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get valor => $composableBuilder(
+    column: $table.valor,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$SyncEstadoTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SyncEstadoTable> {
+  $$SyncEstadoTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get clave =>
+      $composableBuilder(column: $table.clave, builder: (column) => column);
+
+  GeneratedColumn<String> get valor =>
+      $composableBuilder(column: $table.valor, builder: (column) => column);
+}
+
+class $$SyncEstadoTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SyncEstadoTable,
+          ValorSync,
+          $$SyncEstadoTableFilterComposer,
+          $$SyncEstadoTableOrderingComposer,
+          $$SyncEstadoTableAnnotationComposer,
+          $$SyncEstadoTableCreateCompanionBuilder,
+          $$SyncEstadoTableUpdateCompanionBuilder,
+          (
+            ValorSync,
+            BaseReferences<_$AppDatabase, $SyncEstadoTable, ValorSync>,
+          ),
+          ValorSync,
+          PrefetchHooks Function()
+        > {
+  $$SyncEstadoTableTableManager(_$AppDatabase db, $SyncEstadoTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SyncEstadoTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SyncEstadoTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SyncEstadoTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> clave = const Value.absent(),
+            Value<String> valor = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) => SyncEstadoCompanion(clave: clave, valor: valor, rowid: rowid),
+          createCompanionCallback:
+              ({
+                required String clave,
+                required String valor,
+                Value<int> rowid = const Value.absent(),
+              }) => SyncEstadoCompanion.insert(
+                clave: clave,
+                valor: valor,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$SyncEstadoTable, ValorSync>(table),
+                  BaseReferences<_$AppDatabase, $SyncEstadoTable, ValorSync>(
+                    db,
+                    table,
+                    e,
+                  ),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$SyncEstadoTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SyncEstadoTable,
+      ValorSync,
+      $$SyncEstadoTableFilterComposer,
+      $$SyncEstadoTableOrderingComposer,
+      $$SyncEstadoTableAnnotationComposer,
+      $$SyncEstadoTableCreateCompanionBuilder,
+      $$SyncEstadoTableUpdateCompanionBuilder,
+      (ValorSync, BaseReferences<_$AppDatabase, $SyncEstadoTable, ValorSync>),
+      ValorSync,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -18810,4 +19535,8 @@ class $AppDatabaseManager {
       $$ComidasTableTableManager(_db, _db.comidas);
   $$HidratacionesTableTableManager get hidrataciones =>
       $$HidratacionesTableTableManager(_db, _db.hidrataciones);
+  $$SobresEnviadosTableTableManager get sobresEnviados =>
+      $$SobresEnviadosTableTableManager(_db, _db.sobresEnviados);
+  $$SyncEstadoTableTableManager get syncEstado =>
+      $$SyncEstadoTableTableManager(_db, _db.syncEstado);
 }
