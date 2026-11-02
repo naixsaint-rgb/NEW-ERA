@@ -44,9 +44,10 @@ void main() {
     expect(find.byKey(ClavesUi.semaforo), findsOneWidget);
     // Fecha larga de hoy en la víspera (en mayúsculas).
     expect(find.text('MARTES 13 DE OCTUBRE'), findsOneWidget);
-    // Hoy 09:00 confirmada con clip y ayer 21:00 sin confirmar: el semáforo de
-    // hoy es verde.
-    expect(find.text('Todo en orden por ahora'), findsOneWidget);
+    // Hoy 09:00 confirmada con clip, pero la ronda de las 10:00 sin
+    // respuesta: el semáforo de hoy es naranja.
+    expect(find.text('Una ronda de preguntas sin respuesta'), findsOneWidget);
+    expect(find.text('Todo en orden por ahora'), findsNothing);
     expect(find.text('Última toma'), findsOneWidget);
     expect(find.text('A las 09:00, pastilla blanca pequeña'), findsOneWidget);
     expect(find.text('Confirmada por Carmen, desde el móvil'), findsOneWidget);
@@ -68,15 +69,22 @@ void main() {
       300,
     );
     expect(find.text('COMPROBACIONES'), findsOneWidget);
-    // Control por horas: sin móvil de la persona aún, nada que esperar.
+    // Control por horas de la semilla: la persona está desde ayer; hoy, las
+    // rondas de las 9 a las 11 contestadas salvo la de las 10, sin respuesta.
     await tester.scrollUntilVisible(find.text('Última respuesta'), 300);
     expect(find.text('CONTROL POR HORAS'), findsOneWidget);
     expect(
       find.text('Las rondas empiezan cuando el móvil de Carmen esté listo'),
-      findsOneWidget,
+      findsNothing,
     );
     expect(find.text('De 09:00 a 21:00, cada hora'), findsOneWidget);
-    expect(find.text('Sin respuesta'), findsNothing);
+    expect(find.text('Bien · Sin dolor · Va a pasear'), findsOneWidget);
+    expect(find.text('Sin respuesta'), findsOneWidget);
+    expect(find.text('10:00'), findsOneWidget);
+    // Y el aviso que salió a Lucía por esa ronda.
+    await tester.scrollUntilVisible(find.text('AVISOS DE HOY'), 300);
+    expect(find.text('Aviso enviado a Lucía'), findsOneWidget);
+    expect(find.text('Ronda de las 10:00 sin respuesta'), findsOneWidget);
     await tester.scrollUntilVisible(find.text('LLEGA PRONTO'), 300);
     expect(find.text('LLEGA PRONTO'), findsOneWidget);
     // El vídeo ya se ve desde Comprobaciones: no sale como «llega pronto».

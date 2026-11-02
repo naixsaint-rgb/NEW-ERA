@@ -87,10 +87,16 @@ class EntornoPrueba {
 
 /// Prepara una base en memoria con la semilla de la demo.
 ///
+/// Con [controlDeEjemplo] en `false` la semilla no trae las respuestas del
+/// control por horas ni el aviso (ni el móvil de la persona desde ayer): los
+/// tests que montan su propio escenario de rondas parten así de una base sin
+/// control.
+///
 /// Debe llamarse dentro de `tester.runAsync`.
 Future<EntornoPrueba> prepararEntorno({
   PerfilApp? perfil,
   bool sembrar = true,
+  bool controlDeEjemplo = true,
   bool demoWeb = false,
   ServicioAlarmas alarmas = const AlarmasNoDisponibles(),
 }) async {
@@ -109,6 +115,7 @@ Future<EntornoPrueba> prepararEntorno({
     plataforma: 'android',
     demoWeb: demoWeb,
     sembrarDemo: sembrar,
+    sembrarControl: controlDeEjemplo,
     azar: Random(42),
   );
   final contexto = _buscar<ContextoApp>(overrides, contextoProvider);

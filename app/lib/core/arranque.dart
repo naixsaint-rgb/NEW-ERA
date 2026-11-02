@@ -38,6 +38,11 @@ abstract final class Arranque {
     String? plataforma,
     bool? demoWeb,
     bool? sembrarDemo,
+
+    /// Con [sembrarDemo], si la semilla incluye el control por horas y el
+    /// aviso de ejemplo. Solo lo apagan los tests que montan su propio
+    /// escenario de rondas.
+    bool sembrarControl = true,
     Random? azar,
     Future<void> Function()? borrarBase,
   }) async {
@@ -126,6 +131,7 @@ abstract final class Arranque {
         contexto: contexto,
         reloj: reloj,
         azar: azarUsado,
+        control: sembrarControl,
       );
     }
 

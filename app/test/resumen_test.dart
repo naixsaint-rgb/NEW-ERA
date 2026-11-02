@@ -89,16 +89,19 @@ void main() {
       expect(find.text('MARTES 13 DE OCTUBRE'), findsOneWidget);
       expect(find.text('Resumen'), findsWidgets);
 
-      // Tarjeta héroe: hoy 09:00 confirmada con clip → verde.
-      expect(find.text('Tomas de Carmen al día'), findsOneWidget);
+      // Tarjeta héroe: hoy 09:00 confirmada con clip, pero la ronda de las
+      // 10:00 sin respuesta → naranja.
+      expect(find.text('Carmen: una ronda sin respuesta'), findsOneWidget);
+      expect(find.text('Tomas de Carmen al día'), findsNothing);
       expect(
         find.text(
           'Toma confirmada a las 09:02: pastilla blanca pequeña · Carmen, móvil',
         ),
         findsOneWidget,
       );
-      // Último evento de la persona hoy: el clip, 12 s después de confirmar.
-      expect(find.text('Última señal 09:02'), findsOneWidget);
+      // Último evento de la persona hoy: la última respuesta del control por
+      // horas (la ronda de las 11:00).
+      expect(find.text('Última señal 11:00'), findsOneWidget);
 
       // Rejilla.
       expect(find.byKey(ClavesUi.anilloTomas), findsOneWidget);
@@ -130,15 +133,16 @@ void main() {
         findsOneWidget,
       );
 
-      // Control por horas: franja 09–21 sin rondas esperadas (aún no hay
-      // móvil de la persona) y las cuentas a cero.
+      // Control por horas: franja 09–21 y las cuentas de la semilla. Hoy, las
+      // rondas de las 9, 10 y 11 (la de las 10, sin respuesta); ayer, las 12
+      // de 9 a 20 (la de las 21:00 no cabe por la toma), todas contestadas.
       expect(find.text('Control por horas'), findsOneWidget);
       expect(find.text('9 a 21 h'), findsOneWidget);
       expect(find.text('09'), findsOneWidget);
       expect(find.text('21'), findsOneWidget);
-      expect(find.text('Hoy: 0 contestadas · 0 sin respuesta'), findsOneWidget);
+      expect(find.text('Hoy: 2 contestadas · 1 sin respuesta'), findsOneWidget);
       expect(
-        find.text('Semana: 0 contestadas · 0 sin respuesta'),
+        find.text('Semana: 14 contestadas · 1 sin respuesta'),
         findsOneWidget,
       );
       expect(tester.takeException(), isNull);
@@ -179,7 +183,8 @@ void main() {
 
     expect(find.text('2'), findsOneWidget);
     expect(find.text('Última señal 11:40'), findsOneWidget);
-    expect(find.text('Tomas de Carmen al día'), findsOneWidget);
+    // La ronda de las 10:00 de la semilla sigue sin respuesta.
+    expect(find.text('Carmen: una ronda sin respuesta'), findsOneWidget);
   });
 
   testWidgets('Un clip anulado deja la toma sin vídeo: necesita un vistazo', (
@@ -244,7 +249,9 @@ void main() {
     // Miércoles 14 a las 08:00 en Madrid.
     entorno.reloj.fijar(DateTime.utc(2026, 10, 14, 6));
     await _abrirResumen(tester, entorno);
-    expect(find.text('Última señal ayer 09:02'), findsOneWidget);
+    // La última señal de la persona: la última respuesta del control por
+    // horas (la ronda de las 11:00).
+    expect(find.text('Última señal ayer 11:00'), findsOneWidget);
     expect(find.text('De Lucía · ayer 11:00'), findsOneWidget);
   });
 
@@ -253,7 +260,7 @@ void main() {
     // Jueves 15 a las 08:00 en Madrid.
     entorno.reloj.fijar(DateTime.utc(2026, 10, 15, 6));
     await _abrirResumen(tester, entorno);
-    expect(find.text('Última señal 13 de octubre, 09:02'), findsOneWidget);
+    expect(find.text('Última señal 13 de octubre, 11:00'), findsOneWidget);
     expect(find.text('De Lucía · 13 de octubre, 11:00'), findsOneWidget);
   });
 
@@ -359,7 +366,7 @@ void main() {
       // Y lo que queda debajo: próxima toma y control por horas.
       await tester.drag(find.byType(ListView).first, const Offset(0, -3000));
       await pasar(tester, const Duration(milliseconds: 500));
-      expect(find.text('Hoy: 0 contestadas · 0 sin respuesta'), findsOneWidget);
+      expect(find.text('Hoy: 2 contestadas · 1 sin respuesta'), findsOneWidget);
       await expectLater(tester, meetsGuideline(textContrastGuideline));
       await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
       await expectLater(tester, meetsGuideline(labeledTapTargetGuideline));

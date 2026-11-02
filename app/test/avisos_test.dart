@@ -150,6 +150,7 @@ Future<_Mundo> _mundo() async {
     plataforma: 'android',
     demoWeb: false,
     sembrarDemo: true,
+    sembrarControl: false,
     azar: Random(42),
   );
   final c = ProviderContainer(overrides: overrides);
@@ -177,6 +178,7 @@ _baseEnArchivo() async {
     plataforma: 'android',
     demoWeb: false,
     sembrarDemo: true,
+    sembrarControl: false,
     azar: Random(42),
   );
   final c = ProviderContainer(overrides: overrides);
@@ -750,7 +752,10 @@ void main() {
         find.text('No se pudo avisar a Javier'),
         200,
       );
-      expect(find.text('Aviso enviado a Lucía'), findsOneWidget);
+      // Dos a Lucía: el de la toma y el de la ronda de las 10:00 de la
+      // semilla.
+      expect(find.text('Aviso enviado a Lucía'), findsNWidgets(2));
+      expect(find.text('Ronda de las 10:00 sin respuesta'), findsOneWidget);
       expect(find.text('Toma de las 14:00 sin confirmar'), findsNWidgets(2));
       expect(find.text('11:50'), findsOneWidget);
       expect(tester.takeException(), isNull);
@@ -769,6 +774,13 @@ void main() {
       final temaLucia = await tester.runAsync(
         () => TemaAviso.desdeAlmacen(e.almacen, ids!['Lucía']!),
       );
+      // La semilla trae un aviso de ejemplo (el de la ronda sin respuesta).
+      final antes = await tester.runAsync(
+        () => (e.db.select(
+          e.db.eventos,
+        )..where((x) => x.tipo.equals('aviso_enviado'))).get(),
+      );
+      expect(antes, hasLength(1));
       await montarApp(tester, e, rutaInicial: Rutas.pestana('circulo'));
       await pasar(tester, const Duration(seconds: 1));
       // Lucía es la familiar de este móvil (la responsable).
@@ -805,13 +817,13 @@ void main() {
       );
       expect(find.textContaining('Qué ve ntfy.sh'), findsOneWidget);
       expect(find.textContaining('1. Instala la app ntfy'), findsOneWidget);
-      // La prueba no deja evento.
+      // La prueba no deja evento: siguen los de antes.
       final apuntados = await tester.runAsync(
         () => (e.db.select(
           e.db.eventos,
         )..where((x) => x.tipo.equals('aviso_enviado'))).get(),
       );
-      expect(apuntados, isEmpty);
+      expect(apuntados, hasLength(antes!.length));
       expect(tester.takeException(), isNull);
     });
 

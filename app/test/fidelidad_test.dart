@@ -27,7 +27,7 @@ Future<EntornoPrueba> _montarFamilia(
   double alto = 844,
 }) async {
   final entorno = await tester.runAsync(
-    () => prepararEntorno(perfil: PerfilApp.familia),
+    () => prepararEntorno(controlDeEjemplo: false, perfil: PerfilApp.familia),
   );
   if (antes != null) {
     await tester.runAsync(() async {

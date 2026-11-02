@@ -10,7 +10,9 @@ import 'utiles/app_prueba.dart';
 /// "Gracias" con lo contestado y vuelta a Medicación (prueba) o al inicio.
 void main() {
   Future<EntornoPrueba> entorno(WidgetTester tester, PerfilApp perfil) async =>
-      (await tester.runAsync(() => prepararEntorno(perfil: perfil)))!;
+      (await tester.runAsync(
+        () => prepararEntorno(controlDeEjemplo: false, perfil: perfil),
+      ))!;
 
   testWidgets('modo prueba: tres preguntas, Gracias con las respuestas y '
       'vuelta a Medicación', (tester) async {

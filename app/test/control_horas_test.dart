@@ -568,7 +568,10 @@ void main() {
   group('alarmas de las rondas', () {
     test('se programan con la voz, retrasadas y nunca de noche; desactivar '
         'las cancela', () async {
-      final e = await prepararEntorno(perfil: PerfilApp.persona);
+      final e = await prepararEntorno(
+        controlDeEjemplo: false,
+        perfil: PerfilApp.persona,
+      );
       final c = ProviderContainer(overrides: e.overrides);
       addTearDown(() async {
         c.dispose();
@@ -638,7 +641,11 @@ void main() {
         '«pregunta_respondida»', (tester) async {
       final alarmas = _Alarmas();
       final e = (await tester.runAsync(
-        () => prepararEntorno(perfil: PerfilApp.persona, alarmas: alarmas),
+        () => prepararEntorno(
+          controlDeEjemplo: false,
+          perfil: PerfilApp.persona,
+          alarmas: alarmas,
+        ),
       ))!;
       await montarApp(
         tester,
@@ -704,7 +711,8 @@ void main() {
 
     testWidgets('el modo prueba no guarda nada', (tester) async {
       final e = (await tester.runAsync(
-        () => prepararEntorno(perfil: PerfilApp.familia),
+        () =>
+            prepararEntorno(controlDeEjemplo: false, perfil: PerfilApp.familia),
       ))!;
       await montarApp(tester, e, rutaInicial: '/persona/pregunta?prueba=1');
       await pasar(tester, const Duration(seconds: 1));
@@ -730,7 +738,8 @@ void main() {
       tester,
     ) async {
       final e = (await tester.runAsync(
-        () => prepararEntorno(perfil: PerfilApp.persona),
+        () =>
+            prepararEntorno(controlDeEjemplo: false, perfil: PerfilApp.persona),
       ))!;
       e.reloj.fijar(_m(12, 59, 13, 50));
       await montarApp(tester, e);
@@ -761,7 +770,11 @@ void main() {
     ) async {
       final alarmas = _Alarmas();
       final e = (await tester.runAsync(
-        () => prepararEntorno(perfil: PerfilApp.persona, alarmas: alarmas),
+        () => prepararEntorno(
+          controlDeEjemplo: false,
+          perfil: PerfilApp.persona,
+          alarmas: alarmas,
+        ),
       ))!;
       await montarApp(tester, e);
       await pasar(tester, const Duration(seconds: 1));
@@ -779,7 +792,8 @@ void main() {
       Future<void> Function(EntornoPrueba e) preparar,
     ) async {
       final e = (await tester.runAsync(
-        () => prepararEntorno(perfil: PerfilApp.familia),
+        () =>
+            prepararEntorno(controlDeEjemplo: false, perfil: PerfilApp.familia),
       ))!;
       await tester.runAsync(() => preparar(e));
       return e;
@@ -894,7 +908,8 @@ void main() {
       tester,
     ) async {
       final e = (await tester.runAsync(
-        () => prepararEntorno(perfil: PerfilApp.familia),
+        () =>
+            prepararEntorno(controlDeEjemplo: false, perfil: PerfilApp.familia),
       ))!;
       await montarApp(tester, e, rutaInicial: '/familia/alarmas/control-horas');
       await pasar(tester, const Duration(seconds: 1));
@@ -966,7 +981,8 @@ void main() {
 
     testWidgets('no deja una franja vacía ni salir de 6 a 23', (tester) async {
       final e = (await tester.runAsync(
-        () => prepararEntorno(perfil: PerfilApp.familia),
+        () =>
+            prepararEntorno(controlDeEjemplo: false, perfil: PerfilApp.familia),
       ))!;
       await tester.runAsync(() async {
         final c = ProviderContainer(overrides: e.overrides);
@@ -993,7 +1009,8 @@ void main() {
       addTearDown(tester.platformDispatcher.clearAllTestValues);
       final manejador = tester.ensureSemantics();
       final e = (await tester.runAsync(
-        () => prepararEntorno(perfil: PerfilApp.familia),
+        () =>
+            prepararEntorno(controlDeEjemplo: false, perfil: PerfilApp.familia),
       ))!;
       await montarApp(tester, e, rutaInicial: '/familia/alarmas/control-horas');
       await pasar(tester, const Duration(seconds: 1));
@@ -1171,7 +1188,10 @@ void main() {
     test(
       'una toma nueva cerca de una ronda ya programada mueve su alarma',
       () async {
-        final e = await prepararEntorno(perfil: PerfilApp.persona);
+        final e = await prepararEntorno(
+          controlDeEjemplo: false,
+          perfil: PerfilApp.persona,
+        );
         final c = ProviderContainer(overrides: e.overrides);
         addTearDown(() async {
           c.dispose();
@@ -1214,7 +1234,11 @@ void main() {
         'con su id y para su alarma', (tester) async {
       final alarmas = _Alarmas();
       final e = (await tester.runAsync(
-        () => prepararEntorno(perfil: PerfilApp.persona, alarmas: alarmas),
+        () => prepararEntorno(
+          controlDeEjemplo: false,
+          perfil: PerfilApp.persona,
+          alarmas: alarmas,
+        ),
       ))!;
       e.reloj.fijar(_m(13));
       await montarApp(
@@ -1244,7 +1268,8 @@ void main() {
       tester,
     ) async {
       final e = (await tester.runAsync(
-        () => prepararEntorno(perfil: PerfilApp.persona),
+        () =>
+            prepararEntorno(controlDeEjemplo: false, perfil: PerfilApp.persona),
       ))!;
       await montarApp(
         tester,
@@ -1278,7 +1303,11 @@ void main() {
     ) async {
       final alarmas = _Alarmas();
       final e = (await tester.runAsync(
-        () => prepararEntorno(perfil: PerfilApp.persona, alarmas: alarmas),
+        () => prepararEntorno(
+          controlDeEjemplo: false,
+          perfil: PerfilApp.persona,
+          alarmas: alarmas,
+        ),
       ))!;
       final toma = (await tester.runAsync(
         () => e.idToma('Cápsula roja', '20261013', '1400'),
@@ -1310,7 +1339,10 @@ void main() {
     test(
       'añadir horas a mitad del día no inventa «sin respuesta» de antes',
       () async {
-        final e = await prepararEntorno(perfil: PerfilApp.familia);
+        final e = await prepararEntorno(
+          controlDeEjemplo: false,
+          perfil: PerfilApp.familia,
+        );
         final c = ProviderContainer(overrides: e.overrides);
         addTearDown(() async {
           c.dispose();
