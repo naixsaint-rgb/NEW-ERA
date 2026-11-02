@@ -7,11 +7,14 @@ import '../../core/contexto.dart';
 import '../../core/enrutado/rutas.dart';
 import '../../core/providers.dart';
 import '../../core/tema/colores.dart';
+import '../../shared/claves_ui.dart';
 import '../../shared/ios/ios.dart';
 import '../../shared/l10n_ext.dart';
 import '../../shared/widgets/tarjeta_grande.dart';
 
 /// "¿De quién es este móvil?": guarda el perfil y registra `perfil_elegido`.
+/// La tercera tarjeta lleva a unirse a una familia que ya usa la app (no en
+/// la demo web).
 class PerfilPantalla extends ConsumerStatefulWidget {
   const PerfilPantalla({super.key});
 
@@ -35,6 +38,7 @@ class _PerfilPantallaState extends ConsumerState<PerfilPantalla> {
     final c = context.colores;
     final t = Theme.of(context).textTheme;
     final abajo = MediaQuery.paddingOf(context).bottom;
+    final demo = ref.watch(esDemoWebProvider);
     return Scaffold(
       backgroundColor: c.fondoAgrupado,
       body: Center(
@@ -66,6 +70,17 @@ class _PerfilPantallaState extends ConsumerState<PerfilPantalla> {
                 simbolo: c.sobreAzul,
                 onTap: _ocupado ? null : () => _elegir(PerfilApp.familia),
               ),
+              if (!demo) ...[
+                const SizedBox(height: 16),
+                _TarjetaPerfil(
+                  key: ClavesUi.unirTarjeta,
+                  texto: l.unirTarjeta,
+                  icono: CupertinoIcons.qrcode_viewfinder,
+                  fondo: c.indigo,
+                  simbolo: IconoCuadrado.simboloSobre(c.indigo),
+                  onTap: _ocupado ? null : () => context.go(Rutas.unirse),
+                ),
+              ],
             ],
           ),
         ),
@@ -74,10 +89,11 @@ class _PerfilPantallaState extends ConsumerState<PerfilPantalla> {
   }
 }
 
-/// Una de las dos elecciones: tarjeta grande (96 de alto como mínimo) con un
+/// Una de las elecciones: tarjeta grande (96 de alto como mínimo) con un
 /// icono, el texto y la flecha de "elegir".
 class _TarjetaPerfil extends StatelessWidget {
   const _TarjetaPerfil({
+    super.key,
     required this.texto,
     required this.icono,
     required this.fondo,

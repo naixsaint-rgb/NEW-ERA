@@ -4,3 +4,6 @@ import 'package:drift/drift.dart';
 Future<QueryExecutor> abrirConexion({required String? claveHex}) async {
   throw UnsupportedError('Esta plataforma no admite la base de datos.');
 }
+
+/// Sin base que borrar.
+Future<void> borrarBaseLocal() async {}

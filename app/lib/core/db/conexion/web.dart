@@ -11,3 +11,6 @@ Future<QueryExecutor> abrirConexion({required String? claveHex}) async {
   );
   return resultado.resolvedExecutor;
 }
+
+/// La demo web no se une a otros círculos: no hay nada que borrar.
+Future<void> borrarBaseLocal() async {}

@@ -8,6 +8,17 @@ abstract final class ClavesAlmacen {
   static const circuloClaveVersion = 'newera.circulo.clave.version';
   static const perfil = 'newera.perfil';
 
+  /// Persona del círculo (desde el emparejamiento; antes solo estaba en la
+  /// base).
+  static const personaId = 'newera.persona.id';
+
+  /// `1` si el círculo vino de otro móvil (invitación) y no se creó aquí.
+  static const circuloExterno = 'newera.circulo.externo';
+
+  /// Invitación aceptada que el siguiente arranque aplica antes de abrir la
+  /// base (ver `Arranque.iniciar`).
+  static const unionPendiente = 'newera.union.pendiente';
+
   /// Aspecto de la familia: `automatico`, `claro`, `oscuro` u `horas`.
   static const aspecto = 'newera.aspecto';
 }

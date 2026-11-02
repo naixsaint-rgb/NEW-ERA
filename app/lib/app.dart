@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/contexto.dart';
+import 'core/db/base_datos.dart';
 import 'core/enrutado/router.dart';
 import 'core/enrutado/rutas.dart';
 import 'core/providers.dart';
@@ -25,6 +26,8 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
   StreamSubscription<String>? _sonando;
   AppLifecycleListener? _ciclo;
   bool _programado = false;
+  bool _reprogramando = false;
+  bool _otraVez = false;
   final _temaClaro = temaFamilia();
   final _temaOscuro = temaFamiliaOscuro();
 
@@ -38,6 +41,19 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
         unawaited(ref.read(programadorAlarmasProvider).reprogramar());
       }
     }, fireImmediately: true);
+    // Si llegan pautas nuevas o cambiadas (de otro móvil, por el cartero), se
+    // vuelven a programar. La primera carga ya la cubre lo de arriba.
+    ref.listenManual<AsyncValue<List<Pauta>>>(pautasProvider, (antes, ahora) {
+      if (antes?.value == null || ahora.value == null) return;
+      if (ref.read(sesionProvider).perfil != PerfilApp.persona) return;
+      final idsAntes = {for (final p in antes!.value!) p.id};
+      final idsAhora = {for (final p in ahora.value!) p.id};
+      if (idsAntes.length == idsAhora.length &&
+          idsAntes.containsAll(idsAhora)) {
+        return;
+      }
+      unawaited(_reprogramar());
+    });
     // Si suena una alarma, se abre la pantalla de esa toma.
     _sonando = ref.read(servicioAlarmasProvider).sonando().listen((idToma) {
       ref.read(routerProvider).go(Rutas.toma(idToma));
@@ -50,6 +66,26 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
       _ciclo = AppLifecycleListener(
         onResume: () => unawaited(sync.sincronizarAhora()),
       );
+    }
+  }
+
+  /// Una sola reprogramación a la vez; si llegan más cambios mientras tanto,
+  /// otra al acabar.
+  Future<void> _reprogramar() async {
+    if (_reprogramando) {
+      _otraVez = true;
+      return;
+    }
+    _reprogramando = true;
+    try {
+      do {
+        _otraVez = false;
+        await ref.read(programadorAlarmasProvider).reprogramar();
+      } while (_otraVez && mounted);
+    } catch (_) {
+      // Lo intenta de nuevo con el siguiente cambio o al abrir la app.
+    } finally {
+      _reprogramando = false;
     }
   }
 

@@ -5,6 +5,7 @@ import 'package:safety_core/safety_core.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../contexto.dart';
+import '../../sync/fichas.dart';
 import '../base_datos.dart';
 import 'circulo_repositorio.dart';
 import 'eventos_repositorio.dart';
@@ -66,6 +67,13 @@ class MedicacionRepositorio {
   final String Function() _autor;
   final Uuid _uuid;
 
+  /// Deja `ficha_creada` con la fila para los demás móviles.
+  late final PublicadorFichas _fichas = PublicadorFichas(
+    db: _db,
+    eventos: _eventos,
+    contexto: _contexto,
+  );
+
   int get _ahoraMs => _reloj.ahora().millisecondsSinceEpoch;
 
   Stream<List<Medicamento>> observarMedicamentos() {
@@ -103,7 +111,8 @@ class MedicacionRepositorio {
             ..orderBy([(p) => OrderingTerm.desc(p.version)]))
           .get();
 
-  /// En una transacción: fotos, medicamento, pauta v1 y `medicamento_creado`.
+  /// En una transacción: fotos, medicamento, pauta v1 y `medicamento_creado`,
+  /// con una `ficha_creada` por cada foto, el medicamento y la pauta.
   Future<String> crear(NuevoMedicamento d, {DateTime? vigenteDesde}) =>
       _db.transaction(() async {
         final medicamentoId = _uuid.v4();
@@ -130,6 +139,7 @@ class MedicacionRepositorio {
                 creadoEn: ahora,
               ),
             );
+        await _fichas.creada(TipoFicha.medicamento, medicamentoId);
         await _insertarPauta(
           pautaId: pautaId,
           version: 1,
@@ -167,11 +177,12 @@ class MedicacionRepositorio {
     required String? motivo,
     String? vozId,
   }) async {
+    final id = _uuid.v4();
     await _db
         .into(_db.pautas)
         .insert(
           PautasCompanion.insert(
-            id: _uuid.v4(),
+            id: id,
             pautaId: pautaId,
             version: version,
             medicamentoId: medicamentoId,
@@ -191,6 +202,8 @@ class MedicacionRepositorio {
             creadaEn: _ahoraMs,
           ),
         );
+    // Cada versión es una fila nueva: viaja como `ficha_creada`.
+    await _fichas.creada(TipoFicha.pauta, id);
   }
 
   Future<Pauta?> _ultimaVersion(String pautaId) =>

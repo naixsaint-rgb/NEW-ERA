@@ -22,6 +22,7 @@ final class ContextoApp {
     required this.dispositivoId,
     required this.plataforma,
     this.zonaHoraria = 'Europe/Madrid',
+    this.circuloExterno = false,
   });
 
   final String circuloId;
@@ -31,6 +32,10 @@ final class ContextoApp {
   /// `ios`, `android` o `web`.
   final String plataforma;
   final String zonaHoraria;
+
+  /// El círculo vino de otro móvil (invitación): las filas mínimas de círculo
+  /// y persona son provisionales hasta que lleguen las fichas por el cartero.
+  final bool circuloExterno;
 }
 
 /// Quién usa este móvil ahora.

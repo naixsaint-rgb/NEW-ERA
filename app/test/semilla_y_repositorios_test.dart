@@ -87,8 +87,15 @@ void main() {
       expect(pauta.activa, isTrue);
       expect(pauta.vigenteDesde, reloj.ahora().millisecondsSinceEpoch);
       final ev = await db.select(db.eventos).get();
-      expect(ev.map((e) => e.tipo), ['medicamento_creado']);
-      expect(ev.single.sujeto, id);
+      final creado = ev.where((e) => e.tipo == 'medicamento_creado');
+      expect(creado.single.sujeto, id);
+      // Y las fichas para los demás móviles, en orden: foto, medicamento y
+      // pauta (la persona es del arranque).
+      final fichas = [
+        for (final e in ev)
+          if (e.tipo == 'ficha_creada') EventosRepositorio.payloadDe(e)['tipo'],
+      ];
+      expect(fichas, ['persona', 'foto', 'medicamento', 'pauta']);
     },
   );
 
@@ -183,9 +190,16 @@ void main() {
         eventos: eventos,
       );
       await circulo.cambiarAlias('Carmen');
-      final ev = await db.select(db.eventos).get();
+      // Sin contar la ficha de la persona del arranque.
+      final ev = [
+        for (final e in await db.select(db.eventos).get())
+          if (e.tipo != 'ficha_creada') e,
+      ];
       expect(ev.single.tipo, 'ficha_modificada');
       final payload = EventosRepositorio.payloadDe(ev.single);
+      // Lleva además la fila entera para los demás móviles.
+      expect(payload['tipo'], 'persona');
+      expect((payload['fila']! as Map)['alias'], 'Carmen');
       expect(payload['tabla'], 'personas');
       expect((payload['antes']! as Map)['alias'], 'Persona');
       expect((payload['despues']! as Map)['alias'], 'Carmen');

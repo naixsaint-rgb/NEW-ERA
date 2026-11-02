@@ -1,7 +1,8 @@
 # NACHO · Servidor cartero (Supabase)
 
 El servidor solo guarda y reparte sobres cifrados entre los móviles del círculo (ADR-0003). No tiene la
-clave y no puede leer nada. Esta entrega lleva los eventos; vídeos y fotos, en la siguiente.
+clave y no puede leer nada. Lleva los eventos y las fichas (con sus fotos reducidas); los vídeos, en la
+siguiente entrega.
 
 ## NACHO · Crear el proyecto (una vez, gratis)
 
@@ -55,11 +56,20 @@ y la CI las mete en el APK. Un secreto de GitHub con el mismo nombre tendría pr
   cabecera propia desde la versión web (CORS). Si fallan, la app sigue con la consulta periódica.
 - Los proyectos gratuitos se pausan tras una semana sin actividad; se reactivan desde el panel.
 
-## NACHO · Falta el emparejamiento
+## NACHO · Emparejamiento
 
-Hoy cada móvil crea su propia clave y su propio círculo al instalarse, así que cada uno solo ve sus
-sobres. Dos móviles se verán cuando compartan clave y círculo: eso llega con la invitación (QR,
-semana 3). El servidor y la app ya están listos para ello.
+- Cada móvil crea su círculo y su clave al instalarse. Para compartirlos: en el móvil que ya tiene los
+  datos, **Círculo → Invitar otro móvil** enseña un QR y el mismo código para escribir
+  (`NEWERA1-XXXX-…`: versión, ids del círculo y de la persona, clave y una suma de comprobación). Lleva la
+  clave en claro: solo se enseña en persona.
+- En el otro móvil, en «¿De quién es este móvil?», **Este móvil se une a una familia que ya usa la app**:
+  se lee el QR o se escribe el código. Si ese móvil tenía datos propios, avisa de que se borran. La base
+  local se crea de nuevo con la clave del círculo, se vuelve a elegir perfil y se recibe todo desde el
+  principio.
+- Las fichas (persona, familiares, medicamentos, versiones de pauta y fotos) viajan en eventos
+  `ficha_creada`/`ficha_modificada` con la fila entera. Las fotos van reducidas (512 px, JPEG 80; menos
+  si no caben): el `contenido` de un sobre no puede pasar de 90 000 caracteres en base64.
+- El servidor no cambia: sigue sin ver nada más que sobres cifrados.
 
 ## NACHO · Vídeos y fotos (siguiente entrega)
 

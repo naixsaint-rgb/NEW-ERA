@@ -15,9 +15,7 @@ Future<QueryExecutor> abrirConexion({required String? claveHex}) async {
   if (claveHex == null || claveHex.isEmpty) {
     throw StateError('clave_circulo_ausente');
   }
-  final dir = await getApplicationSupportDirectory();
-  await dir.create(recursive: true);
-  final archivo = File(p.join(dir.path, 'newera.db'));
+  final archivo = await _archivo();
   return NativeDatabase.createInBackground(
     archivo,
     setup: (db) {
@@ -32,4 +30,20 @@ Future<QueryExecutor> abrirConexion({required String? claveHex}) async {
       db.execute('PRAGMA foreign_keys = ON;');
     },
   );
+}
+
+/// Borra la base de este móvil (y sus archivos de diario) para crearla de
+/// nuevo con otra clave al unirse a un círculo. Debe estar cerrada.
+Future<void> borrarBaseLocal() async {
+  final archivo = await _archivo();
+  for (final sufijo in const ['', '-wal', '-shm', '-journal']) {
+    final f = File('${archivo.path}$sufijo');
+    if (await f.exists()) await f.delete();
+  }
+}
+
+Future<File> _archivo() async {
+  final dir = await getApplicationSupportDirectory();
+  await dir.create(recursive: true);
+  return File(p.join(dir.path, 'newera.db'));
 }

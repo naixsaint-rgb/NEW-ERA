@@ -12,6 +12,10 @@ enum TipoEvento {
   perfilElegido('perfil_elegido'),
   medicamentoCreado('medicamento_creado'),
   fichaModificada('ficha_modificada'),
+
+  /// Alta de una ficha (persona, familiar, medicamento, versión de pauta o
+  /// foto) con la fila entera, para que la vean los demás móviles del círculo.
+  fichaCreada('ficha_creada'),
   anulacion('anulacion');
 
   const TipoEvento(this.nombre);

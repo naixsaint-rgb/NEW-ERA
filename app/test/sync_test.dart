@@ -12,10 +12,17 @@ import 'package:newera/core/contexto.dart';
 import 'package:newera/core/cripto/almacen_seguro.dart';
 import 'package:newera/core/cripto/cifrado_sobres.dart';
 import 'package:newera/core/cripto/clave_circulo.dart';
+import 'package:image/image.dart' as img;
 import 'package:newera/core/db/base_datos.dart';
+import 'package:newera/core/db/png_marcador.dart';
+import 'package:newera/core/db/repositorios/circulo_repositorio.dart';
+import 'package:newera/core/db/repositorios/eventos_repositorio.dart';
+import 'package:newera/core/db/repositorios/medicacion_repositorio.dart';
 import 'package:newera/core/providers.dart';
 import 'package:newera/core/sync/config_sync.dart';
 import 'package:newera/core/sync/evento_en_sobre.dart';
+import 'package:newera/core/sync/fichas.dart';
+import 'package:newera/core/sync/foto_para_sobre.dart';
 import 'package:newera/core/sync/noop_transport.dart';
 import 'package:newera/core/sync/servicio_sync.dart';
 import 'package:newera/core/sync/sobre_cifrado.dart';
@@ -47,6 +54,11 @@ class _Movil {
       .registrar(TipoEvento.mensajeFamilia, payload: {'texto': texto});
 
   Future<List<Evento>> eventos() => db.select(db.eventos).get();
+
+  MedicacionRepositorio get medicacion =>
+      contenedor.read(medicacionRepositorioProvider);
+  EventosRepositorio get repoEventos =>
+      contenedor.read(eventosRepositorioProvider);
 
   Future<void> cerrar() async {
     await servicio.detener();
@@ -219,9 +231,10 @@ void main() {
     });
 
     test('el sobre no lleva el payload en claro', () async {
-      await a.registrarMensaje('Recuerda regar los $_palabra');
-      expect(await a.servicio.empujar(), 1);
-      final sobre = servidor.sobres.single;
+      final ulid = await a.registrarMensaje('Recuerda regar los $_palabra');
+      // El mensaje y la ficha de la persona del primer arranque.
+      expect(await a.servicio.empujar(), 2);
+      final sobre = servidor.sobres.singleWhere((s) => s.ulid == ulid);
       final aguja = utf8.encode(_palabra);
       expect(_contiene(sobre.contenido, aguja), isFalse);
       expect(_contiene(sobre.nonce, aguja), isFalse);
@@ -240,9 +253,9 @@ void main() {
     });
 
     test('no se duplica si llega dos veces', () async {
-      await a.registrarMensaje('Dos veces');
+      final ulid = await a.registrarMensaje('Dos veces');
       await a.servicio.empujar();
-      final sobre = servidor.sobres.single;
+      final sobre = servidor.sobres.singleWhere((s) => s.ulid == ulid);
 
       expect(await b.servicio.recibir(sobre), isTrue);
       expect(await b.servicio.recibir(sobre), isFalse);
@@ -268,8 +281,13 @@ void main() {
       addTearDown(c.cerrar);
       final ulid = await a.registrarMensaje('Repetido');
       await a.servicio.empujar();
+      final posicion = servidor.sobres
+          .singleWhere((s) => s.ulid == ulid)
+          .posicion!;
       await c.servicio.iniciar();
-      await _esperarA(() async => await c.servicio.ultimoRecibido() == 1);
+      await _esperarA(
+        () async => await c.servicio.ultimoRecibido() >= posicion,
+      );
       expect((await c.eventos()).where((e) => e.ulid == ulid), hasLength(1));
     });
 
@@ -300,7 +318,7 @@ void main() {
       addTearDown(intruso.cerrar);
       final ulid = await a.registrarMensaje('Solo para la familia');
       await a.servicio.empujar();
-      final sobre = servidor.sobres.single;
+      final sobre = servidor.sobres.singleWhere((s) => s.ulid == ulid);
       expect(await intruso.servicio.recibir(sobre), isFalse);
       expect((await intruso.eventos()).where((e) => e.ulid == ulid), isEmpty);
       // Se descarta y se sigue: el cursor avanza.
@@ -308,9 +326,9 @@ void main() {
     });
 
     test('un sobre alterado se descarta', () async {
-      await a.registrarMensaje('Original');
+      final ulid = await a.registrarMensaje('Original');
       await a.servicio.empujar();
-      final s = servidor.sobres.single;
+      final s = servidor.sobres.singleWhere((x) => x.ulid == ulid);
       final contenido = Uint8List.fromList(s.contenido)..[0] ^= 1;
       final alterado = SobreCifrado(
         ulid: s.ulid,
@@ -323,6 +341,253 @@ void main() {
       expect(await b.servicio.recibir(alterado), isFalse);
       expect((await b.eventos()).where((e) => e.ulid == s.ulid), isEmpty);
     });
+  });
+
+  group('fichas por el cartero', () {
+    late ServidorMemoria servidor;
+    late _Movil a;
+    late _Movil b;
+
+    setUp(() async {
+      servidor = ServidorMemoria();
+      a = await _crearMovil(servidor, dispositivo: 'movil-a');
+      b = await _crearMovil(servidor, dispositivo: 'movil-b');
+    });
+
+    tearDown(() async {
+      await a.cerrar();
+      await b.cerrar();
+    });
+
+    NuevoMedicamento nuevo({FotoNueva? caja}) => NuevoMedicamento(
+      nombre: 'Medicamento Y (ejemplo)',
+      nombreParaPersona: 'Cápsula de prueba',
+      forma: 'capsula',
+      horas: const ['08:00'],
+      dosis: '1 cápsula',
+      fotoCaja: caja,
+    );
+
+    /// Payloads de las `ficha_creada` de [m], en orden.
+    Future<List<Map<String, Object?>>> fichas(_Movil m) async => [
+      for (final e in await m.eventos())
+        if (e.tipo == 'ficha_creada') EventosRepositorio.payloadDe(e),
+    ];
+
+    /// El sobre de la `ficha_creada` de [tipo] que dejó A.
+    Future<SobreCifrado> sobreDe(String tipo) async {
+      final porUlid = {for (final e in await a.eventos()) e.ulid: e};
+      return servidor.sobres.singleWhere((s) {
+        final e = porUlid[s.ulid];
+        return e != null &&
+            e.tipo == 'ficha_creada' &&
+            EventosRepositorio.payloadDe(e)['tipo'] == tipo;
+      });
+    }
+
+    test(
+      'una pauta que llega antes que su medicamento espera y se aplica después',
+      () async {
+        final id = await a.medicacion.crear(nuevo());
+        await a.servicio.empujar();
+        final fichasB = MaterializadorFichas(b.db, b.contexto);
+
+        await b.servicio.recibir(await sobreDe('persona'));
+        await b.servicio.recibir(await sobreDe('pauta'));
+        expect(await b.db.select(b.db.pautas).get(), isEmpty);
+        expect(await fichasB.pendientes(), hasLength(1));
+
+        await b.servicio.recibir(await sobreDe('medicamento'));
+        final pauta = await b.db.select(b.db.pautas).getSingle();
+        expect(pauta.medicamentoId, id);
+        expect(await fichasB.pendientes(), isEmpty);
+
+        // Todo otra vez y en orden: no se duplica nada.
+        for (final s in [...servidor.sobres]) {
+          await b.servicio.recibir(s);
+        }
+        expect(await b.db.select(b.db.medicamentos).get(), hasLength(1));
+        expect(await b.db.select(b.db.pautas).get(), hasLength(1));
+      },
+    );
+
+    test(
+      'una foto que no se puede reducir no viaja; la ficha lo anota',
+      () async {
+        final id = await a.medicacion.crear(
+          nuevo(caja: FotoNueva(Uint8List.fromList([1, 2, 3, 4]))),
+        );
+        final propias = await fichas(a);
+        expect(propias.map((p) => p['tipo']), [
+          'persona',
+          'medicamento',
+          'pauta',
+        ]);
+        final med = propias.singleWhere((p) => p['tipo'] == 'medicamento');
+        expect((med['fila']! as Map)['foto_caja_id'], isNull);
+        expect(med['omitidas'], ['foto_caja_id']);
+        // En A la foto sigue.
+        expect((await a.medicacion.medicamento(id))!.fotoCajaId, isNotNull);
+
+        await a.servicio.empujar();
+        for (final s in [...servidor.sobres]) {
+          await b.servicio.recibir(s);
+        }
+        final enB = await b.db.select(b.db.medicamentos).getSingle();
+        expect(enB.id, id);
+        expect(enB.fotoCajaId, isNull);
+        expect(await b.db.select(b.db.fotos).get(), isEmpty);
+      },
+    );
+
+    test(
+      'una foto grande viaja reducida y el sobre cabe en el servidor',
+      () async {
+        // Ruido: lo más difícil de comprimir.
+        final azar = Random(1);
+        final ruido = img.Image(width: 1600, height: 1200);
+        for (final p in ruido) {
+          p
+            ..r = azar.nextInt(256)
+            ..g = azar.nextInt(256)
+            ..b = azar.nextInt(256);
+        }
+        final grande = img.encodeJpg(ruido, quality: 95);
+        expect(grande.length, greaterThan(500000));
+        await a.medicacion.crear(nuevo(caja: FotoNueva(grande)));
+        await a.servicio.empujar();
+        for (final s in servidor.sobres) {
+          // `contenido` va en base64 al servidor: tope de 90 000 caracteres
+          // (supabase/schema.sql).
+          expect(base64Encode(s.contenido).length, lessThanOrEqualTo(90000));
+        }
+        for (final s in [...servidor.sobres]) {
+          await b.servicio.recibir(s);
+        }
+        final foto = await b.db.select(b.db.fotos).getSingle();
+        expect(foto.mime, 'image/jpeg');
+        expect(foto.bytes.length, lessThanOrEqualTo(FotoParaSobre.maxBytes));
+        final leida = img.decodeImage(foto.bytes)!;
+        expect(
+          max(leida.width, leida.height),
+          lessThanOrEqualTo(FotoParaSobre.ladoMayor),
+        );
+        final med = await b.db.select(b.db.medicamentos).getSingle();
+        expect(med.fotoCajaId, foto.id);
+      },
+    );
+
+    test('lo de antes del cambio no se reescribe ni pisa nada', () async {
+      final persona = a.contexto.personaId;
+      // Un cambio con el formato de antes (sin fila) y una segunda alta de la
+      // misma persona: B no toca la que ya tiene.
+      await a.repoEventos.fichaModificada(
+        tabla: 'personas',
+        id: persona,
+        antes: {'alias': 'Persona'},
+        despues: {'alias': 'Antiguo'},
+      );
+      await a.repoEventos.registrar(
+        TipoEvento.fichaCreada,
+        sujeto: persona,
+        payload: {
+          'tipo': 'persona',
+          'fila': {
+            'id': persona,
+            'circulo_id': a.contexto.circuloId,
+            'alias': 'Repetida',
+            'foto_id': null,
+            'zona_horaria': 'Europe/Madrid',
+            'creada_en': 1,
+          },
+        },
+      );
+      await a.servicio.empujar();
+      for (final s in [...servidor.sobres]) {
+        await b.servicio.recibir(s);
+      }
+      final enB = await (b.db.select(
+        b.db.personas,
+      )..where((p) => p.id.equals(persona))).getSingle();
+      expect(enB.alias, 'Persona');
+      expect(
+        await MaterializadorFichas(b.db, b.contexto).pendientes(),
+        isEmpty,
+      );
+    });
+
+    test(
+      'al invitar se publican las fichas de antes, en orden y una sola vez',
+      () async {
+        final db = a.db;
+        final ctx = a.contexto;
+        // Filas como las dejaba la versión anterior: sin `ficha_creada`.
+        await db
+            .into(db.fotos)
+            .insert(
+              FotosCompanion.insert(
+                id: 'foto-vieja',
+                bytes: PngMarcador.pastilla(forma: 'redonda', color: 0xF5F5F5),
+                mime: 'image/png',
+                creadaEn: 1,
+              ),
+            );
+        await db
+            .into(db.medicamentos)
+            .insert(
+              MedicamentosCompanion.insert(
+                id: 'med-viejo',
+                personaId: ctx.personaId,
+                nombre: 'Medicamento V (ejemplo)',
+                nombreParaPersona: 'Pastilla vieja',
+                forma: 'redonda',
+                fotoPastillaId: const Value('foto-vieja'),
+                creadoEn: 1,
+              ),
+            );
+        await db
+            .into(db.pautas)
+            .insert(
+              PautasCompanion.insert(
+                id: 'pauta-vieja-v1',
+                pautaId: 'pauta-vieja',
+                version: 1,
+                medicamentoId: 'med-viejo',
+                personaId: ctx.personaId,
+                dosis: '1 comprimido',
+                horas: '["09:00"]',
+                zonaHoraria: 'Europe/Madrid',
+                vigenteDesde: 1,
+                activa: true,
+                creadaPor: ctx.personaId,
+                creadaEn: 1,
+              ),
+            );
+        final publicador = PublicadorFichas(
+          db: db,
+          eventos: a.repoEventos,
+          contexto: ctx,
+        );
+        expect(await publicador.pendientes(), 3);
+        expect((await fichas(a)).map((p) => p['tipo']), [
+          'persona', // la del primer arranque
+          'foto',
+          'medicamento',
+          'pauta',
+        ]);
+        expect(await publicador.pendientes(), 0);
+
+        await a.servicio.empujar();
+        for (final s in [...servidor.sobres]) {
+          await b.servicio.recibir(s);
+        }
+        final med = await (b.db.select(
+          b.db.medicamentos,
+        )..where((m) => m.id.equals('med-viejo'))).getSingle();
+        expect(med.fotoPastillaId, 'foto-vieja');
+        expect(await b.db.select(b.db.pautas).get(), hasLength(1));
+      },
+    );
   });
 
   group('configuración', () {

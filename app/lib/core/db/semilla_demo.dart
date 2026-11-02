@@ -5,6 +5,7 @@ import 'package:safety_core/safety_core.dart';
 
 import '../contexto.dart';
 import '../i18n/fechas.dart';
+import '../sync/fichas.dart';
 import 'base_datos.dart';
 import 'png_marcador.dart';
 import 'repositorios/circulo_repositorio.dart';
@@ -81,9 +82,14 @@ abstract final class SemillaDemo {
           ordenEscalado: Value(1),
         ),
       );
-      await eventos.fichaModificada(
+      await PublicadorFichas(
+        db: db,
+        eventos: eventos,
+        contexto: contexto,
+      ).modificada(
+        TipoFicha.miembro,
+        lucia,
         tabla: 'miembros',
-        id: lucia,
         antes: {
           'nombre': responsable.nombre,
           'relacion': responsable.relacion,

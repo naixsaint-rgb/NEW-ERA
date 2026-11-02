@@ -12,6 +12,7 @@ import 'package:newera/core/cripto/almacen_seguro.dart';
 import 'package:newera/core/db/base_datos.dart';
 import 'package:newera/core/enrutado/router.dart';
 import 'package:newera/core/plataforma/alarmas/alarmas_no_disponibles.dart';
+import 'package:newera/core/plataforma/alarmas/servicio_alarmas.dart';
 import 'package:newera/core/plataforma/camara/camara_simulada.dart';
 import 'package:newera/core/providers.dart';
 import 'package:newera/features/catalogo/datos/catalogo_repositorio.dart';
@@ -29,8 +30,9 @@ class EntornoPrueba {
     this.db,
     this.contexto,
     this.reloj,
-    this.enlaces,
-  );
+    this.enlaces, {
+    AlmacenSeguro? almacen,
+  }) : almacen = almacen ?? AlmacenSeguroMemoria();
 
   final List<Override> overrides;
   final AppDatabase db;
@@ -39,6 +41,9 @@ class EntornoPrueba {
 
   /// Enlaces que la app ha intentado abrir.
   final List<Uri> enlaces;
+
+  /// Almacén seguro (en memoria) de este entorno.
+  final AlmacenSeguro almacen;
 
   /// Id de la toma de [nombre] (medicamento para la persona) en [fecha]
   /// (`yyyyMMdd`) a las [hora] (`HHmm`).
@@ -59,6 +64,7 @@ Future<EntornoPrueba> prepararEntorno({
   PerfilApp? perfil,
   bool sembrar = true,
   bool demoWeb = false,
+  ServicioAlarmas alarmas = const AlarmasNoDisponibles(),
 }) async {
   driftRuntimeOptions.dontWarnAboutMultipleDatabases = true;
   final reloj = RelojFijo(instantePrueba);
@@ -84,7 +90,7 @@ Future<EntornoPrueba> prepararEntorno({
       ...overrides,
       catalogoProvider.overrideWith((ref) => catalogo),
       camaraProvider.overrideWithValue(const CamaraSimulada()),
-      servicioAlarmasProvider.overrideWithValue(const AlarmasNoDisponibles()),
+      servicioAlarmasProvider.overrideWithValue(alarmas),
       abrirEnlaceProvider.overrideWithValue((uri) async {
         enlaces.add(uri);
         return true;
@@ -94,6 +100,7 @@ Future<EntornoPrueba> prepararEntorno({
     contexto,
     reloj,
     enlaces,
+    almacen: almacen,
   );
 }
 

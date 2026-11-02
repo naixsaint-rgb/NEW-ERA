@@ -63,16 +63,24 @@ class EventosRepositorio {
   }
 
   /// `ficha_modificada` {tabla, id, antes, despues}: se escribe en la misma
-  /// transacción que el cambio de la ficha.
+  /// transacción que el cambio de la ficha. [extra] añade campos al payload
+  /// (el tipo y la fila entera para el cartero, ver `PublicadorFichas`).
   Future<void> fichaModificada({
     required String tabla,
     required String id,
     required Map<String, Object?>? antes,
     required Map<String, Object?>? despues,
+    Map<String, Object?> extra = const {},
   }) => registrar(
     TipoEvento.fichaModificada,
     sujeto: id,
-    payload: {'tabla': tabla, 'id': id, 'antes': antes, 'despues': despues},
+    payload: {
+      'tabla': tabla,
+      'id': id,
+      'antes': antes,
+      'despues': despues,
+      ...extra,
+    },
   );
 
   /// Eventos que cuentan para el estado de las tomas desde [desde].

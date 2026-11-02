@@ -1,14 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/db/base_datos.dart';
+import '../../core/enrutado/rutas.dart';
 import '../../core/providers.dart';
 import '../../core/tema/colores.dart';
+import '../../shared/claves_ui.dart';
 import '../../shared/ios/ios.dart';
 import '../../shared/l10n_ext.dart';
 import '../../shared/widgets/avatar_familiar.dart';
 
-/// Lista de familiares, solo lectura (la gestión llega en la semana 16).
+/// Lista de familiares, solo lectura (la gestión llega en la semana 16), e
+/// "Invitar otro móvil" para emparejar el de la persona o el de otro familiar
+/// (no en la demo web: no tiene clave ni cartero).
 class CirculoPantalla extends ConsumerWidget {
   const CirculoPantalla({super.key});
 
@@ -17,6 +23,7 @@ class CirculoPantalla extends ConsumerWidget {
     final l = context.l;
     final c = context.colores;
     final miembros = ref.watch(miembrosProvider).value ?? const <Miembro>[];
+    final demo = ref.watch(esDemoWebProvider);
     final abajo = MediaQuery.paddingOf(context).bottom;
     String rol(String r) => switch (r) {
       'responsable' => l.rolResponsable,
@@ -37,6 +44,20 @@ class CirculoPantalla extends ConsumerWidget {
         children: [
           CabeceraGrande(titulo: l.pestanaCirculo),
           const SizedBox(height: 14),
+          if (!demo) ...[
+            GrupoLista(
+              children: [
+                FilaLista(
+                  key: ClavesUi.circInvitar,
+                  leading: const IconoCuadrado(CupertinoIcons.qrcode),
+                  titulo: l.circInvitar,
+                  subtitulo: l.circInvitarDetalle,
+                  onTap: () => context.go(Rutas.circuloInvitar),
+                ),
+              ],
+            ),
+            const SizedBox(height: 14),
+          ],
           GrupoLista(
             sangria: 84,
             pie: l.circuloGestion,

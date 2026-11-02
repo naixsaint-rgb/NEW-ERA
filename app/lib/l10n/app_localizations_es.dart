@@ -1348,4 +1348,95 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get calPie => 'Turnos de la familia y citas';
+
+  @override
+  String get unirTarjeta => 'Este móvil se une a una familia que ya usa la app';
+
+  @override
+  String get unirTitulo => 'Unirse a una familia';
+
+  @override
+  String get unirAyuda =>
+      'En el móvil de la familia, abre Círculo y toca «Invitar otro móvil». Lee su código QR o escribe el código que aparece debajo.';
+
+  @override
+  String get unirLeerQr => 'Leer el código QR';
+
+  @override
+  String get unirLeerQrDetalle => 'Con la cámara de este móvil';
+
+  @override
+  String get unirEscribirTitulo => 'O escribe el código';
+
+  @override
+  String get unirCodigoEtiqueta => 'Código de la invitación';
+
+  @override
+  String get unirCodigoPista => 'NEWERA1-…';
+
+  @override
+  String get unirPegar => 'Pegar';
+
+  @override
+  String get unirAceptar => 'Unir este móvil';
+
+  @override
+  String get unirCodigoNoValido =>
+      'El código no es válido. Revisa que esté completo o vuelve a leer el QR.';
+
+  @override
+  String get unirYaEsta => 'Este móvil ya está en esa familia.';
+
+  @override
+  String get unirConfirmarTitulo => '¿Usar los datos de la familia?';
+
+  @override
+  String get unirConfirmarTexto =>
+      'Se borrarán los datos de este móvil y se usarán los de la familia.';
+
+  @override
+  String get unirConfirmarBorrar => 'Borrar y unirme';
+
+  @override
+  String get unirUniendo => 'Uniendo este móvil…';
+
+  @override
+  String get unirLectorAyuda => 'Apunta al código QR que enseña el otro móvil.';
+
+  @override
+  String get unirLectorSinCamara =>
+      'No se puede usar la cámara. Vuelve atrás y escribe el código.';
+
+  @override
+  String get circInvitar => 'Invitar otro móvil';
+
+  @override
+  String get circInvitarDetalle => 'El de la persona o el de otro familiar';
+
+  @override
+  String get circInvitarAyuda =>
+      'Enséñale este código al otro móvil. Solo en persona: lleva la clave de vuestros datos.';
+
+  @override
+  String get circInvitarQr => 'Código QR de la invitación';
+
+  @override
+  String get circInvitarCodigoTitulo => 'Código para escribir';
+
+  @override
+  String get circInvitarCopiar => 'Copiar el código';
+
+  @override
+  String get circInvitarCopiado => 'Código copiado';
+
+  @override
+  String get circInvitarPie =>
+      'En el otro móvil, elige «Este móvil se une a una familia que ya usa la app».';
+
+  @override
+  String get circInvitarPreparando => 'Preparando el código…';
+
+  @override
+  String get circInvitarSinClave =>
+      'Este móvil no tiene la clave de la familia: no puede invitar a otros.';
 }

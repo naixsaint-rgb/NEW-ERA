@@ -3,6 +3,9 @@
 abstract final class Rutas {
   static const raiz = '/';
   static const perfil = '/perfil';
+
+  /// "Este móvil se une a una familia que ya usa la app" (sin perfil aún).
+  static const unirse = '/perfil/unirse';
   static const persona = '/persona';
   static const familia = '/familia';
   static const mas = '/familia/mas';
@@ -55,4 +58,7 @@ abstract final class Rutas {
   static String tema(String key) => '/familia/ideas/tema/$key';
 
   static const controlHoras = '/familia/alarmas/control-horas';
+
+  /// Círculo › "Invitar otro móvil" (QR y código).
+  static const circuloInvitar = '/familia/circulo/invitar';
 }

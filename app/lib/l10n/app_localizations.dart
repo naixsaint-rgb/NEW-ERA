@@ -2402,6 +2402,174 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Turnos de la familia y citas'**
   String get calPie;
+
+  /// No description provided for @unirTarjeta.
+  ///
+  /// In es, this message translates to:
+  /// **'Este móvil se une a una familia que ya usa la app'**
+  String get unirTarjeta;
+
+  /// No description provided for @unirTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Unirse a una familia'**
+  String get unirTitulo;
+
+  /// No description provided for @unirAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'En el móvil de la familia, abre Círculo y toca «Invitar otro móvil». Lee su código QR o escribe el código que aparece debajo.'**
+  String get unirAyuda;
+
+  /// No description provided for @unirLeerQr.
+  ///
+  /// In es, this message translates to:
+  /// **'Leer el código QR'**
+  String get unirLeerQr;
+
+  /// No description provided for @unirLeerQrDetalle.
+  ///
+  /// In es, this message translates to:
+  /// **'Con la cámara de este móvil'**
+  String get unirLeerQrDetalle;
+
+  /// No description provided for @unirEscribirTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'O escribe el código'**
+  String get unirEscribirTitulo;
+
+  /// No description provided for @unirCodigoEtiqueta.
+  ///
+  /// In es, this message translates to:
+  /// **'Código de la invitación'**
+  String get unirCodigoEtiqueta;
+
+  /// No description provided for @unirCodigoPista.
+  ///
+  /// In es, this message translates to:
+  /// **'NEWERA1-…'**
+  String get unirCodigoPista;
+
+  /// No description provided for @unirPegar.
+  ///
+  /// In es, this message translates to:
+  /// **'Pegar'**
+  String get unirPegar;
+
+  /// No description provided for @unirAceptar.
+  ///
+  /// In es, this message translates to:
+  /// **'Unir este móvil'**
+  String get unirAceptar;
+
+  /// No description provided for @unirCodigoNoValido.
+  ///
+  /// In es, this message translates to:
+  /// **'El código no es válido. Revisa que esté completo o vuelve a leer el QR.'**
+  String get unirCodigoNoValido;
+
+  /// No description provided for @unirYaEsta.
+  ///
+  /// In es, this message translates to:
+  /// **'Este móvil ya está en esa familia.'**
+  String get unirYaEsta;
+
+  /// No description provided for @unirConfirmarTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Usar los datos de la familia?'**
+  String get unirConfirmarTitulo;
+
+  /// No description provided for @unirConfirmarTexto.
+  ///
+  /// In es, this message translates to:
+  /// **'Se borrarán los datos de este móvil y se usarán los de la familia.'**
+  String get unirConfirmarTexto;
+
+  /// No description provided for @unirConfirmarBorrar.
+  ///
+  /// In es, this message translates to:
+  /// **'Borrar y unirme'**
+  String get unirConfirmarBorrar;
+
+  /// No description provided for @unirUniendo.
+  ///
+  /// In es, this message translates to:
+  /// **'Uniendo este móvil…'**
+  String get unirUniendo;
+
+  /// No description provided for @unirLectorAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Apunta al código QR que enseña el otro móvil.'**
+  String get unirLectorAyuda;
+
+  /// No description provided for @unirLectorSinCamara.
+  ///
+  /// In es, this message translates to:
+  /// **'No se puede usar la cámara. Vuelve atrás y escribe el código.'**
+  String get unirLectorSinCamara;
+
+  /// No description provided for @circInvitar.
+  ///
+  /// In es, this message translates to:
+  /// **'Invitar otro móvil'**
+  String get circInvitar;
+
+  /// No description provided for @circInvitarDetalle.
+  ///
+  /// In es, this message translates to:
+  /// **'El de la persona o el de otro familiar'**
+  String get circInvitarDetalle;
+
+  /// No description provided for @circInvitarAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Enséñale este código al otro móvil. Solo en persona: lleva la clave de vuestros datos.'**
+  String get circInvitarAyuda;
+
+  /// No description provided for @circInvitarQr.
+  ///
+  /// In es, this message translates to:
+  /// **'Código QR de la invitación'**
+  String get circInvitarQr;
+
+  /// No description provided for @circInvitarCodigoTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Código para escribir'**
+  String get circInvitarCodigoTitulo;
+
+  /// No description provided for @circInvitarCopiar.
+  ///
+  /// In es, this message translates to:
+  /// **'Copiar el código'**
+  String get circInvitarCopiar;
+
+  /// No description provided for @circInvitarCopiado.
+  ///
+  /// In es, this message translates to:
+  /// **'Código copiado'**
+  String get circInvitarCopiado;
+
+  /// No description provided for @circInvitarPie.
+  ///
+  /// In es, this message translates to:
+  /// **'En el otro móvil, elige «Este móvil se une a una familia que ya usa la app».'**
+  String get circInvitarPie;
+
+  /// No description provided for @circInvitarPreparando.
+  ///
+  /// In es, this message translates to:
+  /// **'Preparando el código…'**
+  String get circInvitarPreparando;
+
+  /// No description provided for @circInvitarSinClave.
+  ///
+  /// In es, this message translates to:
+  /// **'Este móvil no tiene la clave de la familia: no puede invitar a otros.'**
+  String get circInvitarSinClave;
 }
 
 class _AppLocalizationsDelegate

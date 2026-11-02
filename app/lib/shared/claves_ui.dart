@@ -74,4 +74,23 @@ abstract final class ClavesUi {
   /// Fila del catálogo por id (`cobre_metales-000`).
   static ValueKey<String> filaCatalogo(String id) =>
       ValueKey<String>('fila_$id');
+
+  /// Círculo: fila "Invitar otro móvil".
+  static const circInvitar = ValueKey<String>('circ_invitar');
+
+  /// Invitación: el QR, el código escrito y "Copiar el código".
+  static const circQr = ValueKey<String>('circ_qr');
+  static const circCodigo = ValueKey<String>('circ_codigo');
+  static const circCopiar = ValueKey<String>('circ_copiar');
+
+  /// Perfil: tercera tarjeta, "Este móvil se une a una familia…".
+  static const unirTarjeta = ValueKey<String>('unir_tarjeta');
+
+  /// Unirse: leer el QR, el campo del código, "Pegar", "Unir este móvil" y el
+  /// botón de confirmar que se borran los datos de este móvil.
+  static const unirLeerQr = ValueKey<String>('unir_leer_qr');
+  static const unirCodigo = ValueKey<String>('unir_codigo');
+  static const unirPegar = ValueKey<String>('unir_pegar');
+  static const unirAceptar = ValueKey<String>('unir_aceptar');
+  static const unirConfirmar = ValueKey<String>('unir_confirmar');
 }

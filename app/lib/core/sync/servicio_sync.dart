@@ -8,6 +8,7 @@ import '../contexto.dart';
 import '../cripto/cifrado_sobres.dart';
 import '../db/base_datos.dart';
 import 'evento_en_sobre.dart';
+import 'fichas.dart';
 import 'noop_transport.dart';
 import 'reintentos.dart';
 import 'sobre_cifrado.dart';
@@ -22,6 +23,9 @@ import 'sync_transport.dart';
 /// - Recepción: pide al transporte lo que haya después del último sobre
 ///   guardado (`sync_estado`), lo descifra y lo inserta en `eventos` si el ulid
 ///   no estaba. Solo inserta: los disparadores de solo inserción se respetan.
+/// - Fichas: `ficha_creada` y `ficha_modificada` llevan la fila entera y se
+///   convierten en filas de sus tablas en la misma transacción
+///   ([MaterializadorFichas]).
 ///
 /// Con [NoopTransport] o sin clave del círculo (demo web) no hace nada.
 final class ServicioSync {
@@ -37,7 +41,8 @@ final class ServicioSync {
     this.esperaMaxima = const Duration(minutes: 5),
     Random? azar,
   }) : _leerLlaves = llaves,
-       _azar = azar ?? Random();
+       _azar = azar ?? Random(),
+       _fichas = MaterializadorFichas(_db, _contexto);
 
   /// Clave de `sync_estado` con el último `sobres.id` guardado.
   static const claveCursor = 'sobres.ultimo_recibido';
@@ -53,6 +58,7 @@ final class ServicioSync {
   final ContextoApp _contexto;
   final Reloj _reloj;
   final Random _azar;
+  final MaterializadorFichas _fichas;
 
   LlavesCirculo? _llaves;
   bool _iniciado = false;
@@ -245,6 +251,7 @@ final class ServicioSync {
         if (ya == null) {
           await _db.into(_db.eventos).insert(evento);
           guardado = true;
+          await _fichas.alRecibir(evento);
         }
         // Ya está en el servidor: no hay que reenviarlo.
         await _db

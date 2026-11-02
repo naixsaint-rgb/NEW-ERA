@@ -35,6 +35,11 @@ dependencies:
   supabase: 2.16.5
   cryptography: 2.9.0
   http: ^1.6.0
+  # Emparejamiento: QR de la invitación, lectura con la cámara y fotos reducidas
+  # para los sobres. Versiones fijas.
+  qr_flutter: 4.1.0
+  mobile_scanner: 7.4.2
+  image: 4.12.0
 
 dev_dependencies:
   flutter_test:

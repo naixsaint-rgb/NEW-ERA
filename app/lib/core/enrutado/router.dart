@@ -12,6 +12,7 @@ import '../../features/catalogo/dosier_pantalla.dart';
 import '../../features/catalogo/ficha_pantalla.dart';
 import '../../features/catalogo/resumen_pantalla.dart' as catalogo;
 import '../../features/circulo/circulo_pantalla.dart';
+import '../../features/circulo/invitar_pantalla.dart';
 import '../../features/consultas/consultas_pantalla.dart';
 import '../../features/hoy/hoy_pantalla.dart';
 import '../../features/medicacion/alta_medicamento_pantalla.dart';
@@ -24,6 +25,7 @@ import '../../features/persona_pastillas/persona_pastillas_pantalla.dart';
 import '../../features/pregunta/pregunta_pantalla.dart';
 import '../../features/resumen/resumen_pantalla.dart';
 import '../../features/toma/toma_pantalla.dart';
+import '../../features/union/unirse_pantalla.dart';
 import '../../features/voces/voces_pantalla.dart';
 import '../contexto.dart';
 import '../providers.dart';
@@ -37,11 +39,13 @@ final rutaInicialProvider = Provider<String>((ref) => Rutas.raiz);
 /// Redirección por perfil. Devuelve `null` si la ruta es válida.
 String? redirigirSegunPerfil(Sesion sesion, String ruta) {
   final perfil = sesion.perfil;
-  if (perfil == null) return ruta == Rutas.perfil ? null : Rutas.perfil;
+  // "¿De quién es este móvil?" y "Unirse a una familia".
+  final dePerfil = ruta == Rutas.perfil || ruta.startsWith('${Rutas.perfil}/');
+  if (perfil == null) return dePerfil ? null : Rutas.perfil;
   if (ruta == Rutas.raiz) {
     return perfil == PerfilApp.persona ? Rutas.persona : Rutas.pestana('hoy');
   }
-  if (ruta == Rutas.perfil) return null;
+  if (dePerfil) return null;
   if (perfil == PerfilApp.persona && ruta.startsWith(Rutas.familia)) {
     return Rutas.persona;
   }
@@ -87,7 +91,13 @@ final routerProvider = Provider<GoRouter>((ref) {
         redirigirSegunPerfil(ref.read(sesionProvider), state.uri.path),
     routes: [
       GoRoute(path: Rutas.raiz, builder: (_, _) => const SizedBox.shrink()),
-      GoRoute(path: Rutas.perfil, builder: (_, _) => const PerfilPantalla()),
+      GoRoute(
+        path: Rutas.perfil,
+        builder: (_, _) => const PerfilPantalla(),
+        routes: [
+          GoRoute(path: 'unirse', builder: (_, _) => const UnirsePantalla()),
+        ],
+      ),
       GoRoute(
         path: Rutas.persona,
         builder: (_, _) => _enTemaPersona(const PersonaInicioPantalla()),
@@ -208,7 +218,18 @@ final routerProvider = Provider<GoRouter>((ref) {
             ],
           ),
           StatefulShellBranch(
-            routes: [pestana('circulo', () => const CirculoPantalla())],
+            routes: [
+              pestana(
+                'circulo',
+                () => const CirculoPantalla(),
+                rutas: [
+                  GoRoute(
+                    path: 'invitar',
+                    builder: (_, _) => const InvitarPantalla(),
+                  ),
+                ],
+              ),
+            ],
           ),
           StatefulShellBranch(
             routes: [pestana('ajustes', () => const AjustesPantalla())],

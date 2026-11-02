@@ -29,7 +29,7 @@
 	<key>NSAlarmKitUsageDescription</key>
 	<string>NEW-ERA usa alarmas para avisarte de que es la hora de tu pastilla, aunque el móvil esté en silencio.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>La cámara frontal graba unos segundos para comprobar con tu familia que te has tomado la pastilla.</string>
+	<string>La cámara frontal graba unos segundos para comprobar con tu familia que te has tomado la pastilla. La trasera lee el código QR para unir este móvil a tu familia.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Puedes elegir una foto de la caja o de la pastilla de tu galería para que se vea en la app.</string>
 	<key>NSMicrophoneUsageDescription</key>

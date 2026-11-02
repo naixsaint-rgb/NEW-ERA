@@ -3,6 +3,7 @@ import 'package:safety_core/safety_core.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../contexto.dart';
+import '../../sync/fichas.dart';
 import '../base_datos.dart';
 import 'eventos_repositorio.dart';
 
@@ -51,9 +52,18 @@ class CirculoRepositorio {
   final EventosRepositorio _eventos;
   final Uuid _uuid;
 
+  /// Deja `ficha_creada`/`ficha_modificada` con la fila para los demás móviles.
+  late final PublicadorFichas _fichas = PublicadorFichas(
+    db: _db,
+    eventos: _eventos,
+    contexto: _contexto,
+  );
+
   int get _ahoraMs => _reloj.ahora().millisecondsSinceEpoch;
 
-  /// Crea el círculo y la persona si faltan.
+  /// Crea el círculo y la persona si faltan. En un círculo que vino de otro
+  /// móvil son filas provisionales (alias "Persona") que no se publican: la
+  /// ficha de verdad llega por el cartero y las sustituye.
   Future<void> asegurarBase({String nombreCirculo = 'Mi familia'}) =>
       _db.transaction(() async {
         final c = await (_db.select(
@@ -85,16 +95,42 @@ class CirculoRepositorio {
                   creadaEn: _ahoraMs,
                 ),
               );
+          if (!_contexto.circuloExterno) {
+            await _fichas.creada(TipoFicha.persona, _contexto.personaId);
+          }
         }
       });
 
   /// Registra este dispositivo con su [perfil] (o actualiza el perfil) y, en
   /// perfil familia, localiza o crea al miembro "Responsable". Devuelve el id
   /// del miembro, si lo hay.
+  ///
+  /// En un móvil que se unió a un círculo de fuera, el perfil familia es otro
+  /// familiar: usa el miembro de este móvil o crea uno ("Familiar", cuidador,
+  /// sin orden de aviso ni sitio en "Mi gente"), nunca otro "Responsable".
   Future<String?> asegurarDispositivo(PerfilApp perfil) => _db.transaction(
     () async {
       String? miembroId;
-      if (perfil == PerfilApp.familia) {
+      if (perfil == PerfilApp.familia && _contexto.circuloExterno) {
+        miembroId = await _miembroDeEsteMovil();
+        if (miembroId == null) {
+          miembroId = _uuid.v4();
+          await _db
+              .into(_db.miembros)
+              .insert(
+                MiembrosCompanion.insert(
+                  id: miembroId,
+                  circuloId: _contexto.circuloId,
+                  nombre: 'Familiar',
+                  relacion: 'Familiar',
+                  rol: 'cuidador',
+                  enMiGente: const Value(false),
+                  creadoEn: _ahoraMs,
+                ),
+              );
+          await _fichas.creada(TipoFicha.miembro, miembroId);
+        }
+      } else if (perfil == PerfilApp.familia) {
         final responsable =
             await (_db.select(_db.miembros)
                   ..where(
@@ -122,6 +158,7 @@ class CirculoRepositorio {
                   creadoEn: _ahoraMs,
                 ),
               );
+          await _fichas.creada(TipoFicha.miembro, miembroId);
         }
       }
       final d = await (_db.select(
@@ -160,6 +197,19 @@ class CirculoRepositorio {
     },
   );
 
+  /// Miembro con el que se registró antes este dispositivo, si sigue existiendo.
+  Future<String?> _miembroDeEsteMovil() async {
+    final d = await (_db.select(
+      _db.dispositivos,
+    )..where((t) => t.id.equals(_contexto.dispositivoId))).getSingleOrNull();
+    final id = d?.miembroId;
+    if (id == null) return null;
+    final m = await (_db.select(
+      _db.miembros,
+    )..where((t) => t.id.equals(id))).getSingleOrNull();
+    return m?.id;
+  }
+
   Future<Persona?> persona() => (_db.select(
     _db.personas,
   )..where((t) => t.id.equals(_contexto.personaId))).getSingleOrNull();
@@ -175,9 +225,10 @@ class CirculoRepositorio {
     await (_db.update(_db.personas)..where((t) => t.id.equals(p.id))).write(
       PersonasCompanion(alias: Value(alias)),
     );
-    await _eventos.fichaModificada(
+    await _fichas.modificada(
+      TipoFicha.persona,
+      p.id,
       tabla: 'personas',
-      id: p.id,
       antes: {'alias': p.alias},
       despues: {'alias': alias},
     );
@@ -217,10 +268,13 @@ class CirculoRepositorio {
             creadoEn: _ahoraMs,
           ),
         );
+    await _fichas.creada(TipoFicha.miembro, id);
     return id;
   });
 
-  /// Guarda una foto (hecho de solo inserción) y devuelve su id.
+  /// Guarda una foto (hecho de solo inserción) y devuelve su id. Para los
+  /// demás móviles sale reducida (512 px, JPEG 80); si no se puede reducir,
+  /// no sale y las fichas que la usan lo anotan.
   Future<String> guardarFoto(FotoNueva f) async {
     final id = _uuid.v4();
     await _db
@@ -233,6 +287,7 @@ class CirculoRepositorio {
             creadaEn: _ahoraMs,
           ),
         );
+    await _fichas.creada(TipoFicha.foto, id);
     return id;
   }
 
