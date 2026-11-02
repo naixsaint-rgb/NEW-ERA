@@ -1630,6 +1630,84 @@ abstract class AppLocalizations {
   /// **'Foto de la toma de las {hora}'**
   String hoyFotoDeLaToma(String hora);
 
+  /// No description provided for @hoyVerVideo.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver vídeo'**
+  String get hoyVerVideo;
+
+  /// No description provided for @hoyVerFoto.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver foto'**
+  String get hoyVerFoto;
+
+  /// No description provided for @hoyClipBajando.
+  ///
+  /// In es, this message translates to:
+  /// **'{porcentaje} %'**
+  String hoyClipBajando(int porcentaje);
+
+  /// No description provided for @hoyClipBajandoSemantica.
+  ///
+  /// In es, this message translates to:
+  /// **'Bajando: {porcentaje} %'**
+  String hoyClipBajandoSemantica(int porcentaje);
+
+  /// No description provided for @hoyVideoNoDisponible.
+  ///
+  /// In es, this message translates to:
+  /// **'Este vídeo ya no está disponible'**
+  String get hoyVideoNoDisponible;
+
+  /// No description provided for @hoyFotoNoDisponible.
+  ///
+  /// In es, this message translates to:
+  /// **'Esta foto ya no está disponible'**
+  String get hoyFotoNoDisponible;
+
+  /// No description provided for @hoyClipNoSeBaja.
+  ///
+  /// In es, this message translates to:
+  /// **'No se ha podido bajar. Toca para intentarlo otra vez.'**
+  String get hoyClipNoSeBaja;
+
+  /// No description provided for @hoyClipOmitido.
+  ///
+  /// In es, this message translates to:
+  /// **'No se envió: ocupaba demasiado'**
+  String get hoyClipOmitido;
+
+  /// No description provided for @visorClipNoSeAbre.
+  ///
+  /// In es, this message translates to:
+  /// **'No se ha podido abrir.'**
+  String get visorClipNoSeAbre;
+
+  /// No description provided for @visorClipDemo.
+  ///
+  /// In es, this message translates to:
+  /// **'Demo: aquí se vería el vídeo de la toma'**
+  String get visorClipDemo;
+
+  /// No description provided for @visorReproducir.
+  ///
+  /// In es, this message translates to:
+  /// **'Reproducir'**
+  String get visorReproducir;
+
+  /// No description provided for @visorPausar.
+  ///
+  /// In es, this message translates to:
+  /// **'Pausar'**
+  String get visorPausar;
+
+  /// No description provided for @visorCerrar.
+  ///
+  /// In es, this message translates to:
+  /// **'Cerrar'**
+  String get visorCerrar;
+
   /// No description provided for @hoySinComprobacionesHoy.
   ///
   /// In es, this message translates to:
@@ -2228,12 +2306,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Mañana a las {hora}, {nombre}'**
   String fixMananaALasHoraPastilla(String hora, String nombre);
-
-  /// No description provided for @fixReservadaVerVideo.
-  ///
-  /// In es, this message translates to:
-  /// **'Ver el vídeo de cada toma desde el móvil de la familia'**
-  String get fixReservadaVerVideo;
 
   /// No description provided for @fixResumenAlDia.
   ///

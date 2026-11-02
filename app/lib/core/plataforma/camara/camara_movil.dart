@@ -2,18 +2,27 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/widgets.dart';
-import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:safety_core/safety_core.dart';
 
+import 'archivos_clip.dart';
 import 'camara_comprobacion.dart';
 
-/// Cámara frontal en Android e iOS. Los vídeos van a
-/// `<documentos>/clips/<tomaId>.mp4`, en el almacenamiento privado de la app
-/// (el cifrado de clips llega en la semana 3).
+/// Cámara frontal en Android e iOS. Los vídeos van a `clips/<tomaId>.mp4`
+/// dentro de [ArchivosClip] (documentos de la app, almacenamiento privado);
+/// de ahí los cifra y los sube el cartero (`ClipsCartero`) y después se
+/// borran.
+///
+/// Peso: 15 fps, ~500 kbps, resolución media (~480p) y sin audio. 10 s a
+/// 500 kbps son unos 625 KB (con ffmpeg y vídeo sintético, ~640 KB: 10
+/// trozos de 64 KiB). Sin medir aún con la cámara de un móvil.
 class CamaraMovil implements CamaraComprobacion {
-  const CamaraMovil();
+  const CamaraMovil(this.archivos);
+
+  final ArchivosClip archivos;
+
+  static const fps = 15;
+  static const bitsPorSegundo = 500000;
 
   @override
   Future<(SesionCamara?, MotivoClipFallido?)> abrir() async {
@@ -30,9 +39,11 @@ class CamaraMovil implements CamaraComprobacion {
         frontal,
         ResolutionPreset.medium,
         enableAudio: false,
+        fps: fps,
+        videoBitrate: bitsPorSegundo,
       );
       await controlador.initialize();
-      return (_SesionMovil(controlador), null);
+      return (_SesionMovil(controlador, archivos), null);
     } catch (_) {
       return (null, MotivoClipFallido.error);
     }
@@ -40,9 +51,10 @@ class CamaraMovil implements CamaraComprobacion {
 }
 
 class _SesionMovil implements SesionCamara {
-  _SesionMovil(this.controlador);
+  _SesionMovil(this.controlador, this.archivos);
 
   final CameraController controlador;
+  final ArchivosClip archivos;
 
   @override
   Widget vistaPrevia(BuildContext context) => CameraPreview(controlador);
@@ -55,9 +67,6 @@ class _SesionMovil implements SesionCamara {
     required ValueChanged<int> restante,
   }) async {
     try {
-      final docs = await getApplicationDocumentsDirectory();
-      final carpeta = Directory(p.join(docs.path, 'clips'));
-      await carpeta.create(recursive: true);
       final cronometro = Stopwatch()..start();
       if (tipo == TipoComprobacion.foto) {
         for (var i = 3; i > 0; i--) {
@@ -65,8 +74,8 @@ class _SesionMovil implements SesionCamara {
           await Future<void>.delayed(const Duration(seconds: 1));
         }
         final foto = await controlador.takePicture();
-        final destino = p.join(carpeta.path, '$tomaId.jpg');
-        await _mover(foto.path, destino);
+        final destino = RutasClip.de(tomaId, 'jpg');
+        await _mover(foto.path, await archivos.prepararEscritura(destino));
         return ClipGrabado(
           tipo: tipo,
           ruta: destino,
@@ -79,8 +88,8 @@ class _SesionMovil implements SesionCamara {
         await Future<void>.delayed(const Duration(seconds: 1));
       }
       final video = await controlador.stopVideoRecording();
-      final destino = p.join(carpeta.path, '$tomaId.mp4');
-      await _mover(video.path, destino);
+      final destino = RutasClip.de(tomaId, 'mp4');
+      await _mover(video.path, await archivos.prepararEscritura(destino));
       return ClipGrabado(
         tipo: tipo,
         ruta: destino,

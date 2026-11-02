@@ -331,3 +331,33 @@ class SyncEstado extends Table {
   @override
   Set<Column> get primaryKey => {clave};
 }
+
+// ---------------------------------------------------------------- Clips
+// Esquema 3. No es un hecho: es la cola de subida de este móvil.
+
+/// Vídeos y fotos de comprobación grabados aquí que esperan a subir por el
+/// cartero (tabla `clips_trozos` del servidor). Mientras su fila existe, el
+/// sobre de su `clip_grabado` no sale: la familia no recibe el aviso de un
+/// clip que todavía no puede bajar. Al subir el último trozo se borran la
+/// fila y el archivo. Sobrevive a cierres de la app.
+@DataClassName('ClipPendiente')
+class ClipsPendientes extends Table {
+  /// ULID del clip (el de los trozos en el servidor).
+  TextColumn get clipId => text()();
+
+  /// Ulid del evento `clip_grabado` que espera a este clip.
+  TextColumn get eventoUlid => text().unique()();
+
+  /// Ruta relativa (`clips/<clipId>.mp4`).
+  TextColumn get ruta => text()();
+  TextColumn get mime => text()();
+  IntColumn get total => integer()();
+  IntColumn get bytes => integer()();
+
+  /// SHA-256 del clip entero (hex), el mismo que lleva el evento.
+  TextColumn get sha256 => text()();
+  IntColumn get creadoEn => integer()();
+
+  @override
+  Set<Column> get primaryKey => {clipId};
+}

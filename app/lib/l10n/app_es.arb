@@ -596,6 +596,33 @@
       }
     }
   },
+  "hoyVerVideo": "Ver vídeo",
+  "hoyVerFoto": "Ver foto",
+  "hoyClipBajando": "{porcentaje} %",
+  "@hoyClipBajando": {
+    "placeholders": {
+      "porcentaje": {
+        "type": "int"
+      }
+    }
+  },
+  "hoyClipBajandoSemantica": "Bajando: {porcentaje} %",
+  "@hoyClipBajandoSemantica": {
+    "placeholders": {
+      "porcentaje": {
+        "type": "int"
+      }
+    }
+  },
+  "hoyVideoNoDisponible": "Este vídeo ya no está disponible",
+  "hoyFotoNoDisponible": "Esta foto ya no está disponible",
+  "hoyClipNoSeBaja": "No se ha podido bajar. Toca para intentarlo otra vez.",
+  "hoyClipOmitido": "No se envió: ocupaba demasiado",
+  "visorClipNoSeAbre": "No se ha podido abrir.",
+  "visorClipDemo": "Demo: aquí se vería el vídeo de la toma",
+  "visorReproducir": "Reproducir",
+  "visorPausar": "Pausar",
+  "visorCerrar": "Cerrar",
   "hoySinComprobacionesHoy": "Sin comprobaciones hoy",
   "hoySinComprobacionesAyer": "Sin comprobaciones ayer",
   "hoyLlegaPronto": "Llega pronto",
@@ -944,7 +971,6 @@
       }
     }
   },
-  "fixReservadaVerVideo": "Ver el vídeo de cada toma desde el móvil de la familia",
   "fixResumenAlDia": "Tomas de {alias} al día",
   "@fixResumenAlDia": {
     "placeholders": {

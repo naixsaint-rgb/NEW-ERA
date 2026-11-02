@@ -10,6 +10,7 @@ import 'config_sync.dart';
 import 'reintentos.dart';
 import 'sobre_cifrado.dart';
 import 'sync_transport.dart';
+import 'trozo_cifrado.dart';
 
 /// Escucha los avisos del servidor en el canal [tema]. Cada elemento quiere
 /// decir "puede haber sobres nuevos". Sustituible en tests.
@@ -29,6 +30,10 @@ typedef CrearAvisos = Stream<void> Function(
 /// - Avisos: Realtime Broadcast en el canal `aviso_<sha256(token)>`, que un
 ///   disparador del servidor toca al insertar. El aviso no lleva datos: solo
 ///   hace que se pida lo pendiente. Si Realtime falla, se pide cada [sondeo].
+/// - Clips: tabla [tablaTrozos], con la misma cabecera y las mismas reglas.
+///   Se suben en lotes de [tamLoteTrozos] filas por petición (cada trozo
+///   ocupa hasta unos 87 000 caracteres) y se bajan igual, cuando alguien
+///   quiere ver el clip.
 final class SupabaseTransport implements SyncTransport {
   SupabaseTransport({
     required this.config,
@@ -42,11 +47,13 @@ final class SupabaseTransport implements SyncTransport {
     this.esperaMaxima = const Duration(minutes: 5),
     this.intentos = 3,
     this.tamLote = 100,
+    this.tamLoteTrozos = 5,
     Random? azar,
   }) : _crearAvisos = avisos ?? avisosRealtime,
        _azar = azar ?? Random();
 
   static const tabla = 'sobres';
+  static const tablaTrozos = 'clips_trozos';
   static const cabeceraToken = 'x-circulo-token';
   static const eventoAviso = 'nuevos';
 
@@ -58,6 +65,7 @@ final class SupabaseTransport implements SyncTransport {
   final Duration esperaMaxima;
   final int intentos;
   final int tamLote;
+  final int tamLoteTrozos;
 
   final Future<String?> Function() _circuloToken;
   final http.Client? _clienteHttp;
@@ -335,6 +343,137 @@ final class SupabaseTransport implements SyncTransport {
       }
     }
     return (sobres: sobres, ultimo: ultimo, filas: filas.length);
+  }
+
+  // ------------------------------------------------------------ Clips
+
+  @override
+  Future<Set<int>> subirTrozos(String clipId, List<TrozoCifrado> trozos) async {
+    if (trozos.isEmpty) return const {};
+    await conectar();
+    final cliente = _cliente;
+    final token = _token;
+    if (cliente == null || token == null) return const {};
+    var subidos = true;
+    for (var i = 0; i < trozos.length; i += tamLoteTrozos) {
+      final lote = trozos.sublist(i, min(i + tamLoteTrozos, trozos.length));
+      try {
+        await conReintentos(
+          () => _insertarTrozos(cliente, token, lote),
+          intentos: intentos,
+          minima: esperaMinima,
+          maxima: esperaMaxima,
+          azar: _azar,
+        );
+      } catch (_) {
+        // Sin red o rechazado: lo que falte se ve al preguntar y se vuelve a
+        // intentar más tarde.
+        subidos = false;
+        break;
+      }
+    }
+    final pedidos = {for (final t in trozos) t.n};
+    try {
+      final enServidor = await conReintentos(
+        () => _trozosEnServidor(cliente, token, clipId),
+        intentos: subidos ? intentos : 1,
+        minima: esperaMinima,
+        maxima: esperaMaxima,
+        azar: _azar,
+      );
+      return enServidor.intersection(pedidos);
+    } catch (_) {
+      return const {};
+    }
+  }
+
+  /// `INSERT ... ON CONFLICT (clip_id, n) DO NOTHING` vía PostgREST
+  /// (`Prefer: resolution=ignore-duplicates`).
+  Future<void> _insertarTrozos(
+    SupabaseClient cliente,
+    String token,
+    List<TrozoCifrado> lote,
+  ) => cliente
+      .from(tablaTrozos)
+      .upsert(
+        [
+          for (final t in lote)
+            {
+              'circulo_token': token,
+              'clip_id': t.clipId,
+              'n': t.n,
+              'total': t.total,
+              'nonce': base64Encode(t.nonce),
+              'contenido': base64Encode(t.contenido),
+            },
+        ],
+        onConflict: 'clip_id,n',
+        ignoreDuplicates: true,
+      );
+
+  @override
+  Future<Set<int>> trozosEnServidor(String clipId) async {
+    await conectar();
+    final cliente = _cliente;
+    final token = _token;
+    if (cliente == null || token == null) throw const SinServidor();
+    return _trozosEnServidor(cliente, token, clipId);
+  }
+
+  Future<Set<int>> _trozosEnServidor(
+    SupabaseClient cliente,
+    String token,
+    String clipId,
+  ) async {
+    final filas = await cliente
+        .from(tablaTrozos)
+        .select('n')
+        .eq('circulo_token', token)
+        .eq('clip_id', clipId);
+    return {for (final f in filas) (f['n'] as num).toInt()};
+  }
+
+  @override
+  Future<List<TrozoCifrado>> bajarTrozos(
+    String clipId, {
+    int desde = 0,
+    int limite = 5,
+  }) async {
+    await conectar();
+    final cliente = _cliente;
+    final token = _token;
+    if (cliente == null || token == null) throw const SinServidor();
+    final filas = await conReintentos(
+      () => cliente
+          .from(tablaTrozos)
+          .select('clip_id, n, total, nonce, contenido')
+          .eq('circulo_token', token)
+          .eq('clip_id', clipId)
+          .gte('n', desde)
+          .order('n', ascending: true)
+          .limit(limite),
+      intentos: intentos,
+      minima: esperaMinima,
+      maxima: esperaMaxima,
+      azar: _azar,
+    );
+    final trozos = <TrozoCifrado>[];
+    for (final f in filas) {
+      try {
+        trozos.add(
+          TrozoCifrado(
+            clipId: f['clip_id'] as String,
+            n: (f['n'] as num).toInt(),
+            total: (f['total'] as num).toInt(),
+            nonce: base64Decode(f['nonce'] as String),
+            contenido: base64Decode(f['contenido'] as String),
+          ),
+        );
+      } catch (_) {
+        // Fila ilegible: al recomponer faltará y el clip no se abrirá.
+      }
+    }
+    return trozos;
   }
 
   @override

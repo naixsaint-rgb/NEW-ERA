@@ -15,7 +15,9 @@ import 'package:newera/core/plataforma/alarmas/alarmas_no_disponibles.dart';
 import 'package:newera/core/plataforma/alarmas/servicio_alarmas.dart';
 import 'package:newera/core/plataforma/audio/archivos_voz.dart';
 import 'package:newera/core/plataforma/audio/audio_simulado.dart';
+import 'package:newera/core/plataforma/camara/archivos_clip.dart';
 import 'package:newera/core/plataforma/camara/camara_simulada.dart';
+import 'package:newera/core/plataforma/video/visor_clip.dart';
 import 'package:newera/core/providers.dart';
 import 'package:newera/features/catalogo/datos/catalogo_repositorio.dart';
 import 'package:safety_core/safety_core.dart';
@@ -37,7 +39,9 @@ class EntornoPrueba {
     ArchivosVozMemoria? archivos,
     GrabadoraSimulada? grabadora,
     ReproductorSimulado? reproductor,
+    ArchivosClipMemoria? archivosClip,
   }) : almacen = almacen ?? AlmacenSeguroMemoria(),
+       archivosClip = archivosClip ?? ArchivosClipMemoria(),
        archivos = archivos ?? ArchivosVozMemoria(),
        grabadora = grabadora ?? GrabadoraSimulada(ArchivosVozMemoria()),
        reproductor = reproductor ?? ReproductorSimulado();
@@ -57,6 +61,9 @@ class EntornoPrueba {
   final ArchivosVozMemoria archivos;
   final GrabadoraSimulada grabadora;
   final ReproductorSimulado reproductor;
+
+  /// Vídeos y fotos de comprobación (en memoria).
+  final ArchivosClipMemoria archivosClip;
 
   /// Id de la toma de [nombre] (medicamento para la persona) en [fecha]
   /// (`yyyyMMdd`) a las [hora] (`HHmm`).
@@ -102,6 +109,7 @@ Future<EntornoPrueba> prepararEntorno({
   final archivos = ArchivosVozMemoria();
   final grabadora = GrabadoraSimulada(archivos);
   final reproductor = ReproductorSimulado();
+  final archivosClip = ArchivosClipMemoria(ahora: reloj.ahora);
   return EntornoPrueba(
     [
       ...overrides,
@@ -115,6 +123,8 @@ Future<EntornoPrueba> prepararEntorno({
       archivosVozProvider.overrideWithValue(archivos),
       grabadoraProvider.overrideWithValue(grabadora),
       reproductorProvider.overrideWithValue(reproductor),
+      archivosClipProvider.overrideWithValue(archivosClip),
+      visorClipProvider.overrideWithValue(const VisorClipSimulado()),
     ],
     db,
     contexto,
@@ -124,6 +134,7 @@ Future<EntornoPrueba> prepararEntorno({
     archivos: archivos,
     grabadora: grabadora,
     reproductor: reproductor,
+    archivosClip: archivosClip,
   );
 }
 

@@ -9,6 +9,7 @@ import '../../../shared/ios/ios.dart';
 import '../../../shared/l10n_ext.dart';
 import '../../../shared/widgets/etiqueta_estado_toma.dart';
 import '../dominio/tomas.dart';
+import 'fila_clip.dart';
 
 /// Separación entre bloques de la pantalla (spec §5).
 const separacionBloques = SizedBox(height: 14);
@@ -217,7 +218,12 @@ class GrupoComprobaciones extends StatelessWidget {
             ),
           )
         else
-          for (final x in clips) _FilaClip(clip: x, titulo: _tituloClip(l, x)),
+          for (final x in clips)
+            FilaClip(
+              key: ValueKey(x.clip.ulid),
+              clip: x,
+              titulo: _tituloClip(l, x),
+            ),
       ],
     );
   }
@@ -233,31 +239,6 @@ class GrupoComprobaciones extends StatelessWidget {
     return segundos > 0
         ? l.hoyVideoDeLaToma(hora, segundos)
         : l.hoyVideoDeLaTomaSinDuracion(hora);
-  }
-}
-
-class _FilaClip extends StatelessWidget {
-  const _FilaClip({required this.clip, required this.titulo});
-
-  final ClipDeToma clip;
-  final String titulo;
-
-  @override
-  Widget build(BuildContext context) {
-    final c = context.colores;
-    final foto =
-        EventosRepositorio.payloadDe(clip.clip)['tipo'] ==
-        TipoComprobacion.foto.nombre;
-    return FilaLista(
-      leading: IconoCuadrado(
-        foto ? CupertinoIcons.camera_fill : CupertinoIcons.videocam_fill,
-        redondo: true,
-        fondo: c.azulClaro,
-        color: c.azulSobreTinte,
-      ),
-      titulo: titulo,
-      subtitulo: clip.toma.nombreParaPersona,
-    );
   }
 }
 

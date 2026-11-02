@@ -124,18 +124,22 @@ class _TomaPantallaState extends ConsumerState<TomaPantalla> {
     _sesion = null;
     switch (resultado) {
       case ClipGrabado():
-        if (!widget.prueba) {
-          await ref
-              .read(eventosRepositorioProvider)
-              .registrar(
-                TipoEvento.clipGrabado,
-                sujeto: t.toma.id,
-                payload: {
-                  'tipo': resultado.tipo.nombre,
-                  'ruta': resultado.ruta,
-                  'duracionMs': resultado.duracionMs,
-                },
-              );
+        if (widget.prueba) {
+          await ref.read(archivosClipProvider).borrar(resultado.ruta);
+        } else {
+          // `clip_grabado` con el tamaño y el hash; el clip queda en la cola
+          // del cartero, que lo sube cifrado y después lo borra. Pase lo que
+          // pase, la persona llega al «Muy bien».
+          try {
+            await ref
+                .read(clipsProvider)
+                .registrarGrabado(tomaId: t.toma.id, clip: resultado);
+          } catch (_) {
+            await _registrarFallo(
+              t,
+              MotivoClipFallido.error,
+            ).catchError((Object _) {});
+          }
         }
       case ClipFallido():
         await _registrarFallo(t, resultado.motivo);

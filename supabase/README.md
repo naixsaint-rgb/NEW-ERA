@@ -1,8 +1,8 @@
 # NACHO · Servidor cartero (Supabase)
 
 El servidor solo guarda y reparte sobres cifrados entre los móviles del círculo (ADR-0003). No tiene la
-clave y no puede leer nada. Lleva los eventos y las fichas (con sus fotos reducidas); los vídeos, en la
-siguiente entrega.
+clave y no puede leer nada. Lleva los eventos y las fichas (con sus fotos reducidas) y, en otra tabla,
+los vídeos de comprobación cifrados por trozos.
 
 ## NACHO · Crear el proyecto (una vez, gratis)
 
@@ -71,14 +71,23 @@ y la CI las mete en el APK. Un secreto de GitHub con el mismo nombre tendría pr
   si no caben): el `contenido` de un sobre no puede pasar de 90 000 caracteres en base64.
 - El servidor no cambia: sigue sin ver nada más que sobres cifrados.
 
-## NACHO · Vídeos y fotos (siguiente entrega)
+## NACHO · Vídeos de comprobación
 
-Diseño previsto, a confirmar con pruebas en el proyecto real:
+Van por una tabla propia, `clips_trozos`, con las mismas reglas que `sobres` (no por Storage: sus
+políticas con la cabecera del círculo no se han podido comprobar).
 
-- Bucket privado de Storage `clips`. Cada archivo se cifra en el móvil (AES-256-GCM por trozos, clave
-  HKDF con etiqueta propia) y se sube con un nombre aleatorio bajo la carpeta del token.
-- El evento `clip_grabado` viaja en su sobre con la ruta y lo necesario para descifrar; el servidor no ve
-  ni la relación entre clip y toma.
-- Borrado al confirmarse la entrega o a los 7 días (ADR-0003), con una tarea programada en la base.
-- Pendiente de verificar: si las políticas de Storage pueden leer la cabecera como las de la tabla; si no,
-  URLs firmadas que emite una función con el token como argumento.
+- El móvil de la persona graba 10 s a 15 fps, ~500 kbps y 480p, sin audio. Con ffmpeg y vídeo sintético,
+  10 s ocupan unos 640 KB: 10 trozos (sin medir aún con la cámara de un móvil).
+- Calcula el SHA-256 del clip, lo parte en trozos de 64 KiB y cifra cada uno con AES-256-GCM (clave HKDF
+  con etiqueta propia, nonce aleatorio; el id del clip, el número y el total van como datos asociados:
+  nadie puede reordenar ni mezclar trozos). Los sube de 5 en 5, sin duplicar si se repite.
+- Cuando están todos, manda el evento `clip_grabado` en su sobre (id del clip, total, tamaño, tipo,
+  duración y hash) y borra el clip del móvil. Si se corta a medias, sigue donde lo dejó. Más de 4 MB: no
+  viaja y el evento lo anota (`omitido: 'tamaño'`).
+- La familia no baja nada hasta que alguien toca «Ver vídeo» en Hoy; descifra, comprueba el hash y lo
+  guarda en el móvil 7 días.
+- El servidor borra los trozos de más de 7 días con un disparador al insertar y, si el proyecto tiene
+  `pg_cron`, también cada noche (03:17 UTC). Si no hay `pg_cron`, el SQL sigue sin él.
+- Comprobado en PostgreSQL 16 imitando los roles de Supabase: permisos, RLS por cabecera, formatos, tope
+  de tamaño (un trozo de 64 KiB cifrado son 87 404 caracteres), reenvío sin duplicar, caducidad y
+  segunda ejecución. **Sin verificar** en el proyecto real: `pg_cron` y el tamaño máximo de petición.

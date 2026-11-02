@@ -8,6 +8,7 @@ import '../contexto.dart';
 import '../cripto/cifrado_sobres.dart';
 import '../db/base_datos.dart';
 import '../plataforma/audio/archivos_voz.dart';
+import 'clips.dart';
 import 'evento_en_sobre.dart';
 import 'fichas.dart';
 import 'noop_transport.dart';
@@ -27,6 +28,12 @@ import 'sync_transport.dart';
 /// - Fichas: `ficha_creada` y `ficha_modificada` llevan la fila entera y se
 ///   convierten en filas de sus tablas en la misma transacción
 ///   ([MaterializadorFichas]). Los audios de las frases van a [ArchivosVoz].
+/// - Clips: después de los sobres que ya pueden salir, sube los vídeos y
+///   fotos que esperan en `clips_pendientes` ([ClipsCartero]) y luego envía
+///   los `clip_grabado` que han quedado libres. El sobre de un
+///   `clip_grabado` no sale hasta que su clip está entero en el servidor; si
+///   falla a medias, se reintenta con espera creciente y se sigue donde se
+///   quedó.
 ///
 /// Con [NoopTransport] o sin clave del círculo (demo web) no hace nada.
 final class ServicioSync {
@@ -42,6 +49,7 @@ final class ServicioSync {
     this.esperaMaxima = const Duration(minutes: 5),
     Random? azar,
     ArchivosVoz? archivos,
+    this._clips,
   }) : _leerLlaves = llaves,
        _azar = azar ?? Random(),
        _fichas = MaterializadorFichas(_db, _contexto, archivos);
@@ -61,6 +69,7 @@ final class ServicioSync {
   final Reloj _reloj;
   final Random _azar;
   final MaterializadorFichas _fichas;
+  final ClipsCartero? _clips;
 
   LlavesCirculo? _llaves;
   bool _iniciado = false;
@@ -76,6 +85,7 @@ final class ServicioSync {
   bool _empujando = false;
   bool _empujarOtraVez = false;
   int _fallosEnvio = 0;
+  int _fallosClips = 0;
   int _fallosRecepcion = 0;
 
   /// Está conectado al transporte y escuchando.
@@ -145,8 +155,9 @@ final class ServicioSync {
     try {
       final llaves = await _llavesCirculo();
       if (llaves == null) return 0;
-      do {
-        _empujarOtraVez = false;
+      // Envía los sobres que pueden salir. Falso si el servidor no los
+      // aceptó todos (el reintento ya queda programado).
+      Future<bool> enviarSobres() async {
         while (!_detenido) {
           final pendientes = await _pendientes();
           if (pendientes.isEmpty) break;
@@ -159,10 +170,39 @@ final class ServicioSync {
           total += r.aceptados.length;
           if (r.rechazados.isNotEmpty || r.aceptados.isEmpty) {
             _reintentarEnvio();
-            return total;
+            return false;
           }
           _fallosEnvio = 0;
         }
+        return true;
+      }
+
+      var clipsFallaron = false;
+      do {
+        _empujarOtraVez = false;
+        // Primero los sobres: un clip lento o atascado no retrasa los demás
+        // eventos (una petición de ayuda, una toma confirmada).
+        if (!await enviarSobres()) return total;
+        // Después los clips; los `clip_grabado` que queden libres salen en
+        // esta misma llamada. Si fallan, no se repiten aquí: los retoma la
+        // espera creciente.
+        final clips = _clips;
+        if (clips == null || clipsFallaron || _detenido) continue;
+        if (await clips.subirPendientes()) {
+          _fallosClips = 0;
+        } else if (!_detenido) {
+          clipsFallaron = true;
+          _fallosClips++;
+          _programarEmpuje(
+            esperaCreciente(
+              _fallosClips,
+              minima: esperaMinima,
+              maxima: esperaMaxima,
+              azar: _azar,
+            ),
+          );
+        }
+        if (!await enviarSobres()) return total;
       } while (_empujarOtraVez && !_detenido);
     } catch (_) {
       _reintentarEnvio();
@@ -190,7 +230,8 @@ final class ServicioSync {
     _empujeProgramado = Timer(espera, () => unawaited(empujar()));
   }
 
-  /// Eventos de este círculo que no están en `sobres_enviados`.
+  /// Eventos de este círculo que no están en `sobres_enviados` ni esperan a
+  /// que suba su clip (`clips_pendientes`).
   Future<List<Evento>> _pendientes() async {
     final q =
         _db.select(_db.eventos).join([
@@ -198,9 +239,14 @@ final class ServicioSync {
               _db.sobresEnviados,
               _db.sobresEnviados.ulid.equalsExp(_db.eventos.ulid),
             ),
+            leftOuterJoin(
+              _db.clipsPendientes,
+              _db.clipsPendientes.eventoUlid.equalsExp(_db.eventos.ulid),
+            ),
           ])
           ..where(
             _db.sobresEnviados.ulid.isNull() &
+                _db.clipsPendientes.clipId.isNull() &
                 _db.eventos.circuloId.equals(_contexto.circuloId),
           )
           ..orderBy([OrderingTerm.asc(_db.eventos.ulid)])

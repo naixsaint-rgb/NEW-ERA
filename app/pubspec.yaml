@@ -43,6 +43,8 @@ dependencies:
   # Voces de la familia: grabar (AAC mono, m4a) y reproducir. Versiones fijas.
   record: 7.1.2
   audioplayers: 6.8.1
+  # Vídeo de comprobación en el móvil de la familia. Versión fija.
+  video_player: 2.14.1
 
 dev_dependencies:
   flutter_test:

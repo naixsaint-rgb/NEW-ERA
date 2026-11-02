@@ -67,6 +67,8 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
     }, onError: (_) {});
     // Cartero cifrado: solo con servidor configurado. No bloquea el arranque
     // y, al volver a primer plano, envía y recoge lo pendiente.
+    // Vídeos y fotos de más de 7 días que ya no esperan a subir.
+    unawaited(ref.read(clipsProvider).limpiar());
     final sync = ref.read(servicioSyncProvider);
     if (sync != null) {
       unawaited(sync.iniciar());

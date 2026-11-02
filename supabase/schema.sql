@@ -9,8 +9,9 @@
 -- evento), el token del círculo, el id aleatorio del dispositivo que envía, la
 -- versión de la clave y el tamaño (relleno a bloques de 256 bytes).
 --
--- Esta versión lleva solo eventos. Vídeos y fotos irán por Storage en otra
--- entrega (ver supabase/README.md).
+-- Dos tablas: `sobres` (eventos y fichas) y `clips_trozos` (vídeos y fotos
+-- de comprobación, cifrados por trozos; caducan a los 7 días). No se usa
+-- Storage (ver supabase/README.md).
 
 -- ------------------------------------------------------------------ Tabla
 
@@ -175,9 +176,151 @@ create trigger sobres_avisar_nuevos
   for each statement
   execute function public.sobres_avisar_nuevos();
 
+-- ======================================================= Trozos de clips
+--
+-- Los vídeos (y fotos) de comprobación no caben en un sobre. El móvil de la
+-- persona los parte en trozos de 64 KiB, cifra cada trozo con AES-256-GCM
+-- (clave HKDF propia, "newera/v1/clips/aes-256-gcm"; nonce aleatorio por
+-- trozo; el id del clip, el número y el total van como datos asociados, así
+-- que nadie puede reordenar ni mezclar trozos) y los deja aquí. Después
+-- manda el evento `clip_grabado` en su sobre, con el id del clip, el tamaño
+-- y el SHA-256 del clip entero. La familia solo baja los trozos cuando
+-- alguien quiere ver el clip.
+--
+-- Mismas reglas que `sobres`: solo leer y dejar, solo lo del token de la
+-- cabecera `x-circulo-token`. Lo que ve el servidor: el token, un id
+-- aleatorio, cuántos trozos y su tamaño. No sabe de qué toma es.
+--
+-- Por qué una tabla y no Storage: las políticas de Storage con la cabecera
+-- del círculo no se han podido comprobar; esta tabla usa las mismas que
+-- `sobres`, ya probadas.
+
+create table if not exists public.clips_trozos (
+  -- Token del círculo, como en `sobres`.
+  circulo_token text not null
+    check (circulo_token ~ '^[0-9a-f]{64}$'),
+
+  -- ULID del clip (no es el del evento). Lo genera el móvil con 80 bits de
+  -- azar: nadie puede adivinarlo para ocupar su sitio antes.
+  clip_id text not null
+    check (clip_id ~ '^[0-9A-HJKMNP-TV-Z]{26}$'),
+
+  -- Número del trozo (0..total-1) y total de trozos del clip. Un clip de
+  -- 4 MB (el tope del móvil) son 64 trozos.
+  n integer not null,
+  total integer not null
+    check (total between 1 and 64),
+
+  -- Nonce de AES-GCM: 12 bytes en base64.
+  nonce text not null
+    check (nonce ~ '^[A-Za-z0-9+/]{16}$'),
+
+  -- Trozo cifrado + etiqueta (16 bytes), en base64. 64 KiB cifrados son
+  -- 87 404 caracteres: el mismo tope de 90 000 que los sobres.
+  contenido text not null
+    check (char_length(contenido) between 24 and 90000
+           and contenido ~ '^[A-Za-z0-9+/]+={0,2}$'),
+
+  -- Hora del servidor: de ella cuentan los 7 días. El móvil no puede
+  -- fijarla.
+  creado_en timestamptz not null default now(),
+
+  -- Reenviar un trozo que ya estaba no lo duplica ni lo cambia (el móvil
+  -- inserta con ON CONFLICT DO NOTHING).
+  primary key (clip_id, n),
+  check (n >= 0 and n < total)
+);
+
+-- Para borrar lo caducado sin recorrer la tabla.
+create index if not exists clips_trozos_por_fecha
+  on public.clips_trozos (creado_en);
+
+revoke all on table public.clips_trozos from public, anon, authenticated;
+grant select on table public.clips_trozos to anon;
+grant insert (circulo_token, clip_id, n, total, nonce, contenido)
+  on table public.clips_trozos to anon;
+-- Sin UPDATE, DELETE ni TRUNCATE para anon ni authenticated.
+
+alter table public.clips_trozos enable row level security;
+
+drop policy if exists clips_leer_de_mi_circulo on public.clips_trozos;
+create policy clips_leer_de_mi_circulo
+  on public.clips_trozos
+  for select
+  to anon
+  using (
+    circulo_token =
+      nullif(current_setting('request.headers', true), '')::json
+        ->> 'x-circulo-token'
+  );
+
+drop policy if exists clips_dejar_en_mi_circulo on public.clips_trozos;
+create policy clips_dejar_en_mi_circulo
+  on public.clips_trozos
+  for insert
+  to anon
+  with check (
+    circulo_token =
+      nullif(current_setting('request.headers', true), '')::json
+        ->> 'x-circulo-token'
+  );
+
+-- ------------------------------------------- Caducidad: 7 días (ADR-0003)
+--
+-- Cada vez que alguien deja trozos, se borran los de más de 7 días de todos
+-- los círculos. Corre como el dueño de la tabla (security definer): anon no
+-- puede borrar. Una vez por sentencia, con el índice por fecha.
+
+create or replace function public.clips_borrar_caducados()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  delete from public.clips_trozos
+   where creado_en < now() - interval '7 days';
+  return null;
+end;
+$$;
+
+revoke all on function public.clips_borrar_caducados() from public, anon, authenticated;
+
+drop trigger if exists clips_borrar_caducados on public.clips_trozos;
+create trigger clips_borrar_caducados
+  after insert on public.clips_trozos
+  for each statement
+  execute function public.clips_borrar_caducados();
+
+-- Si nadie graba en una semana, el disparador no corre. Con pg_cron (si el
+-- proyecto lo tiene) también se borra cada noche a las 03:17 UTC. Si no está
+-- o no se puede activar, se sigue sin él: este bloque nunca hace fallar el
+-- resto del archivo.
+do $$
+begin
+  if exists (select 1 from pg_available_extensions where name = 'pg_cron') then
+    begin
+      create extension if not exists pg_cron;
+      perform cron.unschedule(j.jobid)
+         from cron.job j
+        where j.jobname = 'newera_clips_caducados';
+      perform cron.schedule(
+        'newera_clips_caducados',
+        '17 3 * * *',
+        $cron$delete from public.clips_trozos where creado_en < now() - interval '7 days'$cron$
+      );
+    exception when others then
+      raise notice 'pg_cron no disponible (%): la limpieza queda en el disparador', sqlerrm;
+    end;
+  end if;
+end;
+$$;
+
 -- Límites conocidos (anotados para la EIPD):
--- * Con la clave anon cualquiera puede dejar sobres basura bajo un token
---   inventado. No molestan a nadie (nadie los pide) y ocupan como mucho
+-- * Con la clave anon cualquiera puede dejar sobres o trozos basura bajo un
+--   token inventado. No molestan a nadie (nadie los pide) y ocupan como mucho
 --   90 KB cada uno. Si pasa, se borran desde el panel con el rol de servicio.
+--   Los trozos basura caducan solos a los 7 días.
 -- * Los sobres de eventos no caducan: un móvil nuevo del círculo necesita el
---   historial. Los vídeos sí (7 días, ADR-0003), en la entrega de Storage.
+--   historial. Los trozos de clips sí (7 días, ADR-0003); no se borran al
+--   entregarse porque puede haber varios familiares que aún no los han visto.

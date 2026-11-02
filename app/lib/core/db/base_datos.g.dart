@@ -9209,6 +9209,521 @@ class SyncEstadoCompanion extends UpdateCompanion<ValorSync> {
   }
 }
 
+class $ClipsPendientesTable extends ClipsPendientes
+    with TableInfo<$ClipsPendientesTable, ClipPendiente> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ClipsPendientesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _clipIdMeta = const VerificationMeta('clipId');
+  @override
+  late final GeneratedColumn<String> clipId = GeneratedColumn<String>(
+    'clip_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _eventoUlidMeta = const VerificationMeta(
+    'eventoUlid',
+  );
+  @override
+  late final GeneratedColumn<String> eventoUlid = GeneratedColumn<String>(
+    'evento_ulid',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'),
+  );
+  static const VerificationMeta _rutaMeta = const VerificationMeta('ruta');
+  @override
+  late final GeneratedColumn<String> ruta = GeneratedColumn<String>(
+    'ruta',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _mimeMeta = const VerificationMeta('mime');
+  @override
+  late final GeneratedColumn<String> mime = GeneratedColumn<String>(
+    'mime',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _totalMeta = const VerificationMeta('total');
+  @override
+  late final GeneratedColumn<int> total = GeneratedColumn<int>(
+    'total',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _bytesMeta = const VerificationMeta('bytes');
+  @override
+  late final GeneratedColumn<int> bytes = GeneratedColumn<int>(
+    'bytes',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _sha256Meta = const VerificationMeta('sha256');
+  @override
+  late final GeneratedColumn<String> sha256 = GeneratedColumn<String>(
+    'sha256',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _creadoEnMeta = const VerificationMeta(
+    'creadoEn',
+  );
+  @override
+  late final GeneratedColumn<int> creadoEn = GeneratedColumn<int>(
+    'creado_en',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    clipId,
+    eventoUlid,
+    ruta,
+    mime,
+    total,
+    bytes,
+    sha256,
+    creadoEn,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'clips_pendientes';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ClipPendiente> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('clip_id')) {
+      context.handle(
+        _clipIdMeta,
+        clipId.isAcceptableOrUnknown(data['clip_id']!, _clipIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_clipIdMeta);
+    }
+    if (data.containsKey('evento_ulid')) {
+      context.handle(
+        _eventoUlidMeta,
+        eventoUlid.isAcceptableOrUnknown(data['evento_ulid']!, _eventoUlidMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_eventoUlidMeta);
+    }
+    if (data.containsKey('ruta')) {
+      context.handle(
+        _rutaMeta,
+        ruta.isAcceptableOrUnknown(data['ruta']!, _rutaMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_rutaMeta);
+    }
+    if (data.containsKey('mime')) {
+      context.handle(
+        _mimeMeta,
+        mime.isAcceptableOrUnknown(data['mime']!, _mimeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_mimeMeta);
+    }
+    if (data.containsKey('total')) {
+      context.handle(
+        _totalMeta,
+        total.isAcceptableOrUnknown(data['total']!, _totalMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_totalMeta);
+    }
+    if (data.containsKey('bytes')) {
+      context.handle(
+        _bytesMeta,
+        bytes.isAcceptableOrUnknown(data['bytes']!, _bytesMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_bytesMeta);
+    }
+    if (data.containsKey('sha256')) {
+      context.handle(
+        _sha256Meta,
+        sha256.isAcceptableOrUnknown(data['sha256']!, _sha256Meta),
+      );
+    } else if (isInserting) {
+      context.missing(_sha256Meta);
+    }
+    if (data.containsKey('creado_en')) {
+      context.handle(
+        _creadoEnMeta,
+        creadoEn.isAcceptableOrUnknown(data['creado_en']!, _creadoEnMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_creadoEnMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {clipId};
+  @override
+  ClipPendiente map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ClipPendiente(
+      clipId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}clip_id'],
+      )!,
+      eventoUlid: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}evento_ulid'],
+      )!,
+      ruta: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}ruta'],
+      )!,
+      mime: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}mime'],
+      )!,
+      total: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total'],
+      )!,
+      bytes: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}bytes'],
+      )!,
+      sha256: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sha256'],
+      )!,
+      creadoEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}creado_en'],
+      )!,
+    );
+  }
+
+  @override
+  $ClipsPendientesTable createAlias(String alias) {
+    return $ClipsPendientesTable(attachedDatabase, alias);
+  }
+}
+
+class ClipPendiente extends DataClass implements Insertable<ClipPendiente> {
+  /// ULID del clip (el de los trozos en el servidor).
+  final String clipId;
+
+  /// Ulid del evento `clip_grabado` que espera a este clip.
+  final String eventoUlid;
+
+  /// Ruta relativa (`clips/<clipId>.mp4`).
+  final String ruta;
+  final String mime;
+  final int total;
+  final int bytes;
+
+  /// SHA-256 del clip entero (hex), el mismo que lleva el evento.
+  final String sha256;
+  final int creadoEn;
+  const ClipPendiente({
+    required this.clipId,
+    required this.eventoUlid,
+    required this.ruta,
+    required this.mime,
+    required this.total,
+    required this.bytes,
+    required this.sha256,
+    required this.creadoEn,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['clip_id'] = Variable<String>(clipId);
+    map['evento_ulid'] = Variable<String>(eventoUlid);
+    map['ruta'] = Variable<String>(ruta);
+    map['mime'] = Variable<String>(mime);
+    map['total'] = Variable<int>(total);
+    map['bytes'] = Variable<int>(bytes);
+    map['sha256'] = Variable<String>(sha256);
+    map['creado_en'] = Variable<int>(creadoEn);
+    return map;
+  }
+
+  ClipsPendientesCompanion toCompanion(bool nullToAbsent) {
+    return ClipsPendientesCompanion(
+      clipId: Value(clipId),
+      eventoUlid: Value(eventoUlid),
+      ruta: Value(ruta),
+      mime: Value(mime),
+      total: Value(total),
+      bytes: Value(bytes),
+      sha256: Value(sha256),
+      creadoEn: Value(creadoEn),
+    );
+  }
+
+  factory ClipPendiente.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ClipPendiente(
+      clipId: serializer.fromJson<String>(json['clipId']),
+      eventoUlid: serializer.fromJson<String>(json['eventoUlid']),
+      ruta: serializer.fromJson<String>(json['ruta']),
+      mime: serializer.fromJson<String>(json['mime']),
+      total: serializer.fromJson<int>(json['total']),
+      bytes: serializer.fromJson<int>(json['bytes']),
+      sha256: serializer.fromJson<String>(json['sha256']),
+      creadoEn: serializer.fromJson<int>(json['creadoEn']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'clipId': serializer.toJson<String>(clipId),
+      'eventoUlid': serializer.toJson<String>(eventoUlid),
+      'ruta': serializer.toJson<String>(ruta),
+      'mime': serializer.toJson<String>(mime),
+      'total': serializer.toJson<int>(total),
+      'bytes': serializer.toJson<int>(bytes),
+      'sha256': serializer.toJson<String>(sha256),
+      'creadoEn': serializer.toJson<int>(creadoEn),
+    };
+  }
+
+  ClipPendiente copyWith({
+    String? clipId,
+    String? eventoUlid,
+    String? ruta,
+    String? mime,
+    int? total,
+    int? bytes,
+    String? sha256,
+    int? creadoEn,
+  }) => ClipPendiente(
+    clipId: clipId ?? this.clipId,
+    eventoUlid: eventoUlid ?? this.eventoUlid,
+    ruta: ruta ?? this.ruta,
+    mime: mime ?? this.mime,
+    total: total ?? this.total,
+    bytes: bytes ?? this.bytes,
+    sha256: sha256 ?? this.sha256,
+    creadoEn: creadoEn ?? this.creadoEn,
+  );
+  ClipPendiente copyWithCompanion(ClipsPendientesCompanion data) {
+    return ClipPendiente(
+      clipId: data.clipId.present ? data.clipId.value : this.clipId,
+      eventoUlid: data.eventoUlid.present
+          ? data.eventoUlid.value
+          : this.eventoUlid,
+      ruta: data.ruta.present ? data.ruta.value : this.ruta,
+      mime: data.mime.present ? data.mime.value : this.mime,
+      total: data.total.present ? data.total.value : this.total,
+      bytes: data.bytes.present ? data.bytes.value : this.bytes,
+      sha256: data.sha256.present ? data.sha256.value : this.sha256,
+      creadoEn: data.creadoEn.present ? data.creadoEn.value : this.creadoEn,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ClipPendiente(')
+          ..write('clipId: $clipId, ')
+          ..write('eventoUlid: $eventoUlid, ')
+          ..write('ruta: $ruta, ')
+          ..write('mime: $mime, ')
+          ..write('total: $total, ')
+          ..write('bytes: $bytes, ')
+          ..write('sha256: $sha256, ')
+          ..write('creadoEn: $creadoEn')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    clipId,
+    eventoUlid,
+    ruta,
+    mime,
+    total,
+    bytes,
+    sha256,
+    creadoEn,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ClipPendiente &&
+          other.clipId == this.clipId &&
+          other.eventoUlid == this.eventoUlid &&
+          other.ruta == this.ruta &&
+          other.mime == this.mime &&
+          other.total == this.total &&
+          other.bytes == this.bytes &&
+          other.sha256 == this.sha256 &&
+          other.creadoEn == this.creadoEn);
+}
+
+class ClipsPendientesCompanion extends UpdateCompanion<ClipPendiente> {
+  final Value<String> clipId;
+  final Value<String> eventoUlid;
+  final Value<String> ruta;
+  final Value<String> mime;
+  final Value<int> total;
+  final Value<int> bytes;
+  final Value<String> sha256;
+  final Value<int> creadoEn;
+  final Value<int> rowid;
+  const ClipsPendientesCompanion({
+    this.clipId = const Value.absent(),
+    this.eventoUlid = const Value.absent(),
+    this.ruta = const Value.absent(),
+    this.mime = const Value.absent(),
+    this.total = const Value.absent(),
+    this.bytes = const Value.absent(),
+    this.sha256 = const Value.absent(),
+    this.creadoEn = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ClipsPendientesCompanion.insert({
+    required String clipId,
+    required String eventoUlid,
+    required String ruta,
+    required String mime,
+    required int total,
+    required int bytes,
+    required String sha256,
+    required int creadoEn,
+    this.rowid = const Value.absent(),
+  }) : clipId = Value(clipId),
+       eventoUlid = Value(eventoUlid),
+       ruta = Value(ruta),
+       mime = Value(mime),
+       total = Value(total),
+       bytes = Value(bytes),
+       sha256 = Value(sha256),
+       creadoEn = Value(creadoEn);
+  static Insertable<ClipPendiente> custom({
+    Expression<String>? clipId,
+    Expression<String>? eventoUlid,
+    Expression<String>? ruta,
+    Expression<String>? mime,
+    Expression<int>? total,
+    Expression<int>? bytes,
+    Expression<String>? sha256,
+    Expression<int>? creadoEn,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (clipId != null) 'clip_id': clipId,
+      if (eventoUlid != null) 'evento_ulid': eventoUlid,
+      if (ruta != null) 'ruta': ruta,
+      if (mime != null) 'mime': mime,
+      if (total != null) 'total': total,
+      if (bytes != null) 'bytes': bytes,
+      if (sha256 != null) 'sha256': sha256,
+      if (creadoEn != null) 'creado_en': creadoEn,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ClipsPendientesCompanion copyWith({
+    Value<String>? clipId,
+    Value<String>? eventoUlid,
+    Value<String>? ruta,
+    Value<String>? mime,
+    Value<int>? total,
+    Value<int>? bytes,
+    Value<String>? sha256,
+    Value<int>? creadoEn,
+    Value<int>? rowid,
+  }) {
+    return ClipsPendientesCompanion(
+      clipId: clipId ?? this.clipId,
+      eventoUlid: eventoUlid ?? this.eventoUlid,
+      ruta: ruta ?? this.ruta,
+      mime: mime ?? this.mime,
+      total: total ?? this.total,
+      bytes: bytes ?? this.bytes,
+      sha256: sha256 ?? this.sha256,
+      creadoEn: creadoEn ?? this.creadoEn,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (clipId.present) {
+      map['clip_id'] = Variable<String>(clipId.value);
+    }
+    if (eventoUlid.present) {
+      map['evento_ulid'] = Variable<String>(eventoUlid.value);
+    }
+    if (ruta.present) {
+      map['ruta'] = Variable<String>(ruta.value);
+    }
+    if (mime.present) {
+      map['mime'] = Variable<String>(mime.value);
+    }
+    if (total.present) {
+      map['total'] = Variable<int>(total.value);
+    }
+    if (bytes.present) {
+      map['bytes'] = Variable<int>(bytes.value);
+    }
+    if (sha256.present) {
+      map['sha256'] = Variable<String>(sha256.value);
+    }
+    if (creadoEn.present) {
+      map['creado_en'] = Variable<int>(creadoEn.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ClipsPendientesCompanion(')
+          ..write('clipId: $clipId, ')
+          ..write('eventoUlid: $eventoUlid, ')
+          ..write('ruta: $ruta, ')
+          ..write('mime: $mime, ')
+          ..write('total: $total, ')
+          ..write('bytes: $bytes, ')
+          ..write('sha256: $sha256, ')
+          ..write('creadoEn: $creadoEn, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -9235,6 +9750,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $HidratacionesTable hidrataciones = $HidratacionesTable(this);
   late final $SobresEnviadosTable sobresEnviados = $SobresEnviadosTable(this);
   late final $SyncEstadoTable syncEstado = $SyncEstadoTable(this);
+  late final $ClipsPendientesTable clipsPendientes = $ClipsPendientesTable(
+    this,
+  );
   late final Index pautasPorPauta = Index(
     'pautas_por_pauta',
     'CREATE INDEX pautas_por_pauta ON pautas (pauta_id, version)',
@@ -9271,6 +9789,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     hidrataciones,
     sobresEnviados,
     syncEstado,
+    clipsPendientes,
     pautasPorPauta,
     eventosPorSujeto,
     eventosPorTipo,
@@ -19497,6 +20016,276 @@ typedef $$SyncEstadoTableProcessedTableManager =
       ValorSync,
       PrefetchHooks Function()
     >;
+typedef $$ClipsPendientesTableCreateCompanionBuilder =
+    ClipsPendientesCompanion Function({
+      required String clipId,
+      required String eventoUlid,
+      required String ruta,
+      required String mime,
+      required int total,
+      required int bytes,
+      required String sha256,
+      required int creadoEn,
+      Value<int> rowid,
+    });
+typedef $$ClipsPendientesTableUpdateCompanionBuilder =
+    ClipsPendientesCompanion Function({
+      Value<String> clipId,
+      Value<String> eventoUlid,
+      Value<String> ruta,
+      Value<String> mime,
+      Value<int> total,
+      Value<int> bytes,
+      Value<String> sha256,
+      Value<int> creadoEn,
+      Value<int> rowid,
+    });
+
+class $$ClipsPendientesTableFilterComposer
+    extends Composer<_$AppDatabase, $ClipsPendientesTable> {
+  $$ClipsPendientesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get clipId => $composableBuilder(
+    column: $table.clipId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get eventoUlid => $composableBuilder(
+    column: $table.eventoUlid,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get ruta => $composableBuilder(
+    column: $table.ruta,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get mime => $composableBuilder(
+    column: $table.mime,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get total => $composableBuilder(
+    column: $table.total,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get bytes => $composableBuilder(
+    column: $table.bytes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get sha256 => $composableBuilder(
+    column: $table.sha256,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get creadoEn => $composableBuilder(
+    column: $table.creadoEn,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ClipsPendientesTableOrderingComposer
+    extends Composer<_$AppDatabase, $ClipsPendientesTable> {
+  $$ClipsPendientesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get clipId => $composableBuilder(
+    column: $table.clipId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get eventoUlid => $composableBuilder(
+    column: $table.eventoUlid,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get ruta => $composableBuilder(
+    column: $table.ruta,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get mime => $composableBuilder(
+    column: $table.mime,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get total => $composableBuilder(
+    column: $table.total,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get bytes => $composableBuilder(
+    column: $table.bytes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get sha256 => $composableBuilder(
+    column: $table.sha256,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get creadoEn => $composableBuilder(
+    column: $table.creadoEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ClipsPendientesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ClipsPendientesTable> {
+  $$ClipsPendientesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get clipId =>
+      $composableBuilder(column: $table.clipId, builder: (column) => column);
+
+  GeneratedColumn<String> get eventoUlid => $composableBuilder(
+    column: $table.eventoUlid,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get ruta =>
+      $composableBuilder(column: $table.ruta, builder: (column) => column);
+
+  GeneratedColumn<String> get mime =>
+      $composableBuilder(column: $table.mime, builder: (column) => column);
+
+  GeneratedColumn<int> get total =>
+      $composableBuilder(column: $table.total, builder: (column) => column);
+
+  GeneratedColumn<int> get bytes =>
+      $composableBuilder(column: $table.bytes, builder: (column) => column);
+
+  GeneratedColumn<String> get sha256 =>
+      $composableBuilder(column: $table.sha256, builder: (column) => column);
+
+  GeneratedColumn<int> get creadoEn =>
+      $composableBuilder(column: $table.creadoEn, builder: (column) => column);
+}
+
+class $$ClipsPendientesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ClipsPendientesTable,
+          ClipPendiente,
+          $$ClipsPendientesTableFilterComposer,
+          $$ClipsPendientesTableOrderingComposer,
+          $$ClipsPendientesTableAnnotationComposer,
+          $$ClipsPendientesTableCreateCompanionBuilder,
+          $$ClipsPendientesTableUpdateCompanionBuilder,
+          (
+            ClipPendiente,
+            BaseReferences<_$AppDatabase, $ClipsPendientesTable, ClipPendiente>,
+          ),
+          ClipPendiente,
+          PrefetchHooks Function()
+        > {
+  $$ClipsPendientesTableTableManager(
+    _$AppDatabase db,
+    $ClipsPendientesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ClipsPendientesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ClipsPendientesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ClipsPendientesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> clipId = const Value.absent(),
+                Value<String> eventoUlid = const Value.absent(),
+                Value<String> ruta = const Value.absent(),
+                Value<String> mime = const Value.absent(),
+                Value<int> total = const Value.absent(),
+                Value<int> bytes = const Value.absent(),
+                Value<String> sha256 = const Value.absent(),
+                Value<int> creadoEn = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ClipsPendientesCompanion(
+                clipId: clipId,
+                eventoUlid: eventoUlid,
+                ruta: ruta,
+                mime: mime,
+                total: total,
+                bytes: bytes,
+                sha256: sha256,
+                creadoEn: creadoEn,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String clipId,
+                required String eventoUlid,
+                required String ruta,
+                required String mime,
+                required int total,
+                required int bytes,
+                required String sha256,
+                required int creadoEn,
+                Value<int> rowid = const Value.absent(),
+              }) => ClipsPendientesCompanion.insert(
+                clipId: clipId,
+                eventoUlid: eventoUlid,
+                ruta: ruta,
+                mime: mime,
+                total: total,
+                bytes: bytes,
+                sha256: sha256,
+                creadoEn: creadoEn,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$ClipsPendientesTable, ClipPendiente>(table),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $ClipsPendientesTable,
+                    ClipPendiente
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ClipsPendientesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ClipsPendientesTable,
+      ClipPendiente,
+      $$ClipsPendientesTableFilterComposer,
+      $$ClipsPendientesTableOrderingComposer,
+      $$ClipsPendientesTableAnnotationComposer,
+      $$ClipsPendientesTableCreateCompanionBuilder,
+      $$ClipsPendientesTableUpdateCompanionBuilder,
+      (
+        ClipPendiente,
+        BaseReferences<_$AppDatabase, $ClipsPendientesTable, ClipPendiente>,
+      ),
+      ClipPendiente,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -19539,4 +20328,6 @@ class $AppDatabaseManager {
       $$SobresEnviadosTableTableManager(_db, _db.sobresEnviados);
   $$SyncEstadoTableTableManager get syncEstado =>
       $$SyncEstadoTableTableManager(_db, _db.syncEstado);
+  $$ClipsPendientesTableTableManager get clipsPendientes =>
+      $$ClipsPendientesTableTableManager(_db, _db.clipsPendientes);
 }

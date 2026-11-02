@@ -14,6 +14,9 @@ import 'almacen_seguro.dart';
 ///   porque de un resultado de HKDF no se puede volver a la clave ni sacar el
 ///   otro.
 /// - la clave de los sobres (AES-256-GCM), que nunca sale del móvil.
+/// - la clave de los trozos de vídeo y foto de comprobación
+///   ([CifradoClips]), con su propia etiqueta: un trozo no se puede abrir
+///   como sobre ni al revés.
 ///
 /// La clave del círculo no se guarda aquí: se lee del almacén seguro, se
 /// deriva y se suelta. Solo quedan en memoria los derivados.
@@ -22,6 +25,7 @@ final class LlavesCirculo {
     required this.version,
     required this.token,
     required this._claveSobres,
+    required this._claveClips,
   });
 
   /// Versión de la clave del círculo (`newera.circulo.clave.version`).
@@ -31,9 +35,11 @@ final class LlavesCirculo {
   final String token;
 
   final SecretKey _claveSobres;
+  final SecretKey _claveClips;
 
   static const _infoToken = 'newera/v1/token-servidor';
   static const _infoSobres = 'newera/v1/sobres/aes-256-gcm';
+  static const _infoClips = 'newera/v1/clips/aes-256-gcm';
 
   static final _hkdf = Hkdf(hmac: Hmac.sha256(), outputLength: 32);
 
@@ -51,10 +57,15 @@ final class LlavesCirculo {
       secretKey: semilla,
       info: utf8.encode(_infoSobres),
     );
+    final clips = await _hkdf.deriveKey(
+      secretKey: semilla,
+      info: utf8.encode(_infoClips),
+    );
     return LlavesCirculo._(
       version: version,
       token: bytesAHex(token.bytes),
       claveSobres: sobres,
+      claveClips: clips,
     );
   }
 
@@ -133,6 +144,69 @@ abstract final class CifradoSobres {
 
   static List<int> _aad(String ulid, int version) =>
       utf8.encode('newera/sobre/v1|$ulid|$version');
+}
+
+/// AES-256-GCM para cada trozo de un clip (vídeo o foto de comprobación).
+///
+/// Clave propia (HKDF con `newera/v1/clips/aes-256-gcm`), nonce aleatorio de
+/// 12 bytes por trozo y, como datos asociados, el id del clip, el número del
+/// trozo, el total de trozos y la versión de la clave: el servidor no puede
+/// cambiar el orden de los trozos, mezclar trozos de dos clips ni quitar los
+/// últimos sin que el descifrado falle.
+abstract final class CifradoClips {
+  static final _aes = AesGcm.with256bits();
+
+  static Future<SobreSellado> cifrar(
+    List<int> claro, {
+    required LlavesCirculo llaves,
+    required String clipId,
+    required int n,
+    required int total,
+  }) async {
+    final caja = await _aes.encrypt(
+      claro,
+      secretKey: llaves._claveClips,
+      aad: _aad(clipId, n, total, llaves.version),
+    );
+    return (
+      nonce: Uint8List.fromList(caja.nonce),
+      contenido: caja.concatenation(nonce: false),
+    );
+  }
+
+  /// El trozo en claro, o nulo si no es de esta clave, de este clip, de esta
+  /// posición o está alterado.
+  static Future<Uint8List?> descifrar({
+    required Uint8List nonce,
+    required Uint8List contenido,
+    required LlavesCirculo llaves,
+    required String clipId,
+    required int n,
+    required int total,
+  }) async {
+    if (nonce.length != _aes.nonceLength ||
+        contenido.length < CifradoSobres.bytesEtiqueta) {
+      return null;
+    }
+    final corte = contenido.length - CifradoSobres.bytesEtiqueta;
+    try {
+      final claro = await _aes.decrypt(
+        SecretBox(
+          contenido.sublist(0, corte),
+          nonce: nonce,
+          mac: Mac(contenido.sublist(corte)),
+        ),
+        secretKey: llaves._claveClips,
+        aad: _aad(clipId, n, total, llaves.version),
+      );
+      return Uint8List.fromList(claro);
+    } on SecretBoxAuthenticationError {
+      return null;
+    }
+  }
+
+  static List<int> _aad(String clipId, int n, int total, int version) =>
+      utf8.encode('newera/clip/v1|$clipId|$n|$total|$version');
 }
 
 /// `"0aff"` → `[0x0a, 0xff]`.

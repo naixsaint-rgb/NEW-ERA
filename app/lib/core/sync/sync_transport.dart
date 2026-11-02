@@ -1,4 +1,5 @@
 import 'sobre_cifrado.dart';
+import 'trozo_cifrado.dart';
 
 enum EstadoTransporte { desconectado, conectando, conectado, sinConfigurar }
 
@@ -23,4 +24,32 @@ abstract interface class SyncTransport {
   /// no da error.
   Stream<SobreCifrado> recibidos({int desde = 0});
   Future<void> desconectar();
+
+  // ------------------------------------------- Trozos de clips (tabla aparte)
+
+  /// Sube [trozos] de [clipId] en lotes de hasta 5 filas por petición, con
+  /// reintentos. Idempotente por `(clip_id, n)`: un trozo que ya estaba no se
+  /// duplica ni se cambia. Devuelve los `n` de [trozos] que están en el
+  /// servidor después de subir (también los que ya estaban). Nunca lanza: sin
+  /// red, devuelve los que se sabe que están (quizá ninguno).
+  Future<Set<int>> subirTrozos(String clipId, List<TrozoCifrado> trozos);
+
+  /// Los `n` de [clipId] que ya están en el servidor. Lanza sin red.
+  Future<Set<int>> trozosEnServidor(String clipId);
+
+  /// Hasta [limite] trozos de [clipId] con `n >= desde`, por orden de `n`.
+  /// Vacío si no hay (ya caducaron o nunca subieron). Lanza sin red.
+  Future<List<TrozoCifrado>> bajarTrozos(
+    String clipId, {
+    int desde = 0,
+    int limite = 5,
+  });
+}
+
+/// Sin servidor no se puede subir ni bajar un clip.
+final class SinServidor implements Exception {
+  const SinServidor();
+
+  @override
+  String toString() => 'SinServidor';
 }

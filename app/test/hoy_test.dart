@@ -71,10 +71,10 @@ void main() {
     await tester.scrollUntilVisible(find.text('Respuesta de control'), 300);
     expect(find.text('Respuesta de control'), findsOneWidget);
     expect(find.text('LLEGA PRONTO'), findsOneWidget);
-    // Lo que llega no repite lo que ya está en Comprobaciones.
+    // El vídeo ya se ve desde Comprobaciones: no sale como «llega pronto».
     expect(
       find.text('Ver el vídeo de cada toma desde el móvil de la familia'),
-      findsOneWidget,
+      findsNothing,
     );
     expect(find.text('Vídeo de la toma'), findsNothing);
     expect(tester.takeException(), isNull);

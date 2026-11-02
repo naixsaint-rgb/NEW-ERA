@@ -698,13 +698,14 @@ void main() {
           );
       await v1.customStatement('DROP TABLE sobres_enviados');
       await v1.customStatement('DROP TABLE sync_estado');
+      await v1.customStatement('DROP TABLE clips_pendientes');
       await v1.customStatement('PRAGMA user_version = 1');
       await v1.close();
 
       final v2 = AppDatabase(NativeDatabase(archivo));
       addTearDown(v2.close);
       final version = await v2.customSelect('PRAGMA user_version').getSingle();
-      expect(version.data.values.single, 2);
+      expect(version.data.values.single, v2.schemaVersion);
       expect(await v2.select(v2.eventos).get(), hasLength(1));
       expect(await v2.select(v2.sobresEnviados).get(), isEmpty);
       await v2

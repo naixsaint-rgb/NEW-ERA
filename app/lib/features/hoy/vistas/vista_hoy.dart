@@ -56,10 +56,6 @@ class VistaHoy extends ConsumerWidget {
           titulo: l.hoyLlegaPronto,
           children: [
             FilaLlegaPronto(
-              titulo: l.fixReservadaVerVideo,
-              subtitulo: l.llegaEnSemana(3),
-            ),
-            FilaLlegaPronto(
               titulo: l.reservadaUbicacion,
               subtitulo: l.llegaEnSemana(10),
             ),

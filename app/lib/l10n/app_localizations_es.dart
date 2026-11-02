@@ -876,6 +876,50 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get hoyVerVideo => 'Ver vídeo';
+
+  @override
+  String get hoyVerFoto => 'Ver foto';
+
+  @override
+  String hoyClipBajando(int porcentaje) {
+    return '$porcentaje %';
+  }
+
+  @override
+  String hoyClipBajandoSemantica(int porcentaje) {
+    return 'Bajando: $porcentaje %';
+  }
+
+  @override
+  String get hoyVideoNoDisponible => 'Este vídeo ya no está disponible';
+
+  @override
+  String get hoyFotoNoDisponible => 'Esta foto ya no está disponible';
+
+  @override
+  String get hoyClipNoSeBaja =>
+      'No se ha podido bajar. Toca para intentarlo otra vez.';
+
+  @override
+  String get hoyClipOmitido => 'No se envió: ocupaba demasiado';
+
+  @override
+  String get visorClipNoSeAbre => 'No se ha podido abrir.';
+
+  @override
+  String get visorClipDemo => 'Demo: aquí se vería el vídeo de la toma';
+
+  @override
+  String get visorReproducir => 'Reproducir';
+
+  @override
+  String get visorPausar => 'Pausar';
+
+  @override
+  String get visorCerrar => 'Cerrar';
+
+  @override
   String get hoySinComprobacionesHoy => 'Sin comprobaciones hoy';
 
   @override
@@ -1233,10 +1277,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String fixMananaALasHoraPastilla(String hora, String nombre) {
     return 'Mañana a las $hora, $nombre';
   }
-
-  @override
-  String get fixReservadaVerVideo =>
-      'Ver el vídeo de cada toma desde el móvil de la familia';
 
   @override
   String fixResumenAlDia(String alias) {

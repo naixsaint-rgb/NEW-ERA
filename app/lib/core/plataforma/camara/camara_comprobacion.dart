@@ -26,6 +26,8 @@ final class ClipGrabado extends ResultadoCamara {
 
   /// `video` o `foto`.
   final TipoComprobacion tipo;
+
+  /// Relativa a `ArchivosClip` (`clips/<tomaId>.mp4`).
   final String ruta;
   final int duracionMs;
 }

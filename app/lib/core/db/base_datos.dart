@@ -39,15 +39,17 @@ const tablasDeHechos = <String>[
     Hidrataciones,
     SobresEnviados,
     SyncEstado,
+    ClipsPendientes,
   ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
   /// 1: semana 1. 2: tablas del cartero cifrado (`sobres_enviados` y
-  /// `sync_estado`); las tablas de hechos no cambian.
+  /// `sync_estado`); las tablas de hechos no cambian. 3: cola de subida de
+  /// los clips (`clips_pendientes`).
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -69,6 +71,9 @@ class AppDatabase extends _$AppDatabase {
       if (from < 2) {
         await m.createTable(sobresEnviados);
         await m.createTable(syncEstado);
+      }
+      if (from < 3) {
+        await m.createTable(clipsPendientes);
       }
     },
     beforeOpen: (details) async {

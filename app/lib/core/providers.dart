@@ -24,10 +24,15 @@ import 'plataforma/audio/audio_movil.dart';
 import 'plataforma/audio/audio_simulado.dart';
 import 'plataforma/audio/grabadora.dart';
 import 'plataforma/audio/reproductor.dart';
+import 'plataforma/camara/archivos_clip.dart';
+import 'plataforma/camara/archivos_clip_disco.dart';
 import 'plataforma/camara/camara_comprobacion.dart';
 import 'plataforma/camara/camara_movil.dart';
 import 'plataforma/camara/camara_simulada.dart';
+import 'plataforma/video/visor_clip.dart';
+import 'plataforma/video/visor_clip_movil.dart';
 import 'cripto/cifrado_sobres.dart';
+import 'sync/clips.dart';
 import 'sync/config_sync.dart';
 import 'sync/noop_transport.dart';
 import 'sync/servicio_sync.dart';
@@ -74,9 +79,22 @@ final servicioAlarmasProvider = Provider<ServicioAlarmas>((ref) {
   };
 });
 
+/// Carpeta de los vídeos y fotos de comprobación: documentos de la app en el
+/// móvil; en la demo web, la memoria.
+final archivosClipProvider = Provider<ArchivosClip>(
+  (ref) => kIsWeb ? ArchivosClipMemoria() : ArchivosClipDisco(),
+);
+
 /// Cámara frontal en móvil; en web, la simulada.
 final camaraProvider = Provider<CamaraComprobacion>(
-  (ref) => kIsWeb ? const CamaraSimulada() : const CamaraMovil(),
+  (ref) => kIsWeb
+      ? const CamaraSimulada()
+      : CamaraMovil(ref.watch(archivosClipProvider)),
+);
+
+/// Reproductor de los clips bajados (`video_player`); en web, un marcador.
+final visorClipProvider = Provider<VisorClip>(
+  (ref) => kIsWeb ? const VisorClipSimulado() : const VisorClipMovil(),
 );
 
 /// Carpeta de los audios de las voces: documentos de la app en el móvil; en
@@ -315,6 +333,21 @@ final syncTransportProvider = Provider<SyncTransport>((ref) {
   return transporte;
 });
 
+/// Vídeos y fotos de comprobación por el cartero: cola de subida en el móvil
+/// de la persona, bajada al tocar el clip en el de la familia y limpieza a
+/// los 7 días. Con [NoopTransport] los clips esperan y no se pueden bajar.
+final clipsProvider = Provider<ClipsCartero>((ref) {
+  return ClipsCartero(
+    db: ref.watch(baseDatosProvider),
+    eventos: ref.watch(eventosRepositorioProvider),
+    transporte: ref.watch(syncTransportProvider),
+    llaves: () => ref.read(llavesCirculoProvider.future),
+    archivos: ref.watch(archivosClipProvider),
+    reloj: ref.watch(relojProvider),
+    azar: ref.watch(azarProvider),
+  );
+});
+
 /// Servicio de sincronización; nulo con [NoopTransport] (no toca nada).
 final servicioSyncProvider = Provider<ServicioSync?>((ref) {
   final transporte = ref.watch(syncTransportProvider);
@@ -326,6 +359,7 @@ final servicioSyncProvider = Provider<ServicioSync?>((ref) {
     contexto: ref.watch(contextoProvider),
     reloj: ref.watch(relojProvider),
     archivos: ref.watch(archivosVozProvider),
+    clips: ref.watch(clipsProvider),
   );
   ref.onDispose(() => unawaited(servicio.detener()));
   return servicio;
