@@ -28,15 +28,15 @@ Actualizado: 2026-11-02 (sesión 3). Plan vigente: [[planes/PLAN-v3]]. Interfaz:
   pregunta y en la alarma de Android (ADR-0007); vídeo y foto de comprobación por el cartero en trozos cifrados,
   con «Ver vídeo» en Hoy y caducidad a 7 días (ADR-0008); control por horas real: rondas de 9 a 21 ajustables desde
   la familia, respuestas guardadas y por el cartero, «sin respuesta» deducido por la familia, semáforo y avisos del
-  día (ADR-0009). 317 tests. Regla fija de modelos y ahorro en CLAUDE.md.
+  día (ADR-0009); avisos reales a la familia por ntfy.sh sin cuentas ni datos, escalado 5/10 min, con la app
+  cerrada en Android (ADR-0010). 352 tests. Regla fija de modelos y ahorro en CLAUDE.md.
 - Pendiente de la sesión 2: lo que no existe sigue marcado "llega en la semana N" (pulso, pasos y sueño con el reloj;
   vistas Ayer y Semana con respuestas). El aviso a la familia que anuncian Hoy y Resumen es el escalado
   configurado; el envío real llega en la semana 4 del plan.
 
 ## Qué sigue
 1. Ejecutar `supabase/schema.sql` en el proyecto (lo hace el promotor) y probar el APK con dos móviles.
-2. Envío real de avisos a la familia (necesita cuentas de notificaciones: Firebase para Android y Apple para
-   iPhone) y escalado por ronda. AlarmKit real en iOS 26 (capa Swift).
+2. AlarmKit real en iOS 26 (capa Swift) y, con ella, avisos en segundo plano también en iPhone.
 3. Pendientes de la revisión de Opus: pantalla de error si falla el cifrado, pérdida de clave con base existente,
    excluir vídeos de la copia de iCloud, alarma que sigue sonando mientras se graba el vídeo.
 4. Decisión del promotor: en /persona hay más de tres botones a la vez (la especificación pedía tres).
@@ -49,6 +49,8 @@ Actualizado: 2026-11-02 (sesión 3). Plan vigente: [[planes/PLAN-v3]]. Interfaz:
 - Chromium sin cabeza sin idioma del sistema anuncia "en-US@posix" y el motor web de Flutter falla al arrancar;
   no afecta a navegadores reales. El guion de capturas fija el idioma es-ES.
 - Sin verificar: que AlarmKit suene en bucle indefinido y acepte audio propio; límites de TestFlight con Apple ID gratuito.
+- Avisos por ntfy: sin verificar `ntfy://` en iPhone, `newera://hoy` desde la app ntfy, y la revisión en segundo
+  plano en Android real; pasos del familiar en el ADR-0010.
 - Control por horas: iOS sigue en stub; en Android real sin verificar el tono suave, el bucle y la apertura a
   pantalla completa de la pregunta.
 - Vídeo por el cartero: sin verificar contra el proyecto real (tamaño máximo de petición con lotes de ~437 KB,

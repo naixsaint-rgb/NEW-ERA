@@ -33,12 +33,23 @@ aunque la app esté cerrada. Eso exige un servidor de notificaciones: no se pued
   segundo plano hasta la capa Swift (AlarmKit); mientras, solo con la app abierta.
 - **Familia:** en Círculo, orden de escalado por familiar y «Avisos en este móvil»: botón que abre
   `ntfy://ntfy.sh/<tema>` en Android, el nombre del tema para copiarlo en iPhone, y «Enviar aviso de prueba».
-- Respeto del límite: reintentos espaciados ante 429, nunca ráfagas; idempotencia por toma y escalón.
+- Respeto del límite: cola de uno en uno, reintentos espaciados ante 429 (`Retry-After` o 5 s), 5xx y sin
+  red con espera creciente; otros 4xx no se reintentan. ntfy.sh fija además 250 mensajes al día por visitante.
+- Hecho tal cual (2/11): cuerpo, título (`NEW-ERA`), etiqueta `bell` y `Click` siempre idénticos, solo cambia la
+  prioridad; sin puestos de aviso, los de +5 y +10 van a todos; cada envío queda en `aviso_enviado` y una reserva
+  evita que la app abierta y la revisión en segundo plano lo manden a la vez; un fallo se reintenta a los 2
+  minutos dentro de una ventana de 30; pasado ese margen ya no se envía. El aviso de prueba no deja evento.
+  Al hacerlo apareció que al APK de release le faltaba el permiso `INTERNET` (el cartero tampoco habría
+  funcionado fuera de depuración); corregido.
 
 ## NACHO · Consecuencias
 - Zero coste y sin cuentas; la familia instala una app más (ntfy). Se puede cambiar a Firebase o a un ntfy
   propio más adelante sin tocar el cartero.
-- Sin verificar: que el enlace `ntfy://` suscriba en iPhone; la ejecución exacta en segundo plano en Android
-  real (fabricantes que matan procesos); que ntfy.sh no cambie sus límites gratuitos.
+- Sin verificar: que el enlace `ntfy://` suscriba en iPhone; que la app ntfy abra `newera://hoy` al tocar el
+  aviso; la revisión en segundo plano en un Android real (almacén seguro y base cifrada desde ese proceso,
+  permiso de alarma exacta en Android 14+, Doze, fabricantes que matan apps, reprogramación tras reiniciar);
+  que ntfy.sh no cambie sus límites gratuitos. El tema funciona como contraseña: quien lo conozca puede leer
+  esos avisos sin datos o mandar avisos falsos a ese familiar.
+- El móvil de la persona tiene que abrir la app una vez tras actualizar para programar las revisiones.
 - Pendiente: vigilante en el servidor para «el móvil de la persona lleva horas sin dar señales» (pg_cron +
   pg_net con el tema derivado en SQL), y el aviso de ronda sin respuesta cuando su móvil está apagado.
