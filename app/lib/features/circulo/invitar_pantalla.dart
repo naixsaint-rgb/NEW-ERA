@@ -30,6 +30,7 @@ final invitacionProvider = FutureProvider.autoDispose<String?>((ref) async {
     db: ref.watch(baseDatosProvider),
     eventos: ref.watch(eventosRepositorioProvider),
     contexto: contexto,
+    archivos: ref.watch(archivosVozProvider),
   ).pendientes();
   try {
     return Invitacion(

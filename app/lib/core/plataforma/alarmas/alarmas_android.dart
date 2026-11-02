@@ -8,8 +8,16 @@ import 'package:safety_core/safety_core.dart';
 import 'servicio_alarmas.dart';
 
 /// Alarmas en Android sobre el paquete `alarm`: id numérico estable
-/// ([idAlarmaNumerico]), tono en bucle, vibración y notificación.
-class AlarmasAndroid implements ServicioAlarmas {
+/// ([idAlarmaNumerico]), sonido en bucle, vibración y notificación.
+///
+/// Sonido: [rutaAudio] si llega (la frase `toma` de la familia, una ruta
+/// relativa `voces/….m4a`); si no, el tono. El paquete admite una ruta
+/// relativa a la carpeta de documentos de la app (en Android,
+/// `app_flutter`, que es la de `getApplicationDocumentsDirectory`) y la
+/// reproduce con `MediaPlayer` (ver `assetAudioPath` en `AlarmSettings` y
+/// `AudioService.playAudio` del paquete). Es almacenamiento privado: no hace
+/// falta `READ_EXTERNAL_STORAGE`.
+class AlarmasAndroid implements ServicioAlarmas, ConsultaAlarmaSonando {
   AlarmasAndroid();
 
   static const tituloNotificacion = 'Es la hora de la pastilla';
@@ -88,6 +96,16 @@ class AlarmasAndroid implements ServicioAlarmas {
       ],
       implementado: true,
     );
+  }
+
+  @override
+  Future<bool> estaSonando(String idToma) async {
+    try {
+      await iniciar();
+      return await Alarm.isRinging(idAlarmaNumerico(idToma));
+    } catch (_) {
+      return false;
+    }
   }
 
   @override

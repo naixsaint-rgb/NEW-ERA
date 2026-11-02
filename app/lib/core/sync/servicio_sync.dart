@@ -7,6 +7,7 @@ import 'package:safety_core/safety_core.dart';
 import '../contexto.dart';
 import '../cripto/cifrado_sobres.dart';
 import '../db/base_datos.dart';
+import '../plataforma/audio/archivos_voz.dart';
 import 'evento_en_sobre.dart';
 import 'fichas.dart';
 import 'noop_transport.dart';
@@ -25,7 +26,7 @@ import 'sync_transport.dart';
 ///   no estaba. Solo inserta: los disparadores de solo inserción se respetan.
 /// - Fichas: `ficha_creada` y `ficha_modificada` llevan la fila entera y se
 ///   convierten en filas de sus tablas en la misma transacción
-///   ([MaterializadorFichas]).
+///   ([MaterializadorFichas]). Los audios de las frases van a [ArchivosVoz].
 ///
 /// Con [NoopTransport] o sin clave del círculo (demo web) no hace nada.
 final class ServicioSync {
@@ -40,9 +41,10 @@ final class ServicioSync {
     this.esperaMinima = const Duration(seconds: 5),
     this.esperaMaxima = const Duration(minutes: 5),
     Random? azar,
+    ArchivosVoz? archivos,
   }) : _leerLlaves = llaves,
        _azar = azar ?? Random(),
-       _fichas = MaterializadorFichas(_db, _contexto);
+       _fichas = MaterializadorFichas(_db, _contexto, archivos);
 
   /// Clave de `sync_estado` con el último `sobres.id` guardado.
   static const claveCursor = 'sobres.ultimo_recibido';

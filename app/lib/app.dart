@@ -54,6 +54,13 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
       }
       unawaited(_reprogramar());
     });
+    // Si cambia la frase que dice la alarma (llega una voz, se aprueba otra
+    // toma o se retira), se vuelven a programar.
+    ref.listenManual<String?>(firmaVozTomaProvider, (antes, ahora) {
+      if (antes == null || ahora == null || antes == ahora) return;
+      if (ref.read(sesionProvider).perfil != PerfilApp.persona) return;
+      unawaited(_reprogramar());
+    });
     // Si suena una alarma, se abre la pantalla de esa toma.
     _sonando = ref.read(servicioAlarmasProvider).sonando().listen((idToma) {
       ref.read(routerProvider).go(Rutas.toma(idToma));

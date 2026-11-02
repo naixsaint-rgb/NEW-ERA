@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../core/db/base_datos.dart';
+import '../../core/db/repositorios/voces_repositorio.dart';
 import '../../core/enrutado/rutas.dart';
 import '../../core/i18n/fechas.dart';
+import '../../core/plataforma/audio/reproductor.dart';
 import '../../core/providers.dart';
 import '../../core/tema/colores.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/claves_ui.dart';
 import '../../shared/l10n_ext.dart';
 import '../../shared/widgets/boton_grande.dart';
-import '../persona_inicio/llamadas.dart';
 
 /// Cómo se pinta una respuesta.
 enum _Estilo { verde, naranja, rojo, azul }
@@ -30,16 +30,17 @@ class _Opcion {
   final _Estilo estilo;
 }
 
-/// Una pregunta con sus respuestas.
+/// Una pregunta con sus respuestas y la frase grabada que la dice.
 class _Pregunta {
-  const _Pregunta(this.texto, this.opciones);
+  const _Pregunta(this.uso, this.texto, this.opciones);
 
+  final UsoFrase uso;
   final String Function(AppLocalizations) texto;
   final List<_Opcion> opciones;
 }
 
 final _preguntas = [
-  _Pregunta((l) => l.preguntaComoEstas, [
+  _Pregunta(UsoFrase.comoEstas, (l) => l.preguntaComoEstas, [
     _Opcion(
       'bien',
       (l) => l.preguntaRespBien,
@@ -59,7 +60,7 @@ final _preguntas = [
       _Estilo.rojo,
     ),
   ]),
-  _Pregunta((l) => l.preguntaTeDuele, [
+  _Pregunta(UsoFrase.teDuele, (l) => l.preguntaTeDuele, [
     _Opcion(
       'nada',
       (l) => l.preguntaRespNada,
@@ -79,7 +80,7 @@ final _preguntas = [
       _Estilo.rojo,
     ),
   ]),
-  _Pregunta((l) => l.preguntaQueHaras, [
+  _Pregunta(UsoFrase.queHaras, (l) => l.preguntaQueHaras, [
     _Opcion('pasear', (l) => l.preguntaRespPasear, null, _Estilo.azul),
     _Opcion('descansar', (l) => l.preguntaRespDescansar, null, _Estilo.azul),
     _Opcion('tele', (l) => l.preguntaRespVerLaTele, null, _Estilo.azul),
@@ -94,9 +95,13 @@ const _dichoEnVoz = '_voz';
 /// familiar y respuestas grandes. Tres preguntas en orden y una pantalla de
 /// "Gracias".
 ///
+/// La voz: cada pregunta suena al mostrarse con la frase grabada de la
+/// familia (la primera voz del círculo que la tenga aprobada) y otra vez al
+/// tocar el altavoz. Sin frase grabada no suena nada ni hay tarjeta de voz.
+///
 /// En esta entrega NO se guarda nada en la base: ni las respuestas ni los
-/// "Prefiero decirlo". La programación por horas, la grabación de la voz y las
-/// respuestas guardadas llegan en la semana 5 del plan v3.
+/// "Prefiero decirlo". La programación por horas y las respuestas guardadas
+/// llegan en la semana 5 del plan v3.
 ///
 /// Con [prueba] (desde la familia) al terminar vuelve a Medicación; si no, al
 /// inicio de la persona.
@@ -114,19 +119,42 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
   /// Lo contestado hasta ahora, en orden de pregunta.
   final _respuestas = <String>[];
   Timer? _cierre;
+  late final Reproductor _reproductor;
+
+  /// Pregunta cuya frase ya sonó al mostrarse.
+  int? _sonadaEn;
 
   /// Pregunta que se está mostrando (0–2); 3 es la pantalla de "Gracias".
   int get _indice => _respuestas.length;
   bool get _terminada => _indice >= _preguntas.length;
 
   @override
+  void initState() {
+    super.initState();
+    _reproductor = ref.read(reproductorProvider);
+  }
+
+  @override
   void dispose() {
     _cierre?.cancel();
+    unawaited(_reproductor.parar());
     super.dispose();
+  }
+
+  /// La frase de la pregunta [indice] suena una vez al mostrarse.
+  void _sonarAlMostrar(int indice, FraseSonora? frase) {
+    if (frase == null || _sonadaEn == indice) return;
+    _sonadaEn = indice;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && _indice == indice) {
+        unawaited(_reproductor.reproducir(frase.ruta));
+      }
+    });
   }
 
   void _contestar(String clave) {
     if (_terminada) return;
+    unawaited(_reproductor.parar());
     setState(() => _respuestas.add(clave));
     if (_terminada) {
       _cierre = Timer(const Duration(seconds: 2), () {
@@ -189,11 +217,10 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
     final ahora =
         ref.watch(ahoraProvider).value ?? ref.read(relojProvider).ahora();
     final hora = horaCorta(aLocal(ahora, contexto.zonaHoraria));
-    final miembros = ref.watch(miembrosProvider).value ?? const <Miembro>[];
-    final familiar = primerFamiliar(miembros);
-    final quien = familiar == null
-        ? l.preguntaTeLoPreguntaFamilia
-        : l.preguntaTeLoPregunta(familiar.nombre);
+    final frase = ref.watch(
+      fraseSonoraProvider((uso: pregunta.uso, vozId: null)),
+    );
+    _sonarAlMostrar(_indice, frase);
 
     return SingleChildScrollView(
       key: ValueKey<int>(_indice),
@@ -217,8 +244,13 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
             ],
           ),
           const SizedBox(height: 24),
-          _TarjetaVoz(quien: quien, alTocar: () => _avisar(l.preguntaVozLlega)),
-          const SizedBox(height: 24),
+          if (frase != null) ...[
+            _TarjetaVoz(
+              quien: l.preguntaTeLoPregunta(frase.nombre),
+              alTocar: () => unawaited(_reproductor.reproducir(frase.ruta)),
+            ),
+            const SizedBox(height: 24),
+          ],
           Semantics(
             header: true,
             child: Text(
@@ -314,7 +346,8 @@ class _Puntos extends StatelessWidget {
   }
 }
 
-/// Tarjeta gris con el altavoz: "Te lo pregunta Lucía". Todavía sin audio.
+/// Tarjeta gris con el altavoz: "Te lo pregunta Lucía". Tocarla repite la
+/// frase grabada.
 class _TarjetaVoz extends StatelessWidget {
   const _TarjetaVoz({required this.quien, required this.alTocar});
 

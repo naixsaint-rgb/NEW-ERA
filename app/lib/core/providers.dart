@@ -12,11 +12,18 @@ import 'db/base_datos.dart';
 import 'db/repositorios/circulo_repositorio.dart';
 import 'db/repositorios/eventos_repositorio.dart';
 import 'db/repositorios/medicacion_repositorio.dart';
+import 'db/repositorios/voces_repositorio.dart';
 import 'plataforma/alarmas/alarmas_android.dart';
 import 'plataforma/alarmas/alarmas_canal.dart';
 import 'plataforma/alarmas/alarmas_no_disponibles.dart';
 import 'plataforma/alarmas/programador_alarmas.dart';
 import 'plataforma/alarmas/servicio_alarmas.dart';
+import 'plataforma/audio/archivos_voz.dart';
+import 'plataforma/audio/archivos_voz_disco.dart';
+import 'plataforma/audio/audio_movil.dart';
+import 'plataforma/audio/audio_simulado.dart';
+import 'plataforma/audio/grabadora.dart';
+import 'plataforma/audio/reproductor.dart';
 import 'plataforma/camara/camara_comprobacion.dart';
 import 'plataforma/camara/camara_movil.dart';
 import 'plataforma/camara/camara_simulada.dart';
@@ -71,6 +78,28 @@ final servicioAlarmasProvider = Provider<ServicioAlarmas>((ref) {
 final camaraProvider = Provider<CamaraComprobacion>(
   (ref) => kIsWeb ? const CamaraSimulada() : const CamaraMovil(),
 );
+
+/// Carpeta de los audios de las voces: documentos de la app en el móvil; en
+/// la demo web, la memoria.
+final archivosVozProvider = Provider<ArchivosVoz>(
+  (ref) => kIsWeb ? ArchivosVozMemoria() : ArchivosVozDisco(),
+);
+
+/// Micrófono (paquete `record`); en la demo web, la grabadora simulada.
+final grabadoraProvider = Provider<Grabadora>((ref) {
+  final archivos = ref.watch(archivosVozProvider);
+  final g = kIsWeb ? GrabadoraSimulada(archivos) : GrabadoraMovil(archivos);
+  ref.onDispose(() => unawaited(g.liberar()));
+  return g;
+});
+
+/// Altavoz (paquete `audioplayers`); en la demo web, el simulado.
+final reproductorProvider = Provider<Reproductor>((ref) {
+  final archivos = ref.watch(archivosVozProvider);
+  final r = kIsWeb ? ReproductorSimulado() : ReproductorMovil(archivos);
+  ref.onDispose(() => unawaited(r.liberar()));
+  return r;
+});
 
 /// Abre enlaces y llamadas. Sustituible en tests.
 final abrirEnlaceProvider = Provider<Future<bool> Function(Uri)>(
@@ -152,6 +181,16 @@ final medicacionRepositorioProvider = Provider<MedicacionRepositorio>((ref) {
   );
 });
 
+final vocesRepositorioProvider = Provider<VocesRepositorio>((ref) {
+  return VocesRepositorio(
+    db: ref.watch(baseDatosProvider),
+    reloj: ref.watch(relojProvider),
+    contexto: ref.watch(contextoProvider),
+    eventos: ref.watch(eventosRepositorioProvider),
+    archivos: ref.watch(archivosVozProvider),
+  );
+});
+
 // ----------------------------------------------------------- Datos observados
 
 final personaProvider = StreamProvider<Persona?>(
@@ -173,6 +212,53 @@ final pautasProvider = StreamProvider<List<Pauta>>(
 final ultimoMensajeProvider = StreamProvider<Evento?>(
   (ref) => ref.watch(eventosRepositorioProvider).observarUltimoMensaje(),
 );
+
+/// Voces grabadas de los familiares (también las retiradas).
+final vocesProvider = StreamProvider<List<Voz>>(
+  (ref) => ref.watch(vocesRepositorioProvider).observarVoces(),
+);
+
+/// Frases de esas voces.
+final frasesProvider = StreamProvider<List<Frase>>(
+  (ref) => ref.watch(vocesRepositorioProvider).observarFrases(),
+);
+
+/// Frase que suena para un uso, con la voz preferida (la de la pauta) o la
+/// primera del círculo ([elegirFrase]). Nula si no hay: no suena nada.
+final fraseSonoraProvider =
+    Provider.family<FraseSonora?, ({UsoFrase uso, String? vozId})>((ref, p) {
+      final voces = ref.watch(vocesProvider).value;
+      final frases = ref.watch(frasesProvider).value;
+      final miembros = ref.watch(miembrosProvider).value;
+      if (voces == null || frases == null || miembros == null) return null;
+      return elegirFrase(
+        uso: p.uso,
+        vozPreferida: p.vozId,
+        voces: voces,
+        frases: frases,
+        miembros: miembros,
+      );
+    });
+
+/// Resumen de las frases `toma` que pueden sonar en una alarma (nulo
+/// mientras carga). Si cambia, se reprograman las alarmas.
+final firmaVozTomaProvider = Provider<String?>((ref) {
+  final voces = ref.watch(vocesProvider).value;
+  final frases = ref.watch(frasesProvider).value;
+  if (voces == null || frases == null) return null;
+  final activas = {
+    for (final v in voces)
+      if (v.retiradaEn == null) v.id,
+  };
+  return ([
+    for (final f in frases)
+      if (f.uso == UsoFrase.toma.nombre &&
+          f.aprobada &&
+          f.audioRuta != null &&
+          activas.contains(f.vozId))
+        '${f.vozId}:${f.audioRuta}',
+  ]..sort()).join('|');
+});
 
 /// Foto por id (nula si no existe).
 final fotoProvider = FutureProvider.family<Uint8List?, String>((ref, id) async {
@@ -196,6 +282,7 @@ final programadorAlarmasProvider = Provider<ProgramadorAlarmas>((ref) {
     eventos: ref.watch(eventosRepositorioProvider),
     reloj: ref.watch(relojProvider),
     contexto: ref.watch(contextoProvider),
+    voces: ref.watch(vocesRepositorioProvider),
   );
 });
 
@@ -238,6 +325,7 @@ final servicioSyncProvider = Provider<ServicioSync?>((ref) {
     llaves: () => ref.read(llavesCirculoProvider.future),
     contexto: ref.watch(contextoProvider),
     reloj: ref.watch(relojProvider),
+    archivos: ref.watch(archivosVozProvider),
   );
   ref.onDispose(() => unawaited(servicio.detener()));
   return servicio;

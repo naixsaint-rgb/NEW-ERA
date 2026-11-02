@@ -352,12 +352,6 @@ abstract class AppLocalizations {
   /// **'Ver el control por horas'**
   String get verControlHoras;
 
-  /// No description provided for @vocesTendra.
-  ///
-  /// In es, this message translates to:
-  /// **'Mensajes grabados por los familiares para acompañar cada aviso.'**
-  String get vocesTendra;
-
   /// No description provided for @alimentacionTendra.
   ///
   /// In es, this message translates to:
@@ -2097,23 +2091,11 @@ abstract class AppLocalizations {
   /// **'Te lo pregunta {nombre}'**
   String preguntaTeLoPregunta(String nombre);
 
-  /// No description provided for @preguntaTeLoPreguntaFamilia.
-  ///
-  /// In es, this message translates to:
-  /// **'Te lo pregunta tu familia'**
-  String get preguntaTeLoPreguntaFamilia;
-
   /// No description provided for @preguntaVolverAOir.
   ///
   /// In es, this message translates to:
   /// **'Toca para volver a oírla'**
   String get preguntaVolverAOir;
-
-  /// No description provided for @preguntaVozLlega.
-  ///
-  /// In es, this message translates to:
-  /// **'La voz grabada llega en la semana 5'**
-  String get preguntaVozLlega;
 
   /// No description provided for @preguntaComoEstas.
   ///
@@ -2570,6 +2552,306 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Este móvil no tiene la clave de la familia: no puede invitar a otros.'**
   String get circInvitarSinClave;
+
+  /// No description provided for @vozVispera.
+  ///
+  /// In es, this message translates to:
+  /// **'Frases con la voz de la familia'**
+  String get vozVispera;
+
+  /// No description provided for @vozIntro.
+  ///
+  /// In es, this message translates to:
+  /// **'Cada familiar graba unas frases cortas con su voz. Las que apruebe suenan en el móvil de {alias}.'**
+  String vozIntro(String alias);
+
+  /// No description provided for @vozFamiliares.
+  ///
+  /// In es, this message translates to:
+  /// **'Familiares'**
+  String get vozFamiliares;
+
+  /// No description provided for @vozSinGrabar.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin grabar'**
+  String get vozSinGrabar;
+
+  /// No description provided for @vozAprobadas.
+  ///
+  /// In es, this message translates to:
+  /// **'{aprobadas} de {total} frases aprobadas'**
+  String vozAprobadas(int aprobadas, int total);
+
+  /// No description provided for @vozRetirada.
+  ///
+  /// In es, this message translates to:
+  /// **'Voz retirada'**
+  String get vozRetirada;
+
+  /// No description provided for @vozClonada.
+  ///
+  /// In es, this message translates to:
+  /// **'Voz clonada para las frases que nadie ha grabado'**
+  String get vozClonada;
+
+  /// No description provided for @vozDe.
+  ///
+  /// In es, this message translates to:
+  /// **'Voz de'**
+  String get vozDe;
+
+  /// No description provided for @vozPermisoTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Antes de grabar'**
+  String get vozPermisoTitulo;
+
+  /// No description provided for @vozPermisoFalta.
+  ///
+  /// In es, this message translates to:
+  /// **'{nombre} tiene que leer y aceptar para qué se usa su voz.'**
+  String vozPermisoFalta(String nombre);
+
+  /// No description provided for @vozLeerYAceptar.
+  ///
+  /// In es, this message translates to:
+  /// **'Leer y aceptar'**
+  String get vozLeerYAceptar;
+
+  /// No description provided for @vozRetiradaEl.
+  ///
+  /// In es, this message translates to:
+  /// **'Voz retirada el {fecha}. Sus frases ya no suenan.'**
+  String vozRetiradaEl(String fecha);
+
+  /// No description provided for @vozVolverAGrabar.
+  ///
+  /// In es, this message translates to:
+  /// **'Volver a grabar'**
+  String get vozVolverAGrabar;
+
+  /// No description provided for @vozFrases.
+  ///
+  /// In es, this message translates to:
+  /// **'Frases'**
+  String get vozFrases;
+
+  /// No description provided for @vozFrasesPie.
+  ///
+  /// In es, this message translates to:
+  /// **'Di la frase al empezar la cuenta atrás: 8 segundos como mucho. Solo suenan las aprobadas.'**
+  String get vozFrasesPie;
+
+  /// No description provided for @vozFraseToma.
+  ///
+  /// In es, this message translates to:
+  /// **'{alias}, es la hora de tu pastilla'**
+  String vozFraseToma(String alias);
+
+  /// No description provided for @vozFraseMuyBien.
+  ///
+  /// In es, this message translates to:
+  /// **'Muy bien'**
+  String get vozFraseMuyBien;
+
+  /// No description provided for @vozFraseComoEstas.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Cómo estás?'**
+  String get vozFraseComoEstas;
+
+  /// No description provided for @vozFraseTeDuele.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Te duele algo?'**
+  String get vozFraseTeDuele;
+
+  /// No description provided for @vozFraseQueHaras.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Qué vas a hacer luego?'**
+  String get vozFraseQueHaras;
+
+  /// No description provided for @vozUsoToma.
+  ///
+  /// In es, this message translates to:
+  /// **'Suena al llegar la hora de la pastilla'**
+  String get vozUsoToma;
+
+  /// No description provided for @vozUsoMuyBien.
+  ///
+  /// In es, this message translates to:
+  /// **'Suena al confirmar la pastilla'**
+  String get vozUsoMuyBien;
+
+  /// No description provided for @vozUsoPregunta.
+  ///
+  /// In es, this message translates to:
+  /// **'Suena en la pregunta de control'**
+  String get vozUsoPregunta;
+
+  /// No description provided for @vozEstadoPendiente.
+  ///
+  /// In es, this message translates to:
+  /// **'Grabada, sin aprobar'**
+  String get vozEstadoPendiente;
+
+  /// No description provided for @vozEstadoAprobada.
+  ///
+  /// In es, this message translates to:
+  /// **'Aprobada'**
+  String get vozEstadoAprobada;
+
+  /// No description provided for @vozGrabar.
+  ///
+  /// In es, this message translates to:
+  /// **'Grabar'**
+  String get vozGrabar;
+
+  /// No description provided for @vozParar.
+  ///
+  /// In es, this message translates to:
+  /// **'Parar'**
+  String get vozParar;
+
+  /// No description provided for @vozEscuchar.
+  ///
+  /// In es, this message translates to:
+  /// **'Escuchar'**
+  String get vozEscuchar;
+
+  /// No description provided for @vozRepetir.
+  ///
+  /// In es, this message translates to:
+  /// **'Repetir'**
+  String get vozRepetir;
+
+  /// No description provided for @vozAprobar.
+  ///
+  /// In es, this message translates to:
+  /// **'Aprobar'**
+  String get vozAprobar;
+
+  /// No description provided for @vozGrabando.
+  ///
+  /// In es, this message translates to:
+  /// **'Grabando · quedan {segundos} s'**
+  String vozGrabando(int segundos);
+
+  /// No description provided for @vozSinMicrofono.
+  ///
+  /// In es, this message translates to:
+  /// **'No se puede usar el micrófono. Revisa el permiso en los ajustes del móvil.'**
+  String get vozSinMicrofono;
+
+  /// No description provided for @vozErrorGrabar.
+  ///
+  /// In es, this message translates to:
+  /// **'No se ha podido grabar. Prueba otra vez.'**
+  String get vozErrorGrabar;
+
+  /// No description provided for @vozNoCabe.
+  ///
+  /// In es, this message translates to:
+  /// **'Esta grabación ocupa demasiado para enviarla. Repítela más corta.'**
+  String get vozNoCabe;
+
+  /// No description provided for @vozRetirar.
+  ///
+  /// In es, this message translates to:
+  /// **'Retirar la voz'**
+  String get vozRetirar;
+
+  /// No description provided for @vozRetirarTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Retirar la voz de {nombre}?'**
+  String vozRetirarTitulo(String nombre);
+
+  /// No description provided for @vozRetirarTexto.
+  ///
+  /// In es, this message translates to:
+  /// **'Sus frases dejan de sonar y sus audios se borran de este móvil. Los demás móviles de la familia los borran al recibir el aviso.'**
+  String get vozRetirarTexto;
+
+  /// No description provided for @vozRetirarConfirmar.
+  ///
+  /// In es, this message translates to:
+  /// **'Retirar'**
+  String get vozRetirarConfirmar;
+
+  /// No description provided for @vozConsVispera.
+  ///
+  /// In es, this message translates to:
+  /// **'Voz de {nombre}'**
+  String vozConsVispera(String nombre);
+
+  /// No description provided for @vozConsEncabezado.
+  ///
+  /// In es, this message translates to:
+  /// **'Permiso de {nombre} para grabar su voz'**
+  String vozConsEncabezado(String nombre);
+
+  /// No description provided for @vozConsQue.
+  ///
+  /// In es, this message translates to:
+  /// **'Qué se graba: la voz de {nombre} diciendo frases cortas, como «{alias}, es la hora de tu pastilla». Cada frase dura 8 segundos como mucho y se puede escuchar y repetir antes de aprobarla.'**
+  String vozConsQue(String nombre, String alias);
+
+  /// No description provided for @vozConsPara.
+  ///
+  /// In es, this message translates to:
+  /// **'Para qué: las frases aprobadas suenan en el móvil de {alias} cuando llega la hora de una pastilla o de una pregunta y, más adelante, también en su reloj.'**
+  String vozConsPara(String alias);
+
+  /// No description provided for @vozConsDonde.
+  ///
+  /// In es, this message translates to:
+  /// **'Dónde se guarda: en los móviles de la familia, dentro del espacio privado de la app, que el móvil guarda cifrado cuando tiene código de bloqueo. Para llegar al móvil de {alias}, las frases pasan por el servidor cartero solo como sobres cifrados que el servidor no puede abrir.'**
+  String vozConsDonde(String alias);
+
+  /// No description provided for @vozConsQuien.
+  ///
+  /// In es, this message translates to:
+  /// **'Quién la oye: {alias} y los familiares que usan la app en este círculo.'**
+  String vozConsQuien(String alias);
+
+  /// No description provided for @vozConsRetirar.
+  ///
+  /// In es, this message translates to:
+  /// **'Cómo se retira: {nombre} puede retirar su voz cuando quiera desde Voces. Al retirarla, sus frases dejan de sonar y cada móvil de la familia borra sus audios al recibir el aviso. Los sobres cifrados que ya pasaron por el servidor se quedan allí.'**
+  String vozConsRetirar(String nombre);
+
+  /// No description provided for @vozConsClon.
+  ///
+  /// In es, this message translates to:
+  /// **'Con estas grabaciones no se crea ninguna voz artificial. Si algún día se quiere hacer, se pedirá otro permiso.'**
+  String get vozConsClon;
+
+  /// No description provided for @vozConsGuardar.
+  ///
+  /// In es, this message translates to:
+  /// **'Al tocar «Acepto, soy {nombre}», este permiso se guarda con este texto y la fecha.'**
+  String vozConsGuardar(String nombre);
+
+  /// No description provided for @vozConsAcepto.
+  ///
+  /// In es, this message translates to:
+  /// **'Acepto, soy {nombre}'**
+  String vozConsAcepto(String nombre);
+
+  /// No description provided for @vozConsAhoraNo.
+  ///
+  /// In es, this message translates to:
+  /// **'Ahora no'**
+  String get vozConsAhoraNo;
+
+  /// No description provided for @vozTeLoRecuerda.
+  ///
+  /// In es, this message translates to:
+  /// **'Te lo recuerda la voz de {nombre}'**
+  String vozTeLoRecuerda(String nombre);
 }
 
 class _AppLocalizationsDelegate

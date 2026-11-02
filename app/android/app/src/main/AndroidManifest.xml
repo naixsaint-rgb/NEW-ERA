@@ -11,9 +11,12 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
-    <!-- Permisos mínimos: el vídeo va sin audio (enableAudio: false) y el tono
-         sale de assets, así que se quitan los que añaden camera y alarm. -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" tools:node="remove"/>
+    <!-- Micrófono: la familia graba sus frases (Voces). Solo graba al tocar
+         «Grabar», 8 segundos como mucho. El vídeo de la toma sigue sin audio. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!-- Permisos mínimos: el tono sale de assets y las frases de la familia, de
+         la carpeta privada de la app (app_flutter/voces), así que no hace falta
+         leer el almacenamiento externo que añade alarm. -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="remove"/>
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
     <uses-feature android:name="android.hardware.camera.front" android:required="false"/>

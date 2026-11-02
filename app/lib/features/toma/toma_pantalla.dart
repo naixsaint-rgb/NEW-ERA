@@ -8,8 +8,11 @@ import 'package:intl/intl.dart';
 import 'package:safety_core/safety_core.dart';
 
 import '../../core/db/base_datos.dart';
+import '../../core/db/repositorios/voces_repositorio.dart';
 import '../../core/enrutado/rutas.dart';
 import '../../core/i18n/fechas.dart';
+import '../../core/plataforma/alarmas/servicio_alarmas.dart';
+import '../../core/plataforma/audio/reproductor.dart';
 import '../../core/plataforma/camara/camara_comprobacion.dart';
 import '../../core/providers.dart';
 import '../../core/tema/colores.dart';
@@ -28,6 +31,11 @@ enum _Fase { confirmar, camara, muyBien }
 /// Pantalla de toma (maqueta B-Persona): "Ahora toca" con la foto grande de
 /// la pastilla, un botón enorme, la comprobación con cámara y el "Muy bien"
 /// final. Abajo, "Llamar" y "Ayuda" como en el inicio.
+///
+/// La voz: al abrirse suena la frase `toma` de la voz de la pauta (o de la
+/// primera voz del círculo que la tenga aprobada), salvo si la alarma de esa
+/// toma ya la está diciendo; en "Muy bien", la frase `muy_bien`. Sin frase
+/// no suena nada ni se habla de voz.
 class TomaPantalla extends ConsumerStatefulWidget {
   const TomaPantalla({super.key, required this.tomaId, this.prueba = false});
 
@@ -45,10 +53,18 @@ class _TomaPantallaState extends ConsumerState<TomaPantalla> {
   SesionCamara? _sesion;
   int _restante = 0;
   bool _cerrando = false;
+  late final Reproductor _reproductor;
+
+  @override
+  void initState() {
+    super.initState();
+    _reproductor = ref.read(reproductorProvider);
+  }
 
   @override
   void dispose() {
     _sesion?.cerrar();
+    unawaited(_reproductor.parar());
     super.dispose();
   }
 
@@ -204,7 +220,7 @@ class _TomaPantallaState extends ConsumerState<TomaPantalla> {
                   t.pauta?.comprobacion ?? 'video',
                 ),
               ),
-              _Fase.muyBien => const _MuyBien(),
+              _Fase.muyBien => _MuyBien(vozId: t.pauta?.vozId),
             };
           },
         ),
@@ -291,6 +307,36 @@ class _ConfirmarState extends ConsumerState<_Confirmar> {
   /// Aviso tras "Llamar" o "Ayuda".
   String? _aviso;
 
+  /// La frase `toma` ya sonó (una vez al abrir).
+  bool _sonada = false;
+
+  ({UsoFrase uso, String? vozId}) get _clave =>
+      (uso: UsoFrase.toma, vozId: widget.toma.pauta?.vozId);
+
+  @override
+  void initState() {
+    super.initState();
+    ref.listenManual<FraseSonora?>(
+      fraseSonoraProvider(_clave),
+      (_, frase) => _sonarAlAbrir(frase),
+      fireImmediately: true,
+    );
+  }
+
+  /// Suena una vez, salvo si la alarma de esta toma ya está diciendo la
+  /// frase (Android).
+  Future<void> _sonarAlAbrir(FraseSonora? frase) async {
+    if (frase == null || _sonada) return;
+    _sonada = true;
+    final alarmas = ref.read(servicioAlarmasProvider);
+    final reproductor = ref.read(reproductorProvider);
+    if (alarmas case final ConsultaAlarmaSonando consulta) {
+      if (await consulta.estaSonando(widget.toma.toma.id)) return;
+    }
+    if (!mounted) return;
+    await reproductor.reproducir(frase.ruta);
+  }
+
   Future<void> _llamar(Miembro? familiar, {required bool ayuda}) async {
     final l = context.l;
     if (widget.prueba) {
@@ -323,6 +369,7 @@ class _ConfirmarState extends ConsumerState<_Confirmar> {
       'es_ES',
     ).format(aLocal(toma.toma.previstaPara, zona));
     final aviso = _aviso;
+    final frase = ref.watch(fraseSonoraProvider(_clave));
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
@@ -432,6 +479,15 @@ class _ConfirmarState extends ConsumerState<_Confirmar> {
               ],
             ),
           ),
+          if (frase != null) ...[
+            const SizedBox(height: 12),
+            _BotonVoz(
+              texto: l.vozTeLoRecuerda(frase.nombre),
+              alPulsar: () => unawaited(
+                ref.read(reproductorProvider).reproducir(frase.ruta),
+              ),
+            ),
+          ],
           const SizedBox(height: 12),
           Row(
             children: [
@@ -650,11 +706,92 @@ class _BotonPequeno extends StatelessWidget {
   }
 }
 
-class _MuyBien extends ConsumerWidget {
-  const _MuyBien();
+/// "Te lo recuerda la voz de Lucía": tocarlo repite la frase. 64 de alto.
+class _BotonVoz extends StatelessWidget {
+  const _BotonVoz({required this.texto, required this.alPulsar});
+
+  final String texto;
+  final VoidCallback alPulsar;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
+    final c = context.colores;
+    final t = Theme.of(context).textTheme;
+    final forma = RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(22),
+    );
+    return Material(
+      color: c.tarjeta,
+      shape: forma,
+      clipBehavior: Clip.antiAlias,
+      child: Semantics(
+        button: true,
+        child: InkWell(
+          key: ClavesUi.vozTeLoRecuerda,
+          onTap: alPulsar,
+          customBorder: forma,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 64),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+              child: Row(
+                children: [
+                  ExcludeSemantics(
+                    child: Icon(
+                      CupertinoIcons.speaker_2_fill,
+                      size: 28,
+                      color: c.azul,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      texto,
+                      style: t.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: c.texto,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _MuyBien extends ConsumerStatefulWidget {
+  const _MuyBien({required this.vozId});
+
+  /// Voz de la pauta (la frase `muy_bien` sale de ella si la tiene).
+  final String? vozId;
+
+  @override
+  ConsumerState<_MuyBien> createState() => _MuyBienState();
+}
+
+class _MuyBienState extends ConsumerState<_MuyBien> {
+  bool _sonada = false;
+
+  @override
+  void initState() {
+    super.initState();
+    ref.listenManual<FraseSonora?>(
+      fraseSonoraProvider((uso: UsoFrase.muyBien, vozId: widget.vozId)),
+      (_, frase) {
+        if (frase == null || _sonada) return;
+        _sonada = true;
+        unawaited(ref.read(reproductorProvider).reproducir(frase.ruta));
+      },
+      fireImmediately: true,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l = context.l;
     final c = context.colores;
     final t = Theme.of(context).textTheme;

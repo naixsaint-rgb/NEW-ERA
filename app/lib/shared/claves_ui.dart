@@ -93,4 +93,40 @@ abstract final class ClavesUi {
   static const unirPegar = ValueKey<String>('unir_pegar');
   static const unirAceptar = ValueKey<String>('unir_aceptar');
   static const unirConfirmar = ValueKey<String>('unir_confirmar');
+
+  /// Voces: fila de un familiar en la lista (`voz_miembro_<id>`).
+  static ValueKey<String> vozMiembro(String miembroId) =>
+      ValueKey<String>('voz_miembro_$miembroId');
+
+  /// Voces: tarjeta de una frase por su uso (`toma`, `muy_bien`…).
+  static ValueKey<String> vozFrase(String uso) =>
+      ValueKey<String>('voz_frase_$uso');
+
+  /// Voces: botones de una frase por su uso.
+  static ValueKey<String> vozGrabar(String uso) =>
+      ValueKey<String>('voz_grabar_$uso');
+  static ValueKey<String> vozParar(String uso) =>
+      ValueKey<String>('voz_parar_$uso');
+  static ValueKey<String> vozEscuchar(String uso) =>
+      ValueKey<String>('voz_escuchar_$uso');
+  static ValueKey<String> vozAprobar(String uso) =>
+      ValueKey<String>('voz_aprobar_$uso');
+
+  /// Voces: cuenta atrás de la grabación ("Grabando · quedan 8 s").
+  static const vozCuentaAtras = ValueKey<String>('voz_cuenta_atras');
+
+  /// Voces: "Leer y aceptar" (o "Volver a grabar") de un familiar sin voz.
+  static const vozLeerYAceptar = ValueKey<String>('voz_leer_y_aceptar');
+
+  /// Voces: "Retirar la voz" y su confirmación.
+  static const vozRetirar = ValueKey<String>('voz_retirar');
+  static const vozRetirarConfirmar = ValueKey<String>('voz_retirar_confirmar');
+
+  /// Consentimiento de voz: el texto, "Acepto, soy …" y "Ahora no".
+  static const vozConsTexto = ValueKey<String>('voz_cons_texto');
+  static const vozConsAcepto = ValueKey<String>('voz_cons_acepto');
+  static const vozConsAhoraNo = ValueKey<String>('voz_cons_ahora_no');
+
+  /// Toma: "Te lo recuerda la voz de …" (solo si hay frase).
+  static const vozTeLoRecuerda = ValueKey<String>('voz_te_lo_recuerda');
 }

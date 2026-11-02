@@ -26,7 +26,9 @@ import '../../features/pregunta/pregunta_pantalla.dart';
 import '../../features/resumen/resumen_pantalla.dart';
 import '../../features/toma/toma_pantalla.dart';
 import '../../features/union/unirse_pantalla.dart';
+import '../../features/voces/consentimiento_voz_pantalla.dart';
 import '../../features/voces/voces_pantalla.dart';
+import '../../features/voces/voz_miembro_pantalla.dart';
 import '../contexto.dart';
 import '../providers.dart';
 import '../tema/tema_persona.dart';
@@ -185,7 +187,28 @@ final routerProvider = Provider<GoRouter>((ref) {
             ],
           ),
           StatefulShellBranch(
-            routes: [pestana('voces', () => const VocesPantalla())],
+            routes: [
+              pestana(
+                'voces',
+                () => const VocesPantalla(),
+                rutas: [
+                  GoRoute(
+                    path: ':miembroId',
+                    builder: (_, state) => VozMiembroPantalla(
+                      miembroId: state.pathParameters['miembroId']!,
+                    ),
+                    routes: [
+                      GoRoute(
+                        path: 'permiso',
+                        builder: (_, state) => ConsentimientoVozPantalla(
+                          miembroId: state.pathParameters['miembroId']!,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
           StatefulShellBranch(
             routes: [

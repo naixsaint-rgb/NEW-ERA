@@ -40,6 +40,9 @@ dependencies:
   qr_flutter: 4.1.0
   mobile_scanner: 7.4.2
   image: 4.12.0
+  # Voces de la familia: grabar (AAC mono, m4a) y reproducir. Versiones fijas.
+  record: 7.1.2
+  audioplayers: 6.8.1
 
 dev_dependencies:
   flutter_test:

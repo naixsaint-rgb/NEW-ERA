@@ -119,6 +119,25 @@ class EventosRepositorio {
     return q.get();
   }
 
+  /// Último evento de [tipo] de cada uno de los [sujetos] (los que lo
+  /// tengan).
+  Future<Map<String, Evento>> ultimosPorSujeto(
+    TipoEvento tipo,
+    Iterable<String> sujetos,
+  ) async {
+    final ids = sujetos.toSet();
+    if (ids.isEmpty) return const {};
+    final filas =
+        await (_db.select(_db.eventos)
+              ..where((e) => e.tipo.equals(tipo.nombre) & e.sujeto.isIn(ids))
+              ..orderBy([
+                (e) => OrderingTerm.asc(e.ocurridoEn),
+                (e) => OrderingTerm.asc(e.ulid),
+              ]))
+            .get();
+    return {for (final f in filas) f.sujeto!: f};
+  }
+
   /// Convierte las filas en eventos de dominio para [estadoDeToma].
   static List<EventoToma> aEventosToma(Iterable<Evento> filas) => [
     for (final f in filas)

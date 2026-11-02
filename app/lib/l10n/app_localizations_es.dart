@@ -148,10 +148,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get verControlHoras => 'Ver el control por horas';
 
   @override
-  String get vocesTendra =>
-      'Mensajes grabados por los familiares para acompañar cada aviso.';
-
-  @override
   String get alimentacionTendra =>
       'Registro de comidas y de vasos de agua, con foto si se quiere.';
 
@@ -1164,13 +1160,7 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get preguntaTeLoPreguntaFamilia => 'Te lo pregunta tu familia';
-
-  @override
   String get preguntaVolverAOir => 'Toca para volver a oírla';
-
-  @override
-  String get preguntaVozLlega => 'La voz grabada llega en la semana 5';
 
   @override
   String get preguntaComoEstas => '¿Cómo estás?';
@@ -1439,4 +1429,193 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get circInvitarSinClave =>
       'Este móvil no tiene la clave de la familia: no puede invitar a otros.';
+
+  @override
+  String get vozVispera => 'Frases con la voz de la familia';
+
+  @override
+  String vozIntro(String alias) {
+    return 'Cada familiar graba unas frases cortas con su voz. Las que apruebe suenan en el móvil de $alias.';
+  }
+
+  @override
+  String get vozFamiliares => 'Familiares';
+
+  @override
+  String get vozSinGrabar => 'Sin grabar';
+
+  @override
+  String vozAprobadas(int aprobadas, int total) {
+    return '$aprobadas de $total frases aprobadas';
+  }
+
+  @override
+  String get vozRetirada => 'Voz retirada';
+
+  @override
+  String get vozClonada => 'Voz clonada para las frases que nadie ha grabado';
+
+  @override
+  String get vozDe => 'Voz de';
+
+  @override
+  String get vozPermisoTitulo => 'Antes de grabar';
+
+  @override
+  String vozPermisoFalta(String nombre) {
+    return '$nombre tiene que leer y aceptar para qué se usa su voz.';
+  }
+
+  @override
+  String get vozLeerYAceptar => 'Leer y aceptar';
+
+  @override
+  String vozRetiradaEl(String fecha) {
+    return 'Voz retirada el $fecha. Sus frases ya no suenan.';
+  }
+
+  @override
+  String get vozVolverAGrabar => 'Volver a grabar';
+
+  @override
+  String get vozFrases => 'Frases';
+
+  @override
+  String get vozFrasesPie =>
+      'Di la frase al empezar la cuenta atrás: 8 segundos como mucho. Solo suenan las aprobadas.';
+
+  @override
+  String vozFraseToma(String alias) {
+    return '$alias, es la hora de tu pastilla';
+  }
+
+  @override
+  String get vozFraseMuyBien => 'Muy bien';
+
+  @override
+  String get vozFraseComoEstas => '¿Cómo estás?';
+
+  @override
+  String get vozFraseTeDuele => '¿Te duele algo?';
+
+  @override
+  String get vozFraseQueHaras => '¿Qué vas a hacer luego?';
+
+  @override
+  String get vozUsoToma => 'Suena al llegar la hora de la pastilla';
+
+  @override
+  String get vozUsoMuyBien => 'Suena al confirmar la pastilla';
+
+  @override
+  String get vozUsoPregunta => 'Suena en la pregunta de control';
+
+  @override
+  String get vozEstadoPendiente => 'Grabada, sin aprobar';
+
+  @override
+  String get vozEstadoAprobada => 'Aprobada';
+
+  @override
+  String get vozGrabar => 'Grabar';
+
+  @override
+  String get vozParar => 'Parar';
+
+  @override
+  String get vozEscuchar => 'Escuchar';
+
+  @override
+  String get vozRepetir => 'Repetir';
+
+  @override
+  String get vozAprobar => 'Aprobar';
+
+  @override
+  String vozGrabando(int segundos) {
+    return 'Grabando · quedan $segundos s';
+  }
+
+  @override
+  String get vozSinMicrofono =>
+      'No se puede usar el micrófono. Revisa el permiso en los ajustes del móvil.';
+
+  @override
+  String get vozErrorGrabar => 'No se ha podido grabar. Prueba otra vez.';
+
+  @override
+  String get vozNoCabe =>
+      'Esta grabación ocupa demasiado para enviarla. Repítela más corta.';
+
+  @override
+  String get vozRetirar => 'Retirar la voz';
+
+  @override
+  String vozRetirarTitulo(String nombre) {
+    return '¿Retirar la voz de $nombre?';
+  }
+
+  @override
+  String get vozRetirarTexto =>
+      'Sus frases dejan de sonar y sus audios se borran de este móvil. Los demás móviles de la familia los borran al recibir el aviso.';
+
+  @override
+  String get vozRetirarConfirmar => 'Retirar';
+
+  @override
+  String vozConsVispera(String nombre) {
+    return 'Voz de $nombre';
+  }
+
+  @override
+  String vozConsEncabezado(String nombre) {
+    return 'Permiso de $nombre para grabar su voz';
+  }
+
+  @override
+  String vozConsQue(String nombre, String alias) {
+    return 'Qué se graba: la voz de $nombre diciendo frases cortas, como «$alias, es la hora de tu pastilla». Cada frase dura 8 segundos como mucho y se puede escuchar y repetir antes de aprobarla.';
+  }
+
+  @override
+  String vozConsPara(String alias) {
+    return 'Para qué: las frases aprobadas suenan en el móvil de $alias cuando llega la hora de una pastilla o de una pregunta y, más adelante, también en su reloj.';
+  }
+
+  @override
+  String vozConsDonde(String alias) {
+    return 'Dónde se guarda: en los móviles de la familia, dentro del espacio privado de la app, que el móvil guarda cifrado cuando tiene código de bloqueo. Para llegar al móvil de $alias, las frases pasan por el servidor cartero solo como sobres cifrados que el servidor no puede abrir.';
+  }
+
+  @override
+  String vozConsQuien(String alias) {
+    return 'Quién la oye: $alias y los familiares que usan la app en este círculo.';
+  }
+
+  @override
+  String vozConsRetirar(String nombre) {
+    return 'Cómo se retira: $nombre puede retirar su voz cuando quiera desde Voces. Al retirarla, sus frases dejan de sonar y cada móvil de la familia borra sus audios al recibir el aviso. Los sobres cifrados que ya pasaron por el servidor se quedan allí.';
+  }
+
+  @override
+  String get vozConsClon =>
+      'Con estas grabaciones no se crea ninguna voz artificial. Si algún día se quiere hacer, se pedirá otro permiso.';
+
+  @override
+  String vozConsGuardar(String nombre) {
+    return 'Al tocar «Acepto, soy $nombre», este permiso se guarda con este texto y la fecha.';
+  }
+
+  @override
+  String vozConsAcepto(String nombre) {
+    return 'Acepto, soy $nombre';
+  }
+
+  @override
+  String get vozConsAhoraNo => 'Ahora no';
+
+  @override
+  String vozTeLoRecuerda(String nombre) {
+    return 'Te lo recuerda la voz de $nombre';
+  }
 }

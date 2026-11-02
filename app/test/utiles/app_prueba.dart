@@ -13,6 +13,8 @@ import 'package:newera/core/db/base_datos.dart';
 import 'package:newera/core/enrutado/router.dart';
 import 'package:newera/core/plataforma/alarmas/alarmas_no_disponibles.dart';
 import 'package:newera/core/plataforma/alarmas/servicio_alarmas.dart';
+import 'package:newera/core/plataforma/audio/archivos_voz.dart';
+import 'package:newera/core/plataforma/audio/audio_simulado.dart';
 import 'package:newera/core/plataforma/camara/camara_simulada.dart';
 import 'package:newera/core/providers.dart';
 import 'package:newera/features/catalogo/datos/catalogo_repositorio.dart';
@@ -32,7 +34,13 @@ class EntornoPrueba {
     this.reloj,
     this.enlaces, {
     AlmacenSeguro? almacen,
-  }) : almacen = almacen ?? AlmacenSeguroMemoria();
+    ArchivosVozMemoria? archivos,
+    GrabadoraSimulada? grabadora,
+    ReproductorSimulado? reproductor,
+  }) : almacen = almacen ?? AlmacenSeguroMemoria(),
+       archivos = archivos ?? ArchivosVozMemoria(),
+       grabadora = grabadora ?? GrabadoraSimulada(ArchivosVozMemoria()),
+       reproductor = reproductor ?? ReproductorSimulado();
 
   final List<Override> overrides;
   final AppDatabase db;
@@ -44,6 +52,11 @@ class EntornoPrueba {
 
   /// Almacén seguro (en memoria) de este entorno.
   final AlmacenSeguro almacen;
+
+  /// Audios de las voces (en memoria), micrófono y altavoz simulados.
+  final ArchivosVozMemoria archivos;
+  final GrabadoraSimulada grabadora;
+  final ReproductorSimulado reproductor;
 
   /// Id de la toma de [nombre] (medicamento para la persona) en [fecha]
   /// (`yyyyMMdd`) a las [hora] (`HHmm`).
@@ -85,6 +98,10 @@ Future<EntornoPrueba> prepararEntorno({
   );
   final contexto = _buscar<ContextoApp>(overrides, contextoProvider);
   final db = _buscar<AppDatabase>(overrides, baseDatosProvider);
+  // Sin E/S real: dentro del reloj falso de los tests de pantallas no avanza.
+  final archivos = ArchivosVozMemoria();
+  final grabadora = GrabadoraSimulada(archivos);
+  final reproductor = ReproductorSimulado();
   return EntornoPrueba(
     [
       ...overrides,
@@ -95,12 +112,18 @@ Future<EntornoPrueba> prepararEntorno({
         enlaces.add(uri);
         return true;
       }),
+      archivosVozProvider.overrideWithValue(archivos),
+      grabadoraProvider.overrideWithValue(grabadora),
+      reproductorProvider.overrideWithValue(reproductor),
     ],
     db,
     contexto,
     reloj,
     enlaces,
     almacen: almacen,
+    archivos: archivos,
+    grabadora: grabadora,
+    reproductor: reproductor,
   );
 }
 

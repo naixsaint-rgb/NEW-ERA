@@ -22,10 +22,11 @@ void main() {
     expect(find.byType(PreguntaPantalla), findsOneWidget);
     expect(find.byKey(ClavesUi.pregunta), findsOneWidget);
 
-    // Pregunta 1: hora local, progreso, voz de Lucía y tres respuestas.
+    // Pregunta 1: hora local, progreso y tres respuestas. Sin frase grabada
+    // no hay tarjeta de voz (con frase: voces_test.dart).
     expect(find.text('12:00 · pregunta 1 de 3'), findsOneWidget);
-    expect(find.text('Te lo pregunta Lucía'), findsOneWidget);
-    expect(find.text('Toca para volver a oírla'), findsOneWidget);
+    expect(find.text('Te lo pregunta Lucía'), findsNothing);
+    expect(find.text('Toca para volver a oírla'), findsNothing);
     expect(find.text('¿Cómo estás?'), findsOneWidget);
     for (final r in ['bien', 'regular', 'mal']) {
       expect(find.byKey(ClavesUi.respuesta(r)), findsOneWidget, reason: r);
@@ -45,11 +46,8 @@ void main() {
     await expectLater(tester, meetsGuideline(textContrastGuideline));
     await expectLater(tester, meetsGuideline(androidTapTargetGuideline));
 
-    // Sin voz grabada todavía: aviso, y sigue en la misma pregunta.
-    await tester.tap(find.text('Toca para volver a oírla'));
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 300));
-    expect(find.text('La voz grabada llega en la semana 5'), findsOneWidget);
+    // Sin frase grabada no suena nada.
+    expect(e.reproductor.reproducidas, isEmpty);
     expect(find.text('12:00 · pregunta 1 de 3'), findsOneWidget);
 
     await tester.tap(find.byKey(ClavesUi.respuesta('regular')));
@@ -155,7 +153,7 @@ void main() {
     final e = await entorno(tester, PerfilApp.persona);
     await montarApp(tester, e, rutaInicial: '/persona/pregunta');
     await pasar(tester, const Duration(seconds: 1));
-    expect(find.text('Te lo pregunta Lucía'), findsOneWidget);
+    expect(find.text('¿Cómo estás?'), findsOneWidget);
 
     await tester.tap(find.byKey(ClavesUi.respuesta('bien')));
     await pasar(tester, const Duration(milliseconds: 300));
@@ -173,7 +171,7 @@ void main() {
     expect(find.byKey(ClavesUi.loSiguiente), findsOneWidget);
   });
 
-  testWidgets('sin familiares con puesto de aviso: "tu familia"', (
+  testWidgets('sin familiares ni frases: ninguna tarjeta de voz', (
     tester,
   ) async {
     final e = await tester.runAsync(
@@ -181,8 +179,9 @@ void main() {
     );
     await montarApp(tester, e!, rutaInicial: '/persona/pregunta');
     await pasar(tester, const Duration(seconds: 1));
-    expect(find.text('Te lo pregunta tu familia'), findsOneWidget);
-    expect(find.text('Te lo pregunta Lucía'), findsNothing);
+    expect(find.text('¿Cómo estás?'), findsOneWidget);
+    expect(find.textContaining('Te lo pregunta'), findsNothing);
+    expect(e.reproductor.reproducidas, isEmpty);
   });
 
   testWidgets('con el texto al 130 % las cuatro respuestas caben, una '

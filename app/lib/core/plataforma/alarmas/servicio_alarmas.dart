@@ -76,3 +76,9 @@ abstract interface class ServicioAlarmas {
   /// Ids de toma cuya alarma está sonando (la app abre entonces su pantalla).
   Stream<String> sonando();
 }
+
+/// Opcional: saber si la alarma de una toma está sonando ahora (Android). La
+/// pantalla de toma no repite la frase si la alarma ya la está diciendo.
+abstract interface class ConsultaAlarmaSonando {
+  Future<bool> estaSonando(String idToma);
+}

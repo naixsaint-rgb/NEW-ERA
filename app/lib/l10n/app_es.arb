@@ -60,7 +60,6 @@
   "controlHorasTitulo": "Control por horas",
   "controlHorasTendra": "Tres preguntas cada hora, de 9 a 21, con horas ajustables: cómo está, si hay dolor y qué plan tiene.",
   "verControlHoras": "Ver el control por horas",
-  "vocesTendra": "Mensajes grabados por los familiares para acompañar cada aviso.",
   "alimentacionTendra": "Registro de comidas y de vasos de agua, con foto si se quiere.",
   "parteManana": "Por la mañana",
   "parteTarde": "Por la tarde",
@@ -898,9 +897,7 @@
       }
     }
   },
-  "preguntaTeLoPreguntaFamilia": "Te lo pregunta tu familia",
   "preguntaVolverAOir": "Toca para volver a oírla",
-  "preguntaVozLlega": "La voz grabada llega en la semana 5",
   "preguntaComoEstas": "¿Cómo estás?",
   "preguntaTeDuele": "¿Te duele algo?",
   "preguntaQueHaras": "¿Qué vas a hacer luego?",
@@ -1076,5 +1073,180 @@
   "circInvitarCopiado": "Código copiado",
   "circInvitarPie": "En el otro móvil, elige «Este móvil se une a una familia que ya usa la app».",
   "circInvitarPreparando": "Preparando el código…",
-  "circInvitarSinClave": "Este móvil no tiene la clave de la familia: no puede invitar a otros."
+  "circInvitarSinClave": "Este móvil no tiene la clave de la familia: no puede invitar a otros.",
+  "vozVispera": "Frases con la voz de la familia",
+  "vozIntro": "Cada familiar graba unas frases cortas con su voz. Las que apruebe suenan en el móvil de {alias}.",
+  "@vozIntro": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "vozFamiliares": "Familiares",
+  "vozSinGrabar": "Sin grabar",
+  "vozAprobadas": "{aprobadas} de {total} frases aprobadas",
+  "@vozAprobadas": {
+    "placeholders": {
+      "aprobadas": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "vozRetirada": "Voz retirada",
+  "vozClonada": "Voz clonada para las frases que nadie ha grabado",
+  "vozDe": "Voz de",
+  "vozPermisoTitulo": "Antes de grabar",
+  "vozPermisoFalta": "{nombre} tiene que leer y aceptar para qué se usa su voz.",
+  "@vozPermisoFalta": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "vozLeerYAceptar": "Leer y aceptar",
+  "vozRetiradaEl": "Voz retirada el {fecha}. Sus frases ya no suenan.",
+  "@vozRetiradaEl": {
+    "placeholders": {
+      "fecha": {
+        "type": "String"
+      }
+    }
+  },
+  "vozVolverAGrabar": "Volver a grabar",
+  "vozFrases": "Frases",
+  "vozFrasesPie": "Di la frase al empezar la cuenta atrás: 8 segundos como mucho. Solo suenan las aprobadas.",
+  "vozFraseToma": "{alias}, es la hora de tu pastilla",
+  "@vozFraseToma": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "vozFraseMuyBien": "Muy bien",
+  "vozFraseComoEstas": "¿Cómo estás?",
+  "vozFraseTeDuele": "¿Te duele algo?",
+  "vozFraseQueHaras": "¿Qué vas a hacer luego?",
+  "vozUsoToma": "Suena al llegar la hora de la pastilla",
+  "vozUsoMuyBien": "Suena al confirmar la pastilla",
+  "vozUsoPregunta": "Suena en la pregunta de control",
+  "vozEstadoPendiente": "Grabada, sin aprobar",
+  "vozEstadoAprobada": "Aprobada",
+  "vozGrabar": "Grabar",
+  "vozParar": "Parar",
+  "vozEscuchar": "Escuchar",
+  "vozRepetir": "Repetir",
+  "vozAprobar": "Aprobar",
+  "vozGrabando": "Grabando · quedan {segundos} s",
+  "@vozGrabando": {
+    "placeholders": {
+      "segundos": {
+        "type": "int"
+      }
+    }
+  },
+  "vozSinMicrofono": "No se puede usar el micrófono. Revisa el permiso en los ajustes del móvil.",
+  "vozErrorGrabar": "No se ha podido grabar. Prueba otra vez.",
+  "vozNoCabe": "Esta grabación ocupa demasiado para enviarla. Repítela más corta.",
+  "vozRetirar": "Retirar la voz",
+  "vozRetirarTitulo": "¿Retirar la voz de {nombre}?",
+  "@vozRetirarTitulo": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "vozRetirarTexto": "Sus frases dejan de sonar y sus audios se borran de este móvil. Los demás móviles de la familia los borran al recibir el aviso.",
+  "vozRetirarConfirmar": "Retirar",
+  "vozConsVispera": "Voz de {nombre}",
+  "@vozConsVispera": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "vozConsEncabezado": "Permiso de {nombre} para grabar su voz",
+  "@vozConsEncabezado": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "vozConsQue": "Qué se graba: la voz de {nombre} diciendo frases cortas, como «{alias}, es la hora de tu pastilla». Cada frase dura 8 segundos como mucho y se puede escuchar y repetir antes de aprobarla.",
+  "@vozConsQue": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      },
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "vozConsPara": "Para qué: las frases aprobadas suenan en el móvil de {alias} cuando llega la hora de una pastilla o de una pregunta y, más adelante, también en su reloj.",
+  "@vozConsPara": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "vozConsDonde": "Dónde se guarda: en los móviles de la familia, dentro del espacio privado de la app, que el móvil guarda cifrado cuando tiene código de bloqueo. Para llegar al móvil de {alias}, las frases pasan por el servidor cartero solo como sobres cifrados que el servidor no puede abrir.",
+  "@vozConsDonde": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "vozConsQuien": "Quién la oye: {alias} y los familiares que usan la app en este círculo.",
+  "@vozConsQuien": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "vozConsRetirar": "Cómo se retira: {nombre} puede retirar su voz cuando quiera desde Voces. Al retirarla, sus frases dejan de sonar y cada móvil de la familia borra sus audios al recibir el aviso. Los sobres cifrados que ya pasaron por el servidor se quedan allí.",
+  "@vozConsRetirar": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "vozConsClon": "Con estas grabaciones no se crea ninguna voz artificial. Si algún día se quiere hacer, se pedirá otro permiso.",
+  "vozConsGuardar": "Al tocar «Acepto, soy {nombre}», este permiso se guarda con este texto y la fecha.",
+  "@vozConsGuardar": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "vozConsAcepto": "Acepto, soy {nombre}",
+  "@vozConsAcepto": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "vozConsAhoraNo": "Ahora no",
+  "vozTeLoRecuerda": "Te lo recuerda la voz de {nombre}",
+  "@vozTeLoRecuerda": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  }
 }

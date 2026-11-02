@@ -53,8 +53,11 @@ const _casos = [
   ]),
   _Caso('Voces', '/familia/voces', [
     'Voces',
-    'Lo que tendrá',
-    'Llega en las semanas 8 y 9',
+    'Lucía',
+    'Javier',
+    'Marta',
+    'Sin grabar',
+    'Llega en la semana 9',
   ]),
   _Caso('Calendario', '/familia/calendario', [
     'Calendario',

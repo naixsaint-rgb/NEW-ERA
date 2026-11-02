@@ -61,4 +61,11 @@ abstract final class Rutas {
 
   /// Círculo › "Invitar otro móvil" (QR y código).
   static const circuloInvitar = '/familia/circulo/invitar';
+
+  /// Voces › un familiar: sus frases.
+  static String voz(String miembroId) =>
+      '/familia/voces/${Uri.encodeComponent(miembroId)}';
+
+  /// Voces › un familiar › permiso para grabar su voz.
+  static String vozPermiso(String miembroId) => '${voz(miembroId)}/permiso';
 }

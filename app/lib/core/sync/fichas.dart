@@ -6,16 +6,22 @@ import 'package:safety_core/safety_core.dart';
 import '../contexto.dart';
 import '../db/base_datos.dart';
 import '../db/repositorios/eventos_repositorio.dart';
+import '../db/repositorios/voces_repositorio.dart';
+import '../plataforma/audio/archivos_voz.dart';
 import 'foto_para_sobre.dart';
 
 /// Fichas que viajan por el cartero dentro de `ficha_creada` y
-/// `ficha_modificada`: `{tipo, fila: {columnas…}, omitidas?: […]}`.
+/// `ficha_modificada`: `{tipo, fila: {columnas…}, omitidas?: […]}`. Las
+/// frases llevan además su audio: `audio` (base64) y `audio_ext`.
 enum TipoFicha {
   persona('persona'),
   miembro('miembro'),
   medicamento('medicamento'),
   pauta('pauta'),
-  foto('foto');
+  foto('foto'),
+  consentimiento('consentimiento'),
+  voz('voz'),
+  frase('frase');
 
   const TipoFicha(this.nombre);
   final String nombre;
@@ -95,13 +101,57 @@ abstract final class FilasFicha {
     'bytes': base64Encode(f.bytes),
   };
 
+  static Map<String, Object?> consentimiento(Consentimiento c) => {
+    'id': c.id,
+    'circulo_id': c.circuloId,
+    'otorgante': c.otorgante,
+    'en_nombre_de': c.enNombreDe,
+    'sobre': c.sobre,
+    'texto_mostrado': c.textoMostrado,
+    'documento_foto_id': c.documentoFotoId,
+    'otorgado_en': c.otorgadoEn,
+    'revoca_a': c.revocaA,
+  };
+
+  static Map<String, Object?> voz(Voz v) => {
+    'id': v.id,
+    'miembro_id': v.miembroId,
+    'tipo': v.tipo,
+    'modelo': v.modelo,
+    'consentimiento_id': v.consentimientoId,
+    'creada_en': v.creadaEn,
+    'retirada_en': v.retiradaEn,
+  };
+
+  /// Sin `audio_ruta`: la ruta es de cada móvil. El audio va aparte.
+  static Map<String, Object?> frase(Frase f) => {
+    'id': f.id,
+    'voz_id': f.vozId,
+    'texto': f.texto,
+    'uso': f.uso,
+    'aprobada': f.aprobada,
+    'creada_en': f.creadaEn,
+  };
+
+  /// Tope del audio de una frase dentro de un sobre: el mismo que el de las
+  /// fotos (va en base64 dentro del evento; ver `FotoParaSobre`). A
+  /// 32 kbps, 8 s son unos 34 KB.
+  static const maxBytesAudio = FotoParaSobre.maxBytes;
+
   /// Columnas de foto (opcionales) de cada tipo.
   static const columnasFoto = <TipoFicha, List<String>>{
     TipoFicha.persona: ['foto_id'],
     TipoFicha.miembro: ['foto_id'],
     TipoFicha.medicamento: ['foto_caja_id', 'foto_pastilla_id'],
+    TipoFicha.consentimiento: ['documento_foto_id'],
   };
 }
+
+typedef _FilaFicha = ({
+  Map<String, Object?> fila,
+  List<String> omitidas,
+  Map<String, Object?> extra,
+});
 
 /// Deja los eventos de ficha de este móvil para que lleguen a los demás.
 final class PublicadorFichas {
@@ -109,11 +159,15 @@ final class PublicadorFichas {
     required this._db,
     required this._eventos,
     required this._contexto,
+    this._archivos,
   });
 
   final AppDatabase _db;
   final EventosRepositorio _eventos;
   final ContextoApp _contexto;
+
+  /// De dónde se leen los audios de las frases (sin él, salen sin audio).
+  final ArchivosVoz? _archivos;
 
   /// `ficha_creada` con la fila [id] de [tipo] tal como está ahora. Una foto
   /// que no se puede reducir no se publica (devuelve `false`); las fichas que
@@ -149,10 +203,11 @@ final class PublicadorFichas {
   }
 
   /// Publica las fichas que aún no tienen `ficha_creada` (las de antes del
-  /// emparejamiento): fotos, persona, familiares, medicamentos y pautas, en
-  /// ese orden para que al otro lado existan las referencias. En un círculo
-  /// que vino de fuera, la persona sin ficha es la provisional: no se publica.
-  /// Devuelve cuántas publicó.
+  /// emparejamiento): fotos, persona, familiares, consentimientos de voz,
+  /// voces, frases aprobadas, medicamentos y pautas, en ese orden para que al
+  /// otro lado existan las referencias. En un círculo que vino de fuera, la
+  /// persona sin ficha es la provisional: no se publica. Devuelve cuántas
+  /// publicó.
   Future<int> pendientes() => _db.transaction(() async {
     final consulta = _db.selectOnly(_db.eventos)
       ..addColumns([_db.eventos.sujeto])
@@ -205,6 +260,38 @@ final class PublicadorFichas {
     for (final m in miembros) {
       await una(TipoFicha.miembro, m.id);
     }
+    final consentimientos =
+        await (_db.select(_db.consentimientos)
+              ..where(
+                (c) =>
+                    c.circuloId.equals(_contexto.circuloId) &
+                    c.sobre.equals('voz'),
+              )
+              ..orderBy([(c) => OrderingTerm.asc(c.otorgadoEn)]))
+            .get();
+    for (final c in consentimientos) {
+      await una(TipoFicha.consentimiento, c.id);
+    }
+    final voces =
+        await (_db.select(_db.voces)
+              ..where((v) => v.miembroId.isIn([for (final m in miembros) m.id]))
+              ..orderBy([(v) => OrderingTerm.asc(v.creadaEn)]))
+            .get();
+    for (final v in voces) {
+      await una(TipoFicha.voz, v.id);
+    }
+    final frases =
+        await (_db.select(_db.frases)
+              ..where(
+                (f) =>
+                    f.vozId.isIn([for (final v in voces) v.id]) &
+                    f.aprobada.equals(true),
+              )
+              ..orderBy([(f) => OrderingTerm.asc(f.creadaEn)]))
+            .get();
+    for (final f in frases) {
+      await una(TipoFicha.frase, f.id);
+    }
     for (final m in medicamentos) {
       await una(TipoFicha.medicamento, m.id);
     }
@@ -214,20 +301,17 @@ final class PublicadorFichas {
     return n;
   });
 
-  static Map<String, Object?> _payload(
-    TipoFicha tipo,
-    ({Map<String, Object?> fila, List<String> omitidas}) f,
-  ) => {
+  static Map<String, Object?> _payload(TipoFicha tipo, _FilaFicha f) => {
     'tipo': tipo.nombre,
     'fila': f.fila,
     if (f.omitidas.isNotEmpty) 'omitidas': f.omitidas,
+    ...f.extra,
   };
 
-  Future<({Map<String, Object?> fila, List<String> omitidas})?> _fila(
-    TipoFicha tipo,
-    String id,
-  ) async {
+  Future<_FilaFicha?> _fila(TipoFicha tipo, String id) async {
     final Map<String, Object?> fila;
+    final omitidas = <String>[];
+    final extra = <String, Object?>{};
     switch (tipo) {
       case TipoFicha.foto:
         final f = await (_db.select(
@@ -240,6 +324,7 @@ final class PublicadorFichas {
         return (
           fila: FilasFicha.foto(id, reducida, f.creadaEn),
           omitidas: const <String>[],
+          extra: const <String, Object?>{},
         );
       case TipoFicha.persona:
         final p = await (_db.select(
@@ -265,19 +350,49 @@ final class PublicadorFichas {
         )..where((t) => t.id.equals(id))).getSingleOrNull();
         if (p == null) return null;
         fila = FilasFicha.pauta(p);
+      case TipoFicha.consentimiento:
+        final c = await (_db.select(
+          _db.consentimientos,
+        )..where((t) => t.id.equals(id))).getSingleOrNull();
+        if (c == null) return null;
+        fila = FilasFicha.consentimiento(c);
+      case TipoFicha.voz:
+        final v = await (_db.select(
+          _db.voces,
+        )..where((t) => t.id.equals(id))).getSingleOrNull();
+        if (v == null) return null;
+        fila = FilasFicha.voz(v);
+      case TipoFicha.frase:
+        final f = await (_db.select(
+          _db.frases,
+        )..where((t) => t.id.equals(id))).getSingleOrNull();
+        if (f == null) return null;
+        fila = FilasFicha.frase(f);
+        final ruta = f.audioRuta;
+        final bytes = ruta == null ? null : await _archivos?.leer(ruta);
+        if (ruta != null &&
+            bytes != null &&
+            bytes.isNotEmpty &&
+            bytes.length <= FilasFicha.maxBytesAudio) {
+          extra['audio'] = base64Encode(bytes);
+          extra['audio_ext'] = ruta.substring(ruta.lastIndexOf('.') + 1);
+        } else {
+          // No cabe en un sobre (o no está): la frase viaja sin audio.
+          omitidas.add('audio');
+        }
     }
-    final omitidas = <String>[];
     for (final columna in FilasFicha.columnasFoto[tipo] ?? const <String>[]) {
       final fotoId = fila[columna];
-      if (fotoId is String && !await _publicada(fotoId)) {
+      if (fotoId is String && !await publicada(fotoId)) {
         fila[columna] = null;
         omitidas.add(columna);
       }
     }
-    return (fila: fila, omitidas: omitidas);
+    return (fila: fila, omitidas: omitidas, extra: extra);
   }
 
-  Future<bool> _publicada(String id) async =>
+  /// Ya salió una `ficha_creada` con este id.
+  Future<bool> publicada(String id) async =>
       await (_db.select(_db.eventos)
             ..where(
               (e) =>
@@ -358,12 +473,25 @@ final class _Campos {
 /// - Si falta una referencia obligatoria, la ficha queda pendiente en
 ///   `sync_estado` y se repasa cada vez que se aplica otra. Si falta una foto,
 ///   la fila se guarda sin ella y se completa cuando llegue.
+/// - Voces y frases: la voz espera a su familiar y a su consentimiento; la
+///   frase, a su voz. El audio de la frase se guarda en la carpeta de voces
+///   de este móvil ([ArchivosVoz]) y la fila, con su ruta local. Una voz
+///   retirada no vuelve atrás: sus audios se borran y sus frases dejan de
+///   sonar.
 /// - Nunca lanza: un sobre raro no puede atascar la recepción.
 final class MaterializadorFichas {
-  MaterializadorFichas(this._db, this._contexto);
+  MaterializadorFichas(this._db, this._contexto, [this._archivos]);
 
   final AppDatabase _db;
   final ContextoApp _contexto;
+
+  /// Dónde se guardan los audios recibidos (sin él, las frases se guardan
+  /// sin audio).
+  final ArchivosVoz? _archivos;
+
+  /// Ids que pueden formar parte del nombre de un archivo.
+  static final _idSeguro = RegExp(r'^[A-Za-z0-9-]{1,64}$');
+  static final _extSegura = RegExp(r'^[a-z0-9]{1,5}$');
 
   /// Clave de `sync_estado` con las fichas pendientes: `p:<ulid>` (sin
   /// guardar) o `i:<ulid>` (guardada sin alguna foto).
@@ -486,6 +614,9 @@ final class MaterializadorFichas {
       TipoFicha.persona => _persona(e, id, c, creada, soloFotos),
       TipoFicha.miembro => _miembro(e, id, c, creada, soloFotos),
       TipoFicha.medicamento => _medicamento(e, id, c, creada, soloFotos),
+      TipoFicha.consentimiento => _consentimiento(id, c),
+      TipoFicha.voz => _voz(e, id, c, creada),
+      TipoFicha.frase => _frase(e, id, c, creada, payload),
     };
   }
 
@@ -555,7 +686,8 @@ final class MaterializadorFichas {
         !await _existe(_db.personas, fila.personaId.value)) {
       return _Resultado.pendiente;
     }
-    // Las voces aún no viajan.
+    // Una pauta nunca espera a su voz: si aún no ha llegado, se guarda sin
+    // ella y la toma usa la primera voz del círculo.
     final voz = fila.vozId.value;
     final sinVoz = voz != null && !await _existe(_db.voces, voz);
     await _db
@@ -564,7 +696,139 @@ final class MaterializadorFichas {
     return _Resultado.aplicada;
   }
 
+  /// Consentimiento: hecho de solo inserción.
+  Future<_Resultado> _consentimiento(String id, _Campos c) async {
+    if (await _existe(_db.consentimientos, id)) return _Resultado.aplicada;
+    final circulo = c.txt('circulo_id');
+    var foto = c.txtONulo('documento_foto_id');
+    final fila = ConsentimientosCompanion.insert(
+      id: id,
+      circuloId: circulo,
+      otorgante: c.txt('otorgante'),
+      enNombreDe: Value(c.txtONulo('en_nombre_de')),
+      sobre: c.txt('sobre'),
+      textoMostrado: c.txt('texto_mostrado'),
+      otorgadoEn: c.ent('otorgado_en'),
+      revocaA: Value(c.txtONulo('revoca_a')),
+    );
+    if (!c.valida || circulo != _contexto.circuloId) {
+      return _Resultado.descartada;
+    }
+    if (!await _existe(_db.circulos, circulo)) return _Resultado.pendiente;
+    // Es un hecho: no se puede completar después. Sin la foto del documento,
+    // se guarda sin ella.
+    if (foto != null && !await _existe(_db.fotos, foto)) foto = null;
+    await _db
+        .into(_db.consentimientos)
+        .insert(fila.copyWith(documentoFotoId: Value(foto)));
+    return _Resultado.aplicada;
+  }
+
   // ------------------------------------------------------- Fichas
+
+  Future<_Resultado> _voz(Evento e, String id, _Campos c, bool creada) async {
+    final miembro = c.txt('miembro_id');
+    final consentimiento = c.txtONulo('consentimiento_id');
+    final retiradaEn = c.entONulo('retirada_en');
+    final fila = VocesCompanion(
+      id: Value(id),
+      miembroId: Value(miembro),
+      tipo: Value(c.txt('tipo')),
+      modelo: Value(c.txtONulo('modelo')),
+      consentimientoId: Value(consentimiento),
+      creadaEn: Value(c.ent('creada_en')),
+    );
+    if (!c.valida) return _Resultado.descartada;
+    if (!await _existe(_db.miembros, miembro) ||
+        (consentimiento != null &&
+            !await _existe(_db.consentimientos, consentimiento))) {
+      return _Resultado.pendiente;
+    }
+    final ya = await (_db.select(
+      _db.voces,
+    )..where((t) => t.id.equals(id))).getSingleOrNull();
+    // Retirar no tiene vuelta atrás.
+    final retirada = ya?.retiradaEn ?? retiradaEn;
+    final completa = fila.copyWith(retiradaEn: Value(retirada));
+    if (ya == null) {
+      await _db.into(_db.voces).insert(completa);
+    } else if (!creada || await _primeraAlta(e)) {
+      await (_db.update(
+        _db.voces,
+      )..where((t) => t.id.equals(id))).write(completa);
+    } else {
+      return _Resultado.aplicada;
+    }
+    if (retirada != null) {
+      for (final ruta in await VocesRepositorio.quitarAudios(_db, id)) {
+        await _archivos?.borrar(ruta);
+      }
+    }
+    return _Resultado.aplicada;
+  }
+
+  Future<_Resultado> _frase(
+    Evento e,
+    String id,
+    _Campos c,
+    bool creada,
+    Map<String, Object?> payload,
+  ) async {
+    final vozId = c.txt('voz_id');
+    final creadaEn = c.ent('creada_en');
+    final fila = FrasesCompanion(
+      id: Value(id),
+      vozId: Value(vozId),
+      texto: Value(c.txt('texto')),
+      uso: Value(c.txt('uso')),
+      aprobada: Value(c.logico('aprobada')),
+      creadaEn: Value(creadaEn),
+    );
+    if (!c.valida || !_idSeguro.hasMatch(id)) return _Resultado.descartada;
+    final voz = await (_db.select(
+      _db.voces,
+    )..where((t) => t.id.equals(vozId))).getSingleOrNull();
+    if (voz == null) return _Resultado.pendiente;
+    final ya = await (_db.select(
+      _db.frases,
+    )..where((t) => t.id.equals(id))).getSingleOrNull();
+    if (ya != null && creada && !await _primeraAlta(e)) {
+      return _Resultado.aplicada;
+    }
+    // El audio de esta toma de la frase, si viene y la voz sigue activa. Si
+    // no viene (no cabía), la frase se queda sin audio: el de una toma
+    // anterior ya no es el aprobado.
+    String? ruta;
+    final archivos = _archivos;
+    final b64 = payload['audio'];
+    if (archivos != null && voz.retiradaEn == null && b64 is String) {
+      try {
+        final bytes = base64Decode(b64);
+        final pedida = payload['audio_ext'];
+        final ext = pedida is String && _extSegura.hasMatch(pedida)
+            ? pedida
+            : RutasVoz.extension;
+        if (bytes.isNotEmpty) {
+          final destino = RutasVoz.de('$id-$creadaEn', ext: ext);
+          await archivos.escribir(destino, bytes);
+          ruta = destino;
+        }
+      } catch (_) {
+        ruta = null;
+      }
+    }
+    final completa = fila.copyWith(audioRuta: Value(ruta));
+    if (ya == null) {
+      await _db.into(_db.frases).insert(completa);
+    } else {
+      await (_db.update(
+        _db.frases,
+      )..where((t) => t.id.equals(id))).write(completa);
+      final vieja = ya.audioRuta;
+      if (vieja != null && vieja != ruta) await archivos?.borrar(vieja);
+    }
+    return _Resultado.aplicada;
+  }
 
   Future<_Resultado> _persona(
     Evento e,

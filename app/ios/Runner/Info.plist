@@ -33,7 +33,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Puedes elegir una foto de la caja o de la pastilla de tu galería para que se vea en la app.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>El micrófono se usará en las próximas versiones para las voces y las consultas. Ahora no se utiliza.</string>
+	<string>El micrófono graba las frases de la familia que suenan en el móvil de la persona. Solo graba cuando tocas «Grabar», 8 segundos como mucho.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
