@@ -1,0 +1,36 @@
+{
+  "name": "NEW-ERA",
+  "short_name": "NEW-ERA",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0175C2",
+  "theme_color": "#0175C2",
+  "description": "Ayuda diaria con la medicación para una persona con Alzheimer y su familia. Demo con datos de ejemplo.",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icons/Icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/Icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/Icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/Icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "lang": "es"
+}
