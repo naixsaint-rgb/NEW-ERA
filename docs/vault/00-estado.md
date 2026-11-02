@@ -20,6 +20,10 @@ Actualizado: 2026-11-02 (sesión 3). Plan vigente: [[planes/PLAN-v3]]. Interfaz:
   "Más", Hoy con Ayer · Hoy · Mañana · Semana, Resumen con cifras reales, Medicación con pastillero semanal y
   pastillas con foto, persona (inicio, Mis pastillas, toma) y pregunta en modo prueba. Revisión con tres lentes y
   correcciones. 193 tests en verde. ADR-0005. Capturas de cada pantalla en `specs/capturas-ios/`.
+- Sesión 3 (2/11): método del catálogo en la bóveda (`metodo/`); Pages activo por la rama `gh-pages` y publicado
+  por la CI; cartero cifrado con Supabase para los eventos (`supabase/schema.sql`, `supabase/README.md`, proyecto
+  en `supabase/proyecto.json`, pendiente de ejecutar el SQL en el proyecto); Calendario en la barra con mes y
+  hechos, Ideas y tablas en Más, botón Más en píldora. 227 tests. Regla fija de modelos y ahorro en CLAUDE.md.
 - Pendiente de la sesión 2: lo que no existe sigue marcado "llega en la semana N" (pulso, pasos y sueño con el reloj;
   control por horas en la semana 5; voces grabadas). La pregunta no guarda nada hasta la semana 5. El aviso a la
   familia que anuncian Hoy y Resumen ("aviso a las 14:05") es el escalado configurado; el envío real llega en la

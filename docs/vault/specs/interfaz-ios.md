@@ -16,9 +16,12 @@ App de familia (cinco pestañas abajo + botón "Más" arriba a la derecha):
 1. **Hoy** (maqueta A-Familia y D-Semana): selector Ayer · Hoy · Mañana · Semana.
 2. **Resumen** (maqueta B-Familia): estado de un vistazo con cifras reales.
 3. **Medicación** (maqueta D-Medicacion): pastillero de la semana y pastillas con su foto.
-4. **Alimentación** (como estaba, con el tema nuevo).
-5. **Ideas y tablas** (como estaba, con el tema nuevo).
-"Más" (botón arriba a la derecha, en todas las pestañas): Calendario, Consultas, Alarmas, Voces, Círculo, Ajustes.
+4. **Calendario** (orden del promotor, 2/11/2026): mes con un punto de estado por día según sus tomas y,
+   al tocar un día, sus tomas y hechos reales. Turnos y citas llegan en la semana 13.
+5. **Alimentación** (como estaba, con el tema nuevo).
+"Más" (píldora con el texto "Más" arriba a la derecha, solo en las pestañas de primer nivel): Ideas y tablas,
+Consultas, Alarmas, Voces, Círculo, Ajustes. El promotor pidió el 2/11 sacar Calendario a la barra y meter
+Ideas y tablas en Más, y que el botón dejara de ser una inicial.
 En pantalla ancha (≥ 840 dp) sigue el carril lateral con todas las secciones.
 Modo noche (maqueta C-Familia): tema oscuro de la familia. Ajuste "Aspecto": Automático (sigue al sistema, por
 defecto) · Claro · Oscuro · Noche de 22:00 a 08:00.
@@ -122,8 +125,8 @@ mínimo 19 pt; escala del sistema entre 1,0 y 1,3. Nunca más de tres acciones a
   (verde, texto blanco), parcial (naranjaRelleno, texto oscuro), hoy (azulClaro con borde azul), futura (relleno
   suave), vacía.
 - `BarraPestanas(seleccionada, alElegir)`: la barra inferior; sustituye a `NavigationBar` en pantalla estrecha.
-- `BotonMas()`: botón redondo de 40 con las iniciales del círculo (o icono persona), `ClavesUi.pestana('mas')`, va a
-  `Rutas.mas`; lo pinta el shell arriba a la derecha una sola vez.
+- `BotonMas()`: píldora de 40 con icono de puntos y el texto "Más", `ClavesUi.pestana('mas')`, va a `Rutas.mas`;
+  lo pinta el shell arriba a la derecha una sola vez, solo en las pestañas de primer nivel.
 - `EtiquetaEstadoToma` (ya existe): se mantiene; usa los colores nuevos.
 
 ## NACHO · 7. Pantallas y datos reales
