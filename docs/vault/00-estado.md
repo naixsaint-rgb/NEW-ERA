@@ -26,15 +26,17 @@ Actualizado: 2026-11-02 (sesión 3). Plan vigente: [[planes/PLAN-v3]]. Interfaz:
   hechos, Ideas y tablas en Más, botón Más en píldora; emparejamiento por QR o código y fichas por el cartero
   (ADR-0006); voces grabadas por la familia con consentimiento, por el cartero, en la toma, en «Muy bien», en la
   pregunta y en la alarma de Android (ADR-0007); vídeo y foto de comprobación por el cartero en trozos cifrados,
-  con «Ver vídeo» en Hoy y caducidad a 7 días (ADR-0008). 284 tests. Regla fija de modelos y ahorro en CLAUDE.md.
+  con «Ver vídeo» en Hoy y caducidad a 7 días (ADR-0008); control por horas real: rondas de 9 a 21 ajustables desde
+  la familia, respuestas guardadas y por el cartero, «sin respuesta» deducido por la familia, semáforo y avisos del
+  día (ADR-0009). 311 tests. Regla fija de modelos y ahorro en CLAUDE.md.
 - Pendiente de la sesión 2: lo que no existe sigue marcado "llega en la semana N" (pulso, pasos y sueño con el reloj;
-  control por horas en la semana 5). La pregunta no guarda nada hasta la semana 5. El aviso a la
-  familia que anuncian Hoy y Resumen ("aviso a las 14:05") es el escalado configurado; el envío real llega en la
-  semana 4 del plan.
+  vistas Ayer y Semana con respuestas). El aviso a la familia que anuncian Hoy y Resumen es el escalado
+  configurado; el envío real llega en la semana 4 del plan.
 
-## Qué sigue (semana 2 del plan v3)
-1. Confirmar la demo web publicada y el APK de la CI.
-2. AlarmKit real en iOS 26 (capa Swift); la alarma Android con el paquete alarm y la voz grabada ya están.
+## Qué sigue
+1. Ejecutar `supabase/schema.sql` en el proyecto (lo hace el promotor) y probar el APK con dos móviles.
+2. Envío real de avisos a la familia (necesita cuentas de notificaciones: Firebase para Android y Apple para
+   iPhone) y escalado por ronda. AlarmKit real en iOS 26 (capa Swift).
 3. Pendientes de la revisión de Opus: pantalla de error si falla el cifrado, pérdida de clave con base existente,
    excluir vídeos de la copia de iCloud, alarma que sigue sonando mientras se graba el vídeo.
 4. Decisión del promotor: en /persona hay más de tres botones a la vez (la especificación pedía tres).
@@ -47,6 +49,8 @@ Actualizado: 2026-11-02 (sesión 3). Plan vigente: [[planes/PLAN-v3]]. Interfaz:
 - Chromium sin cabeza sin idioma del sistema anuncia "en-US@posix" y el motor web de Flutter falla al arrancar;
   no afecta a navegadores reales. El guion de capturas fija el idioma es-ES.
 - Sin verificar: que AlarmKit suene en bucle indefinido y acepte audio propio; límites de TestFlight con Apple ID gratuito.
+- Control por horas: iOS sigue en stub; en Android real sin verificar el tono suave, el bucle y la apertura a
+  pantalla completa de la pregunta.
 - Vídeo por el cartero: sin verificar contra el proyecto real (tamaño máximo de petición con lotes de ~437 KB,
   `pg_cron` desde el SQL Editor) ni en móvil real (15 fps y 500 kbps, `video_player`).
 - Voces: sin probar en móvil real (grabación, reproducción, alarma con voz); los audios no los cifra la app (semana 3,
