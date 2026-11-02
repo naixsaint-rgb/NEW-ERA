@@ -38,6 +38,23 @@ abstract final class ClavesUi {
   /// Botón "Volver al inicio" de las pantallas de la persona.
   static const volverAlInicio = ValueKey<String>('volver_al_inicio');
 
+  /// Pantalla Calendario de la familia.
+  static const pantallaCalendario = ValueKey<String>('pantalla_calendario');
+
+  /// Título del mes del Calendario ("Octubre de 2026").
+  static const mesCalendario = ValueKey<String>('mes_calendario');
+
+  /// Flechas ‹ y › del Calendario.
+  static const mesAnterior = ValueKey<String>('mes_anterior');
+  static const mesSiguiente = ValueKey<String>('mes_siguiente');
+
+  /// Título del día elegido del Calendario (la fecha larga).
+  static const diaElegido = ValueKey<String>('dia_elegido');
+
+  /// Casilla de un día del Calendario por su fecha (`2026-10-13`).
+  static ValueKey<String> diaCalendario(String fecha) =>
+      ValueKey<String>('dia_calendario_$fecha');
+
   /// Pestaña de la familia: `hoy`, `medicacion`, `calendario`...
   static ValueKey<String> pestana(String slug) =>
       ValueKey<String>('pestana_$slug');

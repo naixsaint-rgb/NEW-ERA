@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:newera/core/contexto.dart';
@@ -57,9 +58,15 @@ void main() {
     await montarApp(tester, entorno!);
     await pasar(tester, const Duration(seconds: 1));
 
-    const barra = ['hoy', 'resumen', 'medicacion', 'alimentacion', 'ideas'];
-    const enMas = [
+    const barra = [
+      'hoy',
+      'resumen',
+      'medicacion',
       'calendario',
+      'alimentacion',
+    ];
+    const enMas = [
+      'ideas',
       'consultas',
       'alarmas',
       'voces',
@@ -78,10 +85,27 @@ void main() {
         tester.getCenter(find.byKey(ClavesUi.pestana(slug))).dx,
     ];
     expect(xs, orderedEquals([...xs]..sort()));
-    // El botón "Más" va arriba a la derecha.
+    expect(slugsBarra, barra);
+    expect(
+      [for (final p in pestanasMas) p.slug],
+      enMas,
+      reason: 'Más lista Ideas y tablas la primera',
+    );
+    // El botón "Más" (una píldora de 48 de alto) va arriba a la derecha.
     final mas = tester.getRect(find.byKey(ClavesUi.pestana('mas')));
     expect(mas.right, closeTo(390 - 16, 0.5));
     expect(mas.top, closeTo(8, 0.5));
+    expect(mas.height, 48);
+    expect(mas.width, lessThan(130));
+    expect(find.text('Más'), findsOneWidget);
+    // Calendario ya está en la barra, con su icono.
+    expect(
+      find.descendant(
+        of: find.byKey(ClavesUi.pestana('calendario')),
+        matching: find.byIcon(CupertinoIcons.calendar),
+      ),
+      findsOneWidget,
+    );
 
     // Cada pestaña de la barra abre su sección y el botón "Más" sigue ahí.
     for (final slug in barra.reversed) {
@@ -97,6 +121,19 @@ void main() {
     for (final slug in enMas) {
       expect(find.byKey(ClavesUi.pestana(slug)), findsOneWidget, reason: slug);
     }
+    // Ideas y tablas va la primera de la lista, con su icono de libro.
+    final ys = [
+      for (final slug in enMas)
+        tester.getCenter(find.byKey(ClavesUi.pestana(slug))).dy,
+    ];
+    expect(ys, orderedEquals([...ys]..sort()));
+    expect(
+      find.descendant(
+        of: find.byKey(ClavesUi.pestana('ideas')),
+        matching: find.byIcon(CupertinoIcons.book_fill),
+      ),
+      findsOneWidget,
+    );
     // "Volver" deja la pestaña donde estaba.
     await tester.tap(find.text('Volver'));
     await pasar(tester, const Duration(seconds: 1));

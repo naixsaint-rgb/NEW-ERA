@@ -25,7 +25,7 @@
   "pestanaAjustes": "Ajustes",
   "pestanaMas": "Más",
   "pestanaResumen": "Resumen",
-  "botonMasAyuda": "Calendario, consultas, alarmas, voces, círculo y ajustes",
+  "botonMasAyuda": "Ideas y tablas, consultas, alarmas, voces, círculo y ajustes",
   "volver": "Volver",
   "aspecto": "Aspecto",
   "aspectoAutomatico": "Automático",
@@ -55,7 +55,6 @@
       }
     }
   },
-  "calendarioTendra": "Un calendario con las tomas, las citas y las visitas de la familia, para verlo todo de un vistazo.",
   "consultasTendra": "Preparar las consultas con el médico: preguntas, grabación con permiso y un resumen para la familia.",
   "alarmasTendra": "Avisos escalonados: si la pastilla no se confirma, se avisa a la familia por orden. Y el control por horas, de 9 a 21.",
   "controlHorasTitulo": "Control por horas",
@@ -1008,5 +1007,46 @@
       }
     }
   },
-  "fixComprobacionVideoCorto": "Vídeo"
+  "fixComprobacionVideoCorto": "Vídeo",
+  "calVispera": "Tomas y hechos",
+  "calMesAnterior": "Mes anterior",
+  "calMesSiguiente": "Mes siguiente",
+  "calDiaHoy": "{dia}, hoy",
+  "@calDiaHoy": {
+    "placeholders": {
+      "dia": {
+        "type": "String"
+      }
+    }
+  },
+  "calSemanticaPrevistas": "{dia}: {n, plural, one{1 toma prevista} other{{n} tomas previstas}}",
+  "@calSemanticaPrevistas": {
+    "placeholders": {
+      "dia": {
+        "type": "String"
+      },
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "calLeyendaHechas": "Todas hechas",
+  "calLeyendaAlgunas": "Algunas hechas",
+  "calLeyendaNinguna": "Ninguna hecha",
+  "calLeyendaPrevistas": "Previstas",
+  "calHechos": "Hechos del día",
+  "calSinNada": "Sin tomas ni hechos ese día",
+  "calLaPersona": "la persona",
+  "calHechoMensaje": "Mensaje a {nombre}",
+  "@calHechoMensaje": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "calHechoAyuda": "Ayuda pedida",
+  "calHechoLlamada": "Llamada iniciada",
+  "calHechoMedicamento": "Medicamento creado",
+  "calPie": "Turnos de la familia y citas"
 }

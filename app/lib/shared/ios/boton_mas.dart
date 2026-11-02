@@ -6,22 +6,24 @@ import '../../core/tema/colores.dart';
 import '../claves_ui.dart';
 import '../l10n_ext.dart';
 
-/// Botón "Más" de la familia: círculo de 40 con las iniciales de quien usa el
-/// móvil (o un icono de persona) y 48×48 de zona táctil.
+/// Botón "Más" de la familia: una píldora de 40 de alto con el icono de los
+/// tres puntos y el texto "Más", y 48 de alto de zona táctil.
 ///
 /// Lo pinta el `FamiliaShell` una sola vez, arriba a la derecha. Abre
 /// [Rutas.mas] encima de la pestaña actual (vuelve con "Volver"). Lleva la
 /// clave `ClavesUi.pestana('mas')`.
+///
+/// Mide unos 76 dp de ancho: la `CabeceraGrande` deja
+/// `CabeceraGrande.reservaBotonMas` libres a la derecha para que no pise los
+/// títulos.
 class BotonMas extends StatelessWidget {
-  const BotonMas({super.key, this.iniciales, this.alPulsar});
+  const BotonMas({super.key, this.alPulsar});
 
-  /// Diámetro del círculo.
-  static const diametro = 40.0;
+  /// Alto de la píldora.
+  static const alto = 40.0;
 
-  /// Lado de la zona táctil.
+  /// Alto (y ancho mínimo) de la zona táctil.
   static const zonaTactil = 48.0;
-
-  final String? iniciales;
 
   /// Por defecto, `context.push(Rutas.mas)`.
   final VoidCallback? alPulsar;
@@ -39,7 +41,6 @@ class BotonMas extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.colores;
     final l = context.l;
-    final ini = iniciales?.trim() ?? '';
     return Semantics(
       key: ClavesUi.pestana('mas'),
       button: true,
@@ -50,34 +51,57 @@ class BotonMas extends StatelessWidget {
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () => _pulsar(context),
-        child: SizedBox.square(
-          dimension: zonaTactil,
-          child: Center(
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: c.avatarFondo,
-                shape: BoxShape.circle,
-              ),
-              child: SizedBox.square(
-                dimension: diametro,
-                child: Center(
-                  child: ini.isEmpty
-                      ? Icon(
-                          CupertinoIcons.person_fill,
-                          size: 22,
-                          color: c.texto,
-                        )
-                      : MediaQuery.withNoTextScaling(
-                          child: Text(
-                            ini,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            minWidth: zonaTactil,
+            minHeight: zonaTactil,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            // Con factores de 1, el `Center` se ajusta a la píldora en vez de
+            // ocupar todo el espacio libre del `Stack` del shell.
+            child: Center(
+              widthFactor: 1,
+              heightFactor: 1,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: c.botonMasFondo,
+                  borderRadius: BorderRadius.circular(alto / 2),
+                ),
+                child: SizedBox(
+                  height: alto,
+                  child: Padding(
+                    padding: const EdgeInsetsDirectional.only(
+                      start: 10,
+                      end: 12,
+                    ),
+                    // La píldora no crece con la letra: se queda en 40 de
+                    // alto y en unos 80 de ancho como mucho.
+                    child: MediaQuery.withClampedTextScaling(
+                      maxScaleFactor: 1.15,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            CupertinoIcons.ellipsis_circle_fill,
+                            size: 22,
+                            color: c.azul,
+                          ),
+                          const SizedBox(width: 5),
+                          Text(
+                            l.pestanaMas,
                             maxLines: 1,
+                            softWrap: false,
                             style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              color: c.texto,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              color: c.azul,
                             ),
                           ),
-                        ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

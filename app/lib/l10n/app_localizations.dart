@@ -247,7 +247,7 @@ abstract class AppLocalizations {
   /// No description provided for @botonMasAyuda.
   ///
   /// In es, this message translates to:
-  /// **'Calendario, consultas, alarmas, voces, círculo y ajustes'**
+  /// **'Ideas y tablas, consultas, alarmas, voces, círculo y ajustes'**
   String get botonMasAyuda;
 
   /// No description provided for @volver.
@@ -321,12 +321,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Llega en las semanas {a} y {b}'**
   String llegaEnSemanas(int a, int b);
-
-  /// No description provided for @calendarioTendra.
-  ///
-  /// In es, this message translates to:
-  /// **'Un calendario con las tomas, las citas y las visitas de la familia, para verlo todo de un vistazo.'**
-  String get calendarioTendra;
 
   /// No description provided for @consultasTendra.
   ///
@@ -2306,6 +2300,108 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Vídeo'**
   String get fixComprobacionVideoCorto;
+
+  /// No description provided for @calVispera.
+  ///
+  /// In es, this message translates to:
+  /// **'Tomas y hechos'**
+  String get calVispera;
+
+  /// No description provided for @calMesAnterior.
+  ///
+  /// In es, this message translates to:
+  /// **'Mes anterior'**
+  String get calMesAnterior;
+
+  /// No description provided for @calMesSiguiente.
+  ///
+  /// In es, this message translates to:
+  /// **'Mes siguiente'**
+  String get calMesSiguiente;
+
+  /// No description provided for @calDiaHoy.
+  ///
+  /// In es, this message translates to:
+  /// **'{dia}, hoy'**
+  String calDiaHoy(String dia);
+
+  /// No description provided for @calSemanticaPrevistas.
+  ///
+  /// In es, this message translates to:
+  /// **'{dia}: {n, plural, one{1 toma prevista} other{{n} tomas previstas}}'**
+  String calSemanticaPrevistas(String dia, int n);
+
+  /// No description provided for @calLeyendaHechas.
+  ///
+  /// In es, this message translates to:
+  /// **'Todas hechas'**
+  String get calLeyendaHechas;
+
+  /// No description provided for @calLeyendaAlgunas.
+  ///
+  /// In es, this message translates to:
+  /// **'Algunas hechas'**
+  String get calLeyendaAlgunas;
+
+  /// No description provided for @calLeyendaNinguna.
+  ///
+  /// In es, this message translates to:
+  /// **'Ninguna hecha'**
+  String get calLeyendaNinguna;
+
+  /// No description provided for @calLeyendaPrevistas.
+  ///
+  /// In es, this message translates to:
+  /// **'Previstas'**
+  String get calLeyendaPrevistas;
+
+  /// No description provided for @calHechos.
+  ///
+  /// In es, this message translates to:
+  /// **'Hechos del día'**
+  String get calHechos;
+
+  /// No description provided for @calSinNada.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin tomas ni hechos ese día'**
+  String get calSinNada;
+
+  /// No description provided for @calLaPersona.
+  ///
+  /// In es, this message translates to:
+  /// **'la persona'**
+  String get calLaPersona;
+
+  /// No description provided for @calHechoMensaje.
+  ///
+  /// In es, this message translates to:
+  /// **'Mensaje a {nombre}'**
+  String calHechoMensaje(String nombre);
+
+  /// No description provided for @calHechoAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'Ayuda pedida'**
+  String get calHechoAyuda;
+
+  /// No description provided for @calHechoLlamada.
+  ///
+  /// In es, this message translates to:
+  /// **'Llamada iniciada'**
+  String get calHechoLlamada;
+
+  /// No description provided for @calHechoMedicamento.
+  ///
+  /// In es, this message translates to:
+  /// **'Medicamento creado'**
+  String get calHechoMedicamento;
+
+  /// No description provided for @calPie.
+  ///
+  /// In es, this message translates to:
+  /// **'Turnos de la familia y citas'**
+  String get calPie;
 }
 
 class _AppLocalizationsDelegate

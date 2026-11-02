@@ -161,7 +161,7 @@ class ColoresApp extends ThemeExtension<ColoresApp> {
     required this.azulSobreTinte,
     required this.segmentosFondo,
     required this.segmentosSeleccion,
-    required this.avatarFondo,
+    required this.botonMasFondo,
   });
 
   /// Fondo de las pantallas de la familia.
@@ -238,8 +238,9 @@ class ColoresApp extends ThemeExtension<ColoresApp> {
   final Color segmentosFondo;
   final Color segmentosSeleccion;
 
-  /// Fondo del botón "Más" (iniciales).
-  final Color avatarFondo;
+  /// Fondo de la píldora del botón "Más", que lleva texto [azul] encima. En
+  /// oscuro es el de la tarjeta: el azul sobre `rellenoSuave` queda en 3,8:1.
+  final Color botonMasFondo;
 
   static const claro = ColoresApp(
     fondoAgrupado: Colores.fondoAgrupado,
@@ -273,7 +274,7 @@ class ColoresApp extends ThemeExtension<ColoresApp> {
     azulSobreTinte: Colores.azul,
     segmentosFondo: Color(0xFFE3E3E8),
     segmentosSeleccion: Colores.tarjeta,
-    avatarFondo: Color(0xFFD1D1D6),
+    botonMasFondo: Colores.azulClaro,
   );
 
   static const oscuro = ColoresApp(
@@ -308,7 +309,7 @@ class ColoresApp extends ThemeExtension<ColoresApp> {
     azulSobreTinte: ColoresOscuro.texto,
     segmentosFondo: ColoresOscuro.rellenoSuave,
     segmentosSeleccion: Color(0xFF636366),
-    avatarFondo: ColoresOscuro.rellenoSuave,
+    botonMasFondo: ColoresOscuro.tarjeta,
   );
 
   @override
@@ -344,7 +345,7 @@ class ColoresApp extends ThemeExtension<ColoresApp> {
     Color? azulSobreTinte,
     Color? segmentosFondo,
     Color? segmentosSeleccion,
-    Color? avatarFondo,
+    Color? botonMasFondo,
   }) => ColoresApp(
     fondoAgrupado: fondoAgrupado ?? this.fondoAgrupado,
     tarjeta: tarjeta ?? this.tarjeta,
@@ -377,7 +378,7 @@ class ColoresApp extends ThemeExtension<ColoresApp> {
     azulSobreTinte: azulSobreTinte ?? this.azulSobreTinte,
     segmentosFondo: segmentosFondo ?? this.segmentosFondo,
     segmentosSeleccion: segmentosSeleccion ?? this.segmentosSeleccion,
-    avatarFondo: avatarFondo ?? this.avatarFondo,
+    botonMasFondo: botonMasFondo ?? this.botonMasFondo,
   );
 
   @override
@@ -416,7 +417,7 @@ class ColoresApp extends ThemeExtension<ColoresApp> {
       azulSobreTinte: m(azulSobreTinte, other.azulSobreTinte),
       segmentosFondo: m(segmentosFondo, other.segmentosFondo),
       segmentosSeleccion: m(segmentosSeleccion, other.segmentosSeleccion),
-      avatarFondo: m(avatarFondo, other.avatarFondo),
+      botonMasFondo: m(botonMasFondo, other.botonMasFondo),
     );
   }
 }

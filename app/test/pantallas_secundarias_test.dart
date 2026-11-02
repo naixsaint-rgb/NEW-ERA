@@ -58,8 +58,9 @@ const _casos = [
   ]),
   _Caso('Calendario', '/familia/calendario', [
     'Calendario',
-    'Lo que tendrá',
-    'Llega en la semana 13',
+    'Octubre de 2026',
+    'Martes 13 de octubre',
+    'Pastilla blanca pequeña',
   ]),
   _Caso('Consultas', '/familia/consultas', [
     'Consultas',
@@ -68,7 +69,7 @@ const _casos = [
   ]),
   _Caso('Más', '/familia/mas', [
     'Más',
-    'Calendario',
+    'Ideas y tablas',
     'Consultas',
     'Alarmas',
     'Voces',

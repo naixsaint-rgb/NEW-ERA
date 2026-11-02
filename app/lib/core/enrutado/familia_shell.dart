@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../shared/claves_ui.dart';
 import '../../shared/ios/ios.dart';
 import '../../shared/l10n_ext.dart';
-import '../../shared/widgets/avatar_familiar.dart';
-import '../providers.dart';
 import '../tema/colores.dart';
 import 'rutas.dart';
 
@@ -36,7 +33,7 @@ class PestanaFamilia {
 
   /// Fondo del icono cuadrado en "Más" y el color de su símbolo.
   (Color fondo, Color simbolo) coloresEnMas(ColoresApp c) => switch (slug) {
-    'calendario' => (c.rojo, c.sobreRojo),
+    'ideas' => (c.azul, c.sobreAzul),
     'consultas' => (c.indigo, IconoCuadrado.simboloSobre(c.indigo)),
     'alarmas' => (c.naranjaRelleno, c.sobreNaranja),
     'voces' => (c.morado, IconoCuadrado.simboloSobre(c.morado)),
@@ -62,33 +59,37 @@ const pestanasFamilia = [
   PestanaFamilia('ajustes', CupertinoIcons.gear_alt_fill),
 ];
 
-/// Las cinco pestañas de la barra inferior.
-const slugsBarra = ['hoy', 'resumen', 'medicacion', 'alimentacion', 'ideas'];
-
-/// Las seis secciones que van en "Más".
-final pestanasMas = [
-  for (final p in pestanasFamilia)
-    if (!slugsBarra.contains(p.slug)) p,
+/// Las cinco pestañas de la barra inferior, de izquierda a derecha.
+const slugsBarra = [
+  'hoy',
+  'resumen',
+  'medicacion',
+  'calendario',
+  'alimentacion',
 ];
+
+/// Las seis secciones que van en "Más", en su orden.
+const slugsMas = [
+  'ideas',
+  'consultas',
+  'alarmas',
+  'voces',
+  'circulo',
+  'ajustes',
+];
+
+/// Las seis secciones que van en "Más" ([slugsMas]).
+final pestanasMas = [for (final slug in slugsMas) _pestana(slug)];
 
 PestanaFamilia _pestana(String slug) =>
     pestanasFamilia.firstWhere((p) => p.slug == slug);
-
-/// Iniciales de quien usa este móvil de la familia (nulas si no se sabe).
-final inicialesUsuarioProvider = Provider<String?>((ref) {
-  final id = ref.watch(sesionProvider).miembroId;
-  if (id == null) return null;
-  final miembros = ref.watch(miembrosProvider).value;
-  final yo = miembros?.where((m) => m.id == id).firstOrNull;
-  return yo == null ? null : AvatarFamiliar.iniciales(yo.nombre);
-});
 
 const _anchoRail = 840.0;
 
 /// Desde 840 dp, `NavigationRail` con las 11 secciones (desplazable); por
 /// debajo, [BarraPestanas] con cinco pestañas y el botón "Más" arriba a la
 /// derecha (una sola vez, encima de la pestaña).
-class FamiliaShell extends ConsumerWidget {
+class FamiliaShell extends StatelessWidget {
   const FamiliaShell({super.key, required this.navigationShell});
 
   final StatefulNavigationShell navigationShell;
@@ -99,7 +100,7 @@ class FamiliaShell extends ConsumerWidget {
   );
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     assert(
       listEquals([for (final p in pestanasFamilia) p.slug], Rutas.slugs),
       'pestanasFamilia y Rutas.slugs deben ir en el mismo orden',
@@ -145,9 +146,9 @@ class FamiliaShell extends ConsumerWidget {
     final slugActual = Rutas.slugs[navigationShell.currentIndex];
     final indiceBarra = slugsBarra.indexOf(slugActual);
     final arriba = MediaQuery.paddingOf(context).top;
-    // El círculo de 40 queda a 12 de la zona segura y a 20 del borde; la zona
-    // táctil (48) sobresale 4 por cada lado.
-    const sobra = (BotonMas.zonaTactil - BotonMas.diametro) / 2;
+    // La píldora de 40 de alto queda a 12 de la zona segura y a 20 del borde;
+    // la zona táctil (48 de alto) sobresale 4 por cada lado.
+    const sobra = (BotonMas.zonaTactil - BotonMas.alto) / 2;
     // Solo en las pestañas de primer nivel: en las pantallas anidadas (con su
     // AppBar) taparía el título.
     final ruta = GoRouterState.of(context).uri.path;
@@ -160,7 +161,7 @@ class FamiliaShell extends ConsumerWidget {
             PositionedDirectional(
               top: arriba + 12 - sobra,
               end: 20 - sobra,
-              child: BotonMas(iniciales: ref.watch(inicialesUsuarioProvider)),
+              child: const BotonMas(),
             ),
         ],
       ),
@@ -180,9 +181,9 @@ class FamiliaShell extends ConsumerWidget {
   }
 }
 
-/// "Más": lista agrupada con las otras seis secciones (calendario, consultas,
-/// alarmas, voces, círculo y ajustes). Se abre encima de la pestaña actual
-/// y vuelve a ella con "Volver".
+/// "Más": lista agrupada con las otras seis secciones (ideas y tablas,
+/// consultas, alarmas, voces, círculo y ajustes). Se abre encima de la
+/// pestaña actual y vuelve a ella con "Volver".
 class MasPantalla extends StatelessWidget {
   const MasPantalla({super.key});
 

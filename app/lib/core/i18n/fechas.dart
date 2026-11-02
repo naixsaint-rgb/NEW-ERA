@@ -15,6 +15,10 @@ String _mayuscula(String s) =>
 String fechaLarga(DateTime local) =>
     _mayuscula(DateFormat("EEEE d 'de' MMMM", 'es_ES').format(local));
 
+/// "Octubre de 2026".
+String mesYAnio(DateTime local) =>
+    _mayuscula(DateFormat("MMMM 'de' y", 'es_ES').format(local));
+
 /// "13 de octubre".
 String fechaCorta(DateTime local) =>
     DateFormat("d 'de' MMMM", 'es_ES').format(local);

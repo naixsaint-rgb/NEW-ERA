@@ -287,7 +287,7 @@ void main() {
   });
 
   group('BotonMas', () {
-    testWidgets('lleva su clave, muestra las iniciales y abre /familia/mas', (
+    testWidgets('lleva su clave, muestra el texto y abre /familia/mas', (
       tester,
     ) async {
       final router = GoRouter(
@@ -296,10 +296,7 @@ void main() {
           GoRoute(
             path: Rutas.pestana('hoy'),
             builder: (_, _) => const Scaffold(
-              body: Align(
-                alignment: Alignment.topRight,
-                child: BotonMas(iniciales: 'L'),
-              ),
+              body: Align(alignment: Alignment.topRight, child: BotonMas()),
             ),
           ),
           GoRoute(
@@ -321,8 +318,22 @@ void main() {
       await tester.pumpAndSettle();
       final boton = find.byKey(ClavesUi.pestana('mas'));
       expect(boton, findsOneWidget);
-      expect(find.text('L'), findsOneWidget);
-      expect(tester.getSize(boton), const Size(48, 48));
+      expect(find.text('Más'), findsOneWidget);
+      expect(find.byIcon(CupertinoIcons.ellipsis_circle_fill), findsOneWidget);
+      // Zona táctil de 48 de alto. La píldora mide 40 de alto y, de ancho,
+      // 10 + icono 22 + 5 + texto + 12 (unos 76 con la letra real; en los
+      // tests, la fuente Ahem ensancha el texto).
+      final zona = tester.getSize(boton);
+      final texto = tester.getSize(find.text('Más'));
+      expect(zona.height, 48);
+      expect(zona.width, closeTo(4 + 10 + 22 + 5 + texto.width + 12 + 4, 0.5));
+      final pildora = tester.getSize(
+        find
+            .ancestor(of: find.text('Más'), matching: find.byType(DecoratedBox))
+            .first,
+      );
+      expect(pildora.height, 40);
+      expect(pildora.width, closeTo(zona.width - 8, 0.5));
 
       await tester.tap(boton);
       await tester.pumpAndSettle();
@@ -330,9 +341,54 @@ void main() {
       expect(router.state.matchedLocation, Rutas.mas);
     });
 
-    testWidgets('sin iniciales pinta el icono de persona', (tester) async {
+    testWidgets('texto y icono en el azul del tema sobre botonMasFondo', (
+      tester,
+    ) async {
       await _montar(tester, BotonMas(alPulsar: () {}));
-      expect(find.byIcon(CupertinoIcons.person_fill), findsOneWidget);
+      final c = ColoresApp.claro;
+      expect(tester.widget<Text>(find.text('Más')).style?.color, c.azul);
+      expect(
+        tester
+            .widget<Icon>(find.byIcon(CupertinoIcons.ellipsis_circle_fill))
+            .color,
+        c.azul,
+      );
+      expect(tester.widget<Text>(find.text('Más')).style?.fontSize, 15);
+      expect(
+        tester.widget<Text>(find.text('Más')).style?.fontWeight,
+        FontWeight.w600,
+      );
+      final decoracion =
+          tester
+                  .widget<DecoratedBox>(
+                    find
+                        .ancestor(
+                          of: find.text('Más'),
+                          matching: find.byType(DecoratedBox),
+                        )
+                        .first,
+                  )
+                  .decoration
+              as BoxDecoration;
+      expect(decoracion.color, c.botonMasFondo);
+      expect(decoracion.borderRadius, BorderRadius.circular(20));
+    });
+
+    testWidgets('con la letra al 200 % la píldora no crece del todo', (
+      tester,
+    ) async {
+      tester.platformDispatcher.textScaleFactorTestValue = 2.0;
+      addTearDown(tester.platformDispatcher.clearAllTestValues);
+      await _montar(tester, BotonMas(alPulsar: () {}));
+      final zona = tester.getSize(find.byKey(ClavesUi.pestana('mas')));
+      expect(zona.height, 48);
+      // El texto se queda en 15 x 1,15 (Ahem: cada letra mide su cuerpo).
+      expect(find.text('Más'), findsOneWidget);
+      expect(
+        tester.getSize(find.text('Más')).width,
+        closeTo(3 * 15 * 1.15, 0.5),
+      );
+      expect(tester.takeException(), isNull);
     });
   });
 

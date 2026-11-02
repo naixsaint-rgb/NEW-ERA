@@ -22,7 +22,10 @@ class CabeceraGrande extends StatelessWidget {
   });
 
   /// Ancho libre a la derecha para el botón "Más".
-  static const reservaBotonMas = 48.0;
+  ///
+  /// La píldora "Más" mide unos 76 y queda a 20 del borde: 84 de reserva
+  /// (más los 20 del margen de la pantalla) la dejan sin pisar el título.
+  static const reservaBotonMas = 84.0;
 
   final String titulo;
 

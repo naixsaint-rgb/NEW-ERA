@@ -86,7 +86,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get botonMasAyuda =>
-      'Calendario, consultas, alarmas, voces, círculo y ajustes';
+      'Ideas y tablas, consultas, alarmas, voces, círculo y ajustes';
 
   @override
   String get volver => 'Volver';
@@ -128,10 +128,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String llegaEnSemanas(int a, int b) {
     return 'Llega en las semanas $a y $b';
   }
-
-  @override
-  String get calendarioTendra =>
-      'Un calendario con las tomas, las citas y las visitas de la familia, para verlo todo de un vistazo.';
 
   @override
   String get consultasTendra =>
@@ -1289,4 +1285,67 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get fixComprobacionVideoCorto => 'Vídeo';
+
+  @override
+  String get calVispera => 'Tomas y hechos';
+
+  @override
+  String get calMesAnterior => 'Mes anterior';
+
+  @override
+  String get calMesSiguiente => 'Mes siguiente';
+
+  @override
+  String calDiaHoy(String dia) {
+    return '$dia, hoy';
+  }
+
+  @override
+  String calSemanticaPrevistas(String dia, int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n tomas previstas',
+      one: '1 toma prevista',
+    );
+    return '$dia: $_temp0';
+  }
+
+  @override
+  String get calLeyendaHechas => 'Todas hechas';
+
+  @override
+  String get calLeyendaAlgunas => 'Algunas hechas';
+
+  @override
+  String get calLeyendaNinguna => 'Ninguna hecha';
+
+  @override
+  String get calLeyendaPrevistas => 'Previstas';
+
+  @override
+  String get calHechos => 'Hechos del día';
+
+  @override
+  String get calSinNada => 'Sin tomas ni hechos ese día';
+
+  @override
+  String get calLaPersona => 'la persona';
+
+  @override
+  String calHechoMensaje(String nombre) {
+    return 'Mensaje a $nombre';
+  }
+
+  @override
+  String get calHechoAyuda => 'Ayuda pedida';
+
+  @override
+  String get calHechoLlamada => 'Llamada iniciada';
+
+  @override
+  String get calHechoMedicamento => 'Medicamento creado';
+
+  @override
+  String get calPie => 'Turnos de la familia y citas';
 }
