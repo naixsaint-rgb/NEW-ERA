@@ -38,6 +38,11 @@ una pantalla de prueba que no guardaba nada.
   dolor nuevo (mayor que el anterior del día), el mismo dolor tres veces, racha sin respuesta (un aviso por
   racha). El envío real a la familia llega en otra entrega.
 - Las respuestas no van al calendario (serían hasta 39 entradas al día).
+- Tras la revisión (misma fecha): la familia empieza a esperar rondas 10 minutos después de activar el control
+  (margen por relojes descolocados y retraso del cartero); si al cambiar la franja se añaden horas que antes no
+  tocaban, se espera respuesta solo desde ese momento (no se inventan «sin respuesta» de horas que nunca se
+  preguntaron). La alarma de una ronda se mueve si cambia su retraso por una toma nueva, y una ronda nunca
+  interrumpe una toma abierta: la alarma se para y la pregunta sale al acabar la toma.
 
 ## NACHO · Consecuencias
 - Sin verificar: iOS (stub), y en Android real el tono suave, el bucle, el volumen y la apertura a pantalla

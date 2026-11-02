@@ -121,6 +121,9 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: 'pregunta',
             builder: (_, state) => _enTemaPersona(
               PreguntaPantalla(
+                // go_router reutiliza la página (misma ruta, otros
+                // parámetros): con la clave, otra ronda empieza de cero.
+                key: ValueKey<String>(state.uri.query),
                 prueba: state.uri.queryParameters['prueba'] == '1',
                 ronda: state.uri.queryParameters['ronda'],
               ),

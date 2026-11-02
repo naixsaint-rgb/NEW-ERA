@@ -70,7 +70,9 @@ class ControlHorasRepositorio {
 
   /// Guarda los ajustes que elige la familia y deja la ficha para los demás
   /// móviles. Al activar (o al cambiar algo estando desactivado y volver a
-  /// activar) apunta desde cuándo: las rondas de antes no se esperan. No
+  /// activar) apunta desde cuándo: las rondas de antes no se esperan. Lo
+  /// mismo si, activado, el cambio añade horas que antes no tocaban (franja
+  /// más larga u otro ritmo): esas rondas de antes no se le preguntaron. No
   /// hace nada si no cambia nada; lanza [ArgumentError] si no son válidos.
   Future<void> guardarAjustes(AjustesControl nuevos) {
     if (!nuevos.valido) throw ArgumentError('ajustes_no_validos');
@@ -78,8 +80,10 @@ class ControlHorasRepositorio {
       final ya = await _consulta().getSingleOrNull();
       final antes = aAjustes(ya);
       final ahora = _reloj.ahora().millisecondsSinceEpoch;
-      // Desactivado → activado: empieza ahora. Si no, se conserva.
-      final activoDesde = nuevos.activado && !antes.activado
+      // Desactivado → activado, o con horas nuevas: empieza ahora. Si no, se
+      // conserva.
+      final anadeHoras = !antes.horas.toSet().containsAll(nuevos.horas);
+      final activoDesde = nuevos.activado && (!antes.activado || anadeHoras)
           ? ahora
           : ya?.activoDesde;
       if (ya != null &&

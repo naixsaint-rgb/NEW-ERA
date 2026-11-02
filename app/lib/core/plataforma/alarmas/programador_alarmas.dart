@@ -27,7 +27,9 @@ import 'servicio_alarmas.dart';
 /// fuera de la franja y retrasada si cae cerca de una toma). Suena la frase
 /// `como_estas` si está en este móvil; si no, la plataforma pone su tono
 /// suave. Si cambian los ajustes, las rondas que ya no tocan son sobrantes y
-/// se cancelan.
+/// se cancelan. El id de una ronda no cambia con su retraso: su
+/// `alarma_programada` apunta la hora (`hora`, ms UTC) y, si una toma nueva
+/// (o retirada) la mueve, se cancela y se vuelve a programar.
 class ProgramadorAlarmas {
   ProgramadorAlarmas({
     required this.servicio,
@@ -120,7 +122,7 @@ class ProgramadorAlarmas {
 
       final estado = await servicio.estado();
       final programadas = estado.programadas.toSet();
-      final audioPrevio = {
+      final previo = {
         for (final MapEntry(:key, :value) in (await eventos.ultimosPorSujeto(
           TipoEvento.alarmaProgramada,
           [
@@ -130,7 +132,7 @@ class ProgramadorAlarmas {
               if (programadas.contains(r.id)) r.id,
           ],
         )).entries)
-          key: EventosRepositorio.payloadDe(value)['audio'],
+          key: EventosRepositorio.payloadDe(value),
       };
       final audioDeVoz = <String?, String?>{};
       Future<String?> frase(UsoFrase uso, String? vozId) async {
@@ -186,8 +188,12 @@ class ProgramadorAlarmas {
       for (final a in alarmas) {
         final ruta = await a.audio();
         if (programadas.contains(a.id)) {
-          // Ya programada: solo se rehace si cambió la frase que suena.
-          if (!audioPrevio.containsKey(a.id) || audioPrevio[a.id] == ruta) {
+          // Ya programada: solo se rehace si cambió la frase que suena o, en
+          // una ronda, su hora.
+          final p = previo[a.id];
+          if (p == null ||
+              (p['audio'] == ruta &&
+                  (!a.ronda || p['hora'] == a.fecha.millisecondsSinceEpoch))) {
             continue;
           }
           try {
@@ -210,6 +216,7 @@ class ProgramadorAlarmas {
               'plataforma': contexto.plataforma,
               'audio': ?ruta,
               if (a.ronda) 'tipo': 'ronda',
+              if (a.ronda) 'hora': a.fecha.millisecondsSinceEpoch,
             },
             autor: contexto.personaId,
           );

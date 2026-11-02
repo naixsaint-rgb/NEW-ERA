@@ -344,12 +344,17 @@ ControlDelDia calcularControlDelDia({
   );
 }
 
+/// Tras activar (o añadir horas), el móvil de la persona se entera por el
+/// cartero y los relojes de los móviles pueden diferir unos minutos: una
+/// ronda que cae en este margen puede no lanzarse y no se espera.
+const margenActivacionControl = Duration(minutes: 10);
+
 /// Desde cuándo se esperan respuestas: lo más tarde entre el primer móvil de
-/// la persona ([primerMovil]) y la activación de los ajustes. Nulo si aún no
-/// hay móvil de la persona.
+/// la persona ([primerMovil]) y la activación de los ajustes más
+/// [margenActivacionControl]. Nulo si aún no hay móvil de la persona.
 DateTime? inicioDelControl(DateTime? primerMovil, AjustesControl ajustes) {
   if (primerMovil == null) return null;
-  final activo = ajustes.activoDesde;
+  final activo = ajustes.activoDesde?.add(margenActivacionControl);
   if (activo == null || activo.isBefore(primerMovil)) return primerMovil;
   return activo;
 }

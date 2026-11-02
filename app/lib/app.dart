@@ -126,7 +126,9 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
   }
 
   /// Alarma de una ronda: abre su pregunta; si ya se contestó (el
-  /// temporizador llegó antes), solo la para.
+  /// temporizador llegó antes) o la persona está con una toma, solo la para
+  /// (con la toma, el temporizador la lanza al acabar, como en
+  /// [_lanzarRonda]).
   Future<void> _abrirRonda(String id) async {
     var contestada = false;
     try {
@@ -137,7 +139,7 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
       contestada = false;
     }
     if (!mounted) return;
-    if (!contestada) {
+    if (!contestada && !_enToma()) {
       ref.read(routerProvider).go(Rutas.pregunta(ronda: id));
       return;
     }
@@ -211,7 +213,7 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
     }
     final router = ref.read(routerProvider);
     final uri = router.routerDelegate.currentConfiguration.uri;
-    if (uri.path.startsWith('${Rutas.persona}/toma')) {
+    if (_enToma()) {
       _ronda?.cancel();
       _ronda = Timer(
         const Duration(minutes: 1),
@@ -225,6 +227,15 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
     if (!yaAbierta) router.go(Rutas.pregunta(ronda: r.id));
     _planificarRonda();
   }
+
+  /// La persona está en la pantalla de una toma.
+  bool _enToma() => ref
+      .read(routerProvider)
+      .routerDelegate
+      .currentConfiguration
+      .uri
+      .path
+      .startsWith('${Rutas.persona}/toma');
 
   @override
   void dispose() {

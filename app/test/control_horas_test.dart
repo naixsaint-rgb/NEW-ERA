@@ -14,6 +14,8 @@ import 'package:newera/core/contexto.dart';
 import 'package:newera/core/cripto/almacen_seguro.dart';
 import 'package:newera/core/cripto/clave_circulo.dart';
 import 'package:newera/core/db/base_datos.dart';
+import 'package:newera/core/db/repositorios/medicacion_repositorio.dart';
+import 'package:newera/core/enrutado/router.dart';
 import 'package:newera/core/db/repositorios/voces_repositorio.dart';
 import 'package:newera/core/plataforma/alarmas/programador_alarmas.dart';
 import 'package:newera/core/plataforma/alarmas/servicio_alarmas.dart';
@@ -25,6 +27,7 @@ import 'package:newera/features/alarmas/control_horas_pantalla.dart';
 import 'package:newera/features/hoy/dominio/control_horas.dart';
 import 'package:newera/features/hoy/dominio/tomas.dart';
 import 'package:newera/features/pregunta/pregunta_pantalla.dart';
+import 'package:newera/features/toma/toma_pantalla.dart';
 import 'package:newera/shared/claves_ui.dart';
 import 'package:safety_core/safety_core.dart';
 
@@ -386,7 +389,7 @@ void main() {
       expect(inicioDelControl(null, AjustesControl.porDefecto), isNull);
       expect(
         inicioDelControl(_m(8), AjustesControl(activoDesde: _m(10))),
-        _m(10),
+        _m(10).add(margenActivacionControl),
       );
     });
 
@@ -1163,6 +1166,221 @@ void main() {
       );
     },
   );
+
+  group('revisión: fallos corregidos', () {
+    test(
+      'una toma nueva cerca de una ronda ya programada mueve su alarma',
+      () async {
+        final e = await prepararEntorno(perfil: PerfilApp.persona);
+        final c = ProviderContainer(overrides: e.overrides);
+        addTearDown(() async {
+          c.dispose();
+          await e.db.close();
+        });
+        final alarmas = _Alarmas();
+        final programador = ProgramadorAlarmas(
+          servicio: alarmas,
+          medicacion: c.read(medicacionRepositorioProvider),
+          eventos: c.read(eventosRepositorioProvider),
+          reloj: e.reloj,
+          contexto: e.contexto,
+          control: c.read(controlHorasRepositorioProvider),
+        );
+        await programador.reprogramar();
+        expect(alarmas.fechas['ronda_20261013_1600'], _m(16));
+        // La familia añade una pastilla a las 16:05: la ronda de las 16 espera
+        // a las 16:30 y su alarma se mueve.
+        await c
+            .read(medicacionRepositorioProvider)
+            .crear(
+              const NuevoMedicamento(
+                nombre: 'Medicamento E (ejemplo)',
+                nombreParaPersona: 'Pastilla de prueba',
+                forma: 'redonda',
+                horas: ['16:05'],
+                dosis: '1 comprimido',
+              ),
+            );
+        await programador.reprogramar();
+        expect(alarmas.fechas['ronda_20261013_1600'], _m(16, 30));
+        // Sin cambios, no se vuelve a programar.
+        final antes = alarmas.canceladas.length;
+        await programador.reprogramar();
+        expect(alarmas.canceladas, hasLength(antes));
+      },
+    );
+
+    testWidgets('con la pregunta de otra ronda abierta, la nueva se guarda '
+        'con su id y para su alarma', (tester) async {
+      final alarmas = _Alarmas();
+      final e = (await tester.runAsync(
+        () => prepararEntorno(perfil: PerfilApp.persona, alarmas: alarmas),
+      ))!;
+      e.reloj.fijar(_m(13));
+      await montarApp(
+        tester,
+        e,
+        rutaInicial: '/persona/pregunta?ronda=ronda_20261013_1200',
+      );
+      await pasar(tester, const Duration(seconds: 1));
+      alarmas.sonar('ronda_20261013_1300');
+      await pasar(tester, const Duration(seconds: 1));
+      expect(alarmas.canceladas, contains('ronda_20261013_1300'));
+      await tester.tap(find.byKey(ClavesUi.respuesta('bien')));
+      await pasar(tester, const Duration(milliseconds: 300));
+      final sujetos = await tester.runAsync(
+        () async => [
+          for (final x in await (e.db.select(
+            e.db.eventos,
+          )..where((x) => x.tipo.equals('pregunta_respondida'))).get())
+            x.sujeto,
+        ],
+      );
+      expect(sujetos, ['ronda_20261013_1300']);
+      await tester.pumpWidget(const SizedBox());
+    });
+
+    testWidgets('dos toques en el mismo instante guardan una sola respuesta', (
+      tester,
+    ) async {
+      final e = (await tester.runAsync(
+        () => prepararEntorno(perfil: PerfilApp.persona),
+      ))!;
+      await montarApp(
+        tester,
+        e,
+        rutaInicial: '/persona/pregunta?ronda=ronda_20261013_1200',
+      );
+      await pasar(tester, const Duration(seconds: 1));
+      // Dos dedos a la vez: el segundo toque llega antes de pintar la
+      // siguiente pregunta.
+      await tester.tap(find.byKey(ClavesUi.respuesta('bien')));
+      await tester.tap(find.byKey(ClavesUi.respuesta('regular')));
+      await pasar(tester, const Duration(milliseconds: 300));
+      final pagos = await tester.runAsync(
+        () async => [
+          for (final x in await (e.db.select(
+            e.db.eventos,
+          )..where((x) => x.tipo.equals('pregunta_respondida'))).get())
+            jsonDecode(x.payload) as Map<String, dynamic>,
+        ],
+      );
+      expect(
+        [for (final p in pagos!) (p['tipo'], p['respuesta'])],
+        [('estado', 'bien')],
+      );
+      expect(find.byKey(ClavesUi.respuesta('nada')), findsOneWidget);
+      await tester.pumpWidget(const SizedBox());
+    });
+
+    testWidgets('la alarma de una ronda no interrumpe una toma', (
+      tester,
+    ) async {
+      final alarmas = _Alarmas();
+      final e = (await tester.runAsync(
+        () => prepararEntorno(perfil: PerfilApp.persona, alarmas: alarmas),
+      ))!;
+      final toma = (await tester.runAsync(
+        () => e.idToma('Cápsula roja', '20261013', '1400'),
+      ))!;
+      // La ronda de las 14 pasa a las 14:15 por la toma de las 14:00, que
+      // sigue abierta sin confirmar.
+      e.reloj.fijar(_m(14, 14, 13, 50));
+      await montarApp(tester, e, rutaInicial: '/persona/toma/$toma');
+      await pasar(tester, const Duration(seconds: 1));
+      expect(find.byType(TomaPantalla), findsOneWidget);
+      e.reloj.fijar(_m(14, 15));
+      await pasar(tester, const Duration(seconds: 10));
+      alarmas.sonar('ronda_20261013_1400');
+      await pasar(tester, const Duration(seconds: 1));
+      expect(find.byType(TomaPantalla), findsOneWidget);
+      expect(find.byType(PreguntaPantalla), findsNothing);
+      // Deja de sonar; al acabar la toma, el temporizador abre la pregunta.
+      expect(alarmas.canceladas, contains('ronda_20261013_1400'));
+      ProviderScope.containerOf(tester.element(find.byType(TomaPantalla)))
+          .read(routerProvider)
+          .go('/persona');
+      await pasar(tester, const Duration(seconds: 1));
+      e.reloj.fijar(_m(14, 16, 13, 10));
+      await pasar(tester, const Duration(seconds: 61));
+      expect(find.byType(PreguntaPantalla), findsOneWidget);
+      await tester.pumpWidget(const SizedBox());
+    });
+
+    test(
+      'añadir horas a mitad del día no inventa «sin respuesta» de antes',
+      () async {
+        final e = await prepararEntorno(perfil: PerfilApp.familia);
+        final c = ProviderContainer(overrides: e.overrides);
+        addTearDown(() async {
+          c.dispose();
+          await e.db.close();
+        });
+        final repo = c.read(controlHorasRepositorioProvider);
+        final respuestas = [
+          for (final h in [9, 10, 11, 12])
+            _resp(
+              'ronda_20261013_${h.toString().padLeft(2, '0')}00',
+              TipoPreguntaControl.estado,
+              'bien',
+              _m(h, 1),
+            ),
+        ];
+        ControlDelDia ver(AjustesControl a, DateTime ahora) =>
+            calcularControlDelDia(
+              ajustes: a,
+              dia: diaLocal(ahora, _madrid),
+              zona: _madrid,
+              tomas: const [],
+              respuestas: respuestas,
+              ahora: ahora,
+              inicio: inicioDelControl(_m(6), a),
+            );
+        // A las 12:00 la familia adelanta la franja a las 7: las de las 7 y
+        // las 8 no se le preguntaron.
+        await repo.guardarAjustes(AjustesControl.porDefecto.copiar(desde: 7));
+        var a = await repo.ajustes();
+        var control = ver(a, _m(12, 30));
+        expect(control.sinRespuesta, isEmpty);
+        expect(control.nivel, NivelSemaforo.verde);
+        expect(control.contestadas, 4);
+        // Quitar horas no borra lo que ya se esperaba.
+        e.reloj.fijar(_m(14, 30));
+        final desde = a.activoDesde;
+        await repo.guardarAjustes(a.copiar(cadaHoras: 2));
+        a = await repo.ajustes();
+        expect(a.activoDesde, desde);
+        control = ver(a, _m(15, 5));
+        expect(control.sinRespuesta.map((r) => r.ronda.horaLocal), ['13:00']);
+      },
+    );
+
+    test('activado poco antes de una ronda: esa ronda no se espera (el móvil '
+        'de la persona aún no lo sabía o los relojes difieren)', () {
+      // La familia, con el reloj 3 minutos atrasado, activa a las 10:01
+      // reales (09:58 en su reloj). El móvil de la persona se entera a las
+      // 10:01 y ya no lanza la de las 10:00.
+      final a = AjustesControl(activoDesde: _m(9, 58));
+      final persona = rondasControl(
+        ajustes: a,
+        zona: _madrid,
+        desde: _m(10, 1),
+        hasta: _m(12),
+      );
+      expect(persona.first.horaLocal, '11:00');
+      final c = calcularControlDelDia(
+        ajustes: a,
+        dia: diaLocal(_m(12), _madrid),
+        zona: _madrid,
+        tomas: const [],
+        respuestas: const [],
+        ahora: _m(10, 30),
+        inicio: inicioDelControl(_m(8), a),
+      );
+      expect(c.sinRespuesta, isEmpty);
+      expect(c.rondas.first.ronda.horaLocal, '11:00');
+    });
+  });
 }
 
 /// Espera (de verdad) a que se cumpla [condicion].

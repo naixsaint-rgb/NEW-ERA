@@ -227,8 +227,11 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
     });
   }
 
-  void _contestar(String clave) {
-    if (_terminada) return;
+  /// Contesta la pregunta [indice] con [clave]. Un toque que llega cuando ya
+  /// se muestra otra pregunta (dos dedos a la vez, antes de repintar) no
+  /// cuenta.
+  void _contestar(int indice, String clave) {
+    if (_terminada || indice != _indice) return;
     unawaited(_reproductor.parar());
     _guardar(_indice, clave);
     _mostradaEn = ref.read(relojProvider).ahora();
@@ -289,7 +292,8 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
     final l = context.l;
     final c = context.colores;
     final t = Theme.of(context).textTheme;
-    final pregunta = _preguntas[_indice];
+    final indice = _indice;
+    final pregunta = _preguntas[indice];
     final contexto = ref.watch(contextoProvider);
     final ahora =
         ref.watch(ahoraProvider).value ?? ref.read(relojProvider).ahora();
@@ -345,18 +349,20 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
           if (pregunta.opciones.length <= 3)
             for (final (i, o) in pregunta.opciones.indexed) ...[
               if (i > 0) const SizedBox(height: 14),
-              _botonGrande(o, l, c, altura: compacta ? 84 : 108),
+              _botonGrande(indice, o, l, c, altura: compacta ? 84 : 108),
             ]
           else
             _CuadriculaOpciones(
               opciones: pregunta.opciones,
-              constructor: (o) => _botonGrande(o, l, c, altura: 80, tamano: 24),
+              constructor: (o) =>
+                  _botonGrande(indice, o, l, c, altura: 80, tamano: 24),
             ),
           const SizedBox(height: 24),
           _BotonDecirlo(
             onPressed: () {
+              if (indice != _indice) return;
               _avisar(l.preguntaDecirloLlega);
-              _contestar(respuestaDecirlo);
+              _contestar(indice, respuestaDecirlo);
             },
           ),
         ],
@@ -365,6 +371,7 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
   }
 
   Widget _botonGrande(
+    int indice,
     _Opcion o,
     AppLocalizations l,
     ColoresApp c, {
@@ -385,7 +392,7 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
       colorTexto: texto,
       altura: altura,
       tamanoTexto: tamano,
-      onPressed: () => _contestar(o.clave),
+      onPressed: () => _contestar(indice, o.clave),
     );
   }
 }

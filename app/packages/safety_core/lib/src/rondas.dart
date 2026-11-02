@@ -89,8 +89,9 @@ final class AjustesControl {
   /// Ritmo: una ronda cada 1, 2 o 3 horas.
   final int cadaHoras;
 
-  /// Desde cuándo está activado (UTC). Las rondas de antes no se esperan.
-  /// Nulo: desde siempre (los valores por defecto).
+  /// Desde cuándo está activado (UTC), o desde el último cambio que añadió
+  /// horas. Las rondas de antes no se esperan. Nulo: desde siempre (los
+  /// valores por defecto).
   final DateTime? activoDesde;
 
   bool get valido =>
