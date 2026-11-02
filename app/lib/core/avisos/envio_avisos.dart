@@ -51,6 +51,11 @@ final class EnvioAvisos {
   final Set<String> _hechos = {};
   final Set<String> _enCurso = {};
 
+  /// Envíos que el canal no pudo entregar con esta instancia. La revisión en
+  /// segundo plano lo mira para programar el reintento ([pausaTrasFallo]).
+  int get fallidos => _fallidos;
+  int _fallidos = 0;
+
   /// Clave de un envío.
   static String clave(AvisoPendiente a, String miembroId) =>
       '${a.motivo.nombre}|${a.sujeto}|${a.escalon}|$miembroId';
@@ -127,6 +132,7 @@ final class EnvioAvisos {
         _hechos.add(k);
         await _soltar(k);
       } else {
+        _fallidos++;
         if (!await _yaFallo(a, miembroId)) await _apuntar(a, miembroId, r);
         await _pausar(k);
       }

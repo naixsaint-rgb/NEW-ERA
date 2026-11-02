@@ -492,8 +492,10 @@ final class _Campos {
 /// - Inserta la fila si no existe (idempotente por id; las pautas, por id de
 ///   versión). Fotos y pautas son hechos de solo inserción: nunca se cambian.
 /// - Persona, familiar y medicamento admiten cambios: `ficha_modificada` los
-///   actualiza. Una `ficha_creada` sobre una fila que ya existe solo la pisa
-///   si es la primera para ese id (la fila provisional del emparejamiento).
+///   actualiza si no hay otra ficha de esa fila más reciente (gana el cambio
+///   más nuevo, llegue en el orden que llegue). Una `ficha_creada` sobre una
+///   fila que ya existe solo la pisa si es la primera para ese id (la fila
+///   provisional del emparejamiento).
 /// - Si falta una referencia obligatoria, la ficha queda pendiente en
 ///   `sync_estado` y se repasa cada vez que se aplica otra. Si falta una foto,
 ///   la fila se guarda sin ella y se completa cuando llegue.
@@ -1061,13 +1063,34 @@ final class MaterializadorFichas {
     if (!await requisitos()) return _Resultado.pendiente;
     if (!ya) {
       await guardar(true, faltan);
-    } else if (!creada || await _primeraAlta(e)) {
+    } else if (creada ? await _primeraAlta(e) : !await _hayFichaMasNueva(e)) {
       await guardar(false, faltan);
     } else {
       return _Resultado.aplicada;
     }
     return faltan.isEmpty ? _Resultado.aplicada : _Resultado.incompleta;
   }
+
+  /// Hay otra ficha (creada o modificada) de la misma fila más reciente que
+  /// [e] (`ocurrido_en` y, si empatan, ulid), recibida o hecha en este
+  /// móvil: un cambio que llega tarde no pisa a uno más nuevo (p. ej. el
+  /// puesto de aviso de un familiar cambiado desde dos móviles).
+  Future<bool> _hayFichaMasNueva(Evento e) async =>
+      await (_db.select(_db.eventos)
+            ..where(
+              (t) =>
+                  t.sujeto.equals(e.sujeto ?? '') &
+                  t.tipo.isIn([
+                    TipoEvento.fichaCreada.nombre,
+                    TipoEvento.fichaModificada.nombre,
+                  ]) &
+                  (t.ocurridoEn.isBiggerThanValue(e.ocurridoEn) |
+                      (t.ocurridoEn.equals(e.ocurridoEn) &
+                          t.ulid.isBiggerThanValue(e.ulid))),
+            )
+            ..limit(1))
+          .getSingleOrNull() !=
+      null;
 
   /// No hay otra `ficha_creada` anterior con el mismo id.
   Future<bool> _primeraAlta(Evento e) async =>

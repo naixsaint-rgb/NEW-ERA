@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:drift/drift.dart'
     show BooleanExpressionOperators, Value, driftRuntimeOptions;
+import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -11,6 +13,7 @@ import 'package:http/testing.dart';
 import 'package:newera/core/arranque.dart';
 import 'package:newera/core/avisos/canal_avisos.dart';
 import 'package:newera/core/avisos/envio_avisos.dart';
+import 'package:newera/core/avisos/programador_avisos.dart';
 import 'package:newera/core/contexto.dart';
 import 'package:newera/core/cripto/almacen_seguro.dart';
 import 'package:newera/core/cripto/clave_circulo.dart';
@@ -21,8 +24,10 @@ import 'package:newera/core/db/repositorios/eventos_repositorio.dart';
 import 'package:newera/core/enrutado/router.dart';
 import 'package:newera/core/enrutado/rutas.dart';
 import 'package:newera/core/providers.dart';
+import 'package:newera/core/sync/fichas.dart';
 import 'package:newera/features/avisos/dominio/que_avisar.dart';
 import 'package:newera/features/avisos/revision_avisos.dart';
+import 'package:newera/features/avisos/segundo_plano.dart';
 import 'package:newera/features/circulo/familiar_pantalla.dart';
 import 'package:newera/features/hoy/dominio/tomas.dart';
 import 'package:newera/features/hoy/hoy_pantalla.dart';
@@ -154,6 +159,48 @@ Future<_Mundo> _mundo() async {
   final m = _Mundo(db, contexto, almacen, reloj, CanalAvisosSimulado());
   addTearDown(db.close);
   return m;
+}
+
+/// Como [_mundo], pero con la base en un archivo y cerrada: la revisión en
+/// segundo plano abre su propia conexión, como en el móvil.
+Future<({File archivo, AlmacenSeguro almacen, RelojFijo reloj})>
+_baseEnArchivo() async {
+  final dir = await Directory.systemTemp.createTemp('newera_avisos_');
+  addTearDown(() => dir.delete(recursive: true));
+  final archivo = File('${dir.path}/newera.db');
+  final reloj = RelojFijo(instantePrueba);
+  final almacen = AlmacenSeguroMemoria({ClavesAlmacen.perfil: 'persona'});
+  final overrides = await Arranque.iniciar(
+    almacen: almacen,
+    ejecutor: NativeDatabase(archivo),
+    reloj: reloj,
+    plataforma: 'android',
+    demoWeb: false,
+    sembrarDemo: true,
+    azar: Random(42),
+  );
+  final c = ProviderContainer(overrides: overrides);
+  await c.read(baseDatosProvider).close();
+  c.dispose();
+  return (archivo: archivo, almacen: almacen, reloj: reloj);
+}
+
+/// Programador de revisiones que solo apunta.
+final class _ProgramadorPrueba implements ProgramadorAvisos {
+  final programados = <DateTime>[];
+  final soltados = <int>[];
+
+  @override
+  bool get enSegundoPlano => true;
+
+  @override
+  Future<int> programar(Iterable<DateTime> instantes) async {
+    programados.addAll(instantes);
+    return instantes.length;
+  }
+
+  @override
+  Future<void> soltar(int id) async => soltados.add(id);
 }
 
 /// Temas a los que se publicó, en orden.
@@ -881,6 +928,103 @@ void main() {
       await pasar(tester, const Duration(seconds: 1));
       expect(find.byType(HoyPantalla), findsOneWidget);
     });
+  });
+
+  group('segundo plano (Android, app cerrada)', () {
+    Future<void> revisar(
+      ({File archivo, AlmacenSeguro almacen, RelojFijo reloj}) b,
+      DateTime cuando, {
+      required int alarma,
+      required CanalAvisos canal,
+      required ProgramadorAvisos programador,
+    }) {
+      b.reloj.fijar(cuando);
+      return revisionEnSegundoPlano(
+        alarma: alarma,
+        almacen: b.almacen,
+        abrir: (_) async => NativeDatabase(b.archivo),
+        canal: canal,
+        programador: programador,
+        reloj: b.reloj,
+      );
+    }
+
+    test('cada revisión suelta su alarma: no se acumulan para el reinicio '
+        '(también en un móvil que ya no es el de la persona)', () async {
+      final b = await _baseEnArchivo();
+      final p = _ProgramadorPrueba();
+      final canal = CanalAvisosSimulado();
+      await revisar(
+        b,
+        _m(14, 5, 5),
+        alarma: 1234,
+        canal: canal,
+        programador: p,
+      );
+      expect(p.soltados, [1234]);
+      expect(canal.enviados, hasLength(1));
+      expect(p.programados, isEmpty);
+      await b.almacen.escribir(ClavesAlmacen.perfil, 'familia');
+      await revisar(b, _m(14, 10, 5), alarma: 99, canal: canal, programador: p);
+      expect(p.soltados, [1234, 99]);
+      expect(canal.enviados, hasLength(1));
+    });
+
+    test('si el envío falla, otra revisión a los 2 minutos; si sale, ninguna '
+        'más', () async {
+      final b = await _baseEnArchivo();
+      final p = _ProgramadorPrueba();
+      final canal = CanalAvisosSimulado(respuestas: [ResultadoAviso.fallido]);
+      await revisar(b, _m(14, 5, 5), alarma: 1, canal: canal, programador: p);
+      expect(canal.enviados, hasLength(1));
+      expect(p.programados, [_m(14, 7, 10)]);
+      await revisar(b, _m(14, 7, 10), alarma: 2, canal: canal, programador: p);
+      expect(canal.enviados, hasLength(2));
+      expect(canal.enviados.last.tema, canal.enviados.first.tema);
+      expect(p.programados, hasLength(1));
+    });
+  });
+
+  test('el puesto de aviso: gana el cambio más nuevo aunque llegue antes', () async {
+    final w = await _mundo();
+    final lucia = await w.idMiembro('Lucía');
+    final fila = await (w.db.select(
+      w.db.miembros,
+    )..where((m) => m.id.equals(lucia))).getSingle();
+    final t0 = w.reloj.ahora().millisecondsSinceEpoch;
+    Evento ficha(String ulid, int ms, int orden) => Evento(
+      ulid: ulid,
+      circuloId: w.contexto.circuloId,
+      autor: 'otro',
+      dispositivo: 'otro',
+      tipo: 'ficha_modificada',
+      sujeto: lucia,
+      ocurridoEn: ms,
+      registradoEn: ms,
+      payload: jsonEncode({
+        'tipo': 'miembro',
+        'fila': {...FilasFicha.miembro(fila), 'orden_escalado': orden},
+      }),
+    );
+    final fichas = MaterializadorFichas(w.db, w.contexto);
+    Future<void> llega(Evento e) async {
+      await w.db.into(w.db.eventos).insert(e);
+      await fichas.alRecibir(e);
+    }
+
+    Future<int?> puesto() async => (await (w.db.select(
+      w.db.miembros,
+    )..where((m) => m.id.equals(lucia))).getSingle()).ordenEscalado;
+
+    // Javier la pone la 2.ª a las 10:02; el cambio de Marta de las 10:01 (3.ª)
+    // llega después: no lo pisa.
+    await llega(ficha('01JB0000000000000000000002', t0 + 120000, 2));
+    expect(await puesto(), 2);
+    await llega(ficha('01JB0000000000000000000001', t0 + 60000, 3));
+    expect(await puesto(), 2);
+    // Un cambio más nuevo, sí.
+    await llega(ficha('01JB0000000000000000000003', t0 + 180000, 3));
+    expect(await puesto(), 3);
   });
 
   test('cambiar el puesto: no admite 0 ni negativos', () async {

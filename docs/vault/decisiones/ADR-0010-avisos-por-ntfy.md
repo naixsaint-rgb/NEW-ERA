@@ -51,5 +51,11 @@ aunque la app esté cerrada. Eso exige un servidor de notificaciones: no se pued
   que ntfy.sh no cambie sus límites gratuitos. El tema funciona como contraseña: quien lo conozca puede leer
   esos avisos sin datos o mandar avisos falsos a ese familiar.
 - El móvil de la persona tiene que abrir la app una vez tras actualizar para programar las revisiones.
+- Tras la revisión (misma fecha): cada revisión en segundo plano suelta su alarma al empezar (el plugin las
+  guardaba para siempre y Android 12+ rechaza más de unas 500, tomas incluidas); si un envío falla con la app
+  cerrada, se programa otra revisión a los 2 minutos dentro de la ventana de 30; y las fichas modificadas
+  (orden de aviso, persona, medicamento) se quedan con el cambio más reciente llegue en el orden que llegue.
+- Limitación conocida: con la app de la persona cerrada, la revisión de los 10 minutos solo mira la base local;
+  si un familiar cerró la toma a distancia y ese sobre aún no ha llegado, puede avisar al puesto 2 sin necesidad.
 - Pendiente: vigilante en el servidor para «el móvil de la persona lleva horas sin dar señales» (pg_cron +
   pg_net con el tema derivado en SQL), y el aviso de ronda sin respuesta cuando su móvil está apagado.

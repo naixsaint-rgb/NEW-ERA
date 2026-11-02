@@ -11,6 +11,10 @@ abstract interface class ProgramadorAvisos {
   /// Programa una revisión en cada uno de [instantes] (sustituye la que
   /// hubiera con el mismo instante). Devuelve cuántas quedaron programadas.
   Future<int> programar(Iterable<DateTime> instantes);
+
+  /// La revisión [id] acaba de saltar: deja de estar programada y sale de
+  /// la lista que se reprograma al reiniciar. Nunca lanza.
+  Future<void> soltar(int id);
 }
 
 /// iOS, web y escritorio: sin revisiones en segundo plano. Los avisos salen
@@ -23,6 +27,9 @@ final class ProgramadorAvisosNulo implements ProgramadorAvisos {
 
   @override
   Future<int> programar(Iterable<DateTime> instantes) async => 0;
+
+  @override
+  Future<void> soltar(int id) async {}
 }
 
 /// Android: `android_alarm_manager_plus` (Flutter Community) con alarmas
@@ -33,6 +40,13 @@ final class ProgramadorAvisosNulo implements ProgramadorAvisos {
 /// el permiso de alarmas exactas (`USE_EXACT_ALARM`/`SCHEDULE_EXACT_ALARM`,
 /// ya en el manifiesto por las alarmas de las tomas); sin él, Android no la
 /// programa.
+///
+/// El plugin guarda cada alarma con `rescheduleOnReboot` para volver a
+/// programarla al reiniciar y no la borra al saltar (solo con `cancel`): cada
+/// revisión llama a [soltar] con su id. Si no, la lista crecería sin fin
+/// (unas 20 al día), al reiniciar saltarían todas las pasadas de golpe y,
+/// pasadas 500, Android rechaza más alarmas de la app (también las de las
+/// tomas).
 final class ProgramadorAvisosAndroid implements ProgramadorAvisos {
   const ProgramadorAvisosAndroid(this.revisar);
 
@@ -67,5 +81,15 @@ final class ProgramadorAvisosAndroid implements ProgramadorAvisos {
       }
     }
     return n;
+  }
+
+  @override
+  Future<void> soltar(int id) async {
+    try {
+      await AndroidAlarmManager.cancel(id);
+    } catch (_) {
+      // Sin servicio: se queda en la lista; al saltar otra vez, no avisa de
+      // nuevo (el envío no repite).
+    }
   }
 }
