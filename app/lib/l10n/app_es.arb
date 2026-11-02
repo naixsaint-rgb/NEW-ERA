@@ -1396,7 +1396,7 @@
     }
   },
   "avisosDeHoy": "Avisos de hoy",
-  "avisosPie": "Por ahora se apuntan aquí; el envío a la familia llega en la semana 4.",
+  "avisosPie": "Los avisos salen del móvil de la persona por ntfy. Cada familiar los activa en Círculo, tocando su nombre.",
   "avisoAyuda": "Pidió ayuda",
   "avisoLlamada": "Llamó a la familia",
   "avisoEstadoMal": "Dijo «Mal»",
@@ -1527,5 +1527,78 @@
         "type": "String"
       }
     }
-  }
+  },
+  "envioA": "Aviso enviado a {nombres}",
+  "@envioA": {
+    "placeholders": {
+      "nombres": {
+        "type": "String"
+      }
+    }
+  },
+  "envioFallidoA": "No se pudo avisar a {nombres}",
+  "@envioFallidoA": {
+    "placeholders": {
+      "nombres": {
+        "type": "String"
+      }
+    }
+  },
+  "envioMotivoToma": "Toma de las {hora} sin confirmar",
+  "@envioMotivoToma": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "envioMotivoRonda": "Ronda de las {hora} sin respuesta",
+  "@envioMotivoRonda": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "envioMotivoDolor": "Dolor nuevo",
+  "envioUnFamiliar": "un familiar",
+  "envioYUltimo": "{todos} y {ultimo}",
+  "@envioYUltimo": {
+    "placeholders": {
+      "todos": {
+        "type": "String"
+      },
+      "ultimo": {
+        "type": "String"
+      }
+    }
+  },
+  "circOrdenTitulo": "Orden de aviso",
+  "circSinPuesto": "Ninguno",
+  "circOrdenPie": "Si una toma sigue sin confirmar, a los 5 minutos se avisa al puesto 1 y a los 10, al puesto 2; si solo hay uno, recibe los dos avisos. Si nadie tiene puesto, se avisa a todos. La ayuda pedida, «Mal», un dolor nuevo y las rondas sin respuesta llegan a todos.",
+  "circAvisosTitulo": "Avisos en este móvil",
+  "circAvisosAbrir": "Abrir en ntfy",
+  "circAvisosAbrirDetalle": "Se suscribe a tu tema (Android)",
+  "circAvisosNoAbre": "No se pudo abrir ntfy. Copia el tema y añádelo en ntfy a mano.",
+  "circAvisosTema": "Tu tema en ntfy.sh",
+  "circAvisosCopiar": "Copiar el tema",
+  "circAvisosCopiado": "Tema copiado",
+  "circAvisosPrueba": "Enviar aviso de prueba",
+  "circAvisosPruebaDetalle": "Debe llegar a este móvil en unos segundos",
+  "circAvisosPruebaOk": "Aviso de prueba enviado. Si no llega, repasa los pasos.",
+  "circAvisosPruebaFallo": "No se pudo enviar. Comprueba la conexión y vuelve a probar.",
+  "circAvisosPaso1": "1. Instala la app ntfy (Google Play, F-Droid o App Store).",
+  "circAvisosPaso2": "2. Toca «Abrir en ntfy». En iPhone, o si no se abre, copia el tema y añádelo en ntfy con el botón + (servidor ntfy.sh).",
+  "circAvisosPaso3": "3. Toca «Enviar aviso de prueba» y comprueba que llega.",
+  "circAvisosPrivacidad": "Qué ve ntfy.sh: un código al azar (tu tema) y la frase fija «NEW-ERA: hay un aviso. Abre la app.». Nunca nombres, horas, medicamentos ni respuestas. ntfy.sh guarda cada aviso 12 horas y lo entrega a través de Google o de Apple. Quien conozca el tema puede ver esos avisos: no lo compartas.",
+  "circAvisosComoSalen": "Los avisos salen del móvil de la persona. En Android salen aunque la app esté cerrada; en iPhone, solo con la app abierta.",
+  "circAvisosOtro": "{nombre} activa sus avisos desde su propio móvil, en Círculo.",
+  "@circAvisosOtro": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "circAvisosSinClave": "Este móvil no tiene la clave de la familia: aquí no hay avisos."
 }

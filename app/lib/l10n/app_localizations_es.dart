@@ -1806,7 +1806,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get avisosPie =>
-      'Por ahora se apuntan aquí; el envío a la familia llega en la semana 4.';
+      'Los avisos salen del móvil de la persona por ntfy. Cada familiar los activa en Círculo, tocando su nombre.';
 
   @override
   String get avisoAyuda => 'Pidió ayuda';
@@ -1911,4 +1911,111 @@ class AppLocalizationsEs extends AppLocalizations {
   String controlCeldaNoEsperada(String hora) {
     return '$hora: sin ronda';
   }
+
+  @override
+  String envioA(String nombres) {
+    return 'Aviso enviado a $nombres';
+  }
+
+  @override
+  String envioFallidoA(String nombres) {
+    return 'No se pudo avisar a $nombres';
+  }
+
+  @override
+  String envioMotivoToma(String hora) {
+    return 'Toma de las $hora sin confirmar';
+  }
+
+  @override
+  String envioMotivoRonda(String hora) {
+    return 'Ronda de las $hora sin respuesta';
+  }
+
+  @override
+  String get envioMotivoDolor => 'Dolor nuevo';
+
+  @override
+  String get envioUnFamiliar => 'un familiar';
+
+  @override
+  String envioYUltimo(String todos, String ultimo) {
+    return '$todos y $ultimo';
+  }
+
+  @override
+  String get circOrdenTitulo => 'Orden de aviso';
+
+  @override
+  String get circSinPuesto => 'Ninguno';
+
+  @override
+  String get circOrdenPie =>
+      'Si una toma sigue sin confirmar, a los 5 minutos se avisa al puesto 1 y a los 10, al puesto 2; si solo hay uno, recibe los dos avisos. Si nadie tiene puesto, se avisa a todos. La ayuda pedida, «Mal», un dolor nuevo y las rondas sin respuesta llegan a todos.';
+
+  @override
+  String get circAvisosTitulo => 'Avisos en este móvil';
+
+  @override
+  String get circAvisosAbrir => 'Abrir en ntfy';
+
+  @override
+  String get circAvisosAbrirDetalle => 'Se suscribe a tu tema (Android)';
+
+  @override
+  String get circAvisosNoAbre =>
+      'No se pudo abrir ntfy. Copia el tema y añádelo en ntfy a mano.';
+
+  @override
+  String get circAvisosTema => 'Tu tema en ntfy.sh';
+
+  @override
+  String get circAvisosCopiar => 'Copiar el tema';
+
+  @override
+  String get circAvisosCopiado => 'Tema copiado';
+
+  @override
+  String get circAvisosPrueba => 'Enviar aviso de prueba';
+
+  @override
+  String get circAvisosPruebaDetalle =>
+      'Debe llegar a este móvil en unos segundos';
+
+  @override
+  String get circAvisosPruebaOk =>
+      'Aviso de prueba enviado. Si no llega, repasa los pasos.';
+
+  @override
+  String get circAvisosPruebaFallo =>
+      'No se pudo enviar. Comprueba la conexión y vuelve a probar.';
+
+  @override
+  String get circAvisosPaso1 =>
+      '1. Instala la app ntfy (Google Play, F-Droid o App Store).';
+
+  @override
+  String get circAvisosPaso2 =>
+      '2. Toca «Abrir en ntfy». En iPhone, o si no se abre, copia el tema y añádelo en ntfy con el botón + (servidor ntfy.sh).';
+
+  @override
+  String get circAvisosPaso3 =>
+      '3. Toca «Enviar aviso de prueba» y comprueba que llega.';
+
+  @override
+  String get circAvisosPrivacidad =>
+      'Qué ve ntfy.sh: un código al azar (tu tema) y la frase fija «NEW-ERA: hay un aviso. Abre la app.». Nunca nombres, horas, medicamentos ni respuestas. ntfy.sh guarda cada aviso 12 horas y lo entrega a través de Google o de Apple. Quien conozca el tema puede ver esos avisos: no lo compartas.';
+
+  @override
+  String get circAvisosComoSalen =>
+      'Los avisos salen del móvil de la persona. En Android salen aunque la app esté cerrada; en iPhone, solo con la app abierta.';
+
+  @override
+  String circAvisosOtro(String nombre) {
+    return '$nombre activa sus avisos desde su propio móvil, en Círculo.';
+  }
+
+  @override
+  String get circAvisosSinClave =>
+      'Este móvil no tiene la clave de la familia: aquí no hay avisos.';
 }

@@ -83,6 +83,21 @@ abstract final class ClavesUi {
   static const circCodigo = ValueKey<String>('circ_codigo');
   static const circCopiar = ValueKey<String>('circ_copiar');
 
+  /// Círculo: fila de un familiar (`circ_familiar_<id>`).
+  static ValueKey<String> circFamiliar(String miembroId) =>
+      ValueKey<String>('circ_familiar_$miembroId');
+
+  /// Familiar: segmento de su puesto en el orden de aviso (0, ninguno).
+  static ValueKey<String> circPuesto(int puesto) =>
+      ValueKey<String>('circ_puesto_$puesto');
+
+  /// Familiar › Avisos en este móvil: abrir ntfy, aviso de prueba, el tema y
+  /// "Copiar el tema".
+  static const circAvisosAbrir = ValueKey<String>('circ_avisos_abrir');
+  static const circAvisosPrueba = ValueKey<String>('circ_avisos_prueba');
+  static const circAvisosTema = ValueKey<String>('circ_avisos_tema');
+  static const circAvisosCopiar = ValueKey<String>('circ_avisos_copiar');
+
   /// Perfil: tercera tarjeta, "Este móvil se une a una familia…".
   static const unirTarjeta = ValueKey<String>('unir_tarjeta');
 

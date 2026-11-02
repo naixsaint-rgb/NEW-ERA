@@ -165,8 +165,28 @@ String _horaDeRonda(String id) {
   return '${hhmm.substring(0, 2)}:${hhmm.substring(2)}';
 }
 
-/// "Avisos de hoy": ayuda, llamadas y las situaciones del control por horas.
-/// Por ahora solo se listan. Sin avisos no se pinta.
+/// "Lucía", "Lucía y Javier", "Lucía, Javier y Marta".
+String nombresDe(AppLocalizations l, List<String> nombres) {
+  if (nombres.isEmpty) return l.envioUnFamiliar;
+  if (nombres.length == 1) return nombres.first;
+  return l.envioYUltimo(
+    nombres.sublist(0, nombres.length - 1).join(', '),
+    nombres.last,
+  );
+}
+
+/// Por qué salió un aviso, en palabras de la familia.
+String motivoEnvio(AppLocalizations l, EnvioDelDia e) => switch (e.motivo) {
+  MotivoAviso.tomaSinConfirmar => l.envioMotivoToma(_horaDeRonda(e.sujeto)),
+  MotivoAviso.rondaSinRespuesta => l.envioMotivoRonda(_horaDeRonda(e.sujeto)),
+  MotivoAviso.ayudaPedida => l.avisoAyuda,
+  MotivoAviso.estadoMal => l.avisoEstadoMal,
+  MotivoAviso.dolorNuevo => l.envioMotivoDolor,
+};
+
+/// "Avisos de hoy": ayuda, llamadas y las situaciones del control por horas,
+/// y los avisos que salieron a la familia por ntfy («Aviso enviado a Lucía ·
+/// 14:05»). Sin nada, no se pinta.
 class GrupoAvisosHoy extends ConsumerWidget {
   const GrupoAvisosHoy({super.key});
 
@@ -176,40 +196,72 @@ class GrupoAvisosHoy extends ConsumerWidget {
     final c = context.colores;
     final zona = ref.watch(contextoProvider).zonaHoraria;
     final avisos = ref.watch(avisosDeHoyProvider).value ?? const [];
-    if (avisos.isEmpty) return const SizedBox.shrink();
+    final envios = ref.watch(enviosDeHoyProvider);
+    final nombres = ref.watch(nombresAutoresProvider);
+    if (avisos.isEmpty && envios.isEmpty) return const SizedBox.shrink();
+    final filas = <(DateTime, Widget)>[
+      for (final e in envios)
+        (
+          e.cuando,
+          FilaLista(
+            leading: IconoCuadrado(
+              e.resultado == ResultadoAviso.enviado
+                  ? CupertinoIcons.paperplane_fill
+                  : CupertinoIcons.xmark_octagon_fill,
+              redondo: true,
+              fondo: e.resultado == ResultadoAviso.enviado
+                  ? c.azulClaro
+                  : c.rojoClaro,
+              color: e.resultado == ResultadoAviso.enviado ? c.azul : c.rojo,
+            ),
+            titulo: () {
+              final quienes = nombresDe(l, [
+                for (final id in e.miembros) nombres[id] ?? l.envioUnFamiliar,
+              ]);
+              return e.resultado == ResultadoAviso.enviado
+                  ? l.envioA(quienes)
+                  : l.envioFallidoA(quienes);
+            }(),
+            subtitulo: motivoEnvio(l, e),
+            detalle: horaCorta(aLocal(e.cuando, zona)),
+          ),
+        ),
+      for (final a in avisos) (a.cuando, _filaAviso(context, a, zona)),
+    ]..sort((a, b) => a.$1.compareTo(b.$1));
     return Padding(
       padding: const EdgeInsets.only(top: 14),
       child: GrupoLista(
         titulo: l.avisosDeHoy,
         pie: l.avisosPie,
-        children: [
-          for (final a in avisos)
-            FilaLista(
-              leading: IconoCuadrado(
-                switch (a.tipo) {
-                  TipoAviso.llamadaIniciada => CupertinoIcons.phone_fill,
-                  TipoAviso.ayudaPedida =>
-                    CupertinoIcons.exclamationmark_triangle_fill,
-                  _ => CupertinoIcons.bell_fill,
-                },
-                redondo: true,
-                fondo: switch (a.tipo) {
-                  TipoAviso.llamadaIniciada => c.verdeClaro,
-                  TipoAviso.dolorNuevo ||
-                  TipoAviso.dolorRepetido => c.naranjaClaro,
-                  _ => c.rojoClaro,
-                },
-                color: switch (a.tipo) {
-                  TipoAviso.llamadaIniciada => c.verde,
-                  TipoAviso.dolorNuevo || TipoAviso.dolorRepetido => c.naranja,
-                  _ => c.rojo,
-                },
-              ),
-              titulo: textoAviso(l, a, zona),
-              detalle: horaCorta(aLocal(a.cuando, zona)),
-            ),
-        ],
+        children: [for (final f in filas) f.$2],
       ),
+    );
+  }
+
+  Widget _filaAviso(BuildContext context, AvisoDelDia a, String zona) {
+    final l = context.l;
+    final c = context.colores;
+    return FilaLista(
+      leading: IconoCuadrado(
+        switch (a.tipo) {
+          TipoAviso.llamadaIniciada => CupertinoIcons.phone_fill,
+          TipoAviso.ayudaPedida => CupertinoIcons.exclamationmark_triangle_fill,
+          _ => CupertinoIcons.bell_fill,
+        },
+        redondo: true,
+        fondo: switch (a.tipo) {
+          TipoAviso.llamadaIniciada => c.verdeClaro,
+          TipoAviso.dolorNuevo || TipoAviso.dolorRepetido => c.naranjaClaro,
+          _ => c.rojoClaro,
+        },
+        color: switch (a.tipo) {
+          TipoAviso.llamadaIniciada => c.verde,
+          TipoAviso.dolorNuevo || TipoAviso.dolorRepetido => c.naranja,
+          _ => c.rojo,
+        },
+      ),
+      titulo: textoAviso(l, a, zona),
+      detalle: horaCorta(aLocal(a.cuando, zona)),
     );
   }
 }

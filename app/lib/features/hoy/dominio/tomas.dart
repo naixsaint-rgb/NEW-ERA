@@ -468,14 +468,15 @@ enum TipoAviso {
   dolorRepetido,
 }
 
-/// Un aviso del día. Por ahora solo se listan: el envío a la familia llega
-/// con el escalado (semana 4 del plan).
+/// Un aviso del día: una situación que avisa a la familia. Los envíos
+/// reales (`aviso_enviado`) van aparte ([EnvioDelDia]).
 final class AvisoDelDia {
   const AvisoDelDia({
     required this.tipo,
     required this.cuando,
     this.valor,
     this.rondas = const [],
+    this.origen,
   });
 
   final TipoAviso tipo;
@@ -486,9 +487,20 @@ final class AvisoDelDia {
 
   /// Las rondas de las que sale (ids).
   final List<String> rondas;
+
+  /// Ulid del evento que lo causó (ayuda pedida y llamada).
+  final String? origen;
 }
 
-/// `ayuda_pedida` y `llamada_iniciada` desde las 00:00 local.
+/// Tipos de evento que salen en "Avisos de hoy".
+final _tiposDeAvisoHoy = [
+  TipoEvento.ayudaPedida.nombre,
+  TipoEvento.llamadaIniciada.nombre,
+  TipoEvento.avisoEnviado.nombre,
+];
+
+/// `ayuda_pedida`, `llamada_iniciada` y `aviso_enviado` desde las 00:00
+/// local.
 final _eventosDeAvisoHoyProvider = StreamProvider<List<Evento>>((ref) {
   ref.watch(_fechaDeHoyProvider);
   final zona = ref.watch(contextoProvider).zonaHoraria;
@@ -498,18 +510,39 @@ final _eventosDeAvisoHoyProvider = StreamProvider<List<Evento>>((ref) {
   final q = db.select(db.eventos)
     ..where(
       (e) =>
-          e.tipo.isIn([
-            TipoEvento.ayudaPedida.nombre,
-            TipoEvento.llamadaIniciada.nombre,
-          ]) &
+          e.tipo.isIn(_tiposDeAvisoHoy) &
           e.ocurridoEn.isBiggerOrEqualValue(desde),
-    );
+    )
+    ..orderBy([
+      (e) => OrderingTerm.asc(e.ocurridoEn),
+      (e) => OrderingTerm.asc(e.ulid),
+    ]);
   return q.watch();
 });
 
+/// Situaciones del día, de la primera a la última: ayudas pedidas y
+/// llamadas de [eventos] (los demás tipos se ignoran) y las del control por
+/// horas ([ControlDelDia.avisos]).
+List<AvisoDelDia> avisosDelDia(
+  Iterable<Evento> eventos,
+  ControlDelDia? control,
+) => <AvisoDelDia>[
+  for (final e in eventos)
+    if (e.tipo == TipoEvento.ayudaPedida.nombre ||
+        e.tipo == TipoEvento.llamadaIniciada.nombre)
+      AvisoDelDia(
+        tipo: e.tipo == TipoEvento.ayudaPedida.nombre
+            ? TipoAviso.ayudaPedida
+            : TipoAviso.llamadaIniciada,
+        cuando: DateTime.fromMillisecondsSinceEpoch(e.ocurridoEn, isUtc: true),
+        origen: e.ulid,
+      ),
+  ...?control?.avisos,
+]..sort((a, b) => a.cuando.compareTo(b.cuando));
+
 /// Avisos de hoy, del primero al último: ayudas pedidas y llamadas
 /// iniciadas desde las 00:00 local y las situaciones del control por horas
-/// ([ControlDelDia.avisos]). Lo usan Hoy y Resumen.
+/// ([avisosDelDia]). Lo usan Hoy y Resumen.
 final avisosDeHoyProvider = Provider<AsyncValue<List<AvisoDelDia>>>((ref) {
   final eventos = ref.watch(_eventosDeAvisoHoyProvider);
   final control = ref.watch(controlDeHoyProvider);
@@ -520,18 +553,106 @@ final avisosDeHoyProvider = Provider<AsyncValue<List<AvisoDelDia>>>((ref) {
     );
   }
   if (!eventos.hasValue) return const AsyncValue.loading();
-  final r = <AvisoDelDia>[
-    for (final e in eventos.requireValue)
-      AvisoDelDia(
-        tipo: e.tipo == TipoEvento.ayudaPedida.nombre
-            ? TipoAviso.ayudaPedida
-            : TipoAviso.llamadaIniciada,
-        cuando: DateTime.fromMillisecondsSinceEpoch(e.ocurridoEn, isUtc: true),
-      ),
-    ...?control.value?.avisos,
-  ]..sort((a, b) => a.cuando.compareTo(b.cuando));
-  return AsyncValue.data(r);
+  return AsyncValue.data(avisosDelDia(eventos.requireValue, control.value));
 });
+
+/// Avisos enviados a la familia (`aviso_enviado`) de un mismo origen,
+/// escalón y resultado, con sus familiares.
+final class EnvioDelDia {
+  const EnvioDelDia({
+    required this.motivo,
+    required this.sujeto,
+    required this.escalon,
+    required this.resultado,
+    required this.miembros,
+    required this.cuando,
+  });
+
+  final MotivoAviso motivo;
+
+  /// Toma, ronda o ulid del evento que lo causó.
+  final String sujeto;
+  final int escalon;
+  final ResultadoAviso resultado;
+
+  /// Ids de los familiares, en el orden en que se enviaron.
+  final List<String> miembros;
+
+  /// El primer envío del grupo.
+  final DateTime cuando;
+}
+
+/// Agrupa los `aviso_enviado` de [eventos] por origen, motivo y escalón.
+/// Para cada familiar cuenta el envío bueno; si no lo hay, el fallido. Del
+/// primero al último.
+List<EnvioDelDia> agruparEnvios(Iterable<Evento> eventos) {
+  final grupos =
+      <
+        String,
+        ({
+          MotivoAviso motivo,
+          String sujeto,
+          int escalon,
+          Map<String, (ResultadoAviso, DateTime)> porMiembro,
+        })
+      >{};
+  for (final e in eventos) {
+    if (e.tipo != TipoEvento.avisoEnviado.nombre || e.sujeto == null) continue;
+    final p = EventosRepositorio.payloadDe(e);
+    final motivo = MotivoAviso.desdeNombre(p['tipo']);
+    final resultado = ResultadoAviso.desdeNombre(p['resultado']);
+    final miembro = p['miembroId'];
+    final escalon = p['escalon'] is int ? p['escalon'] as int : 0;
+    if (motivo == null || resultado == null || miembro is! String) continue;
+    final g = grupos.putIfAbsent(
+      '${motivo.nombre}|${e.sujeto}|$escalon',
+      () =>
+          (motivo: motivo, sujeto: e.sujeto!, escalon: escalon, porMiembro: {}),
+    );
+    final cuando = DateTime.fromMillisecondsSinceEpoch(
+      e.ocurridoEn,
+      isUtc: true,
+    );
+    final antes = g.porMiembro[miembro];
+    if (antes == null ||
+        (antes.$1 == ResultadoAviso.fallido &&
+            resultado == ResultadoAviso.enviado)) {
+      g.porMiembro[miembro] = (resultado, cuando);
+    }
+  }
+  final r = <EnvioDelDia>[];
+  for (final g in grupos.values) {
+    for (final resultado in ResultadoAviso.values) {
+      final suyos = [
+        for (final MapEntry(:key, :value) in g.porMiembro.entries)
+          if (value.$1 == resultado) (key, value.$2),
+      ];
+      if (suyos.isEmpty) continue;
+      r.add(
+        EnvioDelDia(
+          motivo: g.motivo,
+          sujeto: g.sujeto,
+          escalon: g.escalon,
+          resultado: resultado,
+          miembros: [for (final s in suyos) s.$1],
+          cuando: suyos
+              .map((s) => s.$2)
+              .reduce((a, b) => a.isBefore(b) ? a : b),
+        ),
+      );
+    }
+  }
+  r.sort((a, b) => a.cuando.compareTo(b.cuando));
+  return r;
+}
+
+/// Avisos enviados hoy a la familia ([agruparEnvios]). Los ve la familia en
+/// "Avisos de hoy": «Aviso enviado a Lucía · 14:05».
+final enviosDeHoyProvider = Provider<List<EnvioDelDia>>(
+  (ref) => agruparEnvios(
+    ref.watch(_eventosDeAvisoHoyProvider).value ?? const <Evento>[],
+  ),
+);
 
 // ------------------------------------------------------------ Semáforo
 

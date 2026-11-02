@@ -45,6 +45,9 @@ dependencies:
   audioplayers: 6.8.1
   # Vídeo de comprobación en el móvil de la familia. Versión fija.
   video_player: 2.14.1
+  # Avisos a la familia con la app cerrada (Android): revisión a los 5 y 10
+  # minutos de cada toma. Flutter Community, BSD-3. Versión fija.
+  android_alarm_manager_plus: 5.1.2
 
 dev_dependencies:
   flutter_test:

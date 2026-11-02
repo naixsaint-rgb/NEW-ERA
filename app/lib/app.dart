@@ -13,6 +13,7 @@ import 'core/enrutado/rutas.dart';
 import 'core/providers.dart';
 import 'core/tema/aspecto.dart';
 import 'core/tema/tema_familia.dart';
+import 'features/avisos/avisos_providers.dart';
 import 'l10n/app_localizations.dart';
 import 'shared/widgets/aviso_demo.dart';
 
@@ -44,6 +45,16 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
       if (nueva.perfil == PerfilApp.persona && !_programado) {
         _programado = true;
         unawaited(ref.read(programadorAlarmasProvider).reprogramar());
+        unawaited(ref.read(planificadorAvisosProvider).reprogramar());
+      }
+    }, fireImmediately: true);
+    // Avisos a la familia desde el móvil de la persona (ntfy): con la app
+    // abierta salen al momento; el envío no repite lo ya enviado.
+    ref.listenManual<List<AvisoPendiente>>(avisosQueTocanProvider, (_, l) {
+      if (l.isEmpty) return;
+      final envio = ref.read(envioAvisosProvider);
+      for (final a in l) {
+        unawaited(envio.enviar(a));
       }
     }, fireImmediately: true);
     // Si llegan pautas nuevas o cambiadas (de otro móvil, por el cartero), se
@@ -117,6 +128,7 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
       do {
         _otraVez = false;
         await ref.read(programadorAlarmasProvider).reprogramar();
+        await ref.read(planificadorAvisosProvider).reprogramar();
       } while (_otraVez && mounted);
     } catch (_) {
       // Lo intenta de nuevo con el siguiente cambio o al abrir la app.

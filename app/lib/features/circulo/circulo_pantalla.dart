@@ -12,9 +12,10 @@ import '../../shared/ios/ios.dart';
 import '../../shared/l10n_ext.dart';
 import '../../shared/widgets/avatar_familiar.dart';
 
-/// Lista de familiares, solo lectura (la gestión llega en la semana 16), e
-/// "Invitar otro móvil" para emparejar el de la persona o el de otro familiar
-/// (no en la demo web: no tiene clave ni cartero).
+/// Lista de familiares (la gestión llega en la semana 16): cada uno lleva a
+/// su puesto en el orden de aviso y, el de este móvil, a sus avisos por ntfy
+/// (`FamiliarPantalla`). "Invitar otro móvil" empareja el de la persona o el
+/// de otro familiar (no en la demo web: no tiene clave ni cartero).
 class CirculoPantalla extends ConsumerWidget {
   const CirculoPantalla({super.key});
 
@@ -66,10 +67,12 @@ class CirculoPantalla extends ConsumerWidget {
                 FilaLista(apagada: true, titulo: l.sinFamiliares),
               for (final m in miembros)
                 FilaLista(
+                  key: ClavesUi.circFamiliar(m.id),
                   altoMinimo: 76,
                   leading: AvatarFamiliar(miembro: m, tamano: 56),
                   titulo: m.nombre,
                   subtitulo: detalle(m),
+                  onTap: () => context.go(Rutas.familiar(m.id)),
                 ),
             ],
           ),

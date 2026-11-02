@@ -69,6 +69,15 @@ abstract final class Rutas {
   /// Círculo › "Invitar otro móvil" (QR y código).
   static const circuloInvitar = '/familia/circulo/invitar';
 
+  /// Círculo › un familiar: su puesto en el orden de aviso y, si es el de
+  /// este móvil, sus avisos por ntfy.
+  static String familiar(String miembroId) =>
+      '/familia/circulo/familiar/${Uri.encodeComponent(miembroId)}';
+
+  /// Esquema propio de la app: `newera://hoy` (lo abre el aviso de ntfy al
+  /// tocarlo) lleva a la pantalla de inicio del perfil (Hoy en la familia).
+  static const esquemaApp = 'newera';
+
   /// Voces › un familiar: sus frases.
   static String voz(String miembroId) =>
       '/familia/voces/${Uri.encodeComponent(miembroId)}';

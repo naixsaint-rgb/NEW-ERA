@@ -7,6 +7,8 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:newera/app.dart';
 import 'package:newera/core/arranque.dart';
+import 'package:newera/core/avisos/canal_avisos.dart';
+import 'package:newera/core/avisos/programador_avisos.dart';
 import 'package:newera/core/contexto.dart';
 import 'package:newera/core/cripto/almacen_seguro.dart';
 import 'package:newera/core/db/base_datos.dart';
@@ -19,6 +21,7 @@ import 'package:newera/core/plataforma/camara/archivos_clip.dart';
 import 'package:newera/core/plataforma/camara/camara_simulada.dart';
 import 'package:newera/core/plataforma/video/visor_clip.dart';
 import 'package:newera/core/providers.dart';
+import 'package:newera/features/avisos/avisos_providers.dart';
 import 'package:newera/features/catalogo/datos/catalogo_repositorio.dart';
 import 'package:safety_core/safety_core.dart';
 
@@ -40,7 +43,9 @@ class EntornoPrueba {
     GrabadoraSimulada? grabadora,
     ReproductorSimulado? reproductor,
     ArchivosClipMemoria? archivosClip,
+    CanalAvisosSimulado? canal,
   }) : almacen = almacen ?? AlmacenSeguroMemoria(),
+       canal = canal ?? CanalAvisosSimulado(),
        archivosClip = archivosClip ?? ArchivosClipMemoria(),
        archivos = archivos ?? ArchivosVozMemoria(),
        grabadora = grabadora ?? GrabadoraSimulada(ArchivosVozMemoria()),
@@ -64,6 +69,9 @@ class EntornoPrueba {
 
   /// Vídeos y fotos de comprobación (en memoria).
   final ArchivosClipMemoria archivosClip;
+
+  /// Avisos a la familia: no sale nada a la red; apunta cada envío.
+  final CanalAvisosSimulado canal;
 
   /// Id de la toma de [nombre] (medicamento para la persona) en [fecha]
   /// (`yyyyMMdd`) a las [hora] (`HHmm`).
@@ -110,6 +118,7 @@ Future<EntornoPrueba> prepararEntorno({
   final grabadora = GrabadoraSimulada(archivos);
   final reproductor = ReproductorSimulado();
   final archivosClip = ArchivosClipMemoria(ahora: reloj.ahora);
+  final canal = CanalAvisosSimulado();
   return EntornoPrueba(
     [
       ...overrides,
@@ -125,6 +134,10 @@ Future<EntornoPrueba> prepararEntorno({
       reproductorProvider.overrideWithValue(reproductor),
       archivosClipProvider.overrideWithValue(archivosClip),
       visorClipProvider.overrideWithValue(const VisorClipSimulado()),
+      canalAvisosProvider.overrideWithValue(canal),
+      programadorAvisosProvider.overrideWithValue(
+        const ProgramadorAvisosNulo(),
+      ),
     ],
     db,
     contexto,
@@ -135,6 +148,7 @@ Future<EntornoPrueba> prepararEntorno({
     grabadora: grabadora,
     reproductor: reproductor,
     archivosClip: archivosClip,
+    canal: canal,
   );
 }
 

@@ -22,6 +22,11 @@ enum TipoEvento {
   /// la ronda como sujeto: `{ronda, tipo: estado|dolor|plan, respuesta,
   /// tiempo_ms, origen: movil}`.
   preguntaRespondida('pregunta_respondida'),
+
+  /// Aviso enviado a un familiar desde el móvil de la persona (ver
+  /// `avisos.dart`), con el origen como sujeto (toma, ronda o evento):
+  /// `{tipo, miembroId, canal: ntfy, resultado: enviado|fallido, escalon?}`.
+  avisoEnviado('aviso_enviado'),
   anulacion('anulacion');
 
   const TipoEvento(this.nombre);

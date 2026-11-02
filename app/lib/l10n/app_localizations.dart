@@ -3168,7 +3168,7 @@ abstract class AppLocalizations {
   /// No description provided for @avisosPie.
   ///
   /// In es, this message translates to:
-  /// **'Por ahora se apuntan aquí; el envío a la familia llega en la semana 4.'**
+  /// **'Los avisos salen del móvil de la persona por ntfy. Cada familiar los activa en Círculo, tocando su nombre.'**
   String get avisosPie;
 
   /// No description provided for @avisoAyuda.
@@ -3296,6 +3296,174 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'{hora}: sin ronda'**
   String controlCeldaNoEsperada(String hora);
+
+  /// No description provided for @envioA.
+  ///
+  /// In es, this message translates to:
+  /// **'Aviso enviado a {nombres}'**
+  String envioA(String nombres);
+
+  /// No description provided for @envioFallidoA.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo avisar a {nombres}'**
+  String envioFallidoA(String nombres);
+
+  /// No description provided for @envioMotivoToma.
+  ///
+  /// In es, this message translates to:
+  /// **'Toma de las {hora} sin confirmar'**
+  String envioMotivoToma(String hora);
+
+  /// No description provided for @envioMotivoRonda.
+  ///
+  /// In es, this message translates to:
+  /// **'Ronda de las {hora} sin respuesta'**
+  String envioMotivoRonda(String hora);
+
+  /// No description provided for @envioMotivoDolor.
+  ///
+  /// In es, this message translates to:
+  /// **'Dolor nuevo'**
+  String get envioMotivoDolor;
+
+  /// No description provided for @envioUnFamiliar.
+  ///
+  /// In es, this message translates to:
+  /// **'un familiar'**
+  String get envioUnFamiliar;
+
+  /// No description provided for @envioYUltimo.
+  ///
+  /// In es, this message translates to:
+  /// **'{todos} y {ultimo}'**
+  String envioYUltimo(String todos, String ultimo);
+
+  /// No description provided for @circOrdenTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Orden de aviso'**
+  String get circOrdenTitulo;
+
+  /// No description provided for @circSinPuesto.
+  ///
+  /// In es, this message translates to:
+  /// **'Ninguno'**
+  String get circSinPuesto;
+
+  /// No description provided for @circOrdenPie.
+  ///
+  /// In es, this message translates to:
+  /// **'Si una toma sigue sin confirmar, a los 5 minutos se avisa al puesto 1 y a los 10, al puesto 2; si solo hay uno, recibe los dos avisos. Si nadie tiene puesto, se avisa a todos. La ayuda pedida, «Mal», un dolor nuevo y las rondas sin respuesta llegan a todos.'**
+  String get circOrdenPie;
+
+  /// No description provided for @circAvisosTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Avisos en este móvil'**
+  String get circAvisosTitulo;
+
+  /// No description provided for @circAvisosAbrir.
+  ///
+  /// In es, this message translates to:
+  /// **'Abrir en ntfy'**
+  String get circAvisosAbrir;
+
+  /// No description provided for @circAvisosAbrirDetalle.
+  ///
+  /// In es, this message translates to:
+  /// **'Se suscribe a tu tema (Android)'**
+  String get circAvisosAbrirDetalle;
+
+  /// No description provided for @circAvisosNoAbre.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo abrir ntfy. Copia el tema y añádelo en ntfy a mano.'**
+  String get circAvisosNoAbre;
+
+  /// No description provided for @circAvisosTema.
+  ///
+  /// In es, this message translates to:
+  /// **'Tu tema en ntfy.sh'**
+  String get circAvisosTema;
+
+  /// No description provided for @circAvisosCopiar.
+  ///
+  /// In es, this message translates to:
+  /// **'Copiar el tema'**
+  String get circAvisosCopiar;
+
+  /// No description provided for @circAvisosCopiado.
+  ///
+  /// In es, this message translates to:
+  /// **'Tema copiado'**
+  String get circAvisosCopiado;
+
+  /// No description provided for @circAvisosPrueba.
+  ///
+  /// In es, this message translates to:
+  /// **'Enviar aviso de prueba'**
+  String get circAvisosPrueba;
+
+  /// No description provided for @circAvisosPruebaDetalle.
+  ///
+  /// In es, this message translates to:
+  /// **'Debe llegar a este móvil en unos segundos'**
+  String get circAvisosPruebaDetalle;
+
+  /// No description provided for @circAvisosPruebaOk.
+  ///
+  /// In es, this message translates to:
+  /// **'Aviso de prueba enviado. Si no llega, repasa los pasos.'**
+  String get circAvisosPruebaOk;
+
+  /// No description provided for @circAvisosPruebaFallo.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo enviar. Comprueba la conexión y vuelve a probar.'**
+  String get circAvisosPruebaFallo;
+
+  /// No description provided for @circAvisosPaso1.
+  ///
+  /// In es, this message translates to:
+  /// **'1. Instala la app ntfy (Google Play, F-Droid o App Store).'**
+  String get circAvisosPaso1;
+
+  /// No description provided for @circAvisosPaso2.
+  ///
+  /// In es, this message translates to:
+  /// **'2. Toca «Abrir en ntfy». En iPhone, o si no se abre, copia el tema y añádelo en ntfy con el botón + (servidor ntfy.sh).'**
+  String get circAvisosPaso2;
+
+  /// No description provided for @circAvisosPaso3.
+  ///
+  /// In es, this message translates to:
+  /// **'3. Toca «Enviar aviso de prueba» y comprueba que llega.'**
+  String get circAvisosPaso3;
+
+  /// No description provided for @circAvisosPrivacidad.
+  ///
+  /// In es, this message translates to:
+  /// **'Qué ve ntfy.sh: un código al azar (tu tema) y la frase fija «NEW-ERA: hay un aviso. Abre la app.». Nunca nombres, horas, medicamentos ni respuestas. ntfy.sh guarda cada aviso 12 horas y lo entrega a través de Google o de Apple. Quien conozca el tema puede ver esos avisos: no lo compartas.'**
+  String get circAvisosPrivacidad;
+
+  /// No description provided for @circAvisosComoSalen.
+  ///
+  /// In es, this message translates to:
+  /// **'Los avisos salen del móvil de la persona. En Android salen aunque la app esté cerrada; en iPhone, solo con la app abierta.'**
+  String get circAvisosComoSalen;
+
+  /// No description provided for @circAvisosOtro.
+  ///
+  /// In es, this message translates to:
+  /// **'{nombre} activa sus avisos desde su propio móvil, en Círculo.'**
+  String circAvisosOtro(String nombre);
+
+  /// No description provided for @circAvisosSinClave.
+  ///
+  /// In es, this message translates to:
+  /// **'Este móvil no tiene la clave de la familia: aquí no hay avisos.'**
+  String get circAvisosSinClave;
 }
 
 class _AppLocalizationsDelegate

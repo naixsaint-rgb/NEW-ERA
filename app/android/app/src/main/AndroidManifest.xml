@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <!-- Red: el cartero cifrado y los avisos a la familia por ntfy.sh. En
+         debug y profile la añade Flutter; en release hay que pedirla aquí. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -48,7 +51,33 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            <!-- newera://hoy: al tocar un aviso de ntfy se abre la app en Hoy. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="newera" android:host="hoy"/>
+            </intent-filter>
         </activity>
+        <!-- android_alarm_manager_plus: revisión de los avisos a la familia
+             con la app cerrada (5 y 10 minutos tras una toma, 10 tras una
+             ronda). Usa los permisos de alarmas exactas y de arranque de
+             arriba. -->
+        <service
+            android:name="dev.fluttercommunity.plus.androidalarmmanager.AlarmService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="false"/>
+        <receiver
+            android:name="dev.fluttercommunity.plus.androidalarmmanager.AlarmBroadcastReceiver"
+            android:exported="false"/>
+        <receiver
+            android:name="dev.fluttercommunity.plus.androidalarmmanager.RebootBroadcastReceiver"
+            android:enabled="false"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
@@ -68,6 +97,11 @@
         <intent>
             <action android:name="android.intent.action.DIAL"/>
             <data android:scheme="tel"/>
+        </intent>
+        <!-- Abrir la app ntfy para suscribirse al tema de avisos. -->
+        <intent>
+            <action android:name="android.intent.action.VIEW"/>
+            <data android:scheme="ntfy"/>
         </intent>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>

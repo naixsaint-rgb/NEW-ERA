@@ -7,8 +7,8 @@ import '../../../core/providers.dart';
 import '../../../core/tema/colores.dart';
 import '../../../shared/ios/ios.dart';
 import '../../../shared/l10n_ext.dart';
-import '../../persona_inicio/llamadas.dart';
 import '../dominio/tomas.dart';
+import 'control_hoy.dart' show nombresDe;
 import 'piezas_hoy.dart';
 
 /// Vista "Mañana": tomas previstas y quién recibe los avisos.
@@ -23,18 +23,20 @@ class VistaManana extends ConsumerWidget {
     final c = context.colores;
     final config = ref.watch(configEscaladoProvider);
     final miembros = ref.watch(miembrosProvider).value ?? const <Miembro>[];
-    final orden = familiaresPorOrden(miembros);
-    final minutos = [
-      minutoDePaso(config, AccionEscalado.avisarFamiliar1, porDefecto: 5),
-      minutoDePaso(
-        config,
-        AccionEscalado.avisarFamiliar2YReloj,
-        porDefecto: 10,
-      ),
+    final nombre = {for (final m in miembros) m.id: m.nombre};
+    final familiares = [
+      for (final m in miembros) (id: m.id, orden: m.ordenEscalado),
     ];
+    // Los mismos que reciben el aviso real (con puestos: el 1 y el 2; sin
+    // puestos: todos las dos veces).
     final avisos = [
-      for (var i = 0; i < orden.length && i < minutos.length; i++)
-        l.hoyAvisoAMinutos(orden[i].nombre, minutos[i]),
+      for (final e in escalonesToma)
+        if (destinatariosDeEscalon(familiares, e) case final ids
+            when ids.isNotEmpty)
+          l.hoyAvisoAMinutos(
+            nombresDe(l, [for (final id in ids) nombre[id] ?? '']),
+            minutoDeEscalon(config, e),
+          ),
     ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

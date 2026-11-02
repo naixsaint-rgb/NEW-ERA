@@ -14,3 +14,4 @@ export 'src/parte_del_dia.dart';
 export 'src/id_alarma.dart';
 export 'src/zonas.dart';
 export 'src/rondas.dart';
+export 'src/avisos.dart';

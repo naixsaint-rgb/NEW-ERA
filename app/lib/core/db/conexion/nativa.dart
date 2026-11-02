@@ -28,6 +28,9 @@ Future<QueryExecutor> abrirConexion({required String? claveHex}) async {
         throw StateError('sqlcipher_no_disponible');
       }
       db.execute('PRAGMA foreign_keys = ON;');
+      // La revisión de avisos en segundo plano (Android) abre la misma base
+      // desde otro hilo: si una escribe, la otra espera en vez de fallar.
+      db.execute('PRAGMA busy_timeout = 5000;');
     },
   );
 }

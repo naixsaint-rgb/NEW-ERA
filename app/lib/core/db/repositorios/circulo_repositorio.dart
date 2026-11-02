@@ -249,6 +249,29 @@ class CirculoRepositorio {
     return q.watch();
   }
 
+  /// Cambia el puesto de [miembroId] en el orden de aviso (nulo: sin
+  /// puesto). Ficha: deja `ficha_modificada` con la fila para los demás
+  /// móviles, también el de la persona, que es el que avisa.
+  Future<void> cambiarOrdenEscalado(String miembroId, int? orden) {
+    if (orden != null && orden < 1) throw ArgumentError('orden_no_valido');
+    return _db.transaction(() async {
+      final m = await (_db.select(
+        _db.miembros,
+      )..where((t) => t.id.equals(miembroId))).getSingleOrNull();
+      if (m == null || m.ordenEscalado == orden) return;
+      await (_db.update(_db.miembros)..where((t) => t.id.equals(m.id))).write(
+        MiembrosCompanion(ordenEscalado: Value(orden)),
+      );
+      await _fichas.modificada(
+        TipoFicha.miembro,
+        m.id,
+        tabla: 'miembros',
+        antes: {'orden_escalado': m.ordenEscalado},
+        despues: {'orden_escalado': orden},
+      );
+    });
+  }
+
   Future<String> crearMiembro(NuevoMiembro d) => _db.transaction(() async {
     final id = _uuid.v4();
     final fotoId = d.foto == null ? null : await guardarFoto(d.foto!);

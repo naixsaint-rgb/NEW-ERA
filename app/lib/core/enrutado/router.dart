@@ -12,6 +12,7 @@ import '../../features/catalogo/dosier_pantalla.dart';
 import '../../features/catalogo/ficha_pantalla.dart';
 import '../../features/catalogo/resumen_pantalla.dart' as catalogo;
 import '../../features/circulo/circulo_pantalla.dart';
+import '../../features/circulo/familiar_pantalla.dart';
 import '../../features/circulo/invitar_pantalla.dart';
 import '../../features/consultas/consultas_pantalla.dart';
 import '../../features/hoy/hoy_pantalla.dart';
@@ -37,6 +38,11 @@ import 'rutas.dart';
 
 /// Ruta con la que arranca el router (sustituible en tests).
 final rutaInicialProvider = Provider<String>((ref) => Rutas.raiz);
+
+/// Ruta de [uri]: los enlaces `newera://…` (el aviso de ntfy abre
+/// `newera://hoy`) van al inicio del perfil; el resto, su camino.
+String rutaDeUri(Uri uri) =>
+    uri.scheme == Rutas.esquemaApp ? Rutas.raiz : uri.path;
 
 /// Redirección por perfil. Devuelve `null` si la ruta es válida.
 String? redirigirSegunPerfil(Sesion sesion, String ruta) {
@@ -90,7 +96,7 @@ final routerProvider = Provider<GoRouter>((ref) {
     initialLocation: ref.read(rutaInicialProvider),
     refreshListenable: refresco,
     redirect: (context, state) =>
-        redirigirSegunPerfil(ref.read(sesionProvider), state.uri.path),
+        redirigirSegunPerfil(ref.read(sesionProvider), rutaDeUri(state.uri)),
     routes: [
       GoRoute(path: Rutas.raiz, builder: (_, _) => const SizedBox.shrink()),
       GoRoute(
@@ -253,6 +259,12 @@ final routerProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: 'invitar',
                     builder: (_, _) => const InvitarPantalla(),
+                  ),
+                  GoRoute(
+                    path: 'familiar/:miembroId',
+                    builder: (_, state) => FamiliarPantalla(
+                      miembroId: state.pathParameters['miembroId']!,
+                    ),
                   ),
                 ],
               ),
