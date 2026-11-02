@@ -1,0 +1,7 @@
+{
+  "comentario": "Proyecto Supabase del cartero cifrado. URL y clave anon son públicas por diseño (van dentro de la app; las políticas RLS mandan). Nunca la service_role ni la contraseña de la base.",
+  "url": "https://mvvoursaklwtpuyfpovv.supabase.co",
+  "anon_key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12dm91cnNha2x3dHB1eWZwb3Z2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM2MjA2MDMsImV4cCI6MjEwOTE5NjYwM30.okR24n0ZA0yUYqzhob16dZP574nvgsEs9u6S8hAd1Ig",
+  "region": "Central EU (Frankfurt)",
+  "creado": "2026-11-02"
+}

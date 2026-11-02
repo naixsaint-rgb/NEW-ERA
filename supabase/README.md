@@ -22,14 +22,13 @@ clave y no puede leer nada. Esta entrega lleva los eventos; vídeos y fotos, en 
 - La contraseña de la base de datos.
 - Ninguna de las dos va al repositorio, a un chat ni a la app.
 
-La URL y la clave anon son públicas por diseño (van dentro de la app); aun así, no se escriben en el
-repositorio: van como secretos de GitHub.
+La URL y la clave anon son públicas por diseño (van dentro de la app): están en `supabase/proyecto.json`
+y la CI las mete en el APK. Un secreto de GitHub con el mismo nombre tendría prioridad.
 
 ## NACHO · Dónde van la URL y la clave
 
-- **GitHub** → Settings → Secrets and variables → Actions → *New repository secret*: `SUPABASE_URL` y
-  `SUPABASE_ANON_KEY`. La CI los mete en el APK de Android. La demo web de Pages no los lleva (es pública y
-  sin cifrar).
+- **Repositorio**: `supabase/proyecto.json` (`url`, `anon_key`). La CI los mete en el APK de Android. La
+  demo web de Pages no los lleva (es pública y sin cifrar).
 - **En local**:
   ```bash
   flutter run --dart-define=SUPABASE_URL=https://<algo>.supabase.co --dart-define=SUPABASE_ANON_KEY=<clave>
