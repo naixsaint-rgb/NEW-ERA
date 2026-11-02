@@ -28,7 +28,7 @@ Actualizado: 2026-11-02 (sesión 3). Plan vigente: [[planes/PLAN-v3]]. Interfaz:
   pregunta y en la alarma de Android (ADR-0007); vídeo y foto de comprobación por el cartero en trozos cifrados,
   con «Ver vídeo» en Hoy y caducidad a 7 días (ADR-0008); control por horas real: rondas de 9 a 21 ajustables desde
   la familia, respuestas guardadas y por el cartero, «sin respuesta» deducido por la familia, semáforo y avisos del
-  día (ADR-0009). 311 tests. Regla fija de modelos y ahorro en CLAUDE.md.
+  día (ADR-0009). 317 tests. Regla fija de modelos y ahorro en CLAUDE.md.
 - Pendiente de la sesión 2: lo que no existe sigue marcado "llega en la semana N" (pulso, pasos y sueño con el reloj;
   vistas Ayer y Semana con respuestas). El aviso a la familia que anuncian Hoy y Resumen es el escalado
   configurado; el envío real llega en la semana 4 del plan.
