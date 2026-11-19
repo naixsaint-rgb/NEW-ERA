@@ -1,6 +1,6 @@
 # NACHO · Estado del proyecto
 
-Actualizado: 2026-11-02 (sesión 3). Plan vigente: [[planes/PLAN-v3]]. Interfaz: [[specs/interfaz-ios]]. Método del catálogo: [[metodo/METODO-base-de-datos-sin-juez]].
+Actualizado: 2026-11-19 (sesión 4). Plan vigente: [[planes/PLAN-v3]]. Interfaz: [[specs/interfaz-ios]]. Método del catálogo: [[metodo/METODO-base-de-datos-sin-juez]].
 
 ## Dónde estamos
 - HIPOTENUSA dada el 12/10/2026 para la semana 1 del plan v3.
@@ -30,12 +30,17 @@ Actualizado: 2026-11-02 (sesión 3). Plan vigente: [[planes/PLAN-v3]]. Interfaz:
   la familia, respuestas guardadas y por el cartero, «sin respuesta» deducido por la familia, semáforo y avisos del
   día (ADR-0009); avisos reales a la familia por ntfy.sh sin cuentas ni datos, escalado 5/10 min, con la app
   cerrada en Android (ADR-0010); semilla de la demo con rondas y aviso. 359 tests. Regla fija de modelos y ahorro en CLAUDE.md.
+- Sesión 4 (19/11): Supabase restaurado y con el SQL ejecutado, comprobado contra el proyecto real (sobres,
+  aislamiento por código, sin cambios ni borrados, trozos de vídeo, CORS). Con HIPOTENUSA se terminan las pantallas
+  de familia que decían «llega en la semana N»: Círculo (añadir, editar, quitar, papel y teléfono), respuestas en
+  Ayer y Semana, Alarmas real, Calendario con citas y turnos, Alimentación, Consultas (ADR-0011). Esquema local 8.
+  489 tests. Decisión: avisos a todos a la vez, sin orden.
 - Pendiente de la sesión 2: lo que no existe sigue marcado "llega en la semana N" (pulso, pasos y sueño con el reloj;
   vistas Ayer y Semana con respuestas). El aviso a la familia que anuncian Hoy y Resumen es el escalado
   configurado; el envío real llega en la semana 4 del plan.
 
 ## Qué sigue
-1. Ejecutar `supabase/schema.sql` en el proyecto (lo hace el promotor) y probar el APK con dos móviles.
+1. Probar el APK con dos móviles Android (el servidor ya está listo).
 2. AlarmKit real en iOS 26 (capa Swift) y, con ella, avisos en segundo plano también en iPhone.
 3. Pendientes de la revisión de Opus: pantalla de error si falla el cifrado, pérdida de clave con base existente,
    excluir vídeos de la copia de iCloud, alarma que sigue sonando mientras se graba el vídeo.
