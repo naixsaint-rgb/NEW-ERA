@@ -26,17 +26,24 @@ abstract interface class ArchivosVoz {
   Future<void> borrar(String ruta);
 }
 
-/// Carpeta de las voces y comprobación de rutas.
+/// Carpetas de audio y comprobación de rutas: `voces/` (frases de la
+/// familia) y `consultas/` (grabaciones de las consultas con el médico, solo
+/// en el móvil que grabó).
 abstract final class RutasVoz {
   static const carpeta = 'voces';
+
+  /// Carpeta de las grabaciones de consultas (`Documentos/consultas/`).
+  static const carpetaConsultas = 'consultas';
 
   /// Extensión del formato del móvil (AAC en MPEG-4).
   static const extension = 'm4a';
 
-  /// Solo `voces/<nombre>.<ext>` con letras, números, `-` y `_`: una ruta
-  /// que llega de fuera (o que se compone con un id recibido) nunca sale de
-  /// la carpeta.
-  static final _valida = RegExp(r'^voces/[A-Za-z0-9_-]{1,120}\.[a-z0-9]{1,5}$');
+  /// Solo `voces/<nombre>.<ext>` o `consultas/<nombre>.<ext>` con letras,
+  /// números, `-` y `_`: una ruta que llega de fuera (o que se compone con un
+  /// id recibido) nunca sale de las carpetas.
+  static final _valida = RegExp(
+    r'^(?:voces|consultas)/[A-Za-z0-9_-]{1,120}\.[a-z0-9]{1,5}$',
+  );
 
   static bool valida(String ruta) => _valida.hasMatch(ruta);
 
@@ -44,6 +51,14 @@ abstract final class RutasVoz {
   static String de(String nombre, {String ext = extension}) {
     final ruta = '$carpeta/$nombre.$ext';
     if (!valida(ruta)) throw ArgumentError.value(nombre, 'nombre');
+    return ruta;
+  }
+
+  /// Ruta de la grabación de la consulta de la cita [citaId]:
+  /// `consultas/<id>.m4a`.
+  static String consulta(String citaId, {String ext = extension}) {
+    final ruta = '$carpetaConsultas/$citaId.$ext';
+    if (!valida(ruta)) throw ArgumentError.value(citaId, 'citaId');
     return ruta;
   }
 

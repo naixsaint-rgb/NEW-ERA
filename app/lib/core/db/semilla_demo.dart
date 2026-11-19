@@ -12,6 +12,7 @@ import 'png_marcador.dart';
 import 'repositorios/agenda_repositorio.dart';
 import 'repositorios/alimentacion_repositorio.dart';
 import 'repositorios/circulo_repositorio.dart';
+import 'repositorios/consultas_repositorio.dart';
 import 'repositorios/control_horas_repositorio.dart';
 import 'repositorios/eventos_repositorio.dart';
 import 'repositorios/medicacion_repositorio.dart';
@@ -25,8 +26,8 @@ import 'repositorios/medicacion_repositorio.dart';
 /// defecto, el móvil de la persona desde ayer por la mañana y las respuestas
 /// de las rondas de ayer y de hoy, con una ronda de hoy sin respuesta) y el
 /// aviso a Lucía por esa ronda. Voces: sin grabar (sin audio ni
-/// consentimientos). Agenda: una cita mañana (con Javier) y un turno semanal
-/// de Marta que empieza hoy.
+/// consentimientos). Agenda: una cita mañana (con Javier, con dos preguntas para
+/// llevar) y un turno semanal de Marta que empieza hoy.
 abstract final class SemillaDemo {
   /// `true` si la base ya tiene medicamentos.
   static Future<bool> hayMedicamentos(AppDatabase db) async {
@@ -363,7 +364,7 @@ abstract final class SemillaDemo {
       return '${d.year.toString().padLeft(4, '0')}-${dos(d.month)}-${dos(d.day)}';
     }
 
-    await agenda.crearCita(
+    final cita = await agenda.crearCita(
       DatosCita(
         titulo: 'Revisión (ejemplo)',
         tipo: TipoCita.medico,
@@ -373,6 +374,22 @@ abstract final class SemillaDemo {
         notas: 'Llevar la lista de medicamentos.',
         acompanaId: acompana,
       ),
+    );
+    // Dos preguntas para llevar a esa consulta.
+    final consultas = ConsultasRepositorio(
+      db: db,
+      reloj: reloj,
+      contexto: contexto,
+      eventos: eventos,
+      autor: () => autor,
+    );
+    await consultas.crearPregunta(
+      cita,
+      '¿Hay que cambiar algo de la medicación? (ejemplo)',
+    );
+    await consultas.crearPregunta(
+      cita,
+      '¿Cada cuánto conviene volver a revisión? (ejemplo)',
     );
     await agenda.crearTurno(
       DatosTurno(

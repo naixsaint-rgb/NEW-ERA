@@ -471,3 +471,67 @@ class Turnos extends Table {
   @override
   Set<Column> get primaryKey => {id};
 }
+
+// ---------------------------------------------------------------- Consultas
+// Esquema 8. Fichas que cambia la familia (no son hechos): lo que se prepara
+// y se apunta alrededor de una cita con el médico.
+
+/// Pregunta que alguien de la familia quiere hacer en la consulta de [citaId].
+/// Se puede ampliar, editar, marcar como preguntada y borrar (baja lógica
+/// [bajaEn]). Ficha `pregunta_consulta`; gana el cambio más reciente.
+@DataClassName('PreguntaConsulta')
+class PreguntasConsulta extends Table {
+  TextColumn get id => text()();
+  TextColumn get citaId => text().references(Citas, #id)();
+  TextColumn get texto => text()();
+  BoolColumn get preguntada => boolean().withDefault(const Constant(false))();
+
+  /// Familiar que la apuntó.
+  TextColumn get creadaPor => text()();
+  IntColumn get creadaEn => integer()();
+  TextColumn get modificadaPor => text()();
+  IntColumn get modificadaEn => integer()();
+  IntColumn get bajaEn => integer().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+/// Nota de la consulta de [citaId]: texto libre de lo que dijo el médico,
+/// con quién la escribió y cuándo. Ficha `nota_consulta`; baja lógica.
+@DataClassName('NotaConsulta')
+class NotasConsulta extends Table {
+  TextColumn get id => text()();
+  TextColumn get citaId => text().references(Citas, #id)();
+  TextColumn get texto => text()();
+  TextColumn get creadaPor => text()();
+  IntColumn get creadaEn => integer()();
+  TextColumn get modificadaPor => text()();
+  IntColumn get modificadaEn => integer()();
+  IntColumn get bajaEn => integer().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+/// Marca de que hay una grabación de la consulta de [id] (el id de la cita:
+/// una por cita) en el móvil de [grabadaPor]. El audio NO viaja: se queda en
+/// ese móvil (`consultas/<id>.m4a`); lo que viaja es esta marca, para que los
+/// demás móviles sepan dónde está. Ficha `grabacion_consulta`; al borrar la
+/// grabación se pone [bajaEn].
+@DataClassName('GrabacionConsulta')
+class GrabacionesConsulta extends Table {
+  /// Id de la cita.
+  TextColumn get id => text().references(Citas, #id)();
+
+  /// Familiar en cuyo móvil está el audio.
+  TextColumn get grabadaPor => text()();
+  IntColumn get grabadaEn => integer()();
+
+  /// Duración, en segundos.
+  IntColumn get segundos => integer()();
+  IntColumn get bajaEn => integer().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}

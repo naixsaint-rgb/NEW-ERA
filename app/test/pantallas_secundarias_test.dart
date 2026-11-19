@@ -75,8 +75,14 @@ const _casos = [
   ]),
   _Caso('Consultas', '/familia/consultas', [
     'Consultas',
-    'Lo que tendrá',
-    'Llega en la semana 12',
+    'Nueva cita',
+    'Revisión (ejemplo)',
+  ]),
+  _Caso('Ficha de consulta', '/familia/consultas/@cita', [
+    'Revisión (ejemplo)',
+    'PREGUNTAS PARA LLEVAR',
+    '¿Hay que cambiar algo de la medicación? (ejemplo)',
+    'Añadir pregunta',
   ]),
   _Caso('Más', '/familia/mas', [
     'Más',
@@ -108,7 +114,16 @@ void main() {
               sembrar: !caso.sinPerfil,
             ),
           );
-          await montarApp(tester, entorno!, rutaInicial: caso.ruta);
+          // «@cita» es la cita de ejemplo de la semilla.
+          final ruta = caso.ruta.contains('@cita')
+              ? caso.ruta.replaceAll(
+                  '@cita',
+                  (await tester.runAsync(
+                    () => entorno!.db.select(entorno.db.citas).getSingle(),
+                  ))!.id,
+                )
+              : caso.ruta;
+          await montarApp(tester, entorno!, rutaInicial: ruta);
           await pasar(tester, const Duration(seconds: 1));
 
           final brillo = Theme.of(tester.element(find.byType(Scaffold).first))

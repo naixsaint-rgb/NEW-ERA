@@ -19,6 +19,7 @@ import '../../features/calendario/cita_form_pantalla.dart';
 import '../../features/calendario/turno_form_pantalla.dart';
 import '../../features/circulo/miembro_form_pantalla.dart';
 import '../../features/consultas/consultas_pantalla.dart';
+import '../../features/consultas/ficha_consulta_pantalla.dart';
 import '../../features/hoy/hoy_pantalla.dart';
 import '../../features/medicacion/alta_medicamento_pantalla.dart';
 import '../../features/medicacion/cambio_pauta_pantalla.dart';
@@ -215,7 +216,32 @@ final routerProvider = Provider<GoRouter>((ref) {
             ],
           ),
           StatefulShellBranch(
-            routes: [pestana('consultas', () => const ConsultasPantalla())],
+            routes: [
+              pestana(
+                'consultas',
+                () => const ConsultasPantalla(),
+                rutas: [
+                  GoRoute(
+                    path: 'nueva',
+                    builder: (_, _) => const CitaFormPantalla(),
+                  ),
+                  GoRoute(
+                    path: ':citaId',
+                    builder: (_, state) => FichaConsultaPantalla(
+                      citaId: state.pathParameters['citaId']!,
+                    ),
+                    routes: [
+                      GoRoute(
+                        path: 'cita',
+                        builder: (_, state) => CitaFormPantalla(
+                          citaId: state.pathParameters['citaId'],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
           StatefulShellBranch(
             routes: [

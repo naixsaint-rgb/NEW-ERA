@@ -649,6 +649,9 @@ void main() {
           ),
         );
     await v2.customStatement('DROP TABLE clips_pendientes');
+    await v2.customStatement('DROP TABLE grabaciones_consulta');
+    await v2.customStatement('DROP TABLE notas_consulta');
+    await v2.customStatement('DROP TABLE preguntas_consulta');
     await v2.customStatement('DROP TABLE citas');
     await v2.customStatement('DROP TABLE turnos');
     await v2.customStatement('ALTER TABLE comidas DROP COLUMN baja_en');

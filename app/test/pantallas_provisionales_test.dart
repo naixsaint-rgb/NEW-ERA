@@ -36,6 +36,8 @@ void main() {
     '/familia/resumen',
     '/familia/alimentacion',
     '/familia/alimentacion/comida/nueva',
+    '/familia/consultas',
+    '/familia/consultas/nueva',
   ]) {
     testWidgets('$ruta con el texto al 200 % no se rompe', (tester) async {
       final entorno = await tester.runAsync(

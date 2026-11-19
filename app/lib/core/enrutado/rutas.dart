@@ -118,4 +118,14 @@ abstract final class Rutas {
 
   static String comida(String id) =>
       '/familia/alimentacion/comida/${Uri.encodeComponent(id)}';
+
+  /// Consultas › crear una cita (el formulario del calendario).
+  static const consultaCitaNueva = '/familia/consultas/nueva';
+
+  /// Consultas › la ficha de la consulta de la cita [id].
+  static String consulta(String id) =>
+      '/familia/consultas/${Uri.encodeComponent(id)}';
+
+  /// Consultas › editar la cita [id] (el formulario del calendario).
+  static String consultaCita(String id) => '${consulta(id)}/cita';
 }

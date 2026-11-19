@@ -12,6 +12,7 @@ import 'db/base_datos.dart';
 import 'db/repositorios/agenda_repositorio.dart';
 import 'db/repositorios/alimentacion_repositorio.dart';
 import 'db/repositorios/circulo_repositorio.dart';
+import 'db/repositorios/consultas_repositorio.dart';
 import 'db/repositorios/control_horas_repositorio.dart';
 import 'db/repositorios/eventos_repositorio.dart';
 import 'db/repositorios/medicacion_repositorio.dart';
@@ -214,6 +215,16 @@ final vocesRepositorioProvider = Provider<VocesRepositorio>((ref) {
 
 final agendaRepositorioProvider = Provider<AgendaRepositorio>((ref) {
   return AgendaRepositorio(
+    db: ref.watch(baseDatosProvider),
+    reloj: ref.watch(relojProvider),
+    contexto: ref.watch(contextoProvider),
+    eventos: ref.watch(eventosRepositorioProvider),
+    autor: () => autorActual(ref),
+  );
+});
+
+final consultasRepositorioProvider = Provider<ConsultasRepositorio>((ref) {
+  return ConsultasRepositorio(
     db: ref.watch(baseDatosProvider),
     reloj: ref.watch(relojProvider),
     contexto: ref.watch(contextoProvider),

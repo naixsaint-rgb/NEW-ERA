@@ -257,4 +257,68 @@ abstract final class ClavesUi {
   static const alimGuardar = ValueKey<String>('alim_guardar');
   static const alimBorrar = ValueKey<String>('alim_borrar');
   static const alimBorrarConfirmar = ValueKey<String>('alim_borrar_confirmar');
+
+  // ------------------------------------------------------------ Consultas
+
+  static const pantallaConsultas = ValueKey<String>('pantalla_consultas');
+  static const pantallaFichaConsulta = ValueKey<String>(
+    'pantalla_ficha_consulta',
+  );
+
+  /// Lista: «Nueva cita» y la fila de una cita (`consulta_<id>`).
+  static const consNuevaCita = ValueKey<String>('cons_nueva_cita');
+  static ValueKey<String> consFila(String id) =>
+      ValueKey<String>('consulta_$id');
+
+  /// Ficha: editar la cita.
+  static const consEditarCita = ValueKey<String>('cons_editar_cita');
+
+  /// Preguntas: campo, añadir y, por id, la fila, marcar, editar y borrar.
+  static const consPreguntaCampo = ValueKey<String>('cons_pregunta_campo');
+  static const consPreguntaAnadir = ValueKey<String>('cons_pregunta_anadir');
+  static ValueKey<String> consPregunta(String id) =>
+      ValueKey<String>('cons_pregunta_$id');
+  static ValueKey<String> consPreguntaMarca(String id) =>
+      ValueKey<String>('cons_pregunta_marca_$id');
+  static ValueKey<String> consPreguntaEditar(String id) =>
+      ValueKey<String>('cons_pregunta_editar_$id');
+  static ValueKey<String> consPreguntaBorrar(String id) =>
+      ValueKey<String>('cons_pregunta_borrar_$id');
+
+  /// Notas: campo, añadir y, por id, la fila, editar y borrar.
+  static const consNotaCampo = ValueKey<String>('cons_nota_campo');
+  static const consNotaAnadir = ValueKey<String>('cons_nota_anadir');
+  static ValueKey<String> consNota(String id) =>
+      ValueKey<String>('cons_nota_$id');
+  static ValueKey<String> consNotaEditar(String id) =>
+      ValueKey<String>('cons_nota_editar_$id');
+  static ValueKey<String> consNotaBorrar(String id) =>
+      ValueKey<String>('cons_nota_borrar_$id');
+
+  /// Diálogos de texto y de borrado (editar una pregunta o una nota).
+  static const consDialogoCampo = ValueKey<String>('cons_dialogo_campo');
+  static const consDialogoGuardar = ValueKey<String>('cons_dialogo_guardar');
+  static const consBorrarConfirmar = ValueKey<String>('cons_borrar_confirmar');
+
+  /// «Qué ha pasado desde la última consulta» y cada cifra (`tomas_ok`,
+  /// `tomas_sin`, `rondas_ok`, `rondas_sin`, `mal`, `dolor`, `comidas`).
+  static const consDesde = ValueKey<String>('cons_desde');
+  static ValueKey<String> consCifra(String nombre) =>
+      ValueKey<String>('cons_cifra_$nombre');
+
+  /// Grabación: botón, casilla de permiso, empezar, parar, escuchar, borrar,
+  /// y los textos de estado.
+  static const consGrabar = ValueKey<String>('cons_grabar');
+  static const consGrabPermiso = ValueKey<String>('cons_grab_permiso');
+  static const consGrabEmpezar = ValueKey<String>('cons_grab_empezar');
+  static const consGrabParar = ValueKey<String>('cons_grab_parar');
+  static const consGrabTiempo = ValueKey<String>('cons_grab_tiempo');
+  static const consGrabEscuchar = ValueKey<String>('cons_grab_escuchar');
+  static const consGrabBorrar = ValueKey<String>('cons_grab_borrar');
+  static const consGrabEstado = ValueKey<String>('cons_grab_estado');
+
+  /// Resumen: botón, texto y copiar.
+  static const consCompartir = ValueKey<String>('cons_compartir');
+  static const consResumenTexto = ValueKey<String>('cons_resumen_texto');
+  static const consCopiar = ValueKey<String>('cons_copiar');
 }

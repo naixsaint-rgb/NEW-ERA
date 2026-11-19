@@ -41,6 +41,9 @@ const tablasDeHechos = <String>[
     AjustesControlHoras,
     Citas,
     Turnos,
+    PreguntasConsulta,
+    NotasConsulta,
+    GrabacionesConsulta,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -53,9 +56,10 @@ class AppDatabase extends _$AppDatabase {
   /// (`miembros.baja_en`). 6: citas y turnos de la familia (`citas`,
   /// `turnos`). 7: comidas y vasos de agua pasan a fichas con baja lógica
   /// (`comidas.baja_en`, `hidrataciones.baja_en`): dejan de ser de solo
-  /// inserción.
+  /// inserción. 8: preguntas, notas y marca de grabación de las consultas
+  /// (`preguntas_consulta`, `notas_consulta`, `grabaciones_consulta`).
   @override
-  int get schemaVersion => 7;
+  int get schemaVersion => 8;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -100,6 +104,11 @@ class AppDatabase extends _$AppDatabase {
           await customStatement('DROP TRIGGER IF EXISTS ${t}_no_update');
           await customStatement('DROP TRIGGER IF EXISTS ${t}_no_delete');
         }
+      }
+      if (from < 8) {
+        await m.createTable(preguntasConsulta);
+        await m.createTable(notasConsulta);
+        await m.createTable(grabacionesConsulta);
       }
     },
     beforeOpen: (details) async {

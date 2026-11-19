@@ -12004,6 +12004,1472 @@ class TurnosCompanion extends UpdateCompanion<Turno> {
   }
 }
 
+class $PreguntasConsultaTable extends PreguntasConsulta
+    with TableInfo<$PreguntasConsultaTable, PreguntaConsulta> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PreguntasConsultaTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _citaIdMeta = const VerificationMeta('citaId');
+  @override
+  late final GeneratedColumn<String> citaId = GeneratedColumn<String>(
+    'cita_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES citas (id)',
+    ),
+  );
+  static const VerificationMeta _textoMeta = const VerificationMeta('texto');
+  @override
+  late final GeneratedColumn<String> texto = GeneratedColumn<String>(
+    'texto',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _preguntadaMeta = const VerificationMeta(
+    'preguntada',
+  );
+  @override
+  late final GeneratedColumn<bool> preguntada = GeneratedColumn<bool>(
+    'preguntada',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("preguntada" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _creadaPorMeta = const VerificationMeta(
+    'creadaPor',
+  );
+  @override
+  late final GeneratedColumn<String> creadaPor = GeneratedColumn<String>(
+    'creada_por',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _creadaEnMeta = const VerificationMeta(
+    'creadaEn',
+  );
+  @override
+  late final GeneratedColumn<int> creadaEn = GeneratedColumn<int>(
+    'creada_en',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _modificadaPorMeta = const VerificationMeta(
+    'modificadaPor',
+  );
+  @override
+  late final GeneratedColumn<String> modificadaPor = GeneratedColumn<String>(
+    'modificada_por',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _modificadaEnMeta = const VerificationMeta(
+    'modificadaEn',
+  );
+  @override
+  late final GeneratedColumn<int> modificadaEn = GeneratedColumn<int>(
+    'modificada_en',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _bajaEnMeta = const VerificationMeta('bajaEn');
+  @override
+  late final GeneratedColumn<int> bajaEn = GeneratedColumn<int>(
+    'baja_en',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    citaId,
+    texto,
+    preguntada,
+    creadaPor,
+    creadaEn,
+    modificadaPor,
+    modificadaEn,
+    bajaEn,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'preguntas_consulta';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PreguntaConsulta> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('cita_id')) {
+      context.handle(
+        _citaIdMeta,
+        citaId.isAcceptableOrUnknown(data['cita_id']!, _citaIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_citaIdMeta);
+    }
+    if (data.containsKey('texto')) {
+      context.handle(
+        _textoMeta,
+        texto.isAcceptableOrUnknown(data['texto']!, _textoMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_textoMeta);
+    }
+    if (data.containsKey('preguntada')) {
+      context.handle(
+        _preguntadaMeta,
+        preguntada.isAcceptableOrUnknown(data['preguntada']!, _preguntadaMeta),
+      );
+    }
+    if (data.containsKey('creada_por')) {
+      context.handle(
+        _creadaPorMeta,
+        creadaPor.isAcceptableOrUnknown(data['creada_por']!, _creadaPorMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_creadaPorMeta);
+    }
+    if (data.containsKey('creada_en')) {
+      context.handle(
+        _creadaEnMeta,
+        creadaEn.isAcceptableOrUnknown(data['creada_en']!, _creadaEnMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_creadaEnMeta);
+    }
+    if (data.containsKey('modificada_por')) {
+      context.handle(
+        _modificadaPorMeta,
+        modificadaPor.isAcceptableOrUnknown(
+          data['modificada_por']!,
+          _modificadaPorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_modificadaPorMeta);
+    }
+    if (data.containsKey('modificada_en')) {
+      context.handle(
+        _modificadaEnMeta,
+        modificadaEn.isAcceptableOrUnknown(
+          data['modificada_en']!,
+          _modificadaEnMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_modificadaEnMeta);
+    }
+    if (data.containsKey('baja_en')) {
+      context.handle(
+        _bajaEnMeta,
+        bajaEn.isAcceptableOrUnknown(data['baja_en']!, _bajaEnMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PreguntaConsulta map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PreguntaConsulta(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      citaId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}cita_id'],
+      )!,
+      texto: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}texto'],
+      )!,
+      preguntada: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}preguntada'],
+      )!,
+      creadaPor: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}creada_por'],
+      )!,
+      creadaEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}creada_en'],
+      )!,
+      modificadaPor: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}modificada_por'],
+      )!,
+      modificadaEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}modificada_en'],
+      )!,
+      bajaEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}baja_en'],
+      ),
+    );
+  }
+
+  @override
+  $PreguntasConsultaTable createAlias(String alias) {
+    return $PreguntasConsultaTable(attachedDatabase, alias);
+  }
+}
+
+class PreguntaConsulta extends DataClass
+    implements Insertable<PreguntaConsulta> {
+  final String id;
+  final String citaId;
+  final String texto;
+  final bool preguntada;
+
+  /// Familiar que la apuntó.
+  final String creadaPor;
+  final int creadaEn;
+  final String modificadaPor;
+  final int modificadaEn;
+  final int? bajaEn;
+  const PreguntaConsulta({
+    required this.id,
+    required this.citaId,
+    required this.texto,
+    required this.preguntada,
+    required this.creadaPor,
+    required this.creadaEn,
+    required this.modificadaPor,
+    required this.modificadaEn,
+    this.bajaEn,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['cita_id'] = Variable<String>(citaId);
+    map['texto'] = Variable<String>(texto);
+    map['preguntada'] = Variable<bool>(preguntada);
+    map['creada_por'] = Variable<String>(creadaPor);
+    map['creada_en'] = Variable<int>(creadaEn);
+    map['modificada_por'] = Variable<String>(modificadaPor);
+    map['modificada_en'] = Variable<int>(modificadaEn);
+    if (!nullToAbsent || bajaEn != null) {
+      map['baja_en'] = Variable<int>(bajaEn);
+    }
+    return map;
+  }
+
+  PreguntasConsultaCompanion toCompanion(bool nullToAbsent) {
+    return PreguntasConsultaCompanion(
+      id: Value(id),
+      citaId: Value(citaId),
+      texto: Value(texto),
+      preguntada: Value(preguntada),
+      creadaPor: Value(creadaPor),
+      creadaEn: Value(creadaEn),
+      modificadaPor: Value(modificadaPor),
+      modificadaEn: Value(modificadaEn),
+      bajaEn: bajaEn == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bajaEn),
+    );
+  }
+
+  factory PreguntaConsulta.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PreguntaConsulta(
+      id: serializer.fromJson<String>(json['id']),
+      citaId: serializer.fromJson<String>(json['citaId']),
+      texto: serializer.fromJson<String>(json['texto']),
+      preguntada: serializer.fromJson<bool>(json['preguntada']),
+      creadaPor: serializer.fromJson<String>(json['creadaPor']),
+      creadaEn: serializer.fromJson<int>(json['creadaEn']),
+      modificadaPor: serializer.fromJson<String>(json['modificadaPor']),
+      modificadaEn: serializer.fromJson<int>(json['modificadaEn']),
+      bajaEn: serializer.fromJson<int?>(json['bajaEn']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'citaId': serializer.toJson<String>(citaId),
+      'texto': serializer.toJson<String>(texto),
+      'preguntada': serializer.toJson<bool>(preguntada),
+      'creadaPor': serializer.toJson<String>(creadaPor),
+      'creadaEn': serializer.toJson<int>(creadaEn),
+      'modificadaPor': serializer.toJson<String>(modificadaPor),
+      'modificadaEn': serializer.toJson<int>(modificadaEn),
+      'bajaEn': serializer.toJson<int?>(bajaEn),
+    };
+  }
+
+  PreguntaConsulta copyWith({
+    String? id,
+    String? citaId,
+    String? texto,
+    bool? preguntada,
+    String? creadaPor,
+    int? creadaEn,
+    String? modificadaPor,
+    int? modificadaEn,
+    Value<int?> bajaEn = const Value.absent(),
+  }) => PreguntaConsulta(
+    id: id ?? this.id,
+    citaId: citaId ?? this.citaId,
+    texto: texto ?? this.texto,
+    preguntada: preguntada ?? this.preguntada,
+    creadaPor: creadaPor ?? this.creadaPor,
+    creadaEn: creadaEn ?? this.creadaEn,
+    modificadaPor: modificadaPor ?? this.modificadaPor,
+    modificadaEn: modificadaEn ?? this.modificadaEn,
+    bajaEn: bajaEn.present ? bajaEn.value : this.bajaEn,
+  );
+  PreguntaConsulta copyWithCompanion(PreguntasConsultaCompanion data) {
+    return PreguntaConsulta(
+      id: data.id.present ? data.id.value : this.id,
+      citaId: data.citaId.present ? data.citaId.value : this.citaId,
+      texto: data.texto.present ? data.texto.value : this.texto,
+      preguntada: data.preguntada.present
+          ? data.preguntada.value
+          : this.preguntada,
+      creadaPor: data.creadaPor.present ? data.creadaPor.value : this.creadaPor,
+      creadaEn: data.creadaEn.present ? data.creadaEn.value : this.creadaEn,
+      modificadaPor: data.modificadaPor.present
+          ? data.modificadaPor.value
+          : this.modificadaPor,
+      modificadaEn: data.modificadaEn.present
+          ? data.modificadaEn.value
+          : this.modificadaEn,
+      bajaEn: data.bajaEn.present ? data.bajaEn.value : this.bajaEn,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PreguntaConsulta(')
+          ..write('id: $id, ')
+          ..write('citaId: $citaId, ')
+          ..write('texto: $texto, ')
+          ..write('preguntada: $preguntada, ')
+          ..write('creadaPor: $creadaPor, ')
+          ..write('creadaEn: $creadaEn, ')
+          ..write('modificadaPor: $modificadaPor, ')
+          ..write('modificadaEn: $modificadaEn, ')
+          ..write('bajaEn: $bajaEn')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    citaId,
+    texto,
+    preguntada,
+    creadaPor,
+    creadaEn,
+    modificadaPor,
+    modificadaEn,
+    bajaEn,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PreguntaConsulta &&
+          other.id == this.id &&
+          other.citaId == this.citaId &&
+          other.texto == this.texto &&
+          other.preguntada == this.preguntada &&
+          other.creadaPor == this.creadaPor &&
+          other.creadaEn == this.creadaEn &&
+          other.modificadaPor == this.modificadaPor &&
+          other.modificadaEn == this.modificadaEn &&
+          other.bajaEn == this.bajaEn);
+}
+
+class PreguntasConsultaCompanion extends UpdateCompanion<PreguntaConsulta> {
+  final Value<String> id;
+  final Value<String> citaId;
+  final Value<String> texto;
+  final Value<bool> preguntada;
+  final Value<String> creadaPor;
+  final Value<int> creadaEn;
+  final Value<String> modificadaPor;
+  final Value<int> modificadaEn;
+  final Value<int?> bajaEn;
+  final Value<int> rowid;
+  const PreguntasConsultaCompanion({
+    this.id = const Value.absent(),
+    this.citaId = const Value.absent(),
+    this.texto = const Value.absent(),
+    this.preguntada = const Value.absent(),
+    this.creadaPor = const Value.absent(),
+    this.creadaEn = const Value.absent(),
+    this.modificadaPor = const Value.absent(),
+    this.modificadaEn = const Value.absent(),
+    this.bajaEn = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PreguntasConsultaCompanion.insert({
+    required String id,
+    required String citaId,
+    required String texto,
+    this.preguntada = const Value.absent(),
+    required String creadaPor,
+    required int creadaEn,
+    required String modificadaPor,
+    required int modificadaEn,
+    this.bajaEn = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       citaId = Value(citaId),
+       texto = Value(texto),
+       creadaPor = Value(creadaPor),
+       creadaEn = Value(creadaEn),
+       modificadaPor = Value(modificadaPor),
+       modificadaEn = Value(modificadaEn);
+  static Insertable<PreguntaConsulta> custom({
+    Expression<String>? id,
+    Expression<String>? citaId,
+    Expression<String>? texto,
+    Expression<bool>? preguntada,
+    Expression<String>? creadaPor,
+    Expression<int>? creadaEn,
+    Expression<String>? modificadaPor,
+    Expression<int>? modificadaEn,
+    Expression<int>? bajaEn,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (citaId != null) 'cita_id': citaId,
+      if (texto != null) 'texto': texto,
+      if (preguntada != null) 'preguntada': preguntada,
+      if (creadaPor != null) 'creada_por': creadaPor,
+      if (creadaEn != null) 'creada_en': creadaEn,
+      if (modificadaPor != null) 'modificada_por': modificadaPor,
+      if (modificadaEn != null) 'modificada_en': modificadaEn,
+      if (bajaEn != null) 'baja_en': bajaEn,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PreguntasConsultaCompanion copyWith({
+    Value<String>? id,
+    Value<String>? citaId,
+    Value<String>? texto,
+    Value<bool>? preguntada,
+    Value<String>? creadaPor,
+    Value<int>? creadaEn,
+    Value<String>? modificadaPor,
+    Value<int>? modificadaEn,
+    Value<int?>? bajaEn,
+    Value<int>? rowid,
+  }) {
+    return PreguntasConsultaCompanion(
+      id: id ?? this.id,
+      citaId: citaId ?? this.citaId,
+      texto: texto ?? this.texto,
+      preguntada: preguntada ?? this.preguntada,
+      creadaPor: creadaPor ?? this.creadaPor,
+      creadaEn: creadaEn ?? this.creadaEn,
+      modificadaPor: modificadaPor ?? this.modificadaPor,
+      modificadaEn: modificadaEn ?? this.modificadaEn,
+      bajaEn: bajaEn ?? this.bajaEn,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (citaId.present) {
+      map['cita_id'] = Variable<String>(citaId.value);
+    }
+    if (texto.present) {
+      map['texto'] = Variable<String>(texto.value);
+    }
+    if (preguntada.present) {
+      map['preguntada'] = Variable<bool>(preguntada.value);
+    }
+    if (creadaPor.present) {
+      map['creada_por'] = Variable<String>(creadaPor.value);
+    }
+    if (creadaEn.present) {
+      map['creada_en'] = Variable<int>(creadaEn.value);
+    }
+    if (modificadaPor.present) {
+      map['modificada_por'] = Variable<String>(modificadaPor.value);
+    }
+    if (modificadaEn.present) {
+      map['modificada_en'] = Variable<int>(modificadaEn.value);
+    }
+    if (bajaEn.present) {
+      map['baja_en'] = Variable<int>(bajaEn.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PreguntasConsultaCompanion(')
+          ..write('id: $id, ')
+          ..write('citaId: $citaId, ')
+          ..write('texto: $texto, ')
+          ..write('preguntada: $preguntada, ')
+          ..write('creadaPor: $creadaPor, ')
+          ..write('creadaEn: $creadaEn, ')
+          ..write('modificadaPor: $modificadaPor, ')
+          ..write('modificadaEn: $modificadaEn, ')
+          ..write('bajaEn: $bajaEn, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $NotasConsultaTable extends NotasConsulta
+    with TableInfo<$NotasConsultaTable, NotaConsulta> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $NotasConsultaTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _citaIdMeta = const VerificationMeta('citaId');
+  @override
+  late final GeneratedColumn<String> citaId = GeneratedColumn<String>(
+    'cita_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES citas (id)',
+    ),
+  );
+  static const VerificationMeta _textoMeta = const VerificationMeta('texto');
+  @override
+  late final GeneratedColumn<String> texto = GeneratedColumn<String>(
+    'texto',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _creadaPorMeta = const VerificationMeta(
+    'creadaPor',
+  );
+  @override
+  late final GeneratedColumn<String> creadaPor = GeneratedColumn<String>(
+    'creada_por',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _creadaEnMeta = const VerificationMeta(
+    'creadaEn',
+  );
+  @override
+  late final GeneratedColumn<int> creadaEn = GeneratedColumn<int>(
+    'creada_en',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _modificadaPorMeta = const VerificationMeta(
+    'modificadaPor',
+  );
+  @override
+  late final GeneratedColumn<String> modificadaPor = GeneratedColumn<String>(
+    'modificada_por',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _modificadaEnMeta = const VerificationMeta(
+    'modificadaEn',
+  );
+  @override
+  late final GeneratedColumn<int> modificadaEn = GeneratedColumn<int>(
+    'modificada_en',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _bajaEnMeta = const VerificationMeta('bajaEn');
+  @override
+  late final GeneratedColumn<int> bajaEn = GeneratedColumn<int>(
+    'baja_en',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    citaId,
+    texto,
+    creadaPor,
+    creadaEn,
+    modificadaPor,
+    modificadaEn,
+    bajaEn,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'notas_consulta';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<NotaConsulta> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('cita_id')) {
+      context.handle(
+        _citaIdMeta,
+        citaId.isAcceptableOrUnknown(data['cita_id']!, _citaIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_citaIdMeta);
+    }
+    if (data.containsKey('texto')) {
+      context.handle(
+        _textoMeta,
+        texto.isAcceptableOrUnknown(data['texto']!, _textoMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_textoMeta);
+    }
+    if (data.containsKey('creada_por')) {
+      context.handle(
+        _creadaPorMeta,
+        creadaPor.isAcceptableOrUnknown(data['creada_por']!, _creadaPorMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_creadaPorMeta);
+    }
+    if (data.containsKey('creada_en')) {
+      context.handle(
+        _creadaEnMeta,
+        creadaEn.isAcceptableOrUnknown(data['creada_en']!, _creadaEnMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_creadaEnMeta);
+    }
+    if (data.containsKey('modificada_por')) {
+      context.handle(
+        _modificadaPorMeta,
+        modificadaPor.isAcceptableOrUnknown(
+          data['modificada_por']!,
+          _modificadaPorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_modificadaPorMeta);
+    }
+    if (data.containsKey('modificada_en')) {
+      context.handle(
+        _modificadaEnMeta,
+        modificadaEn.isAcceptableOrUnknown(
+          data['modificada_en']!,
+          _modificadaEnMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_modificadaEnMeta);
+    }
+    if (data.containsKey('baja_en')) {
+      context.handle(
+        _bajaEnMeta,
+        bajaEn.isAcceptableOrUnknown(data['baja_en']!, _bajaEnMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  NotaConsulta map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return NotaConsulta(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      citaId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}cita_id'],
+      )!,
+      texto: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}texto'],
+      )!,
+      creadaPor: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}creada_por'],
+      )!,
+      creadaEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}creada_en'],
+      )!,
+      modificadaPor: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}modificada_por'],
+      )!,
+      modificadaEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}modificada_en'],
+      )!,
+      bajaEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}baja_en'],
+      ),
+    );
+  }
+
+  @override
+  $NotasConsultaTable createAlias(String alias) {
+    return $NotasConsultaTable(attachedDatabase, alias);
+  }
+}
+
+class NotaConsulta extends DataClass implements Insertable<NotaConsulta> {
+  final String id;
+  final String citaId;
+  final String texto;
+  final String creadaPor;
+  final int creadaEn;
+  final String modificadaPor;
+  final int modificadaEn;
+  final int? bajaEn;
+  const NotaConsulta({
+    required this.id,
+    required this.citaId,
+    required this.texto,
+    required this.creadaPor,
+    required this.creadaEn,
+    required this.modificadaPor,
+    required this.modificadaEn,
+    this.bajaEn,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['cita_id'] = Variable<String>(citaId);
+    map['texto'] = Variable<String>(texto);
+    map['creada_por'] = Variable<String>(creadaPor);
+    map['creada_en'] = Variable<int>(creadaEn);
+    map['modificada_por'] = Variable<String>(modificadaPor);
+    map['modificada_en'] = Variable<int>(modificadaEn);
+    if (!nullToAbsent || bajaEn != null) {
+      map['baja_en'] = Variable<int>(bajaEn);
+    }
+    return map;
+  }
+
+  NotasConsultaCompanion toCompanion(bool nullToAbsent) {
+    return NotasConsultaCompanion(
+      id: Value(id),
+      citaId: Value(citaId),
+      texto: Value(texto),
+      creadaPor: Value(creadaPor),
+      creadaEn: Value(creadaEn),
+      modificadaPor: Value(modificadaPor),
+      modificadaEn: Value(modificadaEn),
+      bajaEn: bajaEn == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bajaEn),
+    );
+  }
+
+  factory NotaConsulta.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return NotaConsulta(
+      id: serializer.fromJson<String>(json['id']),
+      citaId: serializer.fromJson<String>(json['citaId']),
+      texto: serializer.fromJson<String>(json['texto']),
+      creadaPor: serializer.fromJson<String>(json['creadaPor']),
+      creadaEn: serializer.fromJson<int>(json['creadaEn']),
+      modificadaPor: serializer.fromJson<String>(json['modificadaPor']),
+      modificadaEn: serializer.fromJson<int>(json['modificadaEn']),
+      bajaEn: serializer.fromJson<int?>(json['bajaEn']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'citaId': serializer.toJson<String>(citaId),
+      'texto': serializer.toJson<String>(texto),
+      'creadaPor': serializer.toJson<String>(creadaPor),
+      'creadaEn': serializer.toJson<int>(creadaEn),
+      'modificadaPor': serializer.toJson<String>(modificadaPor),
+      'modificadaEn': serializer.toJson<int>(modificadaEn),
+      'bajaEn': serializer.toJson<int?>(bajaEn),
+    };
+  }
+
+  NotaConsulta copyWith({
+    String? id,
+    String? citaId,
+    String? texto,
+    String? creadaPor,
+    int? creadaEn,
+    String? modificadaPor,
+    int? modificadaEn,
+    Value<int?> bajaEn = const Value.absent(),
+  }) => NotaConsulta(
+    id: id ?? this.id,
+    citaId: citaId ?? this.citaId,
+    texto: texto ?? this.texto,
+    creadaPor: creadaPor ?? this.creadaPor,
+    creadaEn: creadaEn ?? this.creadaEn,
+    modificadaPor: modificadaPor ?? this.modificadaPor,
+    modificadaEn: modificadaEn ?? this.modificadaEn,
+    bajaEn: bajaEn.present ? bajaEn.value : this.bajaEn,
+  );
+  NotaConsulta copyWithCompanion(NotasConsultaCompanion data) {
+    return NotaConsulta(
+      id: data.id.present ? data.id.value : this.id,
+      citaId: data.citaId.present ? data.citaId.value : this.citaId,
+      texto: data.texto.present ? data.texto.value : this.texto,
+      creadaPor: data.creadaPor.present ? data.creadaPor.value : this.creadaPor,
+      creadaEn: data.creadaEn.present ? data.creadaEn.value : this.creadaEn,
+      modificadaPor: data.modificadaPor.present
+          ? data.modificadaPor.value
+          : this.modificadaPor,
+      modificadaEn: data.modificadaEn.present
+          ? data.modificadaEn.value
+          : this.modificadaEn,
+      bajaEn: data.bajaEn.present ? data.bajaEn.value : this.bajaEn,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('NotaConsulta(')
+          ..write('id: $id, ')
+          ..write('citaId: $citaId, ')
+          ..write('texto: $texto, ')
+          ..write('creadaPor: $creadaPor, ')
+          ..write('creadaEn: $creadaEn, ')
+          ..write('modificadaPor: $modificadaPor, ')
+          ..write('modificadaEn: $modificadaEn, ')
+          ..write('bajaEn: $bajaEn')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    citaId,
+    texto,
+    creadaPor,
+    creadaEn,
+    modificadaPor,
+    modificadaEn,
+    bajaEn,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is NotaConsulta &&
+          other.id == this.id &&
+          other.citaId == this.citaId &&
+          other.texto == this.texto &&
+          other.creadaPor == this.creadaPor &&
+          other.creadaEn == this.creadaEn &&
+          other.modificadaPor == this.modificadaPor &&
+          other.modificadaEn == this.modificadaEn &&
+          other.bajaEn == this.bajaEn);
+}
+
+class NotasConsultaCompanion extends UpdateCompanion<NotaConsulta> {
+  final Value<String> id;
+  final Value<String> citaId;
+  final Value<String> texto;
+  final Value<String> creadaPor;
+  final Value<int> creadaEn;
+  final Value<String> modificadaPor;
+  final Value<int> modificadaEn;
+  final Value<int?> bajaEn;
+  final Value<int> rowid;
+  const NotasConsultaCompanion({
+    this.id = const Value.absent(),
+    this.citaId = const Value.absent(),
+    this.texto = const Value.absent(),
+    this.creadaPor = const Value.absent(),
+    this.creadaEn = const Value.absent(),
+    this.modificadaPor = const Value.absent(),
+    this.modificadaEn = const Value.absent(),
+    this.bajaEn = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  NotasConsultaCompanion.insert({
+    required String id,
+    required String citaId,
+    required String texto,
+    required String creadaPor,
+    required int creadaEn,
+    required String modificadaPor,
+    required int modificadaEn,
+    this.bajaEn = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       citaId = Value(citaId),
+       texto = Value(texto),
+       creadaPor = Value(creadaPor),
+       creadaEn = Value(creadaEn),
+       modificadaPor = Value(modificadaPor),
+       modificadaEn = Value(modificadaEn);
+  static Insertable<NotaConsulta> custom({
+    Expression<String>? id,
+    Expression<String>? citaId,
+    Expression<String>? texto,
+    Expression<String>? creadaPor,
+    Expression<int>? creadaEn,
+    Expression<String>? modificadaPor,
+    Expression<int>? modificadaEn,
+    Expression<int>? bajaEn,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (citaId != null) 'cita_id': citaId,
+      if (texto != null) 'texto': texto,
+      if (creadaPor != null) 'creada_por': creadaPor,
+      if (creadaEn != null) 'creada_en': creadaEn,
+      if (modificadaPor != null) 'modificada_por': modificadaPor,
+      if (modificadaEn != null) 'modificada_en': modificadaEn,
+      if (bajaEn != null) 'baja_en': bajaEn,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  NotasConsultaCompanion copyWith({
+    Value<String>? id,
+    Value<String>? citaId,
+    Value<String>? texto,
+    Value<String>? creadaPor,
+    Value<int>? creadaEn,
+    Value<String>? modificadaPor,
+    Value<int>? modificadaEn,
+    Value<int?>? bajaEn,
+    Value<int>? rowid,
+  }) {
+    return NotasConsultaCompanion(
+      id: id ?? this.id,
+      citaId: citaId ?? this.citaId,
+      texto: texto ?? this.texto,
+      creadaPor: creadaPor ?? this.creadaPor,
+      creadaEn: creadaEn ?? this.creadaEn,
+      modificadaPor: modificadaPor ?? this.modificadaPor,
+      modificadaEn: modificadaEn ?? this.modificadaEn,
+      bajaEn: bajaEn ?? this.bajaEn,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (citaId.present) {
+      map['cita_id'] = Variable<String>(citaId.value);
+    }
+    if (texto.present) {
+      map['texto'] = Variable<String>(texto.value);
+    }
+    if (creadaPor.present) {
+      map['creada_por'] = Variable<String>(creadaPor.value);
+    }
+    if (creadaEn.present) {
+      map['creada_en'] = Variable<int>(creadaEn.value);
+    }
+    if (modificadaPor.present) {
+      map['modificada_por'] = Variable<String>(modificadaPor.value);
+    }
+    if (modificadaEn.present) {
+      map['modificada_en'] = Variable<int>(modificadaEn.value);
+    }
+    if (bajaEn.present) {
+      map['baja_en'] = Variable<int>(bajaEn.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('NotasConsultaCompanion(')
+          ..write('id: $id, ')
+          ..write('citaId: $citaId, ')
+          ..write('texto: $texto, ')
+          ..write('creadaPor: $creadaPor, ')
+          ..write('creadaEn: $creadaEn, ')
+          ..write('modificadaPor: $modificadaPor, ')
+          ..write('modificadaEn: $modificadaEn, ')
+          ..write('bajaEn: $bajaEn, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $GrabacionesConsultaTable extends GrabacionesConsulta
+    with TableInfo<$GrabacionesConsultaTable, GrabacionConsulta> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $GrabacionesConsultaTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES citas (id)',
+    ),
+  );
+  static const VerificationMeta _grabadaPorMeta = const VerificationMeta(
+    'grabadaPor',
+  );
+  @override
+  late final GeneratedColumn<String> grabadaPor = GeneratedColumn<String>(
+    'grabada_por',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _grabadaEnMeta = const VerificationMeta(
+    'grabadaEn',
+  );
+  @override
+  late final GeneratedColumn<int> grabadaEn = GeneratedColumn<int>(
+    'grabada_en',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _segundosMeta = const VerificationMeta(
+    'segundos',
+  );
+  @override
+  late final GeneratedColumn<int> segundos = GeneratedColumn<int>(
+    'segundos',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _bajaEnMeta = const VerificationMeta('bajaEn');
+  @override
+  late final GeneratedColumn<int> bajaEn = GeneratedColumn<int>(
+    'baja_en',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    grabadaPor,
+    grabadaEn,
+    segundos,
+    bajaEn,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'grabaciones_consulta';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<GrabacionConsulta> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('grabada_por')) {
+      context.handle(
+        _grabadaPorMeta,
+        grabadaPor.isAcceptableOrUnknown(data['grabada_por']!, _grabadaPorMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_grabadaPorMeta);
+    }
+    if (data.containsKey('grabada_en')) {
+      context.handle(
+        _grabadaEnMeta,
+        grabadaEn.isAcceptableOrUnknown(data['grabada_en']!, _grabadaEnMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_grabadaEnMeta);
+    }
+    if (data.containsKey('segundos')) {
+      context.handle(
+        _segundosMeta,
+        segundos.isAcceptableOrUnknown(data['segundos']!, _segundosMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_segundosMeta);
+    }
+    if (data.containsKey('baja_en')) {
+      context.handle(
+        _bajaEnMeta,
+        bajaEn.isAcceptableOrUnknown(data['baja_en']!, _bajaEnMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  GrabacionConsulta map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return GrabacionConsulta(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      grabadaPor: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}grabada_por'],
+      )!,
+      grabadaEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}grabada_en'],
+      )!,
+      segundos: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}segundos'],
+      )!,
+      bajaEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}baja_en'],
+      ),
+    );
+  }
+
+  @override
+  $GrabacionesConsultaTable createAlias(String alias) {
+    return $GrabacionesConsultaTable(attachedDatabase, alias);
+  }
+}
+
+class GrabacionConsulta extends DataClass
+    implements Insertable<GrabacionConsulta> {
+  /// Id de la cita.
+  final String id;
+
+  /// Familiar en cuyo móvil está el audio.
+  final String grabadaPor;
+  final int grabadaEn;
+
+  /// Duración, en segundos.
+  final int segundos;
+  final int? bajaEn;
+  const GrabacionConsulta({
+    required this.id,
+    required this.grabadaPor,
+    required this.grabadaEn,
+    required this.segundos,
+    this.bajaEn,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['grabada_por'] = Variable<String>(grabadaPor);
+    map['grabada_en'] = Variable<int>(grabadaEn);
+    map['segundos'] = Variable<int>(segundos);
+    if (!nullToAbsent || bajaEn != null) {
+      map['baja_en'] = Variable<int>(bajaEn);
+    }
+    return map;
+  }
+
+  GrabacionesConsultaCompanion toCompanion(bool nullToAbsent) {
+    return GrabacionesConsultaCompanion(
+      id: Value(id),
+      grabadaPor: Value(grabadaPor),
+      grabadaEn: Value(grabadaEn),
+      segundos: Value(segundos),
+      bajaEn: bajaEn == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bajaEn),
+    );
+  }
+
+  factory GrabacionConsulta.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return GrabacionConsulta(
+      id: serializer.fromJson<String>(json['id']),
+      grabadaPor: serializer.fromJson<String>(json['grabadaPor']),
+      grabadaEn: serializer.fromJson<int>(json['grabadaEn']),
+      segundos: serializer.fromJson<int>(json['segundos']),
+      bajaEn: serializer.fromJson<int?>(json['bajaEn']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'grabadaPor': serializer.toJson<String>(grabadaPor),
+      'grabadaEn': serializer.toJson<int>(grabadaEn),
+      'segundos': serializer.toJson<int>(segundos),
+      'bajaEn': serializer.toJson<int?>(bajaEn),
+    };
+  }
+
+  GrabacionConsulta copyWith({
+    String? id,
+    String? grabadaPor,
+    int? grabadaEn,
+    int? segundos,
+    Value<int?> bajaEn = const Value.absent(),
+  }) => GrabacionConsulta(
+    id: id ?? this.id,
+    grabadaPor: grabadaPor ?? this.grabadaPor,
+    grabadaEn: grabadaEn ?? this.grabadaEn,
+    segundos: segundos ?? this.segundos,
+    bajaEn: bajaEn.present ? bajaEn.value : this.bajaEn,
+  );
+  GrabacionConsulta copyWithCompanion(GrabacionesConsultaCompanion data) {
+    return GrabacionConsulta(
+      id: data.id.present ? data.id.value : this.id,
+      grabadaPor: data.grabadaPor.present
+          ? data.grabadaPor.value
+          : this.grabadaPor,
+      grabadaEn: data.grabadaEn.present ? data.grabadaEn.value : this.grabadaEn,
+      segundos: data.segundos.present ? data.segundos.value : this.segundos,
+      bajaEn: data.bajaEn.present ? data.bajaEn.value : this.bajaEn,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('GrabacionConsulta(')
+          ..write('id: $id, ')
+          ..write('grabadaPor: $grabadaPor, ')
+          ..write('grabadaEn: $grabadaEn, ')
+          ..write('segundos: $segundos, ')
+          ..write('bajaEn: $bajaEn')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, grabadaPor, grabadaEn, segundos, bajaEn);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is GrabacionConsulta &&
+          other.id == this.id &&
+          other.grabadaPor == this.grabadaPor &&
+          other.grabadaEn == this.grabadaEn &&
+          other.segundos == this.segundos &&
+          other.bajaEn == this.bajaEn);
+}
+
+class GrabacionesConsultaCompanion extends UpdateCompanion<GrabacionConsulta> {
+  final Value<String> id;
+  final Value<String> grabadaPor;
+  final Value<int> grabadaEn;
+  final Value<int> segundos;
+  final Value<int?> bajaEn;
+  final Value<int> rowid;
+  const GrabacionesConsultaCompanion({
+    this.id = const Value.absent(),
+    this.grabadaPor = const Value.absent(),
+    this.grabadaEn = const Value.absent(),
+    this.segundos = const Value.absent(),
+    this.bajaEn = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  GrabacionesConsultaCompanion.insert({
+    required String id,
+    required String grabadaPor,
+    required int grabadaEn,
+    required int segundos,
+    this.bajaEn = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       grabadaPor = Value(grabadaPor),
+       grabadaEn = Value(grabadaEn),
+       segundos = Value(segundos);
+  static Insertable<GrabacionConsulta> custom({
+    Expression<String>? id,
+    Expression<String>? grabadaPor,
+    Expression<int>? grabadaEn,
+    Expression<int>? segundos,
+    Expression<int>? bajaEn,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (grabadaPor != null) 'grabada_por': grabadaPor,
+      if (grabadaEn != null) 'grabada_en': grabadaEn,
+      if (segundos != null) 'segundos': segundos,
+      if (bajaEn != null) 'baja_en': bajaEn,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  GrabacionesConsultaCompanion copyWith({
+    Value<String>? id,
+    Value<String>? grabadaPor,
+    Value<int>? grabadaEn,
+    Value<int>? segundos,
+    Value<int?>? bajaEn,
+    Value<int>? rowid,
+  }) {
+    return GrabacionesConsultaCompanion(
+      id: id ?? this.id,
+      grabadaPor: grabadaPor ?? this.grabadaPor,
+      grabadaEn: grabadaEn ?? this.grabadaEn,
+      segundos: segundos ?? this.segundos,
+      bajaEn: bajaEn ?? this.bajaEn,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (grabadaPor.present) {
+      map['grabada_por'] = Variable<String>(grabadaPor.value);
+    }
+    if (grabadaEn.present) {
+      map['grabada_en'] = Variable<int>(grabadaEn.value);
+    }
+    if (segundos.present) {
+      map['segundos'] = Variable<int>(segundos.value);
+    }
+    if (bajaEn.present) {
+      map['baja_en'] = Variable<int>(bajaEn.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('GrabacionesConsultaCompanion(')
+          ..write('id: $id, ')
+          ..write('grabadaPor: $grabadaPor, ')
+          ..write('grabadaEn: $grabadaEn, ')
+          ..write('segundos: $segundos, ')
+          ..write('bajaEn: $bajaEn, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -12037,6 +13503,11 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       $AjustesControlHorasTable(this);
   late final $CitasTable citas = $CitasTable(this);
   late final $TurnosTable turnos = $TurnosTable(this);
+  late final $PreguntasConsultaTable preguntasConsulta =
+      $PreguntasConsultaTable(this);
+  late final $NotasConsultaTable notasConsulta = $NotasConsultaTable(this);
+  late final $GrabacionesConsultaTable grabacionesConsulta =
+      $GrabacionesConsultaTable(this);
   late final Index pautasPorPauta = Index(
     'pautas_por_pauta',
     'CREATE INDEX pautas_por_pauta ON pautas (pauta_id, version)',
@@ -12077,6 +13548,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     ajustesControlHoras,
     citas,
     turnos,
+    preguntasConsulta,
+    notasConsulta,
+    grabacionesConsulta,
     pautasPorPauta,
     eventosPorSujeto,
     eventosPorTipo,
@@ -23575,6 +25049,66 @@ final class $$CitasTableReferences
       manager.$state.copyWith(prefetchedData: [item]),
     );
   }
+
+  static MultiTypedResultKey<$PreguntasConsultaTable, List<PreguntaConsulta>>
+  _preguntasConsultaRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.preguntasConsulta,
+        aliasName: 'citas__id__preguntas_consulta__cita_id',
+      );
+
+  $$PreguntasConsultaTableProcessedTableManager get preguntasConsultaRefs {
+    final manager = $$PreguntasConsultaTableTableManager(
+      $_db,
+      $_db.preguntasConsulta,
+    ).filter((f) => f.citaId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _preguntasConsultaRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$NotasConsultaTable, List<NotaConsulta>>
+  _notasConsultaRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.notasConsulta,
+    aliasName: 'citas__id__notas_consulta__cita_id',
+  );
+
+  $$NotasConsultaTableProcessedTableManager get notasConsultaRefs {
+    final manager = $$NotasConsultaTableTableManager(
+      $_db,
+      $_db.notasConsulta,
+    ).filter((f) => f.citaId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_notasConsultaRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$GrabacionesConsultaTable, List<GrabacionConsulta>>
+  _grabacionesConsultaRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.grabacionesConsulta,
+        aliasName: 'citas__id__grabaciones_consulta__id',
+      );
+
+  $$GrabacionesConsultaTableProcessedTableManager get grabacionesConsultaRefs {
+    final manager = $$GrabacionesConsultaTableTableManager(
+      $_db,
+      $_db.grabacionesConsulta,
+    ).filter((f) => f.id.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _grabacionesConsultaRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$CitasTableFilterComposer extends Composer<_$AppDatabase, $CitasTable> {
@@ -23689,6 +25223,81 @@ class $$CitasTableFilterComposer extends Composer<_$AppDatabase, $CitasTable> {
           ),
     );
     return composer;
+  }
+
+  Expression<bool> preguntasConsultaRefs(
+    Expression<bool> Function($$PreguntasConsultaTableFilterComposer f) f,
+  ) {
+    final $$PreguntasConsultaTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.preguntasConsulta,
+      getReferencedColumn: (t) => t.citaId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PreguntasConsultaTableFilterComposer(
+            $db: $db,
+            $table: $db.preguntasConsulta,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> notasConsultaRefs(
+    Expression<bool> Function($$NotasConsultaTableFilterComposer f) f,
+  ) {
+    final $$NotasConsultaTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.notasConsulta,
+      getReferencedColumn: (t) => t.citaId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$NotasConsultaTableFilterComposer(
+            $db: $db,
+            $table: $db.notasConsulta,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> grabacionesConsultaRefs(
+    Expression<bool> Function($$GrabacionesConsultaTableFilterComposer f) f,
+  ) {
+    final $$GrabacionesConsultaTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.grabacionesConsulta,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$GrabacionesConsultaTableFilterComposer(
+            $db: $db,
+            $table: $db.grabacionesConsulta,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
   }
 }
 
@@ -23902,6 +25511,83 @@ class $$CitasTableAnnotationComposer
     );
     return composer;
   }
+
+  Expression<T> preguntasConsultaRefs<T extends Object>(
+    Expression<T> Function($$PreguntasConsultaTableAnnotationComposer a) f,
+  ) {
+    final $$PreguntasConsultaTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.preguntasConsulta,
+          getReferencedColumn: (t) => t.citaId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$PreguntasConsultaTableAnnotationComposer(
+                $db: $db,
+                $table: $db.preguntasConsulta,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
+  Expression<T> notasConsultaRefs<T extends Object>(
+    Expression<T> Function($$NotasConsultaTableAnnotationComposer a) f,
+  ) {
+    final $$NotasConsultaTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.notasConsulta,
+      getReferencedColumn: (t) => t.citaId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$NotasConsultaTableAnnotationComposer(
+            $db: $db,
+            $table: $db.notasConsulta,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> grabacionesConsultaRefs<T extends Object>(
+    Expression<T> Function($$GrabacionesConsultaTableAnnotationComposer a) f,
+  ) {
+    final $$GrabacionesConsultaTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.grabacionesConsulta,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$GrabacionesConsultaTableAnnotationComposer(
+                $db: $db,
+                $table: $db.grabacionesConsulta,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
 }
 
 class $$CitasTableTableManager
@@ -23917,7 +25603,13 @@ class $$CitasTableTableManager
           $$CitasTableUpdateCompanionBuilder,
           (Cita, $$CitasTableReferences),
           Cita,
-          PrefetchHooks Function({bool circuloId, bool acompanaId})
+          PrefetchHooks Function({
+            bool circuloId,
+            bool acompanaId,
+            bool preguntasConsultaRefs,
+            bool notasConsultaRefs,
+            bool grabacionesConsultaRefs,
+          })
         > {
   $$CitasTableTableManager(_$AppDatabase db, $CitasTable table)
     : super(
@@ -24006,57 +25698,131 @@ class $$CitasTableTableManager
                 ),
               )
               .toList(),
-          prefetchHooksCallback: ({circuloId = false, acompanaId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins:
-                  <
-                    T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic
-                    >
-                  >(state) {
-                    if (circuloId) {
-                      state = state.withJoin(
-                        currentTable: table,
-                        currentColumn: table.circuloId,
-                        referencedTable: $$CitasTableReferences._circuloIdTable(
-                          db,
-                        ),
-                        referencedColumn: $$CitasTableReferences
-                            ._circuloIdTable(db)
-                            .id,
-                      ) as T;
-                    }
-                    if (acompanaId) {
-                      state = state.withJoin(
-                        currentTable: table,
-                        currentColumn: table.acompanaId,
-                        referencedTable: $$CitasTableReferences
-                            ._acompanaIdTable(db),
-                        referencedColumn: $$CitasTableReferences
-                            ._acompanaIdTable(db)
-                            .id,
-                      ) as T;
-                    }
+          prefetchHooksCallback:
+              ({
+                circuloId = false,
+                acompanaId = false,
+                preguntasConsultaRefs = false,
+                notasConsultaRefs = false,
+                grabacionesConsultaRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (preguntasConsultaRefs) db.preguntasConsulta,
+                    if (notasConsultaRefs) db.notasConsulta,
+                    if (grabacionesConsultaRefs) db.grabacionesConsulta,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (circuloId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.circuloId,
+                            referencedTable: $$CitasTableReferences
+                                ._circuloIdTable(db),
+                            referencedColumn: $$CitasTableReferences
+                                ._circuloIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+                        if (acompanaId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.acompanaId,
+                            referencedTable: $$CitasTableReferences
+                                ._acompanaIdTable(db),
+                            referencedColumn: $$CitasTableReferences
+                                ._acompanaIdTable(db)
+                                .id,
+                          ) as T;
+                        }
 
-                    return state;
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (preguntasConsultaRefs)
+                        await $_getPrefetchedData<
+                          Cita,
+                          $CitasTable,
+                          PreguntaConsulta
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CitasTableReferences
+                              ._preguntasConsultaRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CitasTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).preguntasConsultaRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.citaId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (notasConsultaRefs)
+                        await $_getPrefetchedData<
+                          Cita,
+                          $CitasTable,
+                          NotaConsulta
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CitasTableReferences
+                              ._notasConsultaRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CitasTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).notasConsultaRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.citaId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (grabacionesConsultaRefs)
+                        await $_getPrefetchedData<
+                          Cita,
+                          $CitasTable,
+                          GrabacionConsulta
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CitasTableReferences
+                              ._grabacionesConsultaRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CitasTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).grabacionesConsultaRefs,
+                          referencedItemsForCurrentItem: (
+                            item,
+                            referencedItems,
+                          ) => referencedItems.where((e) => e.id == item.id),
+                          typedResults: items,
+                        ),
+                    ];
                   },
-              getPrefetchedDataCallback: (items) async {
-                return [];
+                );
               },
-            );
-          },
         ),
       );
 }
@@ -24073,7 +25839,13 @@ typedef $$CitasTableProcessedTableManager =
       $$CitasTableUpdateCompanionBuilder,
       (Cita, $$CitasTableReferences),
       Cita,
-      PrefetchHooks Function({bool circuloId, bool acompanaId})
+      PrefetchHooks Function({
+        bool circuloId,
+        bool acompanaId,
+        bool preguntasConsultaRefs,
+        bool notasConsultaRefs,
+        bool grabacionesConsultaRefs,
+      })
     >;
 typedef $$TurnosTableCreateCompanionBuilder = TurnosCompanion Function({
   required String id,
@@ -24630,6 +26402,1133 @@ typedef $$TurnosTableProcessedTableManager =
       Turno,
       PrefetchHooks Function({bool circuloId, bool miembroId})
     >;
+typedef $$PreguntasConsultaTableCreateCompanionBuilder =
+    PreguntasConsultaCompanion Function({
+      required String id,
+      required String citaId,
+      required String texto,
+      Value<bool> preguntada,
+      required String creadaPor,
+      required int creadaEn,
+      required String modificadaPor,
+      required int modificadaEn,
+      Value<int?> bajaEn,
+      Value<int> rowid,
+    });
+typedef $$PreguntasConsultaTableUpdateCompanionBuilder =
+    PreguntasConsultaCompanion Function({
+      Value<String> id,
+      Value<String> citaId,
+      Value<String> texto,
+      Value<bool> preguntada,
+      Value<String> creadaPor,
+      Value<int> creadaEn,
+      Value<String> modificadaPor,
+      Value<int> modificadaEn,
+      Value<int?> bajaEn,
+      Value<int> rowid,
+    });
+
+final class $$PreguntasConsultaTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $PreguntasConsultaTable,
+          PreguntaConsulta
+        > {
+  $$PreguntasConsultaTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $CitasTable _citaIdTable(_$AppDatabase db) =>
+      db.citas.createAlias('preguntas_consulta__cita_id__citas__id');
+
+  $$CitasTableProcessedTableManager get citaId {
+    final $_column = $_itemColumn<String>('cita_id')!;
+
+    final manager = $$CitasTableTableManager(
+      $_db,
+      $_db.citas,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_citaIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$PreguntasConsultaTableFilterComposer
+    extends Composer<_$AppDatabase, $PreguntasConsultaTable> {
+  $$PreguntasConsultaTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get texto => $composableBuilder(
+    column: $table.texto,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get preguntada => $composableBuilder(
+    column: $table.preguntada,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get creadaPor => $composableBuilder(
+    column: $table.creadaPor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get creadaEn => $composableBuilder(
+    column: $table.creadaEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get modificadaPor => $composableBuilder(
+    column: $table.modificadaPor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get modificadaEn => $composableBuilder(
+    column: $table.modificadaEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get bajaEn => $composableBuilder(
+    column: $table.bajaEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$CitasTableFilterComposer get citaId {
+    final $$CitasTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.citaId,
+      referencedTable: $db.citas,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CitasTableFilterComposer(
+            $db: $db,
+            $table: $db.citas,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PreguntasConsultaTableOrderingComposer
+    extends Composer<_$AppDatabase, $PreguntasConsultaTable> {
+  $$PreguntasConsultaTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get texto => $composableBuilder(
+    column: $table.texto,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get preguntada => $composableBuilder(
+    column: $table.preguntada,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get creadaPor => $composableBuilder(
+    column: $table.creadaPor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get creadaEn => $composableBuilder(
+    column: $table.creadaEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get modificadaPor => $composableBuilder(
+    column: $table.modificadaPor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get modificadaEn => $composableBuilder(
+    column: $table.modificadaEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get bajaEn => $composableBuilder(
+    column: $table.bajaEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$CitasTableOrderingComposer get citaId {
+    final $$CitasTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.citaId,
+      referencedTable: $db.citas,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CitasTableOrderingComposer(
+            $db: $db,
+            $table: $db.citas,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PreguntasConsultaTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PreguntasConsultaTable> {
+  $$PreguntasConsultaTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get texto =>
+      $composableBuilder(column: $table.texto, builder: (column) => column);
+
+  GeneratedColumn<bool> get preguntada => $composableBuilder(
+    column: $table.preguntada,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get creadaPor =>
+      $composableBuilder(column: $table.creadaPor, builder: (column) => column);
+
+  GeneratedColumn<int> get creadaEn =>
+      $composableBuilder(column: $table.creadaEn, builder: (column) => column);
+
+  GeneratedColumn<String> get modificadaPor => $composableBuilder(
+    column: $table.modificadaPor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get modificadaEn => $composableBuilder(
+    column: $table.modificadaEn,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get bajaEn =>
+      $composableBuilder(column: $table.bajaEn, builder: (column) => column);
+
+  $$CitasTableAnnotationComposer get citaId {
+    final $$CitasTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.citaId,
+      referencedTable: $db.citas,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CitasTableAnnotationComposer(
+            $db: $db,
+            $table: $db.citas,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PreguntasConsultaTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $PreguntasConsultaTable,
+          PreguntaConsulta,
+          $$PreguntasConsultaTableFilterComposer,
+          $$PreguntasConsultaTableOrderingComposer,
+          $$PreguntasConsultaTableAnnotationComposer,
+          $$PreguntasConsultaTableCreateCompanionBuilder,
+          $$PreguntasConsultaTableUpdateCompanionBuilder,
+          (PreguntaConsulta, $$PreguntasConsultaTableReferences),
+          PreguntaConsulta,
+          PrefetchHooks Function({bool citaId})
+        > {
+  $$PreguntasConsultaTableTableManager(
+    _$AppDatabase db,
+    $PreguntasConsultaTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PreguntasConsultaTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PreguntasConsultaTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PreguntasConsultaTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> citaId = const Value.absent(),
+                Value<String> texto = const Value.absent(),
+                Value<bool> preguntada = const Value.absent(),
+                Value<String> creadaPor = const Value.absent(),
+                Value<int> creadaEn = const Value.absent(),
+                Value<String> modificadaPor = const Value.absent(),
+                Value<int> modificadaEn = const Value.absent(),
+                Value<int?> bajaEn = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PreguntasConsultaCompanion(
+                id: id,
+                citaId: citaId,
+                texto: texto,
+                preguntada: preguntada,
+                creadaPor: creadaPor,
+                creadaEn: creadaEn,
+                modificadaPor: modificadaPor,
+                modificadaEn: modificadaEn,
+                bajaEn: bajaEn,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String citaId,
+                required String texto,
+                Value<bool> preguntada = const Value.absent(),
+                required String creadaPor,
+                required int creadaEn,
+                required String modificadaPor,
+                required int modificadaEn,
+                Value<int?> bajaEn = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PreguntasConsultaCompanion.insert(
+                id: id,
+                citaId: citaId,
+                texto: texto,
+                preguntada: preguntada,
+                creadaPor: creadaPor,
+                creadaEn: creadaEn,
+                modificadaPor: modificadaPor,
+                modificadaEn: modificadaEn,
+                bajaEn: bajaEn,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$PreguntasConsultaTable, PreguntaConsulta>(table),
+                  $$PreguntasConsultaTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({citaId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (citaId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.citaId,
+                        referencedTable: $$PreguntasConsultaTableReferences
+                            ._citaIdTable(db),
+                        referencedColumn: $$PreguntasConsultaTableReferences
+                            ._citaIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$PreguntasConsultaTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $PreguntasConsultaTable,
+      PreguntaConsulta,
+      $$PreguntasConsultaTableFilterComposer,
+      $$PreguntasConsultaTableOrderingComposer,
+      $$PreguntasConsultaTableAnnotationComposer,
+      $$PreguntasConsultaTableCreateCompanionBuilder,
+      $$PreguntasConsultaTableUpdateCompanionBuilder,
+      (PreguntaConsulta, $$PreguntasConsultaTableReferences),
+      PreguntaConsulta,
+      PrefetchHooks Function({bool citaId})
+    >;
+typedef $$NotasConsultaTableCreateCompanionBuilder =
+    NotasConsultaCompanion Function({
+      required String id,
+      required String citaId,
+      required String texto,
+      required String creadaPor,
+      required int creadaEn,
+      required String modificadaPor,
+      required int modificadaEn,
+      Value<int?> bajaEn,
+      Value<int> rowid,
+    });
+typedef $$NotasConsultaTableUpdateCompanionBuilder =
+    NotasConsultaCompanion Function({
+      Value<String> id,
+      Value<String> citaId,
+      Value<String> texto,
+      Value<String> creadaPor,
+      Value<int> creadaEn,
+      Value<String> modificadaPor,
+      Value<int> modificadaEn,
+      Value<int?> bajaEn,
+      Value<int> rowid,
+    });
+
+final class $$NotasConsultaTableReferences
+    extends BaseReferences<_$AppDatabase, $NotasConsultaTable, NotaConsulta> {
+  $$NotasConsultaTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $CitasTable _citaIdTable(_$AppDatabase db) =>
+      db.citas.createAlias('notas_consulta__cita_id__citas__id');
+
+  $$CitasTableProcessedTableManager get citaId {
+    final $_column = $_itemColumn<String>('cita_id')!;
+
+    final manager = $$CitasTableTableManager(
+      $_db,
+      $_db.citas,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_citaIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$NotasConsultaTableFilterComposer
+    extends Composer<_$AppDatabase, $NotasConsultaTable> {
+  $$NotasConsultaTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get texto => $composableBuilder(
+    column: $table.texto,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get creadaPor => $composableBuilder(
+    column: $table.creadaPor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get creadaEn => $composableBuilder(
+    column: $table.creadaEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get modificadaPor => $composableBuilder(
+    column: $table.modificadaPor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get modificadaEn => $composableBuilder(
+    column: $table.modificadaEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get bajaEn => $composableBuilder(
+    column: $table.bajaEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$CitasTableFilterComposer get citaId {
+    final $$CitasTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.citaId,
+      referencedTable: $db.citas,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CitasTableFilterComposer(
+            $db: $db,
+            $table: $db.citas,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$NotasConsultaTableOrderingComposer
+    extends Composer<_$AppDatabase, $NotasConsultaTable> {
+  $$NotasConsultaTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get texto => $composableBuilder(
+    column: $table.texto,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get creadaPor => $composableBuilder(
+    column: $table.creadaPor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get creadaEn => $composableBuilder(
+    column: $table.creadaEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get modificadaPor => $composableBuilder(
+    column: $table.modificadaPor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get modificadaEn => $composableBuilder(
+    column: $table.modificadaEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get bajaEn => $composableBuilder(
+    column: $table.bajaEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$CitasTableOrderingComposer get citaId {
+    final $$CitasTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.citaId,
+      referencedTable: $db.citas,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CitasTableOrderingComposer(
+            $db: $db,
+            $table: $db.citas,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$NotasConsultaTableAnnotationComposer
+    extends Composer<_$AppDatabase, $NotasConsultaTable> {
+  $$NotasConsultaTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get texto =>
+      $composableBuilder(column: $table.texto, builder: (column) => column);
+
+  GeneratedColumn<String> get creadaPor =>
+      $composableBuilder(column: $table.creadaPor, builder: (column) => column);
+
+  GeneratedColumn<int> get creadaEn =>
+      $composableBuilder(column: $table.creadaEn, builder: (column) => column);
+
+  GeneratedColumn<String> get modificadaPor => $composableBuilder(
+    column: $table.modificadaPor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get modificadaEn => $composableBuilder(
+    column: $table.modificadaEn,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get bajaEn =>
+      $composableBuilder(column: $table.bajaEn, builder: (column) => column);
+
+  $$CitasTableAnnotationComposer get citaId {
+    final $$CitasTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.citaId,
+      referencedTable: $db.citas,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CitasTableAnnotationComposer(
+            $db: $db,
+            $table: $db.citas,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$NotasConsultaTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $NotasConsultaTable,
+          NotaConsulta,
+          $$NotasConsultaTableFilterComposer,
+          $$NotasConsultaTableOrderingComposer,
+          $$NotasConsultaTableAnnotationComposer,
+          $$NotasConsultaTableCreateCompanionBuilder,
+          $$NotasConsultaTableUpdateCompanionBuilder,
+          (NotaConsulta, $$NotasConsultaTableReferences),
+          NotaConsulta,
+          PrefetchHooks Function({bool citaId})
+        > {
+  $$NotasConsultaTableTableManager(_$AppDatabase db, $NotasConsultaTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$NotasConsultaTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$NotasConsultaTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$NotasConsultaTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> citaId = const Value.absent(),
+                Value<String> texto = const Value.absent(),
+                Value<String> creadaPor = const Value.absent(),
+                Value<int> creadaEn = const Value.absent(),
+                Value<String> modificadaPor = const Value.absent(),
+                Value<int> modificadaEn = const Value.absent(),
+                Value<int?> bajaEn = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => NotasConsultaCompanion(
+                id: id,
+                citaId: citaId,
+                texto: texto,
+                creadaPor: creadaPor,
+                creadaEn: creadaEn,
+                modificadaPor: modificadaPor,
+                modificadaEn: modificadaEn,
+                bajaEn: bajaEn,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String citaId,
+                required String texto,
+                required String creadaPor,
+                required int creadaEn,
+                required String modificadaPor,
+                required int modificadaEn,
+                Value<int?> bajaEn = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => NotasConsultaCompanion.insert(
+                id: id,
+                citaId: citaId,
+                texto: texto,
+                creadaPor: creadaPor,
+                creadaEn: creadaEn,
+                modificadaPor: modificadaPor,
+                modificadaEn: modificadaEn,
+                bajaEn: bajaEn,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$NotasConsultaTable, NotaConsulta>(table),
+                  $$NotasConsultaTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({citaId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (citaId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.citaId,
+                        referencedTable: $$NotasConsultaTableReferences
+                            ._citaIdTable(db),
+                        referencedColumn: $$NotasConsultaTableReferences
+                            ._citaIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$NotasConsultaTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $NotasConsultaTable,
+      NotaConsulta,
+      $$NotasConsultaTableFilterComposer,
+      $$NotasConsultaTableOrderingComposer,
+      $$NotasConsultaTableAnnotationComposer,
+      $$NotasConsultaTableCreateCompanionBuilder,
+      $$NotasConsultaTableUpdateCompanionBuilder,
+      (NotaConsulta, $$NotasConsultaTableReferences),
+      NotaConsulta,
+      PrefetchHooks Function({bool citaId})
+    >;
+typedef $$GrabacionesConsultaTableCreateCompanionBuilder =
+    GrabacionesConsultaCompanion Function({
+      required String id,
+      required String grabadaPor,
+      required int grabadaEn,
+      required int segundos,
+      Value<int?> bajaEn,
+      Value<int> rowid,
+    });
+typedef $$GrabacionesConsultaTableUpdateCompanionBuilder =
+    GrabacionesConsultaCompanion Function({
+      Value<String> id,
+      Value<String> grabadaPor,
+      Value<int> grabadaEn,
+      Value<int> segundos,
+      Value<int?> bajaEn,
+      Value<int> rowid,
+    });
+
+final class $$GrabacionesConsultaTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $GrabacionesConsultaTable,
+          GrabacionConsulta
+        > {
+  $$GrabacionesConsultaTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $CitasTable _idTable(_$AppDatabase db) =>
+      db.citas.createAlias('grabaciones_consulta__id__citas__id');
+
+  $$CitasTableProcessedTableManager get id {
+    final $_column = $_itemColumn<String>('id')!;
+
+    final manager = $$CitasTableTableManager(
+      $_db,
+      $_db.citas,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_idTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$GrabacionesConsultaTableFilterComposer
+    extends Composer<_$AppDatabase, $GrabacionesConsultaTable> {
+  $$GrabacionesConsultaTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get grabadaPor => $composableBuilder(
+    column: $table.grabadaPor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get grabadaEn => $composableBuilder(
+    column: $table.grabadaEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get segundos => $composableBuilder(
+    column: $table.segundos,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get bajaEn => $composableBuilder(
+    column: $table.bajaEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$CitasTableFilterComposer get id {
+    final $$CitasTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.citas,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CitasTableFilterComposer(
+            $db: $db,
+            $table: $db.citas,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$GrabacionesConsultaTableOrderingComposer
+    extends Composer<_$AppDatabase, $GrabacionesConsultaTable> {
+  $$GrabacionesConsultaTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get grabadaPor => $composableBuilder(
+    column: $table.grabadaPor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get grabadaEn => $composableBuilder(
+    column: $table.grabadaEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get segundos => $composableBuilder(
+    column: $table.segundos,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get bajaEn => $composableBuilder(
+    column: $table.bajaEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$CitasTableOrderingComposer get id {
+    final $$CitasTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.citas,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CitasTableOrderingComposer(
+            $db: $db,
+            $table: $db.citas,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$GrabacionesConsultaTableAnnotationComposer
+    extends Composer<_$AppDatabase, $GrabacionesConsultaTable> {
+  $$GrabacionesConsultaTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get grabadaPor => $composableBuilder(
+    column: $table.grabadaPor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get grabadaEn =>
+      $composableBuilder(column: $table.grabadaEn, builder: (column) => column);
+
+  GeneratedColumn<int> get segundos =>
+      $composableBuilder(column: $table.segundos, builder: (column) => column);
+
+  GeneratedColumn<int> get bajaEn =>
+      $composableBuilder(column: $table.bajaEn, builder: (column) => column);
+
+  $$CitasTableAnnotationComposer get id {
+    final $$CitasTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.citas,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CitasTableAnnotationComposer(
+            $db: $db,
+            $table: $db.citas,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$GrabacionesConsultaTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $GrabacionesConsultaTable,
+          GrabacionConsulta,
+          $$GrabacionesConsultaTableFilterComposer,
+          $$GrabacionesConsultaTableOrderingComposer,
+          $$GrabacionesConsultaTableAnnotationComposer,
+          $$GrabacionesConsultaTableCreateCompanionBuilder,
+          $$GrabacionesConsultaTableUpdateCompanionBuilder,
+          (GrabacionConsulta, $$GrabacionesConsultaTableReferences),
+          GrabacionConsulta,
+          PrefetchHooks Function({bool id})
+        > {
+  $$GrabacionesConsultaTableTableManager(
+    _$AppDatabase db,
+    $GrabacionesConsultaTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$GrabacionesConsultaTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$GrabacionesConsultaTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$GrabacionesConsultaTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> grabadaPor = const Value.absent(),
+                Value<int> grabadaEn = const Value.absent(),
+                Value<int> segundos = const Value.absent(),
+                Value<int?> bajaEn = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => GrabacionesConsultaCompanion(
+                id: id,
+                grabadaPor: grabadaPor,
+                grabadaEn: grabadaEn,
+                segundos: segundos,
+                bajaEn: bajaEn,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String grabadaPor,
+                required int grabadaEn,
+                required int segundos,
+                Value<int?> bajaEn = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => GrabacionesConsultaCompanion.insert(
+                id: id,
+                grabadaPor: grabadaPor,
+                grabadaEn: grabadaEn,
+                segundos: segundos,
+                bajaEn: bajaEn,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$GrabacionesConsultaTable, GrabacionConsulta>(
+                    table,
+                  ),
+                  $$GrabacionesConsultaTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({id = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (id) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.id,
+                        referencedTable: $$GrabacionesConsultaTableReferences
+                            ._idTable(db),
+                        referencedColumn: $$GrabacionesConsultaTableReferences
+                            ._idTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$GrabacionesConsultaTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $GrabacionesConsultaTable,
+      GrabacionConsulta,
+      $$GrabacionesConsultaTableFilterComposer,
+      $$GrabacionesConsultaTableOrderingComposer,
+      $$GrabacionesConsultaTableAnnotationComposer,
+      $$GrabacionesConsultaTableCreateCompanionBuilder,
+      $$GrabacionesConsultaTableUpdateCompanionBuilder,
+      (GrabacionConsulta, $$GrabacionesConsultaTableReferences),
+      GrabacionConsulta,
+      PrefetchHooks Function({bool id})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -24680,4 +27579,10 @@ class $AppDatabaseManager {
       $$CitasTableTableManager(_db, _db.citas);
   $$TurnosTableTableManager get turnos =>
       $$TurnosTableTableManager(_db, _db.turnos);
+  $$PreguntasConsultaTableTableManager get preguntasConsulta =>
+      $$PreguntasConsultaTableTableManager(_db, _db.preguntasConsulta);
+  $$NotasConsultaTableTableManager get notasConsulta =>
+      $$NotasConsultaTableTableManager(_db, _db.notasConsulta);
+  $$GrabacionesConsultaTableTableManager get grabacionesConsulta =>
+      $$GrabacionesConsultaTableTableManager(_db, _db.grabacionesConsulta);
 }

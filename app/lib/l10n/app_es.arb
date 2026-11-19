@@ -35,7 +35,6 @@
   "aspectoAyuda": "Automático sigue al móvil. Noche: oscuro de 22:00 a 08:00.",
   "misPastillas": "Mis pastillas",
   "preguntaModoPrueba": "Modo prueba: no se guarda nada.",
-  "tendraTitulo": "Lo que tendrá",
   "llegaEnSemana": "Llega en la semana {n}",
   "@llegaEnSemana": {
     "placeholders": {
@@ -44,18 +43,6 @@
       }
     }
   },
-  "llegaEnSemanas": "Llega en las semanas {a} y {b}",
-  "@llegaEnSemanas": {
-    "placeholders": {
-      "a": {
-        "type": "int"
-      },
-      "b": {
-        "type": "int"
-      }
-    }
-  },
-  "consultasTendra": "Preparar las consultas con el médico: preguntas, grabación con permiso y un resumen para la familia.",
   "controlHorasTitulo": "Control por horas",
   "verControlHoras": "Ver el control por horas",
   "alarmasAvisoToma": "Toma sin confirmar a los {minutos} min",
@@ -1439,7 +1426,6 @@
   },
   "controlDesactivado": "Desactivado",
   "controlSinRespuesta": "Sin respuesta",
-  "controlSinRespuestaNinguna": "Ninguna ronda sin respuesta",
   "controlFranjaYRitmo": "Franja y ritmo",
   "controlFranjaResumen": "De {desde} a {hasta}, {ritmo}",
   "@controlFranjaResumen": {
@@ -1451,14 +1437,6 @@
         "type": "String"
       },
       "ritmo": {
-        "type": "String"
-      }
-    }
-  },
-  "controlProximaRonda": "Próxima ronda: {hora}",
-  "@controlProximaRonda": {
-    "placeholders": {
-      "hora": {
         "type": "String"
       }
     }
@@ -1947,5 +1925,229 @@
   "alimBorrar": "Borrar esta comida",
   "alimBorrarTitulo": "¿Borrar esta comida?",
   "alimBorrarTexto": "Dejará de verse en todos los móviles de la familia.",
-  "alimSemanticaFoto": "Foto de la comida"
+  "alimSemanticaFoto": "Foto de la comida",
+  "consVispera": "Con el médico",
+  "consNuevaCita": "Nueva cita",
+  "consProximas": "Próximas",
+  "consPasadas": "Pasadas",
+  "consSinCitas": "Aún no hay citas. Crea una para preparar la consulta.",
+  "consSinProximas": "No hay citas próximas.",
+  "consPreguntasN": "{n, plural, =1{1 pregunta} other{{n} preguntas}}",
+  "@consPreguntasN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "consHayGrabacion": "Hay grabación",
+  "consEditarCita": "Editar la cita",
+  "consCitaNoExiste": "Esta cita ya no existe.",
+  "consVisperaFicha": "{fecha} · {hora}",
+  "@consVisperaFicha": {
+    "placeholders": {
+      "fecha": {
+        "type": "String"
+      },
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "consErrorGuardar": "No se pudo guardar. Vuelve a intentarlo.",
+  "consPreguntasTitulo": "Preguntas para llevar",
+  "consPreguntaCampo": "Escribe una pregunta",
+  "consPreguntaAnadir": "Añadir pregunta",
+  "consPreguntaPor": "Apuntada por {nombre}",
+  "@consPreguntaPor": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "consPreguntaMarcar": "Marcar como preguntada",
+  "consPreguntaDesmarcar": "Marcar como sin preguntar",
+  "consPreguntaPreguntada": "Preguntada",
+  "consPreguntaEditar": "Editar la pregunta",
+  "consPreguntaBorrar": "Borrar la pregunta",
+  "consPreguntaBorrarTitulo": "¿Borrar esta pregunta?",
+  "consPreguntaBorrarTexto": "Dejará de verse en todos los móviles de la familia.",
+  "consSinPreguntas": "Todavía no hay preguntas.",
+  "consGuardar": "Guardar",
+  "consBorrarConfirmar": "Borrar",
+  "consDesdeTitulo": "Qué ha pasado desde la última consulta",
+  "consDesdeRangoCita": "Desde la cita anterior ({desde}) hasta {hasta}",
+  "@consDesdeRangoCita": {
+    "placeholders": {
+      "desde": {
+        "type": "String"
+      },
+      "hasta": {
+        "type": "String"
+      }
+    }
+  },
+  "consDesdeRangoDias": "Los últimos {dias} días, del {desde} al {hasta}",
+  "@consDesdeRangoDias": {
+    "placeholders": {
+      "dias": {
+        "type": "int"
+      },
+      "desde": {
+        "type": "String"
+      },
+      "hasta": {
+        "type": "String"
+      }
+    }
+  },
+  "consDesdeCargando": "Calculando…",
+  "consTomasConfirmadas": "Tomas confirmadas",
+  "consTomasDe": "{n} de {total}",
+  "@consTomasDe": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "consTomasSinConfirmar": "Tomas sin confirmar",
+  "consRondasContestadas": "Rondas contestadas",
+  "consRondasSinRespuesta": "Rondas sin respuesta",
+  "consVecesMal": "Veces que dijo «mal»",
+  "consVecesDolor": "Veces con dolor («poco» o «mucho»)",
+  "consComidasAnotadas": "Comidas anotadas",
+  "consDesdePie": "Cifras tal cual de lo que ya está anotado en la app. Sin interpretar.",
+  "consNotasTitulo": "Notas de la consulta",
+  "consNotaCampo": "Lo que ha dicho el médico",
+  "consNotaAnadir": "Añadir nota",
+  "consNotaDe": "{nombre} · {cuando}",
+  "@consNotaDe": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      },
+      "cuando": {
+        "type": "String"
+      }
+    }
+  },
+  "consNotaEditar": "Editar la nota",
+  "consNotaBorrar": "Borrar la nota",
+  "consNotaBorrarTitulo": "¿Borrar esta nota?",
+  "consNotaBorrarTexto": "Dejará de verse en todos los móviles de la familia.",
+  "consSinNotas": "Todavía no hay notas.",
+  "consGrabTitulo": "Grabación",
+  "consGrabar": "Grabar la consulta",
+  "consGrabAvisoTitulo": "Pide permiso al médico antes de grabar",
+  "consGrabAvisoTexto": "Antes de grabar, pídele permiso al médico y a quien esté en la consulta. Si no te lo dan, no grabes y apunta las notas a mano.",
+  "consGrabPermiso": "Tengo su permiso",
+  "consGrabEmpezar": "Empezar a grabar",
+  "consGrabando": "Grabando · {tiempo}",
+  "@consGrabando": {
+    "placeholders": {
+      "tiempo": {
+        "type": "String"
+      }
+    }
+  },
+  "consGrabParar": "Parar y guardar",
+  "consGrabLimite": "Se para sola a los 60 minutos.",
+  "consGrabLocal": "El audio se queda solo en este móvil, en la carpeta de consultas. No viaja a los demás móviles porque no cabe en el cartero: los demás solo ven que hay una grabación y en qué móvil está.",
+  "consGrabHay": "Hay una grabación de {duracion}",
+  "@consGrabHay": {
+    "placeholders": {
+      "duracion": {
+        "type": "String"
+      }
+    }
+  },
+  "consGrabEscuchar": "Escuchar",
+  "consGrabParaEscucha": "Parar",
+  "consGrabBorrar": "Borrar la grabación",
+  "consGrabBorrarTitulo": "¿Borrar la grabación?",
+  "consGrabBorrarTexto": "Se borra el audio de este móvil y la marca de los demás. No se puede recuperar.",
+  "consGrabEnMovil": "Hay una grabación en el móvil de {nombre}",
+  "@consGrabEnMovil": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "consGrabSinMic": "No se puede usar el micrófono. Revisa el permiso del móvil.",
+  "consGrabError": "No se pudo guardar la grabación.",
+  "consGrabNoEsta": "La grabación ya no está en este móvil.",
+  "consGrabSalir": "Para la grabación antes de salir.",
+  "consAlguien": "alguien de la familia",
+  "consCompartir": "Compartir resumen",
+  "consResumenDialogo": "Resumen para la familia",
+  "consResumenPie": "Se queda en este móvil: lo copias y lo pegas donde quieras.",
+  "consCopiar": "Copiar",
+  "consCopiado": "Resumen copiado",
+  "consCerrar": "Cerrar",
+  "consResumenTitulo": "Consulta: {titulo}",
+  "@consResumenTitulo": {
+    "placeholders": {
+      "titulo": {
+        "type": "String"
+      }
+    }
+  },
+  "consResumenFecha": "{fecha} a las {hora}",
+  "@consResumenFecha": {
+    "placeholders": {
+      "fecha": {
+        "type": "String"
+      },
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "consResumenPreguntas": "Preguntas para llevar:",
+  "consResumenSinPreguntas": "Sin preguntas apuntadas.",
+  "consResumenPreguntada": "• {texto} (preguntada)",
+  "@consResumenPreguntada": {
+    "placeholders": {
+      "texto": {
+        "type": "String"
+      }
+    }
+  },
+  "consResumenPendiente": "• {texto}",
+  "@consResumenPendiente": {
+    "placeholders": {
+      "texto": {
+        "type": "String"
+      }
+    }
+  },
+  "consResumenNotas": "Notas de la consulta:",
+  "consResumenSinNotas": "Sin notas.",
+  "consResumenNota": "• {texto} ({nombre})",
+  "@consResumenNota": {
+    "placeholders": {
+      "texto": {
+        "type": "String"
+      },
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "@semConsultaDia": {
+    "placeholders": {
+      "titulo": {
+        "type": "String"
+      },
+      "fecha": {
+        "type": "String"
+      }
+    }
+  }
 }

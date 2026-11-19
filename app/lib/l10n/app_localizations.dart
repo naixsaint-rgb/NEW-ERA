@@ -304,29 +304,11 @@ abstract class AppLocalizations {
   /// **'Modo prueba: no se guarda nada.'**
   String get preguntaModoPrueba;
 
-  /// No description provided for @tendraTitulo.
-  ///
-  /// In es, this message translates to:
-  /// **'Lo que tendrá'**
-  String get tendraTitulo;
-
   /// No description provided for @llegaEnSemana.
   ///
   /// In es, this message translates to:
   /// **'Llega en la semana {n}'**
   String llegaEnSemana(int n);
-
-  /// No description provided for @llegaEnSemanas.
-  ///
-  /// In es, this message translates to:
-  /// **'Llega en las semanas {a} y {b}'**
-  String llegaEnSemanas(int a, int b);
-
-  /// No description provided for @consultasTendra.
-  ///
-  /// In es, this message translates to:
-  /// **'Preparar las consultas con el médico: preguntas, grabación con permiso y un resumen para la familia.'**
-  String get consultasTendra;
 
   /// No description provided for @controlHorasTitulo.
   ///
@@ -3201,12 +3183,6 @@ abstract class AppLocalizations {
   /// **'Sin respuesta'**
   String get controlSinRespuesta;
 
-  /// No description provided for @controlSinRespuestaNinguna.
-  ///
-  /// In es, this message translates to:
-  /// **'Ninguna ronda sin respuesta'**
-  String get controlSinRespuestaNinguna;
-
   /// No description provided for @controlFranjaYRitmo.
   ///
   /// In es, this message translates to:
@@ -3218,12 +3194,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'De {desde} a {hasta}, {ritmo}'**
   String controlFranjaResumen(String desde, String hasta, String ritmo);
-
-  /// No description provided for @controlProximaRonda.
-  ///
-  /// In es, this message translates to:
-  /// **'Próxima ronda: {hora}'**
-  String controlProximaRonda(String hora);
 
   /// No description provided for @avisosDeHoy.
   ///
@@ -4304,6 +4274,516 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Foto de la comida'**
   String get alimSemanticaFoto;
+
+  /// No description provided for @consVispera.
+  ///
+  /// In es, this message translates to:
+  /// **'Con el médico'**
+  String get consVispera;
+
+  /// No description provided for @consNuevaCita.
+  ///
+  /// In es, this message translates to:
+  /// **'Nueva cita'**
+  String get consNuevaCita;
+
+  /// No description provided for @consProximas.
+  ///
+  /// In es, this message translates to:
+  /// **'Próximas'**
+  String get consProximas;
+
+  /// No description provided for @consPasadas.
+  ///
+  /// In es, this message translates to:
+  /// **'Pasadas'**
+  String get consPasadas;
+
+  /// No description provided for @consSinCitas.
+  ///
+  /// In es, this message translates to:
+  /// **'Aún no hay citas. Crea una para preparar la consulta.'**
+  String get consSinCitas;
+
+  /// No description provided for @consSinProximas.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay citas próximas.'**
+  String get consSinProximas;
+
+  /// No description provided for @consPreguntasN.
+  ///
+  /// In es, this message translates to:
+  /// **'{n, plural, =1{1 pregunta} other{{n} preguntas}}'**
+  String consPreguntasN(int n);
+
+  /// No description provided for @consHayGrabacion.
+  ///
+  /// In es, this message translates to:
+  /// **'Hay grabación'**
+  String get consHayGrabacion;
+
+  /// No description provided for @consEditarCita.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar la cita'**
+  String get consEditarCita;
+
+  /// No description provided for @consCitaNoExiste.
+  ///
+  /// In es, this message translates to:
+  /// **'Esta cita ya no existe.'**
+  String get consCitaNoExiste;
+
+  /// No description provided for @consVisperaFicha.
+  ///
+  /// In es, this message translates to:
+  /// **'{fecha} · {hora}'**
+  String consVisperaFicha(String fecha, String hora);
+
+  /// No description provided for @consErrorGuardar.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo guardar. Vuelve a intentarlo.'**
+  String get consErrorGuardar;
+
+  /// No description provided for @consPreguntasTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Preguntas para llevar'**
+  String get consPreguntasTitulo;
+
+  /// No description provided for @consPreguntaCampo.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe una pregunta'**
+  String get consPreguntaCampo;
+
+  /// No description provided for @consPreguntaAnadir.
+  ///
+  /// In es, this message translates to:
+  /// **'Añadir pregunta'**
+  String get consPreguntaAnadir;
+
+  /// No description provided for @consPreguntaPor.
+  ///
+  /// In es, this message translates to:
+  /// **'Apuntada por {nombre}'**
+  String consPreguntaPor(String nombre);
+
+  /// No description provided for @consPreguntaMarcar.
+  ///
+  /// In es, this message translates to:
+  /// **'Marcar como preguntada'**
+  String get consPreguntaMarcar;
+
+  /// No description provided for @consPreguntaDesmarcar.
+  ///
+  /// In es, this message translates to:
+  /// **'Marcar como sin preguntar'**
+  String get consPreguntaDesmarcar;
+
+  /// No description provided for @consPreguntaPreguntada.
+  ///
+  /// In es, this message translates to:
+  /// **'Preguntada'**
+  String get consPreguntaPreguntada;
+
+  /// No description provided for @consPreguntaEditar.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar la pregunta'**
+  String get consPreguntaEditar;
+
+  /// No description provided for @consPreguntaBorrar.
+  ///
+  /// In es, this message translates to:
+  /// **'Borrar la pregunta'**
+  String get consPreguntaBorrar;
+
+  /// No description provided for @consPreguntaBorrarTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Borrar esta pregunta?'**
+  String get consPreguntaBorrarTitulo;
+
+  /// No description provided for @consPreguntaBorrarTexto.
+  ///
+  /// In es, this message translates to:
+  /// **'Dejará de verse en todos los móviles de la familia.'**
+  String get consPreguntaBorrarTexto;
+
+  /// No description provided for @consSinPreguntas.
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no hay preguntas.'**
+  String get consSinPreguntas;
+
+  /// No description provided for @consGuardar.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardar'**
+  String get consGuardar;
+
+  /// No description provided for @consBorrarConfirmar.
+  ///
+  /// In es, this message translates to:
+  /// **'Borrar'**
+  String get consBorrarConfirmar;
+
+  /// No description provided for @consDesdeTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Qué ha pasado desde la última consulta'**
+  String get consDesdeTitulo;
+
+  /// No description provided for @consDesdeRangoCita.
+  ///
+  /// In es, this message translates to:
+  /// **'Desde la cita anterior ({desde}) hasta {hasta}'**
+  String consDesdeRangoCita(String desde, String hasta);
+
+  /// No description provided for @consDesdeRangoDias.
+  ///
+  /// In es, this message translates to:
+  /// **'Los últimos {dias} días, del {desde} al {hasta}'**
+  String consDesdeRangoDias(int dias, String desde, String hasta);
+
+  /// No description provided for @consDesdeCargando.
+  ///
+  /// In es, this message translates to:
+  /// **'Calculando…'**
+  String get consDesdeCargando;
+
+  /// No description provided for @consTomasConfirmadas.
+  ///
+  /// In es, this message translates to:
+  /// **'Tomas confirmadas'**
+  String get consTomasConfirmadas;
+
+  /// No description provided for @consTomasDe.
+  ///
+  /// In es, this message translates to:
+  /// **'{n} de {total}'**
+  String consTomasDe(int n, int total);
+
+  /// No description provided for @consTomasSinConfirmar.
+  ///
+  /// In es, this message translates to:
+  /// **'Tomas sin confirmar'**
+  String get consTomasSinConfirmar;
+
+  /// No description provided for @consRondasContestadas.
+  ///
+  /// In es, this message translates to:
+  /// **'Rondas contestadas'**
+  String get consRondasContestadas;
+
+  /// No description provided for @consRondasSinRespuesta.
+  ///
+  /// In es, this message translates to:
+  /// **'Rondas sin respuesta'**
+  String get consRondasSinRespuesta;
+
+  /// No description provided for @consVecesMal.
+  ///
+  /// In es, this message translates to:
+  /// **'Veces que dijo «mal»'**
+  String get consVecesMal;
+
+  /// No description provided for @consVecesDolor.
+  ///
+  /// In es, this message translates to:
+  /// **'Veces con dolor («poco» o «mucho»)'**
+  String get consVecesDolor;
+
+  /// No description provided for @consComidasAnotadas.
+  ///
+  /// In es, this message translates to:
+  /// **'Comidas anotadas'**
+  String get consComidasAnotadas;
+
+  /// No description provided for @consDesdePie.
+  ///
+  /// In es, this message translates to:
+  /// **'Cifras tal cual de lo que ya está anotado en la app. Sin interpretar.'**
+  String get consDesdePie;
+
+  /// No description provided for @consNotasTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Notas de la consulta'**
+  String get consNotasTitulo;
+
+  /// No description provided for @consNotaCampo.
+  ///
+  /// In es, this message translates to:
+  /// **'Lo que ha dicho el médico'**
+  String get consNotaCampo;
+
+  /// No description provided for @consNotaAnadir.
+  ///
+  /// In es, this message translates to:
+  /// **'Añadir nota'**
+  String get consNotaAnadir;
+
+  /// No description provided for @consNotaDe.
+  ///
+  /// In es, this message translates to:
+  /// **'{nombre} · {cuando}'**
+  String consNotaDe(String nombre, String cuando);
+
+  /// No description provided for @consNotaEditar.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar la nota'**
+  String get consNotaEditar;
+
+  /// No description provided for @consNotaBorrar.
+  ///
+  /// In es, this message translates to:
+  /// **'Borrar la nota'**
+  String get consNotaBorrar;
+
+  /// No description provided for @consNotaBorrarTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Borrar esta nota?'**
+  String get consNotaBorrarTitulo;
+
+  /// No description provided for @consNotaBorrarTexto.
+  ///
+  /// In es, this message translates to:
+  /// **'Dejará de verse en todos los móviles de la familia.'**
+  String get consNotaBorrarTexto;
+
+  /// No description provided for @consSinNotas.
+  ///
+  /// In es, this message translates to:
+  /// **'Todavía no hay notas.'**
+  String get consSinNotas;
+
+  /// No description provided for @consGrabTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Grabación'**
+  String get consGrabTitulo;
+
+  /// No description provided for @consGrabar.
+  ///
+  /// In es, this message translates to:
+  /// **'Grabar la consulta'**
+  String get consGrabar;
+
+  /// No description provided for @consGrabAvisoTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Pide permiso al médico antes de grabar'**
+  String get consGrabAvisoTitulo;
+
+  /// No description provided for @consGrabAvisoTexto.
+  ///
+  /// In es, this message translates to:
+  /// **'Antes de grabar, pídele permiso al médico y a quien esté en la consulta. Si no te lo dan, no grabes y apunta las notas a mano.'**
+  String get consGrabAvisoTexto;
+
+  /// No description provided for @consGrabPermiso.
+  ///
+  /// In es, this message translates to:
+  /// **'Tengo su permiso'**
+  String get consGrabPermiso;
+
+  /// No description provided for @consGrabEmpezar.
+  ///
+  /// In es, this message translates to:
+  /// **'Empezar a grabar'**
+  String get consGrabEmpezar;
+
+  /// No description provided for @consGrabando.
+  ///
+  /// In es, this message translates to:
+  /// **'Grabando · {tiempo}'**
+  String consGrabando(String tiempo);
+
+  /// No description provided for @consGrabParar.
+  ///
+  /// In es, this message translates to:
+  /// **'Parar y guardar'**
+  String get consGrabParar;
+
+  /// No description provided for @consGrabLimite.
+  ///
+  /// In es, this message translates to:
+  /// **'Se para sola a los 60 minutos.'**
+  String get consGrabLimite;
+
+  /// No description provided for @consGrabLocal.
+  ///
+  /// In es, this message translates to:
+  /// **'El audio se queda solo en este móvil, en la carpeta de consultas. No viaja a los demás móviles porque no cabe en el cartero: los demás solo ven que hay una grabación y en qué móvil está.'**
+  String get consGrabLocal;
+
+  /// No description provided for @consGrabHay.
+  ///
+  /// In es, this message translates to:
+  /// **'Hay una grabación de {duracion}'**
+  String consGrabHay(String duracion);
+
+  /// No description provided for @consGrabEscuchar.
+  ///
+  /// In es, this message translates to:
+  /// **'Escuchar'**
+  String get consGrabEscuchar;
+
+  /// No description provided for @consGrabParaEscucha.
+  ///
+  /// In es, this message translates to:
+  /// **'Parar'**
+  String get consGrabParaEscucha;
+
+  /// No description provided for @consGrabBorrar.
+  ///
+  /// In es, this message translates to:
+  /// **'Borrar la grabación'**
+  String get consGrabBorrar;
+
+  /// No description provided for @consGrabBorrarTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Borrar la grabación?'**
+  String get consGrabBorrarTitulo;
+
+  /// No description provided for @consGrabBorrarTexto.
+  ///
+  /// In es, this message translates to:
+  /// **'Se borra el audio de este móvil y la marca de los demás. No se puede recuperar.'**
+  String get consGrabBorrarTexto;
+
+  /// No description provided for @consGrabEnMovil.
+  ///
+  /// In es, this message translates to:
+  /// **'Hay una grabación en el móvil de {nombre}'**
+  String consGrabEnMovil(String nombre);
+
+  /// No description provided for @consGrabSinMic.
+  ///
+  /// In es, this message translates to:
+  /// **'No se puede usar el micrófono. Revisa el permiso del móvil.'**
+  String get consGrabSinMic;
+
+  /// No description provided for @consGrabError.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo guardar la grabación.'**
+  String get consGrabError;
+
+  /// No description provided for @consGrabNoEsta.
+  ///
+  /// In es, this message translates to:
+  /// **'La grabación ya no está en este móvil.'**
+  String get consGrabNoEsta;
+
+  /// No description provided for @consGrabSalir.
+  ///
+  /// In es, this message translates to:
+  /// **'Para la grabación antes de salir.'**
+  String get consGrabSalir;
+
+  /// No description provided for @consAlguien.
+  ///
+  /// In es, this message translates to:
+  /// **'alguien de la familia'**
+  String get consAlguien;
+
+  /// No description provided for @consCompartir.
+  ///
+  /// In es, this message translates to:
+  /// **'Compartir resumen'**
+  String get consCompartir;
+
+  /// No description provided for @consResumenDialogo.
+  ///
+  /// In es, this message translates to:
+  /// **'Resumen para la familia'**
+  String get consResumenDialogo;
+
+  /// No description provided for @consResumenPie.
+  ///
+  /// In es, this message translates to:
+  /// **'Se queda en este móvil: lo copias y lo pegas donde quieras.'**
+  String get consResumenPie;
+
+  /// No description provided for @consCopiar.
+  ///
+  /// In es, this message translates to:
+  /// **'Copiar'**
+  String get consCopiar;
+
+  /// No description provided for @consCopiado.
+  ///
+  /// In es, this message translates to:
+  /// **'Resumen copiado'**
+  String get consCopiado;
+
+  /// No description provided for @consCerrar.
+  ///
+  /// In es, this message translates to:
+  /// **'Cerrar'**
+  String get consCerrar;
+
+  /// No description provided for @consResumenTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Consulta: {titulo}'**
+  String consResumenTitulo(String titulo);
+
+  /// No description provided for @consResumenFecha.
+  ///
+  /// In es, this message translates to:
+  /// **'{fecha} a las {hora}'**
+  String consResumenFecha(String fecha, String hora);
+
+  /// No description provided for @consResumenPreguntas.
+  ///
+  /// In es, this message translates to:
+  /// **'Preguntas para llevar:'**
+  String get consResumenPreguntas;
+
+  /// No description provided for @consResumenSinPreguntas.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin preguntas apuntadas.'**
+  String get consResumenSinPreguntas;
+
+  /// No description provided for @consResumenPreguntada.
+  ///
+  /// In es, this message translates to:
+  /// **'• {texto} (preguntada)'**
+  String consResumenPreguntada(String texto);
+
+  /// No description provided for @consResumenPendiente.
+  ///
+  /// In es, this message translates to:
+  /// **'• {texto}'**
+  String consResumenPendiente(String texto);
+
+  /// No description provided for @consResumenNotas.
+  ///
+  /// In es, this message translates to:
+  /// **'Notas de la consulta:'**
+  String get consResumenNotas;
+
+  /// No description provided for @consResumenSinNotas.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin notas.'**
+  String get consResumenSinNotas;
+
+  /// No description provided for @consResumenNota.
+  ///
+  /// In es, this message translates to:
+  /// **'• {texto} ({nombre})'**
+  String consResumenNota(String texto, String nombre);
 }
 
 class _AppLocalizationsDelegate

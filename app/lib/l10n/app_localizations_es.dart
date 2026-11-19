@@ -117,21 +117,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get preguntaModoPrueba => 'Modo prueba: no se guarda nada.';
 
   @override
-  String get tendraTitulo => 'Lo que tendrá';
-
-  @override
   String llegaEnSemana(int n) {
     return 'Llega en la semana $n';
   }
-
-  @override
-  String llegaEnSemanas(int a, int b) {
-    return 'Llega en las semanas $a y $b';
-  }
-
-  @override
-  String get consultasTendra =>
-      'Preparar las consultas con el médico: preguntas, grabación con permiso y un resumen para la familia.';
 
   @override
   String get controlHorasTitulo => 'Control por horas';
@@ -1844,19 +1832,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get controlSinRespuesta => 'Sin respuesta';
 
   @override
-  String get controlSinRespuestaNinguna => 'Ninguna ronda sin respuesta';
-
-  @override
   String get controlFranjaYRitmo => 'Franja y ritmo';
 
   @override
   String controlFranjaResumen(String desde, String hasta, String ritmo) {
     return 'De $desde a $hasta, $ritmo';
-  }
-
-  @override
-  String controlProximaRonda(String hora) {
-    return 'Próxima ronda: $hora';
   }
 
   @override
@@ -2520,4 +2500,304 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get alimSemanticaFoto => 'Foto de la comida';
+
+  @override
+  String get consVispera => 'Con el médico';
+
+  @override
+  String get consNuevaCita => 'Nueva cita';
+
+  @override
+  String get consProximas => 'Próximas';
+
+  @override
+  String get consPasadas => 'Pasadas';
+
+  @override
+  String get consSinCitas =>
+      'Aún no hay citas. Crea una para preparar la consulta.';
+
+  @override
+  String get consSinProximas => 'No hay citas próximas.';
+
+  @override
+  String consPreguntasN(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n preguntas',
+      one: '1 pregunta',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get consHayGrabacion => 'Hay grabación';
+
+  @override
+  String get consEditarCita => 'Editar la cita';
+
+  @override
+  String get consCitaNoExiste => 'Esta cita ya no existe.';
+
+  @override
+  String consVisperaFicha(String fecha, String hora) {
+    return '$fecha · $hora';
+  }
+
+  @override
+  String get consErrorGuardar => 'No se pudo guardar. Vuelve a intentarlo.';
+
+  @override
+  String get consPreguntasTitulo => 'Preguntas para llevar';
+
+  @override
+  String get consPreguntaCampo => 'Escribe una pregunta';
+
+  @override
+  String get consPreguntaAnadir => 'Añadir pregunta';
+
+  @override
+  String consPreguntaPor(String nombre) {
+    return 'Apuntada por $nombre';
+  }
+
+  @override
+  String get consPreguntaMarcar => 'Marcar como preguntada';
+
+  @override
+  String get consPreguntaDesmarcar => 'Marcar como sin preguntar';
+
+  @override
+  String get consPreguntaPreguntada => 'Preguntada';
+
+  @override
+  String get consPreguntaEditar => 'Editar la pregunta';
+
+  @override
+  String get consPreguntaBorrar => 'Borrar la pregunta';
+
+  @override
+  String get consPreguntaBorrarTitulo => '¿Borrar esta pregunta?';
+
+  @override
+  String get consPreguntaBorrarTexto =>
+      'Dejará de verse en todos los móviles de la familia.';
+
+  @override
+  String get consSinPreguntas => 'Todavía no hay preguntas.';
+
+  @override
+  String get consGuardar => 'Guardar';
+
+  @override
+  String get consBorrarConfirmar => 'Borrar';
+
+  @override
+  String get consDesdeTitulo => 'Qué ha pasado desde la última consulta';
+
+  @override
+  String consDesdeRangoCita(String desde, String hasta) {
+    return 'Desde la cita anterior ($desde) hasta $hasta';
+  }
+
+  @override
+  String consDesdeRangoDias(int dias, String desde, String hasta) {
+    return 'Los últimos $dias días, del $desde al $hasta';
+  }
+
+  @override
+  String get consDesdeCargando => 'Calculando…';
+
+  @override
+  String get consTomasConfirmadas => 'Tomas confirmadas';
+
+  @override
+  String consTomasDe(int n, int total) {
+    return '$n de $total';
+  }
+
+  @override
+  String get consTomasSinConfirmar => 'Tomas sin confirmar';
+
+  @override
+  String get consRondasContestadas => 'Rondas contestadas';
+
+  @override
+  String get consRondasSinRespuesta => 'Rondas sin respuesta';
+
+  @override
+  String get consVecesMal => 'Veces que dijo «mal»';
+
+  @override
+  String get consVecesDolor => 'Veces con dolor («poco» o «mucho»)';
+
+  @override
+  String get consComidasAnotadas => 'Comidas anotadas';
+
+  @override
+  String get consDesdePie =>
+      'Cifras tal cual de lo que ya está anotado en la app. Sin interpretar.';
+
+  @override
+  String get consNotasTitulo => 'Notas de la consulta';
+
+  @override
+  String get consNotaCampo => 'Lo que ha dicho el médico';
+
+  @override
+  String get consNotaAnadir => 'Añadir nota';
+
+  @override
+  String consNotaDe(String nombre, String cuando) {
+    return '$nombre · $cuando';
+  }
+
+  @override
+  String get consNotaEditar => 'Editar la nota';
+
+  @override
+  String get consNotaBorrar => 'Borrar la nota';
+
+  @override
+  String get consNotaBorrarTitulo => '¿Borrar esta nota?';
+
+  @override
+  String get consNotaBorrarTexto =>
+      'Dejará de verse en todos los móviles de la familia.';
+
+  @override
+  String get consSinNotas => 'Todavía no hay notas.';
+
+  @override
+  String get consGrabTitulo => 'Grabación';
+
+  @override
+  String get consGrabar => 'Grabar la consulta';
+
+  @override
+  String get consGrabAvisoTitulo => 'Pide permiso al médico antes de grabar';
+
+  @override
+  String get consGrabAvisoTexto =>
+      'Antes de grabar, pídele permiso al médico y a quien esté en la consulta. Si no te lo dan, no grabes y apunta las notas a mano.';
+
+  @override
+  String get consGrabPermiso => 'Tengo su permiso';
+
+  @override
+  String get consGrabEmpezar => 'Empezar a grabar';
+
+  @override
+  String consGrabando(String tiempo) {
+    return 'Grabando · $tiempo';
+  }
+
+  @override
+  String get consGrabParar => 'Parar y guardar';
+
+  @override
+  String get consGrabLimite => 'Se para sola a los 60 minutos.';
+
+  @override
+  String get consGrabLocal =>
+      'El audio se queda solo en este móvil, en la carpeta de consultas. No viaja a los demás móviles porque no cabe en el cartero: los demás solo ven que hay una grabación y en qué móvil está.';
+
+  @override
+  String consGrabHay(String duracion) {
+    return 'Hay una grabación de $duracion';
+  }
+
+  @override
+  String get consGrabEscuchar => 'Escuchar';
+
+  @override
+  String get consGrabParaEscucha => 'Parar';
+
+  @override
+  String get consGrabBorrar => 'Borrar la grabación';
+
+  @override
+  String get consGrabBorrarTitulo => '¿Borrar la grabación?';
+
+  @override
+  String get consGrabBorrarTexto =>
+      'Se borra el audio de este móvil y la marca de los demás. No se puede recuperar.';
+
+  @override
+  String consGrabEnMovil(String nombre) {
+    return 'Hay una grabación en el móvil de $nombre';
+  }
+
+  @override
+  String get consGrabSinMic =>
+      'No se puede usar el micrófono. Revisa el permiso del móvil.';
+
+  @override
+  String get consGrabError => 'No se pudo guardar la grabación.';
+
+  @override
+  String get consGrabNoEsta => 'La grabación ya no está en este móvil.';
+
+  @override
+  String get consGrabSalir => 'Para la grabación antes de salir.';
+
+  @override
+  String get consAlguien => 'alguien de la familia';
+
+  @override
+  String get consCompartir => 'Compartir resumen';
+
+  @override
+  String get consResumenDialogo => 'Resumen para la familia';
+
+  @override
+  String get consResumenPie =>
+      'Se queda en este móvil: lo copias y lo pegas donde quieras.';
+
+  @override
+  String get consCopiar => 'Copiar';
+
+  @override
+  String get consCopiado => 'Resumen copiado';
+
+  @override
+  String get consCerrar => 'Cerrar';
+
+  @override
+  String consResumenTitulo(String titulo) {
+    return 'Consulta: $titulo';
+  }
+
+  @override
+  String consResumenFecha(String fecha, String hora) {
+    return '$fecha a las $hora';
+  }
+
+  @override
+  String get consResumenPreguntas => 'Preguntas para llevar:';
+
+  @override
+  String get consResumenSinPreguntas => 'Sin preguntas apuntadas.';
+
+  @override
+  String consResumenPreguntada(String texto) {
+    return '• $texto (preguntada)';
+  }
+
+  @override
+  String consResumenPendiente(String texto) {
+    return '• $texto';
+  }
+
+  @override
+  String get consResumenNotas => 'Notas de la consulta:';
+
+  @override
+  String get consResumenSinNotas => 'Sin notas.';
+
+  @override
+  String consResumenNota(String texto, String nombre) {
+    return '• $texto ($nombre)';
+  }
 }

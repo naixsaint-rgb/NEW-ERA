@@ -17,7 +17,9 @@ import 'foto_para_sobre.dart';
 /// círculo con el id del círculo. Las citas y los turnos de la familia son
 /// filas con baja lógica (`baja_en`); el turno semanal viaja como una sola
 /// regla. Las comidas y los vasos de agua de la persona también llevan baja
-/// lógica; cada vaso es una fila.
+/// lógica; cada vaso es una fila. Las preguntas y notas de las consultas
+/// también llevan baja lógica; la grabación de una consulta viaja solo como
+/// marca (quién la tiene), nunca el audio.
 enum TipoFicha {
   persona('persona'),
   miembro('miembro'),
@@ -31,7 +33,10 @@ enum TipoFicha {
   cita('cita'),
   turno('turno'),
   comida('comida'),
-  hidratacion('hidratacion');
+  hidratacion('hidratacion'),
+  preguntaConsulta('pregunta_consulta'),
+  notaConsulta('nota_consulta'),
+  grabacionConsulta('grabacion_consulta');
 
   const TipoFicha(this.nombre);
   final String nombre;
@@ -207,6 +212,38 @@ abstract final class FilasFicha {
     'ocurrida_en': h.ocurridaEn,
     'registrada_por': h.registradaPor,
     'baja_en': h.bajaEn,
+  };
+
+  static Map<String, Object?> preguntaConsulta(PreguntaConsulta p) => {
+    'id': p.id,
+    'cita_id': p.citaId,
+    'texto': p.texto,
+    'preguntada': p.preguntada,
+    'creada_por': p.creadaPor,
+    'creada_en': p.creadaEn,
+    'modificada_por': p.modificadaPor,
+    'modificada_en': p.modificadaEn,
+    'baja_en': p.bajaEn,
+  };
+
+  static Map<String, Object?> notaConsulta(NotaConsulta n) => {
+    'id': n.id,
+    'cita_id': n.citaId,
+    'texto': n.texto,
+    'creada_por': n.creadaPor,
+    'creada_en': n.creadaEn,
+    'modificada_por': n.modificadaPor,
+    'modificada_en': n.modificadaEn,
+    'baja_en': n.bajaEn,
+  };
+
+  /// Solo la marca: el audio se queda en el móvil de quien grabó.
+  static Map<String, Object?> grabacionConsulta(GrabacionConsulta g) => {
+    'id': g.id,
+    'grabada_por': g.grabadaPor,
+    'grabada_en': g.grabadaEn,
+    'segundos': g.segundos,
+    'baja_en': g.bajaEn,
   };
 
   /// Tope del audio de una frase dentro de un sobre: el mismo que el de las
@@ -409,6 +446,22 @@ final class PublicadorFichas {
     for (final c in comidas) {
       await una(TipoFicha.comida, c.id);
     }
+    // Las de las consultas van después de las citas de las que cuelgan.
+    final preguntas = await (_db.select(
+      _db.preguntasConsulta,
+    )..orderBy([(p) => OrderingTerm.asc(p.creadaEn)])).get();
+    for (final p in preguntas) {
+      await una(TipoFicha.preguntaConsulta, p.id);
+    }
+    final notas = await (_db.select(
+      _db.notasConsulta,
+    )..orderBy([(n) => OrderingTerm.asc(n.creadaEn)])).get();
+    for (final n in notas) {
+      await una(TipoFicha.notaConsulta, n.id);
+    }
+    for (final g in await _db.select(_db.grabacionesConsulta).get()) {
+      await una(TipoFicha.grabacionConsulta, g.id);
+    }
     for (final h in vasos) {
       await una(TipoFicha.hidratacion, h.id);
     }
@@ -524,6 +577,24 @@ final class PublicadorFichas {
         )..where((t) => t.id.equals(id))).getSingleOrNull();
         if (x == null) return null;
         fila = FilasFicha.hidratacion(x);
+      case TipoFicha.preguntaConsulta:
+        final x = await (_db.select(
+          _db.preguntasConsulta,
+        )..where((t) => t.id.equals(id))).getSingleOrNull();
+        if (x == null) return null;
+        fila = FilasFicha.preguntaConsulta(x);
+      case TipoFicha.notaConsulta:
+        final x = await (_db.select(
+          _db.notasConsulta,
+        )..where((t) => t.id.equals(id))).getSingleOrNull();
+        if (x == null) return null;
+        fila = FilasFicha.notaConsulta(x);
+      case TipoFicha.grabacionConsulta:
+        final x = await (_db.select(
+          _db.grabacionesConsulta,
+        )..where((t) => t.id.equals(id))).getSingleOrNull();
+        if (x == null) return null;
+        fila = FilasFicha.grabacionConsulta(x);
     }
     for (final columna in FilasFicha.columnasFoto[tipo] ?? const <String>[]) {
       final fotoId = fila[columna];
@@ -633,6 +704,9 @@ final class _Campos {
 /// - Comidas y vasos de agua: igual que las citas (baja lógica, gana la más
 ///   reciente). Esperan a la persona; la foto de la comida, si falta, se
 ///   completa cuando llegue.
+/// - Preguntas y notas de las consultas: como las citas (baja lógica, gana la
+///   más reciente); esperan a su cita. La marca de grabación (`id` = el de la
+///   cita) dice en qué móvil está el audio, que nunca viaja.
 /// - Nunca lanza: un sobre raro no puede atascar la recepción.
 final class MaterializadorFichas {
   MaterializadorFichas(this._db, this._contexto, [this._archivos]);
@@ -777,6 +851,9 @@ final class MaterializadorFichas {
       TipoFicha.turno => _turno(e, id, c, creada),
       TipoFicha.comida => _comida(e, id, c, creada, soloFotos),
       TipoFicha.hidratacion => _hidratacion(e, id, c, creada),
+      TipoFicha.preguntaConsulta => _preguntaConsulta(e, id, c, creada),
+      TipoFicha.notaConsulta => _notaConsulta(e, id, c, creada),
+      TipoFicha.grabacionConsulta => _grabacionConsulta(e, id, c, creada),
     };
   }
 
@@ -1100,6 +1177,122 @@ final class MaterializadorFichas {
         } else {
           await (_db.update(
             _db.hidrataciones,
+          )..where((t) => t.id.equals(id))).write(fila);
+        }
+      },
+    );
+  }
+
+  Future<_Resultado> _preguntaConsulta(
+    Evento e,
+    String id,
+    _Campos c,
+    bool creada,
+  ) async {
+    final cita = c.txt('cita_id');
+    final fila = PreguntasConsultaCompanion(
+      id: Value(id),
+      citaId: Value(cita),
+      texto: Value(c.txt('texto')),
+      preguntada: Value(c.logico('preguntada')),
+      creadaPor: Value(c.txt('creada_por')),
+      creadaEn: Value(c.ent('creada_en')),
+      modificadaPor: Value(c.txt('modificada_por')),
+      modificadaEn: Value(c.ent('modificada_en')),
+      bajaEn: Value(c.entONulo('baja_en')),
+    );
+    if (!c.valida || fila.texto.value.trim().isEmpty) {
+      return _Resultado.descartada;
+    }
+    return _mutable(
+      e: e,
+      tabla: _db.preguntasConsulta,
+      id: id,
+      creada: creada,
+      soloFotos: false,
+      fotos: const {},
+      requisitos: () => _existe(_db.citas, cita),
+      guardar: (insertar, faltan) async {
+        if (insertar) {
+          await _db.into(_db.preguntasConsulta).insert(fila);
+        } else {
+          await (_db.update(
+            _db.preguntasConsulta,
+          )..where((t) => t.id.equals(id))).write(fila);
+        }
+      },
+    );
+  }
+
+  Future<_Resultado> _notaConsulta(
+    Evento e,
+    String id,
+    _Campos c,
+    bool creada,
+  ) async {
+    final cita = c.txt('cita_id');
+    final fila = NotasConsultaCompanion(
+      id: Value(id),
+      citaId: Value(cita),
+      texto: Value(c.txt('texto')),
+      creadaPor: Value(c.txt('creada_por')),
+      creadaEn: Value(c.ent('creada_en')),
+      modificadaPor: Value(c.txt('modificada_por')),
+      modificadaEn: Value(c.ent('modificada_en')),
+      bajaEn: Value(c.entONulo('baja_en')),
+    );
+    if (!c.valida || fila.texto.value.trim().isEmpty) {
+      return _Resultado.descartada;
+    }
+    return _mutable(
+      e: e,
+      tabla: _db.notasConsulta,
+      id: id,
+      creada: creada,
+      soloFotos: false,
+      fotos: const {},
+      requisitos: () => _existe(_db.citas, cita),
+      guardar: (insertar, faltan) async {
+        if (insertar) {
+          await _db.into(_db.notasConsulta).insert(fila);
+        } else {
+          await (_db.update(
+            _db.notasConsulta,
+          )..where((t) => t.id.equals(id))).write(fila);
+        }
+      },
+    );
+  }
+
+  /// Marca de grabación: solo dice en qué móvil está el audio (nunca viaja).
+  Future<_Resultado> _grabacionConsulta(
+    Evento e,
+    String id,
+    _Campos c,
+    bool creada,
+  ) async {
+    final fila = GrabacionesConsultaCompanion(
+      id: Value(id),
+      grabadaPor: Value(c.txt('grabada_por')),
+      grabadaEn: Value(c.ent('grabada_en')),
+      segundos: Value(c.ent('segundos')),
+      bajaEn: Value(c.entONulo('baja_en')),
+    );
+    if (!c.valida || fila.segundos.value < 0) return _Resultado.descartada;
+    return _mutable(
+      e: e,
+      tabla: _db.grabacionesConsulta,
+      id: id,
+      creada: creada,
+      soloFotos: false,
+      fotos: const {},
+      requisitos: () => _existe(_db.citas, id),
+      guardar: (insertar, faltan) async {
+        if (insertar) {
+          await _db.into(_db.grabacionesConsulta).insert(fila);
+        } else {
+          await (_db.update(
+            _db.grabacionesConsulta,
           )..where((t) => t.id.equals(id))).write(fila);
         }
       },

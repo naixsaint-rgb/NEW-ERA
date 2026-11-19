@@ -14,6 +14,14 @@ abstract final class FormatoVoz {
   static const segundosMaximos = 8;
 }
 
+/// Formato de las grabaciones de las consultas: el mismo de [FormatoVoz]
+/// (AAC mono a 32 kbps, calidad de voz baja para que pese poco: una hora son
+/// unos 14 MB) pero sin el tope de 8 s.
+abstract final class FormatoConsulta {
+  /// 60 minutos.
+  static const segundosMaximos = 3600;
+}
+
 /// Graba la voz de un familiar en un archivo.
 ///
 /// Implementaciones: `GrabadoraMovil` (paquete `record`) y
@@ -22,7 +30,7 @@ abstract interface class Grabadora {
   /// Pide el permiso del micrófono si hace falta. `false` si no se concede.
   Future<bool> pedirPermiso();
 
-  /// Empieza a grabar en [ruta] (relativa, `voces/…`).
+  /// Empieza a grabar en [ruta] (relativa, `voces/…` o `consultas/…`).
   Future<void> empezar(String ruta);
 
   /// Para y devuelve la ruta de lo grabado (en la web, una URL `blob:`), o

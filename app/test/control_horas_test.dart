@@ -1200,6 +1200,9 @@ void main() {
             ),
           );
       await v3.customStatement('DROP TABLE ajustes_control_horas');
+      await v3.customStatement('DROP TABLE grabaciones_consulta');
+      await v3.customStatement('DROP TABLE notas_consulta');
+      await v3.customStatement('DROP TABLE preguntas_consulta');
       await v3.customStatement('DROP TABLE citas');
       await v3.customStatement('DROP TABLE turnos');
       await v3.customStatement('ALTER TABLE comidas DROP COLUMN baja_en');
@@ -1211,8 +1214,8 @@ void main() {
       final v4 = AppDatabase(NativeDatabase(archivo));
       addTearDown(v4.close);
       final version = await v4.customSelect('PRAGMA user_version').getSingle();
-      expect(version.data.values.single, 7);
-      expect(v4.schemaVersion, 7);
+      expect(version.data.values.single, 8);
+      expect(v4.schemaVersion, 8);
       expect(await v4.select(v4.eventos).get(), hasLength(1));
       expect(await v4.select(v4.ajustesControlHoras).get(), isEmpty);
       await v4
