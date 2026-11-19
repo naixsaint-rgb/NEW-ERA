@@ -197,4 +197,39 @@ void main() {
       TipoEvento.ubicacionRegistrada,
     );
   });
+  test('elegir la zona estando lejos con lecturas malas no da salida que '
+      'avise', () {
+    // Lecturas de bajo consumo (400 m): dos lejos y la última en el centro,
+    // que no basta para volver. La familia pone «Casa» en esa última.
+    final lecturas = [
+      _l('a', 0, metros: 1500, precision: 400),
+      _l('b', 5, metros: 1500, precision: 400),
+      _l('c', 9, precision: 400),
+    ];
+    final zona = ZonaSegura(
+      lat: _lat,
+      lon: _lon,
+      radio: 200,
+      elegidaEn: _t0.add(const Duration(minutes: 10)),
+    );
+    final s = evaluarZona(
+      zona: zona,
+      lecturas: lecturas,
+      ahora: _t0.add(const Duration(minutes: 11)),
+    );
+    expect(s.salidaConfirmadaEn, isNull);
+    // Sin la hora de la zona, la misma salida sí avisaría.
+    expect(_evaluar(lecturas, ahora: 11).salidaConfirmadaEn, isNotNull);
+    // Vuelve (una lectura buena en casa) y sale después: esa sí avisa.
+    final despues = evaluarZona(
+      zona: zona,
+      lecturas: [
+        ...lecturas,
+        _l('d', 12, precision: 10),
+        _l('e', 15, metros: 900, precision: 10),
+      ],
+      ahora: _t0.add(const Duration(minutes: 16)),
+    );
+    expect(despues.salidaConfirmadaEn, _t0.add(const Duration(minutes: 15)));
+  });
 }

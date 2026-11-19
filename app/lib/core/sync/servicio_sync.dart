@@ -328,9 +328,11 @@ final class ServicioSync {
     });
   }
 
-  /// Una posición de hace más de [retencionUbicacion], o que llega con la
-  /// ubicación apagada en este móvil, no se guarda (cada móvil las borra a
-  /// los 7 días o al apagarla; no deben volver por el cartero).
+  /// Una posición de hace más de [retencionUbicacion], de antes de que se
+  /// encendiera el permiso vigente ([UbicacionRepositorio.encendidaDesde]), o
+  /// que llega con la ubicación apagada en este móvil, no se guarda (cada
+  /// móvil las borra a los 7 días o al apagarla; no deben volver por el
+  /// cartero).
   Future<bool> _descartable(Evento e, int ahoraMs) async {
     if (e.tipo != TipoEvento.ubicacionRegistrada.nombre) return false;
     if (e.ocurridoEn < ahoraMs - retencionUbicacion.inMilliseconds) {
@@ -343,7 +345,8 @@ final class ServicioSync {
                   c.sobre.equals('ubicacion'),
             ))
             .get();
-    return UbicacionRepositorio.vigente(filas) == null;
+    final desde = UbicacionRepositorio.encendidaDesde(filas);
+    return desde == null || e.ocurridoEn < desde;
   }
 
   Future<Evento?> _abrir(SobreCifrado sobre, LlavesCirculo llaves) async {

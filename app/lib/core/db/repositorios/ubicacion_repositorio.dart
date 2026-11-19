@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:drift/drift.dart';
 import 'package:safety_core/safety_core.dart';
 import 'package:uuid/uuid.dart';
@@ -82,6 +84,24 @@ class UbicacionRepositorio {
       if (r == null || f.otorgadoEn > r.otorgadoEn) r = f;
     }
     return r;
+  }
+
+  /// Desde cuándo (ms) vale una posición según [filas]: el alta más antigua
+  /// de las que siguen sin revocar, menos un minuto de margen entre relojes;
+  /// nula con la ubicación apagada. Una posición de antes (de un permiso ya
+  /// apagado, o tomada mientras estaba apagada en un móvil sin red que la
+  /// envía después de volver a encenderla) no se guarda en ningún móvil.
+  static int? encendidaDesde(Iterable<Consentimiento> filas) {
+    final revocados = {
+      for (final f in filas)
+        if (f.revocaA != null) f.revocaA,
+    };
+    int? r;
+    for (final f in filas) {
+      if (f.revocaA != null || revocados.contains(f.id)) continue;
+      if (r == null || f.otorgadoEn < r) r = f.otorgadoEn;
+    }
+    return r == null ? null : r - const Duration(minutes: 1).inMilliseconds;
   }
 
   Stream<ConsentimientoUbicacion> observarConsentimiento() =>
@@ -242,16 +262,20 @@ class UbicacionRepositorio {
     );
   }
 
-  /// Borra las posiciones de más de [retencionUbicacion] y, si el
-  /// consentimiento está apagado, todas. Devuelve cuántas borró. Nunca lanza.
+  /// Borra las posiciones de más de [retencionUbicacion] o de antes de
+  /// [encendidaDesde] y, si el consentimiento está apagado, todas. Devuelve
+  /// cuántas borró. Nunca lanza.
   Future<int> purgar() async {
     try {
-      final activo = await consentimientoActivo();
-      final limite = _ahora.subtract(retencionUbicacion).millisecondsSinceEpoch;
+      final desde = encendidaDesde(await _consentimientos().get());
+      final retencion = _ahora
+          .subtract(retencionUbicacion)
+          .millisecondsSinceEpoch;
+      final limite = desde == null ? null : max(retencion, desde);
       return await (_db.delete(_db.eventos)..where(
             (e) =>
                 e.tipo.equals(TipoEvento.ubicacionRegistrada.nombre) &
-                (activo
+                (limite != null
                     ? e.ocurridoEn.isSmallerThanValue(limite)
                     : const Constant(true)),
           ))
@@ -271,7 +295,15 @@ class UbicacionRepositorio {
   static ZonaSegura? aZona(FilaAjustesUbicacion? f) {
     final lat = f?.zonaLat, lon = f?.zonaLon;
     if (f == null || lat == null || lon == null) return null;
-    final z = ZonaSegura(lat: lat, lon: lon, radio: f.zonaRadio);
+    final z = ZonaSegura(
+      lat: lat,
+      lon: lon,
+      radio: f.zonaRadio,
+      elegidaEn: DateTime.fromMillisecondsSinceEpoch(
+        f.modificadoEn,
+        isUtc: true,
+      ),
+    );
     return z.valida ? z : null;
   }
 

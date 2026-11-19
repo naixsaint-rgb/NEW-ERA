@@ -992,29 +992,32 @@ final class MaterializadorFichas {
     await _db
         .into(_db.consentimientos)
         .insert(fila.copyWith(documentoFotoId: Value(foto)));
-    // Ubicación apagada en otro móvil: aquí también se borran las posiciones.
-    if (fila.sobre.value == 'ubicacion' &&
-        fila.revocaA.value != null &&
-        await _ubicacionApagada()) {
-      await (_db.delete(
-            _db.eventos,
-          )..where((e) => e.tipo.equals(TipoEvento.ubicacionRegistrada.nombre)))
+    // Ubicación apagada en otro móvil: aquí también se borran las posiciones
+    // (todas; o, si ya se volvió a encender, las de antes de encenderla).
+    if (fila.sobre.value == 'ubicacion' && fila.revocaA.value != null) {
+      final desde = await _ubicacionDesde();
+      await (_db.delete(_db.eventos)..where(
+            (e) =>
+                e.tipo.equals(TipoEvento.ubicacionRegistrada.nombre) &
+                (desde == null
+                    ? const Constant(true)
+                    : e.ocurridoEn.isSmallerThanValue(desde)),
+          ))
           .go();
     }
     return _Resultado.aplicada;
   }
 
-  /// No queda ningún consentimiento de ubicación vigente en el círculo.
-  Future<bool> _ubicacionApagada() async =>
-      UbicacionRepositorio.vigente(
-        await (_db.select(_db.consentimientos)..where(
-              (c) =>
-                  c.circuloId.equals(_contexto.circuloId) &
-                  c.sobre.equals('ubicacion'),
-            ))
-            .get(),
-      ) ==
-      null;
+  /// Desde cuándo valen las posiciones del círculo
+  /// ([UbicacionRepositorio.encendidaDesde]); nula con la ubicación apagada.
+  Future<int?> _ubicacionDesde() async => UbicacionRepositorio.encendidaDesde(
+    await (_db.select(_db.consentimientos)..where(
+          (c) =>
+              c.circuloId.equals(_contexto.circuloId) &
+              c.sobre.equals('ubicacion'),
+        ))
+        .get(),
+  );
 
   // ------------------------------------------------------- Fichas
 

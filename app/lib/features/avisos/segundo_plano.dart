@@ -201,10 +201,16 @@ Future<void> revisionEnSegundoPlano({
   }
 }
 
-/// La siguiente revisión mientras dura [b]: dentro de
-/// [intervaloBusquedaSegundoPlano], o nula si ya ha acabado.
+/// La siguiente revisión mientras dura [b], o nula si ya ha acabado: el
+/// primer instante de la rejilla de [intervaloBusquedaSegundoPlano] desde
+/// que se pidió que quede al menos a un minuto. Con la rejilla, todas las
+/// revisiones (la de la búsqueda, la de una toma, un reintento) dejan la
+/// misma siguiente (el mismo id de alarma) y no se abren cadenas paralelas.
 DateTime? _siguienteDeBusqueda(BusquedaPedida b, DateTime ahora) {
-  final t = ahora.add(intervaloBusquedaSegundoPlano);
+  final paso = intervaloBusquedaSegundoPlano.inMilliseconds;
+  final minimo = ahora.add(const Duration(minutes: 1)).difference(b.pedidaEn);
+  final n = minimo.isNegative ? 0 : (minimo.inMilliseconds + paso - 1) ~/ paso;
+  final t = b.pedidaEn.add(Duration(milliseconds: n * paso));
   return t.isBefore(b.hasta.add(margenRevision)) ? t : null;
 }
 

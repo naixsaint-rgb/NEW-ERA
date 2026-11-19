@@ -366,13 +366,16 @@ abstract final class SemillaDemo {
     required EventosRepositorio eventos,
     required String autor,
   }) async {
-    final repo = UbicacionRepositorio(
+    final ahora = reloj.ahora();
+    final inicio = inicioDelDia(ahora, contexto.zonaHoraria);
+    UbicacionRepositorio repoCon(Reloj r) => UbicacionRepositorio(
       db: db,
-      reloj: reloj,
+      reloj: r,
       contexto: contexto,
       eventos: eventos,
       autor: () => autor,
     );
+    final repo = repoCon(reloj);
     final l = AppLocalizationsEs();
     final alias =
         (await (db.select(
@@ -380,7 +383,8 @@ abstract final class SemillaDemo {
             )..where((p) => p.id.equals(contexto.personaId))).getSingleOrNull())
             ?.alias ??
         '';
-    await repo.otorgar(
+    // Encendida a las 00:00 de hoy: una posición de antes del alta no vale.
+    await repoCon(RelojFijo(inicio)).otorgar(
       miembroId: autor,
       textoMostrado: parrafosConsentimientoUbicacion(
         l,
@@ -389,8 +393,6 @@ abstract final class SemillaDemo {
       ).join('\n\n'),
     );
     await repo.guardarZona(lat: latEjemplo, lon: lonEjemplo, radio: 200);
-    final ahora = reloj.ahora();
-    final inicio = inicioDelDia(ahora, contexto.zonaHoraria);
     // Unos metros al norte del punto de ejemplo (1 grado ≈ 111 km).
     for (final (minutos, metros, precision) in [
       (190, 20.0, 35.0),

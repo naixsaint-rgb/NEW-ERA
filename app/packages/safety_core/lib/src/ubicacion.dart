@@ -134,11 +134,18 @@ final class ZonaSegura {
     required this.lat,
     required this.lon,
     this.radio = radioZonaPorDefecto,
+    this.elegidaEn,
   });
 
   final double lat;
   final double lon;
   final int radio;
+
+  /// Cuándo se eligió o cambió por última vez (nula si no se sabe). Una
+  /// salida confirmada antes no avisa: al elegir la zona estando lejos, o al
+  /// cambiarla mientras está fuera, no salta un aviso por lecturas de antes.
+  /// No cuenta para la igualdad (que es la del círculo).
+  final DateTime? elegidaEn;
 
   /// Margen por fuera del radio que hay que pasar para contar como fuera
   /// (histéresis): para volver basta con estar dentro del radio.
@@ -209,7 +216,8 @@ final class SituacionZona {
   final DateTime? fueraDesde;
 
   /// Con [EstadoZona.fuera]: hora de la lectura que confirmó la salida (la
-  /// misma o la segunda seguida). Es cuando toca avisar.
+  /// misma o la segunda seguida). Es cuando toca avisar; nula si se confirmó
+  /// antes de [ZonaSegura.elegidaEn].
   final DateTime? salidaConfirmadaEn;
 
   bool get fuera => estado == EstadoZona.fuera;
@@ -227,6 +235,8 @@ final class SituacionZona {
 ///   lecturas fuera).
 ///
 /// Sin [zona], el estado es [EstadoZona.desconocido] (con la última lectura).
+/// Una salida confirmada antes de [ZonaSegura.elegidaEn] sigue contando como
+/// fuera, pero sin [SituacionZona.salidaConfirmadaEn] (no avisa).
 SituacionZona evaluarZona({
   required ZonaSegura? zona,
   required Iterable<LecturaUbicacion> lecturas,
@@ -281,6 +291,10 @@ SituacionZona evaluarZona({
     // Dentro, o en la franja de la histéresis: no es una salida.
     candidata = null;
     estado = EstadoZona.dentro;
+  }
+  final elegida = zona.elegidaEn;
+  if (confirmada != null && elegida != null && confirmada.isBefore(elegida)) {
+    confirmada = null;
   }
   return SituacionZona(
     estado: estado,

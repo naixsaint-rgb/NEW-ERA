@@ -438,6 +438,45 @@ void main() {
       },
     );
 
+    test('una posición tomada con la ubicación apagada no entra al volver a '
+        'encenderla', () async {
+      await encender();
+      // El móvil de la persona se queda sin red; la familia apaga y vuelve a
+      // encender. Mientras, la persona (que aún no lo sabe) toma posiciones.
+      familia.reloj.fijar(instantePrueba.add(const Duration(minutes: 1)));
+      await familia.repo.revocar(
+        miembroId: familia.miembro!,
+        textoMostrado: 'Apagada en la prueba',
+      );
+      familia.reloj.fijar(instantePrueba.add(const Duration(minutes: 10)));
+      await familia.repo.otorgar(
+        miembroId: familia.miembro!,
+        textoMostrado: 'Encendida otra vez',
+      );
+      await familia.servicio.empujar();
+      final apagada = await persona.repo.registrar(
+        _pos(instantePrueba.add(const Duration(minutes: 5))),
+        origen: OrigenUbicacion.appAbierta,
+      );
+      expect(apagada, isNotNull);
+      // Al volver la red, la persona envía antes de recoger.
+      await _entregar(servidor, persona, familia);
+      expect(await familia.posiciones(), isEmpty);
+      for (final s in [...servidor.sobres]) {
+        await persona.servicio.recibir(s);
+      }
+      expect(await persona.repo.consentimientoActivo(), isTrue);
+      expect(await persona.posiciones(), isEmpty);
+      // Las de después de encenderla, sí.
+      persona.reloj.fijar(instantePrueba.add(const Duration(minutes: 11)));
+      await persona.repo.registrar(
+        _pos(instantePrueba.add(const Duration(minutes: 11))),
+        origen: OrigenUbicacion.appAbierta,
+      );
+      await _entregar(servidor, persona, familia);
+      expect(await familia.posiciones(), hasLength(1));
+    });
+
     test(
       'la zona segura es una ficha que viaja; gana la más reciente',
       () async {
@@ -595,7 +634,9 @@ void main() {
       );
       await revisar(b, t, ubicador: ubicador, canal: canal, programador: p);
       expect(ubicador.pedidas, [true]);
-      expect(p.programados, [t.add(intervaloBusquedaSegundoPlano)]);
+      expect(p.programados, [
+        instantePrueba.add(intervaloBusquedaSegundoPlano),
+      ]);
       final pos = await _conBase(
         b,
         (c) => c.read(ubicacionRepositorioProvider).observarLecturas().first,
@@ -607,6 +648,37 @@ void main() {
       await revisar(b, fin, ubicador: ubicador, canal: canal, programador: p);
       expect(p.programados, hasLength(1));
       expect(ubicador.pedidas.last, isFalse);
+    });
+
+    test('con búsqueda, dos revisiones a destiempo dejan la misma siguiente '
+        '(no se abren cadenas paralelas)', () async {
+      final b = await _baseEnArchivo();
+      await _conBase(
+        b,
+        (c) => c.read(ubicacionRepositorioProvider).pedirBusqueda(),
+      );
+      final canal = CanalAvisosSimulado();
+      final p = _ProgramadorPrueba();
+      final ubicador = UbicadorSimulado(estado: PermisoUbicacion.siempre);
+      // La de la búsqueda (a los 5) y otra de una toma (a los 7:05).
+      for (final m in [5, 7]) {
+        final t = instantePrueba.add(
+          Duration(minutes: m, seconds: m == 7 ? 5 : 0),
+        );
+        ubicador.siguiente = _pos(t, metros: 20);
+        await revisar(b, t, ubicador: ubicador, canal: canal, programador: p);
+      }
+      expect(p.programados, [
+        instantePrueba.add(const Duration(minutes: 10)),
+        instantePrueba.add(const Duration(minutes: 10)),
+      ]);
+      // La última, a los 30 minutos; después, ninguna.
+      for (final m in [29, 30]) {
+        final t = instantePrueba.add(Duration(minutes: m));
+        ubicador.siguiente = _pos(t, metros: 20);
+        await revisar(b, t, ubicador: ubicador, canal: canal, programador: p);
+      }
+      expect(p.programados.skip(2), [instantePrueba.add(duracionBusqueda)]);
     });
 
     test('sin permiso «todo el tiempo» no hay posición (ni aviso)', () async {
@@ -820,8 +892,8 @@ void main() {
                 .get(),
       );
       expect(cons, hasLength(3));
-      final ultimo = cons!.first;
-      expect(ultimo.revocaA, isNull);
+      // El alta nueva (la de la semilla es de las 00:00 y quedó revocada).
+      final ultimo = cons!.firstWhere((c) => c.revocaA == null);
       expect(ultimo.textoMostrado, contains('Qué se recoge:'));
       expect(ultimo.textoMostrado, contains('Quién lo ve:'));
       expect(ultimo.otorgadoEn, instantePrueba.millisecondsSinceEpoch);
