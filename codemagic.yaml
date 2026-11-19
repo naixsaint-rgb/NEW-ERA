@@ -22,9 +22,17 @@ workflows:
       - name: Tests
         working_directory: app
         script: flutter test
+      # AlarmKit pide el SDK de iOS 26; AlarmasAlarmKit.swift usa además un
+      # inicializador de iOS 26.1, así que hace falta Xcode 26.1 o posterior.
+      - name: Comprobar Xcode y SDK (AlarmKit)
+        script: |
+          xcodebuild -version
+          SDK=$(xcrun --sdk iphonesimulator --show-sdk-version)
+          echo "SDK del simulador: $SDK"
+          python3 -c "import sys; v=tuple(int(x) for x in '$SDK'.split('.')[:2]); sys.exit(0 if v >= (26, 1) else 'Hace falta Xcode 26.1 o posterior para AlarmKit')"
       - name: Compilar para el simulador
         working_directory: app
-        script: flutter build ios --simulator --debug
+        script: flutter build ios --simulator --debug --verbose
       - name: Empaquetar Runner.app
         working_directory: app/build/ios/iphonesimulator
         script: zip -r Runner.app.zip Runner.app
@@ -33,6 +41,15 @@ workflows:
 
   # Para cuando haya cuenta de Apple Developer: descomentar y configurar la
   # integración de App Store Connect y la firma automática en Codemagic.
+  # Marcadores que pone el promotor (no hay ninguno real todavía):
+  #   - PENDIENTE_INTEGRACION: nombre de la clave de API de App Store Connect
+  #     dada de alta en la configuración de Codemagic.
+  #   - bundle_identifier: el de project.pbxproj; si se cambia, cambiarlo en
+  #     los dos sitios y registrarlo en developer.apple.com (Identifiers).
+  #   - Capacidad «Time Sensitive Notifications» en ese identificador (solo
+  #     para el plan B de iOS < 26). AlarmKit no lleva entitlement.
+  #   - export_options.plist: se espera que lo genere `xcode-project
+  #     use-profiles` (sin verificar).
   # ios-firmado:
   #   name: iOS firmado
   #   instance_type: mac_mini_m2
@@ -43,7 +60,7 @@ workflows:
   #       distribution_type: app_store
   #       bundle_identifier: io.github.naixsaintrgb.newera
   #   integrations:
-  #     app_store_connect: NEWERA
+  #     app_store_connect: PENDIENTE_INTEGRACION
   #   scripts:
   #     - name: Dependencias
   #       working_directory: app
