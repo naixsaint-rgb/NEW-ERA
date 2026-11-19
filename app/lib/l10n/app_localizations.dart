@@ -382,12 +382,6 @@ abstract class AppLocalizations {
   /// **'No se ha enviado ningún aviso en los últimos 7 días.'**
   String get alarmasSinAvisos;
 
-  /// No description provided for @alimentacionTendra.
-  ///
-  /// In es, this message translates to:
-  /// **'Registro de comidas y de vasos de agua, con foto si se quiere.'**
-  String get alimentacionTendra;
-
   /// No description provided for @parteManana.
   ///
   /// In es, this message translates to:
@@ -4052,6 +4046,264 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Dejará de verse en el calendario de todos los móviles de la familia. Si se repite cada semana, se borran todas las semanas.'**
   String get turnoBorrarTexto;
+
+  /// No description provided for @alimHoy.
+  ///
+  /// In es, this message translates to:
+  /// **'Hoy'**
+  String get alimHoy;
+
+  /// No description provided for @alimSemana.
+  ///
+  /// In es, this message translates to:
+  /// **'Semana'**
+  String get alimSemana;
+
+  /// No description provided for @alimMomentoDesayuno.
+  ///
+  /// In es, this message translates to:
+  /// **'Desayuno'**
+  String get alimMomentoDesayuno;
+
+  /// No description provided for @alimMomentoComida.
+  ///
+  /// In es, this message translates to:
+  /// **'Comida'**
+  String get alimMomentoComida;
+
+  /// No description provided for @alimMomentoMerienda.
+  ///
+  /// In es, this message translates to:
+  /// **'Merienda'**
+  String get alimMomentoMerienda;
+
+  /// No description provided for @alimMomentoCena.
+  ///
+  /// In es, this message translates to:
+  /// **'Cena'**
+  String get alimMomentoCena;
+
+  /// No description provided for @alimMomentoOtro.
+  ///
+  /// In es, this message translates to:
+  /// **'Otra comida'**
+  String get alimMomentoOtro;
+
+  /// No description provided for @alimCuantoTodo.
+  ///
+  /// In es, this message translates to:
+  /// **'Todo'**
+  String get alimCuantoTodo;
+
+  /// No description provided for @alimCuantoMitad.
+  ///
+  /// In es, this message translates to:
+  /// **'La mitad'**
+  String get alimCuantoMitad;
+
+  /// No description provided for @alimCuantoPoco.
+  ///
+  /// In es, this message translates to:
+  /// **'Poco'**
+  String get alimCuantoPoco;
+
+  /// No description provided for @alimCuantoNada.
+  ///
+  /// In es, this message translates to:
+  /// **'Nada'**
+  String get alimCuantoNada;
+
+  /// No description provided for @alimSinAnotar.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin anotar'**
+  String get alimSinAnotar;
+
+  /// No description provided for @alimFilaDetalle.
+  ///
+  /// In es, this message translates to:
+  /// **'{hora} · {cuanto}'**
+  String alimFilaDetalle(String hora, String cuanto);
+
+  /// No description provided for @alimFilaConNota.
+  ///
+  /// In es, this message translates to:
+  /// **'{hora} · {cuanto} · {nota}'**
+  String alimFilaConNota(String hora, String cuanto, String nota);
+
+  /// No description provided for @alimAnotarComida.
+  ///
+  /// In es, this message translates to:
+  /// **'Anotar comida'**
+  String get alimAnotarComida;
+
+  /// No description provided for @alimComidasTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Comidas'**
+  String get alimComidasTitulo;
+
+  /// No description provided for @alimAguaTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Agua'**
+  String get alimAguaTitulo;
+
+  /// No description provided for @alimVasosDeObjetivo.
+  ///
+  /// In es, this message translates to:
+  /// **'{n} de {objetivo} vasos'**
+  String alimVasosDeObjetivo(int n, int objetivo);
+
+  /// No description provided for @alimSumarVaso.
+  ///
+  /// In es, this message translates to:
+  /// **'Sumar un vaso'**
+  String get alimSumarVaso;
+
+  /// No description provided for @alimRestarVaso.
+  ///
+  /// In es, this message translates to:
+  /// **'Quitar un vaso'**
+  String get alimRestarVaso;
+
+  /// No description provided for @alimObjetivo.
+  ///
+  /// In es, this message translates to:
+  /// **'Objetivo diario'**
+  String get alimObjetivo;
+
+  /// No description provided for @alimObjetivoValor.
+  ///
+  /// In es, this message translates to:
+  /// **'{n} vasos'**
+  String alimObjetivoValor(int n);
+
+  /// No description provided for @alimObjetivoSubir.
+  ///
+  /// In es, this message translates to:
+  /// **'Subir el objetivo'**
+  String get alimObjetivoSubir;
+
+  /// No description provided for @alimObjetivoBajar.
+  ///
+  /// In es, this message translates to:
+  /// **'Bajar el objetivo'**
+  String get alimObjetivoBajar;
+
+  /// No description provided for @alimAguaPie.
+  ///
+  /// In es, this message translates to:
+  /// **'Es un contador de la familia: cada vaso lo apunta quien lo da. No es un consejo de salud.'**
+  String get alimAguaPie;
+
+  /// No description provided for @alimResumenFila.
+  ///
+  /// In es, this message translates to:
+  /// **'Comidas de hoy: {comidas} de 4 · Vasos: {vasos}'**
+  String alimResumenFila(int comidas, int vasos);
+
+  /// No description provided for @alimSemanaDetalle.
+  ///
+  /// In es, this message translates to:
+  /// **'Comidas {comidas} de 4 · Vasos {vasos}'**
+  String alimSemanaDetalle(int comidas, int vasos);
+
+  /// No description provided for @alimCeldaComidas.
+  ///
+  /// In es, this message translates to:
+  /// **'Comidas: {n} de 4'**
+  String alimCeldaComidas(int n);
+
+  /// No description provided for @alimCeldaVasos.
+  ///
+  /// In es, this message translates to:
+  /// **'Vasos: {n}'**
+  String alimCeldaVasos(int n);
+
+  /// No description provided for @alimFormNueva.
+  ///
+  /// In es, this message translates to:
+  /// **'Anotar comida'**
+  String get alimFormNueva;
+
+  /// No description provided for @alimFormEditar.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar comida'**
+  String get alimFormEditar;
+
+  /// No description provided for @alimFormMomento.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuál'**
+  String get alimFormMomento;
+
+  /// No description provided for @alimFormCuanto.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuánto comió'**
+  String get alimFormCuanto;
+
+  /// No description provided for @alimFormDia.
+  ///
+  /// In es, this message translates to:
+  /// **'Día'**
+  String get alimFormDia;
+
+  /// No description provided for @alimFormHora.
+  ///
+  /// In es, this message translates to:
+  /// **'Hora'**
+  String get alimFormHora;
+
+  /// No description provided for @alimFormNota.
+  ///
+  /// In es, this message translates to:
+  /// **'Nota (opcional)'**
+  String get alimFormNota;
+
+  /// No description provided for @alimFormFoto.
+  ///
+  /// In es, this message translates to:
+  /// **'Foto (opcional)'**
+  String get alimFormFoto;
+
+  /// No description provided for @alimFormQuitarFoto.
+  ///
+  /// In es, this message translates to:
+  /// **'Quitar la foto'**
+  String get alimFormQuitarFoto;
+
+  /// No description provided for @alimFormAnotadaPor.
+  ///
+  /// In es, this message translates to:
+  /// **'Anotada por {nombre}'**
+  String alimFormAnotadaPor(String nombre);
+
+  /// No description provided for @alimBorrar.
+  ///
+  /// In es, this message translates to:
+  /// **'Borrar esta comida'**
+  String get alimBorrar;
+
+  /// No description provided for @alimBorrarTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Borrar esta comida?'**
+  String get alimBorrarTitulo;
+
+  /// No description provided for @alimBorrarTexto.
+  ///
+  /// In es, this message translates to:
+  /// **'Dejará de verse en todos los móviles de la familia.'**
+  String get alimBorrarTexto;
+
+  /// No description provided for @alimSemanticaFoto.
+  ///
+  /// In es, this message translates to:
+  /// **'Foto de la comida'**
+  String get alimSemanticaFoto;
 }
 
 class _AppLocalizationsDelegate

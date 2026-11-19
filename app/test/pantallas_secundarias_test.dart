@@ -35,9 +35,10 @@ const _casos = [
   ]),
   _Caso('Alimentación', '/familia/alimentacion', [
     'Alimentación',
-    'Lo que tendrá',
-    'Registro de comidas y de vasos de agua, con foto si se quiere.',
-    'Llega en la semana 14',
+    'Hoy',
+    'Semana',
+    'Desayuno',
+    'Anotar comida',
   ]),
   _Caso('Alarmas', '/familia/alarmas', [
     'Alarmas',

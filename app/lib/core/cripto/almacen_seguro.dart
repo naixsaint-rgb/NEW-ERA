@@ -21,6 +21,9 @@ abstract final class ClavesAlmacen {
 
   /// Aspecto de la familia: `automatico`, `claro`, `oscuro` u `horas`.
   static const aspecto = 'newera.aspecto';
+
+  /// Objetivo diario de vasos de agua de este móvil (un número).
+  static const objetivoVasos = 'newera.alimentacion.objetivo_vasos';
 }
 
 /// Almacén de secretos e identificadores del dispositivo.

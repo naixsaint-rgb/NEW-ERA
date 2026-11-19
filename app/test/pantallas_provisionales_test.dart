@@ -30,7 +30,13 @@ void main() {
     manejador.dispose();
   });
 
-  for (final ruta in ['/familia/ajustes', '/familia/mas', '/familia/resumen']) {
+  for (final ruta in [
+    '/familia/ajustes',
+    '/familia/mas',
+    '/familia/resumen',
+    '/familia/alimentacion',
+    '/familia/alimentacion/comida/nueva',
+  ]) {
     testWidgets('$ruta con el texto al 200 % no se rompe', (tester) async {
       final entorno = await tester.runAsync(
         () => prepararEntorno(perfil: PerfilApp.familia),

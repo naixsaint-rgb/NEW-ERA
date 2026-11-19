@@ -168,10 +168,6 @@ class AppLocalizationsEs extends AppLocalizations {
       'No se ha enviado ningún aviso en los últimos 7 días.';
 
   @override
-  String get alimentacionTendra =>
-      'Registro de comidas y de vasos de agua, con foto si se quiere.';
-
-  @override
   String get parteManana => 'Por la mañana';
 
   @override
@@ -2375,4 +2371,153 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get turnoBorrarTexto =>
       'Dejará de verse en el calendario de todos los móviles de la familia. Si se repite cada semana, se borran todas las semanas.';
+
+  @override
+  String get alimHoy => 'Hoy';
+
+  @override
+  String get alimSemana => 'Semana';
+
+  @override
+  String get alimMomentoDesayuno => 'Desayuno';
+
+  @override
+  String get alimMomentoComida => 'Comida';
+
+  @override
+  String get alimMomentoMerienda => 'Merienda';
+
+  @override
+  String get alimMomentoCena => 'Cena';
+
+  @override
+  String get alimMomentoOtro => 'Otra comida';
+
+  @override
+  String get alimCuantoTodo => 'Todo';
+
+  @override
+  String get alimCuantoMitad => 'La mitad';
+
+  @override
+  String get alimCuantoPoco => 'Poco';
+
+  @override
+  String get alimCuantoNada => 'Nada';
+
+  @override
+  String get alimSinAnotar => 'Sin anotar';
+
+  @override
+  String alimFilaDetalle(String hora, String cuanto) {
+    return '$hora · $cuanto';
+  }
+
+  @override
+  String alimFilaConNota(String hora, String cuanto, String nota) {
+    return '$hora · $cuanto · $nota';
+  }
+
+  @override
+  String get alimAnotarComida => 'Anotar comida';
+
+  @override
+  String get alimComidasTitulo => 'Comidas';
+
+  @override
+  String get alimAguaTitulo => 'Agua';
+
+  @override
+  String alimVasosDeObjetivo(int n, int objetivo) {
+    return '$n de $objetivo vasos';
+  }
+
+  @override
+  String get alimSumarVaso => 'Sumar un vaso';
+
+  @override
+  String get alimRestarVaso => 'Quitar un vaso';
+
+  @override
+  String get alimObjetivo => 'Objetivo diario';
+
+  @override
+  String alimObjetivoValor(int n) {
+    return '$n vasos';
+  }
+
+  @override
+  String get alimObjetivoSubir => 'Subir el objetivo';
+
+  @override
+  String get alimObjetivoBajar => 'Bajar el objetivo';
+
+  @override
+  String get alimAguaPie =>
+      'Es un contador de la familia: cada vaso lo apunta quien lo da. No es un consejo de salud.';
+
+  @override
+  String alimResumenFila(int comidas, int vasos) {
+    return 'Comidas de hoy: $comidas de 4 · Vasos: $vasos';
+  }
+
+  @override
+  String alimSemanaDetalle(int comidas, int vasos) {
+    return 'Comidas $comidas de 4 · Vasos $vasos';
+  }
+
+  @override
+  String alimCeldaComidas(int n) {
+    return 'Comidas: $n de 4';
+  }
+
+  @override
+  String alimCeldaVasos(int n) {
+    return 'Vasos: $n';
+  }
+
+  @override
+  String get alimFormNueva => 'Anotar comida';
+
+  @override
+  String get alimFormEditar => 'Editar comida';
+
+  @override
+  String get alimFormMomento => 'Cuál';
+
+  @override
+  String get alimFormCuanto => 'Cuánto comió';
+
+  @override
+  String get alimFormDia => 'Día';
+
+  @override
+  String get alimFormHora => 'Hora';
+
+  @override
+  String get alimFormNota => 'Nota (opcional)';
+
+  @override
+  String get alimFormFoto => 'Foto (opcional)';
+
+  @override
+  String get alimFormQuitarFoto => 'Quitar la foto';
+
+  @override
+  String alimFormAnotadaPor(String nombre) {
+    return 'Anotada por $nombre';
+  }
+
+  @override
+  String get alimBorrar => 'Borrar esta comida';
+
+  @override
+  String get alimBorrarTitulo => '¿Borrar esta comida?';
+
+  @override
+  String get alimBorrarTexto =>
+      'Dejará de verse en todos los móviles de la familia.';
+
+  @override
+  String get alimSemanticaFoto => 'Foto de la comida';
 }

@@ -10,6 +10,7 @@ import 'contexto.dart';
 import 'cripto/almacen_seguro.dart';
 import 'db/base_datos.dart';
 import 'db/repositorios/agenda_repositorio.dart';
+import 'db/repositorios/alimentacion_repositorio.dart';
 import 'db/repositorios/circulo_repositorio.dart';
 import 'db/repositorios/control_horas_repositorio.dart';
 import 'db/repositorios/eventos_repositorio.dart';
@@ -217,6 +218,19 @@ final agendaRepositorioProvider = Provider<AgendaRepositorio>((ref) {
     reloj: ref.watch(relojProvider),
     contexto: ref.watch(contextoProvider),
     eventos: ref.watch(eventosRepositorioProvider),
+    autor: () => autorActual(ref),
+  );
+});
+
+final alimentacionRepositorioProvider = Provider<AlimentacionRepositorio>((
+  ref,
+) {
+  return AlimentacionRepositorio(
+    db: ref.watch(baseDatosProvider),
+    reloj: ref.watch(relojProvider),
+    contexto: ref.watch(contextoProvider),
+    eventos: ref.watch(eventosRepositorioProvider),
+    circulo: ref.watch(circuloRepositorioProvider),
     autor: () => autorActual(ref),
   );
 });

@@ -297,6 +297,9 @@ class Comidas extends Table {
   IntColumn get ocurridaEn => integer()();
   TextColumn get registradaPor => text()();
 
+  /// Esquema 7: baja lógica (borrar una comida anotada por error).
+  IntColumn get bajaEn => integer().nullable()();
+
   @override
   Set<Column> get primaryKey => {id};
 }
@@ -308,6 +311,9 @@ class Hidrataciones extends Table {
   IntColumn get vasos => integer().withDefault(const Constant(1))();
   IntColumn get ocurridaEn => integer()();
   TextColumn get registradaPor => text()();
+
+  /// Esquema 7: baja lógica (restar un vaso da de baja el último del día).
+  IntColumn get bajaEn => integer().nullable()();
 
   @override
   Set<Column> get primaryKey => {id};

@@ -16,7 +16,8 @@ import 'foto_para_sobre.dart';
 /// ajustes del control por horas (`ajustes_control`) son una fila por
 /// círculo con el id del círculo. Las citas y los turnos de la familia son
 /// filas con baja lógica (`baja_en`); el turno semanal viaja como una sola
-/// regla.
+/// regla. Las comidas y los vasos de agua de la persona también llevan baja
+/// lógica; cada vaso es una fila.
 enum TipoFicha {
   persona('persona'),
   miembro('miembro'),
@@ -28,7 +29,9 @@ enum TipoFicha {
   frase('frase'),
   ajustesControl('ajustes_control'),
   cita('cita'),
-  turno('turno');
+  turno('turno'),
+  comida('comida'),
+  hidratacion('hidratacion');
 
   const TipoFicha(this.nombre);
   final String nombre;
@@ -185,6 +188,27 @@ abstract final class FilasFicha {
     'baja_en': t.bajaEn,
   };
 
+  static Map<String, Object?> comida(Comida c) => {
+    'id': c.id,
+    'persona_id': c.personaId,
+    'momento': c.momento,
+    'cuanto': c.cuanto,
+    'foto_id': c.fotoId,
+    'nota': c.nota,
+    'ocurrida_en': c.ocurridaEn,
+    'registrada_por': c.registradaPor,
+    'baja_en': c.bajaEn,
+  };
+
+  static Map<String, Object?> hidratacion(Hidratacion h) => {
+    'id': h.id,
+    'persona_id': h.personaId,
+    'vasos': h.vasos,
+    'ocurrida_en': h.ocurridaEn,
+    'registrada_por': h.registradaPor,
+    'baja_en': h.bajaEn,
+  };
+
   /// Tope del audio de una frase dentro de un sobre: el mismo que el de las
   /// fotos (va en base64 dentro del evento; ver `FotoParaSobre`). A
   /// 32 kbps, 8 s son unos 34 KB.
@@ -196,6 +220,7 @@ abstract final class FilasFicha {
     TipoFicha.miembro: ['foto_id'],
     TipoFicha.medicamento: ['foto_caja_id', 'foto_pastilla_id'],
     TipoFicha.consentimiento: ['documento_foto_id'],
+    TipoFicha.comida: ['foto_id'],
   };
 }
 
@@ -257,7 +282,7 @@ final class PublicadorFichas {
   /// Publica las fichas que aún no tienen `ficha_creada` (las de antes del
   /// emparejamiento): fotos, persona, familiares, consentimientos de voz,
   /// voces, frases aprobadas, medicamentos, pautas y ajustes del control por
-  /// horas, citas y turnos, en ese orden para que al otro lado existan las referencias. En un círculo que vino de fuera, la
+  /// horas, citas, turnos, comidas y vasos, en ese orden para que al otro lado existan las referencias. En un círculo que vino de fuera, la
   /// persona sin ficha es la provisional: no se publica. Devuelve cuántas
   /// publicó.
   Future<int> pendientes() => _db.transaction(() async {
@@ -297,10 +322,21 @@ final class PublicadorFichas {
               ]))
             .get();
 
+    final comidas =
+        await (_db.select(_db.comidas)
+              ..where((c) => c.personaId.isIn([for (final p in personas) p.id]))
+              ..orderBy([(c) => OrderingTerm.asc(c.ocurridaEn)]))
+            .get();
+    final vasos =
+        await (_db.select(_db.hidrataciones)
+              ..where((h) => h.personaId.isIn([for (final p in personas) p.id]))
+              ..orderBy([(h) => OrderingTerm.asc(h.ocurridaEn)]))
+            .get();
     for (final id in [
       for (final p in personas) p.fotoId,
       for (final m in miembros) m.fotoId,
       for (final m in medicamentos) ...[m.fotoCajaId, m.fotoPastillaId],
+      for (final c in comidas) c.fotoId,
     ]) {
       await una(TipoFicha.foto, id);
     }
@@ -369,6 +405,12 @@ final class PublicadorFichas {
             .get();
     for (final t in turnos) {
       await una(TipoFicha.turno, t.id);
+    }
+    for (final c in comidas) {
+      await una(TipoFicha.comida, c.id);
+    }
+    for (final h in vasos) {
+      await una(TipoFicha.hidratacion, h.id);
     }
     return n;
   });
@@ -470,6 +512,18 @@ final class PublicadorFichas {
         )..where((t) => t.id.equals(id))).getSingleOrNull();
         if (x == null) return null;
         fila = FilasFicha.turno(x);
+      case TipoFicha.comida:
+        final x = await (_db.select(
+          _db.comidas,
+        )..where((t) => t.id.equals(id))).getSingleOrNull();
+        if (x == null) return null;
+        fila = FilasFicha.comida(x);
+      case TipoFicha.hidratacion:
+        final x = await (_db.select(
+          _db.hidrataciones,
+        )..where((t) => t.id.equals(id))).getSingleOrNull();
+        if (x == null) return null;
+        fila = FilasFicha.hidratacion(x);
     }
     for (final columna in FilasFicha.columnasFoto[tipo] ?? const <String>[]) {
       final fotoId = fila[columna];
@@ -576,6 +630,9 @@ final class _Campos {
 /// - Citas y turnos: filas con baja lógica; modificar o borrar es una
 ///   `ficha_modificada` con la fila entera y gana la más reciente. Esperan a
 ///   su familiar (el que acompaña, el del turno) si aún no ha llegado.
+/// - Comidas y vasos de agua: igual que las citas (baja lógica, gana la más
+///   reciente). Esperan a la persona; la foto de la comida, si falta, se
+///   completa cuando llegue.
 /// - Nunca lanza: un sobre raro no puede atascar la recepción.
 final class MaterializadorFichas {
   MaterializadorFichas(this._db, this._contexto, [this._archivos]);
@@ -718,6 +775,8 @@ final class MaterializadorFichas {
       TipoFicha.ajustesControl => _ajustesControl(id, c),
       TipoFicha.cita => _cita(e, id, c, creada),
       TipoFicha.turno => _turno(e, id, c, creada),
+      TipoFicha.comida => _comida(e, id, c, creada, soloFotos),
+      TipoFicha.hidratacion => _hidratacion(e, id, c, creada),
     };
   }
 
@@ -957,6 +1016,104 @@ final class MaterializadorFichas {
       },
     );
   }
+
+  Future<_Resultado> _comida(
+    Evento e,
+    String id,
+    _Campos c,
+    bool creada,
+    bool soloFotos,
+  ) async {
+    final persona = c.txt('persona_id');
+    final foto = c.txtONulo('foto_id');
+    final fila = ComidasCompanion(
+      id: Value(id),
+      personaId: Value(persona),
+      momento: Value(c.txt('momento')),
+      cuanto: Value(c.txt('cuanto')),
+      nota: Value(c.txtONulo('nota')),
+      ocurridaEn: Value(c.ent('ocurrida_en')),
+      registradaPor: Value(c.txt('registrada_por')),
+      bajaEn: Value(c.entONulo('baja_en')),
+    );
+    if (!c.valida ||
+        persona != _contexto.personaId ||
+        !_momentosFicha.contains(fila.momento.value) ||
+        !_cuantosFicha.contains(fila.cuanto.value)) {
+      return _Resultado.descartada;
+    }
+    return _mutable(
+      e: e,
+      tabla: _db.comidas,
+      id: id,
+      creada: creada,
+      soloFotos: soloFotos,
+      fotos: {'foto_id': foto},
+      requisitos: () => _existe(_db.personas, persona),
+      guardar: (insertar, faltan) async {
+        final completa = fila.copyWith(
+          fotoId: Value(faltan.contains('foto_id') ? null : foto),
+        );
+        if (insertar) {
+          await _db.into(_db.comidas).insert(completa);
+        } else {
+          await (_db.update(
+            _db.comidas,
+          )..where((t) => t.id.equals(id))).write(completa);
+        }
+      },
+    );
+  }
+
+  Future<_Resultado> _hidratacion(
+    Evento e,
+    String id,
+    _Campos c,
+    bool creada,
+  ) async {
+    final persona = c.txt('persona_id');
+    final fila = HidratacionesCompanion(
+      id: Value(id),
+      personaId: Value(persona),
+      vasos: Value(c.ent('vasos')),
+      ocurridaEn: Value(c.ent('ocurrida_en')),
+      registradaPor: Value(c.txt('registrada_por')),
+      bajaEn: Value(c.entONulo('baja_en')),
+    );
+    if (!c.valida ||
+        persona != _contexto.personaId ||
+        fila.vasos.value < 1 ||
+        fila.vasos.value > 20) {
+      return _Resultado.descartada;
+    }
+    return _mutable(
+      e: e,
+      tabla: _db.hidrataciones,
+      id: id,
+      creada: creada,
+      soloFotos: false,
+      fotos: const {},
+      requisitos: () => _existe(_db.personas, persona),
+      guardar: (insertar, faltan) async {
+        if (insertar) {
+          await _db.into(_db.hidrataciones).insert(fila);
+        } else {
+          await (_db.update(
+            _db.hidrataciones,
+          )..where((t) => t.id.equals(id))).write(fila);
+        }
+      },
+    );
+  }
+
+  static const _momentosFicha = {
+    'desayuno',
+    'comida',
+    'merienda',
+    'cena',
+    'otro',
+  };
+  static const _cuantosFicha = {'todo', 'mitad', 'poco', 'nada'};
 
   Future<_Resultado> _voz(Evento e, String id, _Campos c, bool creada) async {
     final miembro = c.txt('miembro_id');

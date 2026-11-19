@@ -21,6 +21,7 @@ import '../hoy/dominio/control_horas.dart';
 import '../hoy/dominio/tomas.dart'
     show MotivoSemaforo, NivelSemaforo, diaLocal, esDeOtroDia, estaPendiente;
 import '../hoy/hoy_pantalla.dart' show TextoQueCabe, nombresAutoresProvider;
+import '../alimentacion/dominio/alimentacion.dart';
 import 'dominio/resumen.dart';
 
 /// Radio de las tarjetas destacadas de Resumen.
@@ -127,6 +128,8 @@ class _Contenido extends ConsumerWidget {
         ),
         const SizedBox(height: 14),
         const _FilaReloj(),
+        const SizedBox(height: 14),
+        const _FilaAlimentacion(),
         const SizedBox(height: 14),
         _TarjetaProximaToma(datos: datos, zona: zona),
         const SizedBox(height: 14),
@@ -599,6 +602,28 @@ class _FilaReloj extends StatelessWidget {
           titulo: l.resumenRelojLlega,
           subtitulo: l.llegaEnSemana(6),
           apagada: true,
+        ),
+      ],
+    );
+  }
+}
+
+/// «Comidas de hoy: N de 4 · Vasos: N»; lleva a Alimentación.
+class _FilaAlimentacion extends ConsumerWidget {
+  const _FilaAlimentacion();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = context.l;
+    final dia = ref.watch(alimentacionHoyProvider).value;
+    if (dia == null) return const SizedBox.shrink();
+    return GrupoLista(
+      children: [
+        FilaLista(
+          key: ClavesUi.resumenAlimentacion,
+          leading: const IconoCuadrado(Icons.restaurant),
+          titulo: l.alimResumenFila(dia.principalesAnotadas, dia.vasos),
+          onTap: () => context.go(Rutas.pestana('alimentacion')),
         ),
       ],
     );

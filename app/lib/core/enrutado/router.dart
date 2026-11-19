@@ -6,6 +6,7 @@ import '../../features/alarmas/alarmas_pantalla.dart';
 import '../../features/alarmas/control_horas_pantalla.dart';
 import '../../features/ajustes/ajustes_pantalla.dart';
 import '../../features/alimentacion/alimentacion_pantalla.dart';
+import '../../features/alimentacion/comida_form_pantalla.dart';
 import '../../features/calendario/calendario_pantalla.dart';
 import '../../features/catalogo/catalogo_pantalla.dart';
 import '../../features/catalogo/dosier_pantalla.dart';
@@ -256,7 +257,25 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
           StatefulShellBranch(
             routes: [
-              pestana('alimentacion', () => const AlimentacionPantalla()),
+              pestana(
+                'alimentacion',
+                () => const AlimentacionPantalla(),
+                rutas: [
+                  GoRoute(
+                    path: 'comida/nueva',
+                    builder: (_, state) => ComidaFormPantalla(
+                      momento: state.uri.queryParameters['momento'],
+                      fecha: state.uri.queryParameters['fecha'],
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'comida/:comidaId',
+                    builder: (_, state) => ComidaFormPantalla(
+                      comidaId: state.pathParameters['comidaId'],
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
           StatefulShellBranch(

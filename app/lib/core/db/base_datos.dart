@@ -14,8 +14,6 @@ const tablasDeHechos = <String>[
   'preguntas_control',
   'respuestas',
   'consentimientos',
-  'comidas',
-  'hidrataciones',
 ];
 
 @DriftDatabase(
@@ -53,9 +51,11 @@ class AppDatabase extends _$AppDatabase {
   /// los clips (`clips_pendientes`). 4: ajustes del control por horas
   /// (`ajustes_control_horas`). 5: baja lógica de los familiares
   /// (`miembros.baja_en`). 6: citas y turnos de la familia (`citas`,
-  /// `turnos`).
+  /// `turnos`). 7: comidas y vasos de agua pasan a fichas con baja lógica
+  /// (`comidas.baja_en`, `hidrataciones.baja_en`): dejan de ser de solo
+  /// inserción.
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 7;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -90,6 +90,16 @@ class AppDatabase extends _$AppDatabase {
       if (from < 6) {
         await m.createTable(citas);
         await m.createTable(turnos);
+      }
+      if (from < 7) {
+        await m.addColumn(comidas, comidas.bajaEn);
+        await m.addColumn(hidrataciones, hidrataciones.bajaEn);
+        // Antes eran hechos de solo inserción; ahora se corrigen y se dan de
+        // baja como el resto de fichas.
+        for (final t in ['comidas', 'hidrataciones']) {
+          await customStatement('DROP TRIGGER IF EXISTS ${t}_no_update');
+          await customStatement('DROP TRIGGER IF EXISTS ${t}_no_delete');
+        }
       }
     },
     beforeOpen: (details) async {

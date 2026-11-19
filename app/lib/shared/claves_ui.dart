@@ -212,4 +212,49 @@ abstract final class ClavesUi {
   /// Hoy y Mañana: fila de una cita y "Hoy está con ella".
   static const hoyCita = ValueKey<String>('hoy_cita');
   static const hoyEstaConElla = ValueKey<String>('hoy_esta_con_ella');
+
+  // ------------------------------------------------------------ Alimentación
+
+  static const pantallaAlimentacion = ValueKey<String>('pantalla_alimentacion');
+
+  /// Segmento Hoy / Semana de Alimentación (`hoy`, `semana`).
+  static ValueKey<String> alimVista(String valor) =>
+      ValueKey<String>('alim_vista_$valor');
+
+  /// Fila de un momento sin comida anotada (`desayuno`…) y fila de una
+  /// comida anotada (por id).
+  static ValueKey<String> alimFila(String momento) =>
+      ValueKey<String>('alim_fila_$momento');
+  static ValueKey<String> alimComida(String id) =>
+      ValueKey<String>('alim_comida_$id');
+
+  static const alimAnotar = ValueKey<String>('alim_anotar');
+  static const alimVasoMas = ValueKey<String>('alim_vaso_mas');
+  static const alimVasoMenos = ValueKey<String>('alim_vaso_menos');
+  static const alimVasosTexto = ValueKey<String>('alim_vasos_texto');
+  static const alimObjetivoMas = ValueKey<String>('alim_objetivo_mas');
+  static const alimObjetivoMenos = ValueKey<String>('alim_objetivo_menos');
+  static const alimObjetivoTexto = ValueKey<String>('alim_objetivo_texto');
+
+  /// Día de la vista Semana (`yyyy-MM-dd`).
+  static ValueKey<String> alimDia(String fecha) =>
+      ValueKey<String>('alim_dia_$fecha');
+
+  /// Fila de Alimentación en Resumen.
+  static const resumenAlimentacion = ValueKey<String>('resumen_alimentacion');
+
+  /// Formulario de comida.
+  static ValueKey<String> alimMomento(String valor) =>
+      ValueKey<String>('alim_momento_$valor');
+  static ValueKey<String> alimCuanto(String valor) =>
+      ValueKey<String>('alim_cuanto_$valor');
+  static const alimNota = ValueKey<String>('alim_nota');
+  static const alimFecha = ValueKey<String>('alim_fecha');
+  static const alimHora = ValueKey<String>('alim_hora');
+  static const alimFotoHacer = ValueKey<String>('alim_foto_hacer');
+  static const alimFotoElegir = ValueKey<String>('alim_foto_elegir');
+  static const alimFotoQuitar = ValueKey<String>('alim_foto_quitar');
+  static const alimGuardar = ValueKey<String>('alim_guardar');
+  static const alimBorrar = ValueKey<String>('alim_borrar');
+  static const alimBorrarConfirmar = ValueKey<String>('alim_borrar_confirmar');
 }

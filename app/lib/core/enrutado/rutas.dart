@@ -104,4 +104,18 @@ abstract final class Rutas {
       '/familia/calendario/turno/nuevo?fecha=${Uri.encodeQueryComponent(fecha)}';
   static String turno(String id) =>
       '/familia/calendario/turno/${Uri.encodeComponent(id)}';
+
+  /// Alimentación › anotar una comida (con [momento] y [fecha] ya elegidos,
+  /// si se vienen de una fila o de un día) o editar una existente.
+  static String comidaNueva({String? momento, String? fecha}) {
+    final q = [
+      if (momento != null) 'momento=${Uri.encodeQueryComponent(momento)}',
+      if (fecha != null) 'fecha=${Uri.encodeQueryComponent(fecha)}',
+    ];
+    const base = '/familia/alimentacion/comida/nueva';
+    return q.isEmpty ? base : '$base?${q.join('&')}';
+  }
+
+  static String comida(String id) =>
+      '/familia/alimentacion/comida/${Uri.encodeComponent(id)}';
 }

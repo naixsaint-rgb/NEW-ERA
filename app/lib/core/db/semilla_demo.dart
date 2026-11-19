@@ -10,6 +10,7 @@ import '../sync/fichas.dart';
 import 'base_datos.dart';
 import 'png_marcador.dart';
 import 'repositorios/agenda_repositorio.dart';
+import 'repositorios/alimentacion_repositorio.dart';
 import 'repositorios/circulo_repositorio.dart';
 import 'repositorios/control_horas_repositorio.dart';
 import 'repositorios/eventos_repositorio.dart';
@@ -155,6 +156,15 @@ abstract final class SemillaDemo {
       turno: marta,
     );
 
+    await _sembrarAlimentacion(
+      db: db,
+      contexto: contexto,
+      reloj: reloj,
+      eventos: eventos,
+      circulo: circulo,
+      autor: lucia,
+    );
+
     // Medicamentos con fotos de marcador.
     final desde = ahora.subtract(const Duration(days: 3));
     FotoNueva pastilla(String forma, int color) => FotoNueva(
@@ -282,6 +292,50 @@ abstract final class SemillaDemo {
         eventos: eventos,
         familiar: lucia,
       );
+    }
+  }
+
+  /// Dos comidas de hoy (el desayuno, entero, y la comida, a medias) y tres
+  /// vasos de agua. Las horas no pasan de «ahora» ni de las 00:00 de hoy.
+  static Future<void> _sembrarAlimentacion({
+    required AppDatabase db,
+    required ContextoApp contexto,
+    required Reloj reloj,
+    required EventosRepositorio eventos,
+    required CirculoRepositorio circulo,
+    required String autor,
+  }) async {
+    final repo = AlimentacionRepositorio(
+      db: db,
+      reloj: reloj,
+      contexto: contexto,
+      eventos: eventos,
+      circulo: circulo,
+      autor: () => autor,
+    );
+    final ahora = reloj.ahora();
+    final zona = contexto.zonaHoraria;
+    final hoy = fechaLocalDe(zona, ahora);
+    final inicio = inicioDelDia(ahora, zona);
+    DateTime a(int hora, int minuto) {
+      final t = horaLocalAUtc(zona, hoy.anio, hoy.mes, hoy.dia, hora, minuto);
+      if (t.isAfter(ahora)) return ahora;
+      return t.isBefore(inicio) ? inicio : t;
+    }
+
+    await repo.crearComida(
+      DatosComida(momento: MomentoComida.desayuno, ocurridaEn: a(9, 0)),
+    );
+    await repo.crearComida(
+      DatosComida(
+        momento: MomentoComida.comida,
+        cuanto: CuantoComio.mitad,
+        ocurridaEn: a(11, 30),
+        nota: 'Comida de ejemplo',
+      ),
+    );
+    for (final (h, m) in [(9, 10), (10, 40), (11, 20)]) {
+      await repo.anotarVasoEn(a(h, m));
     }
   }
 

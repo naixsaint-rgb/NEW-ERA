@@ -79,7 +79,6 @@
   "alarmasUltimosAvisos": "Últimos avisos enviados",
   "alarmasUltimosPie": "De los últimos 7 días, del más reciente al más antiguo.",
   "alarmasSinAvisos": "No se ha enviado ningún aviso en los últimos 7 días.",
-  "alimentacionTendra": "Registro de comidas y de vasos de agua, con foto si se quiere.",
   "parteManana": "Por la mañana",
   "parteTarde": "Por la tarde",
   "parteNoche": "Por la noche",
@@ -1824,5 +1823,129 @@
   "turnoErrorHoras": "Elige una hora de fin distinta de la de inicio.",
   "turnoBorrar": "Borrar turno",
   "turnoBorrarTitulo": "¿Borrar este turno?",
-  "turnoBorrarTexto": "Dejará de verse en el calendario de todos los móviles de la familia. Si se repite cada semana, se borran todas las semanas."
+  "turnoBorrarTexto": "Dejará de verse en el calendario de todos los móviles de la familia. Si se repite cada semana, se borran todas las semanas.",
+  "alimHoy": "Hoy",
+  "alimSemana": "Semana",
+  "alimMomentoDesayuno": "Desayuno",
+  "alimMomentoComida": "Comida",
+  "alimMomentoMerienda": "Merienda",
+  "alimMomentoCena": "Cena",
+  "alimMomentoOtro": "Otra comida",
+  "alimCuantoTodo": "Todo",
+  "alimCuantoMitad": "La mitad",
+  "alimCuantoPoco": "Poco",
+  "alimCuantoNada": "Nada",
+  "alimSinAnotar": "Sin anotar",
+  "alimFilaDetalle": "{hora} · {cuanto}",
+  "@alimFilaDetalle": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      },
+      "cuanto": {
+        "type": "String"
+      }
+    }
+  },
+  "alimFilaConNota": "{hora} · {cuanto} · {nota}",
+  "@alimFilaConNota": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      },
+      "cuanto": {
+        "type": "String"
+      },
+      "nota": {
+        "type": "String"
+      }
+    }
+  },
+  "alimAnotarComida": "Anotar comida",
+  "alimComidasTitulo": "Comidas",
+  "alimAguaTitulo": "Agua",
+  "alimVasosDeObjetivo": "{n} de {objetivo} vasos",
+  "@alimVasosDeObjetivo": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "objetivo": {
+        "type": "int"
+      }
+    }
+  },
+  "alimSumarVaso": "Sumar un vaso",
+  "alimRestarVaso": "Quitar un vaso",
+  "alimObjetivo": "Objetivo diario",
+  "alimObjetivoValor": "{n} vasos",
+  "@alimObjetivoValor": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "alimObjetivoSubir": "Subir el objetivo",
+  "alimObjetivoBajar": "Bajar el objetivo",
+  "alimAguaPie": "Es un contador de la familia: cada vaso lo apunta quien lo da. No es un consejo de salud.",
+  "alimResumenFila": "Comidas de hoy: {comidas} de 4 · Vasos: {vasos}",
+  "@alimResumenFila": {
+    "placeholders": {
+      "comidas": {
+        "type": "int"
+      },
+      "vasos": {
+        "type": "int"
+      }
+    }
+  },
+  "alimSemanaDetalle": "Comidas {comidas} de 4 · Vasos {vasos}",
+  "@alimSemanaDetalle": {
+    "placeholders": {
+      "comidas": {
+        "type": "int"
+      },
+      "vasos": {
+        "type": "int"
+      }
+    }
+  },
+  "alimCeldaComidas": "Comidas: {n} de 4",
+  "@alimCeldaComidas": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "alimCeldaVasos": "Vasos: {n}",
+  "@alimCeldaVasos": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "alimFormNueva": "Anotar comida",
+  "alimFormEditar": "Editar comida",
+  "alimFormMomento": "Cuál",
+  "alimFormCuanto": "Cuánto comió",
+  "alimFormDia": "Día",
+  "alimFormHora": "Hora",
+  "alimFormNota": "Nota (opcional)",
+  "alimFormFoto": "Foto (opcional)",
+  "alimFormQuitarFoto": "Quitar la foto",
+  "alimFormAnotadaPor": "Anotada por {nombre}",
+  "@alimFormAnotadaPor": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "alimBorrar": "Borrar esta comida",
+  "alimBorrarTitulo": "¿Borrar esta comida?",
+  "alimBorrarTexto": "Dejará de verse en todos los móviles de la familia.",
+  "alimSemanticaFoto": "Foto de la comida"
 }

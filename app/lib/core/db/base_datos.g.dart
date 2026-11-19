@@ -8037,6 +8037,15 @@ class $ComidasTable extends Comidas with TableInfo<$ComidasTable, Comida> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _bajaEnMeta = const VerificationMeta('bajaEn');
+  @override
+  late final GeneratedColumn<int> bajaEn = GeneratedColumn<int>(
+    'baja_en',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -8047,6 +8056,7 @@ class $ComidasTable extends Comidas with TableInfo<$ComidasTable, Comida> {
     nota,
     ocurridaEn,
     registradaPor,
+    bajaEn,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -8120,6 +8130,12 @@ class $ComidasTable extends Comidas with TableInfo<$ComidasTable, Comida> {
     } else if (isInserting) {
       context.missing(_registradaPorMeta);
     }
+    if (data.containsKey('baja_en')) {
+      context.handle(
+        _bajaEnMeta,
+        bajaEn.isAcceptableOrUnknown(data['baja_en']!, _bajaEnMeta),
+      );
+    }
     return context;
   }
 
@@ -8161,6 +8177,10 @@ class $ComidasTable extends Comidas with TableInfo<$ComidasTable, Comida> {
         DriftSqlType.string,
         data['${effectivePrefix}registrada_por'],
       )!,
+      bajaEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}baja_en'],
+      ),
     );
   }
 
@@ -8183,6 +8203,9 @@ class Comida extends DataClass implements Insertable<Comida> {
   final String? nota;
   final int ocurridaEn;
   final String registradaPor;
+
+  /// Esquema 7: baja lógica (borrar una comida anotada por error).
+  final int? bajaEn;
   const Comida({
     required this.id,
     required this.personaId,
@@ -8192,6 +8215,7 @@ class Comida extends DataClass implements Insertable<Comida> {
     this.nota,
     required this.ocurridaEn,
     required this.registradaPor,
+    this.bajaEn,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -8208,6 +8232,9 @@ class Comida extends DataClass implements Insertable<Comida> {
     }
     map['ocurrida_en'] = Variable<int>(ocurridaEn);
     map['registrada_por'] = Variable<String>(registradaPor);
+    if (!nullToAbsent || bajaEn != null) {
+      map['baja_en'] = Variable<int>(bajaEn);
+    }
     return map;
   }
 
@@ -8223,6 +8250,9 @@ class Comida extends DataClass implements Insertable<Comida> {
       nota: nota == null && nullToAbsent ? const Value.absent() : Value(nota),
       ocurridaEn: Value(ocurridaEn),
       registradaPor: Value(registradaPor),
+      bajaEn: bajaEn == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bajaEn),
     );
   }
 
@@ -8240,6 +8270,7 @@ class Comida extends DataClass implements Insertable<Comida> {
       nota: serializer.fromJson<String?>(json['nota']),
       ocurridaEn: serializer.fromJson<int>(json['ocurridaEn']),
       registradaPor: serializer.fromJson<String>(json['registradaPor']),
+      bajaEn: serializer.fromJson<int?>(json['bajaEn']),
     );
   }
   @override
@@ -8254,6 +8285,7 @@ class Comida extends DataClass implements Insertable<Comida> {
       'nota': serializer.toJson<String?>(nota),
       'ocurridaEn': serializer.toJson<int>(ocurridaEn),
       'registradaPor': serializer.toJson<String>(registradaPor),
+      'bajaEn': serializer.toJson<int?>(bajaEn),
     };
   }
 
@@ -8266,6 +8298,7 @@ class Comida extends DataClass implements Insertable<Comida> {
     Value<String?> nota = const Value.absent(),
     int? ocurridaEn,
     String? registradaPor,
+    Value<int?> bajaEn = const Value.absent(),
   }) => Comida(
     id: id ?? this.id,
     personaId: personaId ?? this.personaId,
@@ -8275,6 +8308,7 @@ class Comida extends DataClass implements Insertable<Comida> {
     nota: nota.present ? nota.value : this.nota,
     ocurridaEn: ocurridaEn ?? this.ocurridaEn,
     registradaPor: registradaPor ?? this.registradaPor,
+    bajaEn: bajaEn.present ? bajaEn.value : this.bajaEn,
   );
   Comida copyWithCompanion(ComidasCompanion data) {
     return Comida(
@@ -8290,6 +8324,7 @@ class Comida extends DataClass implements Insertable<Comida> {
       registradaPor: data.registradaPor.present
           ? data.registradaPor.value
           : this.registradaPor,
+      bajaEn: data.bajaEn.present ? data.bajaEn.value : this.bajaEn,
     );
   }
 
@@ -8303,7 +8338,8 @@ class Comida extends DataClass implements Insertable<Comida> {
           ..write('fotoId: $fotoId, ')
           ..write('nota: $nota, ')
           ..write('ocurridaEn: $ocurridaEn, ')
-          ..write('registradaPor: $registradaPor')
+          ..write('registradaPor: $registradaPor, ')
+          ..write('bajaEn: $bajaEn')
           ..write(')'))
         .toString();
   }
@@ -8318,6 +8354,7 @@ class Comida extends DataClass implements Insertable<Comida> {
     nota,
     ocurridaEn,
     registradaPor,
+    bajaEn,
   );
   @override
   bool operator ==(Object other) =>
@@ -8330,7 +8367,8 @@ class Comida extends DataClass implements Insertable<Comida> {
           other.fotoId == this.fotoId &&
           other.nota == this.nota &&
           other.ocurridaEn == this.ocurridaEn &&
-          other.registradaPor == this.registradaPor);
+          other.registradaPor == this.registradaPor &&
+          other.bajaEn == this.bajaEn);
 }
 
 class ComidasCompanion extends UpdateCompanion<Comida> {
@@ -8342,6 +8380,7 @@ class ComidasCompanion extends UpdateCompanion<Comida> {
   final Value<String?> nota;
   final Value<int> ocurridaEn;
   final Value<String> registradaPor;
+  final Value<int?> bajaEn;
   final Value<int> rowid;
   const ComidasCompanion({
     this.id = const Value.absent(),
@@ -8352,6 +8391,7 @@ class ComidasCompanion extends UpdateCompanion<Comida> {
     this.nota = const Value.absent(),
     this.ocurridaEn = const Value.absent(),
     this.registradaPor = const Value.absent(),
+    this.bajaEn = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   ComidasCompanion.insert({
@@ -8363,6 +8403,7 @@ class ComidasCompanion extends UpdateCompanion<Comida> {
     this.nota = const Value.absent(),
     required int ocurridaEn,
     required String registradaPor,
+    this.bajaEn = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        personaId = Value(personaId),
@@ -8379,6 +8420,7 @@ class ComidasCompanion extends UpdateCompanion<Comida> {
     Expression<String>? nota,
     Expression<int>? ocurridaEn,
     Expression<String>? registradaPor,
+    Expression<int>? bajaEn,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -8390,6 +8432,7 @@ class ComidasCompanion extends UpdateCompanion<Comida> {
       if (nota != null) 'nota': nota,
       if (ocurridaEn != null) 'ocurrida_en': ocurridaEn,
       if (registradaPor != null) 'registrada_por': registradaPor,
+      if (bajaEn != null) 'baja_en': bajaEn,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -8403,6 +8446,7 @@ class ComidasCompanion extends UpdateCompanion<Comida> {
     Value<String?>? nota,
     Value<int>? ocurridaEn,
     Value<String>? registradaPor,
+    Value<int?>? bajaEn,
     Value<int>? rowid,
   }) {
     return ComidasCompanion(
@@ -8414,6 +8458,7 @@ class ComidasCompanion extends UpdateCompanion<Comida> {
       nota: nota ?? this.nota,
       ocurridaEn: ocurridaEn ?? this.ocurridaEn,
       registradaPor: registradaPor ?? this.registradaPor,
+      bajaEn: bajaEn ?? this.bajaEn,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -8445,6 +8490,9 @@ class ComidasCompanion extends UpdateCompanion<Comida> {
     if (registradaPor.present) {
       map['registrada_por'] = Variable<String>(registradaPor.value);
     }
+    if (bajaEn.present) {
+      map['baja_en'] = Variable<int>(bajaEn.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -8462,6 +8510,7 @@ class ComidasCompanion extends UpdateCompanion<Comida> {
           ..write('nota: $nota, ')
           ..write('ocurridaEn: $ocurridaEn, ')
           ..write('registradaPor: $registradaPor, ')
+          ..write('bajaEn: $bajaEn, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -8529,6 +8578,15 @@ class $HidratacionesTable extends Hidrataciones
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _bajaEnMeta = const VerificationMeta('bajaEn');
+  @override
+  late final GeneratedColumn<int> bajaEn = GeneratedColumn<int>(
+    'baja_en',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -8536,6 +8594,7 @@ class $HidratacionesTable extends Hidrataciones
     vasos,
     ocurridaEn,
     registradaPor,
+    bajaEn,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -8587,6 +8646,12 @@ class $HidratacionesTable extends Hidrataciones
     } else if (isInserting) {
       context.missing(_registradaPorMeta);
     }
+    if (data.containsKey('baja_en')) {
+      context.handle(
+        _bajaEnMeta,
+        bajaEn.isAcceptableOrUnknown(data['baja_en']!, _bajaEnMeta),
+      );
+    }
     return context;
   }
 
@@ -8616,6 +8681,10 @@ class $HidratacionesTable extends Hidrataciones
         DriftSqlType.string,
         data['${effectivePrefix}registrada_por'],
       )!,
+      bajaEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}baja_en'],
+      ),
     );
   }
 
@@ -8631,12 +8700,16 @@ class Hidratacion extends DataClass implements Insertable<Hidratacion> {
   final int vasos;
   final int ocurridaEn;
   final String registradaPor;
+
+  /// Esquema 7: baja lógica (restar un vaso da de baja el último del día).
+  final int? bajaEn;
   const Hidratacion({
     required this.id,
     required this.personaId,
     required this.vasos,
     required this.ocurridaEn,
     required this.registradaPor,
+    this.bajaEn,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -8646,6 +8719,9 @@ class Hidratacion extends DataClass implements Insertable<Hidratacion> {
     map['vasos'] = Variable<int>(vasos);
     map['ocurrida_en'] = Variable<int>(ocurridaEn);
     map['registrada_por'] = Variable<String>(registradaPor);
+    if (!nullToAbsent || bajaEn != null) {
+      map['baja_en'] = Variable<int>(bajaEn);
+    }
     return map;
   }
 
@@ -8656,6 +8732,9 @@ class Hidratacion extends DataClass implements Insertable<Hidratacion> {
       vasos: Value(vasos),
       ocurridaEn: Value(ocurridaEn),
       registradaPor: Value(registradaPor),
+      bajaEn: bajaEn == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bajaEn),
     );
   }
 
@@ -8670,6 +8749,7 @@ class Hidratacion extends DataClass implements Insertable<Hidratacion> {
       vasos: serializer.fromJson<int>(json['vasos']),
       ocurridaEn: serializer.fromJson<int>(json['ocurridaEn']),
       registradaPor: serializer.fromJson<String>(json['registradaPor']),
+      bajaEn: serializer.fromJson<int?>(json['bajaEn']),
     );
   }
   @override
@@ -8681,6 +8761,7 @@ class Hidratacion extends DataClass implements Insertable<Hidratacion> {
       'vasos': serializer.toJson<int>(vasos),
       'ocurridaEn': serializer.toJson<int>(ocurridaEn),
       'registradaPor': serializer.toJson<String>(registradaPor),
+      'bajaEn': serializer.toJson<int?>(bajaEn),
     };
   }
 
@@ -8690,12 +8771,14 @@ class Hidratacion extends DataClass implements Insertable<Hidratacion> {
     int? vasos,
     int? ocurridaEn,
     String? registradaPor,
+    Value<int?> bajaEn = const Value.absent(),
   }) => Hidratacion(
     id: id ?? this.id,
     personaId: personaId ?? this.personaId,
     vasos: vasos ?? this.vasos,
     ocurridaEn: ocurridaEn ?? this.ocurridaEn,
     registradaPor: registradaPor ?? this.registradaPor,
+    bajaEn: bajaEn.present ? bajaEn.value : this.bajaEn,
   );
   Hidratacion copyWithCompanion(HidratacionesCompanion data) {
     return Hidratacion(
@@ -8708,6 +8791,7 @@ class Hidratacion extends DataClass implements Insertable<Hidratacion> {
       registradaPor: data.registradaPor.present
           ? data.registradaPor.value
           : this.registradaPor,
+      bajaEn: data.bajaEn.present ? data.bajaEn.value : this.bajaEn,
     );
   }
 
@@ -8718,14 +8802,15 @@ class Hidratacion extends DataClass implements Insertable<Hidratacion> {
           ..write('personaId: $personaId, ')
           ..write('vasos: $vasos, ')
           ..write('ocurridaEn: $ocurridaEn, ')
-          ..write('registradaPor: $registradaPor')
+          ..write('registradaPor: $registradaPor, ')
+          ..write('bajaEn: $bajaEn')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode =>
-      Object.hash(id, personaId, vasos, ocurridaEn, registradaPor);
+      Object.hash(id, personaId, vasos, ocurridaEn, registradaPor, bajaEn);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -8734,7 +8819,8 @@ class Hidratacion extends DataClass implements Insertable<Hidratacion> {
           other.personaId == this.personaId &&
           other.vasos == this.vasos &&
           other.ocurridaEn == this.ocurridaEn &&
-          other.registradaPor == this.registradaPor);
+          other.registradaPor == this.registradaPor &&
+          other.bajaEn == this.bajaEn);
 }
 
 class HidratacionesCompanion extends UpdateCompanion<Hidratacion> {
@@ -8743,6 +8829,7 @@ class HidratacionesCompanion extends UpdateCompanion<Hidratacion> {
   final Value<int> vasos;
   final Value<int> ocurridaEn;
   final Value<String> registradaPor;
+  final Value<int?> bajaEn;
   final Value<int> rowid;
   const HidratacionesCompanion({
     this.id = const Value.absent(),
@@ -8750,6 +8837,7 @@ class HidratacionesCompanion extends UpdateCompanion<Hidratacion> {
     this.vasos = const Value.absent(),
     this.ocurridaEn = const Value.absent(),
     this.registradaPor = const Value.absent(),
+    this.bajaEn = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   HidratacionesCompanion.insert({
@@ -8758,6 +8846,7 @@ class HidratacionesCompanion extends UpdateCompanion<Hidratacion> {
     this.vasos = const Value.absent(),
     required int ocurridaEn,
     required String registradaPor,
+    this.bajaEn = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        personaId = Value(personaId),
@@ -8769,6 +8858,7 @@ class HidratacionesCompanion extends UpdateCompanion<Hidratacion> {
     Expression<int>? vasos,
     Expression<int>? ocurridaEn,
     Expression<String>? registradaPor,
+    Expression<int>? bajaEn,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -8777,6 +8867,7 @@ class HidratacionesCompanion extends UpdateCompanion<Hidratacion> {
       if (vasos != null) 'vasos': vasos,
       if (ocurridaEn != null) 'ocurrida_en': ocurridaEn,
       if (registradaPor != null) 'registrada_por': registradaPor,
+      if (bajaEn != null) 'baja_en': bajaEn,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -8787,6 +8878,7 @@ class HidratacionesCompanion extends UpdateCompanion<Hidratacion> {
     Value<int>? vasos,
     Value<int>? ocurridaEn,
     Value<String>? registradaPor,
+    Value<int?>? bajaEn,
     Value<int>? rowid,
   }) {
     return HidratacionesCompanion(
@@ -8795,6 +8887,7 @@ class HidratacionesCompanion extends UpdateCompanion<Hidratacion> {
       vasos: vasos ?? this.vasos,
       ocurridaEn: ocurridaEn ?? this.ocurridaEn,
       registradaPor: registradaPor ?? this.registradaPor,
+      bajaEn: bajaEn ?? this.bajaEn,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -8817,6 +8910,9 @@ class HidratacionesCompanion extends UpdateCompanion<Hidratacion> {
     if (registradaPor.present) {
       map['registrada_por'] = Variable<String>(registradaPor.value);
     }
+    if (bajaEn.present) {
+      map['baja_en'] = Variable<int>(bajaEn.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -8831,6 +8927,7 @@ class HidratacionesCompanion extends UpdateCompanion<Hidratacion> {
           ..write('vasos: $vasos, ')
           ..write('ocurridaEn: $ocurridaEn, ')
           ..write('registradaPor: $registradaPor, ')
+          ..write('bajaEn: $bajaEn, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -21632,6 +21729,7 @@ typedef $$ComidasTableCreateCompanionBuilder = ComidasCompanion Function({
   Value<String?> nota,
   required int ocurridaEn,
   required String registradaPor,
+  Value<int?> bajaEn,
   Value<int> rowid,
 });
 typedef $$ComidasTableUpdateCompanionBuilder = ComidasCompanion Function({
@@ -21643,6 +21741,7 @@ typedef $$ComidasTableUpdateCompanionBuilder = ComidasCompanion Function({
   Value<String?> nota,
   Value<int> ocurridaEn,
   Value<String> registradaPor,
+  Value<int?> bajaEn,
   Value<int> rowid,
 });
 
@@ -21721,6 +21820,11 @@ class $$ComidasTableFilterComposer
 
   ColumnFilters<String> get registradaPor => $composableBuilder(
     column: $table.registradaPor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get bajaEn => $composableBuilder(
+    column: $table.bajaEn,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -21810,6 +21914,11 @@ class $$ComidasTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get bajaEn => $composableBuilder(
+    column: $table.bajaEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$PersonasTableOrderingComposer get personaId {
     final $$PersonasTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -21887,6 +21996,9 @@ class $$ComidasTableAnnotationComposer
     column: $table.registradaPor,
     builder: (column) => column,
   );
+
+  GeneratedColumn<int> get bajaEn =>
+      $composableBuilder(column: $table.bajaEn, builder: (column) => column);
 
   $$PersonasTableAnnotationComposer get personaId {
     final $$PersonasTableAnnotationComposer composer = $composerBuilder(
@@ -21971,6 +22083,7 @@ class $$ComidasTableTableManager
                 Value<String?> nota = const Value.absent(),
                 Value<int> ocurridaEn = const Value.absent(),
                 Value<String> registradaPor = const Value.absent(),
+                Value<int?> bajaEn = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => ComidasCompanion(
                 id: id,
@@ -21981,6 +22094,7 @@ class $$ComidasTableTableManager
                 nota: nota,
                 ocurridaEn: ocurridaEn,
                 registradaPor: registradaPor,
+                bajaEn: bajaEn,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -21993,6 +22107,7 @@ class $$ComidasTableTableManager
                 Value<String?> nota = const Value.absent(),
                 required int ocurridaEn,
                 required String registradaPor,
+                Value<int?> bajaEn = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => ComidasCompanion.insert(
                 id: id,
@@ -22003,6 +22118,7 @@ class $$ComidasTableTableManager
                 nota: nota,
                 ocurridaEn: ocurridaEn,
                 registradaPor: registradaPor,
+                bajaEn: bajaEn,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
@@ -22089,6 +22205,7 @@ typedef $$HidratacionesTableCreateCompanionBuilder =
       Value<int> vasos,
       required int ocurridaEn,
       required String registradaPor,
+      Value<int?> bajaEn,
       Value<int> rowid,
     });
 typedef $$HidratacionesTableUpdateCompanionBuilder =
@@ -22098,6 +22215,7 @@ typedef $$HidratacionesTableUpdateCompanionBuilder =
       Value<int> vasos,
       Value<int> ocurridaEn,
       Value<String> registradaPor,
+      Value<int?> bajaEn,
       Value<int> rowid,
     });
 
@@ -22156,6 +22274,11 @@ class $$HidratacionesTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<int> get bajaEn => $composableBuilder(
+    column: $table.bajaEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
   $$PersonasTableFilterComposer get personaId {
     final $$PersonasTableFilterComposer composer = $composerBuilder(
       composer: this,
@@ -22209,6 +22332,11 @@ class $$HidratacionesTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get bajaEn => $composableBuilder(
+    column: $table.bajaEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$PersonasTableOrderingComposer get personaId {
     final $$PersonasTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -22257,6 +22385,9 @@ class $$HidratacionesTableAnnotationComposer
     column: $table.registradaPor,
     builder: (column) => column,
   );
+
+  GeneratedColumn<int> get bajaEn =>
+      $composableBuilder(column: $table.bajaEn, builder: (column) => column);
 
   $$PersonasTableAnnotationComposer get personaId {
     final $$PersonasTableAnnotationComposer composer = $composerBuilder(
@@ -22315,6 +22446,7 @@ class $$HidratacionesTableTableManager
                 Value<int> vasos = const Value.absent(),
                 Value<int> ocurridaEn = const Value.absent(),
                 Value<String> registradaPor = const Value.absent(),
+                Value<int?> bajaEn = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => HidratacionesCompanion(
                 id: id,
@@ -22322,6 +22454,7 @@ class $$HidratacionesTableTableManager
                 vasos: vasos,
                 ocurridaEn: ocurridaEn,
                 registradaPor: registradaPor,
+                bajaEn: bajaEn,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -22331,6 +22464,7 @@ class $$HidratacionesTableTableManager
                 Value<int> vasos = const Value.absent(),
                 required int ocurridaEn,
                 required String registradaPor,
+                Value<int?> bajaEn = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => HidratacionesCompanion.insert(
                 id: id,
@@ -22338,6 +22472,7 @@ class $$HidratacionesTableTableManager
                 vasos: vasos,
                 ocurridaEn: ocurridaEn,
                 registradaPor: registradaPor,
+                bajaEn: bajaEn,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0

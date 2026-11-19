@@ -651,6 +651,8 @@ void main() {
     await v2.customStatement('DROP TABLE clips_pendientes');
     await v2.customStatement('DROP TABLE citas');
     await v2.customStatement('DROP TABLE turnos');
+    await v2.customStatement('ALTER TABLE comidas DROP COLUMN baja_en');
+    await v2.customStatement('ALTER TABLE hidrataciones DROP COLUMN baja_en');
     await v2.customStatement('ALTER TABLE miembros DROP COLUMN baja_en');
     await v2.customStatement('PRAGMA user_version = 2');
     await v2.close();
