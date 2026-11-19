@@ -1138,7 +1138,6 @@
   "calHechoAyuda": "Ayuda pedida",
   "calHechoLlamada": "Llamada iniciada",
   "calHechoMedicamento": "Medicamento creado",
-  "calPie": "Turnos de la familia y citas",
   "unirTarjeta": "Este móvil se une a una familia que ya usa la app",
   "unirTitulo": "Unirse a una familia",
   "unirAyuda": "En el móvil de la familia, abre Círculo y toca «Invitar otro móvil». Lee su código QR o escribe el código que aparece debajo.",
@@ -1707,5 +1706,123 @@
   "circQuitarTexto": "Dejará de salir en las listas, de recibir avisos y de aparecer para llamar. Quitarlo no le retira todavía la clave del círculo: si es necesario, empareja de nuevo a los móviles con una clave nueva (llegará más adelante).",
   "circQuitarConfirmar": "Quitar",
   "circQuitarPropio": "No puedes quitar el familiar de este móvil.",
-  "preguntaDecirloMasAdelante": "Responder hablando llegará más adelante."
+  "preguntaDecirloMasAdelante": "Responder hablando llegará más adelante.",
+  "calCitasTitulo": "Citas",
+  "calTurnosTitulo": "Turnos de la familia",
+  "calAnadirCita": "Añadir cita",
+  "calAnadirTurno": "Añadir turno",
+  "calProximasCitas": "Próximas citas",
+  "calSinProximasCitas": "No hay citas próximas",
+  "calLeyendaCita": "Cita",
+  "calLeyendaTurno": "Turno",
+  "calSemanticaCitas": "{n, plural, one{1 cita} other{{n} citas}}",
+  "@calSemanticaCitas": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "calSemanticaTurnos": "{n, plural, one{1 turno} other{{n} turnos}}",
+  "@calSemanticaTurnos": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "citaTipoMedico": "Médico",
+  "citaTipoAnalisis": "Análisis",
+  "citaTipoOtra": "Otra",
+  "citaAcompana": "Acompaña {nombre}",
+  "@citaAcompana": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "turnoRango": "De {desde} a {hasta}",
+  "@turnoRango": {
+    "placeholders": {
+      "desde": {
+        "type": "String"
+      },
+      "hasta": {
+        "type": "String"
+      }
+    }
+  },
+  "turnoRangoNoche": "De {desde} a {hasta} del día siguiente",
+  "@turnoRangoNoche": {
+    "placeholders": {
+      "desde": {
+        "type": "String"
+      },
+      "hasta": {
+        "type": "String"
+      }
+    }
+  },
+  "turnoCadaSemana": "Cada semana",
+  "turnoSigue": "Sigue del día anterior hasta las {hasta}",
+  "@turnoSigue": {
+    "placeholders": {
+      "hasta": {
+        "type": "String"
+      }
+    }
+  },
+  "agendaCitasHoy": "Citas de hoy",
+  "agendaCitasManana": "Citas de mañana",
+  "agendaEstaConElla": "Hoy está con ella: {nombre}",
+  "@agendaEstaConElla": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "agendaHasta": "Hasta las {hora}",
+  "@agendaHasta": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "citaFormNueva": "Nueva cita",
+  "citaFormEditar": "Editar cita",
+  "turnoFormNuevo": "Nuevo turno",
+  "turnoFormEditar": "Editar turno",
+  "agVispera": "Calendario",
+  "citaCampoTitulo": "Título",
+  "citaCampoLugar": "Lugar (opcional)",
+  "citaCampoNotas": "Notas (opcional)",
+  "citaTipoTitulo": "Tipo de cita",
+  "agFecha": "Fecha",
+  "agHora": "Hora",
+  "citaAcompanaTitulo": "Quién la acompaña (opcional)",
+  "citaNadie": "Nadie",
+  "citaErrorTitulo": "Escribe un título.",
+  "agErrorGuardar": "No se pudo guardar. Vuelve a intentarlo.",
+  "agGuardar": "Guardar",
+  "agBorrarConfirmar": "Borrar",
+  "citaBorrar": "Borrar cita",
+  "citaBorrarTitulo": "¿Borrar esta cita?",
+  "citaBorrarTexto": "Dejará de verse en el calendario de todos los móviles de la familia.",
+  "turnoQuien": "Quién está con ella",
+  "turnoDia": "Día",
+  "turnoPrimerDia": "Primer día",
+  "turnoDesde": "Desde",
+  "turnoHasta": "Hasta",
+  "turnoRepetir": "Repetir cada semana",
+  "turnoRepetirPie": "Se guarda como una sola regla: el mismo día de cada semana desde el día elegido.",
+  "turnoNochePie": "Acaba al día siguiente.",
+  "turnoCampoNota": "Nota (opcional)",
+  "turnoSinFamiliares": "Añade antes a un familiar en Círculo.",
+  "turnoErrorHoras": "Elige una hora de fin distinta de la de inicio.",
+  "turnoBorrar": "Borrar turno",
+  "turnoBorrarTitulo": "¿Borrar este turno?",
+  "turnoBorrarTexto": "Dejará de verse en el calendario de todos los móviles de la familia. Si se repite cada semana, se borran todas las semanas."
 }

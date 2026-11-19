@@ -170,4 +170,46 @@ abstract final class ClavesUi {
       ValueKey<String>('control_${campo}_$accion');
   static ValueKey<String> controlRitmo(int horas) =>
       ValueKey<String>('control_ritmo_$horas');
+  // ---- Agenda: citas y turnos del calendario.
+
+  /// Calendario: "Añadir cita" y "Añadir turno" del día elegido, y las
+  /// "Próximas citas".
+  static const calAnadirCita = ValueKey<String>('cal_anadir_cita');
+  static const calAnadirTurno = ValueKey<String>('cal_anadir_turno');
+  static const calProximas = ValueKey<String>('cal_proximas');
+
+  /// Fila de una cita (`cita_<id>`) o de un turno (`turno_<id>`).
+  static ValueKey<String> citaFila(String id) => ValueKey<String>('cita_$id');
+  static ValueKey<String> turnoFila(String id) => ValueKey<String>('turno_$id');
+
+  /// Formularios: campos, tipo, quién y botones.
+  static const agTitulo = ValueKey<String>('ag_titulo');
+  static const agLugar = ValueKey<String>('ag_lugar');
+  static const agNotas = ValueKey<String>('ag_notas');
+  static const agFecha = ValueKey<String>('ag_fecha');
+  static const agHora = ValueKey<String>('ag_hora');
+  static const agDesde = ValueKey<String>('ag_desde');
+  static const agHasta = ValueKey<String>('ag_hasta');
+  static const agRepetir = ValueKey<String>('ag_repetir');
+  static const agGuardar = ValueKey<String>('ag_guardar');
+  static const agBorrar = ValueKey<String>('ag_borrar');
+  static const agBorrarConfirmar = ValueKey<String>('ag_borrar_confirmar');
+  static ValueKey<String> agTipo(String valor) =>
+      ValueKey<String>('ag_tipo_$valor');
+
+  /// Quién acompaña (cita; `nadie` o el id) o quién está (turno).
+  static ValueKey<String> agAcompana(String id) =>
+      ValueKey<String>('ag_acompana_$id');
+  static ValueKey<String> agMiembro(String id) =>
+      ValueKey<String>('ag_miembro_$id');
+
+  /// Marca de un día con cita o con turno en el mes (`cal_marca_cita_<fecha>`).
+  static ValueKey<String> marcaCita(String fecha) =>
+      ValueKey<String>('cal_marca_cita_$fecha');
+  static ValueKey<String> marcaTurno(String fecha) =>
+      ValueKey<String>('cal_marca_turno_$fecha');
+
+  /// Hoy y Mañana: fila de una cita y "Hoy está con ella".
+  static const hoyCita = ValueKey<String>('hoy_cita');
+  static const hoyEstaConElla = ValueKey<String>('hoy_esta_con_ella');
 }

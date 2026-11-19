@@ -11,6 +11,7 @@ import '../../../shared/ios/ios.dart';
 import '../../../shared/l10n_ext.dart';
 import '../../../shared/widgets/etiqueta_estado_toma.dart';
 import '../../../shared/widgets/tarjeta_grande.dart';
+import '../../calendario/agenda_hoy.dart';
 import '../dominio/control_horas.dart';
 import '../dominio/tomas.dart';
 import 'control_hoy.dart';
@@ -48,6 +49,7 @@ class VistaHoy extends ConsumerWidget {
           videos: clipsDe(deHoy).length,
           avisos: avisos,
         ),
+        const AgendaHoy(),
         separacionBloques,
         TituloSeccion(l.hoyProximaToma),
         _ProximaToma(toma: siguiente, ahora: ahora),

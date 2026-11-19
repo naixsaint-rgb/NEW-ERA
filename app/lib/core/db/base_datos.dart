@@ -41,6 +41,8 @@ const tablasDeHechos = <String>[
     SyncEstado,
     ClipsPendientes,
     AjustesControlHoras,
+    Citas,
+    Turnos,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -50,9 +52,10 @@ class AppDatabase extends _$AppDatabase {
   /// `sync_estado`); las tablas de hechos no cambian. 3: cola de subida de
   /// los clips (`clips_pendientes`). 4: ajustes del control por horas
   /// (`ajustes_control_horas`). 5: baja lógica de los familiares
-  /// (`miembros.baja_en`).
+  /// (`miembros.baja_en`). 6: citas y turnos de la familia (`citas`,
+  /// `turnos`).
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -83,6 +86,10 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from < 5) {
         await m.addColumn(miembros, miembros.bajaEn);
+      }
+      if (from < 6) {
+        await m.createTable(citas);
+        await m.createTable(turnos);
       }
     },
     beforeOpen: (details) async {

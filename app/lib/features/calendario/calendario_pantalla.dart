@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:safety_core/safety_core.dart';
 
+import '../../core/db/base_datos.dart';
 import '../../core/db/repositorios/eventos_repositorio.dart';
+import '../../core/enrutado/rutas.dart';
 import '../../core/i18n/fechas.dart';
 import '../../core/providers.dart';
 import '../../core/tema/colores.dart';
@@ -14,11 +17,15 @@ import '../../shared/l10n_ext.dart';
 import '../../shared/widgets/tarjeta_grande.dart';
 import '../hoy/dominio/tomas.dart';
 import '../hoy/vistas/piezas_hoy.dart';
+import 'agenda_filas.dart';
+import 'campos_agenda.dart';
+import 'dominio/agenda.dart';
 import 'dominio/calendario.dart';
 
-/// Pestaña Calendario de la familia: un mes con un punto de estado por día y,
-/// debajo, las tomas y los hechos del día elegido. Todo sale de la base: ni
-/// citas ni turnos hasta la semana 13.
+/// Pestaña Calendario de la familia: un mes con un punto de estado por día
+/// (y una marca distinta si hay cita o turno) y, debajo, las tomas, los
+/// hechos, las citas y los turnos del día elegido, con botones para añadir.
+/// Al final, las próximas citas. Todo sale de la base.
 class CalendarioPantalla extends ConsumerStatefulWidget {
   const CalendarioPantalla({super.key});
 
@@ -57,6 +64,14 @@ class _CalendarioPantallaState extends ConsumerState<CalendarioPantalla> {
     final fechaHoy = fechaDeDia(hoy.anio, hoy.mes, hoy.dia);
     final elegido = _elegido ?? (hoyEnEsteMes ? fechaHoy : _mes.fecha(1));
     final datos = ref.watch(datosMesProvider(_mes));
+    final citas = ref.watch(citasProvider).value ?? const <Cita>[];
+    final turnos = ref.watch(turnosVigentesProvider).value ?? const <Turno>[];
+    final nombres = {
+      for (final m in ref.watch(miembrosProvider).value ?? const <Miembro>[])
+        m.id: m.nombre,
+    };
+    final hora = horaCorta(aLocal(ahora, zona));
+    final proximas = proximasCitas(citas, fechaHoy: fechaHoy, horaAhora: hora);
     final abajo = MediaQuery.paddingOf(context).bottom;
 
     return Scaffold(
@@ -72,6 +87,8 @@ class _CalendarioPantallaState extends ConsumerState<CalendarioPantalla> {
             child: _Mes(
               mes: _mes,
               datos: datos.value,
+              citas: citas,
+              turnos: turnos,
               fechaHoy: fechaHoy,
               elegido: elegido,
               alAnterior: () => _irA(_mes.anterior),
@@ -80,11 +97,32 @@ class _CalendarioPantallaState extends ConsumerState<CalendarioPantalla> {
             ),
           ),
           separacionBloques,
-          _DiaElegido(mes: _mes, fecha: elegido, datos: datos, zona: zona),
+          _DiaElegido(
+            mes: _mes,
+            fecha: elegido,
+            datos: datos,
+            zona: zona,
+            citas: citas,
+            turnos: turnos,
+            nombres: nombres,
+          ),
           separacionBloques,
           GrupoLista(
+            key: ClavesUi.calProximas,
+            titulo: l.calProximasCitas,
             children: [
-              FilaLlegaPronto(titulo: l.calPie, subtitulo: l.llegaEnSemana(13)),
+              if (proximas.isEmpty)
+                FilaLista(titulo: l.calSinProximasCitas, apagada: true)
+              else
+                for (final cita in proximas)
+                  FilaCitaAgenda(
+                    key: ClavesUi.citaFila('proxima_${cita.id}'),
+                    cita: cita,
+                    l: l,
+                    nombres: nombres,
+                    conFecha: true,
+                    onTap: () => context.go(Rutas.cita(cita.id)),
+                  ),
             ],
           ),
         ],
@@ -119,6 +157,8 @@ class _Mes extends StatelessWidget {
   const _Mes({
     required this.mes,
     required this.datos,
+    required this.citas,
+    required this.turnos,
     required this.fechaHoy,
     required this.elegido,
     required this.alAnterior,
@@ -130,6 +170,8 @@ class _Mes extends StatelessWidget {
 
   /// Nulo mientras se cargan.
   final DatosMes? datos;
+  final List<Cita> citas;
+  final List<Turno> turnos;
   final String fechaHoy;
   final String elegido;
   final VoidCallback alAnterior;
@@ -238,13 +280,23 @@ class _Mes extends StatelessWidget {
         cuenta.previstas,
       ),
     };
+    final nCitas = citasDelDia(citas, fecha).length;
+    final nTurnos = turnosDelDia(turnos, fecha).length;
+    final etiqueta = [
+      base,
+      if (nCitas > 0) l.calSemanticaCitas(nCitas),
+      if (nTurnos > 0) l.calSemanticaTurnos(nTurnos),
+    ].join(', ');
     return CeldaDiaCalendario(
       key: ClavesUi.diaCalendario(fecha),
       dia: dia,
       estado: estado,
       esHoy: esHoy,
       seleccionado: fecha == elegido,
-      etiqueta: base,
+      fecha: fecha,
+      conCita: nCitas > 0,
+      conTurno: nTurnos > 0,
+      etiqueta: etiqueta,
       alPulsar: () => alElegir(fecha),
     );
   }
@@ -297,6 +349,9 @@ class CeldaDiaCalendario extends StatelessWidget {
     required this.seleccionado,
     required this.etiqueta,
     required this.alPulsar,
+    this.fecha,
+    this.conCita = false,
+    this.conTurno = false,
   });
 
   /// Alto de la zona táctil.
@@ -305,12 +360,23 @@ class CeldaDiaCalendario extends StatelessWidget {
   /// Diámetro del punto de estado.
   static const punto = 8.0;
 
+  /// Alto reservado a las marcas de cita y de turno.
+  static const marcas = 7.0;
+
   final int dia;
   final EstadoDiaCalendario estado;
   final bool esHoy;
   final bool seleccionado;
   final String etiqueta;
   final VoidCallback alPulsar;
+
+  /// `yyyy-MM-dd` de la casilla (da clave a sus marcas).
+  final String? fecha;
+
+  /// Hay una cita ese día (cuadrado índigo) o un turno (rombo morado), bajo
+  /// el punto de estado y siempre con su hueco reservado.
+  final bool conCita;
+  final bool conTurno;
 
   @override
   Widget build(BuildContext context) {
@@ -370,6 +436,32 @@ class CeldaDiaCalendario extends StatelessWidget {
                               ),
                             ),
                     ),
+                    SizedBox(
+                      height: marcas,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          if (conCita)
+                            MarcaAgenda(
+                              key: fecha == null
+                                  ? null
+                                  : ClavesUi.marcaCita(fecha!),
+                              esCita: true,
+                              tamano: 5,
+                            ),
+                          if (conCita && conTurno) const SizedBox(width: 3),
+                          if (conTurno)
+                            MarcaAgenda(
+                              key: fecha == null
+                                  ? null
+                                  : ClavesUi.marcaTurno(fecha!),
+                              esCita: false,
+                              tamano: 5,
+                            ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -413,6 +505,19 @@ class _Leyenda extends StatelessWidget {
         ),
       ],
     );
+    Widget marca(bool esCita, String texto) => Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        MarcaAgenda(esCita: esCita),
+        const SizedBox(width: 6),
+        Flexible(
+          child: Text(
+            texto,
+            style: t.bodySmall?.copyWith(color: c.textoSecundario),
+          ),
+        ),
+      ],
+    );
     return Wrap(
       spacing: 14,
       runSpacing: 4,
@@ -421,6 +526,8 @@ class _Leyenda extends StatelessWidget {
         item(EstadoDiaCalendario.parcial, l.calLeyendaAlgunas),
         item(EstadoDiaCalendario.sinHechas, l.calLeyendaNinguna),
         item(EstadoDiaCalendario.previstas, l.calLeyendaPrevistas),
+        marca(true, l.calLeyendaCita),
+        marca(false, l.calLeyendaTurno),
       ],
     );
   }
@@ -434,6 +541,9 @@ class _DiaElegido extends ConsumerWidget {
     required this.fecha,
     required this.datos,
     required this.zona,
+    required this.citas,
+    required this.turnos,
+    required this.nombres,
   });
 
   final MesCalendario mes;
@@ -442,6 +552,11 @@ class _DiaElegido extends ConsumerWidget {
   final String fecha;
   final AsyncValue<DatosMes> datos;
   final String zona;
+  final List<Cita> citas;
+  final List<Turno> turnos;
+
+  /// Nombre de cada familiar por id.
+  final Map<String, String> nombres;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -470,27 +585,36 @@ class _DiaElegido extends ConsumerWidget {
       data: (d) {
         final tomas = d.tomasDe(fecha);
         final hechos = d.hechosDe(fecha);
-        if (tomas.isEmpty && hechos.isEmpty) {
-          return GrupoLista(
-            children: [FilaLista(titulo: l.calSinNada, apagada: true)],
-          );
-        }
-        final nombres = ref.watch(nombresAutoresProvider);
+        final delDia = citasDelDia(citas, fecha);
+        final turnosDia = turnosDelDia(turnos, fecha);
+        final autores = ref.watch(nombresAutoresProvider);
         final alias = ref.watch(personaProvider).value?.alias;
+        final nada =
+            tomas.isEmpty &&
+            hechos.isEmpty &&
+            delDia.isEmpty &&
+            turnosDia.isEmpty;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (tomas.isNotEmpty)
+            if (nada) ...[
+              GrupoLista(
+                children: [FilaLista(titulo: l.calSinNada, apagada: true)],
+              ),
+              separacionBloques,
+            ],
+            if (tomas.isNotEmpty) ...[
               GrupoLista(
                 sangria: FilaTomaHoy.sangria,
                 children: [
                   for (final x in tomas)
-                    FilaTomaHoy(toma: x, nota: quienConfirmo(l, x, nombres)),
+                    FilaTomaHoy(toma: x, nota: quienConfirmo(l, x, autores)),
                 ],
               ),
-            if (tomas.isNotEmpty && hechos.isNotEmpty) separacionBloques,
-            if (hechos.isNotEmpty)
+              separacionBloques,
+            ],
+            if (hechos.isNotEmpty) ...[
               GrupoLista(
                 titulo: l.calHechos,
                 children: [
@@ -498,11 +622,61 @@ class _DiaElegido extends ConsumerWidget {
                     _FilaHecho(
                       hecho: h,
                       zona: zona,
-                      nombres: nombres,
+                      nombres: autores,
                       alias: alias,
                     ),
                 ],
               ),
+              separacionBloques,
+            ],
+            if (delDia.isNotEmpty) ...[
+              GrupoLista(
+                titulo: l.calCitasTitulo,
+                children: [
+                  for (final cita in delDia)
+                    FilaCitaAgenda(
+                      key: ClavesUi.citaFila(cita.id),
+                      cita: cita,
+                      l: l,
+                      nombres: nombres,
+                      onTap: () => context.go(Rutas.cita(cita.id)),
+                    ),
+                ],
+              ),
+              separacionBloques,
+            ],
+            if (turnosDia.isNotEmpty) ...[
+              GrupoLista(
+                titulo: l.calTurnosTitulo,
+                children: [
+                  for (final x in turnosDia)
+                    FilaTurnoAgenda(
+                      key: ClavesUi.turnoFila(
+                        x.continuacion ? '${x.turno.id}_sigue' : x.turno.id,
+                      ),
+                      dia: x,
+                      l: l,
+                      nombres: nombres,
+                      onTap: () => context.go(Rutas.turno(x.turno.id)),
+                    ),
+                ],
+              ),
+              separacionBloques,
+            ],
+            GrupoLista(
+              children: [
+                _FilaAnadir(
+                  clave: ClavesUi.calAnadirCita,
+                  titulo: l.calAnadirCita,
+                  alPulsar: () => context.go(Rutas.citaNueva(fecha)),
+                ),
+                _FilaAnadir(
+                  clave: ClavesUi.calAnadirTurno,
+                  titulo: l.calAnadirTurno,
+                  alPulsar: () => context.go(Rutas.turnoNuevo(fecha)),
+                ),
+              ],
+            ),
           ],
         );
       },
@@ -511,6 +685,32 @@ class _DiaElegido extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [titulo, cuerpo],
+    );
+  }
+}
+
+/// Fila "Añadir cita" / "Añadir turno" del día elegido.
+class _FilaAnadir extends StatelessWidget {
+  const _FilaAnadir({
+    required this.clave,
+    required this.titulo,
+    required this.alPulsar,
+  });
+
+  final Key clave;
+  final String titulo;
+  final VoidCallback alPulsar;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colores;
+    return FilaLista(
+      key: clave,
+      leading: const IconoCuadrado(CupertinoIcons.plus),
+      titulo: titulo,
+      colorTitulo: c.azul,
+      conChevron: false,
+      onTap: alPulsar,
     );
   }
 }

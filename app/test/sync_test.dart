@@ -700,6 +700,8 @@ void main() {
       await v1.customStatement('DROP TABLE sync_estado');
       await v1.customStatement('DROP TABLE clips_pendientes');
       await v1.customStatement('DROP TABLE ajustes_control_horas');
+      await v1.customStatement('DROP TABLE citas');
+      await v1.customStatement('DROP TABLE turnos');
       await v1.customStatement('ALTER TABLE miembros DROP COLUMN baja_en');
       await v1.customStatement('PRAGMA user_version = 1');
       await v1.close();

@@ -397,3 +397,71 @@ class AjustesControlHoras extends Table {
   @override
   Set<Column> get primaryKey => {id};
 }
+
+// ---------------------------------------------------------------- Agenda
+// Esquema 6. Fichas que cambia la familia (no son hechos): citas y turnos.
+
+/// Cita de la persona (médico, análisis u otra). Fecha y hora son de pared
+/// en la zona de la persona (`yyyy-MM-dd` y `HH:mm`), como las tomas. Viaja
+/// por el cartero como ficha `cita`; gana el cambio más reciente. Borrar es
+/// baja lógica ([bajaEn]).
+@DataClassName('Cita')
+class Citas extends Table {
+  TextColumn get id => text()();
+  TextColumn get circuloId => text().references(Circulos, #id)();
+  TextColumn get titulo => text()();
+
+  /// `medico`, `analisis` u `otra`.
+  TextColumn get tipo => text()();
+
+  /// `yyyy-MM-dd`.
+  TextColumn get fecha => text()();
+
+  /// `HH:mm`.
+  TextColumn get hora => text()();
+  TextColumn get lugar => text().nullable()();
+  TextColumn get notas => text().nullable()();
+
+  /// Familiar que la acompaña (opcional).
+  TextColumn get acompanaId => text().nullable().references(Miembros, #id)();
+  TextColumn get creadaPor => text()();
+  IntColumn get creadaEn => integer()();
+  TextColumn get modificadaPor => text()();
+  IntColumn get modificadaEn => integer()();
+  IntColumn get bajaEn => integer().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+/// Turno de un familiar con la persona (o de guardia): un día, de [desdeHora]
+/// a [hastaHora]; si la hora de fin no es posterior a la de inicio, acaba al
+/// día siguiente (guardia de noche). Con [repetirSemanal] es una regla: se
+/// repite el mismo día de la semana desde [fecha], sin una fila por semana.
+/// Ficha `turno`; gana el cambio más reciente; borrar es baja lógica.
+@DataClassName('Turno')
+class Turnos extends Table {
+  TextColumn get id => text()();
+  TextColumn get circuloId => text().references(Circulos, #id)();
+  TextColumn get miembroId => text().references(Miembros, #id)();
+
+  /// Primer día, `yyyy-MM-dd`.
+  TextColumn get fecha => text()();
+
+  /// `HH:mm`.
+  TextColumn get desdeHora => text()();
+
+  /// `HH:mm`.
+  TextColumn get hastaHora => text()();
+  BoolColumn get repetirSemanal =>
+      boolean().withDefault(const Constant(false))();
+  TextColumn get nota => text().nullable()();
+  TextColumn get creadoPor => text()();
+  IntColumn get creadoEn => integer()();
+  TextColumn get modificadoPor => text()();
+  IntColumn get modificadoEn => integer()();
+  IntColumn get bajaEn => integer().nullable()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}

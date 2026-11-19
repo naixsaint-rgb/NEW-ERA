@@ -14,6 +14,8 @@ import '../../features/catalogo/resumen_pantalla.dart' as catalogo;
 import '../../features/circulo/circulo_pantalla.dart';
 import '../../features/circulo/familiar_pantalla.dart';
 import '../../features/circulo/invitar_pantalla.dart';
+import '../../features/calendario/cita_form_pantalla.dart';
+import '../../features/calendario/turno_form_pantalla.dart';
 import '../../features/circulo/miembro_form_pantalla.dart';
 import '../../features/consultas/consultas_pantalla.dart';
 import '../../features/hoy/hoy_pantalla.dart';
@@ -178,7 +180,38 @@ final routerProvider = Provider<GoRouter>((ref) {
             ],
           ),
           StatefulShellBranch(
-            routes: [pestana('calendario', () => const CalendarioPantalla())],
+            routes: [
+              pestana(
+                'calendario',
+                () => const CalendarioPantalla(),
+                rutas: [
+                  GoRoute(
+                    path: 'cita/nueva',
+                    builder: (_, state) => CitaFormPantalla(
+                      fecha: state.uri.queryParameters['fecha'],
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'cita/:citaId',
+                    builder: (_, state) => CitaFormPantalla(
+                      citaId: state.pathParameters['citaId'],
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'turno/nuevo',
+                    builder: (_, state) => TurnoFormPantalla(
+                      fecha: state.uri.queryParameters['fecha'],
+                    ),
+                  ),
+                  GoRoute(
+                    path: 'turno/:turnoId',
+                    builder: (_, state) => TurnoFormPantalla(
+                      turnoId: state.pathParameters['turnoId'],
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
           StatefulShellBranch(
             routes: [pestana('consultas', () => const ConsultasPantalla())],

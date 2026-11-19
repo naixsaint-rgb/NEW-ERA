@@ -1432,9 +1432,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get calHechoMedicamento => 'Medicamento creado';
 
   @override
-  String get calPie => 'Turnos de la familia y citas';
-
-  @override
   String get unirTarjeta => 'Este móvil se une a una familia que ya usa la app';
 
   @override
@@ -2178,4 +2175,204 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get preguntaDecirloMasAdelante =>
       'Responder hablando llegará más adelante.';
+
+  @override
+  String get calCitasTitulo => 'Citas';
+
+  @override
+  String get calTurnosTitulo => 'Turnos de la familia';
+
+  @override
+  String get calAnadirCita => 'Añadir cita';
+
+  @override
+  String get calAnadirTurno => 'Añadir turno';
+
+  @override
+  String get calProximasCitas => 'Próximas citas';
+
+  @override
+  String get calSinProximasCitas => 'No hay citas próximas';
+
+  @override
+  String get calLeyendaCita => 'Cita';
+
+  @override
+  String get calLeyendaTurno => 'Turno';
+
+  @override
+  String calSemanticaCitas(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n citas',
+      one: '1 cita',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String calSemanticaTurnos(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n turnos',
+      one: '1 turno',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get citaTipoMedico => 'Médico';
+
+  @override
+  String get citaTipoAnalisis => 'Análisis';
+
+  @override
+  String get citaTipoOtra => 'Otra';
+
+  @override
+  String citaAcompana(String nombre) {
+    return 'Acompaña $nombre';
+  }
+
+  @override
+  String turnoRango(String desde, String hasta) {
+    return 'De $desde a $hasta';
+  }
+
+  @override
+  String turnoRangoNoche(String desde, String hasta) {
+    return 'De $desde a $hasta del día siguiente';
+  }
+
+  @override
+  String get turnoCadaSemana => 'Cada semana';
+
+  @override
+  String turnoSigue(String hasta) {
+    return 'Sigue del día anterior hasta las $hasta';
+  }
+
+  @override
+  String get agendaCitasHoy => 'Citas de hoy';
+
+  @override
+  String get agendaCitasManana => 'Citas de mañana';
+
+  @override
+  String agendaEstaConElla(String nombre) {
+    return 'Hoy está con ella: $nombre';
+  }
+
+  @override
+  String agendaHasta(String hora) {
+    return 'Hasta las $hora';
+  }
+
+  @override
+  String get citaFormNueva => 'Nueva cita';
+
+  @override
+  String get citaFormEditar => 'Editar cita';
+
+  @override
+  String get turnoFormNuevo => 'Nuevo turno';
+
+  @override
+  String get turnoFormEditar => 'Editar turno';
+
+  @override
+  String get agVispera => 'Calendario';
+
+  @override
+  String get citaCampoTitulo => 'Título';
+
+  @override
+  String get citaCampoLugar => 'Lugar (opcional)';
+
+  @override
+  String get citaCampoNotas => 'Notas (opcional)';
+
+  @override
+  String get citaTipoTitulo => 'Tipo de cita';
+
+  @override
+  String get agFecha => 'Fecha';
+
+  @override
+  String get agHora => 'Hora';
+
+  @override
+  String get citaAcompanaTitulo => 'Quién la acompaña (opcional)';
+
+  @override
+  String get citaNadie => 'Nadie';
+
+  @override
+  String get citaErrorTitulo => 'Escribe un título.';
+
+  @override
+  String get agErrorGuardar => 'No se pudo guardar. Vuelve a intentarlo.';
+
+  @override
+  String get agGuardar => 'Guardar';
+
+  @override
+  String get agBorrarConfirmar => 'Borrar';
+
+  @override
+  String get citaBorrar => 'Borrar cita';
+
+  @override
+  String get citaBorrarTitulo => '¿Borrar esta cita?';
+
+  @override
+  String get citaBorrarTexto =>
+      'Dejará de verse en el calendario de todos los móviles de la familia.';
+
+  @override
+  String get turnoQuien => 'Quién está con ella';
+
+  @override
+  String get turnoDia => 'Día';
+
+  @override
+  String get turnoPrimerDia => 'Primer día';
+
+  @override
+  String get turnoDesde => 'Desde';
+
+  @override
+  String get turnoHasta => 'Hasta';
+
+  @override
+  String get turnoRepetir => 'Repetir cada semana';
+
+  @override
+  String get turnoRepetirPie =>
+      'Se guarda como una sola regla: el mismo día de cada semana desde el día elegido.';
+
+  @override
+  String get turnoNochePie => 'Acaba al día siguiente.';
+
+  @override
+  String get turnoCampoNota => 'Nota (opcional)';
+
+  @override
+  String get turnoSinFamiliares => 'Añade antes a un familiar en Círculo.';
+
+  @override
+  String get turnoErrorHoras =>
+      'Elige una hora de fin distinta de la de inicio.';
+
+  @override
+  String get turnoBorrar => 'Borrar turno';
+
+  @override
+  String get turnoBorrarTitulo => '¿Borrar este turno?';
+
+  @override
+  String get turnoBorrarTexto =>
+      'Dejará de verse en el calendario de todos los móviles de la familia. Si se repite cada semana, se borran todas las semanas.';
 }

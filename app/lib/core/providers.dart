@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'contexto.dart';
 import 'cripto/almacen_seguro.dart';
 import 'db/base_datos.dart';
+import 'db/repositorios/agenda_repositorio.dart';
 import 'db/repositorios/circulo_repositorio.dart';
 import 'db/repositorios/control_horas_repositorio.dart';
 import 'db/repositorios/eventos_repositorio.dart';
@@ -210,6 +211,16 @@ final vocesRepositorioProvider = Provider<VocesRepositorio>((ref) {
   );
 });
 
+final agendaRepositorioProvider = Provider<AgendaRepositorio>((ref) {
+  return AgendaRepositorio(
+    db: ref.watch(baseDatosProvider),
+    reloj: ref.watch(relojProvider),
+    contexto: ref.watch(contextoProvider),
+    eventos: ref.watch(eventosRepositorioProvider),
+    autor: () => autorActual(ref),
+  );
+});
+
 final controlHorasRepositorioProvider = Provider<ControlHorasRepositorio>((
   ref,
 ) {
@@ -236,6 +247,16 @@ final personaProvider = StreamProvider<Persona?>(
 
 final miembrosProvider = StreamProvider<List<Miembro>>(
   (ref) => ref.watch(circuloRepositorioProvider).observarMiembros(),
+);
+
+/// Citas de la familia (sin las borradas), por fecha y hora.
+final citasProvider = StreamProvider<List<Cita>>(
+  (ref) => ref.watch(agendaRepositorioProvider).observarCitas(),
+);
+
+/// Turnos de la familia (sin los borrados).
+final turnosProvider = StreamProvider<List<Turno>>(
+  (ref) => ref.watch(agendaRepositorioProvider).observarTurnos(),
 );
 
 final medicamentosProvider = StreamProvider<List<Medicamento>>(

@@ -14,7 +14,9 @@ import 'foto_para_sobre.dart';
 /// `ficha_modificada`: `{tipo, fila: {columnas…}, omitidas?: […]}`. Las
 /// frases llevan además su audio: `audio` (base64) y `audio_ext`. Los
 /// ajustes del control por horas (`ajustes_control`) son una fila por
-/// círculo con el id del círculo.
+/// círculo con el id del círculo. Las citas y los turnos de la familia son
+/// filas con baja lógica (`baja_en`); el turno semanal viaja como una sola
+/// regla.
 enum TipoFicha {
   persona('persona'),
   miembro('miembro'),
@@ -24,7 +26,9 @@ enum TipoFicha {
   consentimiento('consentimiento'),
   voz('voz'),
   frase('frase'),
-  ajustesControl('ajustes_control');
+  ajustesControl('ajustes_control'),
+  cita('cita'),
+  turno('turno');
 
   const TipoFicha(this.nombre);
   final String nombre;
@@ -148,6 +152,39 @@ abstract final class FilasFicha {
     'modificado_en': a.modificadoEn,
   };
 
+  static Map<String, Object?> cita(Cita c) => {
+    'id': c.id,
+    'circulo_id': c.circuloId,
+    'titulo': c.titulo,
+    'tipo': c.tipo,
+    'fecha': c.fecha,
+    'hora': c.hora,
+    'lugar': c.lugar,
+    'notas': c.notas,
+    'acompana_id': c.acompanaId,
+    'creada_por': c.creadaPor,
+    'creada_en': c.creadaEn,
+    'modificada_por': c.modificadaPor,
+    'modificada_en': c.modificadaEn,
+    'baja_en': c.bajaEn,
+  };
+
+  static Map<String, Object?> turno(Turno t) => {
+    'id': t.id,
+    'circulo_id': t.circuloId,
+    'miembro_id': t.miembroId,
+    'fecha': t.fecha,
+    'desde_hora': t.desdeHora,
+    'hasta_hora': t.hastaHora,
+    'repetir_semanal': t.repetirSemanal,
+    'nota': t.nota,
+    'creado_por': t.creadoPor,
+    'creado_en': t.creadoEn,
+    'modificado_por': t.modificadoPor,
+    'modificado_en': t.modificadoEn,
+    'baja_en': t.bajaEn,
+  };
+
   /// Tope del audio de una frase dentro de un sobre: el mismo que el de las
   /// fotos (va en base64 dentro del evento; ver `FotoParaSobre`). A
   /// 32 kbps, 8 s son unos 34 KB.
@@ -220,7 +257,7 @@ final class PublicadorFichas {
   /// Publica las fichas que aún no tienen `ficha_creada` (las de antes del
   /// emparejamiento): fotos, persona, familiares, consentimientos de voz,
   /// voces, frases aprobadas, medicamentos, pautas y ajustes del control por
-  /// horas, en ese orden para que al otro lado existan las referencias. En un círculo que vino de fuera, la
+  /// horas, citas y turnos, en ese orden para que al otro lado existan las referencias. En un círculo que vino de fuera, la
   /// persona sin ficha es la provisional: no se publica. Devuelve cuántas
   /// publicó.
   Future<int> pendientes() => _db.transaction(() async {
@@ -317,6 +354,22 @@ final class PublicadorFichas {
       _db.ajustesControlHoras,
     )..where((a) => a.id.equals(_contexto.circuloId))).getSingleOrNull();
     if (ajustes != null) await una(TipoFicha.ajustesControl, ajustes.id);
+    final citas =
+        await (_db.select(_db.citas)
+              ..where((c) => c.circuloId.equals(_contexto.circuloId))
+              ..orderBy([(c) => OrderingTerm.asc(c.creadaEn)]))
+            .get();
+    for (final c in citas) {
+      await una(TipoFicha.cita, c.id);
+    }
+    final turnos =
+        await (_db.select(_db.turnos)
+              ..where((t) => t.circuloId.equals(_contexto.circuloId))
+              ..orderBy([(t) => OrderingTerm.asc(t.creadoEn)]))
+            .get();
+    for (final t in turnos) {
+      await una(TipoFicha.turno, t.id);
+    }
     return n;
   });
 
@@ -405,6 +458,18 @@ final class PublicadorFichas {
         )..where((t) => t.id.equals(id))).getSingleOrNull();
         if (a == null) return null;
         fila = FilasFicha.ajustesControl(a);
+      case TipoFicha.cita:
+        final x = await (_db.select(
+          _db.citas,
+        )..where((t) => t.id.equals(id))).getSingleOrNull();
+        if (x == null) return null;
+        fila = FilasFicha.cita(x);
+      case TipoFicha.turno:
+        final x = await (_db.select(
+          _db.turnos,
+        )..where((t) => t.id.equals(id))).getSingleOrNull();
+        if (x == null) return null;
+        fila = FilasFicha.turno(x);
     }
     for (final columna in FilasFicha.columnasFoto[tipo] ?? const <String>[]) {
       final fotoId = fila[columna];
@@ -508,6 +573,9 @@ final class _Campos {
 /// - Ajustes del control por horas: una fila por círculo (su id es el del
 ///   círculo). Gana el cambio más reciente (`modificado_en`), llegue en el
 ///   orden que llegue; los valores fuera de rango se descartan.
+/// - Citas y turnos: filas con baja lógica; modificar o borrar es una
+///   `ficha_modificada` con la fila entera y gana la más reciente. Esperan a
+///   su familiar (el que acompaña, el del turno) si aún no ha llegado.
 /// - Nunca lanza: un sobre raro no puede atascar la recepción.
 final class MaterializadorFichas {
   MaterializadorFichas(this._db, this._contexto, [this._archivos]);
@@ -648,6 +716,8 @@ final class MaterializadorFichas {
       TipoFicha.voz => _voz(e, id, c, creada),
       TipoFicha.frase => _frase(e, id, c, creada, payload),
       TipoFicha.ajustesControl => _ajustesControl(id, c),
+      TipoFicha.cita => _cita(e, id, c, creada),
+      TipoFicha.turno => _turno(e, id, c, creada),
     };
   }
 
@@ -788,6 +858,104 @@ final class MaterializadorFichas {
       )..where((t) => t.id.equals(id))).write(fila);
     }
     return _Resultado.aplicada;
+  }
+
+  static final _fechaFicha = RegExp(r'^\d{4}-\d{2}-\d{2}$');
+  static final _horaFicha = RegExp(r'^([01]\d|2[0-3]):[0-5]\d$');
+
+  Future<_Resultado> _cita(Evento e, String id, _Campos c, bool creada) async {
+    final circulo = c.txt('circulo_id');
+    final acompana = c.txtONulo('acompana_id');
+    final fila = CitasCompanion(
+      id: Value(id),
+      circuloId: Value(circulo),
+      titulo: Value(c.txt('titulo')),
+      tipo: Value(c.txt('tipo')),
+      fecha: Value(c.txt('fecha')),
+      hora: Value(c.txt('hora')),
+      lugar: Value(c.txtONulo('lugar')),
+      notas: Value(c.txtONulo('notas')),
+      acompanaId: Value(acompana),
+      creadaPor: Value(c.txt('creada_por')),
+      creadaEn: Value(c.ent('creada_en')),
+      modificadaPor: Value(c.txt('modificada_por')),
+      modificadaEn: Value(c.ent('modificada_en')),
+      bajaEn: Value(c.entONulo('baja_en')),
+    );
+    if (!c.valida ||
+        circulo != _contexto.circuloId ||
+        !_fechaFicha.hasMatch(fila.fecha.value) ||
+        !_horaFicha.hasMatch(fila.hora.value)) {
+      return _Resultado.descartada;
+    }
+    return _mutable(
+      e: e,
+      tabla: _db.citas,
+      id: id,
+      creada: creada,
+      soloFotos: false,
+      fotos: const {},
+      requisitos: () async =>
+          await _existe(_db.circulos, circulo) &&
+          (acompana == null || await _existe(_db.miembros, acompana)),
+      guardar: (insertar, faltan) async {
+        if (insertar) {
+          await _db.into(_db.citas).insert(fila);
+        } else {
+          await (_db.update(
+            _db.citas,
+          )..where((t) => t.id.equals(id))).write(fila);
+        }
+      },
+    );
+  }
+
+  Future<_Resultado> _turno(Evento e, String id, _Campos c, bool creada) async {
+    final circulo = c.txt('circulo_id');
+    final miembro = c.txt('miembro_id');
+    final fila = TurnosCompanion(
+      id: Value(id),
+      circuloId: Value(circulo),
+      miembroId: Value(miembro),
+      fecha: Value(c.txt('fecha')),
+      desdeHora: Value(c.txt('desde_hora')),
+      hastaHora: Value(c.txt('hasta_hora')),
+      repetirSemanal: Value(c.logico('repetir_semanal')),
+      nota: Value(c.txtONulo('nota')),
+      creadoPor: Value(c.txt('creado_por')),
+      creadoEn: Value(c.ent('creado_en')),
+      modificadoPor: Value(c.txt('modificado_por')),
+      modificadoEn: Value(c.ent('modificado_en')),
+      bajaEn: Value(c.entONulo('baja_en')),
+    );
+    if (!c.valida ||
+        circulo != _contexto.circuloId ||
+        !_fechaFicha.hasMatch(fila.fecha.value) ||
+        !_horaFicha.hasMatch(fila.desdeHora.value) ||
+        !_horaFicha.hasMatch(fila.hastaHora.value) ||
+        fila.desdeHora.value == fila.hastaHora.value) {
+      return _Resultado.descartada;
+    }
+    return _mutable(
+      e: e,
+      tabla: _db.turnos,
+      id: id,
+      creada: creada,
+      soloFotos: false,
+      fotos: const {},
+      requisitos: () async =>
+          await _existe(_db.circulos, circulo) &&
+          await _existe(_db.miembros, miembro),
+      guardar: (insertar, faltan) async {
+        if (insertar) {
+          await _db.into(_db.turnos).insert(fila);
+        } else {
+          await (_db.update(
+            _db.turnos,
+          )..where((t) => t.id.equals(id))).write(fila);
+        }
+      },
+    );
   }
 
   Future<_Resultado> _voz(Evento e, String id, _Campos c, bool creada) async {

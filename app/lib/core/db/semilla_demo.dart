@@ -9,6 +9,7 @@ import '../i18n/fechas.dart';
 import '../sync/fichas.dart';
 import 'base_datos.dart';
 import 'png_marcador.dart';
+import 'repositorios/agenda_repositorio.dart';
 import 'repositorios/circulo_repositorio.dart';
 import 'repositorios/control_horas_repositorio.dart';
 import 'repositorios/eventos_repositorio.dart';
@@ -23,7 +24,8 @@ import 'repositorios/medicacion_repositorio.dart';
 /// defecto, el móvil de la persona desde ayer por la mañana y las respuestas
 /// de las rondas de ayer y de hoy, con una ronda de hoy sin respuesta) y el
 /// aviso a Lucía por esa ronda. Voces: sin grabar (sin audio ni
-/// consentimientos).
+/// consentimientos). Agenda: una cita mañana (con Javier) y un turno semanal
+/// de Marta que empieza hoy.
 abstract final class SemillaDemo {
   /// `true` si la base ya tiene medicamentos.
   static Future<bool> hayMedicamentos(AppDatabase db) async {
@@ -124,7 +126,7 @@ abstract final class SemillaDemo {
         ),
       );
     }
-    await circulo.crearMiembro(
+    final javier = await circulo.crearMiembro(
       const NuevoMiembro(
         nombre: 'Javier',
         relacion: 'Hijo',
@@ -133,7 +135,7 @@ abstract final class SemillaDemo {
         ordenEscalado: 2,
       ),
     );
-    await circulo.crearMiembro(
+    final marta = await circulo.crearMiembro(
       const NuevoMiembro(
         nombre: 'Marta',
         relacion: 'Nieta',
@@ -141,6 +143,16 @@ abstract final class SemillaDemo {
         rol: 'apoyo',
         ordenEscalado: 3,
       ),
+    );
+
+    await _sembrarAgenda(
+      db: db,
+      contexto: contexto,
+      reloj: reloj,
+      eventos: eventos,
+      autor: lucia,
+      acompana: javier,
+      turno: marta,
     );
 
     // Medicamentos con fotos de marcador.
@@ -271,6 +283,53 @@ abstract final class SemillaDemo {
         familiar: lucia,
       );
     }
+  }
+
+  /// Una cita de ejemplo mañana (con Javier) y un turno semanal de Marta
+  /// que empieza hoy, de 10:00 a 14:00.
+  static Future<void> _sembrarAgenda({
+    required AppDatabase db,
+    required ContextoApp contexto,
+    required Reloj reloj,
+    required EventosRepositorio eventos,
+    required String autor,
+    required String acompana,
+    required String turno,
+  }) async {
+    final agenda = AgendaRepositorio(
+      db: db,
+      reloj: reloj,
+      contexto: contexto,
+      eventos: eventos,
+      autor: () => autor,
+    );
+    final hoy = fechaLocalDe(contexto.zonaHoraria, reloj.ahora());
+    String texto(DateTime d) {
+      String dos(int n) => n.toString().padLeft(2, '0');
+      return '${d.year.toString().padLeft(4, '0')}-${dos(d.month)}-${dos(d.day)}';
+    }
+
+    await agenda.crearCita(
+      DatosCita(
+        titulo: 'Revisión (ejemplo)',
+        tipo: TipoCita.medico,
+        fecha: texto(DateTime.utc(hoy.anio, hoy.mes, hoy.dia + 1)),
+        hora: '10:30',
+        lugar: 'Centro de salud (ejemplo)',
+        notas: 'Llevar la lista de medicamentos.',
+        acompanaId: acompana,
+      ),
+    );
+    await agenda.crearTurno(
+      DatosTurno(
+        miembroId: turno,
+        fecha: texto(DateTime.utc(hoy.anio, hoy.mes, hoy.dia)),
+        desde: '10:00',
+        hasta: '14:00',
+        repetirSemanal: true,
+        nota: 'Turno de ejemplo',
+      ),
+    );
   }
 
   /// Control por horas y avisos de ejemplo.

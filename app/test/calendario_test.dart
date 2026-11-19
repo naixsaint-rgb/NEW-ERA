@@ -208,12 +208,13 @@ void main() {
     expect(find.text('Medicamento B (ejemplo)'), findsOneWidget);
     expect(find.text('12:00'), findsNWidgets(3));
 
-    // El pie apagado, sin inventar turnos ni citas.
-    await tester.scrollUntilVisible(
-      find.text('Turnos de la familia y citas'),
-      300,
-    );
-    expect(find.text('Llega en la semana 13'), findsOneWidget);
+    // La semilla trae un turno semanal de Marta que empieza hoy, y la cita
+    // de ejemplo de mañana sale en «Próximas citas» (ya no hay pie de
+    // «llega en la semana 13»).
+    await tester.scrollUntilVisible(find.text('PRÓXIMAS CITAS'), 300);
+    expect(find.text('Revisión (ejemplo)'), findsOneWidget);
+    expect(find.text('Llega en la semana 13'), findsNothing);
+    expect(find.text('Turnos de la familia y citas'), findsNothing);
     expect(find.text('Sin tomas ni hechos ese día'), findsNothing);
     expect(tester.takeException(), isNull);
   });
@@ -358,10 +359,7 @@ void main() {
     await _pulsar(tester, find.byKey(ClavesUi.mesSiguiente));
     expect(tester.takeException(), isNull);
     await _pulsar(tester, find.byKey(ClavesUi.mesAnterior));
-    await tester.scrollUntilVisible(
-      find.text('Turnos de la familia y citas'),
-      300,
-    );
+    await tester.scrollUntilVisible(find.text('PRÓXIMAS CITAS'), 300);
     expect(tester.takeException(), isNull);
   });
 }

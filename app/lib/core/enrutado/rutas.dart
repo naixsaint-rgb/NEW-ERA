@@ -91,4 +91,17 @@ abstract final class Rutas {
 
   /// Voces › un familiar › permiso para grabar su voz.
   static String vozPermiso(String miembroId) => '${voz(miembroId)}/permiso';
+
+  /// Calendario › nueva cita (con [fecha] `yyyy-MM-dd` ya elegida) o editar
+  /// una existente.
+  static String citaNueva(String fecha) =>
+      '/familia/calendario/cita/nueva?fecha=${Uri.encodeQueryComponent(fecha)}';
+  static String cita(String id) =>
+      '/familia/calendario/cita/${Uri.encodeComponent(id)}';
+
+  /// Calendario › nuevo turno o editar uno existente.
+  static String turnoNuevo(String fecha) =>
+      '/familia/calendario/turno/nuevo?fecha=${Uri.encodeQueryComponent(fecha)}';
+  static String turno(String id) =>
+      '/familia/calendario/turno/${Uri.encodeComponent(id)}';
 }

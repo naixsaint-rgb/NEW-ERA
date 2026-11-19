@@ -7,6 +7,7 @@ import '../../../core/providers.dart';
 import '../../../core/tema/colores.dart';
 import '../../../shared/ios/ios.dart';
 import '../../../shared/l10n_ext.dart';
+import '../../calendario/agenda_hoy.dart';
 import '../dominio/tomas.dart';
 import 'control_hoy.dart' show nombresDe;
 import 'piezas_hoy.dart';
@@ -48,6 +49,7 @@ class VistaManana extends ConsumerWidget {
           vacio: l.hoySinTomasManana,
           conEstado: false,
         ),
+        const AgendaManana(),
         separacionBloques,
         GrupoLista(
           titulo: l.hoyQuienRecibeAvisos,

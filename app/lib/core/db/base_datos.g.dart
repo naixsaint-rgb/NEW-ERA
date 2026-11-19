@@ -10319,6 +10319,1594 @@ class AjustesControlHorasCompanion extends UpdateCompanion<FilaAjustesControl> {
   }
 }
 
+class $CitasTable extends Citas with TableInfo<$CitasTable, Cita> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CitasTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _circuloIdMeta = const VerificationMeta(
+    'circuloId',
+  );
+  @override
+  late final GeneratedColumn<String> circuloId = GeneratedColumn<String>(
+    'circulo_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES circulos (id)',
+    ),
+  );
+  static const VerificationMeta _tituloMeta = const VerificationMeta('titulo');
+  @override
+  late final GeneratedColumn<String> titulo = GeneratedColumn<String>(
+    'titulo',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _tipoMeta = const VerificationMeta('tipo');
+  @override
+  late final GeneratedColumn<String> tipo = GeneratedColumn<String>(
+    'tipo',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _fechaMeta = const VerificationMeta('fecha');
+  @override
+  late final GeneratedColumn<String> fecha = GeneratedColumn<String>(
+    'fecha',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _horaMeta = const VerificationMeta('hora');
+  @override
+  late final GeneratedColumn<String> hora = GeneratedColumn<String>(
+    'hora',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _lugarMeta = const VerificationMeta('lugar');
+  @override
+  late final GeneratedColumn<String> lugar = GeneratedColumn<String>(
+    'lugar',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _notasMeta = const VerificationMeta('notas');
+  @override
+  late final GeneratedColumn<String> notas = GeneratedColumn<String>(
+    'notas',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _acompanaIdMeta = const VerificationMeta(
+    'acompanaId',
+  );
+  @override
+  late final GeneratedColumn<String> acompanaId = GeneratedColumn<String>(
+    'acompana_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES miembros (id)',
+    ),
+  );
+  static const VerificationMeta _creadaPorMeta = const VerificationMeta(
+    'creadaPor',
+  );
+  @override
+  late final GeneratedColumn<String> creadaPor = GeneratedColumn<String>(
+    'creada_por',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _creadaEnMeta = const VerificationMeta(
+    'creadaEn',
+  );
+  @override
+  late final GeneratedColumn<int> creadaEn = GeneratedColumn<int>(
+    'creada_en',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _modificadaPorMeta = const VerificationMeta(
+    'modificadaPor',
+  );
+  @override
+  late final GeneratedColumn<String> modificadaPor = GeneratedColumn<String>(
+    'modificada_por',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _modificadaEnMeta = const VerificationMeta(
+    'modificadaEn',
+  );
+  @override
+  late final GeneratedColumn<int> modificadaEn = GeneratedColumn<int>(
+    'modificada_en',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _bajaEnMeta = const VerificationMeta('bajaEn');
+  @override
+  late final GeneratedColumn<int> bajaEn = GeneratedColumn<int>(
+    'baja_en',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    circuloId,
+    titulo,
+    tipo,
+    fecha,
+    hora,
+    lugar,
+    notas,
+    acompanaId,
+    creadaPor,
+    creadaEn,
+    modificadaPor,
+    modificadaEn,
+    bajaEn,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'citas';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<Cita> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('circulo_id')) {
+      context.handle(
+        _circuloIdMeta,
+        circuloId.isAcceptableOrUnknown(data['circulo_id']!, _circuloIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_circuloIdMeta);
+    }
+    if (data.containsKey('titulo')) {
+      context.handle(
+        _tituloMeta,
+        titulo.isAcceptableOrUnknown(data['titulo']!, _tituloMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_tituloMeta);
+    }
+    if (data.containsKey('tipo')) {
+      context.handle(
+        _tipoMeta,
+        tipo.isAcceptableOrUnknown(data['tipo']!, _tipoMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_tipoMeta);
+    }
+    if (data.containsKey('fecha')) {
+      context.handle(
+        _fechaMeta,
+        fecha.isAcceptableOrUnknown(data['fecha']!, _fechaMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_fechaMeta);
+    }
+    if (data.containsKey('hora')) {
+      context.handle(
+        _horaMeta,
+        hora.isAcceptableOrUnknown(data['hora']!, _horaMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_horaMeta);
+    }
+    if (data.containsKey('lugar')) {
+      context.handle(
+        _lugarMeta,
+        lugar.isAcceptableOrUnknown(data['lugar']!, _lugarMeta),
+      );
+    }
+    if (data.containsKey('notas')) {
+      context.handle(
+        _notasMeta,
+        notas.isAcceptableOrUnknown(data['notas']!, _notasMeta),
+      );
+    }
+    if (data.containsKey('acompana_id')) {
+      context.handle(
+        _acompanaIdMeta,
+        acompanaId.isAcceptableOrUnknown(data['acompana_id']!, _acompanaIdMeta),
+      );
+    }
+    if (data.containsKey('creada_por')) {
+      context.handle(
+        _creadaPorMeta,
+        creadaPor.isAcceptableOrUnknown(data['creada_por']!, _creadaPorMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_creadaPorMeta);
+    }
+    if (data.containsKey('creada_en')) {
+      context.handle(
+        _creadaEnMeta,
+        creadaEn.isAcceptableOrUnknown(data['creada_en']!, _creadaEnMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_creadaEnMeta);
+    }
+    if (data.containsKey('modificada_por')) {
+      context.handle(
+        _modificadaPorMeta,
+        modificadaPor.isAcceptableOrUnknown(
+          data['modificada_por']!,
+          _modificadaPorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_modificadaPorMeta);
+    }
+    if (data.containsKey('modificada_en')) {
+      context.handle(
+        _modificadaEnMeta,
+        modificadaEn.isAcceptableOrUnknown(
+          data['modificada_en']!,
+          _modificadaEnMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_modificadaEnMeta);
+    }
+    if (data.containsKey('baja_en')) {
+      context.handle(
+        _bajaEnMeta,
+        bajaEn.isAcceptableOrUnknown(data['baja_en']!, _bajaEnMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Cita map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Cita(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      circuloId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}circulo_id'],
+      )!,
+      titulo: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}titulo'],
+      )!,
+      tipo: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tipo'],
+      )!,
+      fecha: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}fecha'],
+      )!,
+      hora: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}hora'],
+      )!,
+      lugar: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}lugar'],
+      ),
+      notas: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notas'],
+      ),
+      acompanaId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}acompana_id'],
+      ),
+      creadaPor: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}creada_por'],
+      )!,
+      creadaEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}creada_en'],
+      )!,
+      modificadaPor: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}modificada_por'],
+      )!,
+      modificadaEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}modificada_en'],
+      )!,
+      bajaEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}baja_en'],
+      ),
+    );
+  }
+
+  @override
+  $CitasTable createAlias(String alias) {
+    return $CitasTable(attachedDatabase, alias);
+  }
+}
+
+class Cita extends DataClass implements Insertable<Cita> {
+  final String id;
+  final String circuloId;
+  final String titulo;
+
+  /// `medico`, `analisis` u `otra`.
+  final String tipo;
+
+  /// `yyyy-MM-dd`.
+  final String fecha;
+
+  /// `HH:mm`.
+  final String hora;
+  final String? lugar;
+  final String? notas;
+
+  /// Familiar que la acompaña (opcional).
+  final String? acompanaId;
+  final String creadaPor;
+  final int creadaEn;
+  final String modificadaPor;
+  final int modificadaEn;
+  final int? bajaEn;
+  const Cita({
+    required this.id,
+    required this.circuloId,
+    required this.titulo,
+    required this.tipo,
+    required this.fecha,
+    required this.hora,
+    this.lugar,
+    this.notas,
+    this.acompanaId,
+    required this.creadaPor,
+    required this.creadaEn,
+    required this.modificadaPor,
+    required this.modificadaEn,
+    this.bajaEn,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['circulo_id'] = Variable<String>(circuloId);
+    map['titulo'] = Variable<String>(titulo);
+    map['tipo'] = Variable<String>(tipo);
+    map['fecha'] = Variable<String>(fecha);
+    map['hora'] = Variable<String>(hora);
+    if (!nullToAbsent || lugar != null) {
+      map['lugar'] = Variable<String>(lugar);
+    }
+    if (!nullToAbsent || notas != null) {
+      map['notas'] = Variable<String>(notas);
+    }
+    if (!nullToAbsent || acompanaId != null) {
+      map['acompana_id'] = Variable<String>(acompanaId);
+    }
+    map['creada_por'] = Variable<String>(creadaPor);
+    map['creada_en'] = Variable<int>(creadaEn);
+    map['modificada_por'] = Variable<String>(modificadaPor);
+    map['modificada_en'] = Variable<int>(modificadaEn);
+    if (!nullToAbsent || bajaEn != null) {
+      map['baja_en'] = Variable<int>(bajaEn);
+    }
+    return map;
+  }
+
+  CitasCompanion toCompanion(bool nullToAbsent) {
+    return CitasCompanion(
+      id: Value(id),
+      circuloId: Value(circuloId),
+      titulo: Value(titulo),
+      tipo: Value(tipo),
+      fecha: Value(fecha),
+      hora: Value(hora),
+      lugar: lugar == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lugar),
+      notas: notas == null && nullToAbsent
+          ? const Value.absent()
+          : Value(notas),
+      acompanaId: acompanaId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(acompanaId),
+      creadaPor: Value(creadaPor),
+      creadaEn: Value(creadaEn),
+      modificadaPor: Value(modificadaPor),
+      modificadaEn: Value(modificadaEn),
+      bajaEn: bajaEn == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bajaEn),
+    );
+  }
+
+  factory Cita.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Cita(
+      id: serializer.fromJson<String>(json['id']),
+      circuloId: serializer.fromJson<String>(json['circuloId']),
+      titulo: serializer.fromJson<String>(json['titulo']),
+      tipo: serializer.fromJson<String>(json['tipo']),
+      fecha: serializer.fromJson<String>(json['fecha']),
+      hora: serializer.fromJson<String>(json['hora']),
+      lugar: serializer.fromJson<String?>(json['lugar']),
+      notas: serializer.fromJson<String?>(json['notas']),
+      acompanaId: serializer.fromJson<String?>(json['acompanaId']),
+      creadaPor: serializer.fromJson<String>(json['creadaPor']),
+      creadaEn: serializer.fromJson<int>(json['creadaEn']),
+      modificadaPor: serializer.fromJson<String>(json['modificadaPor']),
+      modificadaEn: serializer.fromJson<int>(json['modificadaEn']),
+      bajaEn: serializer.fromJson<int?>(json['bajaEn']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'circuloId': serializer.toJson<String>(circuloId),
+      'titulo': serializer.toJson<String>(titulo),
+      'tipo': serializer.toJson<String>(tipo),
+      'fecha': serializer.toJson<String>(fecha),
+      'hora': serializer.toJson<String>(hora),
+      'lugar': serializer.toJson<String?>(lugar),
+      'notas': serializer.toJson<String?>(notas),
+      'acompanaId': serializer.toJson<String?>(acompanaId),
+      'creadaPor': serializer.toJson<String>(creadaPor),
+      'creadaEn': serializer.toJson<int>(creadaEn),
+      'modificadaPor': serializer.toJson<String>(modificadaPor),
+      'modificadaEn': serializer.toJson<int>(modificadaEn),
+      'bajaEn': serializer.toJson<int?>(bajaEn),
+    };
+  }
+
+  Cita copyWith({
+    String? id,
+    String? circuloId,
+    String? titulo,
+    String? tipo,
+    String? fecha,
+    String? hora,
+    Value<String?> lugar = const Value.absent(),
+    Value<String?> notas = const Value.absent(),
+    Value<String?> acompanaId = const Value.absent(),
+    String? creadaPor,
+    int? creadaEn,
+    String? modificadaPor,
+    int? modificadaEn,
+    Value<int?> bajaEn = const Value.absent(),
+  }) => Cita(
+    id: id ?? this.id,
+    circuloId: circuloId ?? this.circuloId,
+    titulo: titulo ?? this.titulo,
+    tipo: tipo ?? this.tipo,
+    fecha: fecha ?? this.fecha,
+    hora: hora ?? this.hora,
+    lugar: lugar.present ? lugar.value : this.lugar,
+    notas: notas.present ? notas.value : this.notas,
+    acompanaId: acompanaId.present ? acompanaId.value : this.acompanaId,
+    creadaPor: creadaPor ?? this.creadaPor,
+    creadaEn: creadaEn ?? this.creadaEn,
+    modificadaPor: modificadaPor ?? this.modificadaPor,
+    modificadaEn: modificadaEn ?? this.modificadaEn,
+    bajaEn: bajaEn.present ? bajaEn.value : this.bajaEn,
+  );
+  Cita copyWithCompanion(CitasCompanion data) {
+    return Cita(
+      id: data.id.present ? data.id.value : this.id,
+      circuloId: data.circuloId.present ? data.circuloId.value : this.circuloId,
+      titulo: data.titulo.present ? data.titulo.value : this.titulo,
+      tipo: data.tipo.present ? data.tipo.value : this.tipo,
+      fecha: data.fecha.present ? data.fecha.value : this.fecha,
+      hora: data.hora.present ? data.hora.value : this.hora,
+      lugar: data.lugar.present ? data.lugar.value : this.lugar,
+      notas: data.notas.present ? data.notas.value : this.notas,
+      acompanaId: data.acompanaId.present
+          ? data.acompanaId.value
+          : this.acompanaId,
+      creadaPor: data.creadaPor.present ? data.creadaPor.value : this.creadaPor,
+      creadaEn: data.creadaEn.present ? data.creadaEn.value : this.creadaEn,
+      modificadaPor: data.modificadaPor.present
+          ? data.modificadaPor.value
+          : this.modificadaPor,
+      modificadaEn: data.modificadaEn.present
+          ? data.modificadaEn.value
+          : this.modificadaEn,
+      bajaEn: data.bajaEn.present ? data.bajaEn.value : this.bajaEn,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Cita(')
+          ..write('id: $id, ')
+          ..write('circuloId: $circuloId, ')
+          ..write('titulo: $titulo, ')
+          ..write('tipo: $tipo, ')
+          ..write('fecha: $fecha, ')
+          ..write('hora: $hora, ')
+          ..write('lugar: $lugar, ')
+          ..write('notas: $notas, ')
+          ..write('acompanaId: $acompanaId, ')
+          ..write('creadaPor: $creadaPor, ')
+          ..write('creadaEn: $creadaEn, ')
+          ..write('modificadaPor: $modificadaPor, ')
+          ..write('modificadaEn: $modificadaEn, ')
+          ..write('bajaEn: $bajaEn')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    circuloId,
+    titulo,
+    tipo,
+    fecha,
+    hora,
+    lugar,
+    notas,
+    acompanaId,
+    creadaPor,
+    creadaEn,
+    modificadaPor,
+    modificadaEn,
+    bajaEn,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Cita &&
+          other.id == this.id &&
+          other.circuloId == this.circuloId &&
+          other.titulo == this.titulo &&
+          other.tipo == this.tipo &&
+          other.fecha == this.fecha &&
+          other.hora == this.hora &&
+          other.lugar == this.lugar &&
+          other.notas == this.notas &&
+          other.acompanaId == this.acompanaId &&
+          other.creadaPor == this.creadaPor &&
+          other.creadaEn == this.creadaEn &&
+          other.modificadaPor == this.modificadaPor &&
+          other.modificadaEn == this.modificadaEn &&
+          other.bajaEn == this.bajaEn);
+}
+
+class CitasCompanion extends UpdateCompanion<Cita> {
+  final Value<String> id;
+  final Value<String> circuloId;
+  final Value<String> titulo;
+  final Value<String> tipo;
+  final Value<String> fecha;
+  final Value<String> hora;
+  final Value<String?> lugar;
+  final Value<String?> notas;
+  final Value<String?> acompanaId;
+  final Value<String> creadaPor;
+  final Value<int> creadaEn;
+  final Value<String> modificadaPor;
+  final Value<int> modificadaEn;
+  final Value<int?> bajaEn;
+  final Value<int> rowid;
+  const CitasCompanion({
+    this.id = const Value.absent(),
+    this.circuloId = const Value.absent(),
+    this.titulo = const Value.absent(),
+    this.tipo = const Value.absent(),
+    this.fecha = const Value.absent(),
+    this.hora = const Value.absent(),
+    this.lugar = const Value.absent(),
+    this.notas = const Value.absent(),
+    this.acompanaId = const Value.absent(),
+    this.creadaPor = const Value.absent(),
+    this.creadaEn = const Value.absent(),
+    this.modificadaPor = const Value.absent(),
+    this.modificadaEn = const Value.absent(),
+    this.bajaEn = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  CitasCompanion.insert({
+    required String id,
+    required String circuloId,
+    required String titulo,
+    required String tipo,
+    required String fecha,
+    required String hora,
+    this.lugar = const Value.absent(),
+    this.notas = const Value.absent(),
+    this.acompanaId = const Value.absent(),
+    required String creadaPor,
+    required int creadaEn,
+    required String modificadaPor,
+    required int modificadaEn,
+    this.bajaEn = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       circuloId = Value(circuloId),
+       titulo = Value(titulo),
+       tipo = Value(tipo),
+       fecha = Value(fecha),
+       hora = Value(hora),
+       creadaPor = Value(creadaPor),
+       creadaEn = Value(creadaEn),
+       modificadaPor = Value(modificadaPor),
+       modificadaEn = Value(modificadaEn);
+  static Insertable<Cita> custom({
+    Expression<String>? id,
+    Expression<String>? circuloId,
+    Expression<String>? titulo,
+    Expression<String>? tipo,
+    Expression<String>? fecha,
+    Expression<String>? hora,
+    Expression<String>? lugar,
+    Expression<String>? notas,
+    Expression<String>? acompanaId,
+    Expression<String>? creadaPor,
+    Expression<int>? creadaEn,
+    Expression<String>? modificadaPor,
+    Expression<int>? modificadaEn,
+    Expression<int>? bajaEn,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (circuloId != null) 'circulo_id': circuloId,
+      if (titulo != null) 'titulo': titulo,
+      if (tipo != null) 'tipo': tipo,
+      if (fecha != null) 'fecha': fecha,
+      if (hora != null) 'hora': hora,
+      if (lugar != null) 'lugar': lugar,
+      if (notas != null) 'notas': notas,
+      if (acompanaId != null) 'acompana_id': acompanaId,
+      if (creadaPor != null) 'creada_por': creadaPor,
+      if (creadaEn != null) 'creada_en': creadaEn,
+      if (modificadaPor != null) 'modificada_por': modificadaPor,
+      if (modificadaEn != null) 'modificada_en': modificadaEn,
+      if (bajaEn != null) 'baja_en': bajaEn,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  CitasCompanion copyWith({
+    Value<String>? id,
+    Value<String>? circuloId,
+    Value<String>? titulo,
+    Value<String>? tipo,
+    Value<String>? fecha,
+    Value<String>? hora,
+    Value<String?>? lugar,
+    Value<String?>? notas,
+    Value<String?>? acompanaId,
+    Value<String>? creadaPor,
+    Value<int>? creadaEn,
+    Value<String>? modificadaPor,
+    Value<int>? modificadaEn,
+    Value<int?>? bajaEn,
+    Value<int>? rowid,
+  }) {
+    return CitasCompanion(
+      id: id ?? this.id,
+      circuloId: circuloId ?? this.circuloId,
+      titulo: titulo ?? this.titulo,
+      tipo: tipo ?? this.tipo,
+      fecha: fecha ?? this.fecha,
+      hora: hora ?? this.hora,
+      lugar: lugar ?? this.lugar,
+      notas: notas ?? this.notas,
+      acompanaId: acompanaId ?? this.acompanaId,
+      creadaPor: creadaPor ?? this.creadaPor,
+      creadaEn: creadaEn ?? this.creadaEn,
+      modificadaPor: modificadaPor ?? this.modificadaPor,
+      modificadaEn: modificadaEn ?? this.modificadaEn,
+      bajaEn: bajaEn ?? this.bajaEn,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (circuloId.present) {
+      map['circulo_id'] = Variable<String>(circuloId.value);
+    }
+    if (titulo.present) {
+      map['titulo'] = Variable<String>(titulo.value);
+    }
+    if (tipo.present) {
+      map['tipo'] = Variable<String>(tipo.value);
+    }
+    if (fecha.present) {
+      map['fecha'] = Variable<String>(fecha.value);
+    }
+    if (hora.present) {
+      map['hora'] = Variable<String>(hora.value);
+    }
+    if (lugar.present) {
+      map['lugar'] = Variable<String>(lugar.value);
+    }
+    if (notas.present) {
+      map['notas'] = Variable<String>(notas.value);
+    }
+    if (acompanaId.present) {
+      map['acompana_id'] = Variable<String>(acompanaId.value);
+    }
+    if (creadaPor.present) {
+      map['creada_por'] = Variable<String>(creadaPor.value);
+    }
+    if (creadaEn.present) {
+      map['creada_en'] = Variable<int>(creadaEn.value);
+    }
+    if (modificadaPor.present) {
+      map['modificada_por'] = Variable<String>(modificadaPor.value);
+    }
+    if (modificadaEn.present) {
+      map['modificada_en'] = Variable<int>(modificadaEn.value);
+    }
+    if (bajaEn.present) {
+      map['baja_en'] = Variable<int>(bajaEn.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CitasCompanion(')
+          ..write('id: $id, ')
+          ..write('circuloId: $circuloId, ')
+          ..write('titulo: $titulo, ')
+          ..write('tipo: $tipo, ')
+          ..write('fecha: $fecha, ')
+          ..write('hora: $hora, ')
+          ..write('lugar: $lugar, ')
+          ..write('notas: $notas, ')
+          ..write('acompanaId: $acompanaId, ')
+          ..write('creadaPor: $creadaPor, ')
+          ..write('creadaEn: $creadaEn, ')
+          ..write('modificadaPor: $modificadaPor, ')
+          ..write('modificadaEn: $modificadaEn, ')
+          ..write('bajaEn: $bajaEn, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $TurnosTable extends Turnos with TableInfo<$TurnosTable, Turno> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TurnosTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _circuloIdMeta = const VerificationMeta(
+    'circuloId',
+  );
+  @override
+  late final GeneratedColumn<String> circuloId = GeneratedColumn<String>(
+    'circulo_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES circulos (id)',
+    ),
+  );
+  static const VerificationMeta _miembroIdMeta = const VerificationMeta(
+    'miembroId',
+  );
+  @override
+  late final GeneratedColumn<String> miembroId = GeneratedColumn<String>(
+    'miembro_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES miembros (id)',
+    ),
+  );
+  static const VerificationMeta _fechaMeta = const VerificationMeta('fecha');
+  @override
+  late final GeneratedColumn<String> fecha = GeneratedColumn<String>(
+    'fecha',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _desdeHoraMeta = const VerificationMeta(
+    'desdeHora',
+  );
+  @override
+  late final GeneratedColumn<String> desdeHora = GeneratedColumn<String>(
+    'desde_hora',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _hastaHoraMeta = const VerificationMeta(
+    'hastaHora',
+  );
+  @override
+  late final GeneratedColumn<String> hastaHora = GeneratedColumn<String>(
+    'hasta_hora',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _repetirSemanalMeta = const VerificationMeta(
+    'repetirSemanal',
+  );
+  @override
+  late final GeneratedColumn<bool> repetirSemanal = GeneratedColumn<bool>(
+    'repetir_semanal',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("repetir_semanal" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _notaMeta = const VerificationMeta('nota');
+  @override
+  late final GeneratedColumn<String> nota = GeneratedColumn<String>(
+    'nota',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _creadoPorMeta = const VerificationMeta(
+    'creadoPor',
+  );
+  @override
+  late final GeneratedColumn<String> creadoPor = GeneratedColumn<String>(
+    'creado_por',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _creadoEnMeta = const VerificationMeta(
+    'creadoEn',
+  );
+  @override
+  late final GeneratedColumn<int> creadoEn = GeneratedColumn<int>(
+    'creado_en',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _modificadoPorMeta = const VerificationMeta(
+    'modificadoPor',
+  );
+  @override
+  late final GeneratedColumn<String> modificadoPor = GeneratedColumn<String>(
+    'modificado_por',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _modificadoEnMeta = const VerificationMeta(
+    'modificadoEn',
+  );
+  @override
+  late final GeneratedColumn<int> modificadoEn = GeneratedColumn<int>(
+    'modificado_en',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _bajaEnMeta = const VerificationMeta('bajaEn');
+  @override
+  late final GeneratedColumn<int> bajaEn = GeneratedColumn<int>(
+    'baja_en',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    circuloId,
+    miembroId,
+    fecha,
+    desdeHora,
+    hastaHora,
+    repetirSemanal,
+    nota,
+    creadoPor,
+    creadoEn,
+    modificadoPor,
+    modificadoEn,
+    bajaEn,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'turnos';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<Turno> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('circulo_id')) {
+      context.handle(
+        _circuloIdMeta,
+        circuloId.isAcceptableOrUnknown(data['circulo_id']!, _circuloIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_circuloIdMeta);
+    }
+    if (data.containsKey('miembro_id')) {
+      context.handle(
+        _miembroIdMeta,
+        miembroId.isAcceptableOrUnknown(data['miembro_id']!, _miembroIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_miembroIdMeta);
+    }
+    if (data.containsKey('fecha')) {
+      context.handle(
+        _fechaMeta,
+        fecha.isAcceptableOrUnknown(data['fecha']!, _fechaMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_fechaMeta);
+    }
+    if (data.containsKey('desde_hora')) {
+      context.handle(
+        _desdeHoraMeta,
+        desdeHora.isAcceptableOrUnknown(data['desde_hora']!, _desdeHoraMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_desdeHoraMeta);
+    }
+    if (data.containsKey('hasta_hora')) {
+      context.handle(
+        _hastaHoraMeta,
+        hastaHora.isAcceptableOrUnknown(data['hasta_hora']!, _hastaHoraMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_hastaHoraMeta);
+    }
+    if (data.containsKey('repetir_semanal')) {
+      context.handle(
+        _repetirSemanalMeta,
+        repetirSemanal.isAcceptableOrUnknown(
+          data['repetir_semanal']!,
+          _repetirSemanalMeta,
+        ),
+      );
+    }
+    if (data.containsKey('nota')) {
+      context.handle(
+        _notaMeta,
+        nota.isAcceptableOrUnknown(data['nota']!, _notaMeta),
+      );
+    }
+    if (data.containsKey('creado_por')) {
+      context.handle(
+        _creadoPorMeta,
+        creadoPor.isAcceptableOrUnknown(data['creado_por']!, _creadoPorMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_creadoPorMeta);
+    }
+    if (data.containsKey('creado_en')) {
+      context.handle(
+        _creadoEnMeta,
+        creadoEn.isAcceptableOrUnknown(data['creado_en']!, _creadoEnMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_creadoEnMeta);
+    }
+    if (data.containsKey('modificado_por')) {
+      context.handle(
+        _modificadoPorMeta,
+        modificadoPor.isAcceptableOrUnknown(
+          data['modificado_por']!,
+          _modificadoPorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_modificadoPorMeta);
+    }
+    if (data.containsKey('modificado_en')) {
+      context.handle(
+        _modificadoEnMeta,
+        modificadoEn.isAcceptableOrUnknown(
+          data['modificado_en']!,
+          _modificadoEnMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_modificadoEnMeta);
+    }
+    if (data.containsKey('baja_en')) {
+      context.handle(
+        _bajaEnMeta,
+        bajaEn.isAcceptableOrUnknown(data['baja_en']!, _bajaEnMeta),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Turno map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Turno(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      circuloId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}circulo_id'],
+      )!,
+      miembroId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}miembro_id'],
+      )!,
+      fecha: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}fecha'],
+      )!,
+      desdeHora: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}desde_hora'],
+      )!,
+      hastaHora: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}hasta_hora'],
+      )!,
+      repetirSemanal: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}repetir_semanal'],
+      )!,
+      nota: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}nota'],
+      ),
+      creadoPor: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}creado_por'],
+      )!,
+      creadoEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}creado_en'],
+      )!,
+      modificadoPor: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}modificado_por'],
+      )!,
+      modificadoEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}modificado_en'],
+      )!,
+      bajaEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}baja_en'],
+      ),
+    );
+  }
+
+  @override
+  $TurnosTable createAlias(String alias) {
+    return $TurnosTable(attachedDatabase, alias);
+  }
+}
+
+class Turno extends DataClass implements Insertable<Turno> {
+  final String id;
+  final String circuloId;
+  final String miembroId;
+
+  /// Primer día, `yyyy-MM-dd`.
+  final String fecha;
+
+  /// `HH:mm`.
+  final String desdeHora;
+
+  /// `HH:mm`.
+  final String hastaHora;
+  final bool repetirSemanal;
+  final String? nota;
+  final String creadoPor;
+  final int creadoEn;
+  final String modificadoPor;
+  final int modificadoEn;
+  final int? bajaEn;
+  const Turno({
+    required this.id,
+    required this.circuloId,
+    required this.miembroId,
+    required this.fecha,
+    required this.desdeHora,
+    required this.hastaHora,
+    required this.repetirSemanal,
+    this.nota,
+    required this.creadoPor,
+    required this.creadoEn,
+    required this.modificadoPor,
+    required this.modificadoEn,
+    this.bajaEn,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['circulo_id'] = Variable<String>(circuloId);
+    map['miembro_id'] = Variable<String>(miembroId);
+    map['fecha'] = Variable<String>(fecha);
+    map['desde_hora'] = Variable<String>(desdeHora);
+    map['hasta_hora'] = Variable<String>(hastaHora);
+    map['repetir_semanal'] = Variable<bool>(repetirSemanal);
+    if (!nullToAbsent || nota != null) {
+      map['nota'] = Variable<String>(nota);
+    }
+    map['creado_por'] = Variable<String>(creadoPor);
+    map['creado_en'] = Variable<int>(creadoEn);
+    map['modificado_por'] = Variable<String>(modificadoPor);
+    map['modificado_en'] = Variable<int>(modificadoEn);
+    if (!nullToAbsent || bajaEn != null) {
+      map['baja_en'] = Variable<int>(bajaEn);
+    }
+    return map;
+  }
+
+  TurnosCompanion toCompanion(bool nullToAbsent) {
+    return TurnosCompanion(
+      id: Value(id),
+      circuloId: Value(circuloId),
+      miembroId: Value(miembroId),
+      fecha: Value(fecha),
+      desdeHora: Value(desdeHora),
+      hastaHora: Value(hastaHora),
+      repetirSemanal: Value(repetirSemanal),
+      nota: nota == null && nullToAbsent ? const Value.absent() : Value(nota),
+      creadoPor: Value(creadoPor),
+      creadoEn: Value(creadoEn),
+      modificadoPor: Value(modificadoPor),
+      modificadoEn: Value(modificadoEn),
+      bajaEn: bajaEn == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bajaEn),
+    );
+  }
+
+  factory Turno.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Turno(
+      id: serializer.fromJson<String>(json['id']),
+      circuloId: serializer.fromJson<String>(json['circuloId']),
+      miembroId: serializer.fromJson<String>(json['miembroId']),
+      fecha: serializer.fromJson<String>(json['fecha']),
+      desdeHora: serializer.fromJson<String>(json['desdeHora']),
+      hastaHora: serializer.fromJson<String>(json['hastaHora']),
+      repetirSemanal: serializer.fromJson<bool>(json['repetirSemanal']),
+      nota: serializer.fromJson<String?>(json['nota']),
+      creadoPor: serializer.fromJson<String>(json['creadoPor']),
+      creadoEn: serializer.fromJson<int>(json['creadoEn']),
+      modificadoPor: serializer.fromJson<String>(json['modificadoPor']),
+      modificadoEn: serializer.fromJson<int>(json['modificadoEn']),
+      bajaEn: serializer.fromJson<int?>(json['bajaEn']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'circuloId': serializer.toJson<String>(circuloId),
+      'miembroId': serializer.toJson<String>(miembroId),
+      'fecha': serializer.toJson<String>(fecha),
+      'desdeHora': serializer.toJson<String>(desdeHora),
+      'hastaHora': serializer.toJson<String>(hastaHora),
+      'repetirSemanal': serializer.toJson<bool>(repetirSemanal),
+      'nota': serializer.toJson<String?>(nota),
+      'creadoPor': serializer.toJson<String>(creadoPor),
+      'creadoEn': serializer.toJson<int>(creadoEn),
+      'modificadoPor': serializer.toJson<String>(modificadoPor),
+      'modificadoEn': serializer.toJson<int>(modificadoEn),
+      'bajaEn': serializer.toJson<int?>(bajaEn),
+    };
+  }
+
+  Turno copyWith({
+    String? id,
+    String? circuloId,
+    String? miembroId,
+    String? fecha,
+    String? desdeHora,
+    String? hastaHora,
+    bool? repetirSemanal,
+    Value<String?> nota = const Value.absent(),
+    String? creadoPor,
+    int? creadoEn,
+    String? modificadoPor,
+    int? modificadoEn,
+    Value<int?> bajaEn = const Value.absent(),
+  }) => Turno(
+    id: id ?? this.id,
+    circuloId: circuloId ?? this.circuloId,
+    miembroId: miembroId ?? this.miembroId,
+    fecha: fecha ?? this.fecha,
+    desdeHora: desdeHora ?? this.desdeHora,
+    hastaHora: hastaHora ?? this.hastaHora,
+    repetirSemanal: repetirSemanal ?? this.repetirSemanal,
+    nota: nota.present ? nota.value : this.nota,
+    creadoPor: creadoPor ?? this.creadoPor,
+    creadoEn: creadoEn ?? this.creadoEn,
+    modificadoPor: modificadoPor ?? this.modificadoPor,
+    modificadoEn: modificadoEn ?? this.modificadoEn,
+    bajaEn: bajaEn.present ? bajaEn.value : this.bajaEn,
+  );
+  Turno copyWithCompanion(TurnosCompanion data) {
+    return Turno(
+      id: data.id.present ? data.id.value : this.id,
+      circuloId: data.circuloId.present ? data.circuloId.value : this.circuloId,
+      miembroId: data.miembroId.present ? data.miembroId.value : this.miembroId,
+      fecha: data.fecha.present ? data.fecha.value : this.fecha,
+      desdeHora: data.desdeHora.present ? data.desdeHora.value : this.desdeHora,
+      hastaHora: data.hastaHora.present ? data.hastaHora.value : this.hastaHora,
+      repetirSemanal: data.repetirSemanal.present
+          ? data.repetirSemanal.value
+          : this.repetirSemanal,
+      nota: data.nota.present ? data.nota.value : this.nota,
+      creadoPor: data.creadoPor.present ? data.creadoPor.value : this.creadoPor,
+      creadoEn: data.creadoEn.present ? data.creadoEn.value : this.creadoEn,
+      modificadoPor: data.modificadoPor.present
+          ? data.modificadoPor.value
+          : this.modificadoPor,
+      modificadoEn: data.modificadoEn.present
+          ? data.modificadoEn.value
+          : this.modificadoEn,
+      bajaEn: data.bajaEn.present ? data.bajaEn.value : this.bajaEn,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Turno(')
+          ..write('id: $id, ')
+          ..write('circuloId: $circuloId, ')
+          ..write('miembroId: $miembroId, ')
+          ..write('fecha: $fecha, ')
+          ..write('desdeHora: $desdeHora, ')
+          ..write('hastaHora: $hastaHora, ')
+          ..write('repetirSemanal: $repetirSemanal, ')
+          ..write('nota: $nota, ')
+          ..write('creadoPor: $creadoPor, ')
+          ..write('creadoEn: $creadoEn, ')
+          ..write('modificadoPor: $modificadoPor, ')
+          ..write('modificadoEn: $modificadoEn, ')
+          ..write('bajaEn: $bajaEn')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    circuloId,
+    miembroId,
+    fecha,
+    desdeHora,
+    hastaHora,
+    repetirSemanal,
+    nota,
+    creadoPor,
+    creadoEn,
+    modificadoPor,
+    modificadoEn,
+    bajaEn,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Turno &&
+          other.id == this.id &&
+          other.circuloId == this.circuloId &&
+          other.miembroId == this.miembroId &&
+          other.fecha == this.fecha &&
+          other.desdeHora == this.desdeHora &&
+          other.hastaHora == this.hastaHora &&
+          other.repetirSemanal == this.repetirSemanal &&
+          other.nota == this.nota &&
+          other.creadoPor == this.creadoPor &&
+          other.creadoEn == this.creadoEn &&
+          other.modificadoPor == this.modificadoPor &&
+          other.modificadoEn == this.modificadoEn &&
+          other.bajaEn == this.bajaEn);
+}
+
+class TurnosCompanion extends UpdateCompanion<Turno> {
+  final Value<String> id;
+  final Value<String> circuloId;
+  final Value<String> miembroId;
+  final Value<String> fecha;
+  final Value<String> desdeHora;
+  final Value<String> hastaHora;
+  final Value<bool> repetirSemanal;
+  final Value<String?> nota;
+  final Value<String> creadoPor;
+  final Value<int> creadoEn;
+  final Value<String> modificadoPor;
+  final Value<int> modificadoEn;
+  final Value<int?> bajaEn;
+  final Value<int> rowid;
+  const TurnosCompanion({
+    this.id = const Value.absent(),
+    this.circuloId = const Value.absent(),
+    this.miembroId = const Value.absent(),
+    this.fecha = const Value.absent(),
+    this.desdeHora = const Value.absent(),
+    this.hastaHora = const Value.absent(),
+    this.repetirSemanal = const Value.absent(),
+    this.nota = const Value.absent(),
+    this.creadoPor = const Value.absent(),
+    this.creadoEn = const Value.absent(),
+    this.modificadoPor = const Value.absent(),
+    this.modificadoEn = const Value.absent(),
+    this.bajaEn = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  TurnosCompanion.insert({
+    required String id,
+    required String circuloId,
+    required String miembroId,
+    required String fecha,
+    required String desdeHora,
+    required String hastaHora,
+    this.repetirSemanal = const Value.absent(),
+    this.nota = const Value.absent(),
+    required String creadoPor,
+    required int creadoEn,
+    required String modificadoPor,
+    required int modificadoEn,
+    this.bajaEn = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       circuloId = Value(circuloId),
+       miembroId = Value(miembroId),
+       fecha = Value(fecha),
+       desdeHora = Value(desdeHora),
+       hastaHora = Value(hastaHora),
+       creadoPor = Value(creadoPor),
+       creadoEn = Value(creadoEn),
+       modificadoPor = Value(modificadoPor),
+       modificadoEn = Value(modificadoEn);
+  static Insertable<Turno> custom({
+    Expression<String>? id,
+    Expression<String>? circuloId,
+    Expression<String>? miembroId,
+    Expression<String>? fecha,
+    Expression<String>? desdeHora,
+    Expression<String>? hastaHora,
+    Expression<bool>? repetirSemanal,
+    Expression<String>? nota,
+    Expression<String>? creadoPor,
+    Expression<int>? creadoEn,
+    Expression<String>? modificadoPor,
+    Expression<int>? modificadoEn,
+    Expression<int>? bajaEn,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (circuloId != null) 'circulo_id': circuloId,
+      if (miembroId != null) 'miembro_id': miembroId,
+      if (fecha != null) 'fecha': fecha,
+      if (desdeHora != null) 'desde_hora': desdeHora,
+      if (hastaHora != null) 'hasta_hora': hastaHora,
+      if (repetirSemanal != null) 'repetir_semanal': repetirSemanal,
+      if (nota != null) 'nota': nota,
+      if (creadoPor != null) 'creado_por': creadoPor,
+      if (creadoEn != null) 'creado_en': creadoEn,
+      if (modificadoPor != null) 'modificado_por': modificadoPor,
+      if (modificadoEn != null) 'modificado_en': modificadoEn,
+      if (bajaEn != null) 'baja_en': bajaEn,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  TurnosCompanion copyWith({
+    Value<String>? id,
+    Value<String>? circuloId,
+    Value<String>? miembroId,
+    Value<String>? fecha,
+    Value<String>? desdeHora,
+    Value<String>? hastaHora,
+    Value<bool>? repetirSemanal,
+    Value<String?>? nota,
+    Value<String>? creadoPor,
+    Value<int>? creadoEn,
+    Value<String>? modificadoPor,
+    Value<int>? modificadoEn,
+    Value<int?>? bajaEn,
+    Value<int>? rowid,
+  }) {
+    return TurnosCompanion(
+      id: id ?? this.id,
+      circuloId: circuloId ?? this.circuloId,
+      miembroId: miembroId ?? this.miembroId,
+      fecha: fecha ?? this.fecha,
+      desdeHora: desdeHora ?? this.desdeHora,
+      hastaHora: hastaHora ?? this.hastaHora,
+      repetirSemanal: repetirSemanal ?? this.repetirSemanal,
+      nota: nota ?? this.nota,
+      creadoPor: creadoPor ?? this.creadoPor,
+      creadoEn: creadoEn ?? this.creadoEn,
+      modificadoPor: modificadoPor ?? this.modificadoPor,
+      modificadoEn: modificadoEn ?? this.modificadoEn,
+      bajaEn: bajaEn ?? this.bajaEn,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (circuloId.present) {
+      map['circulo_id'] = Variable<String>(circuloId.value);
+    }
+    if (miembroId.present) {
+      map['miembro_id'] = Variable<String>(miembroId.value);
+    }
+    if (fecha.present) {
+      map['fecha'] = Variable<String>(fecha.value);
+    }
+    if (desdeHora.present) {
+      map['desde_hora'] = Variable<String>(desdeHora.value);
+    }
+    if (hastaHora.present) {
+      map['hasta_hora'] = Variable<String>(hastaHora.value);
+    }
+    if (repetirSemanal.present) {
+      map['repetir_semanal'] = Variable<bool>(repetirSemanal.value);
+    }
+    if (nota.present) {
+      map['nota'] = Variable<String>(nota.value);
+    }
+    if (creadoPor.present) {
+      map['creado_por'] = Variable<String>(creadoPor.value);
+    }
+    if (creadoEn.present) {
+      map['creado_en'] = Variable<int>(creadoEn.value);
+    }
+    if (modificadoPor.present) {
+      map['modificado_por'] = Variable<String>(modificadoPor.value);
+    }
+    if (modificadoEn.present) {
+      map['modificado_en'] = Variable<int>(modificadoEn.value);
+    }
+    if (bajaEn.present) {
+      map['baja_en'] = Variable<int>(bajaEn.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TurnosCompanion(')
+          ..write('id: $id, ')
+          ..write('circuloId: $circuloId, ')
+          ..write('miembroId: $miembroId, ')
+          ..write('fecha: $fecha, ')
+          ..write('desdeHora: $desdeHora, ')
+          ..write('hastaHora: $hastaHora, ')
+          ..write('repetirSemanal: $repetirSemanal, ')
+          ..write('nota: $nota, ')
+          ..write('creadoPor: $creadoPor, ')
+          ..write('creadoEn: $creadoEn, ')
+          ..write('modificadoPor: $modificadoPor, ')
+          ..write('modificadoEn: $modificadoEn, ')
+          ..write('bajaEn: $bajaEn, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -10350,6 +11938,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   );
   late final $AjustesControlHorasTable ajustesControlHoras =
       $AjustesControlHorasTable(this);
+  late final $CitasTable citas = $CitasTable(this);
+  late final $TurnosTable turnos = $TurnosTable(this);
   late final Index pautasPorPauta = Index(
     'pautas_por_pauta',
     'CREATE INDEX pautas_por_pauta ON pautas (pauta_id, version)',
@@ -10388,6 +11978,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     syncEstado,
     clipsPendientes,
     ajustesControlHoras,
+    citas,
+    turnos,
     pautasPorPauta,
     eventosPorSujeto,
     eventosPorTipo,
@@ -10527,6 +12119,44 @@ final class $$CirculosTableReferences
     final cache = $_typedResult.readTableOrNull(
       _ajustesControlHorasRefsTable($_db),
     );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$CitasTable, List<Cita>> _citasRefsTable(
+    _$AppDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.citas,
+    aliasName: 'circulos__id__citas__circulo_id',
+  );
+
+  $$CitasTableProcessedTableManager get citasRefs {
+    final manager = $$CitasTableTableManager(
+      $_db,
+      $_db.citas,
+    ).filter((f) => f.circuloId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_citasRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$TurnosTable, List<Turno>> _turnosRefsTable(
+    _$AppDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.turnos,
+    aliasName: 'circulos__id__turnos__circulo_id',
+  );
+
+  $$TurnosTableProcessedTableManager get turnosRefs {
+    final manager = $$TurnosTableTableManager(
+      $_db,
+      $_db.turnos,
+    ).filter((f) => f.circuloId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_turnosRefsTable($_db));
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -10703,6 +12333,56 @@ class $$CirculosTableFilterComposer
           }) => $$AjustesControlHorasTableFilterComposer(
             $db: $db,
             $table: $db.ajustesControlHoras,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> citasRefs(
+    Expression<bool> Function($$CitasTableFilterComposer f) f,
+  ) {
+    final $$CitasTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.citas,
+      getReferencedColumn: (t) => t.circuloId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CitasTableFilterComposer(
+            $db: $db,
+            $table: $db.citas,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> turnosRefs(
+    Expression<bool> Function($$TurnosTableFilterComposer f) f,
+  ) {
+    final $$TurnosTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.turnos,
+      getReferencedColumn: (t) => t.circuloId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TurnosTableFilterComposer(
+            $db: $db,
+            $table: $db.turnos,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -10916,6 +12596,56 @@ class $$CirculosTableAnnotationComposer
         );
     return f(composer);
   }
+
+  Expression<T> citasRefs<T extends Object>(
+    Expression<T> Function($$CitasTableAnnotationComposer a) f,
+  ) {
+    final $$CitasTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.citas,
+      getReferencedColumn: (t) => t.circuloId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CitasTableAnnotationComposer(
+            $db: $db,
+            $table: $db.citas,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> turnosRefs<T extends Object>(
+    Expression<T> Function($$TurnosTableAnnotationComposer a) f,
+  ) {
+    final $$TurnosTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.turnos,
+      getReferencedColumn: (t) => t.circuloId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TurnosTableAnnotationComposer(
+            $db: $db,
+            $table: $db.turnos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$CirculosTableTableManager
@@ -10938,6 +12668,8 @@ class $$CirculosTableTableManager
             bool consentimientosRefs,
             bool eventosRefs,
             bool ajustesControlHorasRefs,
+            bool citasRefs,
+            bool turnosRefs,
           })
         > {
   $$CirculosTableTableManager(_$AppDatabase db, $CirculosTable table)
@@ -10995,6 +12727,8 @@ class $$CirculosTableTableManager
                 consentimientosRefs = false,
                 eventosRefs = false,
                 ajustesControlHorasRefs = false,
+                citasRefs = false,
+                turnosRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -11005,6 +12739,8 @@ class $$CirculosTableTableManager
                     if (consentimientosRefs) db.consentimientos,
                     if (eventosRefs) db.eventos,
                     if (ajustesControlHorasRefs) db.ajustesControlHoras,
+                    if (citasRefs) db.citas,
+                    if (turnosRefs) db.turnos,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -11135,6 +12871,48 @@ class $$CirculosTableTableManager
                           ) => referencedItems.where((e) => e.id == item.id),
                           typedResults: items,
                         ),
+                      if (citasRefs)
+                        await $_getPrefetchedData<
+                          Circulo,
+                          $CirculosTable,
+                          Cita
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CirculosTableReferences
+                              ._citasRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CirculosTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).citasRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.circuloId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (turnosRefs)
+                        await $_getPrefetchedData<
+                          Circulo,
+                          $CirculosTable,
+                          Turno
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CirculosTableReferences
+                              ._turnosRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CirculosTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).turnosRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.circuloId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -11162,6 +12940,8 @@ typedef $$CirculosTableProcessedTableManager =
         bool consentimientosRefs,
         bool eventosRefs,
         bool ajustesControlHorasRefs,
+        bool citasRefs,
+        bool turnosRefs,
       })
     >;
 typedef $$FotosTableCreateCompanionBuilder = FotosCompanion Function({
@@ -13025,6 +14805,44 @@ final class $$MiembrosTableReferences
       manager.$state.copyWith(prefetchedData: cache),
     );
   }
+
+  static MultiTypedResultKey<$CitasTable, List<Cita>> _citasRefsTable(
+    _$AppDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.citas,
+    aliasName: 'miembros__id__citas__acompana_id',
+  );
+
+  $$CitasTableProcessedTableManager get citasRefs {
+    final manager = $$CitasTableTableManager(
+      $_db,
+      $_db.citas,
+    ).filter((f) => f.acompanaId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_citasRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$TurnosTable, List<Turno>> _turnosRefsTable(
+    _$AppDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.turnos,
+    aliasName: 'miembros__id__turnos__miembro_id',
+  );
+
+  $$TurnosTableProcessedTableManager get turnosRefs {
+    final manager = $$TurnosTableTableManager(
+      $_db,
+      $_db.turnos,
+    ).filter((f) => f.miembroId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_turnosRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
 }
 
 class $$MiembrosTableFilterComposer
@@ -13193,6 +15011,56 @@ class $$MiembrosTableFilterComposer
           }) => $$ComprobacionesTableFilterComposer(
             $db: $db,
             $table: $db.comprobaciones,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> citasRefs(
+    Expression<bool> Function($$CitasTableFilterComposer f) f,
+  ) {
+    final $$CitasTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.citas,
+      getReferencedColumn: (t) => t.acompanaId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CitasTableFilterComposer(
+            $db: $db,
+            $table: $db.citas,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> turnosRefs(
+    Expression<bool> Function($$TurnosTableFilterComposer f) f,
+  ) {
+    final $$TurnosTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.turnos,
+      getReferencedColumn: (t) => t.miembroId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TurnosTableFilterComposer(
+            $db: $db,
+            $table: $db.turnos,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -13462,6 +15330,56 @@ class $$MiembrosTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> citasRefs<T extends Object>(
+    Expression<T> Function($$CitasTableAnnotationComposer a) f,
+  ) {
+    final $$CitasTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.citas,
+      getReferencedColumn: (t) => t.acompanaId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CitasTableAnnotationComposer(
+            $db: $db,
+            $table: $db.citas,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> turnosRefs<T extends Object>(
+    Expression<T> Function($$TurnosTableAnnotationComposer a) f,
+  ) {
+    final $$TurnosTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.turnos,
+      getReferencedColumn: (t) => t.miembroId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$TurnosTableAnnotationComposer(
+            $db: $db,
+            $table: $db.turnos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$MiembrosTableTableManager
@@ -13483,6 +15401,8 @@ class $$MiembrosTableTableManager
             bool dispositivosRefs,
             bool vocesRefs,
             bool comprobacionesRefs,
+            bool citasRefs,
+            bool turnosRefs,
           })
         > {
   $$MiembrosTableTableManager(_$AppDatabase db, $MiembrosTable table)
@@ -13567,6 +15487,8 @@ class $$MiembrosTableTableManager
                 dispositivosRefs = false,
                 vocesRefs = false,
                 comprobacionesRefs = false,
+                citasRefs = false,
+                turnosRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -13574,6 +15496,8 @@ class $$MiembrosTableTableManager
                     if (dispositivosRefs) db.dispositivos,
                     if (vocesRefs) db.voces,
                     if (comprobacionesRefs) db.comprobaciones,
+                    if (citasRefs) db.citas,
+                    if (turnosRefs) db.turnos,
                   ],
                   addJoins:
                       <
@@ -13677,6 +15601,48 @@ class $$MiembrosTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (citasRefs)
+                        await $_getPrefetchedData<
+                          Miembro,
+                          $MiembrosTable,
+                          Cita
+                        >(
+                          currentTable: table,
+                          referencedTable: $$MiembrosTableReferences
+                              ._citasRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$MiembrosTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).citasRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.acompanaId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
+                      if (turnosRefs)
+                        await $_getPrefetchedData<
+                          Miembro,
+                          $MiembrosTable,
+                          Turno
+                        >(
+                          currentTable: table,
+                          referencedTable: $$MiembrosTableReferences
+                              ._turnosRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$MiembrosTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).turnosRefs,
+                          referencedItemsForCurrentItem:
+                              (item, referencedItems) => referencedItems.where(
+                                (e) => e.miembroId == item.id,
+                              ),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -13703,6 +15669,8 @@ typedef $$MiembrosTableProcessedTableManager =
         bool dispositivosRefs,
         bool vocesRefs,
         bool comprobacionesRefs,
+        bool citasRefs,
+        bool turnosRefs,
       })
     >;
 typedef $$DispositivosTableCreateCompanionBuilder =
@@ -21400,6 +23368,1133 @@ typedef $$AjustesControlHorasTableProcessedTableManager =
       FilaAjustesControl,
       PrefetchHooks Function({bool id})
     >;
+typedef $$CitasTableCreateCompanionBuilder = CitasCompanion Function({
+  required String id,
+  required String circuloId,
+  required String titulo,
+  required String tipo,
+  required String fecha,
+  required String hora,
+  Value<String?> lugar,
+  Value<String?> notas,
+  Value<String?> acompanaId,
+  required String creadaPor,
+  required int creadaEn,
+  required String modificadaPor,
+  required int modificadaEn,
+  Value<int?> bajaEn,
+  Value<int> rowid,
+});
+typedef $$CitasTableUpdateCompanionBuilder = CitasCompanion Function({
+  Value<String> id,
+  Value<String> circuloId,
+  Value<String> titulo,
+  Value<String> tipo,
+  Value<String> fecha,
+  Value<String> hora,
+  Value<String?> lugar,
+  Value<String?> notas,
+  Value<String?> acompanaId,
+  Value<String> creadaPor,
+  Value<int> creadaEn,
+  Value<String> modificadaPor,
+  Value<int> modificadaEn,
+  Value<int?> bajaEn,
+  Value<int> rowid,
+});
+
+final class $$CitasTableReferences
+    extends BaseReferences<_$AppDatabase, $CitasTable, Cita> {
+  $$CitasTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $CirculosTable _circuloIdTable(_$AppDatabase db) =>
+      db.circulos.createAlias('citas__circulo_id__circulos__id');
+
+  $$CirculosTableProcessedTableManager get circuloId {
+    final $_column = $_itemColumn<String>('circulo_id')!;
+
+    final manager = $$CirculosTableTableManager(
+      $_db,
+      $_db.circulos,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_circuloIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $MiembrosTable _acompanaIdTable(_$AppDatabase db) =>
+      db.miembros.createAlias('citas__acompana_id__miembros__id');
+
+  $$MiembrosTableProcessedTableManager? get acompanaId {
+    final $_column = $_itemColumn<String>('acompana_id');
+    if ($_column == null) return null;
+    final manager = $$MiembrosTableTableManager(
+      $_db,
+      $_db.miembros,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_acompanaIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$CitasTableFilterComposer extends Composer<_$AppDatabase, $CitasTable> {
+  $$CitasTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get titulo => $composableBuilder(
+    column: $table.titulo,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get tipo => $composableBuilder(
+    column: $table.tipo,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get fecha => $composableBuilder(
+    column: $table.fecha,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get hora => $composableBuilder(
+    column: $table.hora,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get lugar => $composableBuilder(
+    column: $table.lugar,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get notas => $composableBuilder(
+    column: $table.notas,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get creadaPor => $composableBuilder(
+    column: $table.creadaPor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get creadaEn => $composableBuilder(
+    column: $table.creadaEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get modificadaPor => $composableBuilder(
+    column: $table.modificadaPor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get modificadaEn => $composableBuilder(
+    column: $table.modificadaEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get bajaEn => $composableBuilder(
+    column: $table.bajaEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$CirculosTableFilterComposer get circuloId {
+    final $$CirculosTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.circuloId,
+      referencedTable: $db.circulos,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirculosTableFilterComposer(
+            $db: $db,
+            $table: $db.circulos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$MiembrosTableFilterComposer get acompanaId {
+    final $$MiembrosTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.acompanaId,
+      referencedTable: $db.miembros,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MiembrosTableFilterComposer(
+            $db: $db,
+            $table: $db.miembros,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$CitasTableOrderingComposer
+    extends Composer<_$AppDatabase, $CitasTable> {
+  $$CitasTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get titulo => $composableBuilder(
+    column: $table.titulo,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get tipo => $composableBuilder(
+    column: $table.tipo,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get fecha => $composableBuilder(
+    column: $table.fecha,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get hora => $composableBuilder(
+    column: $table.hora,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get lugar => $composableBuilder(
+    column: $table.lugar,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get notas => $composableBuilder(
+    column: $table.notas,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get creadaPor => $composableBuilder(
+    column: $table.creadaPor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get creadaEn => $composableBuilder(
+    column: $table.creadaEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get modificadaPor => $composableBuilder(
+    column: $table.modificadaPor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get modificadaEn => $composableBuilder(
+    column: $table.modificadaEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get bajaEn => $composableBuilder(
+    column: $table.bajaEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$CirculosTableOrderingComposer get circuloId {
+    final $$CirculosTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.circuloId,
+      referencedTable: $db.circulos,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirculosTableOrderingComposer(
+            $db: $db,
+            $table: $db.circulos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$MiembrosTableOrderingComposer get acompanaId {
+    final $$MiembrosTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.acompanaId,
+      referencedTable: $db.miembros,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MiembrosTableOrderingComposer(
+            $db: $db,
+            $table: $db.miembros,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$CitasTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CitasTable> {
+  $$CitasTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get titulo =>
+      $composableBuilder(column: $table.titulo, builder: (column) => column);
+
+  GeneratedColumn<String> get tipo =>
+      $composableBuilder(column: $table.tipo, builder: (column) => column);
+
+  GeneratedColumn<String> get fecha =>
+      $composableBuilder(column: $table.fecha, builder: (column) => column);
+
+  GeneratedColumn<String> get hora =>
+      $composableBuilder(column: $table.hora, builder: (column) => column);
+
+  GeneratedColumn<String> get lugar =>
+      $composableBuilder(column: $table.lugar, builder: (column) => column);
+
+  GeneratedColumn<String> get notas =>
+      $composableBuilder(column: $table.notas, builder: (column) => column);
+
+  GeneratedColumn<String> get creadaPor =>
+      $composableBuilder(column: $table.creadaPor, builder: (column) => column);
+
+  GeneratedColumn<int> get creadaEn =>
+      $composableBuilder(column: $table.creadaEn, builder: (column) => column);
+
+  GeneratedColumn<String> get modificadaPor => $composableBuilder(
+    column: $table.modificadaPor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get modificadaEn => $composableBuilder(
+    column: $table.modificadaEn,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get bajaEn =>
+      $composableBuilder(column: $table.bajaEn, builder: (column) => column);
+
+  $$CirculosTableAnnotationComposer get circuloId {
+    final $$CirculosTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.circuloId,
+      referencedTable: $db.circulos,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirculosTableAnnotationComposer(
+            $db: $db,
+            $table: $db.circulos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$MiembrosTableAnnotationComposer get acompanaId {
+    final $$MiembrosTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.acompanaId,
+      referencedTable: $db.miembros,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MiembrosTableAnnotationComposer(
+            $db: $db,
+            $table: $db.miembros,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$CitasTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $CitasTable,
+          Cita,
+          $$CitasTableFilterComposer,
+          $$CitasTableOrderingComposer,
+          $$CitasTableAnnotationComposer,
+          $$CitasTableCreateCompanionBuilder,
+          $$CitasTableUpdateCompanionBuilder,
+          (Cita, $$CitasTableReferences),
+          Cita,
+          PrefetchHooks Function({bool circuloId, bool acompanaId})
+        > {
+  $$CitasTableTableManager(_$AppDatabase db, $CitasTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CitasTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CitasTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CitasTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> circuloId = const Value.absent(),
+                Value<String> titulo = const Value.absent(),
+                Value<String> tipo = const Value.absent(),
+                Value<String> fecha = const Value.absent(),
+                Value<String> hora = const Value.absent(),
+                Value<String?> lugar = const Value.absent(),
+                Value<String?> notas = const Value.absent(),
+                Value<String?> acompanaId = const Value.absent(),
+                Value<String> creadaPor = const Value.absent(),
+                Value<int> creadaEn = const Value.absent(),
+                Value<String> modificadaPor = const Value.absent(),
+                Value<int> modificadaEn = const Value.absent(),
+                Value<int?> bajaEn = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => CitasCompanion(
+                id: id,
+                circuloId: circuloId,
+                titulo: titulo,
+                tipo: tipo,
+                fecha: fecha,
+                hora: hora,
+                lugar: lugar,
+                notas: notas,
+                acompanaId: acompanaId,
+                creadaPor: creadaPor,
+                creadaEn: creadaEn,
+                modificadaPor: modificadaPor,
+                modificadaEn: modificadaEn,
+                bajaEn: bajaEn,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String circuloId,
+                required String titulo,
+                required String tipo,
+                required String fecha,
+                required String hora,
+                Value<String?> lugar = const Value.absent(),
+                Value<String?> notas = const Value.absent(),
+                Value<String?> acompanaId = const Value.absent(),
+                required String creadaPor,
+                required int creadaEn,
+                required String modificadaPor,
+                required int modificadaEn,
+                Value<int?> bajaEn = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => CitasCompanion.insert(
+                id: id,
+                circuloId: circuloId,
+                titulo: titulo,
+                tipo: tipo,
+                fecha: fecha,
+                hora: hora,
+                lugar: lugar,
+                notas: notas,
+                acompanaId: acompanaId,
+                creadaPor: creadaPor,
+                creadaEn: creadaEn,
+                modificadaPor: modificadaPor,
+                modificadaEn: modificadaEn,
+                bajaEn: bajaEn,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$CitasTable, Cita>(table),
+                  $$CitasTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({circuloId = false, acompanaId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (circuloId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.circuloId,
+                        referencedTable: $$CitasTableReferences._circuloIdTable(
+                          db,
+                        ),
+                        referencedColumn: $$CitasTableReferences
+                            ._circuloIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+                    if (acompanaId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.acompanaId,
+                        referencedTable: $$CitasTableReferences
+                            ._acompanaIdTable(db),
+                        referencedColumn: $$CitasTableReferences
+                            ._acompanaIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$CitasTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $CitasTable,
+      Cita,
+      $$CitasTableFilterComposer,
+      $$CitasTableOrderingComposer,
+      $$CitasTableAnnotationComposer,
+      $$CitasTableCreateCompanionBuilder,
+      $$CitasTableUpdateCompanionBuilder,
+      (Cita, $$CitasTableReferences),
+      Cita,
+      PrefetchHooks Function({bool circuloId, bool acompanaId})
+    >;
+typedef $$TurnosTableCreateCompanionBuilder = TurnosCompanion Function({
+  required String id,
+  required String circuloId,
+  required String miembroId,
+  required String fecha,
+  required String desdeHora,
+  required String hastaHora,
+  Value<bool> repetirSemanal,
+  Value<String?> nota,
+  required String creadoPor,
+  required int creadoEn,
+  required String modificadoPor,
+  required int modificadoEn,
+  Value<int?> bajaEn,
+  Value<int> rowid,
+});
+typedef $$TurnosTableUpdateCompanionBuilder = TurnosCompanion Function({
+  Value<String> id,
+  Value<String> circuloId,
+  Value<String> miembroId,
+  Value<String> fecha,
+  Value<String> desdeHora,
+  Value<String> hastaHora,
+  Value<bool> repetirSemanal,
+  Value<String?> nota,
+  Value<String> creadoPor,
+  Value<int> creadoEn,
+  Value<String> modificadoPor,
+  Value<int> modificadoEn,
+  Value<int?> bajaEn,
+  Value<int> rowid,
+});
+
+final class $$TurnosTableReferences
+    extends BaseReferences<_$AppDatabase, $TurnosTable, Turno> {
+  $$TurnosTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $CirculosTable _circuloIdTable(_$AppDatabase db) =>
+      db.circulos.createAlias('turnos__circulo_id__circulos__id');
+
+  $$CirculosTableProcessedTableManager get circuloId {
+    final $_column = $_itemColumn<String>('circulo_id')!;
+
+    final manager = $$CirculosTableTableManager(
+      $_db,
+      $_db.circulos,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_circuloIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $MiembrosTable _miembroIdTable(_$AppDatabase db) =>
+      db.miembros.createAlias('turnos__miembro_id__miembros__id');
+
+  $$MiembrosTableProcessedTableManager get miembroId {
+    final $_column = $_itemColumn<String>('miembro_id')!;
+
+    final manager = $$MiembrosTableTableManager(
+      $_db,
+      $_db.miembros,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_miembroIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$TurnosTableFilterComposer
+    extends Composer<_$AppDatabase, $TurnosTable> {
+  $$TurnosTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get fecha => $composableBuilder(
+    column: $table.fecha,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get desdeHora => $composableBuilder(
+    column: $table.desdeHora,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get hastaHora => $composableBuilder(
+    column: $table.hastaHora,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get repetirSemanal => $composableBuilder(
+    column: $table.repetirSemanal,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get nota => $composableBuilder(
+    column: $table.nota,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get creadoPor => $composableBuilder(
+    column: $table.creadoPor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get creadoEn => $composableBuilder(
+    column: $table.creadoEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get modificadoPor => $composableBuilder(
+    column: $table.modificadoPor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get modificadoEn => $composableBuilder(
+    column: $table.modificadoEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get bajaEn => $composableBuilder(
+    column: $table.bajaEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$CirculosTableFilterComposer get circuloId {
+    final $$CirculosTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.circuloId,
+      referencedTable: $db.circulos,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirculosTableFilterComposer(
+            $db: $db,
+            $table: $db.circulos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$MiembrosTableFilterComposer get miembroId {
+    final $$MiembrosTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.miembroId,
+      referencedTable: $db.miembros,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MiembrosTableFilterComposer(
+            $db: $db,
+            $table: $db.miembros,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TurnosTableOrderingComposer
+    extends Composer<_$AppDatabase, $TurnosTable> {
+  $$TurnosTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get fecha => $composableBuilder(
+    column: $table.fecha,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get desdeHora => $composableBuilder(
+    column: $table.desdeHora,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get hastaHora => $composableBuilder(
+    column: $table.hastaHora,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get repetirSemanal => $composableBuilder(
+    column: $table.repetirSemanal,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get nota => $composableBuilder(
+    column: $table.nota,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get creadoPor => $composableBuilder(
+    column: $table.creadoPor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get creadoEn => $composableBuilder(
+    column: $table.creadoEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get modificadoPor => $composableBuilder(
+    column: $table.modificadoPor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get modificadoEn => $composableBuilder(
+    column: $table.modificadoEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get bajaEn => $composableBuilder(
+    column: $table.bajaEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$CirculosTableOrderingComposer get circuloId {
+    final $$CirculosTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.circuloId,
+      referencedTable: $db.circulos,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirculosTableOrderingComposer(
+            $db: $db,
+            $table: $db.circulos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$MiembrosTableOrderingComposer get miembroId {
+    final $$MiembrosTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.miembroId,
+      referencedTable: $db.miembros,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MiembrosTableOrderingComposer(
+            $db: $db,
+            $table: $db.miembros,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TurnosTableAnnotationComposer
+    extends Composer<_$AppDatabase, $TurnosTable> {
+  $$TurnosTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get fecha =>
+      $composableBuilder(column: $table.fecha, builder: (column) => column);
+
+  GeneratedColumn<String> get desdeHora =>
+      $composableBuilder(column: $table.desdeHora, builder: (column) => column);
+
+  GeneratedColumn<String> get hastaHora =>
+      $composableBuilder(column: $table.hastaHora, builder: (column) => column);
+
+  GeneratedColumn<bool> get repetirSemanal => $composableBuilder(
+    column: $table.repetirSemanal,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get nota =>
+      $composableBuilder(column: $table.nota, builder: (column) => column);
+
+  GeneratedColumn<String> get creadoPor =>
+      $composableBuilder(column: $table.creadoPor, builder: (column) => column);
+
+  GeneratedColumn<int> get creadoEn =>
+      $composableBuilder(column: $table.creadoEn, builder: (column) => column);
+
+  GeneratedColumn<String> get modificadoPor => $composableBuilder(
+    column: $table.modificadoPor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get modificadoEn => $composableBuilder(
+    column: $table.modificadoEn,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get bajaEn =>
+      $composableBuilder(column: $table.bajaEn, builder: (column) => column);
+
+  $$CirculosTableAnnotationComposer get circuloId {
+    final $$CirculosTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.circuloId,
+      referencedTable: $db.circulos,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirculosTableAnnotationComposer(
+            $db: $db,
+            $table: $db.circulos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$MiembrosTableAnnotationComposer get miembroId {
+    final $$MiembrosTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.miembroId,
+      referencedTable: $db.miembros,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$MiembrosTableAnnotationComposer(
+            $db: $db,
+            $table: $db.miembros,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TurnosTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $TurnosTable,
+          Turno,
+          $$TurnosTableFilterComposer,
+          $$TurnosTableOrderingComposer,
+          $$TurnosTableAnnotationComposer,
+          $$TurnosTableCreateCompanionBuilder,
+          $$TurnosTableUpdateCompanionBuilder,
+          (Turno, $$TurnosTableReferences),
+          Turno,
+          PrefetchHooks Function({bool circuloId, bool miembroId})
+        > {
+  $$TurnosTableTableManager(_$AppDatabase db, $TurnosTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$TurnosTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TurnosTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TurnosTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> circuloId = const Value.absent(),
+                Value<String> miembroId = const Value.absent(),
+                Value<String> fecha = const Value.absent(),
+                Value<String> desdeHora = const Value.absent(),
+                Value<String> hastaHora = const Value.absent(),
+                Value<bool> repetirSemanal = const Value.absent(),
+                Value<String?> nota = const Value.absent(),
+                Value<String> creadoPor = const Value.absent(),
+                Value<int> creadoEn = const Value.absent(),
+                Value<String> modificadoPor = const Value.absent(),
+                Value<int> modificadoEn = const Value.absent(),
+                Value<int?> bajaEn = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => TurnosCompanion(
+                id: id,
+                circuloId: circuloId,
+                miembroId: miembroId,
+                fecha: fecha,
+                desdeHora: desdeHora,
+                hastaHora: hastaHora,
+                repetirSemanal: repetirSemanal,
+                nota: nota,
+                creadoPor: creadoPor,
+                creadoEn: creadoEn,
+                modificadoPor: modificadoPor,
+                modificadoEn: modificadoEn,
+                bajaEn: bajaEn,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String circuloId,
+                required String miembroId,
+                required String fecha,
+                required String desdeHora,
+                required String hastaHora,
+                Value<bool> repetirSemanal = const Value.absent(),
+                Value<String?> nota = const Value.absent(),
+                required String creadoPor,
+                required int creadoEn,
+                required String modificadoPor,
+                required int modificadoEn,
+                Value<int?> bajaEn = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => TurnosCompanion.insert(
+                id: id,
+                circuloId: circuloId,
+                miembroId: miembroId,
+                fecha: fecha,
+                desdeHora: desdeHora,
+                hastaHora: hastaHora,
+                repetirSemanal: repetirSemanal,
+                nota: nota,
+                creadoPor: creadoPor,
+                creadoEn: creadoEn,
+                modificadoPor: modificadoPor,
+                modificadoEn: modificadoEn,
+                bajaEn: bajaEn,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$TurnosTable, Turno>(table),
+                  $$TurnosTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({circuloId = false, miembroId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (circuloId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.circuloId,
+                        referencedTable: $$TurnosTableReferences
+                            ._circuloIdTable(db),
+                        referencedColumn: $$TurnosTableReferences
+                            ._circuloIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+                    if (miembroId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.miembroId,
+                        referencedTable: $$TurnosTableReferences
+                            ._miembroIdTable(db),
+                        referencedColumn: $$TurnosTableReferences
+                            ._miembroIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$TurnosTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $TurnosTable,
+      Turno,
+      $$TurnosTableFilterComposer,
+      $$TurnosTableOrderingComposer,
+      $$TurnosTableAnnotationComposer,
+      $$TurnosTableCreateCompanionBuilder,
+      $$TurnosTableUpdateCompanionBuilder,
+      (Turno, $$TurnosTableReferences),
+      Turno,
+      PrefetchHooks Function({bool circuloId, bool miembroId})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -21446,4 +24541,8 @@ class $AppDatabaseManager {
       $$ClipsPendientesTableTableManager(_db, _db.clipsPendientes);
   $$AjustesControlHorasTableTableManager get ajustesControlHoras =>
       $$AjustesControlHorasTableTableManager(_db, _db.ajustesControlHoras);
+  $$CitasTableTableManager get citas =>
+      $$CitasTableTableManager(_db, _db.citas);
+  $$TurnosTableTableManager get turnos =>
+      $$TurnosTableTableManager(_db, _db.turnos);
 }

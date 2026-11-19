@@ -2511,12 +2511,6 @@ abstract class AppLocalizations {
   /// **'Medicamento creado'**
   String get calHechoMedicamento;
 
-  /// No description provided for @calPie.
-  ///
-  /// In es, this message translates to:
-  /// **'Turnos de la familia y citas'**
-  String get calPie;
-
   /// No description provided for @unirTarjeta.
   ///
   /// In es, this message translates to:
@@ -3722,6 +3716,342 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Responder hablando llegará más adelante.'**
   String get preguntaDecirloMasAdelante;
+
+  /// No description provided for @calCitasTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Citas'**
+  String get calCitasTitulo;
+
+  /// No description provided for @calTurnosTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Turnos de la familia'**
+  String get calTurnosTitulo;
+
+  /// No description provided for @calAnadirCita.
+  ///
+  /// In es, this message translates to:
+  /// **'Añadir cita'**
+  String get calAnadirCita;
+
+  /// No description provided for @calAnadirTurno.
+  ///
+  /// In es, this message translates to:
+  /// **'Añadir turno'**
+  String get calAnadirTurno;
+
+  /// No description provided for @calProximasCitas.
+  ///
+  /// In es, this message translates to:
+  /// **'Próximas citas'**
+  String get calProximasCitas;
+
+  /// No description provided for @calSinProximasCitas.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay citas próximas'**
+  String get calSinProximasCitas;
+
+  /// No description provided for @calLeyendaCita.
+  ///
+  /// In es, this message translates to:
+  /// **'Cita'**
+  String get calLeyendaCita;
+
+  /// No description provided for @calLeyendaTurno.
+  ///
+  /// In es, this message translates to:
+  /// **'Turno'**
+  String get calLeyendaTurno;
+
+  /// No description provided for @calSemanticaCitas.
+  ///
+  /// In es, this message translates to:
+  /// **'{n, plural, one{1 cita} other{{n} citas}}'**
+  String calSemanticaCitas(int n);
+
+  /// No description provided for @calSemanticaTurnos.
+  ///
+  /// In es, this message translates to:
+  /// **'{n, plural, one{1 turno} other{{n} turnos}}'**
+  String calSemanticaTurnos(int n);
+
+  /// No description provided for @citaTipoMedico.
+  ///
+  /// In es, this message translates to:
+  /// **'Médico'**
+  String get citaTipoMedico;
+
+  /// No description provided for @citaTipoAnalisis.
+  ///
+  /// In es, this message translates to:
+  /// **'Análisis'**
+  String get citaTipoAnalisis;
+
+  /// No description provided for @citaTipoOtra.
+  ///
+  /// In es, this message translates to:
+  /// **'Otra'**
+  String get citaTipoOtra;
+
+  /// No description provided for @citaAcompana.
+  ///
+  /// In es, this message translates to:
+  /// **'Acompaña {nombre}'**
+  String citaAcompana(String nombre);
+
+  /// No description provided for @turnoRango.
+  ///
+  /// In es, this message translates to:
+  /// **'De {desde} a {hasta}'**
+  String turnoRango(String desde, String hasta);
+
+  /// No description provided for @turnoRangoNoche.
+  ///
+  /// In es, this message translates to:
+  /// **'De {desde} a {hasta} del día siguiente'**
+  String turnoRangoNoche(String desde, String hasta);
+
+  /// No description provided for @turnoCadaSemana.
+  ///
+  /// In es, this message translates to:
+  /// **'Cada semana'**
+  String get turnoCadaSemana;
+
+  /// No description provided for @turnoSigue.
+  ///
+  /// In es, this message translates to:
+  /// **'Sigue del día anterior hasta las {hasta}'**
+  String turnoSigue(String hasta);
+
+  /// No description provided for @agendaCitasHoy.
+  ///
+  /// In es, this message translates to:
+  /// **'Citas de hoy'**
+  String get agendaCitasHoy;
+
+  /// No description provided for @agendaCitasManana.
+  ///
+  /// In es, this message translates to:
+  /// **'Citas de mañana'**
+  String get agendaCitasManana;
+
+  /// No description provided for @agendaEstaConElla.
+  ///
+  /// In es, this message translates to:
+  /// **'Hoy está con ella: {nombre}'**
+  String agendaEstaConElla(String nombre);
+
+  /// No description provided for @agendaHasta.
+  ///
+  /// In es, this message translates to:
+  /// **'Hasta las {hora}'**
+  String agendaHasta(String hora);
+
+  /// No description provided for @citaFormNueva.
+  ///
+  /// In es, this message translates to:
+  /// **'Nueva cita'**
+  String get citaFormNueva;
+
+  /// No description provided for @citaFormEditar.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar cita'**
+  String get citaFormEditar;
+
+  /// No description provided for @turnoFormNuevo.
+  ///
+  /// In es, this message translates to:
+  /// **'Nuevo turno'**
+  String get turnoFormNuevo;
+
+  /// No description provided for @turnoFormEditar.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar turno'**
+  String get turnoFormEditar;
+
+  /// No description provided for @agVispera.
+  ///
+  /// In es, this message translates to:
+  /// **'Calendario'**
+  String get agVispera;
+
+  /// No description provided for @citaCampoTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Título'**
+  String get citaCampoTitulo;
+
+  /// No description provided for @citaCampoLugar.
+  ///
+  /// In es, this message translates to:
+  /// **'Lugar (opcional)'**
+  String get citaCampoLugar;
+
+  /// No description provided for @citaCampoNotas.
+  ///
+  /// In es, this message translates to:
+  /// **'Notas (opcional)'**
+  String get citaCampoNotas;
+
+  /// No description provided for @citaTipoTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Tipo de cita'**
+  String get citaTipoTitulo;
+
+  /// No description provided for @agFecha.
+  ///
+  /// In es, this message translates to:
+  /// **'Fecha'**
+  String get agFecha;
+
+  /// No description provided for @agHora.
+  ///
+  /// In es, this message translates to:
+  /// **'Hora'**
+  String get agHora;
+
+  /// No description provided for @citaAcompanaTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Quién la acompaña (opcional)'**
+  String get citaAcompanaTitulo;
+
+  /// No description provided for @citaNadie.
+  ///
+  /// In es, this message translates to:
+  /// **'Nadie'**
+  String get citaNadie;
+
+  /// No description provided for @citaErrorTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe un título.'**
+  String get citaErrorTitulo;
+
+  /// No description provided for @agErrorGuardar.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo guardar. Vuelve a intentarlo.'**
+  String get agErrorGuardar;
+
+  /// No description provided for @agGuardar.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardar'**
+  String get agGuardar;
+
+  /// No description provided for @agBorrarConfirmar.
+  ///
+  /// In es, this message translates to:
+  /// **'Borrar'**
+  String get agBorrarConfirmar;
+
+  /// No description provided for @citaBorrar.
+  ///
+  /// In es, this message translates to:
+  /// **'Borrar cita'**
+  String get citaBorrar;
+
+  /// No description provided for @citaBorrarTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Borrar esta cita?'**
+  String get citaBorrarTitulo;
+
+  /// No description provided for @citaBorrarTexto.
+  ///
+  /// In es, this message translates to:
+  /// **'Dejará de verse en el calendario de todos los móviles de la familia.'**
+  String get citaBorrarTexto;
+
+  /// No description provided for @turnoQuien.
+  ///
+  /// In es, this message translates to:
+  /// **'Quién está con ella'**
+  String get turnoQuien;
+
+  /// No description provided for @turnoDia.
+  ///
+  /// In es, this message translates to:
+  /// **'Día'**
+  String get turnoDia;
+
+  /// No description provided for @turnoPrimerDia.
+  ///
+  /// In es, this message translates to:
+  /// **'Primer día'**
+  String get turnoPrimerDia;
+
+  /// No description provided for @turnoDesde.
+  ///
+  /// In es, this message translates to:
+  /// **'Desde'**
+  String get turnoDesde;
+
+  /// No description provided for @turnoHasta.
+  ///
+  /// In es, this message translates to:
+  /// **'Hasta'**
+  String get turnoHasta;
+
+  /// No description provided for @turnoRepetir.
+  ///
+  /// In es, this message translates to:
+  /// **'Repetir cada semana'**
+  String get turnoRepetir;
+
+  /// No description provided for @turnoRepetirPie.
+  ///
+  /// In es, this message translates to:
+  /// **'Se guarda como una sola regla: el mismo día de cada semana desde el día elegido.'**
+  String get turnoRepetirPie;
+
+  /// No description provided for @turnoNochePie.
+  ///
+  /// In es, this message translates to:
+  /// **'Acaba al día siguiente.'**
+  String get turnoNochePie;
+
+  /// No description provided for @turnoCampoNota.
+  ///
+  /// In es, this message translates to:
+  /// **'Nota (opcional)'**
+  String get turnoCampoNota;
+
+  /// No description provided for @turnoSinFamiliares.
+  ///
+  /// In es, this message translates to:
+  /// **'Añade antes a un familiar en Círculo.'**
+  String get turnoSinFamiliares;
+
+  /// No description provided for @turnoErrorHoras.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige una hora de fin distinta de la de inicio.'**
+  String get turnoErrorHoras;
+
+  /// No description provided for @turnoBorrar.
+  ///
+  /// In es, this message translates to:
+  /// **'Borrar turno'**
+  String get turnoBorrar;
+
+  /// No description provided for @turnoBorrarTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Borrar este turno?'**
+  String get turnoBorrarTitulo;
+
+  /// No description provided for @turnoBorrarTexto.
+  ///
+  /// In es, this message translates to:
+  /// **'Dejará de verse en el calendario de todos los móviles de la familia. Si se repite cada semana, se borran todas las semanas.'**
+  String get turnoBorrarTexto;
 }
 
 class _AppLocalizationsDelegate
