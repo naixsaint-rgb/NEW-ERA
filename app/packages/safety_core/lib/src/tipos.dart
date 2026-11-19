@@ -27,6 +27,16 @@ enum TipoEvento {
   /// `avisos.dart`), con el origen como sujeto (toma, ronda o evento):
   /// `{tipo, miembroId, canal: ntfy, resultado: enviado|fallido, escalon?}`.
   avisoEnviado('aviso_enviado'),
+
+  /// Posición del móvil de la persona (ver `ubicacion.dart`), solo con su
+  /// consentimiento (`consentimientos`, sobre `ubicacion`): `{lat, lon,
+  /// precision, bateria?, origen}`. Cada móvil la borra a los 7 días.
+  ubicacionRegistrada('ubicacion_registrada'),
+
+  /// «Buscarla ahora» desde la app de la familia: el móvil de la persona
+  /// toma posiciones frecuentes hasta `{hasta}` (ms UTC). Parar antes es
+  /// otra con `hasta` = cuándo se paró.
+  busquedaPedida('busqueda_pedida'),
   anulacion('anulacion');
 
   const TipoEvento(this.nombre);

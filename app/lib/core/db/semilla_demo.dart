@@ -6,6 +6,8 @@ import 'package:safety_core/safety_core.dart';
 import '../../l10n/app_localizations_es.dart';
 import '../contexto.dart';
 import '../i18n/fechas.dart';
+import '../i18n/textos_ubicacion.dart';
+import '../plataforma/ubicacion/ubicador.dart';
 import '../sync/fichas.dart';
 import 'base_datos.dart';
 import 'png_marcador.dart';
@@ -16,6 +18,7 @@ import 'repositorios/consultas_repositorio.dart';
 import 'repositorios/control_horas_repositorio.dart';
 import 'repositorios/eventos_repositorio.dart';
 import 'repositorios/medicacion_repositorio.dart';
+import 'repositorios/ubicacion_repositorio.dart';
 
 /// Datos ficticios de la demo: nada de esto es real.
 ///
@@ -163,6 +166,14 @@ abstract final class SemillaDemo {
       reloj: reloj,
       eventos: eventos,
       circulo: circulo,
+      autor: lucia,
+    );
+
+    await _sembrarUbicacion(
+      db: db,
+      contexto: contexto,
+      reloj: reloj,
+      eventos: eventos,
       autor: lucia,
     );
 
@@ -337,6 +348,69 @@ abstract final class SemillaDemo {
     );
     for (final (h, m) in [(9, 10), (10, 40), (11, 20)]) {
       await repo.anotarVasoEn(a(h, m));
+    }
+  }
+
+  /// Punto de ejemplo de la ubicación: un punto céntrico genérico de Madrid
+  /// (no es la casa de nadie).
+  static const latEjemplo = 40.4168;
+  static const lonEjemplo = -3.7038;
+
+  /// Ubicación encendida por Lucía, la zona «Casa» en el punto de ejemplo
+  /// (200 m) y cuatro posiciones de hoy dentro de la zona, la última hace 10
+  /// minutos. Las horas no pasan de «ahora» ni de las 00:00 de hoy.
+  static Future<void> _sembrarUbicacion({
+    required AppDatabase db,
+    required ContextoApp contexto,
+    required Reloj reloj,
+    required EventosRepositorio eventos,
+    required String autor,
+  }) async {
+    final repo = UbicacionRepositorio(
+      db: db,
+      reloj: reloj,
+      contexto: contexto,
+      eventos: eventos,
+      autor: () => autor,
+    );
+    final l = AppLocalizationsEs();
+    final alias =
+        (await (db.select(
+              db.personas,
+            )..where((p) => p.id.equals(contexto.personaId))).getSingleOrNull())
+            ?.alias ??
+        '';
+    await repo.otorgar(
+      miembroId: autor,
+      textoMostrado: parrafosConsentimientoUbicacion(
+        l,
+        nombre: 'Lucía',
+        alias: alias,
+      ).join('\n\n'),
+    );
+    await repo.guardarZona(lat: latEjemplo, lon: lonEjemplo, radio: 200);
+    final ahora = reloj.ahora();
+    final inicio = inicioDelDia(ahora, contexto.zonaHoraria);
+    // Unos metros al norte del punto de ejemplo (1 grado ≈ 111 km).
+    for (final (minutos, metros, precision) in [
+      (190, 20.0, 35.0),
+      (130, 60.0, 20.0),
+      (70, 15.0, 45.0),
+      (10, 30.0, 18.0),
+    ]) {
+      var t = ahora.subtract(Duration(minutes: minutos));
+      if (t.isBefore(inicio)) t = inicio;
+      await repo.registrar(
+        PosicionGps(
+          lat: latEjemplo + metros / 111195,
+          lon: lonEjemplo,
+          precision: precision,
+          instante: t,
+        ),
+        origen: OrigenUbicacion.appAbierta,
+        bateria: 80,
+        permiso: PermisoUbicacion.conAppAbierta,
+      );
     }
   }
 

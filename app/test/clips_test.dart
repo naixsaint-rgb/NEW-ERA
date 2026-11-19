@@ -649,6 +649,7 @@ void main() {
           ),
         );
     await v2.customStatement('DROP TABLE clips_pendientes');
+    await v2.customStatement('DROP TABLE ajustes_ubicacion');
     await v2.customStatement('DROP TABLE grabaciones_consulta');
     await v2.customStatement('DROP TABLE notas_consulta');
     await v2.customStatement('DROP TABLE preguntas_consulta');

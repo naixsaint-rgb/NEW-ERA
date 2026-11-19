@@ -77,7 +77,11 @@ void main() {
       expect(find.byKey(ClavesUi.vozConsTexto), findsNothing);
       expect(find.byKey(ClavesUi.vozLeerYAceptar), findsOneWidget);
       expect(
-        await tester.runAsync(() => e.db.select(e.db.consentimientos).get()),
+        await tester.runAsync(
+          () => (e.db.select(
+            e.db.consentimientos,
+          )..where((c) => c.sobre.equals('voz'))).get(),
+        ),
         isEmpty,
       );
 
@@ -95,7 +99,9 @@ void main() {
       expect(find.byKey(ClavesUi.vozRetirar), findsOneWidget);
 
       final consentimientos = (await tester.runAsync(
-        () => e.db.select(e.db.consentimientos).get(),
+        () => (e.db.select(
+          e.db.consentimientos,
+        )..where((c) => c.sobre.equals('voz'))).get(),
       ))!;
       expect(consentimientos, hasLength(1));
       final c = consentimientos.single;

@@ -2149,5 +2149,258 @@
         "type": "String"
       }
     }
+  },
+  "semaforoFueraZona": "Fuera de la zona segura",
+  "envioMotivoFueraZona": "Salió de la zona segura",
+  "ubicHoyApagada": "Ubicación apagada",
+  "ubicHoyApagadaSub": "Toca para ver cómo encenderla",
+  "ubicHoyEnCasa": "En casa",
+  "ubicHoyFuera": "Fuera de casa desde las {hora}",
+  "@ubicHoyFuera": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "ubicHoySinPosicion": "Sin posición desde las {hora}",
+  "@ubicHoySinPosicion": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "ubicHoySinPosicionDia": "Sin posición desde el {fecha}, {hora}",
+  "@ubicHoySinPosicionDia": {
+    "placeholders": {
+      "fecha": {
+        "type": "String"
+      },
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "ubicHoySinNinguna": "Sin posición todavía",
+  "ubicHoySinZona": "Sin zona segura",
+  "ubicHoySinZonaSub": "Elige su casa en Ubicación",
+  "ubicHoyComprobando": "Comprobando su posición",
+  "ubicHoyUltima": "Última posición a las {hora}",
+  "@ubicHoyUltima": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "ubicTitulo": "Ubicación",
+  "ubicVispera": "El móvil de {alias}",
+  "@ubicVispera": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "ubicAhora": "Ahora",
+  "ubicUltimaPosicion": "Última posición",
+  "ubicPrecision": "A las {hora} · ± {metros} m",
+  "@ubicPrecision": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      },
+      "metros": {
+        "type": "int"
+      }
+    }
+  },
+  "ubicBateria": "Batería del móvil: {n} %",
+  "@ubicBateria": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "ubicAbrirMapas": "Abrir en mapas",
+  "ubicMapasPie": "Se abre la app de mapas de este móvil con la posición. NEW-ERA no carga mapas de ningún servidor.",
+  "ubicLecturasHoy": "Posiciones de hoy",
+  "ubicSinLecturasHoy": "Hoy aún no hay posiciones.",
+  "ubicLecturaDetalle": "± {metros} m · {origen}",
+  "@ubicLecturaDetalle": {
+    "placeholders": {
+      "metros": {
+        "type": "int"
+      },
+      "origen": {
+        "type": "String"
+      }
+    }
+  },
+  "ubicLecturaDentro": "En casa",
+  "ubicLecturaFuera": "A {metros} m",
+  "@ubicLecturaFuera": {
+    "placeholders": {
+      "metros": {
+        "type": "int"
+      }
+    }
+  },
+  "ubicOrigenApp": "con la app abierta",
+  "ubicOrigenFondo": "con la app cerrada",
+  "ubicOrigenAlarma": "al sonar una alarma",
+  "ubicOrigenAyuda": "al pedir ayuda",
+  "ubicOrigenBusqueda": "búsqueda",
+  "ubicZonaTitulo": "Zona segura",
+  "ubicZonaCasa": "Casa",
+  "ubicZonaRadio": "Radio de {metros} m",
+  "@ubicZonaRadio": {
+    "placeholders": {
+      "metros": {
+        "type": "int"
+      }
+    }
+  },
+  "ubicZonaSinElegir": "Sin elegir",
+  "ubicUsarComoCasa": "Usar la posición actual de su móvil como casa",
+  "ubicUsarSinPosicion": "Aún no hay ninguna posición de su móvil.",
+  "ubicRadioTitulo": "Radio",
+  "ubicRadioMetros": "{metros} m",
+  "@ubicRadioMetros": {
+    "placeholders": {
+      "metros": {
+        "type": "int"
+      }
+    }
+  },
+  "ubicZonaPie": "Si sale de la zona, se avisa a todo el círculo. Para no avisar por una lectura mala hacen falta dos posiciones seguidas fuera, o una muy precisa claramente fuera.",
+  "ubicPermisoSiempre": "Su móvil la manda también con la app cerrada.",
+  "ubicPermisoAbierta": "Su móvil solo la manda con la app abierta.",
+  "ubicPerdidaTitulo": "Si no la encontráis",
+  "ubicBuscar": "Buscarla ahora",
+  "ubicBuscarSub": "Su móvil manda su posición cada minuto durante 30 minutos.",
+  "ubicBuscando": "Buscando hasta las {hora}",
+  "@ubicBuscando": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "ubicPararBusqueda": "Parar la búsqueda",
+  "ubicBuscarPie": "Su móvil recibe la petición al sincronizar: al momento si tiene la app abierta; con la app cerrada (Android), en su siguiente revisión.",
+  "ubicVerFicha": "Ver la ficha para emergencias",
+  "ubicFichaTitulo": "Ficha para emergencias",
+  "ubicFichaNombre": "Nombre",
+  "ubicFichaMedicacion": "Medicación",
+  "ubicFichaSinMedicacion": "Sin medicación anotada",
+  "ubicFichaPosicion": "Última posición",
+  "ubicFichaPosicionValor": "{hora} · {lat}, {lon} (± {metros} m)",
+  "@ubicFichaPosicionValor": {
+    "placeholders": {
+      "hora": {
+        "type": "String"
+      },
+      "lat": {
+        "type": "String"
+      },
+      "lon": {
+        "type": "String"
+      },
+      "metros": {
+        "type": "int"
+      }
+    }
+  },
+  "ubicFichaSinPosicion": "Sin posición",
+  "ubicLlamar112": "Llamar al 112",
+  "ubicLlamar112Titulo": "¿Llamar al 112?",
+  "ubicLlamar112Texto": "Se abrirá el teléfono de este móvil para llamar a emergencias. Ten a mano la ficha.",
+  "ubicLlamar112Si": "Llamar",
+  "ubicApagar": "Apagar la ubicación",
+  "ubicApagarTitulo": "¿Apagar la ubicación?",
+  "ubicApagarTexto": "El móvil de {alias} dejará de mandar su posición y cada móvil del círculo borrará las que tenga guardadas.",
+  "@ubicApagarTexto": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "ubicApagarSi": "Apagar",
+  "ubicApagadaExplica": "La ubicación está apagada. Al encenderla, el móvil de {alias} manda su posición al círculo, cifrada, para saber si está en casa y avisar si sale.",
+  "@ubicApagadaExplica": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "ubicEncender": "Encender la ubicación",
+  "ubicConsTitulo": "Permiso de ubicación",
+  "ubicConsVispera": "Antes de encenderla",
+  "ubicConsEncabezado": "Ubicación del móvil de {alias}",
+  "@ubicConsEncabezado": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "ubicConsQue": "Qué se recoge: la posición de su móvil (latitud, longitud y precisión) y su batería. Con la app abierta, cada 5 minutos; en Android con la app cerrada, en las revisiones de las tomas y las rondas; al sonar una alarma; al pedir ayuda; y, si la buscáis, cada minuto durante 30 minutos. Sin GPS continuo.",
+  "ubicConsPara": "Para qué: saber si {alias} está en casa, avisar a todo el círculo si sale de la zona segura y ayudar a encontrarla.",
+  "@ubicConsPara": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "ubicConsQuien": "Quién lo ve: solo los móviles de este círculo. Viaja cifrado por el cartero; el servidor no puede leerlo y los avisos de ntfy no llevan la posición.",
+  "ubicConsCuanto": "Cuánto se guarda: 7 días en cada móvil. Después se borra.",
+  "ubicConsMapa": "Mapas: la app no carga mapas. «Abrir en mapas» pasa la posición a la app de mapas de tu móvil, solo cuando la tocas.",
+  "ubicConsApagar": "Cómo se apaga: en Ubicación, «Apagar la ubicación». Su móvil deja de mandarla y cada móvil borra las que tenga.",
+  "ubicConsPermiso": "Permiso del móvil: la próxima vez que se abra la app en el móvil de {alias}, pedirá el permiso de ubicación. En Android, para mandarla con la app cerrada hay que elegir «Permitir todo el tiempo».",
+  "@ubicConsPermiso": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
+  },
+  "ubicConsGuardar": "Se guarda este texto con el nombre de {nombre} y la fecha.",
+  "@ubicConsGuardar": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "ubicConsAcepto": "Acepto, soy {nombre}",
+  "@ubicConsAcepto": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "ubicConsAhoraNo": "Ahora no",
+  "ubicApagadaPor": "{nombre} apagó la ubicación.",
+  "@ubicApagadaPor": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "fixResumenFueraZona": "{alias}: fuera de la zona segura",
+  "@fixResumenFueraZona": {
+    "placeholders": {
+      "alias": {
+        "type": "String"
+      }
+    }
   }
 }

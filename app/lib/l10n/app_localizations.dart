@@ -4784,6 +4784,497 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'• {texto} ({nombre})'**
   String consResumenNota(String texto, String nombre);
+
+  /// No description provided for @semaforoFueraZona.
+  ///
+  /// In es, this message translates to:
+  /// **'Fuera de la zona segura'**
+  String get semaforoFueraZona;
+
+  /// No description provided for @envioMotivoFueraZona.
+  ///
+  /// In es, this message translates to:
+  /// **'Salió de la zona segura'**
+  String get envioMotivoFueraZona;
+
+  /// No description provided for @ubicHoyApagada.
+  ///
+  /// In es, this message translates to:
+  /// **'Ubicación apagada'**
+  String get ubicHoyApagada;
+
+  /// No description provided for @ubicHoyApagadaSub.
+  ///
+  /// In es, this message translates to:
+  /// **'Toca para ver cómo encenderla'**
+  String get ubicHoyApagadaSub;
+
+  /// No description provided for @ubicHoyEnCasa.
+  ///
+  /// In es, this message translates to:
+  /// **'En casa'**
+  String get ubicHoyEnCasa;
+
+  /// No description provided for @ubicHoyFuera.
+  ///
+  /// In es, this message translates to:
+  /// **'Fuera de casa desde las {hora}'**
+  String ubicHoyFuera(String hora);
+
+  /// No description provided for @ubicHoySinPosicion.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin posición desde las {hora}'**
+  String ubicHoySinPosicion(String hora);
+
+  /// No description provided for @ubicHoySinPosicionDia.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin posición desde el {fecha}, {hora}'**
+  String ubicHoySinPosicionDia(String fecha, String hora);
+
+  /// No description provided for @ubicHoySinNinguna.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin posición todavía'**
+  String get ubicHoySinNinguna;
+
+  /// No description provided for @ubicHoySinZona.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin zona segura'**
+  String get ubicHoySinZona;
+
+  /// No description provided for @ubicHoySinZonaSub.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige su casa en Ubicación'**
+  String get ubicHoySinZonaSub;
+
+  /// No description provided for @ubicHoyComprobando.
+  ///
+  /// In es, this message translates to:
+  /// **'Comprobando su posición'**
+  String get ubicHoyComprobando;
+
+  /// No description provided for @ubicHoyUltima.
+  ///
+  /// In es, this message translates to:
+  /// **'Última posición a las {hora}'**
+  String ubicHoyUltima(String hora);
+
+  /// No description provided for @ubicTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Ubicación'**
+  String get ubicTitulo;
+
+  /// No description provided for @ubicVispera.
+  ///
+  /// In es, this message translates to:
+  /// **'El móvil de {alias}'**
+  String ubicVispera(String alias);
+
+  /// No description provided for @ubicAhora.
+  ///
+  /// In es, this message translates to:
+  /// **'Ahora'**
+  String get ubicAhora;
+
+  /// No description provided for @ubicUltimaPosicion.
+  ///
+  /// In es, this message translates to:
+  /// **'Última posición'**
+  String get ubicUltimaPosicion;
+
+  /// No description provided for @ubicPrecision.
+  ///
+  /// In es, this message translates to:
+  /// **'A las {hora} · ± {metros} m'**
+  String ubicPrecision(String hora, int metros);
+
+  /// No description provided for @ubicBateria.
+  ///
+  /// In es, this message translates to:
+  /// **'Batería del móvil: {n} %'**
+  String ubicBateria(int n);
+
+  /// No description provided for @ubicAbrirMapas.
+  ///
+  /// In es, this message translates to:
+  /// **'Abrir en mapas'**
+  String get ubicAbrirMapas;
+
+  /// No description provided for @ubicMapasPie.
+  ///
+  /// In es, this message translates to:
+  /// **'Se abre la app de mapas de este móvil con la posición. NEW-ERA no carga mapas de ningún servidor.'**
+  String get ubicMapasPie;
+
+  /// No description provided for @ubicLecturasHoy.
+  ///
+  /// In es, this message translates to:
+  /// **'Posiciones de hoy'**
+  String get ubicLecturasHoy;
+
+  /// No description provided for @ubicSinLecturasHoy.
+  ///
+  /// In es, this message translates to:
+  /// **'Hoy aún no hay posiciones.'**
+  String get ubicSinLecturasHoy;
+
+  /// No description provided for @ubicLecturaDetalle.
+  ///
+  /// In es, this message translates to:
+  /// **'± {metros} m · {origen}'**
+  String ubicLecturaDetalle(int metros, String origen);
+
+  /// No description provided for @ubicLecturaDentro.
+  ///
+  /// In es, this message translates to:
+  /// **'En casa'**
+  String get ubicLecturaDentro;
+
+  /// No description provided for @ubicLecturaFuera.
+  ///
+  /// In es, this message translates to:
+  /// **'A {metros} m'**
+  String ubicLecturaFuera(int metros);
+
+  /// No description provided for @ubicOrigenApp.
+  ///
+  /// In es, this message translates to:
+  /// **'con la app abierta'**
+  String get ubicOrigenApp;
+
+  /// No description provided for @ubicOrigenFondo.
+  ///
+  /// In es, this message translates to:
+  /// **'con la app cerrada'**
+  String get ubicOrigenFondo;
+
+  /// No description provided for @ubicOrigenAlarma.
+  ///
+  /// In es, this message translates to:
+  /// **'al sonar una alarma'**
+  String get ubicOrigenAlarma;
+
+  /// No description provided for @ubicOrigenAyuda.
+  ///
+  /// In es, this message translates to:
+  /// **'al pedir ayuda'**
+  String get ubicOrigenAyuda;
+
+  /// No description provided for @ubicOrigenBusqueda.
+  ///
+  /// In es, this message translates to:
+  /// **'búsqueda'**
+  String get ubicOrigenBusqueda;
+
+  /// No description provided for @ubicZonaTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Zona segura'**
+  String get ubicZonaTitulo;
+
+  /// No description provided for @ubicZonaCasa.
+  ///
+  /// In es, this message translates to:
+  /// **'Casa'**
+  String get ubicZonaCasa;
+
+  /// No description provided for @ubicZonaRadio.
+  ///
+  /// In es, this message translates to:
+  /// **'Radio de {metros} m'**
+  String ubicZonaRadio(int metros);
+
+  /// No description provided for @ubicZonaSinElegir.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin elegir'**
+  String get ubicZonaSinElegir;
+
+  /// No description provided for @ubicUsarComoCasa.
+  ///
+  /// In es, this message translates to:
+  /// **'Usar la posición actual de su móvil como casa'**
+  String get ubicUsarComoCasa;
+
+  /// No description provided for @ubicUsarSinPosicion.
+  ///
+  /// In es, this message translates to:
+  /// **'Aún no hay ninguna posición de su móvil.'**
+  String get ubicUsarSinPosicion;
+
+  /// No description provided for @ubicRadioTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Radio'**
+  String get ubicRadioTitulo;
+
+  /// No description provided for @ubicRadioMetros.
+  ///
+  /// In es, this message translates to:
+  /// **'{metros} m'**
+  String ubicRadioMetros(int metros);
+
+  /// No description provided for @ubicZonaPie.
+  ///
+  /// In es, this message translates to:
+  /// **'Si sale de la zona, se avisa a todo el círculo. Para no avisar por una lectura mala hacen falta dos posiciones seguidas fuera, o una muy precisa claramente fuera.'**
+  String get ubicZonaPie;
+
+  /// No description provided for @ubicPermisoSiempre.
+  ///
+  /// In es, this message translates to:
+  /// **'Su móvil la manda también con la app cerrada.'**
+  String get ubicPermisoSiempre;
+
+  /// No description provided for @ubicPermisoAbierta.
+  ///
+  /// In es, this message translates to:
+  /// **'Su móvil solo la manda con la app abierta.'**
+  String get ubicPermisoAbierta;
+
+  /// No description provided for @ubicPerdidaTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Si no la encontráis'**
+  String get ubicPerdidaTitulo;
+
+  /// No description provided for @ubicBuscar.
+  ///
+  /// In es, this message translates to:
+  /// **'Buscarla ahora'**
+  String get ubicBuscar;
+
+  /// No description provided for @ubicBuscarSub.
+  ///
+  /// In es, this message translates to:
+  /// **'Su móvil manda su posición cada minuto durante 30 minutos.'**
+  String get ubicBuscarSub;
+
+  /// No description provided for @ubicBuscando.
+  ///
+  /// In es, this message translates to:
+  /// **'Buscando hasta las {hora}'**
+  String ubicBuscando(String hora);
+
+  /// No description provided for @ubicPararBusqueda.
+  ///
+  /// In es, this message translates to:
+  /// **'Parar la búsqueda'**
+  String get ubicPararBusqueda;
+
+  /// No description provided for @ubicBuscarPie.
+  ///
+  /// In es, this message translates to:
+  /// **'Su móvil recibe la petición al sincronizar: al momento si tiene la app abierta; con la app cerrada (Android), en su siguiente revisión.'**
+  String get ubicBuscarPie;
+
+  /// No description provided for @ubicVerFicha.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver la ficha para emergencias'**
+  String get ubicVerFicha;
+
+  /// No description provided for @ubicFichaTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Ficha para emergencias'**
+  String get ubicFichaTitulo;
+
+  /// No description provided for @ubicFichaNombre.
+  ///
+  /// In es, this message translates to:
+  /// **'Nombre'**
+  String get ubicFichaNombre;
+
+  /// No description provided for @ubicFichaMedicacion.
+  ///
+  /// In es, this message translates to:
+  /// **'Medicación'**
+  String get ubicFichaMedicacion;
+
+  /// No description provided for @ubicFichaSinMedicacion.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin medicación anotada'**
+  String get ubicFichaSinMedicacion;
+
+  /// No description provided for @ubicFichaPosicion.
+  ///
+  /// In es, this message translates to:
+  /// **'Última posición'**
+  String get ubicFichaPosicion;
+
+  /// No description provided for @ubicFichaPosicionValor.
+  ///
+  /// In es, this message translates to:
+  /// **'{hora} · {lat}, {lon} (± {metros} m)'**
+  String ubicFichaPosicionValor(
+    String hora,
+    String lat,
+    String lon,
+    int metros,
+  );
+
+  /// No description provided for @ubicFichaSinPosicion.
+  ///
+  /// In es, this message translates to:
+  /// **'Sin posición'**
+  String get ubicFichaSinPosicion;
+
+  /// No description provided for @ubicLlamar112.
+  ///
+  /// In es, this message translates to:
+  /// **'Llamar al 112'**
+  String get ubicLlamar112;
+
+  /// No description provided for @ubicLlamar112Titulo.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Llamar al 112?'**
+  String get ubicLlamar112Titulo;
+
+  /// No description provided for @ubicLlamar112Texto.
+  ///
+  /// In es, this message translates to:
+  /// **'Se abrirá el teléfono de este móvil para llamar a emergencias. Ten a mano la ficha.'**
+  String get ubicLlamar112Texto;
+
+  /// No description provided for @ubicLlamar112Si.
+  ///
+  /// In es, this message translates to:
+  /// **'Llamar'**
+  String get ubicLlamar112Si;
+
+  /// No description provided for @ubicApagar.
+  ///
+  /// In es, this message translates to:
+  /// **'Apagar la ubicación'**
+  String get ubicApagar;
+
+  /// No description provided for @ubicApagarTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Apagar la ubicación?'**
+  String get ubicApagarTitulo;
+
+  /// No description provided for @ubicApagarTexto.
+  ///
+  /// In es, this message translates to:
+  /// **'El móvil de {alias} dejará de mandar su posición y cada móvil del círculo borrará las que tenga guardadas.'**
+  String ubicApagarTexto(String alias);
+
+  /// No description provided for @ubicApagarSi.
+  ///
+  /// In es, this message translates to:
+  /// **'Apagar'**
+  String get ubicApagarSi;
+
+  /// No description provided for @ubicApagadaExplica.
+  ///
+  /// In es, this message translates to:
+  /// **'La ubicación está apagada. Al encenderla, el móvil de {alias} manda su posición al círculo, cifrada, para saber si está en casa y avisar si sale.'**
+  String ubicApagadaExplica(String alias);
+
+  /// No description provided for @ubicEncender.
+  ///
+  /// In es, this message translates to:
+  /// **'Encender la ubicación'**
+  String get ubicEncender;
+
+  /// No description provided for @ubicConsTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Permiso de ubicación'**
+  String get ubicConsTitulo;
+
+  /// No description provided for @ubicConsVispera.
+  ///
+  /// In es, this message translates to:
+  /// **'Antes de encenderla'**
+  String get ubicConsVispera;
+
+  /// No description provided for @ubicConsEncabezado.
+  ///
+  /// In es, this message translates to:
+  /// **'Ubicación del móvil de {alias}'**
+  String ubicConsEncabezado(String alias);
+
+  /// No description provided for @ubicConsQue.
+  ///
+  /// In es, this message translates to:
+  /// **'Qué se recoge: la posición de su móvil (latitud, longitud y precisión) y su batería. Con la app abierta, cada 5 minutos; en Android con la app cerrada, en las revisiones de las tomas y las rondas; al sonar una alarma; al pedir ayuda; y, si la buscáis, cada minuto durante 30 minutos. Sin GPS continuo.'**
+  String get ubicConsQue;
+
+  /// No description provided for @ubicConsPara.
+  ///
+  /// In es, this message translates to:
+  /// **'Para qué: saber si {alias} está en casa, avisar a todo el círculo si sale de la zona segura y ayudar a encontrarla.'**
+  String ubicConsPara(String alias);
+
+  /// No description provided for @ubicConsQuien.
+  ///
+  /// In es, this message translates to:
+  /// **'Quién lo ve: solo los móviles de este círculo. Viaja cifrado por el cartero; el servidor no puede leerlo y los avisos de ntfy no llevan la posición.'**
+  String get ubicConsQuien;
+
+  /// No description provided for @ubicConsCuanto.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuánto se guarda: 7 días en cada móvil. Después se borra.'**
+  String get ubicConsCuanto;
+
+  /// No description provided for @ubicConsMapa.
+  ///
+  /// In es, this message translates to:
+  /// **'Mapas: la app no carga mapas. «Abrir en mapas» pasa la posición a la app de mapas de tu móvil, solo cuando la tocas.'**
+  String get ubicConsMapa;
+
+  /// No description provided for @ubicConsApagar.
+  ///
+  /// In es, this message translates to:
+  /// **'Cómo se apaga: en Ubicación, «Apagar la ubicación». Su móvil deja de mandarla y cada móvil borra las que tenga.'**
+  String get ubicConsApagar;
+
+  /// No description provided for @ubicConsPermiso.
+  ///
+  /// In es, this message translates to:
+  /// **'Permiso del móvil: la próxima vez que se abra la app en el móvil de {alias}, pedirá el permiso de ubicación. En Android, para mandarla con la app cerrada hay que elegir «Permitir todo el tiempo».'**
+  String ubicConsPermiso(String alias);
+
+  /// No description provided for @ubicConsGuardar.
+  ///
+  /// In es, this message translates to:
+  /// **'Se guarda este texto con el nombre de {nombre} y la fecha.'**
+  String ubicConsGuardar(String nombre);
+
+  /// No description provided for @ubicConsAcepto.
+  ///
+  /// In es, this message translates to:
+  /// **'Acepto, soy {nombre}'**
+  String ubicConsAcepto(String nombre);
+
+  /// No description provided for @ubicConsAhoraNo.
+  ///
+  /// In es, this message translates to:
+  /// **'Ahora no'**
+  String get ubicConsAhoraNo;
+
+  /// No description provided for @ubicApagadaPor.
+  ///
+  /// In es, this message translates to:
+  /// **'{nombre} apagó la ubicación.'**
+  String ubicApagadaPor(String nombre);
+
+  /// No description provided for @fixResumenFueraZona.
+  ///
+  /// In es, this message translates to:
+  /// **'{alias}: fuera de la zona segura'**
+  String fixResumenFueraZona(String alias);
 }
 
 class _AppLocalizationsDelegate

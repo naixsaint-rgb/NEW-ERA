@@ -12,6 +12,8 @@ import '../../../shared/l10n_ext.dart';
 import '../../../shared/widgets/etiqueta_estado_toma.dart';
 import '../../../shared/widgets/tarjeta_grande.dart';
 import '../../calendario/agenda_hoy.dart';
+import '../../ubicacion/fila_ubicacion_hoy.dart';
+import '../../ubicacion/ubicacion_providers.dart';
 import '../dominio/control_horas.dart';
 import '../dominio/tomas.dart';
 import 'control_hoy.dart';
@@ -35,7 +37,13 @@ class VistaHoy extends ConsumerWidget {
     final avisos = ref.watch(avisosDeHoyProvider).value?.length;
     final config = ref.watch(configEscaladoProvider);
     final control = ref.watch(controlDeHoyProvider).value;
-    final semaforo = semaforoDelDia(deHoy, ahora, config, control: control);
+    final semaforo = semaforoDelDia(
+      deHoy,
+      ahora,
+      config,
+      control: control,
+      fueraDeZona: ref.watch(fueraDeZonaProvider),
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -62,13 +70,8 @@ class VistaHoy extends ConsumerWidget {
         const GrupoAvisosHoy(),
         separacionBloques,
         GrupoLista(
-          titulo: l.hoyLlegaPronto,
-          children: [
-            FilaLlegaPronto(
-              titulo: l.reservadaUbicacion,
-              subtitulo: l.llegaEnSemana(10),
-            ),
-          ],
+          titulo: l.reservadaUbicacion,
+          children: const [FilaUbicacionHoy()],
         ),
       ],
     );
@@ -107,6 +110,7 @@ class _TarjetaEstado extends ConsumerWidget {
         c.rojoClaro,
         CupertinoIcons.exclamationmark_octagon_fill,
         switch (motivo) {
+          MotivoSemaforo.fueraDeZona => l.semaforoFueraZona,
           MotivoSemaforo.estadoMal => l.semaforoDijoMal,
           MotivoSemaforo.dosSinRespuesta => l.semaforoDosSinRespuesta,
           _ => l.semaforoRojo,

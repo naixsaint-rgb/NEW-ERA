@@ -22,7 +22,9 @@ import 'package:newera/core/plataforma/camara/camara_simulada.dart';
 import 'package:newera/core/plataforma/video/visor_clip.dart';
 import 'package:newera/core/providers.dart';
 import 'package:newera/features/avisos/avisos_providers.dart';
+import 'package:newera/core/plataforma/ubicacion/ubicador.dart';
 import 'package:newera/features/catalogo/datos/catalogo_repositorio.dart';
+import 'package:newera/features/ubicacion/ubicacion_providers.dart';
 import 'package:safety_core/safety_core.dart';
 
 import 'base_prueba.dart';
@@ -44,7 +46,9 @@ class EntornoPrueba {
     ReproductorSimulado? reproductor,
     ArchivosClipMemoria? archivosClip,
     CanalAvisosSimulado? canal,
-  }) : almacen = almacen ?? AlmacenSeguroMemoria(),
+    UbicadorSimulado? ubicador,
+  }) : ubicador = ubicador ?? UbicadorSimulado(),
+       almacen = almacen ?? AlmacenSeguroMemoria(),
        canal = canal ?? CanalAvisosSimulado(),
        archivosClip = archivosClip ?? ArchivosClipMemoria(),
        archivos = archivos ?? ArchivosVozMemoria(),
@@ -72,6 +76,9 @@ class EntornoPrueba {
 
   /// Avisos a la familia: no sale nada a la red; apunta cada envío.
   final CanalAvisosSimulado canal;
+
+  /// Ubicación simulada (sin posición hasta que el test ponga una).
+  final UbicadorSimulado ubicador;
 
   /// Id de la toma de [nombre] (medicamento para la persona) en [fecha]
   /// (`yyyyMMdd`) a las [hora] (`HHmm`).
@@ -126,6 +133,7 @@ Future<EntornoPrueba> prepararEntorno({
   final reproductor = ReproductorSimulado();
   final archivosClip = ArchivosClipMemoria(ahora: reloj.ahora);
   final canal = CanalAvisosSimulado();
+  final ubicador = UbicadorSimulado();
   return EntornoPrueba(
     [
       ...overrides,
@@ -145,6 +153,7 @@ Future<EntornoPrueba> prepararEntorno({
       programadorAvisosProvider.overrideWithValue(
         const ProgramadorAvisosNulo(),
       ),
+      ubicadorProvider.overrideWithValue(ubicador),
     ],
     db,
     contexto,
@@ -156,6 +165,7 @@ Future<EntornoPrueba> prepararEntorno({
     reproductor: reproductor,
     archivosClip: archivosClip,
     canal: canal,
+    ubicador: ubicador,
   );
 }
 

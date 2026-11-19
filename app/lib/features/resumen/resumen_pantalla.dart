@@ -186,6 +186,7 @@ class _TarjetaEstado extends StatelessWidget {
         c.rojo,
         c.rojoClaro,
         switch (datos.motivo) {
+          MotivoSemaforo.fueraDeZona => l.fixResumenFueraZona(alias),
           MotivoSemaforo.estadoMal => l.fixResumenDijoMal(alias),
           MotivoSemaforo.dosSinRespuesta => l.fixResumenDosSinRespuesta(alias),
           _ => l.fixResumenSinConfirmar(alias),

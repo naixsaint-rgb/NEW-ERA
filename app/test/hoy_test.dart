@@ -87,8 +87,11 @@ void main() {
     await tester.scrollUntilVisible(find.text('AVISOS DE HOY'), 300);
     expect(find.text('Aviso enviado a Lucía'), findsOneWidget);
     expect(find.text('Ronda de las 10:00 sin respuesta'), findsOneWidget);
-    await tester.scrollUntilVisible(find.text('LLEGA PRONTO'), 300);
-    expect(find.text('LLEGA PRONTO'), findsOneWidget);
+    // La ubicación de la semilla: en casa, con la última posición a las 11:50.
+    await tester.scrollUntilVisible(find.text('UBICACIÓN'), 300);
+    expect(find.text('En casa'), findsOneWidget);
+    expect(find.text('Última posición a las 11:50'), findsOneWidget);
+    expect(find.text('LLEGA PRONTO'), findsNothing);
     // El vídeo ya se ve desde Comprobaciones: no sale como «llega pronto».
     expect(
       find.text('Ver el vídeo de cada toma desde el móvil de la familia'),

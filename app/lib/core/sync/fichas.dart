@@ -6,6 +6,7 @@ import 'package:safety_core/safety_core.dart';
 import '../contexto.dart';
 import '../db/base_datos.dart';
 import '../db/repositorios/eventos_repositorio.dart';
+import '../db/repositorios/ubicacion_repositorio.dart';
 import '../db/repositorios/voces_repositorio.dart';
 import '../plataforma/audio/archivos_voz.dart';
 import 'foto_para_sobre.dart';
@@ -19,7 +20,9 @@ import 'foto_para_sobre.dart';
 /// regla. Las comidas y los vasos de agua de la persona también llevan baja
 /// lógica; cada vaso es una fila. Las preguntas y notas de las consultas
 /// también llevan baja lógica; la grabación de una consulta viaja solo como
-/// marca (quién la tiene), nunca el audio.
+/// marca (quién la tiene), nunca el audio. La zona segura de la ubicación
+/// (`ajustes_ubicacion`) es una fila por círculo, como los ajustes del
+/// control.
 enum TipoFicha {
   persona('persona'),
   miembro('miembro'),
@@ -36,7 +39,8 @@ enum TipoFicha {
   hidratacion('hidratacion'),
   preguntaConsulta('pregunta_consulta'),
   notaConsulta('nota_consulta'),
-  grabacionConsulta('grabacion_consulta');
+  grabacionConsulta('grabacion_consulta'),
+  ajustesUbicacion('ajustes_ubicacion');
 
   const TipoFicha(this.nombre);
   final String nombre;
@@ -156,6 +160,16 @@ abstract final class FilasFicha {
     'hasta_hora': a.hastaHora,
     'cada_horas': a.cadaHoras,
     'activo_desde': a.activoDesde,
+    'modificado_por': a.modificadoPor,
+    'modificado_en': a.modificadoEn,
+  };
+
+  static Map<String, Object?> ajustesUbicacion(FilaAjustesUbicacion a) => {
+    'id': a.id,
+    'zona_lat': a.zonaLat,
+    'zona_lon': a.zonaLon,
+    'zona_radio': a.zonaRadio,
+    'zona_nombre': a.zonaNombre,
     'modificado_por': a.modificadoPor,
     'modificado_en': a.modificadoEn,
   };
@@ -390,7 +404,7 @@ final class PublicadorFichas {
               ..where(
                 (c) =>
                     c.circuloId.equals(_contexto.circuloId) &
-                    c.sobre.equals('voz'),
+                    c.sobre.isIn(const ['voz', 'ubicacion']),
               )
               ..orderBy([(c) => OrderingTerm.asc(c.otorgadoEn)]))
             .get();
@@ -427,6 +441,10 @@ final class PublicadorFichas {
       _db.ajustesControlHoras,
     )..where((a) => a.id.equals(_contexto.circuloId))).getSingleOrNull();
     if (ajustes != null) await una(TipoFicha.ajustesControl, ajustes.id);
+    final zona = await (_db.select(
+      _db.ajustesUbicacion,
+    )..where((a) => a.id.equals(_contexto.circuloId))).getSingleOrNull();
+    if (zona != null) await una(TipoFicha.ajustesUbicacion, zona.id);
     final citas =
         await (_db.select(_db.citas)
               ..where((c) => c.circuloId.equals(_contexto.circuloId))
@@ -553,6 +571,12 @@ final class PublicadorFichas {
         )..where((t) => t.id.equals(id))).getSingleOrNull();
         if (a == null) return null;
         fila = FilasFicha.ajustesControl(a);
+      case TipoFicha.ajustesUbicacion:
+        final a = await (_db.select(
+          _db.ajustesUbicacion,
+        )..where((t) => t.id.equals(id))).getSingleOrNull();
+        if (a == null) return null;
+        fila = FilasFicha.ajustesUbicacion(a);
       case TipoFicha.cita:
         final x = await (_db.select(
           _db.citas,
@@ -666,6 +690,15 @@ final class _Campos {
   int? entONulo(String k) {
     final v = _m[k];
     if (v == null || v is int) return v as int?;
+    valida = false;
+    return null;
+  }
+
+  /// Número real o nulo (un entero también vale: JSON no los distingue).
+  double? realONulo(String k) {
+    final v = _m[k];
+    if (v == null) return null;
+    if (v is num && v.isFinite) return v.toDouble();
     valida = false;
     return null;
   }
@@ -847,6 +880,7 @@ final class MaterializadorFichas {
       TipoFicha.voz => _voz(e, id, c, creada),
       TipoFicha.frase => _frase(e, id, c, creada, payload),
       TipoFicha.ajustesControl => _ajustesControl(id, c),
+      TipoFicha.ajustesUbicacion => _ajustesUbicacion(id, c),
       TipoFicha.cita => _cita(e, id, c, creada),
       TipoFicha.turno => _turno(e, id, c, creada),
       TipoFicha.comida => _comida(e, id, c, creada, soloFotos),
@@ -958,8 +992,29 @@ final class MaterializadorFichas {
     await _db
         .into(_db.consentimientos)
         .insert(fila.copyWith(documentoFotoId: Value(foto)));
+    // Ubicación apagada en otro móvil: aquí también se borran las posiciones.
+    if (fila.sobre.value == 'ubicacion' &&
+        fila.revocaA.value != null &&
+        await _ubicacionApagada()) {
+      await (_db.delete(
+            _db.eventos,
+          )..where((e) => e.tipo.equals(TipoEvento.ubicacionRegistrada.nombre)))
+          .go();
+    }
     return _Resultado.aplicada;
   }
+
+  /// No queda ningún consentimiento de ubicación vigente en el círculo.
+  Future<bool> _ubicacionApagada() async =>
+      UbicacionRepositorio.vigente(
+        await (_db.select(_db.consentimientos)..where(
+              (c) =>
+                  c.circuloId.equals(_contexto.circuloId) &
+                  c.sobre.equals('ubicacion'),
+            ))
+            .get(),
+      ) ==
+      null;
 
   // ------------------------------------------------------- Fichas
 
@@ -991,6 +1046,43 @@ final class MaterializadorFichas {
     } else if (fila.modificadoEn.value >= ya.modificadoEn) {
       await (_db.update(
         _db.ajustesControlHoras,
+      )..where((t) => t.id.equals(id))).write(fila);
+    }
+    return _Resultado.aplicada;
+  }
+
+  /// Zona segura de la ubicación: gana la más reciente; un centro o un radio
+  /// fuera de rango se descarta.
+  Future<_Resultado> _ajustesUbicacion(String id, _Campos c) async {
+    final lat = c.realONulo('zona_lat');
+    final lon = c.realONulo('zona_lon');
+    final fila = AjustesUbicacionCompanion.insert(
+      id: id,
+      zonaLat: Value(lat),
+      zonaLon: Value(lon),
+      zonaRadio: Value(c.ent('zona_radio')),
+      zonaNombre: Value(c.txtONulo('zona_nombre')),
+      modificadoPor: c.txt('modificado_por'),
+      modificadoEn: c.ent('modificado_en'),
+    );
+    if (!c.valida || id != _contexto.circuloId) return _Resultado.descartada;
+    final radio = fila.zonaRadio.value;
+    if ((lat == null) != (lon == null) ||
+        (lat != null && lat.abs() > 90) ||
+        (lon != null && lon.abs() > 180) ||
+        radio < 50 ||
+        radio > 5000) {
+      return _Resultado.descartada;
+    }
+    if (!await _existe(_db.circulos, id)) return _Resultado.pendiente;
+    final ya = await (_db.select(
+      _db.ajustesUbicacion,
+    )..where((t) => t.id.equals(id))).getSingleOrNull();
+    if (ya == null) {
+      await _db.into(_db.ajustesUbicacion).insert(fila);
+    } else if (fila.modificadoEn.value >= ya.modificadoEn) {
+      await (_db.update(
+        _db.ajustesUbicacion,
       )..where((t) => t.id.equals(id))).write(fila);
     }
     return _Resultado.aplicada;

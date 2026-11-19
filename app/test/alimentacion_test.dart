@@ -594,6 +594,7 @@ void main() {
             registradaPor: 'x',
           ),
         );
+    await v6.customStatement('DROP TABLE ajustes_ubicacion');
     await v6.customStatement('DROP TABLE grabaciones_consulta');
     await v6.customStatement('DROP TABLE notas_consulta');
     await v6.customStatement('DROP TABLE preguntas_consulta');
@@ -615,8 +616,8 @@ void main() {
     final v7 = AppDatabase(NativeDatabase(archivo));
     addTearDown(v7.close);
     final version = await v7.customSelect('PRAGMA user_version').getSingle();
-    expect(version.data.values.single, 8);
-    expect(v7.schemaVersion, 8);
+    expect(version.data.values.single, 9);
+    expect(v7.schemaVersion, 9);
     // La comida de antes sigue y ahora admite baja lógica.
     final antes = await v7.select(v7.comidas).getSingle();
     expect(antes.bajaEn, isNull);

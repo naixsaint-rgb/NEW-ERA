@@ -13470,6 +13470,492 @@ class GrabacionesConsultaCompanion extends UpdateCompanion<GrabacionConsulta> {
   }
 }
 
+class $AjustesUbicacionTable extends AjustesUbicacion
+    with TableInfo<$AjustesUbicacionTable, FilaAjustesUbicacion> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AjustesUbicacionTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES circulos (id)',
+    ),
+  );
+  static const VerificationMeta _zonaLatMeta = const VerificationMeta(
+    'zonaLat',
+  );
+  @override
+  late final GeneratedColumn<double> zonaLat = GeneratedColumn<double>(
+    'zona_lat',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _zonaLonMeta = const VerificationMeta(
+    'zonaLon',
+  );
+  @override
+  late final GeneratedColumn<double> zonaLon = GeneratedColumn<double>(
+    'zona_lon',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _zonaRadioMeta = const VerificationMeta(
+    'zonaRadio',
+  );
+  @override
+  late final GeneratedColumn<int> zonaRadio = GeneratedColumn<int>(
+    'zona_radio',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(200),
+  );
+  static const VerificationMeta _zonaNombreMeta = const VerificationMeta(
+    'zonaNombre',
+  );
+  @override
+  late final GeneratedColumn<String> zonaNombre = GeneratedColumn<String>(
+    'zona_nombre',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _modificadoPorMeta = const VerificationMeta(
+    'modificadoPor',
+  );
+  @override
+  late final GeneratedColumn<String> modificadoPor = GeneratedColumn<String>(
+    'modificado_por',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _modificadoEnMeta = const VerificationMeta(
+    'modificadoEn',
+  );
+  @override
+  late final GeneratedColumn<int> modificadoEn = GeneratedColumn<int>(
+    'modificado_en',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    zonaLat,
+    zonaLon,
+    zonaRadio,
+    zonaNombre,
+    modificadoPor,
+    modificadoEn,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'ajustes_ubicacion';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<FilaAjustesUbicacion> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('zona_lat')) {
+      context.handle(
+        _zonaLatMeta,
+        zonaLat.isAcceptableOrUnknown(data['zona_lat']!, _zonaLatMeta),
+      );
+    }
+    if (data.containsKey('zona_lon')) {
+      context.handle(
+        _zonaLonMeta,
+        zonaLon.isAcceptableOrUnknown(data['zona_lon']!, _zonaLonMeta),
+      );
+    }
+    if (data.containsKey('zona_radio')) {
+      context.handle(
+        _zonaRadioMeta,
+        zonaRadio.isAcceptableOrUnknown(data['zona_radio']!, _zonaRadioMeta),
+      );
+    }
+    if (data.containsKey('zona_nombre')) {
+      context.handle(
+        _zonaNombreMeta,
+        zonaNombre.isAcceptableOrUnknown(data['zona_nombre']!, _zonaNombreMeta),
+      );
+    }
+    if (data.containsKey('modificado_por')) {
+      context.handle(
+        _modificadoPorMeta,
+        modificadoPor.isAcceptableOrUnknown(
+          data['modificado_por']!,
+          _modificadoPorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_modificadoPorMeta);
+    }
+    if (data.containsKey('modificado_en')) {
+      context.handle(
+        _modificadoEnMeta,
+        modificadoEn.isAcceptableOrUnknown(
+          data['modificado_en']!,
+          _modificadoEnMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_modificadoEnMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  FilaAjustesUbicacion map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FilaAjustesUbicacion(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      zonaLat: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}zona_lat'],
+      ),
+      zonaLon: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}zona_lon'],
+      ),
+      zonaRadio: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}zona_radio'],
+      )!,
+      zonaNombre: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}zona_nombre'],
+      ),
+      modificadoPor: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}modificado_por'],
+      )!,
+      modificadoEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}modificado_en'],
+      )!,
+    );
+  }
+
+  @override
+  $AjustesUbicacionTable createAlias(String alias) {
+    return $AjustesUbicacionTable(attachedDatabase, alias);
+  }
+}
+
+class FilaAjustesUbicacion extends DataClass
+    implements Insertable<FilaAjustesUbicacion> {
+  /// Id del círculo.
+  final String id;
+  final double? zonaLat;
+  final double? zonaLon;
+
+  /// Radio en metros (100, 200 o 500).
+  final int zonaRadio;
+
+  /// Nombre de la zona; nulo, «Casa».
+  final String? zonaNombre;
+  final String modificadoPor;
+  final int modificadoEn;
+  const FilaAjustesUbicacion({
+    required this.id,
+    this.zonaLat,
+    this.zonaLon,
+    required this.zonaRadio,
+    this.zonaNombre,
+    required this.modificadoPor,
+    required this.modificadoEn,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    if (!nullToAbsent || zonaLat != null) {
+      map['zona_lat'] = Variable<double>(zonaLat);
+    }
+    if (!nullToAbsent || zonaLon != null) {
+      map['zona_lon'] = Variable<double>(zonaLon);
+    }
+    map['zona_radio'] = Variable<int>(zonaRadio);
+    if (!nullToAbsent || zonaNombre != null) {
+      map['zona_nombre'] = Variable<String>(zonaNombre);
+    }
+    map['modificado_por'] = Variable<String>(modificadoPor);
+    map['modificado_en'] = Variable<int>(modificadoEn);
+    return map;
+  }
+
+  AjustesUbicacionCompanion toCompanion(bool nullToAbsent) {
+    return AjustesUbicacionCompanion(
+      id: Value(id),
+      zonaLat: zonaLat == null && nullToAbsent
+          ? const Value.absent()
+          : Value(zonaLat),
+      zonaLon: zonaLon == null && nullToAbsent
+          ? const Value.absent()
+          : Value(zonaLon),
+      zonaRadio: Value(zonaRadio),
+      zonaNombre: zonaNombre == null && nullToAbsent
+          ? const Value.absent()
+          : Value(zonaNombre),
+      modificadoPor: Value(modificadoPor),
+      modificadoEn: Value(modificadoEn),
+    );
+  }
+
+  factory FilaAjustesUbicacion.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FilaAjustesUbicacion(
+      id: serializer.fromJson<String>(json['id']),
+      zonaLat: serializer.fromJson<double?>(json['zonaLat']),
+      zonaLon: serializer.fromJson<double?>(json['zonaLon']),
+      zonaRadio: serializer.fromJson<int>(json['zonaRadio']),
+      zonaNombre: serializer.fromJson<String?>(json['zonaNombre']),
+      modificadoPor: serializer.fromJson<String>(json['modificadoPor']),
+      modificadoEn: serializer.fromJson<int>(json['modificadoEn']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'zonaLat': serializer.toJson<double?>(zonaLat),
+      'zonaLon': serializer.toJson<double?>(zonaLon),
+      'zonaRadio': serializer.toJson<int>(zonaRadio),
+      'zonaNombre': serializer.toJson<String?>(zonaNombre),
+      'modificadoPor': serializer.toJson<String>(modificadoPor),
+      'modificadoEn': serializer.toJson<int>(modificadoEn),
+    };
+  }
+
+  FilaAjustesUbicacion copyWith({
+    String? id,
+    Value<double?> zonaLat = const Value.absent(),
+    Value<double?> zonaLon = const Value.absent(),
+    int? zonaRadio,
+    Value<String?> zonaNombre = const Value.absent(),
+    String? modificadoPor,
+    int? modificadoEn,
+  }) => FilaAjustesUbicacion(
+    id: id ?? this.id,
+    zonaLat: zonaLat.present ? zonaLat.value : this.zonaLat,
+    zonaLon: zonaLon.present ? zonaLon.value : this.zonaLon,
+    zonaRadio: zonaRadio ?? this.zonaRadio,
+    zonaNombre: zonaNombre.present ? zonaNombre.value : this.zonaNombre,
+    modificadoPor: modificadoPor ?? this.modificadoPor,
+    modificadoEn: modificadoEn ?? this.modificadoEn,
+  );
+  FilaAjustesUbicacion copyWithCompanion(AjustesUbicacionCompanion data) {
+    return FilaAjustesUbicacion(
+      id: data.id.present ? data.id.value : this.id,
+      zonaLat: data.zonaLat.present ? data.zonaLat.value : this.zonaLat,
+      zonaLon: data.zonaLon.present ? data.zonaLon.value : this.zonaLon,
+      zonaRadio: data.zonaRadio.present ? data.zonaRadio.value : this.zonaRadio,
+      zonaNombre: data.zonaNombre.present
+          ? data.zonaNombre.value
+          : this.zonaNombre,
+      modificadoPor: data.modificadoPor.present
+          ? data.modificadoPor.value
+          : this.modificadoPor,
+      modificadoEn: data.modificadoEn.present
+          ? data.modificadoEn.value
+          : this.modificadoEn,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FilaAjustesUbicacion(')
+          ..write('id: $id, ')
+          ..write('zonaLat: $zonaLat, ')
+          ..write('zonaLon: $zonaLon, ')
+          ..write('zonaRadio: $zonaRadio, ')
+          ..write('zonaNombre: $zonaNombre, ')
+          ..write('modificadoPor: $modificadoPor, ')
+          ..write('modificadoEn: $modificadoEn')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    zonaLat,
+    zonaLon,
+    zonaRadio,
+    zonaNombre,
+    modificadoPor,
+    modificadoEn,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FilaAjustesUbicacion &&
+          other.id == this.id &&
+          other.zonaLat == this.zonaLat &&
+          other.zonaLon == this.zonaLon &&
+          other.zonaRadio == this.zonaRadio &&
+          other.zonaNombre == this.zonaNombre &&
+          other.modificadoPor == this.modificadoPor &&
+          other.modificadoEn == this.modificadoEn);
+}
+
+class AjustesUbicacionCompanion extends UpdateCompanion<FilaAjustesUbicacion> {
+  final Value<String> id;
+  final Value<double?> zonaLat;
+  final Value<double?> zonaLon;
+  final Value<int> zonaRadio;
+  final Value<String?> zonaNombre;
+  final Value<String> modificadoPor;
+  final Value<int> modificadoEn;
+  final Value<int> rowid;
+  const AjustesUbicacionCompanion({
+    this.id = const Value.absent(),
+    this.zonaLat = const Value.absent(),
+    this.zonaLon = const Value.absent(),
+    this.zonaRadio = const Value.absent(),
+    this.zonaNombre = const Value.absent(),
+    this.modificadoPor = const Value.absent(),
+    this.modificadoEn = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AjustesUbicacionCompanion.insert({
+    required String id,
+    this.zonaLat = const Value.absent(),
+    this.zonaLon = const Value.absent(),
+    this.zonaRadio = const Value.absent(),
+    this.zonaNombre = const Value.absent(),
+    required String modificadoPor,
+    required int modificadoEn,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       modificadoPor = Value(modificadoPor),
+       modificadoEn = Value(modificadoEn);
+  static Insertable<FilaAjustesUbicacion> custom({
+    Expression<String>? id,
+    Expression<double>? zonaLat,
+    Expression<double>? zonaLon,
+    Expression<int>? zonaRadio,
+    Expression<String>? zonaNombre,
+    Expression<String>? modificadoPor,
+    Expression<int>? modificadoEn,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (zonaLat != null) 'zona_lat': zonaLat,
+      if (zonaLon != null) 'zona_lon': zonaLon,
+      if (zonaRadio != null) 'zona_radio': zonaRadio,
+      if (zonaNombre != null) 'zona_nombre': zonaNombre,
+      if (modificadoPor != null) 'modificado_por': modificadoPor,
+      if (modificadoEn != null) 'modificado_en': modificadoEn,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AjustesUbicacionCompanion copyWith({
+    Value<String>? id,
+    Value<double?>? zonaLat,
+    Value<double?>? zonaLon,
+    Value<int>? zonaRadio,
+    Value<String?>? zonaNombre,
+    Value<String>? modificadoPor,
+    Value<int>? modificadoEn,
+    Value<int>? rowid,
+  }) {
+    return AjustesUbicacionCompanion(
+      id: id ?? this.id,
+      zonaLat: zonaLat ?? this.zonaLat,
+      zonaLon: zonaLon ?? this.zonaLon,
+      zonaRadio: zonaRadio ?? this.zonaRadio,
+      zonaNombre: zonaNombre ?? this.zonaNombre,
+      modificadoPor: modificadoPor ?? this.modificadoPor,
+      modificadoEn: modificadoEn ?? this.modificadoEn,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (zonaLat.present) {
+      map['zona_lat'] = Variable<double>(zonaLat.value);
+    }
+    if (zonaLon.present) {
+      map['zona_lon'] = Variable<double>(zonaLon.value);
+    }
+    if (zonaRadio.present) {
+      map['zona_radio'] = Variable<int>(zonaRadio.value);
+    }
+    if (zonaNombre.present) {
+      map['zona_nombre'] = Variable<String>(zonaNombre.value);
+    }
+    if (modificadoPor.present) {
+      map['modificado_por'] = Variable<String>(modificadoPor.value);
+    }
+    if (modificadoEn.present) {
+      map['modificado_en'] = Variable<int>(modificadoEn.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AjustesUbicacionCompanion(')
+          ..write('id: $id, ')
+          ..write('zonaLat: $zonaLat, ')
+          ..write('zonaLon: $zonaLon, ')
+          ..write('zonaRadio: $zonaRadio, ')
+          ..write('zonaNombre: $zonaNombre, ')
+          ..write('modificadoPor: $modificadoPor, ')
+          ..write('modificadoEn: $modificadoEn, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -13508,6 +13994,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $NotasConsultaTable notasConsulta = $NotasConsultaTable(this);
   late final $GrabacionesConsultaTable grabacionesConsulta =
       $GrabacionesConsultaTable(this);
+  late final $AjustesUbicacionTable ajustesUbicacion = $AjustesUbicacionTable(
+    this,
+  );
   late final Index pautasPorPauta = Index(
     'pautas_por_pauta',
     'CREATE INDEX pautas_por_pauta ON pautas (pauta_id, version)',
@@ -13551,6 +14040,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     preguntasConsulta,
     notasConsulta,
     grabacionesConsulta,
+    ajustesUbicacion,
     pautasPorPauta,
     eventosPorSujeto,
     eventosPorTipo,
@@ -13728,6 +14218,26 @@ final class $$CirculosTableReferences
     ).filter((f) => f.circuloId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_turnosRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$AjustesUbicacionTable, List<FilaAjustesUbicacion>>
+  _ajustesUbicacionRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.ajustesUbicacion,
+    aliasName: 'circulos__id__ajustes_ubicacion__id',
+  );
+
+  $$AjustesUbicacionTableProcessedTableManager get ajustesUbicacionRefs {
+    final manager = $$AjustesUbicacionTableTableManager(
+      $_db,
+      $_db.ajustesUbicacion,
+    ).filter((f) => f.id.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _ajustesUbicacionRefsTable($_db),
+    );
     return ProcessedTableManager(
       manager.$state.copyWith(prefetchedData: cache),
     );
@@ -13954,6 +14464,31 @@ class $$CirculosTableFilterComposer
           }) => $$TurnosTableFilterComposer(
             $db: $db,
             $table: $db.turnos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> ajustesUbicacionRefs(
+    Expression<bool> Function($$AjustesUbicacionTableFilterComposer f) f,
+  ) {
+    final $$AjustesUbicacionTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.ajustesUbicacion,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AjustesUbicacionTableFilterComposer(
+            $db: $db,
+            $table: $db.ajustesUbicacion,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer:
@@ -14217,6 +14752,31 @@ class $$CirculosTableAnnotationComposer
     );
     return f(composer);
   }
+
+  Expression<T> ajustesUbicacionRefs<T extends Object>(
+    Expression<T> Function($$AjustesUbicacionTableAnnotationComposer a) f,
+  ) {
+    final $$AjustesUbicacionTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.ajustesUbicacion,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$AjustesUbicacionTableAnnotationComposer(
+            $db: $db,
+            $table: $db.ajustesUbicacion,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$CirculosTableTableManager
@@ -14241,6 +14801,7 @@ class $$CirculosTableTableManager
             bool ajustesControlHorasRefs,
             bool citasRefs,
             bool turnosRefs,
+            bool ajustesUbicacionRefs,
           })
         > {
   $$CirculosTableTableManager(_$AppDatabase db, $CirculosTable table)
@@ -14300,6 +14861,7 @@ class $$CirculosTableTableManager
                 ajustesControlHorasRefs = false,
                 citasRefs = false,
                 turnosRefs = false,
+                ajustesUbicacionRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -14312,6 +14874,7 @@ class $$CirculosTableTableManager
                     if (ajustesControlHorasRefs) db.ajustesControlHoras,
                     if (citasRefs) db.citas,
                     if (turnosRefs) db.turnos,
+                    if (ajustesUbicacionRefs) db.ajustesUbicacion,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -14484,6 +15047,27 @@ class $$CirculosTableTableManager
                               ),
                           typedResults: items,
                         ),
+                      if (ajustesUbicacionRefs)
+                        await $_getPrefetchedData<
+                          Circulo,
+                          $CirculosTable,
+                          FilaAjustesUbicacion
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CirculosTableReferences
+                              ._ajustesUbicacionRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CirculosTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).ajustesUbicacionRefs,
+                          referencedItemsForCurrentItem: (
+                            item,
+                            referencedItems,
+                          ) => referencedItems.where((e) => e.id == item.id),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -14513,6 +15097,7 @@ typedef $$CirculosTableProcessedTableManager =
         bool ajustesControlHorasRefs,
         bool citasRefs,
         bool turnosRefs,
+        bool ajustesUbicacionRefs,
       })
     >;
 typedef $$FotosTableCreateCompanionBuilder = FotosCompanion Function({
@@ -27529,6 +28114,378 @@ typedef $$GrabacionesConsultaTableProcessedTableManager =
       GrabacionConsulta,
       PrefetchHooks Function({bool id})
     >;
+typedef $$AjustesUbicacionTableCreateCompanionBuilder =
+    AjustesUbicacionCompanion Function({
+      required String id,
+      Value<double?> zonaLat,
+      Value<double?> zonaLon,
+      Value<int> zonaRadio,
+      Value<String?> zonaNombre,
+      required String modificadoPor,
+      required int modificadoEn,
+      Value<int> rowid,
+    });
+typedef $$AjustesUbicacionTableUpdateCompanionBuilder =
+    AjustesUbicacionCompanion Function({
+      Value<String> id,
+      Value<double?> zonaLat,
+      Value<double?> zonaLon,
+      Value<int> zonaRadio,
+      Value<String?> zonaNombre,
+      Value<String> modificadoPor,
+      Value<int> modificadoEn,
+      Value<int> rowid,
+    });
+
+final class $$AjustesUbicacionTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $AjustesUbicacionTable,
+          FilaAjustesUbicacion
+        > {
+  $$AjustesUbicacionTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $CirculosTable _idTable(_$AppDatabase db) =>
+      db.circulos.createAlias('ajustes_ubicacion__id__circulos__id');
+
+  $$CirculosTableProcessedTableManager get id {
+    final $_column = $_itemColumn<String>('id')!;
+
+    final manager = $$CirculosTableTableManager(
+      $_db,
+      $_db.circulos,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_idTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$AjustesUbicacionTableFilterComposer
+    extends Composer<_$AppDatabase, $AjustesUbicacionTable> {
+  $$AjustesUbicacionTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<double> get zonaLat => $composableBuilder(
+    column: $table.zonaLat,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get zonaLon => $composableBuilder(
+    column: $table.zonaLon,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get zonaRadio => $composableBuilder(
+    column: $table.zonaRadio,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get zonaNombre => $composableBuilder(
+    column: $table.zonaNombre,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get modificadoPor => $composableBuilder(
+    column: $table.modificadoPor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get modificadoEn => $composableBuilder(
+    column: $table.modificadoEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$CirculosTableFilterComposer get id {
+    final $$CirculosTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.circulos,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirculosTableFilterComposer(
+            $db: $db,
+            $table: $db.circulos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AjustesUbicacionTableOrderingComposer
+    extends Composer<_$AppDatabase, $AjustesUbicacionTable> {
+  $$AjustesUbicacionTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<double> get zonaLat => $composableBuilder(
+    column: $table.zonaLat,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get zonaLon => $composableBuilder(
+    column: $table.zonaLon,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get zonaRadio => $composableBuilder(
+    column: $table.zonaRadio,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get zonaNombre => $composableBuilder(
+    column: $table.zonaNombre,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get modificadoPor => $composableBuilder(
+    column: $table.modificadoPor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get modificadoEn => $composableBuilder(
+    column: $table.modificadoEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$CirculosTableOrderingComposer get id {
+    final $$CirculosTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.circulos,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirculosTableOrderingComposer(
+            $db: $db,
+            $table: $db.circulos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AjustesUbicacionTableAnnotationComposer
+    extends Composer<_$AppDatabase, $AjustesUbicacionTable> {
+  $$AjustesUbicacionTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<double> get zonaLat =>
+      $composableBuilder(column: $table.zonaLat, builder: (column) => column);
+
+  GeneratedColumn<double> get zonaLon =>
+      $composableBuilder(column: $table.zonaLon, builder: (column) => column);
+
+  GeneratedColumn<int> get zonaRadio =>
+      $composableBuilder(column: $table.zonaRadio, builder: (column) => column);
+
+  GeneratedColumn<String> get zonaNombre => $composableBuilder(
+    column: $table.zonaNombre,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get modificadoPor => $composableBuilder(
+    column: $table.modificadoPor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get modificadoEn => $composableBuilder(
+    column: $table.modificadoEn,
+    builder: (column) => column,
+  );
+
+  $$CirculosTableAnnotationComposer get id {
+    final $$CirculosTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.circulos,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CirculosTableAnnotationComposer(
+            $db: $db,
+            $table: $db.circulos,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$AjustesUbicacionTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $AjustesUbicacionTable,
+          FilaAjustesUbicacion,
+          $$AjustesUbicacionTableFilterComposer,
+          $$AjustesUbicacionTableOrderingComposer,
+          $$AjustesUbicacionTableAnnotationComposer,
+          $$AjustesUbicacionTableCreateCompanionBuilder,
+          $$AjustesUbicacionTableUpdateCompanionBuilder,
+          (FilaAjustesUbicacion, $$AjustesUbicacionTableReferences),
+          FilaAjustesUbicacion,
+          PrefetchHooks Function({bool id})
+        > {
+  $$AjustesUbicacionTableTableManager(
+    _$AppDatabase db,
+    $AjustesUbicacionTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$AjustesUbicacionTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AjustesUbicacionTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AjustesUbicacionTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<double?> zonaLat = const Value.absent(),
+                Value<double?> zonaLon = const Value.absent(),
+                Value<int> zonaRadio = const Value.absent(),
+                Value<String?> zonaNombre = const Value.absent(),
+                Value<String> modificadoPor = const Value.absent(),
+                Value<int> modificadoEn = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => AjustesUbicacionCompanion(
+                id: id,
+                zonaLat: zonaLat,
+                zonaLon: zonaLon,
+                zonaRadio: zonaRadio,
+                zonaNombre: zonaNombre,
+                modificadoPor: modificadoPor,
+                modificadoEn: modificadoEn,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                Value<double?> zonaLat = const Value.absent(),
+                Value<double?> zonaLon = const Value.absent(),
+                Value<int> zonaRadio = const Value.absent(),
+                Value<String?> zonaNombre = const Value.absent(),
+                required String modificadoPor,
+                required int modificadoEn,
+                Value<int> rowid = const Value.absent(),
+              }) => AjustesUbicacionCompanion.insert(
+                id: id,
+                zonaLat: zonaLat,
+                zonaLon: zonaLon,
+                zonaRadio: zonaRadio,
+                zonaNombre: zonaNombre,
+                modificadoPor: modificadoPor,
+                modificadoEn: modificadoEn,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$AjustesUbicacionTable, FilaAjustesUbicacion>(
+                    table,
+                  ),
+                  $$AjustesUbicacionTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({id = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (id) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.id,
+                        referencedTable: $$AjustesUbicacionTableReferences
+                            ._idTable(db),
+                        referencedColumn: $$AjustesUbicacionTableReferences
+                            ._idTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$AjustesUbicacionTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $AjustesUbicacionTable,
+      FilaAjustesUbicacion,
+      $$AjustesUbicacionTableFilterComposer,
+      $$AjustesUbicacionTableOrderingComposer,
+      $$AjustesUbicacionTableAnnotationComposer,
+      $$AjustesUbicacionTableCreateCompanionBuilder,
+      $$AjustesUbicacionTableUpdateCompanionBuilder,
+      (FilaAjustesUbicacion, $$AjustesUbicacionTableReferences),
+      FilaAjustesUbicacion,
+      PrefetchHooks Function({bool id})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -27585,4 +28542,6 @@ class $AppDatabaseManager {
       $$NotasConsultaTableTableManager(_db, _db.notasConsulta);
   $$GrabacionesConsultaTableTableManager get grabacionesConsulta =>
       $$GrabacionesConsultaTableTableManager(_db, _db.grabacionesConsulta);
+  $$AjustesUbicacionTableTableManager get ajustesUbicacion =>
+      $$AjustesUbicacionTableTableManager(_db, _db.ajustesUbicacion);
 }

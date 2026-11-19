@@ -182,6 +182,7 @@ String motivoEnvio(AppLocalizations l, EnvioDelDia e) => switch (e.motivo) {
   MotivoAviso.ayudaPedida => l.avisoAyuda,
   MotivoAviso.estadoMal => l.avisoEstadoMal,
   MotivoAviso.dolorNuevo => l.envioMotivoDolor,
+  MotivoAviso.fueraDeZona => l.envioMotivoFueraZona,
 };
 
 /// Un aviso enviado a la familia: «Aviso enviado a Lucía» (o «No se pudo

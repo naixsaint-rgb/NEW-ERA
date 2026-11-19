@@ -44,6 +44,7 @@ const tablasDeHechos = <String>[
     PreguntasConsulta,
     NotasConsulta,
     GrabacionesConsulta,
+    AjustesUbicacion,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -57,9 +58,22 @@ class AppDatabase extends _$AppDatabase {
   /// `turnos`). 7: comidas y vasos de agua pasan a fichas con baja lógica
   /// (`comidas.baja_en`, `hidrataciones.baja_en`): dejan de ser de solo
   /// inserción. 8: preguntas, notas y marca de grabación de las consultas
-  /// (`preguntas_consulta`, `notas_consulta`, `grabaciones_consulta`).
+  /// (`preguntas_consulta`, `notas_consulta`, `grabaciones_consulta`). 9:
+  /// zona segura (`ajustes_ubicacion`) y las posiciones
+  /// (`ubicacion_registrada`) se pueden borrar de `eventos` a los 7 días
+  /// ([disparadorBorradoEventos]).
   @override
-  int get schemaVersion => 8;
+  int get schemaVersion => 9;
+
+  /// Tipos de evento que sí se pueden borrar: las posiciones, que no deben
+  /// quedarse más de 7 días en el móvil.
+  static const eventosBorrables = ['ubicacion_registrada'];
+
+  /// `eventos` es de solo inserción salvo [eventosBorrables].
+  static final disparadorBorradoEventos =
+      'CREATE TRIGGER eventos_no_delete BEFORE DELETE ON eventos '
+      "WHEN OLD.tipo NOT IN (${eventosBorrables.map((t) => "'$t'").join(', ')}) "
+      "BEGIN SELECT RAISE(ABORT, 'solo_insercion'); END";
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -71,8 +85,10 @@ class AppDatabase extends _$AppDatabase {
           "BEGIN SELECT RAISE(ABORT, 'solo_insercion'); END",
         );
         await customStatement(
-          'CREATE TRIGGER ${t}_no_delete BEFORE DELETE ON $t '
-          "BEGIN SELECT RAISE(ABORT, 'solo_insercion'); END",
+          t == 'eventos'
+              ? disparadorBorradoEventos
+              : 'CREATE TRIGGER ${t}_no_delete BEFORE DELETE ON $t '
+                    "BEGIN SELECT RAISE(ABORT, 'solo_insercion'); END",
         );
       }
     },
@@ -109,6 +125,12 @@ class AppDatabase extends _$AppDatabase {
         await m.createTable(preguntasConsulta);
         await m.createTable(notasConsulta);
         await m.createTable(grabacionesConsulta);
+      }
+      if (from < 9) {
+        await m.createTable(ajustesUbicacion);
+        // Las posiciones caducan: el resto de eventos sigue sin borrarse.
+        await customStatement('DROP TRIGGER IF EXISTS eventos_no_delete');
+        await customStatement(disparadorBorradoEventos);
       }
     },
     beforeOpen: (details) async {

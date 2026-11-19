@@ -15,3 +15,4 @@ export 'src/id_alarma.dart';
 export 'src/zonas.dart';
 export 'src/rondas.dart';
 export 'src/avisos.dart';
+export 'src/ubicacion.dart';

@@ -321,4 +321,30 @@ abstract final class ClavesUi {
   static const consCompartir = ValueKey<String>('cons_compartir');
   static const consResumenTexto = ValueKey<String>('cons_resumen_texto');
   static const consCopiar = ValueKey<String>('cons_copiar');
+
+  // ------------------------------------------------------------ Ubicación
+
+  /// Hoy: la fila de la ubicación.
+  static const ubicFilaHoy = ValueKey<String>('ubic_fila_hoy');
+  static const ubicEstado = ValueKey<String>('ubic_estado');
+  static const ubicAbrirMapas = ValueKey<String>('ubic_abrir_mapas');
+  static const ubicUsarComoCasa = ValueKey<String>('ubic_usar_como_casa');
+  static ValueKey<String> ubicRadio(int metros) =>
+      ValueKey<String>('ubic_radio_$metros');
+  static ValueKey<String> ubicLectura(String id) =>
+      ValueKey<String>('ubic_lectura_$id');
+  static const ubicBuscar = ValueKey<String>('ubic_buscar');
+  static const ubicPararBusqueda = ValueKey<String>('ubic_parar_busqueda');
+  static const ubicVerFicha = ValueKey<String>('ubic_ver_ficha');
+  static const ubicFicha = ValueKey<String>('ubic_ficha');
+  static const ubicLlamar112 = ValueKey<String>('ubic_llamar_112');
+  static const ubicLlamar112Si = ValueKey<String>('ubic_llamar_112_si');
+  static const ubicApagar = ValueKey<String>('ubic_apagar');
+  static const ubicApagarSi = ValueKey<String>('ubic_apagar_si');
+  static const ubicEncender = ValueKey<String>('ubic_encender');
+
+  /// Permiso de ubicación: texto, «Acepto» y «Ahora no».
+  static const ubicConsTexto = ValueKey<String>('ubic_cons_texto');
+  static const ubicConsAcepto = ValueKey<String>('ubic_cons_acepto');
+  static const ubicConsAhoraNo = ValueKey<String>('ubic_cons_ahora_no');
 }

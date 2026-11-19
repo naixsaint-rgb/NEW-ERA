@@ -4,7 +4,8 @@ import 'escalado.dart';
 /// cuándo tocan. Lógica pura; el envío lo hace la app.
 
 /// Por qué se avisa. [prioridad] es la del canal (1 a 5): 5 para lo urgente
-/// (toma sin confirmar, ayuda pedida, «mal»); 4 para el resto.
+/// (toma sin confirmar, ayuda pedida, «mal», fuera de la zona segura); 4
+/// para el resto.
 enum MotivoAviso {
   /// Una toma sigue sin confirmar a los 5 (familiar 1) o 10 minutos
   /// (familiar 2).
@@ -21,7 +22,11 @@ enum MotivoAviso {
   dolorNuevo('dolor_nuevo', 4),
 
   /// Control por horas: una ronda sin respuesta a los 10 minutos.
-  rondaSinRespuesta('ronda_sin_respuesta', 4);
+  rondaSinRespuesta('ronda_sin_respuesta', 4),
+
+  /// Ubicación: salió de la zona segura (uno por salida; el origen es la
+  /// lectura que abrió la salida).
+  fueraDeZona('fuera_de_zona', 5);
 
   const MotivoAviso(this.nombre, this.prioridad);
 

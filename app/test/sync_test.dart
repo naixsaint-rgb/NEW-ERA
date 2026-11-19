@@ -700,6 +700,7 @@ void main() {
       await v1.customStatement('DROP TABLE sync_estado');
       await v1.customStatement('DROP TABLE clips_pendientes');
       await v1.customStatement('DROP TABLE ajustes_control_horas');
+      await v1.customStatement('DROP TABLE ajustes_ubicacion');
       await v1.customStatement('DROP TABLE grabaciones_consulta');
       await v1.customStatement('DROP TABLE notas_consulta');
       await v1.customStatement('DROP TABLE preguntas_consulta');

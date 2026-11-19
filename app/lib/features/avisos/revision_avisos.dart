@@ -9,13 +9,15 @@ import '../../core/db/repositorios/circulo_repositorio.dart';
 import '../../core/db/repositorios/control_horas_repositorio.dart';
 import '../../core/db/repositorios/eventos_repositorio.dart';
 import '../../core/db/repositorios/medicacion_repositorio.dart';
+import '../../core/db/repositorios/ubicacion_repositorio.dart';
 import '../hoy/dominio/control_horas.dart';
 import '../hoy/dominio/tomas.dart';
 import 'dominio/que_avisar.dart';
 
 /// Revisa los avisos leyendo la base (sin Riverpod): tomas y rondas de hoy y
 /// lo que ha pasado desde las 00:00 local, y envía lo que toque
-/// ([avisosQueTocan]). La usa la revisión en segundo plano de Android; con la
+/// ([avisosQueTocan]), también la salida de la zona segura. La usa la
+/// revisión en segundo plano de Android; con la
 /// app abierta, lo mismo sale de los proveedores. Devuelve cuántos avisos
 /// salieron.
 Future<int> revisarAvisos({
@@ -93,12 +95,28 @@ Future<int> revisarAvisos({
       ajustes,
     ),
   );
+  // Ubicación: con el consentimiento vigente, si salió de la zona segura.
+  final ubicacion = UbicacionRepositorio(
+    db: db,
+    reloj: reloj,
+    contexto: contexto,
+    eventos: eventos,
+    autor: persona,
+  );
+  final situacionZona = await ubicacion.consentimientoActivo()
+      ? evaluarZona(
+          zona: await ubicacion.zona(),
+          lecturas: await ubicacion.observarLecturas().first,
+          ahora: ahora,
+        )
+      : null;
   final lista = avisosQueTocan(
     tomas: tomas,
     control: controlHoy,
     situaciones: avisosDelDia(delDia, controlHoy),
     config: config,
     ahora: ahora,
+    zona: situacionZona,
   );
   var n = 0;
   for (final a in lista) {

@@ -52,6 +52,12 @@ abstract final class Rutas {
   static String hoyVista(String vista) =>
       '/familia/hoy?vista=${Uri.encodeQueryComponent(vista)}';
 
+  /// Hoy › Ubicación (estado, posiciones, zona segura y búsqueda).
+  static const ubicacion = '/familia/hoy/ubicacion';
+
+  /// Hoy › Ubicación › permiso para encenderla.
+  static const ubicacionPermiso = '/familia/hoy/ubicacion/permiso';
+
   static const medicacionNuevo = '/familia/medicacion/nuevo';
   static String medicamento(String id) => '/familia/medicacion/$id';
   static String pauta(String id) => '/familia/medicacion/$id/pauta';

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +15,7 @@ import 'core/providers.dart';
 import 'core/tema/aspecto.dart';
 import 'core/tema/tema_familia.dart';
 import 'features/avisos/avisos_providers.dart';
+import 'features/ubicacion/ubicacion_providers.dart';
 import 'l10n/app_localizations.dart';
 import 'shared/widgets/aviso_demo.dart';
 
@@ -31,6 +33,11 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
 
   /// Lanza la siguiente ronda del control por horas con la app abierta.
   Timer? _ronda;
+
+  /// Siguiente posición del móvil de la persona con la app abierta.
+  Timer? _ubicacion;
+  AppLifecycleListener? _cicloUbicacion;
+  bool _permisoUbicacionVisto = false;
   bool _programado = false;
   bool _reprogramando = false;
   bool _otraVez = false;
@@ -97,12 +104,45 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
     // Si suena una alarma, se abre la pantalla de esa toma (o la pregunta, si
     // es de una ronda que aún no se ha contestado).
     _sonando = ref.read(servicioAlarmasProvider).sonando().listen((id) {
+      // Al sonar una toma o una ronda, una posición (si hay permiso).
+      if (_esPersona) {
+        unawaited(
+          ref.read(tomaUbicacionProvider).tomar(OrigenUbicacion.alarma),
+        );
+      }
       if (esIdRonda(id)) {
         unawaited(_abrirRonda(id));
       } else {
         ref.read(routerProvider).go(Rutas.toma(id));
       }
     }, onError: (_) {});
+    // Ubicación del móvil de la persona (con su consentimiento): una
+    // posición al abrir, cada 5 minutos con la app abierta y cada minuto si
+    // la familia la está buscando. Cada móvil borra las de más de 7 días.
+    unawaited(ref.read(ubicacionRepositorioProvider).purgar());
+    ref.listenManual<bool>(
+      ubicacionActivaProvider,
+      (_, _) => _planificarUbicacion(ahora: true),
+      fireImmediately: true,
+    );
+    ref.listenManual<BusquedaPedida?>(busquedaActivaProvider, (antes, ahora) {
+      if (antes?.pedidaEn == ahora?.pedidaEn) return;
+      _planificarUbicacion(ahora: ahora != null);
+    });
+    ref.listenManual<Sesion>(
+      sesionProvider,
+      (_, _) => _planificarUbicacion(ahora: true),
+    );
+    _cicloUbicacion = AppLifecycleListener(
+      onResume: () {
+        unawaited(ref.read(ubicacionRepositorioProvider).purgar());
+        _planificarUbicacion(ahora: true);
+      },
+      onPause: () {
+        _ubicacion?.cancel();
+        _ubicacion = null;
+      },
+    );
     // Cartero cifrado: solo con servidor configurado. No bloquea el arranque
     // y, al volver a primer plano, envía y recoge lo pendiente.
     // Vídeos y fotos de más de 7 días que ya no esperan a subir.
@@ -114,6 +154,46 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
         onResume: () => unawaited(sync.sincronizarAhora()),
       );
     }
+  }
+
+  bool get _esPersona => ref.read(sesionProvider).perfil == PerfilApp.persona;
+
+  /// Con la app de la persona abierta y la ubicación encendida: pide el
+  /// permiso del sistema la primera vez, toma una posición ([ahora]) y deja
+  /// la siguiente para dentro de [intervaloUbicacion] (o
+  /// [intervaloBusqueda] si la familia la está buscando).
+  void _planificarUbicacion({bool ahora = false}) {
+    _ubicacion?.cancel();
+    _ubicacion = null;
+    if (!mounted || !_esPersona || !ref.read(ubicacionActivaProvider)) return;
+    final busqueda = ref.read(busquedaActivaProvider);
+    if (ahora) unawaited(_tomarUbicacion(busqueda != null));
+    _ubicacion = Timer(
+      busqueda != null ? intervaloBusqueda : intervaloUbicacion,
+      () {
+        if (!mounted) return;
+        _planificarUbicacion(ahora: true);
+      },
+    );
+  }
+
+  Future<void> _tomarUbicacion(bool buscando) async {
+    final toma = ref.read(tomaUbicacionProvider);
+    if (!_permisoUbicacionVisto) {
+      _permisoUbicacionVisto = true;
+      final almacen = ref.read(almacenSeguroProvider);
+      await toma.asegurarPermiso(
+        tambienCerrada:
+            !kIsWeb && defaultTargetPlatform == TargetPlatform.android,
+        yaPedido: (k) async => await almacen.leer(k) != null,
+        apuntar: (k) => almacen.escribir(k, '1'),
+      );
+    }
+    if (!mounted) return;
+    await toma.tomar(
+      buscando ? OrigenUbicacion.busqueda : OrigenUbicacion.appAbierta,
+      precisa: buscando,
+    );
   }
 
   /// Una sola reprogramación a la vez; si llegan más cambios mientras tanto,
@@ -252,6 +332,8 @@ class _NewEraAppState extends ConsumerState<NewEraApp> {
   @override
   void dispose() {
     _ronda?.cancel();
+    _ubicacion?.cancel();
+    _cicloUbicacion?.dispose();
     _sonando?.cancel();
     _ciclo?.dispose();
     super.dispose();

@@ -21,6 +21,8 @@ import '../../features/circulo/miembro_form_pantalla.dart';
 import '../../features/consultas/consultas_pantalla.dart';
 import '../../features/consultas/ficha_consulta_pantalla.dart';
 import '../../features/hoy/hoy_pantalla.dart';
+import '../../features/ubicacion/consentimiento_ubicacion_pantalla.dart';
+import '../../features/ubicacion/ubicacion_pantalla.dart';
 import '../../features/medicacion/alta_medicamento_pantalla.dart';
 import '../../features/medicacion/cambio_pauta_pantalla.dart';
 import '../../features/medicacion/detalle_medicamento_pantalla.dart';
@@ -148,7 +150,25 @@ final routerProvider = Provider<GoRouter>((ref) {
             FamiliaShell(navigationShell: shell),
         branches: [
           StatefulShellBranch(
-            routes: [pestana('hoy', () => const HoyPantalla())],
+            routes: [
+              pestana(
+                'hoy',
+                () => const HoyPantalla(),
+                rutas: [
+                  GoRoute(
+                    path: 'ubicacion',
+                    builder: (_, _) => const UbicacionPantalla(),
+                    routes: [
+                      GoRoute(
+                        path: 'permiso',
+                        builder: (_, _) =>
+                            const ConsentimientoUbicacionPantalla(),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
           StatefulShellBranch(
             routes: [pestana('resumen', () => const ResumenPantalla())],

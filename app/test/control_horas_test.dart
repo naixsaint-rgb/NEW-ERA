@@ -1020,7 +1020,12 @@ void main() {
           e.db.eventos,
         )..where((x) => x.sujeto.equals(e.contexto.circuloId))).get(),
       );
-      final tipos = [for (final x in fichas!) x.tipo];
+      // Solo las de los ajustes del control (la zona segura de la semilla
+      // también usa el id del círculo).
+      fichas!.retainWhere(
+        (x) => (jsonDecode(x.payload) as Map)['tipo'] == 'ajustes_control',
+      );
+      final tipos = [for (final x in fichas) x.tipo];
       expect(tipos.first, 'ficha_creada');
       expect(tipos.skip(1).toSet(), {'ficha_modificada'});
       final ultima = jsonDecode(fichas.last.payload) as Map<String, dynamic>;
@@ -1200,6 +1205,7 @@ void main() {
             ),
           );
       await v3.customStatement('DROP TABLE ajustes_control_horas');
+      await v3.customStatement('DROP TABLE ajustes_ubicacion');
       await v3.customStatement('DROP TABLE grabaciones_consulta');
       await v3.customStatement('DROP TABLE notas_consulta');
       await v3.customStatement('DROP TABLE preguntas_consulta');
@@ -1214,8 +1220,8 @@ void main() {
       final v4 = AppDatabase(NativeDatabase(archivo));
       addTearDown(v4.close);
       final version = await v4.customSelect('PRAGMA user_version').getSingle();
-      expect(version.data.values.single, 8);
-      expect(v4.schemaVersion, 8);
+      expect(version.data.values.single, 9);
+      expect(v4.schemaVersion, 9);
       expect(await v4.select(v4.eventos).get(), hasLength(1));
       expect(await v4.select(v4.ajustesControlHoras).get(), isEmpty);
       await v4

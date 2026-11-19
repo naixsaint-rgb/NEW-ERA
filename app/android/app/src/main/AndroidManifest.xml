@@ -17,6 +17,13 @@
     <!-- Micrófono: la familia graba sus frases (Voces). Solo graba al tocar
          «Grabar», 8 segundos como mucho. El vídeo de la toma sigue sin audio. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!-- Ubicación del móvil de la persona, solo con su consentimiento (plan v3, 7.1).
+         Una posición cada pocos minutos con la app abierta y en las revisiones de
+         avisos con la app cerrada (por eso BACKGROUND, que Google Play exige
+         justificar). Sin servicio en primer plano: nada de GPS continuo. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
     <!-- Permisos mínimos: el tono sale de assets y las frases de la familia, de
          la carpeta privada de la app (app_flutter/voces), así que no hace falta
          leer el almacenamiento externo que añade alarm. -->

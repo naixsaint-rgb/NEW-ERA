@@ -375,7 +375,12 @@ void main() {
       // Voces: sin audio ni consentimientos (todo «sin grabar»).
       expect(await db.select(db.voces).get(), isEmpty);
       expect(await db.select(db.frases).get(), isEmpty);
-      expect(await db.select(db.consentimientos).get(), isEmpty);
+      expect(
+        await (db.select(
+          db.consentimientos,
+        )..where((c) => c.sobre.equals('voz'))).get(),
+        isEmpty,
+      );
     });
 
     test('a las 23:00: las rondas de hoy llegan hasta las 20:00 y la ronda '

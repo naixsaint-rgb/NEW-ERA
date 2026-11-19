@@ -2800,4 +2800,308 @@ class AppLocalizationsEs extends AppLocalizations {
   String consResumenNota(String texto, String nombre) {
     return '• $texto ($nombre)';
   }
+
+  @override
+  String get semaforoFueraZona => 'Fuera de la zona segura';
+
+  @override
+  String get envioMotivoFueraZona => 'Salió de la zona segura';
+
+  @override
+  String get ubicHoyApagada => 'Ubicación apagada';
+
+  @override
+  String get ubicHoyApagadaSub => 'Toca para ver cómo encenderla';
+
+  @override
+  String get ubicHoyEnCasa => 'En casa';
+
+  @override
+  String ubicHoyFuera(String hora) {
+    return 'Fuera de casa desde las $hora';
+  }
+
+  @override
+  String ubicHoySinPosicion(String hora) {
+    return 'Sin posición desde las $hora';
+  }
+
+  @override
+  String ubicHoySinPosicionDia(String fecha, String hora) {
+    return 'Sin posición desde el $fecha, $hora';
+  }
+
+  @override
+  String get ubicHoySinNinguna => 'Sin posición todavía';
+
+  @override
+  String get ubicHoySinZona => 'Sin zona segura';
+
+  @override
+  String get ubicHoySinZonaSub => 'Elige su casa en Ubicación';
+
+  @override
+  String get ubicHoyComprobando => 'Comprobando su posición';
+
+  @override
+  String ubicHoyUltima(String hora) {
+    return 'Última posición a las $hora';
+  }
+
+  @override
+  String get ubicTitulo => 'Ubicación';
+
+  @override
+  String ubicVispera(String alias) {
+    return 'El móvil de $alias';
+  }
+
+  @override
+  String get ubicAhora => 'Ahora';
+
+  @override
+  String get ubicUltimaPosicion => 'Última posición';
+
+  @override
+  String ubicPrecision(String hora, int metros) {
+    return 'A las $hora · ± $metros m';
+  }
+
+  @override
+  String ubicBateria(int n) {
+    return 'Batería del móvil: $n %';
+  }
+
+  @override
+  String get ubicAbrirMapas => 'Abrir en mapas';
+
+  @override
+  String get ubicMapasPie =>
+      'Se abre la app de mapas de este móvil con la posición. NEW-ERA no carga mapas de ningún servidor.';
+
+  @override
+  String get ubicLecturasHoy => 'Posiciones de hoy';
+
+  @override
+  String get ubicSinLecturasHoy => 'Hoy aún no hay posiciones.';
+
+  @override
+  String ubicLecturaDetalle(int metros, String origen) {
+    return '± $metros m · $origen';
+  }
+
+  @override
+  String get ubicLecturaDentro => 'En casa';
+
+  @override
+  String ubicLecturaFuera(int metros) {
+    return 'A $metros m';
+  }
+
+  @override
+  String get ubicOrigenApp => 'con la app abierta';
+
+  @override
+  String get ubicOrigenFondo => 'con la app cerrada';
+
+  @override
+  String get ubicOrigenAlarma => 'al sonar una alarma';
+
+  @override
+  String get ubicOrigenAyuda => 'al pedir ayuda';
+
+  @override
+  String get ubicOrigenBusqueda => 'búsqueda';
+
+  @override
+  String get ubicZonaTitulo => 'Zona segura';
+
+  @override
+  String get ubicZonaCasa => 'Casa';
+
+  @override
+  String ubicZonaRadio(int metros) {
+    return 'Radio de $metros m';
+  }
+
+  @override
+  String get ubicZonaSinElegir => 'Sin elegir';
+
+  @override
+  String get ubicUsarComoCasa =>
+      'Usar la posición actual de su móvil como casa';
+
+  @override
+  String get ubicUsarSinPosicion => 'Aún no hay ninguna posición de su móvil.';
+
+  @override
+  String get ubicRadioTitulo => 'Radio';
+
+  @override
+  String ubicRadioMetros(int metros) {
+    return '$metros m';
+  }
+
+  @override
+  String get ubicZonaPie =>
+      'Si sale de la zona, se avisa a todo el círculo. Para no avisar por una lectura mala hacen falta dos posiciones seguidas fuera, o una muy precisa claramente fuera.';
+
+  @override
+  String get ubicPermisoSiempre =>
+      'Su móvil la manda también con la app cerrada.';
+
+  @override
+  String get ubicPermisoAbierta => 'Su móvil solo la manda con la app abierta.';
+
+  @override
+  String get ubicPerdidaTitulo => 'Si no la encontráis';
+
+  @override
+  String get ubicBuscar => 'Buscarla ahora';
+
+  @override
+  String get ubicBuscarSub =>
+      'Su móvil manda su posición cada minuto durante 30 minutos.';
+
+  @override
+  String ubicBuscando(String hora) {
+    return 'Buscando hasta las $hora';
+  }
+
+  @override
+  String get ubicPararBusqueda => 'Parar la búsqueda';
+
+  @override
+  String get ubicBuscarPie =>
+      'Su móvil recibe la petición al sincronizar: al momento si tiene la app abierta; con la app cerrada (Android), en su siguiente revisión.';
+
+  @override
+  String get ubicVerFicha => 'Ver la ficha para emergencias';
+
+  @override
+  String get ubicFichaTitulo => 'Ficha para emergencias';
+
+  @override
+  String get ubicFichaNombre => 'Nombre';
+
+  @override
+  String get ubicFichaMedicacion => 'Medicación';
+
+  @override
+  String get ubicFichaSinMedicacion => 'Sin medicación anotada';
+
+  @override
+  String get ubicFichaPosicion => 'Última posición';
+
+  @override
+  String ubicFichaPosicionValor(
+    String hora,
+    String lat,
+    String lon,
+    int metros,
+  ) {
+    return '$hora · $lat, $lon (± $metros m)';
+  }
+
+  @override
+  String get ubicFichaSinPosicion => 'Sin posición';
+
+  @override
+  String get ubicLlamar112 => 'Llamar al 112';
+
+  @override
+  String get ubicLlamar112Titulo => '¿Llamar al 112?';
+
+  @override
+  String get ubicLlamar112Texto =>
+      'Se abrirá el teléfono de este móvil para llamar a emergencias. Ten a mano la ficha.';
+
+  @override
+  String get ubicLlamar112Si => 'Llamar';
+
+  @override
+  String get ubicApagar => 'Apagar la ubicación';
+
+  @override
+  String get ubicApagarTitulo => '¿Apagar la ubicación?';
+
+  @override
+  String ubicApagarTexto(String alias) {
+    return 'El móvil de $alias dejará de mandar su posición y cada móvil del círculo borrará las que tenga guardadas.';
+  }
+
+  @override
+  String get ubicApagarSi => 'Apagar';
+
+  @override
+  String ubicApagadaExplica(String alias) {
+    return 'La ubicación está apagada. Al encenderla, el móvil de $alias manda su posición al círculo, cifrada, para saber si está en casa y avisar si sale.';
+  }
+
+  @override
+  String get ubicEncender => 'Encender la ubicación';
+
+  @override
+  String get ubicConsTitulo => 'Permiso de ubicación';
+
+  @override
+  String get ubicConsVispera => 'Antes de encenderla';
+
+  @override
+  String ubicConsEncabezado(String alias) {
+    return 'Ubicación del móvil de $alias';
+  }
+
+  @override
+  String get ubicConsQue =>
+      'Qué se recoge: la posición de su móvil (latitud, longitud y precisión) y su batería. Con la app abierta, cada 5 minutos; en Android con la app cerrada, en las revisiones de las tomas y las rondas; al sonar una alarma; al pedir ayuda; y, si la buscáis, cada minuto durante 30 minutos. Sin GPS continuo.';
+
+  @override
+  String ubicConsPara(String alias) {
+    return 'Para qué: saber si $alias está en casa, avisar a todo el círculo si sale de la zona segura y ayudar a encontrarla.';
+  }
+
+  @override
+  String get ubicConsQuien =>
+      'Quién lo ve: solo los móviles de este círculo. Viaja cifrado por el cartero; el servidor no puede leerlo y los avisos de ntfy no llevan la posición.';
+
+  @override
+  String get ubicConsCuanto =>
+      'Cuánto se guarda: 7 días en cada móvil. Después se borra.';
+
+  @override
+  String get ubicConsMapa =>
+      'Mapas: la app no carga mapas. «Abrir en mapas» pasa la posición a la app de mapas de tu móvil, solo cuando la tocas.';
+
+  @override
+  String get ubicConsApagar =>
+      'Cómo se apaga: en Ubicación, «Apagar la ubicación». Su móvil deja de mandarla y cada móvil borra las que tenga.';
+
+  @override
+  String ubicConsPermiso(String alias) {
+    return 'Permiso del móvil: la próxima vez que se abra la app en el móvil de $alias, pedirá el permiso de ubicación. En Android, para mandarla con la app cerrada hay que elegir «Permitir todo el tiempo».';
+  }
+
+  @override
+  String ubicConsGuardar(String nombre) {
+    return 'Se guarda este texto con el nombre de $nombre y la fecha.';
+  }
+
+  @override
+  String ubicConsAcepto(String nombre) {
+    return 'Acepto, soy $nombre';
+  }
+
+  @override
+  String get ubicConsAhoraNo => 'Ahora no';
+
+  @override
+  String ubicApagadaPor(String nombre) {
+    return '$nombre apagó la ubicación.';
+  }
+
+  @override
+  String fixResumenFueraZona(String alias) {
+    return '$alias: fuera de la zona segura';
+  }
 }

@@ -10,6 +10,7 @@ import '../../core/cripto/tema_aviso.dart';
 import '../../core/providers.dart';
 import '../hoy/dominio/control_horas.dart';
 import '../hoy/dominio/tomas.dart';
+import '../ubicacion/ubicacion_providers.dart';
 import 'dominio/que_avisar.dart';
 import 'planificador_avisos.dart';
 import 'segundo_plano.dart';
@@ -73,5 +74,6 @@ final avisosQueTocanProvider = Provider<List<AvisoPendiente>>((ref) {
     situaciones: situaciones,
     config: ref.watch(configEscaladoProvider),
     ahora: ahora,
+    zona: ref.watch(situacionZonaProvider),
   );
 });

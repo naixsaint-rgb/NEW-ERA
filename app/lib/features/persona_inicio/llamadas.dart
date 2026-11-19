@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:safety_core/safety_core.dart';
 
 import '../../core/db/base_datos.dart';
 import '../../core/providers.dart';
+import '../ubicacion/ubicacion_providers.dart';
 
 /// Llamadas de la persona (inicio y toma): a quién se llama y qué se anota.
 
@@ -31,8 +34,10 @@ Miembro? primerFamiliar(List<Miembro> miembros) {
 
 /// Llama a [miembro] (deja `llamada_iniciada` y abre `tel:`).
 ///
-/// Con [ayuda], antes deja `ayuda_pedida`. Si [miembro] es nulo (no hay
-/// familiares), solo se anota la ayuda.
+/// Con [ayuda], antes deja `ayuda_pedida` y, si la ubicación está encendida
+/// y hay permiso, toma a la vez una posición precisa
+/// (`ubicacion_registrada` con origen `ayuda`), sin esperar a la llamada. Si
+/// [miembro] es nulo (no hay familiares), solo se anota la ayuda.
 Future<void> llamarDesdePersona(
   WidgetRef ref,
   Miembro? miembro, {
@@ -40,7 +45,12 @@ Future<void> llamarDesdePersona(
 }) async {
   final eventos = ref.read(eventosRepositorioProvider);
   if (ayuda) {
-    await eventos.registrar(TipoEvento.ayudaPedida);
+    final ulid = await eventos.registrar(TipoEvento.ayudaPedida);
+    unawaited(
+      ref
+          .read(tomaUbicacionProvider)
+          .tomar(OrigenUbicacion.ayuda, precisa: true, ayuda: ulid),
+    );
   }
   if (miembro == null) return;
   await eventos.registrar(

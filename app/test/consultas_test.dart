@@ -585,6 +585,7 @@ void main() {
     final archivo = File('${dir.path}/v7.db');
     final v8 = AppDatabase(NativeDatabase(archivo));
     await v8.customSelect('PRAGMA user_version').getSingle();
+    await v8.customStatement('DROP TABLE ajustes_ubicacion');
     await v8.customStatement('DROP TABLE grabaciones_consulta');
     await v8.customStatement('DROP TABLE notas_consulta');
     await v8.customStatement('DROP TABLE preguntas_consulta');
@@ -594,7 +595,7 @@ void main() {
     final nueva = AppDatabase(NativeDatabase(archivo));
     addTearDown(nueva.close);
     final version = await nueva.customSelect('PRAGMA user_version').getSingle();
-    expect(version.data.values.single, 8);
+    expect(version.data.values.single, 9);
     expect(await nueva.select(nueva.preguntasConsulta).get(), isEmpty);
     expect(await nueva.select(nueva.notasConsulta).get(), isEmpty);
     expect(await nueva.select(nueva.grabacionesConsulta).get(), isEmpty);

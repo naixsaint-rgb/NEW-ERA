@@ -48,6 +48,12 @@ dependencies:
   # Avisos a la familia con la app cerrada (Android): revisión a los 5 y 10
   # minutos de cada toma. Flutter Community, BSD-3. Versión fija.
   android_alarm_manager_plus: 5.1.2
+  # Ubicación del móvil de la persona (con su consentimiento): una posición
+  # cada pocos minutos con la app abierta y en las revisiones de Android.
+  # Baseflow, MIT. Batería del móvil junto a cada posición: Flutter
+  # Community, BSD-3. Versiones fijas.
+  geolocator: 14.1.2
+  battery_plus: 7.1.2
 
 dev_dependencies:
   flutter_test:

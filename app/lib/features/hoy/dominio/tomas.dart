@@ -703,6 +703,9 @@ bool hayRetraso(
 enum MotivoSemaforo {
   ninguno,
 
+  /// Rojo: fuera de la zona segura (ubicación).
+  fueraDeZona,
+
   /// Rojo: una toma de hoy sin confirmar.
   tomaSinConfirmar,
 
@@ -722,7 +725,8 @@ enum MotivoSemaforo {
   rondaSinRespuesta,
 }
 
-/// Semáforo del día con su motivo. Rojo si hoy hay una `noConfirmada`, si la
+/// Semáforo del día con su motivo. Rojo si está [fueraDeZona], si hoy hay
+/// una `noConfirmada`, si la
 /// última respuesta de estado es «mal» o si hay dos rondas seguidas sin
 /// respuesta; naranja si hay una [tomaRetrasada], una `confirmadaSinVideo` o
 /// una ronda sin respuesta; si no, verde. Con varios motivos manda el
@@ -732,7 +736,11 @@ enum MotivoSemaforo {
   DateTime ahora,
   ConfigEscalado config, {
   ControlDelDia? control,
+  bool fueraDeZona = false,
 }) {
+  if (fueraDeZona) {
+    return (nivel: NivelSemaforo.rojo, motivo: MotivoSemaforo.fueraDeZona);
+  }
   var retraso = false, sinVideo = false;
   for (final t in deHoy) {
     if (t.estado == EstadoToma.noConfirmada) {
@@ -776,7 +784,14 @@ NivelSemaforo nivelSemaforo(
   DateTime ahora,
   ConfigEscalado config, {
   ControlDelDia? control,
-}) => semaforoDelDia(deHoy, ahora, config, control: control).nivel;
+  bool fueraDeZona = false,
+}) => semaforoDelDia(
+  deHoy,
+  ahora,
+  config,
+  control: control,
+  fueraDeZona: fueraDeZona,
+).nivel;
 
 /// Nombres de quien firma cada evento (familiares y persona).
 final nombresAutoresProvider = Provider<Map<String, String>>((ref) {

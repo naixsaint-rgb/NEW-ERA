@@ -535,3 +535,29 @@ class GrabacionesConsulta extends Table {
   @override
   Set<Column> get primaryKey => {id};
 }
+
+// ---------------------------------------------------------------- Ubicación
+// Esquema 9. Las posiciones son eventos (`ubicacion_registrada`), que cada
+// móvil borra a los 7 días; aquí solo va la zona segura del círculo.
+
+/// Zona segura del círculo («Casa»): una fila por círculo (su id es el del
+/// círculo). Viaja como ficha `ajustes_ubicacion`; gana el cambio más
+/// reciente ([modificadoEn]). Sin centro, no hay zona.
+@DataClassName('FilaAjustesUbicacion')
+class AjustesUbicacion extends Table {
+  /// Id del círculo.
+  TextColumn get id => text().references(Circulos, #id)();
+  RealColumn get zonaLat => real().nullable()();
+  RealColumn get zonaLon => real().nullable()();
+
+  /// Radio en metros (100, 200 o 500).
+  IntColumn get zonaRadio => integer().withDefault(const Constant(200))();
+
+  /// Nombre de la zona; nulo, «Casa».
+  TextColumn get zonaNombre => text().nullable()();
+  TextColumn get modificadoPor => text()();
+  IntColumn get modificadoEn => integer()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}

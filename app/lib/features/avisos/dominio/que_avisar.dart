@@ -17,6 +17,8 @@ const margenRevision = Duration(seconds: 5);
 ///   [config]); una toma confirmada o cerrada no avisa.
 /// - Rondas de [control] sin respuesta a los 10 minutos.
 /// - De [situaciones]: ayuda pedida, «mal» y dolor nuevo, al momento.
+/// - Con [zona] fuera de la zona segura: un aviso por salida
+///   ([avisoFueraDeZona]).
 ///
 /// Solo lo que está dentro de [ventanaAviso] ([tocaAviso]).
 List<AvisoPendiente> avisosQueTocan({
@@ -25,8 +27,9 @@ List<AvisoPendiente> avisosQueTocan({
   required Iterable<AvisoDelDia> situaciones,
   required ConfigEscalado config,
   required DateTime ahora,
+  SituacionZona? zona,
 }) {
-  final r = <AvisoPendiente>[];
+  final r = <AvisoPendiente>[?avisoFueraDeZona(zona, ahora)];
   for (final t in tomas) {
     if (esHecha(t.estado)) continue;
     for (final e in escalonesToma) {
@@ -71,6 +74,22 @@ List<AvisoPendiente> avisosQueTocan({
   }
   r.sort((a, b) => a.vence.compareTo(b.vence));
   return r;
+}
+
+/// Salió de la zona segura: aviso a todos (escalón 0), con la lectura que
+/// abrió la salida como origen (uno por salida) y vence cuando se confirmó.
+AvisoPendiente? avisoFueraDeZona(SituacionZona? zona, DateTime ahora) {
+  final salida = zona?.salida;
+  final cuando = zona?.salidaConfirmadaEn;
+  if (zona == null || !zona.fuera || salida == null || cuando == null) {
+    return null;
+  }
+  if (!tocaAviso(cuando, ahora)) return null;
+  return AvisoPendiente(
+    motivo: MotivoAviso.fueraDeZona,
+    sujeto: salida,
+    vence: cuando,
+  );
 }
 
 /// Instantes en los que el móvil de la persona revisa los avisos con la app

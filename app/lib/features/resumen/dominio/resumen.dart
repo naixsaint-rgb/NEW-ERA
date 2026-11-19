@@ -7,6 +7,7 @@ import '../../../core/providers.dart';
 import '../../hoy/dominio/control_horas.dart';
 import '../../hoy/dominio/tomas.dart';
 import '../../persona_inicio/llamadas.dart';
+import '../../ubicacion/ubicacion_providers.dart';
 
 /// Cómo se confirmó la última toma.
 enum OrigenConfirmacion { movil, reloj, familiar }
@@ -195,7 +196,13 @@ final resumenProvider = Provider<AsyncValue<ResumenDatos>>((ref) {
       ref.watch(ahoraProvider).value ?? ref.read(relojProvider).ahora();
 
   final senal = deLaPersona ?? global;
-  final semaforo = semaforoDelDia(deHoy, ahora, config, control: control?.hoy);
+  final semaforo = semaforoDelDia(
+    deHoy,
+    ahora,
+    config,
+    control: control?.hoy,
+    fueraDeZona: ref.watch(fueraDeZonaProvider),
+  );
   return AsyncValue.data(
     ResumenDatos(
       nivel: semaforo.nivel,
