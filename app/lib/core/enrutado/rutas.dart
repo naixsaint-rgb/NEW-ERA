@@ -58,6 +58,9 @@ abstract final class Rutas {
   /// Hoy › Ubicación › permiso para encenderla.
   static const ubicacionPermiso = '/familia/hoy/ubicacion/permiso';
 
+  /// Hoy › Ubicación › mapa de la zona (descargar, cambiar o borrar).
+  static const ubicacionMapa = '/familia/hoy/ubicacion/mapa';
+
   static const medicacionNuevo = '/familia/medicacion/nuevo';
   static String medicamento(String id) => '/familia/medicacion/$id';
   static String pauta(String id) => '/familia/medicacion/$id/pauta';

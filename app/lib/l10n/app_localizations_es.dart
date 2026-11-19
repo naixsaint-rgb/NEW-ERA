@@ -3104,4 +3104,148 @@ class AppLocalizationsEs extends AppLocalizations {
   String fixResumenFueraZona(String alias) {
     return '$alias: fuera de la zona segura';
   }
+
+  @override
+  String get mapaDescargarFila => 'Descargar el mapa de tu zona';
+
+  @override
+  String get mapaDescargarSub =>
+      'Una vez, y queda en este móvil. Al usarlo no se pide nada a ningún servidor.';
+
+  @override
+  String get mapaTitulo => 'Mapa de tu zona';
+
+  @override
+  String get mapaVispera => 'Ubicación';
+
+  @override
+  String get mapaExplica =>
+      'Elige tu comunidad. El mapa se descarga una sola vez y se guarda en este móvil; al moverlo o ampliarlo no se conecta a nada, así ningún servidor ve por dónde se mueve. La lista es la de todas las comunidades: no dice dónde vivís.';
+
+  @override
+  String get mapaWeb =>
+      'En la web no se guarda el mapa. Descárgalo desde la app del móvil.';
+
+  @override
+  String get mapaEnEsteMovil => 'En este móvil';
+
+  @override
+  String mapaInstaladoSub(String tamano) {
+    return '$tamano · guardado en este móvil';
+  }
+
+  @override
+  String get mapaBorrar => 'Borrar el mapa';
+
+  @override
+  String get mapaBorrarTitulo => '¿Borrar el mapa?';
+
+  @override
+  String get mapaBorrarTexto =>
+      'Se borra el mapa de este móvil. Podéis volver a descargarlo cuando queráis.';
+
+  @override
+  String get mapaBorrarSi => 'Borrar';
+
+  @override
+  String get mapaComunidades => 'Comunidades';
+
+  @override
+  String get mapaComunidadesPie =>
+      'Mapas con datos de OpenStreetMap. Al elegir otra comunidad se sustituye la que haya.';
+
+  @override
+  String get mapaCargando => 'Cargando la lista…';
+
+  @override
+  String get mapaReintentar => 'Volver a intentarlo';
+
+  @override
+  String get mapaErrorRed =>
+      'No se ha podido descargar. Comprueba la conexión y vuelve a intentarlo: seguirá donde se quedó.';
+
+  @override
+  String get mapaErrorHuella =>
+      'El archivo descargado no coincide con el publicado y se ha borrado. Vuelve a intentarlo.';
+
+  @override
+  String get mapaErrorIndice => 'La lista de mapas no se ha podido leer.';
+
+  @override
+  String mapaAMedias(String tamano, int porcentaje) {
+    return '$tamano · descargado $porcentaje %, toca para seguir';
+  }
+
+  @override
+  String mapaDescargando(int porcentaje) {
+    return 'Descargando… $porcentaje %';
+  }
+
+  @override
+  String get mapaComprobando => 'Comprobando el archivo…';
+
+  @override
+  String get mapaPausar => 'Pausar';
+
+  @override
+  String get mapaActual => 'Este es el mapa guardado';
+
+  @override
+  String mapaMegas(String n) {
+    return '$n MB';
+  }
+
+  @override
+  String mapaFilaInstalado(String nombre) {
+    return 'Mapa: $nombre';
+  }
+
+  @override
+  String get mapaFilaInstaladoSub => 'Cambiar o borrar el mapa';
+
+  @override
+  String get mapaRastroTitulo => 'Recorrido en el mapa';
+
+  @override
+  String get mapaRastro6h => 'Últimas 6 h';
+
+  @override
+  String get mapaRastroHoy => 'Todo hoy';
+
+  @override
+  String get mapaCentrarElla => 'Centrar en su última posición';
+
+  @override
+  String get mapaCentrarCasa => 'Centrar en casa';
+
+  @override
+  String get mapaAtribucion => '© OpenStreetMap';
+
+  @override
+  String get mapaAtribucionSemantica =>
+      'Datos del mapa © colaboradores de OpenStreetMap. Abre la licencia.';
+
+  @override
+  String get mapaEtiqueta =>
+      'Mapa con su última posición, la zona de casa y el recorrido';
+
+  @override
+  String get mapaPie => 'Mantén pulsado en el mapa para poner ahí la casa.';
+
+  @override
+  String get mapaFijarCasaTitulo => '¿Poner aquí la casa?';
+
+  @override
+  String get mapaFijarCasaTexto =>
+      'El centro de la zona segura pasa a este punto del mapa, con el mismo radio.';
+
+  @override
+  String get mapaFijarCasaSi => 'Poner aquí';
+
+  @override
+  String get mapaNoAbre =>
+      'No se ha podido abrir el mapa guardado. Bórralo y vuelve a descargarlo.';
+
+  @override
+  String get mapaFuera => 'Su última posición está fuera del mapa guardado.';
 }

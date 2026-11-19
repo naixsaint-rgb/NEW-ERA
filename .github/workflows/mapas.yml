@@ -1,0 +1,189 @@
+# Mapas sin conexión para la app de familia (ADR-0013).
+#
+# Genera un archivo PMTiles vectorial por comunidad autónoma de España con la
+# herramienta oficial `pmtiles` (go-pmtiles, BSD-3) a partir del build diario
+# público de Protomaps (datos © colaboradores de OpenStreetMap, ODbL) y los
+# publica como archivos de la Release `mapas` de este repositorio, junto con
+# `indice.json` (nombre, tamaño y sha256 de cada uno). La app descarga de ahí
+# la comunidad que elija la familia, una sola vez.
+#
+# La lista de recuadros es fija y cubre todas las comunidades: el repositorio
+# no dice dónde vive nadie. Los recuadros son aproximados y con margen (sin
+# verificar contra límites oficiales; un poco de más no estorba).
+#
+# Solo se lanza a mano: Actions › Mapas › Run workflow (o
+# `gh workflow run mapas.yml -f zoom_maximo=15`). No usa acciones de
+# terceros.
+name: Mapas
+
+on:
+  workflow_dispatch:
+    inputs:
+      build:
+        description: "Build de Protomaps (AAAAMMDD). Vacío: el más reciente."
+        required: false
+        default: ""
+      zoom_maximo:
+        description: "Zoom máximo (15 = calles con nombre; baja solo si un archivo pasa del límite)."
+        required: false
+        default: "15"
+      solo:
+        description: "Ids separados por comas para generar solo esas (vacío: todas)."
+        required: false
+        default: ""
+
+permissions: {}
+
+concurrency:
+  group: mapas
+  cancel-in-progress: false
+
+jobs:
+  mapas:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 340
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      PMTILES_VERSION: "1.31.2"
+      # sha256 del .tar.gz de go-pmtiles. SIN VERIFICAR: rellénalo con el que
+      # se imprime en la primera ejecución (o el publicado por Protomaps) y a
+      # partir de entonces se comprueba en cada ejecución.
+      PMTILES_SHA256: ""
+      # Límite de GitHub por archivo de Release: 2 GiB. Se deja margen.
+      LIMITE_BYTES: "2040109465"
+      ENTRADA_BUILD: ${{ inputs.build }}
+      ENTRADA_ZOOM: ${{ inputs.zoom_maximo }}
+      ENTRADA_SOLO: ${{ inputs.solo }}
+    steps:
+      - name: Herramienta pmtiles (versión fija)
+        run: |
+          set -euo pipefail
+          url="https://github.com/protomaps/go-pmtiles/releases/download/v${PMTILES_VERSION}/go-pmtiles_${PMTILES_VERSION}_Linux_x86_64.tar.gz"
+          curl -fsSL --retry 3 -o pmtiles.tar.gz "$url"
+          echo "sha256 de go-pmtiles ${PMTILES_VERSION}:"
+          sha256sum pmtiles.tar.gz
+          if [ -n "$PMTILES_SHA256" ]; then
+            echo "${PMTILES_SHA256}  pmtiles.tar.gz" | sha256sum -c -
+          fi
+          mkdir -p bin
+          tar -xzf pmtiles.tar.gz -C bin
+          ls -l bin
+          ./bin/pmtiles version || true
+
+      - name: Elegir el build de Protomaps
+        id: build
+        run: |
+          set -euo pipefail
+          b="$ENTRADA_BUILD"
+          if [ -z "$b" ]; then
+            b=$(curl -fsSL --retry 3 https://build-metadata.protomaps.dev/builds.json \
+              | python3 -c 'import json,sys; print(json.load(sys.stdin)[-1]["key"].removesuffix(".pmtiles"))')
+          fi
+          if ! [[ "$b" =~ ^[0-9]{8}$ ]]; then
+            echo "Build no válido: $b"; exit 1
+          fi
+          echo "build=$b" >> "$GITHUB_OUTPUT"
+          echo "Build: $b"
+
+      - name: Release `mapas`
+        run: |
+          set -euo pipefail
+          if ! gh release view mapas >/dev/null 2>&1; then
+            gh release create mapas --latest=false --title "Mapas sin conexión" \
+              --notes "Mapas por comunidad autónoma para la app de familia. Datos © colaboradores de OpenStreetMap (ODbL), https://www.openstreetmap.org/copyright. Teselas: build de Protomaps."
+          fi
+
+      - name: Extraer y publicar cada comunidad
+        env:
+          BUILD: ${{ steps.build.outputs.build }}
+        run: |
+          set -euo pipefail
+          if ! [[ "$ENTRADA_ZOOM" =~ ^1[0-5]$ ]]; then
+            echo "Zoom máximo no válido: $ENTRADA_ZOOM (10 a 15)"; exit 1
+          fi
+          fuente="https://build.protomaps.com/${BUILD}.pmtiles"
+          # id|nombre|oeste,sur,este,norte
+          cat > comunidades.txt <<'EOF'
+          andalucia|Andalucía|-7.60,35.90,-1.60,38.80
+          aragon|Aragón|-2.20,39.80,0.80,42.95
+          asturias|Asturias|-7.20,42.85,-4.50,43.70
+          baleares|Illes Balears|1.10,38.60,4.40,40.15
+          canarias|Canarias|-18.25,27.60,-13.30,29.45
+          cantabria|Cantabria|-4.90,42.75,-3.10,43.55
+          castilla_la_mancha|Castilla-La Mancha|-5.45,38.00,-0.90,41.35
+          castilla_y_leon|Castilla y León|-7.10,40.05,-1.75,43.25
+          cataluna|Cataluña|0.15,40.50,3.35,42.90
+          ceuta|Ceuta|-5.40,35.85,-5.25,35.95
+          extremadura|Extremadura|-7.60,37.90,-4.60,40.50
+          galicia|Galicia|-9.35,41.80,-6.70,43.80
+          la_rioja|La Rioja|-3.20,41.90,-1.65,42.65
+          madrid|Comunidad de Madrid|-4.60,39.85,-3.00,41.20
+          melilla|Melilla|-3.00,35.25,-2.90,35.33
+          murcia|Región de Murcia|-2.40,37.35,-0.60,38.80
+          navarra|Navarra|-2.55,41.90,-0.70,43.35
+          pais_vasco|País Vasco|-3.50,42.45,-1.70,43.50
+          valenciana|Comunitat Valenciana|-1.55,37.80,0.75,40.80
+          EOF
+          : > filas.tsv
+          while IFS='|' read -r id nombre bbox; do
+            id="$(echo "$id" | xargs)"
+            [ -z "$id" ] && continue
+            if [ -n "$ENTRADA_SOLO" ] && [[ ",${ENTRADA_SOLO}," != *",${id},"* ]]; then
+              continue
+            fi
+            z="$ENTRADA_ZOOM"
+            while :; do
+              echo "== $nombre · zoom 0-$z · $bbox"
+              inicio=$(date +%s)
+              rm -f "${id}.pmtiles"
+              ./bin/pmtiles extract "$fuente" "${id}.pmtiles" --bbox="$bbox" --maxzoom="$z" </dev/null
+              bytes=$(stat -c %s "${id}.pmtiles")
+              echo "   ${bytes} bytes en $(( $(date +%s) - inicio )) s"
+              if [ "$bytes" -le "$LIMITE_BYTES" ]; then break; fi
+              if [ "$z" -le 12 ]; then
+                echo "Sigue pasando del límite de 2 GiB con zoom $z: hay que partir $id en provincias."
+                exit 1
+              fi
+              z=$(( z - 1 ))
+              echo "   Pasa del límite de 2 GiB: se repite con zoom $z."
+            done
+            sha=$(sha256sum "${id}.pmtiles" | cut -d' ' -f1)
+            gh release upload mapas "${id}.pmtiles" --clobber </dev/null
+            printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$id" "$nombre" "$bytes" "$sha" "$z" "$bbox" >> filas.tsv
+            rm -f "${id}.pmtiles"
+          done < comunidades.txt
+          cat filas.tsv
+
+      - name: Índice
+        env:
+          BUILD: ${{ steps.build.outputs.build }}
+        run: |
+          set -euo pipefail
+          # Al generar solo algunas, se conservan las demás filas del índice publicado.
+          gh release download mapas -p indice.json -O anterior.json 2>/dev/null || echo '{"mapas":[]}' > anterior.json
+          python3 - <<'PY'
+          import csv, datetime, json, os
+          anterior = {m["id"]: m for m in json.load(open("anterior.json")).get("mapas", [])}
+          for f in csv.reader(open("filas.tsv"), delimiter="\t"):
+              id_, nombre, bytes_, sha, z, bbox = f
+              anterior[id_] = {
+                  "id": id_, "nombre": nombre, "archivo": f"{id_}.pmtiles",
+                  "bytes": int(bytes_), "sha256": sha, "zoom_maximo": int(z),
+                  "bbox": [float(v) for v in bbox.split(",")],
+                  "build": os.environ["BUILD"],
+              }
+          indice = {
+              "version": 1,
+              "generado": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
+              "fuente": "https://build.protomaps.com/" + os.environ["BUILD"] + ".pmtiles",
+              "atribucion": "© colaboradores de OpenStreetMap",
+              "licencia_datos": "ODbL 1.0 · https://www.openstreetmap.org/copyright",
+              "mapas": sorted(anterior.values(), key=lambda m: m["nombre"]),
+          }
+          json.dump(indice, open("indice.json", "w"), ensure_ascii=False, indent=1)
+          PY
+          gh release upload mapas indice.json --clobber
+          cat indice.json

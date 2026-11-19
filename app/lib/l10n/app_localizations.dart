@@ -5275,6 +5275,252 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'{alias}: fuera de la zona segura'**
   String fixResumenFueraZona(String alias);
+
+  /// No description provided for @mapaDescargarFila.
+  ///
+  /// In es, this message translates to:
+  /// **'Descargar el mapa de tu zona'**
+  String get mapaDescargarFila;
+
+  /// No description provided for @mapaDescargarSub.
+  ///
+  /// In es, this message translates to:
+  /// **'Una vez, y queda en este móvil. Al usarlo no se pide nada a ningún servidor.'**
+  String get mapaDescargarSub;
+
+  /// No description provided for @mapaTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Mapa de tu zona'**
+  String get mapaTitulo;
+
+  /// No description provided for @mapaVispera.
+  ///
+  /// In es, this message translates to:
+  /// **'Ubicación'**
+  String get mapaVispera;
+
+  /// No description provided for @mapaExplica.
+  ///
+  /// In es, this message translates to:
+  /// **'Elige tu comunidad. El mapa se descarga una sola vez y se guarda en este móvil; al moverlo o ampliarlo no se conecta a nada, así ningún servidor ve por dónde se mueve. La lista es la de todas las comunidades: no dice dónde vivís.'**
+  String get mapaExplica;
+
+  /// No description provided for @mapaWeb.
+  ///
+  /// In es, this message translates to:
+  /// **'En la web no se guarda el mapa. Descárgalo desde la app del móvil.'**
+  String get mapaWeb;
+
+  /// No description provided for @mapaEnEsteMovil.
+  ///
+  /// In es, this message translates to:
+  /// **'En este móvil'**
+  String get mapaEnEsteMovil;
+
+  /// No description provided for @mapaInstaladoSub.
+  ///
+  /// In es, this message translates to:
+  /// **'{tamano} · guardado en este móvil'**
+  String mapaInstaladoSub(String tamano);
+
+  /// No description provided for @mapaBorrar.
+  ///
+  /// In es, this message translates to:
+  /// **'Borrar el mapa'**
+  String get mapaBorrar;
+
+  /// No description provided for @mapaBorrarTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Borrar el mapa?'**
+  String get mapaBorrarTitulo;
+
+  /// No description provided for @mapaBorrarTexto.
+  ///
+  /// In es, this message translates to:
+  /// **'Se borra el mapa de este móvil. Podéis volver a descargarlo cuando queráis.'**
+  String get mapaBorrarTexto;
+
+  /// No description provided for @mapaBorrarSi.
+  ///
+  /// In es, this message translates to:
+  /// **'Borrar'**
+  String get mapaBorrarSi;
+
+  /// No description provided for @mapaComunidades.
+  ///
+  /// In es, this message translates to:
+  /// **'Comunidades'**
+  String get mapaComunidades;
+
+  /// No description provided for @mapaComunidadesPie.
+  ///
+  /// In es, this message translates to:
+  /// **'Mapas con datos de OpenStreetMap. Al elegir otra comunidad se sustituye la que haya.'**
+  String get mapaComunidadesPie;
+
+  /// No description provided for @mapaCargando.
+  ///
+  /// In es, this message translates to:
+  /// **'Cargando la lista…'**
+  String get mapaCargando;
+
+  /// No description provided for @mapaReintentar.
+  ///
+  /// In es, this message translates to:
+  /// **'Volver a intentarlo'**
+  String get mapaReintentar;
+
+  /// No description provided for @mapaErrorRed.
+  ///
+  /// In es, this message translates to:
+  /// **'No se ha podido descargar. Comprueba la conexión y vuelve a intentarlo: seguirá donde se quedó.'**
+  String get mapaErrorRed;
+
+  /// No description provided for @mapaErrorHuella.
+  ///
+  /// In es, this message translates to:
+  /// **'El archivo descargado no coincide con el publicado y se ha borrado. Vuelve a intentarlo.'**
+  String get mapaErrorHuella;
+
+  /// No description provided for @mapaErrorIndice.
+  ///
+  /// In es, this message translates to:
+  /// **'La lista de mapas no se ha podido leer.'**
+  String get mapaErrorIndice;
+
+  /// No description provided for @mapaAMedias.
+  ///
+  /// In es, this message translates to:
+  /// **'{tamano} · descargado {porcentaje} %, toca para seguir'**
+  String mapaAMedias(String tamano, int porcentaje);
+
+  /// No description provided for @mapaDescargando.
+  ///
+  /// In es, this message translates to:
+  /// **'Descargando… {porcentaje} %'**
+  String mapaDescargando(int porcentaje);
+
+  /// No description provided for @mapaComprobando.
+  ///
+  /// In es, this message translates to:
+  /// **'Comprobando el archivo…'**
+  String get mapaComprobando;
+
+  /// No description provided for @mapaPausar.
+  ///
+  /// In es, this message translates to:
+  /// **'Pausar'**
+  String get mapaPausar;
+
+  /// No description provided for @mapaActual.
+  ///
+  /// In es, this message translates to:
+  /// **'Este es el mapa guardado'**
+  String get mapaActual;
+
+  /// No description provided for @mapaMegas.
+  ///
+  /// In es, this message translates to:
+  /// **'{n} MB'**
+  String mapaMegas(String n);
+
+  /// No description provided for @mapaFilaInstalado.
+  ///
+  /// In es, this message translates to:
+  /// **'Mapa: {nombre}'**
+  String mapaFilaInstalado(String nombre);
+
+  /// No description provided for @mapaFilaInstaladoSub.
+  ///
+  /// In es, this message translates to:
+  /// **'Cambiar o borrar el mapa'**
+  String get mapaFilaInstaladoSub;
+
+  /// No description provided for @mapaRastroTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Recorrido en el mapa'**
+  String get mapaRastroTitulo;
+
+  /// No description provided for @mapaRastro6h.
+  ///
+  /// In es, this message translates to:
+  /// **'Últimas 6 h'**
+  String get mapaRastro6h;
+
+  /// No description provided for @mapaRastroHoy.
+  ///
+  /// In es, this message translates to:
+  /// **'Todo hoy'**
+  String get mapaRastroHoy;
+
+  /// No description provided for @mapaCentrarElla.
+  ///
+  /// In es, this message translates to:
+  /// **'Centrar en su última posición'**
+  String get mapaCentrarElla;
+
+  /// No description provided for @mapaCentrarCasa.
+  ///
+  /// In es, this message translates to:
+  /// **'Centrar en casa'**
+  String get mapaCentrarCasa;
+
+  /// No description provided for @mapaAtribucion.
+  ///
+  /// In es, this message translates to:
+  /// **'© OpenStreetMap'**
+  String get mapaAtribucion;
+
+  /// No description provided for @mapaAtribucionSemantica.
+  ///
+  /// In es, this message translates to:
+  /// **'Datos del mapa © colaboradores de OpenStreetMap. Abre la licencia.'**
+  String get mapaAtribucionSemantica;
+
+  /// No description provided for @mapaEtiqueta.
+  ///
+  /// In es, this message translates to:
+  /// **'Mapa con su última posición, la zona de casa y el recorrido'**
+  String get mapaEtiqueta;
+
+  /// No description provided for @mapaPie.
+  ///
+  /// In es, this message translates to:
+  /// **'Mantén pulsado en el mapa para poner ahí la casa.'**
+  String get mapaPie;
+
+  /// No description provided for @mapaFijarCasaTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Poner aquí la casa?'**
+  String get mapaFijarCasaTitulo;
+
+  /// No description provided for @mapaFijarCasaTexto.
+  ///
+  /// In es, this message translates to:
+  /// **'El centro de la zona segura pasa a este punto del mapa, con el mismo radio.'**
+  String get mapaFijarCasaTexto;
+
+  /// No description provided for @mapaFijarCasaSi.
+  ///
+  /// In es, this message translates to:
+  /// **'Poner aquí'**
+  String get mapaFijarCasaSi;
+
+  /// No description provided for @mapaNoAbre.
+  ///
+  /// In es, this message translates to:
+  /// **'No se ha podido abrir el mapa guardado. Bórralo y vuelve a descargarlo.'**
+  String get mapaNoAbre;
+
+  /// No description provided for @mapaFuera.
+  ///
+  /// In es, this message translates to:
+  /// **'Su última posición está fuera del mapa guardado.'**
+  String get mapaFuera;
 }
 
 class _AppLocalizationsDelegate

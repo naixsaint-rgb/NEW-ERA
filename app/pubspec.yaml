@@ -54,6 +54,16 @@ dependencies:
   # Community, BSD-3. Versiones fijas.
   geolocator: 14.1.2
   battery_plus: 7.1.2
+  # Mapa descargado en el móvil de la familia (sin teselas de ningún servidor):
+  # flutter_map (BSD-3), vector_map_tiles y vector_tile_renderer (BSD-3; la
+  # rama 9 de vector_map_tiles está en beta y es la única que va con
+  # flutter_map 8) y latlong2 (Apache-2.0). El archivo PMTiles lo lee un lector
+  # propio (lib/features/mapa/pmtiles_lector.dart): el paquete pmtiles choca
+  # con vector_tile por protobuf. Versiones fijas. No se usan en la web.
+  flutter_map: 8.3.2
+  vector_map_tiles: 9.0.0-beta.13
+  vector_tile_renderer: 6.1.0
+  latlong2: 0.10.1
 
 dev_dependencies:
   flutter_test:

@@ -2402,5 +2402,84 @@
         "type": "String"
       }
     }
-  }
+  },
+  "mapaDescargarFila": "Descargar el mapa de tu zona",
+  "mapaDescargarSub": "Una vez, y queda en este móvil. Al usarlo no se pide nada a ningún servidor.",
+  "mapaTitulo": "Mapa de tu zona",
+  "mapaVispera": "Ubicación",
+  "mapaExplica": "Elige tu comunidad. El mapa se descarga una sola vez y se guarda en este móvil; al moverlo o ampliarlo no se conecta a nada, así ningún servidor ve por dónde se mueve. La lista es la de todas las comunidades: no dice dónde vivís.",
+  "mapaWeb": "En la web no se guarda el mapa. Descárgalo desde la app del móvil.",
+  "mapaEnEsteMovil": "En este móvil",
+  "mapaInstaladoSub": "{tamano} · guardado en este móvil",
+  "@mapaInstaladoSub": {
+    "placeholders": {
+      "tamano": {
+        "type": "String"
+      }
+    }
+  },
+  "mapaBorrar": "Borrar el mapa",
+  "mapaBorrarTitulo": "¿Borrar el mapa?",
+  "mapaBorrarTexto": "Se borra el mapa de este móvil. Podéis volver a descargarlo cuando queráis.",
+  "mapaBorrarSi": "Borrar",
+  "mapaComunidades": "Comunidades",
+  "mapaComunidadesPie": "Mapas con datos de OpenStreetMap. Al elegir otra comunidad se sustituye la que haya.",
+  "mapaCargando": "Cargando la lista…",
+  "mapaReintentar": "Volver a intentarlo",
+  "mapaErrorRed": "No se ha podido descargar. Comprueba la conexión y vuelve a intentarlo: seguirá donde se quedó.",
+  "mapaErrorHuella": "El archivo descargado no coincide con el publicado y se ha borrado. Vuelve a intentarlo.",
+  "mapaErrorIndice": "La lista de mapas no se ha podido leer.",
+  "mapaAMedias": "{tamano} · descargado {porcentaje} %, toca para seguir",
+  "@mapaAMedias": {
+    "placeholders": {
+      "tamano": {
+        "type": "String"
+      },
+      "porcentaje": {
+        "type": "int"
+      }
+    }
+  },
+  "mapaDescargando": "Descargando… {porcentaje} %",
+  "@mapaDescargando": {
+    "placeholders": {
+      "porcentaje": {
+        "type": "int"
+      }
+    }
+  },
+  "mapaComprobando": "Comprobando el archivo…",
+  "mapaPausar": "Pausar",
+  "mapaActual": "Este es el mapa guardado",
+  "mapaMegas": "{n} MB",
+  "@mapaMegas": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "mapaFilaInstalado": "Mapa: {nombre}",
+  "@mapaFilaInstalado": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "mapaFilaInstaladoSub": "Cambiar o borrar el mapa",
+  "mapaRastroTitulo": "Recorrido en el mapa",
+  "mapaRastro6h": "Últimas 6 h",
+  "mapaRastroHoy": "Todo hoy",
+  "mapaCentrarElla": "Centrar en su última posición",
+  "mapaCentrarCasa": "Centrar en casa",
+  "mapaAtribucion": "© OpenStreetMap",
+  "mapaAtribucionSemantica": "Datos del mapa © colaboradores de OpenStreetMap. Abre la licencia.",
+  "mapaEtiqueta": "Mapa con su última posición, la zona de casa y el recorrido",
+  "mapaPie": "Mantén pulsado en el mapa para poner ahí la casa.",
+  "mapaFijarCasaTitulo": "¿Poner aquí la casa?",
+  "mapaFijarCasaTexto": "El centro de la zona segura pasa a este punto del mapa, con el mismo radio.",
+  "mapaFijarCasaSi": "Poner aquí",
+  "mapaNoAbre": "No se ha podido abrir el mapa guardado. Bórralo y vuelve a descargarlo.",
+  "mapaFuera": "Su última posición está fuera del mapa guardado."
 }

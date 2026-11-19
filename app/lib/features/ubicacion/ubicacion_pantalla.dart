@@ -13,6 +13,8 @@ import '../../core/i18n/fechas.dart';
 import '../../core/plataforma/ubicacion/ubicador.dart';
 import '../../core/providers.dart';
 import '../../core/tema/colores.dart';
+import '../mapa/mapa_providers.dart';
+import '../mapa/vista_mapa.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/claves_ui.dart';
 import '../../shared/ios/ios.dart';
@@ -51,6 +53,31 @@ class UbicacionPantalla extends ConsumerStatefulWidget {
 class _UbicacionPantallaState extends ConsumerState<UbicacionPantalla> {
   bool _verFicha = false;
 
+  /// Recorrido del mapa: `false` las últimas 6 horas, `true` todo hoy.
+  bool _rastroHoy = false;
+
+  /// `true` mientras un dedo está sobre el mapa: la lista no se desplaza y
+  /// el mapa se mueve con el gesto.
+  bool _tocandoMapa = false;
+
+  Future<void> _fijarCasa(double lat, double lon) async {
+    final l = context.l;
+    if (!await _confirmar(
+      titulo: l.mapaFijarCasaTitulo,
+      texto: l.mapaFijarCasaTexto,
+      si: l.mapaFijarCasaSi,
+      clave: ClavesUi.mapaFijarCasaSi,
+      color: context.colores.azul,
+    )) {
+      return;
+    }
+    await _intentar(
+      () => ref
+          .read(ubicacionRepositorioProvider)
+          .guardarZona(lat: lat, lon: lon),
+    );
+  }
+
   Future<void> _abrir(Uri uri) async {
     try {
       await ref.read(abrirEnlaceProvider)(uri);
@@ -72,6 +99,7 @@ class _UbicacionPantallaState extends ConsumerState<UbicacionPantalla> {
     required String texto,
     required String si,
     required Key clave,
+    Color? color,
   }) async {
     final c = context.colores;
     final l = context.l;
@@ -89,8 +117,8 @@ class _UbicacionPantallaState extends ConsumerState<UbicacionPantalla> {
           FilledButton(
             key: clave,
             style: FilledButton.styleFrom(
-              backgroundColor: c.rojo,
-              foregroundColor: c.sobreRojo,
+              backgroundColor: color ?? c.rojo,
+              foregroundColor: color == null ? c.sobreRojo : c.sobreAzul,
               minimumSize: const Size(44, 44),
             ),
             onPressed: () => Navigator.pop(ctx, true),
@@ -214,14 +242,62 @@ class _UbicacionPantallaState extends ConsumerState<UbicacionPantalla> {
     ].take(50).toList();
     final fuera = situacion?.fuera ?? false;
     final conFicha = fuera || busqueda != null || _verFicha;
+    final mapa = ref.watch(mapaInstaladoProvider).value;
+    final constructor = ref.watch(constructorMapaProvider);
+    final desde6h = ahora.subtract(const Duration(hours: 6));
+    final rastro = [
+      for (final x in lecturas)
+        if (_rastroHoy
+            ? fechaLocalTexto(x.instante, zonaHoraria) == hoy
+            : !x.instante.isBefore(desde6h))
+          x,
+    ];
 
     return Scaffold(
       backgroundColor: c.fondoAgrupado,
       body: ListView(
+        physics: _tocandoMapa ? const NeverScrollableScrollPhysics() : null,
         padding: EdgeInsets.fromLTRB(20, 0, 20, 24 + abajo),
         children: [
           cabecera,
           const SizedBox(height: 14),
+          if (mapa != null && constructor != null) ...[
+            Listener(
+              onPointerDown: (_) => setState(() => _tocandoMapa = true),
+              onPointerUp: (_) => setState(() => _tocandoMapa = false),
+              onPointerCancel: (_) => setState(() => _tocandoMapa = false),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(14),
+                child: SizedBox(
+                  height: 320,
+                  child: constructor(
+                    DatosMapa(
+                      rutaArchivo: mapa.archivo.path,
+                      ultima: ultima,
+                      zona: zona,
+                      rastro: rastro,
+                      alFijarCasa: (la, lo) => unawaited(_fijarCasa(la, lo)),
+                      alAtribucion: () => unawaited(_abrir(urlLicenciaOsm)),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+              child: Text(l.mapaPie, style: explicacion),
+            ),
+            const SizedBox(height: 10),
+            TituloSeccion(l.mapaRastroTitulo),
+            SelectorSegmentos<int>(
+              valores: const [6, 24],
+              seleccionado: _rastroHoy ? 24 : 6,
+              etiqueta: (h) => h == 6 ? l.mapaRastro6h : l.mapaRastroHoy,
+              clave: ClavesUi.mapaRastro,
+              alCambiar: (h) => setState(() => _rastroHoy = h == 24),
+            ),
+            const SizedBox(height: 14),
+          ],
           GrupoLista(
             titulo: l.ubicAhora,
             pie: switch (permiso) {
@@ -268,6 +344,35 @@ class _UbicacionPantallaState extends ConsumerState<UbicacionPantalla> {
                   onTap: () => _abrir(enlaceMapas(ultima.lat, ultima.lon)),
                 ),
               ],
+            ],
+          ),
+          const SizedBox(height: 14),
+          GrupoLista(
+            children: [
+              if (mapa != null && constructor != null)
+                FilaLista(
+                  key: ClavesUi.mapaInstaladoFila,
+                  leading: IconoCuadrado(
+                    CupertinoIcons.map,
+                    fondo: c.azul,
+                    color: c.sobreAzul,
+                  ),
+                  titulo: l.mapaFilaInstalado(mapa.nombre),
+                  subtitulo: l.mapaFilaInstaladoSub,
+                  onTap: () => context.push(Rutas.ubicacionMapa),
+                )
+              else
+                FilaLista(
+                  key: ClavesUi.mapaDescargar,
+                  leading: IconoCuadrado(
+                    CupertinoIcons.cloud_download,
+                    fondo: c.azul,
+                    color: c.sobreAzul,
+                  ),
+                  titulo: l.mapaDescargarFila,
+                  subtitulo: l.mapaDescargarSub,
+                  onTap: () => context.push(Rutas.ubicacionMapa),
+                ),
             ],
           ),
           const SizedBox(height: 14),

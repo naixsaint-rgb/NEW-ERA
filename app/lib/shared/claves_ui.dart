@@ -347,4 +347,22 @@ abstract final class ClavesUi {
   static const ubicConsTexto = ValueKey<String>('ubic_cons_texto');
   static const ubicConsAcepto = ValueKey<String>('ubic_cons_acepto');
   static const ubicConsAhoraNo = ValueKey<String>('ubic_cons_ahora_no');
+
+  /// Mapa descargado (Ubicación) y pantalla de mapas.
+  static const mapaDescargar = ValueKey<String>('mapa_descargar');
+  static const mapaInstaladoFila = ValueKey<String>('mapa_instalado_fila');
+  static const mapaVista = ValueKey<String>('mapa_vista');
+  static const mapaCentrarElla = ValueKey<String>('mapa_centrar_ella');
+  static const mapaCentrarCasa = ValueKey<String>('mapa_centrar_casa');
+  static const mapaAtribucion = ValueKey<String>('mapa_atribucion');
+  static const mapaFijarCasaSi = ValueKey<String>('mapa_fijar_casa_si');
+  static ValueKey<String> mapaRastro(int horas) =>
+      ValueKey<String>('mapa_rastro_$horas');
+  static ValueKey<String> mapaZona(String id) =>
+      ValueKey<String>('mapa_zona_$id');
+  static const mapaProgreso = ValueKey<String>('mapa_progreso');
+  static const mapaPausar = ValueKey<String>('mapa_pausar');
+  static const mapaBorrar = ValueKey<String>('mapa_borrar');
+  static const mapaBorrarSi = ValueKey<String>('mapa_borrar_si');
+  static const mapaReintentar = ValueKey<String>('mapa_reintentar');
 }

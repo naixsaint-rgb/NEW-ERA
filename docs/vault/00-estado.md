@@ -38,6 +38,8 @@ Actualizado: 2026-11-19 (sesión 4). Plan vigente: [[planes/PLAN-v3]]. Interfaz:
   Después, con HIPOTENUSA para los puntos 3 y 1: ubicación con permiso, zona segura con aviso y modo perdida
   (revisada por Opus, tres fallos corregidos) y capa nativa de iPhone con AlarmKit, escrita SIN COMPILAR
   (`specs/ios-alarmkit.md`). ADR-0012. Esquema local 9. 524 tests y 51 en safety_core.
+  Mapa de calles descargado en el móvil, sin teselas remotas (ADR-0013): hecho y probado solo con un archivo de
+  prueba; falta lanzar el flujo «Mapas» en GitHub y comprobar tamaños y rótulos con datos reales. 546 tests.
 - Pendiente de la sesión 2: lo que no existe sigue marcado "llega en la semana N" (pulso, pasos y sueño con el reloj;
   vistas Ayer y Semana con respuestas). El aviso a la familia que anuncian Hoy y Resumen es el escalado
   configurado; el envío real llega en la semana 4 del plan.

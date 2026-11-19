@@ -21,6 +21,7 @@ import '../../features/circulo/miembro_form_pantalla.dart';
 import '../../features/consultas/consultas_pantalla.dart';
 import '../../features/consultas/ficha_consulta_pantalla.dart';
 import '../../features/hoy/hoy_pantalla.dart';
+import '../../features/mapa/mapas_pantalla.dart';
 import '../../features/ubicacion/consentimiento_ubicacion_pantalla.dart';
 import '../../features/ubicacion/ubicacion_pantalla.dart';
 import '../../features/medicacion/alta_medicamento_pantalla.dart';
@@ -163,6 +164,10 @@ final routerProvider = Provider<GoRouter>((ref) {
                         path: 'permiso',
                         builder: (_, _) =>
                             const ConsentimientoUbicacionPantalla(),
+                      ),
+                      GoRoute(
+                        path: 'mapa',
+                        builder: (_, _) => const MapasPantalla(),
                       ),
                     ],
                   ),
