@@ -43,7 +43,7 @@ Actualizado: 2026-11-02 (sesión 3). Plan vigente: [[planes/PLAN-v3]]. Interfaz:
 
 ## Bloqueos y pendientes
 - Alta en Apple Developer: la familia la hará después de la demo (hoy en desarrollo).
-- Orden de familiares para las alarmas: lo fijará el promotor.
+- Orden de familiares para los avisos: decidido el 19/11/2026, no hay orden, se avisa a todos a la vez.
 - Conocido en la demo web: aviso "RenderBox was not laid out" en consola al cargar; no bloquea, pero se corrige en la semana 2.
 - La demo web ya no depende de gstatic.com para el motor gráfico (CanvasKit va en la propia carpeta).
 - Chromium sin cabeza sin idioma del sistema anuncia "en-US@posix" y el motor web de Flutter falla al arrancar;
@@ -59,4 +59,4 @@ Actualizado: 2026-11-02 (sesión 3). Plan vigente: [[planes/PLAN-v3]]. Interfaz:
   con los vídeos); falta excluir `Documents/voces` de iCloud (Swift) y el selector de voz por pauta.
 
 ## Preguntas abiertas al promotor
-- Orden de familiares para alarmas y quién está de guardia de noche.
+- Quién está de guardia de noche (se puede anotar ya como turno en el Calendario).
