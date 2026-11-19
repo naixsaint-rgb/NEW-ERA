@@ -41,9 +41,11 @@ const _casos = [
   ]),
   _Caso('Alarmas', '/familia/alarmas', [
     'Alarmas',
-    'Lo que tendrá',
-    'Llega en la semana 4',
     'Ver el control por horas',
+    'QUIÉN RECIBE LOS AVISOS',
+    'Toma sin confirmar a los 5 min',
+    'Toma sin confirmar a los 10 min',
+    'Cambiar el orden en Círculo',
   ]),
   _Caso('Control por horas', '/familia/alarmas/control-horas', [
     'Control por horas',

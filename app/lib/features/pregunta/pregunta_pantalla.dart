@@ -361,7 +361,7 @@ class _PreguntaPantallaState extends ConsumerState<PreguntaPantalla> {
           _BotonDecirlo(
             onPressed: () {
               if (indice != _indice) return;
-              _avisar(l.preguntaDecirloLlega);
+              _avisar(l.preguntaDecirloMasAdelante);
               _contestar(indice, respuestaDecirlo);
             },
           ),

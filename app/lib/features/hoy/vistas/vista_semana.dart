@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:safety_core/safety_core.dart';
 
 import '../../../core/i18n/fechas.dart';
 import '../../../core/tema/colores.dart';
@@ -6,7 +9,9 @@ import '../../../l10n/app_localizations.dart';
 import '../../../shared/ios/ios.dart';
 import '../../../shared/l10n_ext.dart';
 import '../../../shared/widgets/tarjeta_grande.dart';
+import '../dominio/control_horas.dart';
 import '../dominio/tomas.dart';
+import 'control_hoy.dart' show textoRespuestaControl;
 import 'piezas_hoy.dart';
 
 /// Estado de la celda de un día en la fila "Tomas".
@@ -29,8 +34,19 @@ String _inicial(AppLocalizations l, int diaSemana) => switch (diaSemana) {
   _ => l.hoyInicialDomingo,
 };
 
-/// Vista "Semana" (maqueta D-Semana): los últimos 7 días, hoy a la derecha.
-class VistaSemana extends StatelessWidget {
+/// Estado de la celda "Respondió" de un día: todas las rondas pasadas
+/// contestadas (completa), algunas (parcial), ninguna (fallida) o sin rondas
+/// (vacía); hoy, siempre en azul.
+EstadoCelda estadoCeldaRespuestas(ControlDelDia d, {required bool esHoy}) {
+  if (esHoy) return EstadoCelda.hoy;
+  if (d.contestadas + d.sinRespuesta.length == 0) return EstadoCelda.vacia;
+  if (d.sinRespuesta.isEmpty) return EstadoCelda.completa;
+  return d.contestadas > 0 ? EstadoCelda.parcial : EstadoCelda.fallida;
+}
+
+/// Vista "Semana" (maqueta D-Semana): los últimos 7 días, hoy a la derecha,
+/// con las tomas y el control por horas.
+class VistaSemana extends ConsumerWidget {
   const VistaSemana({super.key, required this.datos});
 
   /// Ancho de la columna de etiquetas de la rejilla.
@@ -39,10 +55,12 @@ class VistaSemana extends StatelessWidget {
   final TomasPorDia datos;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l;
     final c = context.colores;
     final t = Theme.of(context).textTheme;
+    final control = ref.watch(controlSemanaProvider).value;
+    final cuentaControl = control?.cuentaSemana ?? const CuentaControl();
     final dias = datos.ultimos7;
     final cuentas = [for (final d in dias) contarTomas(datos.de(d))];
     var hechas = 0, previstas = 0;
@@ -114,7 +132,13 @@ class VistaSemana extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: Text(l.hoyRespuestasLlega(5), style: secundario),
+                    child: Text(
+                      l.hoyControlCuenta(
+                        cuentaControl.contestadas,
+                        cuentaControl.sinRespuesta,
+                      ),
+                      style: secundario,
+                    ),
                   ),
                 ],
               ),
@@ -186,39 +210,191 @@ class VistaSemana extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-              MergeSemantics(
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: anchoEtiqueta,
-                      child: TextoQueCabe(
-                        l.hoyFilaRespondio,
-                        estilo: secundario,
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 3),
-                        child: Text(l.llegaEnSemana(5), style: secundario),
-                      ),
-                    ),
+              if (control != null) ...[
+                _FilaControl(
+                  etiqueta: l.hoyFilaRespondio,
+                  celdas: [
+                    for (final d in control.dias)
+                      _celdaRespondio(l, d, esHoy: d == control.hoy),
                   ],
                 ),
-              ),
+                const SizedBox(height: 10),
+                _FilaControl(
+                  etiqueta: l.hoyFilaEstuvo,
+                  celdas: [for (final d in control.dias) _celdaEstuvo(l, c, d)],
+                ),
+              ],
             ],
           ),
         ),
-        separacionBloques,
-        GrupoLista(
-          titulo: l.hoyLoQueDijo,
-          children: [
-            FilaLlegaPronto(
-              titulo: l.hoyLoQueDijoAviso,
-              subtitulo: l.llegaEnSemana(5),
-            ),
-          ],
-        ),
+        if (control != null) ...[
+          separacionBloques,
+          _GrupoDiaADia(control: control),
+          separacionBloques,
+          _GrupoLoQueDijo(control: control),
+        ],
       ],
+    );
+  }
+
+  CeldaDia _celdaRespondio(
+    AppLocalizations l,
+    ControlDelDia d, {
+    required bool esHoy,
+  }) {
+    final sin = d.sinRespuesta.length;
+    final hechas = d.contestadas;
+    final dia = fechaLarga(_pared(d));
+    if (hechas + sin == 0) {
+      return CeldaDia(
+        estado: estadoCeldaRespuestas(d, esHoy: esHoy),
+        etiquetaSemantica: l.hoySemanticaDiaSinRondas(dia),
+      );
+    }
+    return CeldaDia(
+      estado: estadoCeldaRespuestas(d, esHoy: esHoy),
+      texto: '$hechas/${hechas + sin}',
+      etiquetaSemantica: l.hoySemanticaRondasDia(dia, hechas, sin),
+    );
+  }
+
+  CeldaDia _celdaEstuvo(AppLocalizations l, ColoresApp c, ControlDelDia d) {
+    final estado = d.estadoDelDia;
+    final dia = fechaLarga(_pared(d));
+    if (estado == null) {
+      return CeldaDia(
+        estado: EstadoCelda.vacia,
+        etiquetaSemantica: l.hoySemanticaDiaSinRondas(dia),
+      );
+    }
+    final (celda, icono) = switch (estado) {
+      'mal' => (EstadoCelda.fallida, CupertinoIcons.exclamationmark),
+      'regular' => (EstadoCelda.parcial, CupertinoIcons.minus),
+      _ => (EstadoCelda.completa, CupertinoIcons.checkmark_alt),
+    };
+    final colores = CeldaDia.coloresDe(celda, c);
+    return CeldaDia(
+      estado: celda,
+      hijo: Icon(icono, size: 18, color: colores.texto),
+      etiquetaSemantica: l.hoySemanticaEstuvo(
+        dia,
+        textoRespuestaControl(l, TipoPreguntaControl.estado, estado),
+      ),
+    );
+  }
+
+  /// La fecha de [d] (`yyyy-MM-dd`) sin zona, para formatearla.
+  static DateTime _pared(ControlDelDia d) => DateTime.parse('${d.fecha}T00:00');
+}
+
+/// Una fila de la rejilla de la semana: la etiqueta y siete celdas.
+class _FilaControl extends StatelessWidget {
+  const _FilaControl({required this.etiqueta, required this.celdas});
+
+  final String etiqueta;
+  final List<Widget> celdas;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colores;
+    final t = Theme.of(context).textTheme;
+    return Row(
+      children: [
+        SizedBox(
+          width: VistaSemana.anchoEtiqueta,
+          child: TextoQueCabe(
+            etiqueta,
+            estilo: t.labelMedium?.copyWith(color: c.texto),
+          ),
+        ),
+        for (final x in celdas)
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 3),
+              child: x,
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+/// Por día: las rondas contestadas y sin respuesta, cómo estuvo y el dolor.
+class _GrupoDiaADia extends StatelessWidget {
+  const _GrupoDiaADia({required this.control});
+
+  final ControlSemana control;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l;
+    final filas = <Widget>[];
+    for (final d in control.dias.reversed) {
+      final cuenta = contarControl([d]);
+      if (cuenta.contestadas + cuenta.sinRespuesta == 0) continue;
+      final estado = d.estadoDelDia;
+      final dolor = d.dolorDelDia;
+      final partes = [
+        if (estado != null)
+          textoRespuestaControl(l, TipoPreguntaControl.estado, estado),
+        if (dolor != null)
+          textoRespuestaControl(l, TipoPreguntaControl.dolor, dolor),
+      ];
+      final resumen = l.hoyControlCuenta(
+        cuenta.contestadas,
+        cuenta.sinRespuesta,
+      );
+      filas.add(
+        FilaLista(
+          titulo: fechaLarga(VistaSemana._pared(d)),
+          subtitulo: partes.isEmpty
+              ? resumen
+              : '${partes.join(' · ')}\n$resumen',
+        ),
+      );
+    }
+    return GrupoLista(
+      titulo: l.hoyDiaADia,
+      children: filas.isEmpty
+          ? [FilaLista(titulo: l.hoySinRondasSemana, apagada: true)]
+          : filas,
+    );
+  }
+}
+
+/// Lo que contestó a «¿Qué harás?» cada día de la semana.
+class _GrupoLoQueDijo extends StatelessWidget {
+  const _GrupoLoQueDijo({required this.control});
+
+  final ControlSemana control;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l;
+    final filas = <Widget>[];
+    for (final d in control.dias.reversed) {
+      final veces = d.vecesDe(TipoPreguntaControl.plan);
+      if (veces.isEmpty) continue;
+      final ordenadas = veces.entries.toList()
+        ..sort((a, b) => b.value.compareTo(a.value));
+      filas.add(
+        FilaLista(
+          titulo: fechaLarga(VistaSemana._pared(d)),
+          subtitulo: [
+            for (final e in ordenadas)
+              l.hoyLoQueDijoVeces(
+                textoRespuestaControl(l, TipoPreguntaControl.plan, e.key),
+                e.value,
+              ),
+          ].join(' · '),
+        ),
+      );
+    }
+    return GrupoLista(
+      titulo: l.hoyLoQueDijo,
+      children: filas.isEmpty
+          ? [FilaLista(titulo: l.hoySinLoQueDijo, apagada: true)]
+          : filas,
     );
   }
 }

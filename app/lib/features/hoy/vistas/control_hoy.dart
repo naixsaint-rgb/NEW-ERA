@@ -184,6 +184,44 @@ String motivoEnvio(AppLocalizations l, EnvioDelDia e) => switch (e.motivo) {
   MotivoAviso.dolorNuevo => l.envioMotivoDolor,
 };
 
+/// Un aviso enviado a la familia: «Aviso enviado a Lucía» (o «No se pudo
+/// avisar a…» si falló), su motivo y [detalle] (la hora).
+class FilaEnvio extends StatelessWidget {
+  const FilaEnvio({
+    super.key,
+    required this.envio,
+    required this.nombres,
+    required this.detalle,
+  });
+
+  final EnvioDelDia envio;
+
+  /// Nombre de cada familiar por su id.
+  final Map<String, String> nombres;
+  final String detalle;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l;
+    final c = context.colores;
+    final ok = envio.resultado == ResultadoAviso.enviado;
+    final quienes = nombresDe(l, [
+      for (final id in envio.miembros) nombres[id] ?? l.envioUnFamiliar,
+    ]);
+    return FilaLista(
+      leading: IconoCuadrado(
+        ok ? CupertinoIcons.paperplane_fill : CupertinoIcons.xmark_octagon_fill,
+        redondo: true,
+        fondo: ok ? c.azulClaro : c.rojoClaro,
+        color: ok ? c.azul : c.rojo,
+      ),
+      titulo: ok ? l.envioA(quienes) : l.envioFallidoA(quienes),
+      subtitulo: motivoEnvio(l, envio),
+      detalle: detalle,
+    );
+  }
+}
+
 /// "Avisos de hoy": ayuda, llamadas y las situaciones del control por horas,
 /// y los avisos que salieron a la familia por ntfy («Aviso enviado a Lucía ·
 /// 14:05»). Sin nada, no se pinta.
@@ -193,7 +231,6 @@ class GrupoAvisosHoy extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l;
-    final c = context.colores;
     final zona = ref.watch(contextoProvider).zonaHoraria;
     final avisos = ref.watch(avisosDeHoyProvider).value ?? const [];
     final envios = ref.watch(enviosDeHoyProvider);
@@ -203,26 +240,9 @@ class GrupoAvisosHoy extends ConsumerWidget {
       for (final e in envios)
         (
           e.cuando,
-          FilaLista(
-            leading: IconoCuadrado(
-              e.resultado == ResultadoAviso.enviado
-                  ? CupertinoIcons.paperplane_fill
-                  : CupertinoIcons.xmark_octagon_fill,
-              redondo: true,
-              fondo: e.resultado == ResultadoAviso.enviado
-                  ? c.azulClaro
-                  : c.rojoClaro,
-              color: e.resultado == ResultadoAviso.enviado ? c.azul : c.rojo,
-            ),
-            titulo: () {
-              final quienes = nombresDe(l, [
-                for (final id in e.miembros) nombres[id] ?? l.envioUnFamiliar,
-              ]);
-              return e.resultado == ResultadoAviso.enviado
-                  ? l.envioA(quienes)
-                  : l.envioFallidoA(quienes);
-            }(),
-            subtitulo: motivoEnvio(l, e),
+          FilaEnvio(
+            envio: e,
+            nombres: nombres,
             detalle: horaCorta(aLocal(e.cuando, zona)),
           ),
         ),

@@ -134,14 +134,38 @@ class AppLocalizationsEs extends AppLocalizations {
       'Preparar las consultas con el médico: preguntas, grabación con permiso y un resumen para la familia.';
 
   @override
-  String get alarmasTendra =>
-      'Avisos escalonados: si la pastilla no se confirma o una ronda de preguntas queda sin respuesta, se avisa a la familia por orden.';
-
-  @override
   String get controlHorasTitulo => 'Control por horas';
 
   @override
   String get verControlHoras => 'Ver el control por horas';
+
+  @override
+  String alarmasAvisoToma(int minutos) {
+    return 'Toma sin confirmar a los $minutos min';
+  }
+
+  @override
+  String alarmasAvisoRonda(int minutos) {
+    return 'Ronda sin respuesta a los $minutos min';
+  }
+
+  @override
+  String get alarmasPieOrden =>
+      'El orden de aviso es el de Círculo: el puesto 1 recibe el primer aviso de una toma y el puesto 2, el segundo. El resto de avisos van a todos.';
+
+  @override
+  String get alarmasCambiarOrden => 'Cambiar el orden en Círculo';
+
+  @override
+  String get alarmasUltimosAvisos => 'Últimos avisos enviados';
+
+  @override
+  String get alarmasUltimosPie =>
+      'De los últimos 7 días, del más reciente al más antiguo.';
+
+  @override
+  String get alarmasSinAvisos =>
+      'No se ha enviado ningún aviso en los últimos 7 días.';
 
   @override
   String get alimentacionTendra =>
@@ -924,8 +948,25 @@ class AppLocalizationsEs extends AppLocalizations {
   String get hoySinTomasAyer => 'Ayer no había tomas previstas.';
 
   @override
-  String hoyRespuestasControlLlega(int n) {
-    return 'Respuestas de control: llega en la semana $n';
+  String get hoyControlDeAyer => 'Control por horas de ayer';
+
+  @override
+  String hoyRondaDeLas(String hora) {
+    return 'Ronda de las $hora';
+  }
+
+  @override
+  String get hoySinRondasAyer => 'Ayer no había rondas de preguntas.';
+
+  @override
+  String hoyControlCuenta(int contestadas, int sin) {
+    String _temp0 = intl.Intl.pluralLogic(
+      contestadas,
+      locale: localeName,
+      other: '$contestadas contestadas',
+      one: '1 contestada',
+    );
+    return '$_temp0 · $sin sin respuesta';
   }
 
   @override
@@ -965,15 +1006,40 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String hoyRespuestasLlega(int n) {
-    return 'Respuestas: llega en la semana $n';
-  }
-
-  @override
   String get hoyFilaTomas => 'Tomas';
 
   @override
   String get hoyFilaRespondio => 'Respondió';
+
+  @override
+  String get hoyFilaEstuvo => 'Estuvo';
+
+  @override
+  String hoySemanticaRondasDia(String dia, int contestadas, int sin) {
+    String _temp0 = intl.Intl.pluralLogic(
+      contestadas,
+      locale: localeName,
+      other: '$contestadas rondas contestadas',
+      one: '1 ronda contestada',
+    );
+    return '$dia: $_temp0, $sin sin respuesta';
+  }
+
+  @override
+  String hoySemanticaDiaSinRondas(String dia) {
+    return '$dia: sin rondas';
+  }
+
+  @override
+  String hoySemanticaEstuvo(String dia, String estado) {
+    return '$dia: $estado';
+  }
+
+  @override
+  String get hoyDiaADia => 'Día a día';
+
+  @override
+  String get hoySinRondasSemana => 'Esta semana aún no hay rondas contestadas.';
 
   @override
   String hoySemanticaCeldaDia(String dia, int hechas, int previstas) {
@@ -989,7 +1055,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get hoyLoQueDijo => 'Lo que dijo esta semana';
 
   @override
-  String get hoyLoQueDijoAviso => 'Sus respuestas a las preguntas de cada hora';
+  String get hoySinLoQueDijo =>
+      'Todavía no ha contestado a «¿Qué harás?» esta semana.';
+
+  @override
+  String hoyLoQueDijoVeces(String texto, int n) {
+    return '$texto ($n)';
+  }
 
   @override
   String get hoyInicialLunes => 'L';
@@ -1233,9 +1305,6 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get preguntaPrefieroDecirlo => 'Prefiero decirlo';
-
-  @override
-  String get preguntaDecirloLlega => 'Llega en la semana 5';
 
   @override
   String get preguntaGracias => 'Gracias';
@@ -2105,4 +2174,8 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get circQuitarPropio => 'No puedes quitar el familiar de este móvil.';
+
+  @override
+  String get preguntaDecirloMasAdelante =>
+      'Responder hablando llegará más adelante.';
 }

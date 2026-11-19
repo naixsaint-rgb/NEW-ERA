@@ -133,7 +133,10 @@ void main() {
     await decirlo();
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
-    expect(find.text('Llega en la semana 5'), findsOneWidget);
+    expect(
+      find.text('Responder hablando llegará más adelante.'),
+      findsOneWidget,
+    );
     expect(find.text('12:00 · pregunta 2 de 3'), findsOneWidget);
     expect(find.text('¿Te duele algo?'), findsOneWidget);
 

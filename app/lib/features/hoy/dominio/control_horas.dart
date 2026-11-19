@@ -162,6 +162,35 @@ final class ControlDelDia {
     return null;
   }
 
+  /// Cuántas veces se contestó cada valor de [tipo] ese día.
+  Map<String, int> vecesDe(TipoPreguntaControl tipo) {
+    final r = <String, int>{};
+    for (final x in respuestas) {
+      if (x.tipo == tipo) r[x.valor] = (r[x.valor] ?? 0) + 1;
+    }
+    return r;
+  }
+
+  /// Cómo estuvo el día: la peor respuesta a "¿Cómo estás?" (`mal`,
+  /// `regular` o `bien`); nula si no contestó a ninguna.
+  String? get estadoDelDia {
+    final v = vecesDe(TipoPreguntaControl.estado);
+    for (final k in const ['mal', 'regular', 'bien']) {
+      if (v.containsKey(k)) return k;
+    }
+    return null;
+  }
+
+  /// El mayor dolor del día (`mucho`, `poco` o `nada`); nulo si no contestó
+  /// a ninguna.
+  String? get dolorDelDia {
+    final v = vecesDe(TipoPreguntaControl.dolor);
+    for (final k in const ['mucho', 'poco', 'nada']) {
+      if (v.containsKey(k)) return k;
+    }
+    return null;
+  }
+
   /// Hay dos rondas esperadas seguidas sin respuesta.
   bool get dosSeguidasSinRespuesta {
     var seguidas = 0;
@@ -384,6 +413,7 @@ final class ControlSemana {
   final List<ControlDelDia> dias;
 
   ControlDelDia get hoy => dias.last;
+  ControlDelDia get ayer => dias[dias.length - 2];
   CuentaControl get cuentaHoy => contarControl([hoy]);
   CuentaControl get cuentaSemana => contarControl(dias);
 }

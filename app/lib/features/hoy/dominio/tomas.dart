@@ -654,6 +654,27 @@ final enviosDeHoyProvider = Provider<List<EnvioDelDia>>(
   ),
 );
 
+/// Avisos enviados a la familia en los últimos 7 días (hoy y los 6
+/// anteriores), del más reciente al más antiguo ([agruparEnvios]).
+final enviosUltimos7Provider = StreamProvider<List<EnvioDelDia>>((ref) {
+  ref.watch(_fechaDeHoyProvider);
+  final zona = ref.watch(contextoProvider).zonaHoraria;
+  final ahora = ref.read(relojProvider).ahora();
+  final desde = diaLocal(ahora, zona, -6).inicio.millisecondsSinceEpoch;
+  final db = ref.watch(baseDatosProvider);
+  final q = db.select(db.eventos)
+    ..where(
+      (e) =>
+          e.tipo.equals(TipoEvento.avisoEnviado.nombre) &
+          e.ocurridoEn.isBiggerOrEqualValue(desde),
+    )
+    ..orderBy([
+      (e) => OrderingTerm.asc(e.ocurridoEn),
+      (e) => OrderingTerm.asc(e.ulid),
+    ]);
+  return q.watch().map((l) => agruparEnvios(l).reversed.toList());
+});
+
 // ------------------------------------------------------------ Semáforo
 
 /// Nivel del semáforo del día.

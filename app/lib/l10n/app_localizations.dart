@@ -328,12 +328,6 @@ abstract class AppLocalizations {
   /// **'Preparar las consultas con el médico: preguntas, grabación con permiso y un resumen para la familia.'**
   String get consultasTendra;
 
-  /// No description provided for @alarmasTendra.
-  ///
-  /// In es, this message translates to:
-  /// **'Avisos escalonados: si la pastilla no se confirma o una ronda de preguntas queda sin respuesta, se avisa a la familia por orden.'**
-  String get alarmasTendra;
-
   /// No description provided for @controlHorasTitulo.
   ///
   /// In es, this message translates to:
@@ -345,6 +339,48 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Ver el control por horas'**
   String get verControlHoras;
+
+  /// No description provided for @alarmasAvisoToma.
+  ///
+  /// In es, this message translates to:
+  /// **'Toma sin confirmar a los {minutos} min'**
+  String alarmasAvisoToma(int minutos);
+
+  /// No description provided for @alarmasAvisoRonda.
+  ///
+  /// In es, this message translates to:
+  /// **'Ronda sin respuesta a los {minutos} min'**
+  String alarmasAvisoRonda(int minutos);
+
+  /// No description provided for @alarmasPieOrden.
+  ///
+  /// In es, this message translates to:
+  /// **'El orden de aviso es el de Círculo: el puesto 1 recibe el primer aviso de una toma y el puesto 2, el segundo. El resto de avisos van a todos.'**
+  String get alarmasPieOrden;
+
+  /// No description provided for @alarmasCambiarOrden.
+  ///
+  /// In es, this message translates to:
+  /// **'Cambiar el orden en Círculo'**
+  String get alarmasCambiarOrden;
+
+  /// No description provided for @alarmasUltimosAvisos.
+  ///
+  /// In es, this message translates to:
+  /// **'Últimos avisos enviados'**
+  String get alarmasUltimosAvisos;
+
+  /// No description provided for @alarmasUltimosPie.
+  ///
+  /// In es, this message translates to:
+  /// **'De los últimos 7 días, del más reciente al más antiguo.'**
+  String get alarmasUltimosPie;
+
+  /// No description provided for @alarmasSinAvisos.
+  ///
+  /// In es, this message translates to:
+  /// **'No se ha enviado ningún aviso en los últimos 7 días.'**
+  String get alarmasSinAvisos;
 
   /// No description provided for @alimentacionTendra.
   ///
@@ -1720,11 +1756,29 @@ abstract class AppLocalizations {
   /// **'Ayer no había tomas previstas.'**
   String get hoySinTomasAyer;
 
-  /// No description provided for @hoyRespuestasControlLlega.
+  /// No description provided for @hoyControlDeAyer.
   ///
   /// In es, this message translates to:
-  /// **'Respuestas de control: llega en la semana {n}'**
-  String hoyRespuestasControlLlega(int n);
+  /// **'Control por horas de ayer'**
+  String get hoyControlDeAyer;
+
+  /// No description provided for @hoyRondaDeLas.
+  ///
+  /// In es, this message translates to:
+  /// **'Ronda de las {hora}'**
+  String hoyRondaDeLas(String hora);
+
+  /// No description provided for @hoySinRondasAyer.
+  ///
+  /// In es, this message translates to:
+  /// **'Ayer no había rondas de preguntas.'**
+  String get hoySinRondasAyer;
+
+  /// No description provided for @hoyControlCuenta.
+  ///
+  /// In es, this message translates to:
+  /// **'{contestadas, plural, =1{1 contestada} other{{contestadas} contestadas}} · {sin} sin respuesta'**
+  String hoyControlCuenta(int contestadas, int sin);
 
   /// No description provided for @hoyTomasDeManana.
   ///
@@ -1780,12 +1834,6 @@ abstract class AppLocalizations {
   /// **'{hechas} de {previstas} tomas hechas · hoy quedan {k}'**
   String hoySemanticaTotales(int hechas, int previstas, int k);
 
-  /// No description provided for @hoyRespuestasLlega.
-  ///
-  /// In es, this message translates to:
-  /// **'Respuestas: llega en la semana {n}'**
-  String hoyRespuestasLlega(int n);
-
   /// No description provided for @hoyFilaTomas.
   ///
   /// In es, this message translates to:
@@ -1797,6 +1845,42 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Respondió'**
   String get hoyFilaRespondio;
+
+  /// No description provided for @hoyFilaEstuvo.
+  ///
+  /// In es, this message translates to:
+  /// **'Estuvo'**
+  String get hoyFilaEstuvo;
+
+  /// No description provided for @hoySemanticaRondasDia.
+  ///
+  /// In es, this message translates to:
+  /// **'{dia}: {contestadas, plural, =1{1 ronda contestada} other{{contestadas} rondas contestadas}}, {sin} sin respuesta'**
+  String hoySemanticaRondasDia(String dia, int contestadas, int sin);
+
+  /// No description provided for @hoySemanticaDiaSinRondas.
+  ///
+  /// In es, this message translates to:
+  /// **'{dia}: sin rondas'**
+  String hoySemanticaDiaSinRondas(String dia);
+
+  /// No description provided for @hoySemanticaEstuvo.
+  ///
+  /// In es, this message translates to:
+  /// **'{dia}: {estado}'**
+  String hoySemanticaEstuvo(String dia, String estado);
+
+  /// No description provided for @hoyDiaADia.
+  ///
+  /// In es, this message translates to:
+  /// **'Día a día'**
+  String get hoyDiaADia;
+
+  /// No description provided for @hoySinRondasSemana.
+  ///
+  /// In es, this message translates to:
+  /// **'Esta semana aún no hay rondas contestadas.'**
+  String get hoySinRondasSemana;
 
   /// No description provided for @hoySemanticaCeldaDia.
   ///
@@ -1816,11 +1900,17 @@ abstract class AppLocalizations {
   /// **'Lo que dijo esta semana'**
   String get hoyLoQueDijo;
 
-  /// No description provided for @hoyLoQueDijoAviso.
+  /// No description provided for @hoySinLoQueDijo.
   ///
   /// In es, this message translates to:
-  /// **'Sus respuestas a las preguntas de cada hora'**
-  String get hoyLoQueDijoAviso;
+  /// **'Todavía no ha contestado a «¿Qué harás?» esta semana.'**
+  String get hoySinLoQueDijo;
+
+  /// No description provided for @hoyLoQueDijoVeces.
+  ///
+  /// In es, this message translates to:
+  /// **'{texto} ({n})'**
+  String hoyLoQueDijoVeces(String texto, int n);
 
   /// No description provided for @hoyInicialLunes.
   ///
@@ -2234,12 +2324,6 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Prefiero decirlo'**
   String get preguntaPrefieroDecirlo;
-
-  /// No description provided for @preguntaDecirloLlega.
-  ///
-  /// In es, this message translates to:
-  /// **'Llega en la semana 5'**
-  String get preguntaDecirloLlega;
 
   /// No description provided for @preguntaGracias.
   ///
@@ -3632,6 +3716,12 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'No puedes quitar el familiar de este móvil.'**
   String get circQuitarPropio;
+
+  /// No description provided for @preguntaDecirloMasAdelante.
+  ///
+  /// In es, this message translates to:
+  /// **'Responder hablando llegará más adelante.'**
+  String get preguntaDecirloMasAdelante;
 }
 
 class _AppLocalizationsDelegate

@@ -56,9 +56,29 @@
     }
   },
   "consultasTendra": "Preparar las consultas con el médico: preguntas, grabación con permiso y un resumen para la familia.",
-  "alarmasTendra": "Avisos escalonados: si la pastilla no se confirma o una ronda de preguntas queda sin respuesta, se avisa a la familia por orden.",
   "controlHorasTitulo": "Control por horas",
   "verControlHoras": "Ver el control por horas",
+  "alarmasAvisoToma": "Toma sin confirmar a los {minutos} min",
+  "@alarmasAvisoToma": {
+    "placeholders": {
+      "minutos": {
+        "type": "int"
+      }
+    }
+  },
+  "alarmasAvisoRonda": "Ronda sin respuesta a los {minutos} min",
+  "@alarmasAvisoRonda": {
+    "placeholders": {
+      "minutos": {
+        "type": "int"
+      }
+    }
+  },
+  "alarmasPieOrden": "El orden de aviso es el de Círculo: el puesto 1 recibe el primer aviso de una toma y el puesto 2, el segundo. El resto de avisos van a todos.",
+  "alarmasCambiarOrden": "Cambiar el orden en Círculo",
+  "alarmasUltimosAvisos": "Últimos avisos enviados",
+  "alarmasUltimosPie": "De los últimos 7 días, del más reciente al más antiguo.",
+  "alarmasSinAvisos": "No se ha enviado ningún aviso en los últimos 7 días.",
   "alimentacionTendra": "Registro de comidas y de vasos de agua, con foto si se quiere.",
   "parteManana": "Por la mañana",
   "parteTarde": "Por la tarde",
@@ -625,10 +645,23 @@
   "hoyLlegaPronto": "Llega pronto",
   "hoyTomasDeAyer": "Tomas de ayer",
   "hoySinTomasAyer": "Ayer no había tomas previstas.",
-  "hoyRespuestasControlLlega": "Respuestas de control: llega en la semana {n}",
-  "@hoyRespuestasControlLlega": {
+  "hoyControlDeAyer": "Control por horas de ayer",
+  "hoyRondaDeLas": "Ronda de las {hora}",
+  "@hoyRondaDeLas": {
     "placeholders": {
-      "n": {
+      "hora": {
+        "type": "String"
+      }
+    }
+  },
+  "hoySinRondasAyer": "Ayer no había rondas de preguntas.",
+  "hoyControlCuenta": "{contestadas, plural, =1{1 contestada} other{{contestadas} contestadas}} · {sin} sin respuesta",
+  "@hoyControlCuenta": {
+    "placeholders": {
+      "contestadas": {
+        "type": "int"
+      },
+      "sin": {
         "type": "int"
       }
     }
@@ -682,16 +715,44 @@
       }
     }
   },
-  "hoyRespuestasLlega": "Respuestas: llega en la semana {n}",
-  "@hoyRespuestasLlega": {
+  "hoyFilaTomas": "Tomas",
+  "hoyFilaRespondio": "Respondió",
+  "hoyFilaEstuvo": "Estuvo",
+  "hoySemanticaRondasDia": "{dia}: {contestadas, plural, =1{1 ronda contestada} other{{contestadas} rondas contestadas}}, {sin} sin respuesta",
+  "@hoySemanticaRondasDia": {
     "placeholders": {
-      "n": {
+      "dia": {
+        "type": "String"
+      },
+      "contestadas": {
+        "type": "int"
+      },
+      "sin": {
         "type": "int"
       }
     }
   },
-  "hoyFilaTomas": "Tomas",
-  "hoyFilaRespondio": "Respondió",
+  "hoySemanticaDiaSinRondas": "{dia}: sin rondas",
+  "@hoySemanticaDiaSinRondas": {
+    "placeholders": {
+      "dia": {
+        "type": "String"
+      }
+    }
+  },
+  "hoySemanticaEstuvo": "{dia}: {estado}",
+  "@hoySemanticaEstuvo": {
+    "placeholders": {
+      "dia": {
+        "type": "String"
+      },
+      "estado": {
+        "type": "String"
+      }
+    }
+  },
+  "hoyDiaADia": "Día a día",
+  "hoySinRondasSemana": "Esta semana aún no hay rondas contestadas.",
   "hoySemanticaCeldaDia": "{dia}: {hechas} de {previstas} tomas hechas",
   "@hoySemanticaCeldaDia": {
     "placeholders": {
@@ -715,7 +776,18 @@
     }
   },
   "hoyLoQueDijo": "Lo que dijo esta semana",
-  "hoyLoQueDijoAviso": "Sus respuestas a las preguntas de cada hora",
+  "hoySinLoQueDijo": "Todavía no ha contestado a «¿Qué harás?» esta semana.",
+  "hoyLoQueDijoVeces": "{texto} ({n})",
+  "@hoyLoQueDijoVeces": {
+    "placeholders": {
+      "texto": {
+        "type": "String"
+      },
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "hoyInicialLunes": "L",
   "hoyInicialMartes": "M",
   "hoyInicialMiercoles": "X",
@@ -935,7 +1007,6 @@
   "preguntaRespVerLaTele": "Ver la tele",
   "preguntaRespOtraCosa": "Otra cosa",
   "preguntaPrefieroDecirlo": "Prefiero decirlo",
-  "preguntaDecirloLlega": "Llega en la semana 5",
   "preguntaGracias": "Gracias",
   "preguntaHasContestado": "Esto has contestado",
   "fixSemaforoRetraso": "Una toma se retrasa",
@@ -1635,5 +1706,6 @@
   },
   "circQuitarTexto": "Dejará de salir en las listas, de recibir avisos y de aparecer para llamar. Quitarlo no le retira todavía la clave del círculo: si es necesario, empareja de nuevo a los móviles con una clave nueva (llegará más adelante).",
   "circQuitarConfirmar": "Quitar",
-  "circQuitarPropio": "No puedes quitar el familiar de este móvil."
+  "circQuitarPropio": "No puedes quitar el familiar de este móvil.",
+  "preguntaDecirloMasAdelante": "Responder hablando llegará más adelante."
 }

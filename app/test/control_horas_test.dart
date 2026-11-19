@@ -407,6 +407,55 @@ void main() {
     });
   });
 
+  group('cómo estuvo el día', () {
+    test('la peor respuesta de estado y el mayor dolor, con sus cuentas', () {
+      final reloj = RelojFijo(_m(12));
+      final vacio = _control(reloj);
+      expect(vacio.estadoDelDia, isNull);
+      expect(vacio.dolorDelDia, isNull);
+      final c = _control(
+        reloj,
+        respuestas: [
+          _resp(
+            'ronda_20261013_0900',
+            TipoPreguntaControl.estado,
+            'bien',
+            _m(9),
+          ),
+          _resp(
+            'ronda_20261013_0900',
+            TipoPreguntaControl.dolor,
+            'nada',
+            _m(9),
+          ),
+          _resp('ronda_20261013_0900', TipoPreguntaControl.plan, 'tele', _m(9)),
+          _resp(
+            'ronda_20261013_1000',
+            TipoPreguntaControl.estado,
+            'regular',
+            _m(10),
+          ),
+          _resp(
+            'ronda_20261013_1000',
+            TipoPreguntaControl.dolor,
+            'poco',
+            _m(10),
+          ),
+          _resp(
+            'ronda_20261013_1000',
+            TipoPreguntaControl.plan,
+            'tele',
+            _m(10),
+          ),
+        ],
+      );
+      expect(c.estadoDelDia, 'regular');
+      expect(c.dolorDelDia, 'poco');
+      expect(c.vecesDe(TipoPreguntaControl.plan), {'tele': 2});
+      expect(c.vecesDe(TipoPreguntaControl.estado), {'bien': 1, 'regular': 1});
+    });
+  });
+
   group('semáforo y avisos del día', () {
     const config = ConfigEscalado();
 

@@ -35,8 +35,10 @@ Future<void> _elegir(WidgetTester tester, String vista) async {
   await pasar(tester, const Duration(milliseconds: 600));
 }
 
+/// Las siete celdas de la fila "Tomas" de Semana (las primeras de la
+/// rejilla).
 List<CeldaDia> _celdas(WidgetTester tester) =>
-    tester.widgetList<CeldaDia>(find.byType(CeldaDia)).toList();
+    tester.widgetList<CeldaDia>(find.byType(CeldaDia)).take(7).toList();
 
 void main() {
   testWidgets('Hoy: semáforo, última toma y tomas de hoy', (tester) async {
@@ -118,11 +120,23 @@ void main() {
       find.text('Confirmada por Carmen, desde el móvil'),
       findsNWidgets(2),
     );
+    expect(find.text('Vídeo de la toma de las 09:00 · 10 s'), findsOneWidget);
+    // Control por horas de ayer: las 12 rondas contestadas con sus tres
+    // respuestas (una «regular» y un dolor «poco» entre ellas).
     await tester.scrollUntilVisible(
-      find.text('Respuestas de control: llega en la semana 5'),
+      find.text('CONTROL POR HORAS DE AYER'),
       300,
     );
-    expect(find.text('Vídeo de la toma de las 09:00 · 10 s'), findsOneWidget);
+    expect(find.text('Bien · Sin dolor · Va a pasear'), findsWidgets);
+    expect(find.text('Regular · Sin dolor · Va a pasear'), findsOneWidget);
+    expect(find.text('Bien · Le duele un poco · Va a pasear'), findsOneWidget);
+    expect(find.text('Sin respuesta'), findsNothing);
+    await tester.scrollUntilVisible(
+      find.text('12 contestadas · 0 sin respuesta'),
+      300,
+    );
+    expect(find.text('12 contestadas · 0 sin respuesta'), findsOneWidget);
+    expect(find.textContaining('Llega en la semana'), findsNothing);
     expect(tester.takeException(), isNull);
   });
 
@@ -156,7 +170,9 @@ void main() {
     // hechas: dos de ayer y una de hoy. Hoy quedan las de las 14:00 y 21:00.
     expect(find.text('3 de 11'), findsOneWidget);
     expect(find.text('tomas hechas · hoy quedan 2'), findsOneWidget);
-    expect(find.text('Respuestas: llega en la semana 5'), findsOneWidget);
+    // Control por horas: 12 de ayer y 2 de hoy contestadas; la de las 10:00
+    // de hoy, sin respuesta.
+    expect(find.text('14 contestadas · 1 sin respuesta'), findsOneWidget);
 
     final celdas = _celdas(tester);
     expect(celdas, hasLength(7));
@@ -193,11 +209,23 @@ void main() {
     ];
     expect(xs, orderedEquals([...xs]..sort()));
     expect(find.text('Respondió'), findsOneWidget);
-    await tester.scrollUntilVisible(
-      find.text('Sus respuestas a las preguntas de cada hora'),
-      300,
+    expect(find.text('Estuvo'), findsOneWidget);
+    // Respondió: cinco días sin rondas, ayer 12/12 y hoy 2/3.
+    expect(find.text('12/12'), findsOneWidget);
+    expect(find.text('2/3'), findsNWidgets(2)); // también las tomas de ayer
+    await tester.scrollUntilVisible(find.text('DÍA A DÍA'), 300);
+    expect(find.text('Martes 13 de octubre'), findsWidgets);
+    expect(
+      find.text('Bien · Sin dolor\n2 contestadas · 1 sin respuesta'),
+      findsOneWidget,
     );
-    expect(find.text('LO QUE DIJO ESTA SEMANA'), findsOneWidget);
+    expect(
+      find.text('Regular · Le duele un poco\n12 contestadas · 0 sin respuesta'),
+      findsOneWidget,
+    );
+    await tester.scrollUntilVisible(find.text('LO QUE DIJO ESTA SEMANA'), 300);
+    expect(find.text('Va a pasear (12)'), findsOneWidget);
+    expect(find.text('Va a pasear (2)'), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
 
