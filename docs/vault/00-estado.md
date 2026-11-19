@@ -35,6 +35,9 @@ Actualizado: 2026-11-19 (sesión 4). Plan vigente: [[planes/PLAN-v3]]. Interfaz:
   de familia que decían «llega en la semana N»: Círculo (añadir, editar, quitar, papel y teléfono), respuestas en
   Ayer y Semana, Alarmas real, Calendario con citas y turnos, Alimentación, Consultas (ADR-0011). Esquema local 8.
   489 tests. Decisión: avisos a todos a la vez, sin orden.
+  Después, con HIPOTENUSA para los puntos 3 y 1: ubicación con permiso, zona segura con aviso y modo perdida
+  (revisada por Opus, tres fallos corregidos) y capa nativa de iPhone con AlarmKit, escrita SIN COMPILAR
+  (`specs/ios-alarmkit.md`). ADR-0012. Esquema local 9. 524 tests y 51 en safety_core.
 - Pendiente de la sesión 2: lo que no existe sigue marcado "llega en la semana N" (pulso, pasos y sueño con el reloj;
   vistas Ayer y Semana con respuestas). El aviso a la familia que anuncian Hoy y Resumen es el escalado
   configurado; el envío real llega en la semana 4 del plan.
