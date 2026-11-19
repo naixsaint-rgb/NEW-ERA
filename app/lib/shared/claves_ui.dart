@@ -98,6 +98,23 @@ abstract final class ClavesUi {
   static const circAvisosTema = ValueKey<String>('circ_avisos_tema');
   static const circAvisosCopiar = ValueKey<String>('circ_avisos_copiar');
 
+  /// Círculo: "Añadir familiar" y "Pon tu nombre".
+  static const circAnadir = ValueKey<String>('circ_anadir');
+  static const circPonNombre = ValueKey<String>('circ_pon_nombre');
+
+  /// Familiar: "Editar" y "Quitar del círculo" (con su confirmación).
+  static const circEditar = ValueKey<String>('circ_editar');
+  static const circQuitar = ValueKey<String>('circ_quitar');
+  static const circQuitarConfirmar = ValueKey<String>('circ_quitar_confirmar');
+
+  /// Formulario de familiar: nombre, teléfono, papel (`circ_papel_<valor>`) y
+  /// "Guardar".
+  static const circNombre = ValueKey<String>('circ_nombre');
+  static const circTelefono = ValueKey<String>('circ_telefono');
+  static const circGuardar = ValueKey<String>('circ_guardar');
+  static ValueKey<String> circPapel(String valor) =>
+      ValueKey<String>('circ_papel_$valor');
+
   /// Perfil: tercera tarjeta, "Este móvil se une a una familia…".
   static const unirTarjeta = ValueKey<String>('unir_tarjeta');
 

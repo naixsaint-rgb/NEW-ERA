@@ -121,8 +121,8 @@ class CirculoRepositorio {
                 MiembrosCompanion.insert(
                   id: miembroId,
                   circuloId: _contexto.circuloId,
-                  nombre: 'Familiar',
-                  relacion: 'Familiar',
+                  nombre: nombreProvisional,
+                  relacion: 'otro',
                   rol: 'cuidador',
                   enMiGente: const Value(false),
                   creadoEn: _ahoraMs,
@@ -237,7 +237,9 @@ class CirculoRepositorio {
   /// Familiares por orden de escalado (los sin orden, al final).
   Stream<List<Miembro>> observarMiembros() {
     final q = _db.select(_db.miembros)
-      ..where((m) => m.circuloId.equals(_contexto.circuloId))
+      ..where(
+        (m) => m.circuloId.equals(_contexto.circuloId) & m.bajaEn.isNull(),
+      )
       ..orderBy([
         (m) => OrderingTerm(
           expression: m.ordenEscalado.isNull(),
@@ -272,7 +274,88 @@ class CirculoRepositorio {
     });
   }
 
+  /// Teléfono tal como se guarda: solo cifras y un `+` inicial; vacío, nulo.
+  static String? telefonoLimpio(String? t) {
+    final s = (t ?? '').trim();
+    if (s.isEmpty) return null;
+    final cifras = s.replaceAll(RegExp(r'\D'), '');
+    return s.startsWith('+') ? '+$cifras' : cifras;
+  }
+
+  /// Nombre y papel de un familiar que se acaba de unir por invitación.
+  static const nombreProvisional = 'Familiar';
+
+  /// Id del familiar de este móvil (el registrado en este dispositivo), si lo
+  /// hay.
+  Future<String?> miembroDeEsteMovil() => _miembroDeEsteMovil();
+
+  /// Cambia nombre, papel (`relacion`) y teléfono de [miembroId] (también el
+  /// de este móvil). Ficha: deja `ficha_modificada`; con dos cambios a la vez
+  /// desde móviles distintos gana el más reciente.
+  Future<void> editarMiembro(
+    String miembroId, {
+    required String nombre,
+    required String relacion,
+    String? telefono,
+  }) async {
+    final n = nombre.trim();
+    if (n.isEmpty) throw ArgumentError('nombre_vacio');
+    final tel = telefonoLimpio(telefono);
+    await _db.transaction(() async {
+      final m = await (_db.select(
+        _db.miembros,
+      )..where((t) => t.id.equals(miembroId))).getSingleOrNull();
+      if (m == null) return;
+      if (m.nombre == n && m.relacion == relacion && m.telefono == tel) return;
+      await (_db.update(_db.miembros)..where((t) => t.id.equals(m.id))).write(
+        MiembrosCompanion(
+          nombre: Value(n),
+          relacion: Value(relacion),
+          telefono: Value(tel),
+        ),
+      );
+      await _fichas.modificada(
+        TipoFicha.miembro,
+        m.id,
+        tabla: 'miembros',
+        antes: {
+          'nombre': m.nombre,
+          'relacion': m.relacion,
+          'telefono': m.telefono,
+        },
+        despues: {'nombre': n, 'relacion': relacion, 'telefono': tel},
+      );
+    });
+  }
+
+  /// Quita a [miembroId] del círculo (baja lógica: `baja_en`, la fila se
+  /// conserva). No se puede quitar el familiar de este móvil
+  /// (`StateError('miembro_propio')`). No le retira la clave del círculo.
+  Future<void> quitarMiembro(String miembroId) async {
+    if (miembroId == await _miembroDeEsteMovil()) {
+      throw StateError('miembro_propio');
+    }
+    await _db.transaction(() async {
+      final m = await (_db.select(
+        _db.miembros,
+      )..where((t) => t.id.equals(miembroId))).getSingleOrNull();
+      if (m == null || m.bajaEn != null) return;
+      final ahora = _ahoraMs;
+      await (_db.update(_db.miembros)..where((t) => t.id.equals(m.id))).write(
+        MiembrosCompanion(bajaEn: Value(ahora)),
+      );
+      await _fichas.modificada(
+        TipoFicha.miembro,
+        m.id,
+        tabla: 'miembros',
+        antes: {'baja_en': null},
+        despues: {'baja_en': ahora},
+      );
+    });
+  }
+
   Future<String> crearMiembro(NuevoMiembro d) => _db.transaction(() async {
+    if (d.nombre.trim().isEmpty) throw ArgumentError('nombre_vacio');
     final id = _uuid.v4();
     final fotoId = d.foto == null ? null : await guardarFoto(d.foto!);
     await _db
@@ -281,9 +364,9 @@ class CirculoRepositorio {
           MiembrosCompanion.insert(
             id: id,
             circuloId: _contexto.circuloId,
-            nombre: d.nombre,
+            nombre: d.nombre.trim(),
             relacion: d.relacion,
-            telefono: Value(d.telefono),
+            telefono: Value(telefonoLimpio(d.telefono)),
             fotoId: Value(fotoId),
             rol: d.rol,
             ordenEscalado: Value(d.ordenEscalado),

@@ -88,6 +88,33 @@ class FamiliarPantalla extends ConsumerWidget {
           ),
           _Pie(l.circOrdenPie),
           const SizedBox(height: 18),
+          GrupoLista(
+            children: [
+              FilaLista(
+                key: ClavesUi.circEditar,
+                leading: const IconoCuadrado(CupertinoIcons.pencil),
+                titulo: l.circEditar,
+                subtitulo: propio ? l.circEsteMovil : null,
+                onTap: () => context.go(Rutas.familiarEditar(m.id)),
+              ),
+              if (propio)
+                FilaLista(apagada: true, titulo: l.circQuitarPropio)
+              else
+                FilaLista(
+                  key: ClavesUi.circQuitar,
+                  leading: IconoCuadrado(
+                    CupertinoIcons.person_badge_minus,
+                    fondo: c.rojo,
+                    color: c.sobreRojo,
+                  ),
+                  titulo: l.circQuitar,
+                  colorTitulo: c.rojo,
+                  conChevron: false,
+                  onTap: () => unawaited(_quitar(context, ref, m)),
+                ),
+            ],
+          ),
+          const SizedBox(height: 18),
           if (propio)
             _AvisosEsteMovil(miembroId: m.id)
           else
@@ -104,6 +131,46 @@ class FamiliarPantalla extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _quitar(BuildContext context, WidgetRef ref, Miembro m) async {
+    final l = context.l;
+    final c = context.colores;
+    final repo = ref.read(circuloRepositorioProvider);
+    final volver = context.canPop()
+        ? context.pop
+        : () => context.go(Rutas.pestana('circulo'));
+    final si = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(l.circQuitarTitulo(m.nombre)),
+        content: Text(l.circQuitarTexto),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            style: TextButton.styleFrom(minimumSize: const Size(44, 44)),
+            child: Text(l.cancelar),
+          ),
+          FilledButton(
+            key: ClavesUi.circQuitarConfirmar,
+            style: FilledButton.styleFrom(
+              backgroundColor: c.rojo,
+              foregroundColor: c.sobreRojo,
+              minimumSize: const Size(44, 44),
+            ),
+            onPressed: () => Navigator.pop(ctx, true),
+            child: Text(l.circQuitarConfirmar),
+          ),
+        ],
+      ),
+    );
+    if (si != true) return;
+    try {
+      await repo.quitarMiembro(m.id);
+      volver();
+    } catch (_) {
+      // Se queda como estaba; se puede volver a intentar.
+    }
   }
 
   Future<void> _cambiarPuesto(WidgetRef ref, int puesto) async {

@@ -1147,6 +1147,15 @@ class $MiembrosTable extends Miembros with TableInfo<$MiembrosTable, Miembro> {
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _bajaEnMeta = const VerificationMeta('bajaEn');
+  @override
+  late final GeneratedColumn<int> bajaEn = GeneratedColumn<int>(
+    'baja_en',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -1159,6 +1168,7 @@ class $MiembrosTable extends Miembros with TableInfo<$MiembrosTable, Miembro> {
     ordenEscalado,
     enMiGente,
     creadoEn,
+    bajaEn,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -1244,6 +1254,12 @@ class $MiembrosTable extends Miembros with TableInfo<$MiembrosTable, Miembro> {
     } else if (isInserting) {
       context.missing(_creadoEnMeta);
     }
+    if (data.containsKey('baja_en')) {
+      context.handle(
+        _bajaEnMeta,
+        bajaEn.isAcceptableOrUnknown(data['baja_en']!, _bajaEnMeta),
+      );
+    }
     return context;
   }
 
@@ -1293,6 +1309,10 @@ class $MiembrosTable extends Miembros with TableInfo<$MiembrosTable, Miembro> {
         DriftSqlType.int,
         data['${effectivePrefix}creado_en'],
       )!,
+      bajaEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}baja_en'],
+      ),
     );
   }
 
@@ -1315,6 +1335,13 @@ class Miembro extends DataClass implements Insertable<Miembro> {
   final int? ordenEscalado;
   final bool enMiGente;
   final int creadoEn;
+
+  /// Baja lógica (esquema 5): instante en que se quitó del círculo. Un
+  /// miembro de baja no sale en listas, avisos ni llamadas; la fila se
+  /// conserva por los hechos que lo nombran. En `relacion` va un valor
+  /// estable (`hija`, `hijo`, `marido`, `mujer`, `cuidadora`, `cuidador`,
+  /// `otro`) o, en los anteriores, el texto libre de entonces.
+  final int? bajaEn;
   const Miembro({
     required this.id,
     required this.circuloId,
@@ -1326,6 +1353,7 @@ class Miembro extends DataClass implements Insertable<Miembro> {
     this.ordenEscalado,
     required this.enMiGente,
     required this.creadoEn,
+    this.bajaEn,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1346,6 +1374,9 @@ class Miembro extends DataClass implements Insertable<Miembro> {
     }
     map['en_mi_gente'] = Variable<bool>(enMiGente);
     map['creado_en'] = Variable<int>(creadoEn);
+    if (!nullToAbsent || bajaEn != null) {
+      map['baja_en'] = Variable<int>(bajaEn);
+    }
     return map;
   }
 
@@ -1367,6 +1398,9 @@ class Miembro extends DataClass implements Insertable<Miembro> {
           : Value(ordenEscalado),
       enMiGente: Value(enMiGente),
       creadoEn: Value(creadoEn),
+      bajaEn: bajaEn == null && nullToAbsent
+          ? const Value.absent()
+          : Value(bajaEn),
     );
   }
 
@@ -1386,6 +1420,7 @@ class Miembro extends DataClass implements Insertable<Miembro> {
       ordenEscalado: serializer.fromJson<int?>(json['ordenEscalado']),
       enMiGente: serializer.fromJson<bool>(json['enMiGente']),
       creadoEn: serializer.fromJson<int>(json['creadoEn']),
+      bajaEn: serializer.fromJson<int?>(json['bajaEn']),
     );
   }
   @override
@@ -1402,6 +1437,7 @@ class Miembro extends DataClass implements Insertable<Miembro> {
       'ordenEscalado': serializer.toJson<int?>(ordenEscalado),
       'enMiGente': serializer.toJson<bool>(enMiGente),
       'creadoEn': serializer.toJson<int>(creadoEn),
+      'bajaEn': serializer.toJson<int?>(bajaEn),
     };
   }
 
@@ -1416,6 +1452,7 @@ class Miembro extends DataClass implements Insertable<Miembro> {
     Value<int?> ordenEscalado = const Value.absent(),
     bool? enMiGente,
     int? creadoEn,
+    Value<int?> bajaEn = const Value.absent(),
   }) => Miembro(
     id: id ?? this.id,
     circuloId: circuloId ?? this.circuloId,
@@ -1429,6 +1466,7 @@ class Miembro extends DataClass implements Insertable<Miembro> {
         : this.ordenEscalado,
     enMiGente: enMiGente ?? this.enMiGente,
     creadoEn: creadoEn ?? this.creadoEn,
+    bajaEn: bajaEn.present ? bajaEn.value : this.bajaEn,
   );
   Miembro copyWithCompanion(MiembrosCompanion data) {
     return Miembro(
@@ -1444,6 +1482,7 @@ class Miembro extends DataClass implements Insertable<Miembro> {
           : this.ordenEscalado,
       enMiGente: data.enMiGente.present ? data.enMiGente.value : this.enMiGente,
       creadoEn: data.creadoEn.present ? data.creadoEn.value : this.creadoEn,
+      bajaEn: data.bajaEn.present ? data.bajaEn.value : this.bajaEn,
     );
   }
 
@@ -1459,7 +1498,8 @@ class Miembro extends DataClass implements Insertable<Miembro> {
           ..write('rol: $rol, ')
           ..write('ordenEscalado: $ordenEscalado, ')
           ..write('enMiGente: $enMiGente, ')
-          ..write('creadoEn: $creadoEn')
+          ..write('creadoEn: $creadoEn, ')
+          ..write('bajaEn: $bajaEn')
           ..write(')'))
         .toString();
   }
@@ -1476,6 +1516,7 @@ class Miembro extends DataClass implements Insertable<Miembro> {
     ordenEscalado,
     enMiGente,
     creadoEn,
+    bajaEn,
   );
   @override
   bool operator ==(Object other) =>
@@ -1490,7 +1531,8 @@ class Miembro extends DataClass implements Insertable<Miembro> {
           other.rol == this.rol &&
           other.ordenEscalado == this.ordenEscalado &&
           other.enMiGente == this.enMiGente &&
-          other.creadoEn == this.creadoEn);
+          other.creadoEn == this.creadoEn &&
+          other.bajaEn == this.bajaEn);
 }
 
 class MiembrosCompanion extends UpdateCompanion<Miembro> {
@@ -1504,6 +1546,7 @@ class MiembrosCompanion extends UpdateCompanion<Miembro> {
   final Value<int?> ordenEscalado;
   final Value<bool> enMiGente;
   final Value<int> creadoEn;
+  final Value<int?> bajaEn;
   final Value<int> rowid;
   const MiembrosCompanion({
     this.id = const Value.absent(),
@@ -1516,6 +1559,7 @@ class MiembrosCompanion extends UpdateCompanion<Miembro> {
     this.ordenEscalado = const Value.absent(),
     this.enMiGente = const Value.absent(),
     this.creadoEn = const Value.absent(),
+    this.bajaEn = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   MiembrosCompanion.insert({
@@ -1529,6 +1573,7 @@ class MiembrosCompanion extends UpdateCompanion<Miembro> {
     this.ordenEscalado = const Value.absent(),
     this.enMiGente = const Value.absent(),
     required int creadoEn,
+    this.bajaEn = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        circuloId = Value(circuloId),
@@ -1547,6 +1592,7 @@ class MiembrosCompanion extends UpdateCompanion<Miembro> {
     Expression<int>? ordenEscalado,
     Expression<bool>? enMiGente,
     Expression<int>? creadoEn,
+    Expression<int>? bajaEn,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -1560,6 +1606,7 @@ class MiembrosCompanion extends UpdateCompanion<Miembro> {
       if (ordenEscalado != null) 'orden_escalado': ordenEscalado,
       if (enMiGente != null) 'en_mi_gente': enMiGente,
       if (creadoEn != null) 'creado_en': creadoEn,
+      if (bajaEn != null) 'baja_en': bajaEn,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -1575,6 +1622,7 @@ class MiembrosCompanion extends UpdateCompanion<Miembro> {
     Value<int?>? ordenEscalado,
     Value<bool>? enMiGente,
     Value<int>? creadoEn,
+    Value<int?>? bajaEn,
     Value<int>? rowid,
   }) {
     return MiembrosCompanion(
@@ -1588,6 +1636,7 @@ class MiembrosCompanion extends UpdateCompanion<Miembro> {
       ordenEscalado: ordenEscalado ?? this.ordenEscalado,
       enMiGente: enMiGente ?? this.enMiGente,
       creadoEn: creadoEn ?? this.creadoEn,
+      bajaEn: bajaEn ?? this.bajaEn,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -1625,6 +1674,9 @@ class MiembrosCompanion extends UpdateCompanion<Miembro> {
     if (creadoEn.present) {
       map['creado_en'] = Variable<int>(creadoEn.value);
     }
+    if (bajaEn.present) {
+      map['baja_en'] = Variable<int>(bajaEn.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -1644,6 +1696,7 @@ class MiembrosCompanion extends UpdateCompanion<Miembro> {
           ..write('ordenEscalado: $ordenEscalado, ')
           ..write('enMiGente: $enMiGente, ')
           ..write('creadoEn: $creadoEn, ')
+          ..write('bajaEn: $bajaEn, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -12862,6 +12915,7 @@ typedef $$MiembrosTableCreateCompanionBuilder = MiembrosCompanion Function({
   Value<int?> ordenEscalado,
   Value<bool> enMiGente,
   required int creadoEn,
+  Value<int?> bajaEn,
   Value<int> rowid,
 });
 typedef $$MiembrosTableUpdateCompanionBuilder = MiembrosCompanion Function({
@@ -12875,6 +12929,7 @@ typedef $$MiembrosTableUpdateCompanionBuilder = MiembrosCompanion Function({
   Value<int?> ordenEscalado,
   Value<bool> enMiGente,
   Value<int> creadoEn,
+  Value<int?> bajaEn,
   Value<int> rowid,
 });
 
@@ -13018,6 +13073,11 @@ class $$MiembrosTableFilterComposer
 
   ColumnFilters<int> get creadoEn => $composableBuilder(
     column: $table.creadoEn,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get bajaEn => $composableBuilder(
+    column: $table.bajaEn,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -13192,6 +13252,11 @@ class $$MiembrosTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<int> get bajaEn => $composableBuilder(
+    column: $table.bajaEn,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$CirculosTableOrderingComposer get circuloId {
     final $$CirculosTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -13273,6 +13338,9 @@ class $$MiembrosTableAnnotationComposer
 
   GeneratedColumn<int> get creadoEn =>
       $composableBuilder(column: $table.creadoEn, builder: (column) => column);
+
+  GeneratedColumn<int> get bajaEn =>
+      $composableBuilder(column: $table.bajaEn, builder: (column) => column);
 
   $$CirculosTableAnnotationComposer get circuloId {
     final $$CirculosTableAnnotationComposer composer = $composerBuilder(
@@ -13440,6 +13508,7 @@ class $$MiembrosTableTableManager
                 Value<int?> ordenEscalado = const Value.absent(),
                 Value<bool> enMiGente = const Value.absent(),
                 Value<int> creadoEn = const Value.absent(),
+                Value<int?> bajaEn = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => MiembrosCompanion(
                 id: id,
@@ -13452,6 +13521,7 @@ class $$MiembrosTableTableManager
                 ordenEscalado: ordenEscalado,
                 enMiGente: enMiGente,
                 creadoEn: creadoEn,
+                bajaEn: bajaEn,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -13466,6 +13536,7 @@ class $$MiembrosTableTableManager
                 Value<int?> ordenEscalado = const Value.absent(),
                 Value<bool> enMiGente = const Value.absent(),
                 required int creadoEn,
+                Value<int?> bajaEn = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => MiembrosCompanion.insert(
                 id: id,
@@ -13478,6 +13549,7 @@ class $$MiembrosTableTableManager
                 ordenEscalado: ordenEscalado,
                 enMiGente: enMiGente,
                 creadoEn: creadoEn,
+                bajaEn: bajaEn,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0

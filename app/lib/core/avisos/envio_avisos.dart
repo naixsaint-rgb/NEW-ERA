@@ -90,7 +90,9 @@ final class EnvioAvisos {
   /// nombre).
   Future<List<FamiliarAviso>> familiares() async {
     final q = _db.select(_db.miembros)
-      ..where((m) => m.circuloId.equals(_contexto.circuloId))
+      ..where(
+        (m) => m.circuloId.equals(_contexto.circuloId) & m.bajaEn.isNull(),
+      )
       ..orderBy([
         (m) => OrderingTerm(
           expression: m.ordenEscalado.isNull(),

@@ -345,7 +345,6 @@
       }
     }
   },
-  "circuloGestion": "Añadir, quitar y cambiar los permisos de los familiares llega en la semana 16.",
   "cargarEjemplo": "Cargar datos de ejemplo",
   "cargarEjemploAyuda": "Añade una persona de ejemplo, familiares y medicamentos ficticios.",
   "ejemploCargado": "Datos de ejemplo cargados.",
@@ -1600,5 +1599,41 @@
       }
     }
   },
-  "circAvisosSinClave": "Este móvil no tiene la clave de la familia: aquí no hay avisos."
+  "circAvisosSinClave": "Este móvil no tiene la clave de la familia: aquí no hay avisos.",
+  "circSeleccionado": "seleccionado",
+  "circAnadir": "Añadir familiar",
+  "circAnadirDetalle": "Nombre, papel y teléfono",
+  "circPonTuNombre": "Pon tu nombre",
+  "circPonTuNombreDetalle": "Este móvil aún se llama «Familiar»",
+  "circEsteMovil": "Este móvil",
+  "circNuevoTitulo": "Nuevo familiar",
+  "circEditarTitulo": "Datos del familiar",
+  "circEditar": "Editar nombre, papel y teléfono",
+  "circCampoNombre": "Nombre",
+  "circCampoTelefono": "Teléfono (opcional)",
+  "circTelefonoPie": "Con el teléfono, el móvil de la persona puede llamarle desde un toque.",
+  "circPapelTitulo": "Papel en la familia",
+  "circPapelHija": "Hija",
+  "circPapelHijo": "Hijo",
+  "circPapelMarido": "Marido",
+  "circPapelMujer": "Mujer",
+  "circPapelCuidadora": "Cuidadora",
+  "circPapelCuidador": "Cuidador",
+  "circPapelOtro": "Otro familiar",
+  "circGuardar": "Guardar",
+  "circErrorNombre": "Escribe un nombre.",
+  "circErrorTelefono": "El teléfono debe tener entre 6 y 15 cifras.",
+  "circErrorGuardar": "No se pudo guardar. Vuelve a intentarlo.",
+  "circQuitar": "Quitar del círculo",
+  "circQuitarTitulo": "¿Quitar a {nombre} del círculo?",
+  "@circQuitarTitulo": {
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  "circQuitarTexto": "Dejará de salir en las listas, de recibir avisos y de aparecer para llamar. Quitarlo no le retira todavía la clave del círculo: si es necesario, empareja de nuevo a los móviles con una clave nueva (llegará más adelante).",
+  "circQuitarConfirmar": "Quitar",
+  "circQuitarPropio": "No puedes quitar el familiar de este móvil."
 }

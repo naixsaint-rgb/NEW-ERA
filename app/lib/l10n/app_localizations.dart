@@ -1048,12 +1048,6 @@ abstract class AppLocalizations {
   /// **'Se le avisa en el puesto {orden}'**
   String ordenDeAviso(int orden);
 
-  /// No description provided for @circuloGestion.
-  ///
-  /// In es, this message translates to:
-  /// **'Añadir, quitar y cambiar los permisos de los familiares llega en la semana 16.'**
-  String get circuloGestion;
-
   /// No description provided for @cargarEjemplo.
   ///
   /// In es, this message translates to:
@@ -3464,6 +3458,180 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Este móvil no tiene la clave de la familia: aquí no hay avisos.'**
   String get circAvisosSinClave;
+
+  /// No description provided for @circSeleccionado.
+  ///
+  /// In es, this message translates to:
+  /// **'seleccionado'**
+  String get circSeleccionado;
+
+  /// No description provided for @circAnadir.
+  ///
+  /// In es, this message translates to:
+  /// **'Añadir familiar'**
+  String get circAnadir;
+
+  /// No description provided for @circAnadirDetalle.
+  ///
+  /// In es, this message translates to:
+  /// **'Nombre, papel y teléfono'**
+  String get circAnadirDetalle;
+
+  /// No description provided for @circPonTuNombre.
+  ///
+  /// In es, this message translates to:
+  /// **'Pon tu nombre'**
+  String get circPonTuNombre;
+
+  /// No description provided for @circPonTuNombreDetalle.
+  ///
+  /// In es, this message translates to:
+  /// **'Este móvil aún se llama «Familiar»'**
+  String get circPonTuNombreDetalle;
+
+  /// No description provided for @circEsteMovil.
+  ///
+  /// In es, this message translates to:
+  /// **'Este móvil'**
+  String get circEsteMovil;
+
+  /// No description provided for @circNuevoTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Nuevo familiar'**
+  String get circNuevoTitulo;
+
+  /// No description provided for @circEditarTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Datos del familiar'**
+  String get circEditarTitulo;
+
+  /// No description provided for @circEditar.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar nombre, papel y teléfono'**
+  String get circEditar;
+
+  /// No description provided for @circCampoNombre.
+  ///
+  /// In es, this message translates to:
+  /// **'Nombre'**
+  String get circCampoNombre;
+
+  /// No description provided for @circCampoTelefono.
+  ///
+  /// In es, this message translates to:
+  /// **'Teléfono (opcional)'**
+  String get circCampoTelefono;
+
+  /// No description provided for @circTelefonoPie.
+  ///
+  /// In es, this message translates to:
+  /// **'Con el teléfono, el móvil de la persona puede llamarle desde un toque.'**
+  String get circTelefonoPie;
+
+  /// No description provided for @circPapelTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'Papel en la familia'**
+  String get circPapelTitulo;
+
+  /// No description provided for @circPapelHija.
+  ///
+  /// In es, this message translates to:
+  /// **'Hija'**
+  String get circPapelHija;
+
+  /// No description provided for @circPapelHijo.
+  ///
+  /// In es, this message translates to:
+  /// **'Hijo'**
+  String get circPapelHijo;
+
+  /// No description provided for @circPapelMarido.
+  ///
+  /// In es, this message translates to:
+  /// **'Marido'**
+  String get circPapelMarido;
+
+  /// No description provided for @circPapelMujer.
+  ///
+  /// In es, this message translates to:
+  /// **'Mujer'**
+  String get circPapelMujer;
+
+  /// No description provided for @circPapelCuidadora.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuidadora'**
+  String get circPapelCuidadora;
+
+  /// No description provided for @circPapelCuidador.
+  ///
+  /// In es, this message translates to:
+  /// **'Cuidador'**
+  String get circPapelCuidador;
+
+  /// No description provided for @circPapelOtro.
+  ///
+  /// In es, this message translates to:
+  /// **'Otro familiar'**
+  String get circPapelOtro;
+
+  /// No description provided for @circGuardar.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardar'**
+  String get circGuardar;
+
+  /// No description provided for @circErrorNombre.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe un nombre.'**
+  String get circErrorNombre;
+
+  /// No description provided for @circErrorTelefono.
+  ///
+  /// In es, this message translates to:
+  /// **'El teléfono debe tener entre 6 y 15 cifras.'**
+  String get circErrorTelefono;
+
+  /// No description provided for @circErrorGuardar.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo guardar. Vuelve a intentarlo.'**
+  String get circErrorGuardar;
+
+  /// No description provided for @circQuitar.
+  ///
+  /// In es, this message translates to:
+  /// **'Quitar del círculo'**
+  String get circQuitar;
+
+  /// No description provided for @circQuitarTitulo.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Quitar a {nombre} del círculo?'**
+  String circQuitarTitulo(String nombre);
+
+  /// No description provided for @circQuitarTexto.
+  ///
+  /// In es, this message translates to:
+  /// **'Dejará de salir en las listas, de recibir avisos y de aparecer para llamar. Quitarlo no le retira todavía la clave del círculo: si es necesario, empareja de nuevo a los móviles con una clave nueva (llegará más adelante).'**
+  String get circQuitarTexto;
+
+  /// No description provided for @circQuitarConfirmar.
+  ///
+  /// In es, this message translates to:
+  /// **'Quitar'**
+  String get circQuitarConfirmar;
+
+  /// No description provided for @circQuitarPropio.
+  ///
+  /// In es, this message translates to:
+  /// **'No puedes quitar el familiar de este móvil.'**
+  String get circQuitarPropio;
 }
 
 class _AppLocalizationsDelegate

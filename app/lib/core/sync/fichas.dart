@@ -60,6 +60,7 @@ abstract final class FilasFicha {
     'orden_escalado': m.ordenEscalado,
     'en_mi_gente': m.enMiGente,
     'creado_en': m.creadoEn,
+    'baja_en': m.bajaEn,
   };
 
   static Map<String, Object?> medicamento(Medicamento m) => {
@@ -954,6 +955,7 @@ final class MaterializadorFichas {
       ordenEscalado: Value(c.entONulo('orden_escalado')),
       enMiGente: Value(c.logico('en_mi_gente')),
       creadoEn: Value(c.ent('creado_en')),
+      bajaEn: Value(c.entONulo('baja_en')),
     );
     if (!c.valida || circulo != _contexto.circuloId) {
       return _Resultado.descartada;

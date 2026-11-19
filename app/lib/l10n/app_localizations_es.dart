@@ -542,10 +542,6 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get circuloGestion =>
-      'Añadir, quitar y cambiar los permisos de los familiares llega en la semana 16.';
-
-  @override
   String get cargarEjemplo => 'Cargar datos de ejemplo';
 
   @override
@@ -2018,4 +2014,95 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get circAvisosSinClave =>
       'Este móvil no tiene la clave de la familia: aquí no hay avisos.';
+
+  @override
+  String get circSeleccionado => 'seleccionado';
+
+  @override
+  String get circAnadir => 'Añadir familiar';
+
+  @override
+  String get circAnadirDetalle => 'Nombre, papel y teléfono';
+
+  @override
+  String get circPonTuNombre => 'Pon tu nombre';
+
+  @override
+  String get circPonTuNombreDetalle => 'Este móvil aún se llama «Familiar»';
+
+  @override
+  String get circEsteMovil => 'Este móvil';
+
+  @override
+  String get circNuevoTitulo => 'Nuevo familiar';
+
+  @override
+  String get circEditarTitulo => 'Datos del familiar';
+
+  @override
+  String get circEditar => 'Editar nombre, papel y teléfono';
+
+  @override
+  String get circCampoNombre => 'Nombre';
+
+  @override
+  String get circCampoTelefono => 'Teléfono (opcional)';
+
+  @override
+  String get circTelefonoPie =>
+      'Con el teléfono, el móvil de la persona puede llamarle desde un toque.';
+
+  @override
+  String get circPapelTitulo => 'Papel en la familia';
+
+  @override
+  String get circPapelHija => 'Hija';
+
+  @override
+  String get circPapelHijo => 'Hijo';
+
+  @override
+  String get circPapelMarido => 'Marido';
+
+  @override
+  String get circPapelMujer => 'Mujer';
+
+  @override
+  String get circPapelCuidadora => 'Cuidadora';
+
+  @override
+  String get circPapelCuidador => 'Cuidador';
+
+  @override
+  String get circPapelOtro => 'Otro familiar';
+
+  @override
+  String get circGuardar => 'Guardar';
+
+  @override
+  String get circErrorNombre => 'Escribe un nombre.';
+
+  @override
+  String get circErrorTelefono => 'El teléfono debe tener entre 6 y 15 cifras.';
+
+  @override
+  String get circErrorGuardar => 'No se pudo guardar. Vuelve a intentarlo.';
+
+  @override
+  String get circQuitar => 'Quitar del círculo';
+
+  @override
+  String circQuitarTitulo(String nombre) {
+    return '¿Quitar a $nombre del círculo?';
+  }
+
+  @override
+  String get circQuitarTexto =>
+      'Dejará de salir en las listas, de recibir avisos y de aparecer para llamar. Quitarlo no le retira todavía la clave del círculo: si es necesario, empareja de nuevo a los móviles con una clave nueva (llegará más adelante).';
+
+  @override
+  String get circQuitarConfirmar => 'Quitar';
+
+  @override
+  String get circQuitarPropio => 'No puedes quitar el familiar de este móvil.';
 }

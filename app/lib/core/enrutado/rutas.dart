@@ -74,6 +74,13 @@ abstract final class Rutas {
   static String familiar(String miembroId) =>
       '/familia/circulo/familiar/${Uri.encodeComponent(miembroId)}';
 
+  /// Círculo › "Añadir familiar".
+  static const circuloNuevo = '/familia/circulo/nuevo';
+
+  /// Círculo › un familiar › editar sus datos.
+  static String familiarEditar(String miembroId) =>
+      '${familiar(miembroId)}/editar';
+
   /// Esquema propio de la app: `newera://hoy` (lo abre el aviso de ntfy al
   /// tocarlo) lleva a la pantalla de inicio del perfil (Hoy en la familia).
   static const esquemaApp = 'newera';

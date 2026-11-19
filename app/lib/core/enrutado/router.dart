@@ -14,6 +14,7 @@ import '../../features/catalogo/resumen_pantalla.dart' as catalogo;
 import '../../features/circulo/circulo_pantalla.dart';
 import '../../features/circulo/familiar_pantalla.dart';
 import '../../features/circulo/invitar_pantalla.dart';
+import '../../features/circulo/miembro_form_pantalla.dart';
 import '../../features/consultas/consultas_pantalla.dart';
 import '../../features/hoy/hoy_pantalla.dart';
 import '../../features/medicacion/alta_medicamento_pantalla.dart';
@@ -265,6 +266,18 @@ final routerProvider = Provider<GoRouter>((ref) {
                     builder: (_, state) => FamiliarPantalla(
                       miembroId: state.pathParameters['miembroId']!,
                     ),
+                    routes: [
+                      GoRoute(
+                        path: 'editar',
+                        builder: (_, state) => MiembroFormPantalla(
+                          miembroId: state.pathParameters['miembroId'],
+                        ),
+                      ),
+                    ],
+                  ),
+                  GoRoute(
+                    path: 'nuevo',
+                    builder: (_, _) => const MiembroFormPantalla(),
                   ),
                 ],
               ),

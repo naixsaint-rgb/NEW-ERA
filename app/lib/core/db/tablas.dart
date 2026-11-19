@@ -45,6 +45,13 @@ class Miembros extends Table {
   BoolColumn get enMiGente => boolean().withDefault(const Constant(true))();
   IntColumn get creadoEn => integer()();
 
+  /// Baja lógica (esquema 5): instante en que se quitó del círculo. Un
+  /// miembro de baja no sale en listas, avisos ni llamadas; la fila se
+  /// conserva por los hechos que lo nombran. En `relacion` va un valor
+  /// estable (`hija`, `hijo`, `marido`, `mujer`, `cuidadora`, `cuidador`,
+  /// `otro`) o, en los anteriores, el texto libre de entonces.
+  IntColumn get bajaEn => integer().nullable()();
+
   @override
   Set<Column> get primaryKey => {id};
 }

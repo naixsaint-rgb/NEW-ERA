@@ -49,9 +49,10 @@ class AppDatabase extends _$AppDatabase {
   /// 1: semana 1. 2: tablas del cartero cifrado (`sobres_enviados` y
   /// `sync_estado`); las tablas de hechos no cambian. 3: cola de subida de
   /// los clips (`clips_pendientes`). 4: ajustes del control por horas
-  /// (`ajustes_control_horas`).
+  /// (`ajustes_control_horas`). 5: baja lógica de los familiares
+  /// (`miembros.baja_en`).
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -79,6 +80,9 @@ class AppDatabase extends _$AppDatabase {
       }
       if (from < 4) {
         await m.createTable(ajustesControlHoras);
+      }
+      if (from < 5) {
+        await m.addColumn(miembros, miembros.bajaEn);
       }
     },
     beforeOpen: (details) async {

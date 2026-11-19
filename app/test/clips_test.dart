@@ -649,6 +649,7 @@ void main() {
           ),
         );
     await v2.customStatement('DROP TABLE clips_pendientes');
+    await v2.customStatement('ALTER TABLE miembros DROP COLUMN baja_en');
     await v2.customStatement('PRAGMA user_version = 2');
     await v2.close();
 

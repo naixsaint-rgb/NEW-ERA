@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/db/base_datos.dart';
+import '../../core/db/repositorios/circulo_repositorio.dart';
 import '../../core/enrutado/rutas.dart';
 import '../../core/providers.dart';
 import '../../core/tema/colores.dart';
@@ -11,11 +12,14 @@ import '../../shared/claves_ui.dart';
 import '../../shared/ios/ios.dart';
 import '../../shared/l10n_ext.dart';
 import '../../shared/widgets/avatar_familiar.dart';
+import 'papel_familiar.dart';
 
-/// Lista de familiares (la gestión llega en la semana 16): cada uno lleva a
-/// su puesto en el orden de aviso y, el de este móvil, a sus avisos por ntfy
-/// (`FamiliarPantalla`). "Invitar otro móvil" empareja el de la persona o el
-/// de otro familiar (no en la demo web: no tiene clave ni cartero).
+/// Lista de familiares: "Añadir familiar" y, de cada uno, su ficha
+/// (`FamiliarPantalla`: puesto en el orden de aviso, editar, quitar y, en el
+/// de este móvil, sus avisos por ntfy). "Invitar otro móvil" empareja el de la
+/// persona o el de otro familiar (no en la demo web: no tiene clave ni
+/// cartero). Un móvil que se unió por invitación y aún se llama «Familiar»
+/// ve arriba "Pon tu nombre".
 class CirculoPantalla extends ConsumerWidget {
   const CirculoPantalla({super.key});
 
@@ -26,6 +30,14 @@ class CirculoPantalla extends ConsumerWidget {
     final miembros = ref.watch(miembrosProvider).value ?? const <Miembro>[];
     final demo = ref.watch(esDemoWebProvider);
     final abajo = MediaQuery.paddingOf(context).bottom;
+    final propioId = ref.watch(sesionProvider).miembroId;
+    final sinNombre = miembros
+        .where(
+          (m) =>
+              m.id == propioId &&
+              m.nombre == CirculoRepositorio.nombreProvisional,
+        )
+        .firstOrNull;
     String rol(String r) => switch (r) {
       'responsable' => l.rolResponsable,
       'cuidador' => l.rolCuidador,
@@ -33,7 +45,10 @@ class CirculoPantalla extends ConsumerWidget {
       _ => l.rolLectura,
     };
     String detalle(Miembro m) {
-      final relacion = l.relacionYRol(m.relacion, rol(m.rol));
+      final relacion = l.relacionYRol(
+        PapelFamiliar.etiqueta(l, m.relacion),
+        rol(m.rol),
+      );
       final orden = m.ordenEscalado;
       return orden == null ? relacion : '$relacion\n${l.ordenDeAviso(orden)}';
     }
@@ -44,6 +59,26 @@ class CirculoPantalla extends ConsumerWidget {
         padding: EdgeInsets.fromLTRB(20, 0, 20, 24 + abajo),
         children: [
           CabeceraGrande(titulo: l.pestanaCirculo),
+          const SizedBox(height: 14),
+          GrupoLista(
+            children: [
+              if (sinNombre != null)
+                FilaLista(
+                  key: ClavesUi.circPonNombre,
+                  leading: const IconoCuadrado(CupertinoIcons.pencil),
+                  titulo: l.circPonTuNombre,
+                  subtitulo: l.circPonTuNombreDetalle,
+                  onTap: () => context.go(Rutas.familiarEditar(sinNombre.id)),
+                ),
+              FilaLista(
+                key: ClavesUi.circAnadir,
+                leading: const IconoCuadrado(CupertinoIcons.person_add),
+                titulo: l.circAnadir,
+                subtitulo: l.circAnadirDetalle,
+                onTap: () => context.go(Rutas.circuloNuevo),
+              ),
+            ],
+          ),
           const SizedBox(height: 14),
           if (!demo) ...[
             GrupoLista(
@@ -61,7 +96,6 @@ class CirculoPantalla extends ConsumerWidget {
           ],
           GrupoLista(
             sangria: 84,
-            pie: l.circuloGestion,
             children: [
               if (miembros.isEmpty)
                 FilaLista(apagada: true, titulo: l.sinFamiliares),

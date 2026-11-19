@@ -699,6 +699,8 @@ void main() {
       await v1.customStatement('DROP TABLE sobres_enviados');
       await v1.customStatement('DROP TABLE sync_estado');
       await v1.customStatement('DROP TABLE clips_pendientes');
+      await v1.customStatement('DROP TABLE ajustes_control_horas');
+      await v1.customStatement('ALTER TABLE miembros DROP COLUMN baja_en');
       await v1.customStatement('PRAGMA user_version = 1');
       await v1.close();
 
@@ -708,6 +710,21 @@ void main() {
       expect(version.data.values.single, v2.schemaVersion);
       expect(await v2.select(v2.eventos).get(), hasLength(1));
       expect(await v2.select(v2.sobresEnviados).get(), isEmpty);
+      // La columna de baja lógica de los familiares (esquema 5) existe.
+      await v2
+          .into(v2.miembros)
+          .insert(
+            MiembrosCompanion.insert(
+              id: 'm1',
+              circuloId: 'c1',
+              nombre: 'Ejemplo',
+              relacion: 'otro',
+              rol: 'cuidador',
+              creadoEn: 1,
+              bajaEn: const Value(5),
+            ),
+          );
+      expect((await v2.select(v2.miembros).getSingle()).bajaEn, 5);
       await v2
           .into(v2.syncEstado)
           .insert(SyncEstadoCompanion.insert(clave: 'k', valor: '1'));
